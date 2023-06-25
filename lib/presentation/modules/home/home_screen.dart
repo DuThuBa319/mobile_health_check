@@ -17,18 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isShowBottomNayvigationBar: true,
       isShowLeadingButton: true,
       child: Column(
-        children: [
-          Container(
-            width: 20,
-            height: 500,
-            color: Colors.amber,
-          ),
-          Container(
-            width: 20,
-            height: 500,
-            color: Colors.red,
-          ),
-        ],
+        children: [],
       ),
     );
   }
