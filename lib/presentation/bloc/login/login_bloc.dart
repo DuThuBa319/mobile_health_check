@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
-import 'package:common_project/data/data_source/repositories/rest_api_repository.dart';
-import 'package:dio/dio.dart';
-
+import 'package:common_project/domain/usecases/user_usecase.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 import '../../common_widget/enum_common.dart';
@@ -10,8 +9,10 @@ import '../../common_widget/enum_common.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitialState()) {
+  final UserUsecase _usecase;
+  LoginBloc(this._usecase) : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
   }
   Future<void> _onLogin(
@@ -24,15 +25,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         viewModel: state.viewModel,
       ),
     );
-    final RestApiRepository client = RestApiRepository(
-      Dio(
-        BaseOptions(
-            contentType: "application/json",
-            baseUrl: 'https://retoolapi.dev/PA89FB/data'),
-      ),
-    );
 
-    final response = await client.getListUserModels();
+    // final response = await _usecase.getListUserEntity();
     if (event.username == null || event.username?.trim() == '') {
       emit(
         LoginFailState(

@@ -43,20 +43,23 @@ dependencies:
   json_annotation: ^4.8.0
   dio: ^4.0.6
   get_it: ^7.2.0
+  pull_to_refresh: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
   injectable: ^2.1.1
+  build_runner: ^2.2.0
+  injectable_generator: ^2.1.5
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  build_runner: ^2.2.0
+ 
   json_serializable:
   retrofit_generator:
-  injectable_generator: ^2.1.5
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

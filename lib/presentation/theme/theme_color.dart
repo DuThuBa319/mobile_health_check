@@ -57,4 +57,8 @@ class AppColor {
   //dart
   static const Color primaryDarkText = Colors.black;
   static const Color subDarkText = Colors.grey;
+
+  //constant color
+  static const Color backgroundColor = Color(0xFF2AF4C5);
+  static const Color appBarColor = Color(0xff2587b4);
 }
