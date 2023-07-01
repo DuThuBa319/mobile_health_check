@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
   LoginBloc get loginBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
