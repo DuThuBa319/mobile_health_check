@@ -4,6 +4,8 @@ import 'package:common_project/presentation/common_widget/screen_form/custom_scr
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../theme/theme_color.dart';
+import '../shopping_cart/shopping_cart.dart';
+part 'home_screen.action.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
   LoginBloc get loginBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
@@ -34,26 +35,28 @@ class _HomeScreenState extends State<HomeScreen> {
         isShowLeadingButton: true,
         appBarColor: AppColor.appBarColor,
         backgroundColor: AppColor.backgroundColor,
+        // isShowSearchButton: true,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               CommonButton(
                 title: 'Shopping Cart',
                 height: 80,
+                onTap: goToShoppingScreen,
               ),
-              CommonButton(
+              const CommonButton(
                 title: 'User List',
                 height: 80,
                 buttonColor: Colors.amber,
               ),
-              CommonButton(
+              const CommonButton(
                 title: 'Daily Temperature',
                 height: 80,
                 buttonColor: Colors.orange,
               ),
-              CommonButton(
+              const CommonButton(
                 title: 'Hourly Temperature',
                 height: 80,
                 buttonColor: Colors.red,

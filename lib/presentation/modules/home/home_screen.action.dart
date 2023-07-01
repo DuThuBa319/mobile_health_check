@@ -1,0 +1,11 @@
+part of 'home_screen.dart';
+
+extension HomeAction on _HomeScreenState {
+  void goToShoppingScreen() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ShoppingScreen(),
+        ));
+  }
+}

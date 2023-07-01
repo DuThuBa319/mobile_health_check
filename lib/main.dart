@@ -8,6 +8,10 @@ import 'di/di.dart';
 import 'presentation/bloc/login/login_bloc.dart';
 
 void main() {
+  // SỬA CHỖ NÀY
+  GetIt sl = GetIt.instance;
+  sl.registerLazySingleton<LoginBloc>(() => LoginBloc());
+  // 2 DÒNG Ở TRÊN SỬA
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   runApp(const MyApp());
@@ -18,6 +22,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static GetIt getIt = GetIt.instance;
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
