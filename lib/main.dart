@@ -1,16 +1,14 @@
-import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
+import 'package:common_project/presentation/modules/home/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
 import 'di/di.dart';
-import 'presentation/bloc/login/login_bloc.dart';
 
 void main() {
   // SỬA CHỖ NÀY
-  GetIt sl = GetIt.instance;
-  sl.registerLazySingleton<LoginBloc>(() => LoginBloc());
+  GetIt getIt = GetIt.instance;
+
   // 2 DÒNG Ở TRÊN SỬA
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
@@ -33,14 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => getIt<LoginBloc>(),
-          )
-        ],
-        child: const LoginScreen(),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
