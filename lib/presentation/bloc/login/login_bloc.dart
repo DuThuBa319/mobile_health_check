@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
-import 'package:common_project/domain/usecases/user_usecase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
@@ -11,8 +10,8 @@ part 'login_state.dart';
 
 @injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final UserUsecase _usecase;
-  LoginBloc(this._usecase) : super(LoginInitialState()) {
+  // final UserUsecase _usecase;
+  LoginBloc() : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
   }
   Future<void> _onLogin(
@@ -51,9 +50,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       return;
     }
-    final user = USER_LIST
-        .where((element) => element.name == event.username)
-        .firstOrNull;
+    final user =
+        userList.where((element) => element.name == event.username).firstOrNull;
     if (user == null || event.password != '123') {
       emit(
         LoginFailState(
@@ -77,6 +75,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 }
 
-var USER_LIST = [
+var userList = [
   User(name: 'PDA'),
 ];

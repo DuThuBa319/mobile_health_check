@@ -16,6 +16,8 @@ class CustomScreenForm extends StatefulWidget {
   final String title;
   final Widget child;
   final bool? isScrollable;
+  final bool? isShowRightButon;
+  final Widget? rightButton;
   const CustomScreenForm(
       {super.key,
       this.appBarColor = Colors.black,
@@ -29,7 +31,9 @@ class CustomScreenForm extends StatefulWidget {
       this.leadingButton,
       this.selectedIndex = -1,
       this.isScrollable = false,
-      required this.title});
+      required this.title,
+      this.isShowRightButon = false,
+      this.rightButton});
 
   @override
   State<CustomScreenForm> createState() => _CustomScreenFormState();
@@ -37,6 +41,7 @@ class CustomScreenForm extends StatefulWidget {
 
 class _CustomScreenFormState extends State<CustomScreenForm> {
   final int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,11 +51,13 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               backgroundColor: widget.appBarColor,
               automaticallyImplyLeading: false,
               centerTitle: true,
+              elevation: 0,
               title: Text(
                 widget.title,
                 style: AppTextTheme.title1
                     .copyWith(color: widget.appComponentColor),
               ),
+              actions: [widget.rightButton ?? Container()],
               leading: widget.isShowLeadingButton
                   ? widget.leadingButton ??
                       IconButton(
