@@ -8,4 +8,12 @@ extension HomeAction on _HomeScreenState {
           builder: (context) => const ShoppingScreen(),
         ));
   }
+
+  void goToOCRScreen() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OCRScannerScreen(),
+        ));
+  }
 }

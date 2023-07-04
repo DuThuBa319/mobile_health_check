@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme_color.dart';
+import '../OCR_scanner/OCR_scanner_screen.dart';
 import '../shopping_cart/shopping_cart.dart';
 part 'home_screen.action.dart';
 
@@ -73,6 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: 'Hourly Temperature',
                 height: 80,
                 buttonColor: Colors.red,
+              ),
+              CommonButton(
+                title: 'OCR Scanner',
+                height: 80,
+                buttonColor: Colors.purple,
+                onTap: goToOCRScreen,
               )
             ],
           ),
