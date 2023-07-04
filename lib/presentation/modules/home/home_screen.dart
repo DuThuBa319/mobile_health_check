@@ -17,11 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-<<<<<<< HEAD
-  LoginBloc get loginBloc => BlocProvider.of(context);
-=======
   static GetIt getIt = GetIt.instance;
->>>>>>> develop
+
   @override
   Widget build(BuildContext context) {
     // RefreshController refreshController =

@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
-
-class DailyWeatherScreen extends StatefulWidget {
-  const DailyWeatherScreen({super.key});
-=======
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -21,18 +15,12 @@ part 'daily_weather_screen.action.dart';
 
 class DailyWeatherScreen extends StatefulWidget {
   const DailyWeatherScreen({Key? key}) : super(key: key);
->>>>>>> develop
 
   @override
   State<DailyWeatherScreen> createState() => _DailyWeatherScreenState();
 }
 
 class _DailyWeatherScreenState extends State<DailyWeatherScreen> {
-<<<<<<< HEAD
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-=======
   final _refreshController = RefreshController(initialRefresh: true);
   TextEditingController longtitude = TextEditingController();
   TextEditingController latitude = TextEditingController();
@@ -192,6 +180,5 @@ class _DailyWeatherScreenState extends State<DailyWeatherScreen> {
         );
       },
     );
->>>>>>> develop
   }
 }
