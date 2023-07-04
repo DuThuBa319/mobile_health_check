@@ -60,6 +60,22 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            applicationId "com.example.common_project"
+            resValue "string", "app_name", "Common Project Dev"
+        }
+        staging {
+            applicationId "com.example.common_project.staging"
+            resValue "string", "app_name", "Common Project Staging"
+        }
+        prod {
+            applicationId "com.example.common_project"
+            resValue "string", "app_name", "Common Project Prod"
+        }
+    }
 }
 
 flutter {

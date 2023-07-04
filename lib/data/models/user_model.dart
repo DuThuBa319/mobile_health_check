@@ -1,3 +1,4 @@
+import 'package:common_project/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
@@ -16,6 +17,16 @@ class UserModel {
   String? email;
   @JsonKey(name: 'PhoneNumber')
   String? phoneNumber;
+
+  UserEntity getUserEntity() {
+    return UserEntity(
+        age: age,
+        email: email,
+        id: id,
+        job: job,
+        name: name,
+        phoneNumber: phoneNumber);
+  }
 
   UserModel(
       {this.id, this.age, this.job, this.name, this.email, this.phoneNumber});

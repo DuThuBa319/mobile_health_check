@@ -5,6 +5,6 @@ abstract class LoginEvent {}
 
 class LoginUserEvent extends LoginEvent {
   LoginUserEvent({this.username, this.password});
-  String? username;
-  String? password;
+  final String? username;
+  final String? password;
 }

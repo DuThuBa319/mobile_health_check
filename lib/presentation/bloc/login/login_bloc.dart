@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
-import 'package:common_project/data/data_source/repositories/rest_api_repository.dart';
-import 'package:dio/dio.dart';
-
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 import '../../common_widget/enum_common.dart';
@@ -10,7 +8,9 @@ import '../../common_widget/enum_common.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  // final UserUsecase _usecase;
   LoginBloc() : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
   }
@@ -24,15 +24,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         viewModel: state.viewModel,
       ),
     );
-    final RestApiRepository client = RestApiRepository(
-      Dio(
-        BaseOptions(
-            contentType: "application/json",
-            baseUrl: 'https://retoolapi.dev/PA89FB/data'),
-      ),
-    );
 
-    final response = await client.getListUserModels();
+    // final response = await _usecase.getListUserEntity();
     if (event.username == null || event.username?.trim() == '') {
       emit(
         LoginFailState(
@@ -57,9 +50,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       return;
     }
-    final user = USER_LIST
-        .where((element) => element.name == event.username)
-        .firstOrNull;
+    final user =
+        userList.where((element) => element.name == event.username).firstOrNull;
     if (user == null || event.password != '123') {
       emit(
         LoginFailState(
@@ -83,6 +75,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 }
 
-var USER_LIST = [
+var userList = [
   User(name: 'PDA'),
 ];
