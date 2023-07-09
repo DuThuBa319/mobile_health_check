@@ -19,11 +19,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginScreen> {
-  
   LoginBloc get bloc => BlocProvider.of(context);
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool ShowPass = true;
+  bool showPass = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -122,7 +121,7 @@ class _LoginState extends State<LoginScreen> {
                       children: <Widget>[
                         TextField(
                           controller: _passwordController,
-                          obscureText: ShowPass,
+                          obscureText: showPass,
                           style: const TextStyle(
                             fontSize: 20,
                             color: Colors.black,
@@ -136,11 +135,11 @@ class _LoginState extends State<LoginScreen> {
                           ),
                         ),
                         Container(
-                          child: ShowPass
+                          child: showPass
                               ? IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      ShowPass = false;
+                                      showPass = false;
                                     });
                                   },
                                   icon: const Icon(Icons.visibility),
@@ -151,7 +150,7 @@ class _LoginState extends State<LoginScreen> {
                               : IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      ShowPass = true;
+                                      showPass = true;
                                     });
                                   },
                                   icon: const Icon(Icons.visibility_off),

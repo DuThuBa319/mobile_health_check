@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 
 import 'di/di.dart';
 
-void main() {
+void main() async {
   // SỬA CHỖ NÀY
   GetIt getIt = GetIt.instance;
 
@@ -27,11 +27,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Common Project',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeScreen(),
-    );
+        title: 'Common Project',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomeScreen());
   }
 }

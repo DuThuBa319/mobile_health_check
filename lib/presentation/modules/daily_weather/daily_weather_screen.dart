@@ -2,7 +2,6 @@ import 'package:common_project/presentation/common_widget/screen_form/custom_scr
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:intl/intl.dart';
 
 import '../../bloc/daily_weather_bloc/daily_weather_bloc.dart';
@@ -21,7 +20,6 @@ class DailyWeatherScreen extends StatefulWidget {
 }
 
 class _DailyWeatherScreenState extends State<DailyWeatherScreen> {
-  final _refreshController = RefreshController(initialRefresh: true);
   TextEditingController longtitude = TextEditingController();
   TextEditingController latitude = TextEditingController();
   DateTime dateFrom = DateTime.now();
@@ -29,6 +27,7 @@ class _DailyWeatherScreenState extends State<DailyWeatherScreen> {
   String strDateFrom = DateFormat('dd/MM').format(DateTime.now());
   String strDateTo =
       DateFormat('dd/MM').format(DateTime.now().add(const Duration(days: 1)));
+
   @override
   DailyWeatherBloc get bloc => BlocProvider.of(context);
 
@@ -159,19 +158,20 @@ class _DailyWeatherScreenState extends State<DailyWeatherScreen> {
                           ),
                         ),
                       );
+                    } else {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount:
+                              state.viewModel.dailyWeatherEntity?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            return DailyWeatherCell(
+                              weatherEntity:
+                                  state.viewModel.dailyWeatherEntity?[index],
+                            );
+                          },
+                        ),
+                      );
                     }
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount:
-                            state.viewModel.dailyWeatherEntity?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          return DailyWeatherCell(
-                            weatherEntity:
-                                state.viewModel.dailyWeatherEntity?[index],
-                          );
-                        },
-                      ),
-                    );
                   },
                 )
               ],

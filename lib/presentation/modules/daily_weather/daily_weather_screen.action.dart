@@ -1,5 +1,5 @@
 part of 'daily_weather_screen.dart';
-
+// HẠN CHẾ SETSTATE NHẤT CÓ THỂ, PHẢI THỂ HIỆN ĐƯỢC CÁI STRING
 extension DailyWeatherScreenAction on _DailyWeatherScreenState {
   void _blocListener(BuildContext context, DailyWeatherState state) {
     // logger.d('change state', state);
