@@ -30,7 +30,9 @@ class _UserListCellState extends State<UserListCell> {
             return BlocProvider<GetUserDetailBloc>(
                 create: (context) => getIt<GetUserDetailBloc>()
                   ..add(GetUserDetailEvent(userId: widget.userEntity?.id ?? 0)),
-                child: const UserDetailScreen());
+                child: UserDetailScreen(
+                  
+                ));
           }));
         },
         child: Card(

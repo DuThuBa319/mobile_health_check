@@ -1,6 +1,8 @@
-import 'package:common_project/presentation/modules/home/home_screen.dart';
+import 'package:common_project/presentation/bloc/login/login_bloc.dart';
+import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'di/di.dart';
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const HomeScreen());
+        home: BlocProvider<LoginBloc>(
+          create: (context) => getIt<LoginBloc>(),
+          child: const LoginScreen(),
+        ));
   }
 }

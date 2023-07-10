@@ -1,16 +1,32 @@
 import 'package:common_project/data/models/user_model.dart';
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:common_project/presentation/modules/user_profile/user_detail_screen.dart';
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../di/di.dart';
 import '../../bloc/userlist/get_user_detail_bloc copy/get_user_detail_bloc.dart';
 import '../../bloc/userlist/get_user_detail_bloc copy/get_user_detail_event.dart';
 import '../../bloc/userlist/get_user_detail_bloc copy/get_user_detail_state.dart';
 import '../../common_widget/loading_widget.dart';
 
 //Class Home
+
 class EditScreen extends StatefulWidget {
-  const EditScreen({Key? key}) : super(key: key);
+  String userId;
+  String userName;
+  String userJob;
+  String userEmail;
+  String userPhoneNumber;
+  String userAge;
+  EditScreen(
+      {super.key,
+      required this.userAge,
+      required this.userEmail,
+      required this.userId,
+      required this.userJob,
+      required this.userName,
+      required this.userPhoneNumber});
 
   @override
   State<EditScreen> createState() => _EditScreenState();
@@ -23,6 +39,19 @@ class _EditScreenState extends State<EditScreen> {
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPhoneNumber = TextEditingController();
   final TextEditingController _controllerAge = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _controllerId.text = widget.userId;
+      _controllerName.text = widget.userName;
+      _controllerJob.text = widget.userJob;
+      _controllerAge.text = widget.userAge;
+      _controllerEmail.text = widget.userEmail;
+      _controllerPhoneNumber.text = widget.userPhoneNumber;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetUserDetailBloc, GetUserDetailState>(
@@ -98,16 +127,18 @@ class _EditScreenState extends State<EditScreen> {
                                 BlocProvider.of<GetUserDetailBloc>(context).add(
                                     UpdateUserEvent(
                                         userId: newUser.id!, user: newUser));
-                                // Navigator.push(context, MaterialPageRoute(
-                                //   builder: (context) {
-                                //     return BlocProvider<GetUserBloc>(
-                                //       create: (context) => getIt<GetUserBloc>()
-                                //         ..add(GetUserEvent()),
-                                //       child: const UserListScreen(),
-                                //     );
-                                //   },
-                                // ));
-                                Navigator.pop(context);
+                                Navigator.pop(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return BlocProvider<GetUserDetailBloc>(
+                                      create: (context) =>
+                                          getIt<GetUserDetailBloc>()
+                                            ..add(GetUserDetailEvent(
+                                                userId: newUser.id!)),
+                                      child: const UserDetailScreen(),
+                                    );
+                                  },
+                                ));
+                                // Navigator.pop(context);
                               },
                               child: const Text("Save"))
                         ]);
@@ -118,9 +149,3 @@ class _EditScreenState extends State<EditScreen> {
         });
   }
 }
-  
-
-
-//Class UserListCell
-
-
