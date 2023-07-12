@@ -1,7 +1,9 @@
-import 'package:common_project/presentation/modules/home/home_screen.dart';
 import 'package:common_project/presentation/theme/app_text_theme.dart';
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
+
+import '../../route/route_list.dart';
+import '../assets.dart';
 
 class CustomScreenForm extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
@@ -29,7 +31,7 @@ class CustomScreenForm extends StatefulWidget {
       required this.child,
       this.isShowLeadingButton = false,
       this.leadingButton,
-      this.selectedIndex = -1,
+      required this.selectedIndex,
       this.isScrollable = false,
       required this.title,
       this.isShowRightButon = false,
@@ -40,24 +42,16 @@ class CustomScreenForm extends StatefulWidget {
 }
 
 class _CustomScreenFormState extends State<CustomScreenForm> {
-  final int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: widget.backgroundColor,
+//app bar ---------------------------------------
       appBar: widget.isShowAppBar
           ? AppBar(
               backgroundColor: widget.appBarColor,
-              automaticallyImplyLeading: false,
-              centerTitle: true,
               elevation: 0,
-              title: Text(
-                widget.title,
-                style: AppTextTheme.title1
-                    .copyWith(color: widget.appComponentColor),
-              ),
-              actions: [widget.rightButton ?? Container()],
+              automaticallyImplyLeading: false,
               leading: widget.isShowLeadingButton
                   ? widget.leadingButton ??
                       IconButton(
@@ -71,8 +65,26 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                         },
                       )
                   : null,
+              centerTitle: true,
+              title: Text(
+                widget.title,
+                style: AppTextTheme.title1
+                    .copyWith(color: widget.appComponentColor),
+              ),
+              actions: [
+                widget.rightButton ??
+                    Row(
+                      children: const [
+                        Icon(Icons.notifications),
+                        SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                    )
+              ],
             )
           : null,
+// body --------------------------------------
       body: SafeArea(
           child: widget.isScrollable == true
               ? SingleChildScrollView(
@@ -81,25 +93,34 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   child: widget.child,
                 )
               : widget.child),
+// bottom app bar -------------------------
       bottomNavigationBar: widget.isShowBottomNayvigationBar == true
           ? BottomNavigationBar(
               backgroundColor: widget.appBarColor,
               type: BottomNavigationBarType.fixed,
-              items: [
-                commonBottomBarItem(iconData: Icons.home, label: 'Home'),
-                commonBottomBarItem(iconData: Icons.history, label: 'History'),
-                commonBottomBarItem(
-                    iconData: Icons.notifications, label: 'Notification'),
-                commonBottomBarItem(
-                    iconData: Icons.account_circle, label: 'Account'),
-              ],
-              currentIndex: _selectedIndex,
+              currentIndex: widget.selectedIndex,
               unselectedItemColor: widget.appComponentColor,
               unselectedLabelStyle:
-                  AppTextTheme.body5.copyWith(fontWeight: FontWeight.bold),
-              selectedItemColor: widget.appComponentColor,
-              selectedLabelStyle:
-                  AppTextTheme.body5.copyWith(fontWeight: FontWeight.bold),
+                  AppTextTheme.body5.copyWith(fontWeight: FontWeight.normal),
+              selectedItemColor: Colors.orange,
+              selectedLabelStyle: AppTextTheme.body5
+                  .copyWith(fontWeight: FontWeight.bold, color: Colors.orange),
+              items: [
+                commonBottomBarItem(
+                    iconAssets: const Icon(Icons.home, color: Colors.black),
+                    label: 'Home'),
+                commonBottomBarItem(
+                    iconAssets:
+                        const Icon(Icons.shopping_cart, color: Colors.black),
+                    label: 'Shopping'),
+                commonBottomBarItem(
+                    iconAssets:
+                        const Icon(Icons.account_circle, color: Colors.black),
+                    label: 'User Profile'),
+                commonBottomBarItem(
+                    iconAssets: Image.asset(Assets.icWeather),
+                    label: 'Weather'),
+              ],
               onTap: _onItemTapped,
             )
           : null,
@@ -107,17 +128,29 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
   }
 
   void _onItemTapped(int index) {
-    if (index == 0 && index != _selectedIndex) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ));
+    if (index == 0 && index != widget.selectedIndex) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, RouteList.home, (Route<dynamic> route) => false);
+    }
+    if (widget.selectedIndex == 0) {
+      if (index == 1 && index != widget.selectedIndex) {
+        Navigator.pushNamed(context, RouteList.shoppingCart);
+      }
+      if (index == 3 && index != widget.selectedIndex) {
+        Navigator.pushNamed(context, RouteList.example);
+      }
+    } else {
+      if (index == 1 && index != widget.selectedIndex) {
+        Navigator.pushReplacementNamed(context, RouteList.shoppingCart);
+      }
+      if (index == 3 && index != widget.selectedIndex) {
+        Navigator.pushReplacementNamed(context, RouteList.example);
+      }
     }
   }
 
   BottomNavigationBarItem commonBottomBarItem(
-      {String? label, IconData? iconData}) {
+      {String? label, Widget? iconAssets}) {
     return BottomNavigationBarItem(
       icon: Column(
         children: [
@@ -127,7 +160,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
             margin: const EdgeInsets.only(bottom: 3, top: 5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24), color: Colors.white),
-            child: Icon(iconData, color: Colors.black),
+            child: iconAssets,
           ),
         ],
       ),

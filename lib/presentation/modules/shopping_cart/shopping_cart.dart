@@ -457,6 +457,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
         isShowLeadingButton: true,
         isShowAppBar: true,
         isShowRightButon: true,
+        selectedIndex: 1,
+        isShowBottomNayvigationBar: true,
         rightButton: Row(
           children: [
             const IconButton(

@@ -1,13 +1,11 @@
-import 'package:common_project/presentation/bloc/daily_weather_bloc/daily_weather_bloc.dart';
 import 'package:common_project/presentation/common_widget/common_button.dart';
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:common_project/presentation/modules/daily_weather/daily_weather_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
+import '../../common_widget/image_picker/image_picker_bloc/image_picker_bloc.dart';
+import '../../route/route_list.dart';
 import '../../theme/theme_color.dart';
 import '../OCR_scanner/OCR_scanner_screen.dart';
-import '../shopping_cart/shopping_cart.dart';
 part 'home_screen.action.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,8 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static GetIt getIt = GetIt.instance;
-
   @override
   Widget build(BuildContext context) {
     // RefreshController refreshController =
@@ -39,7 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
         isShowLeadingButton: true,
         appBarColor: AppColor.appBarColor,
         backgroundColor: AppColor.backgroundColor,
-        // isShowSearchButton: true,
+        leadingButton: const Icon(Icons.menu),
+        selectedIndex: 0,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,19 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: 'Daily Weather',
                 height: 80,
                 buttonColor: Colors.orange,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return BlocProvider<DailyWeatherBloc>(
-                        create: (context) => getIt<DailyWeatherBloc>(),
-                        child: const DailyWeatherScreen(),
-                      );
-                    },
-                  ));
-                },
+                onTap: goToDailyWeatherScreen,
               ),
               const CommonButton(
-                title: 'Hourly Temperature',
+                title: 'Hourly Weather',
                 height: 80,
                 buttonColor: Colors.red,
               ),

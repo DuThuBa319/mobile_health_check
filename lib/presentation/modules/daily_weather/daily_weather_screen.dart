@@ -43,6 +43,8 @@ class _DailyWeatherScreenState extends State<DailyWeatherScreen> {
           backgroundColor: Colors.white,
           isShowAppBar: true,
           isShowLeadingButton: true,
+          selectedIndex: 3,
+          isShowBottomNayvigationBar: true,
           title: 'Daily Weather API Screen',
           child: Container(
             child: Column(
