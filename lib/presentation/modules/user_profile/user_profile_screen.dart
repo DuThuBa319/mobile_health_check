@@ -41,6 +41,7 @@ class _UserListState extends State<UserListScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            centerTitle: true,
             title: const Text('User List Screen'),
             actions: [
               IconButton(

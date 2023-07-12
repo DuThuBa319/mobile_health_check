@@ -51,28 +51,28 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
         child: Stack(children: [
           Container(
             margin: const EdgeInsets.only(left: 15),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text("Aristoratic HandBag ",
                         style: TextStyle(color: Colors.white, fontSize: 15)),
                   ],
                 ),
-                Text("Office Code ",
+                const Text("Office Code ",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 35,
                         fontWeight: FontWeight.bold)),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 80),
                   child: Text("Price ",
                       style: TextStyle(color: Colors.white, fontSize: 15)),
                 ),
-                Text("\$${234}",
+                const Text("\$${234}",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 35,
@@ -95,11 +95,11 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //Row đầu tiên chỉ có "color" và "size"
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 25, 0),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 25, 0),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text("Color",
                               style: TextStyle(
                                   fontSize: 20,
