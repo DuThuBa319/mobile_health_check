@@ -140,15 +140,6 @@ class HourlyTemperatureEntity {
     }
   }
 
-  // String get temperatureDisplay {
-  //   if (temperature2m == null) {
-  //     return '-- °C';
-  //   } else {
-  //     final temperature = temperature2m!.toStringAsFixed(1);
-  //     return '$temperature °C';
-  //   }
-  // }
-
   String get temperatureAndHumidityDisplay {
     if (temperature2m == null || relativeHumidity2m == null) {
       return '-- °C, --%';
@@ -171,11 +162,11 @@ class HourlyTemperatureEntity {
         return AppColor.graydcdcdc;
 
       case WeatherWithTimeStatus.nightClear:
-        return const Color.fromARGB(255, 122, 37, 158);
+        return const Color.fromARGB(255, 197, 122, 229);
       case WeatherWithTimeStatus.nightRainy:
         return AppColor.blue4169E1;
       case WeatherWithTimeStatus.nightThunderStorm:
-        return AppColor.gray767676;
+        return const Color.fromARGB(255, 142, 137, 137);
       case WeatherWithTimeStatus.nightFoggy:
         return AppColor.graydcdcdc;
       default:

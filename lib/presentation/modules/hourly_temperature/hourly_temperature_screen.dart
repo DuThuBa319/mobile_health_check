@@ -54,10 +54,22 @@ class _HourlyTemperatureScreenState extends State<HourlyTemperatureScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Text(
+                        "Select Date:",
+                        style: TextStyle(color: Colors.black, fontSize: 25),
+                      ),
                       IconButton(
                           onPressed: selectedDate,
-                          icon: const Icon(Icons.calendar_month_outlined)),
-                      Text(strDateFrom)
+                          icon: const Icon(
+                            Icons.calendar_month_outlined,
+                            size: 25,
+                            color: Color.fromARGB(255, 10, 181, 164),
+                          )),
+                      Text(
+                        strDateFrom,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 25),
+                      )
                     ],
                   ),
                 ),
@@ -73,7 +85,7 @@ class _HourlyTemperatureScreenState extends State<HourlyTemperatureScreen> {
                         controller: latitude,
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontSize: 14,
+                                  fontSize: 20,
                                 ),
                         decoration: InputDecoration(
                           isDense: true,
@@ -83,7 +95,7 @@ class _HourlyTemperatureScreenState extends State<HourlyTemperatureScreen> {
                               .textTheme
                               .headlineSmall
                               ?.copyWith(
-                                fontSize: 14,
+                                fontSize: 20,
                               ),
                         ),
                       ),
@@ -94,7 +106,7 @@ class _HourlyTemperatureScreenState extends State<HourlyTemperatureScreen> {
                         controller: longitude,
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontSize: 14,
+                                  fontSize: 20,
                                 ),
                         decoration: InputDecoration(
                           isDense: true,
@@ -104,7 +116,7 @@ class _HourlyTemperatureScreenState extends State<HourlyTemperatureScreen> {
                               .textTheme
                               .headlineSmall
                               ?.copyWith(
-                                fontSize: 14,
+                                fontSize: 20,
                               ),
                         ),
                       ),
@@ -121,7 +133,7 @@ class _HourlyTemperatureScreenState extends State<HourlyTemperatureScreen> {
                       color: AppColor.blue03A1E4,
                     ),
                     child: Text(
-                      'Lấy dữ liệu',
+                      'Get Data',
                       style: AppTextTheme.title4.copyWith(color: Colors.white),
                     ),
                   ),

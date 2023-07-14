@@ -36,16 +36,16 @@ class _HourlyTemperatureCellState extends State<HourlyTemperatureCell> {
           ),
           Text(
             widget.temperatureEntity?.temperatureAndHumidityDisplay ?? '--',
-            style: AppTextTheme.body3,
+            style: AppTextTheme.body4,
           ),
           Text(
             widget.temperatureEntity?.weatherTitle ?? '--',
-            style: AppTextTheme.body3,
+            style: AppTextTheme.body4,
           ),
           Image.asset(
             widget.temperatureEntity?.weatherIcon ?? Assets.icSunny,
-            width: 45,
-            height: 45,
+            width: 40,
+            height: 40,
           )
         ],
       ),

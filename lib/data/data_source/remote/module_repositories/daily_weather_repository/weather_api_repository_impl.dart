@@ -15,16 +15,16 @@ class WeatherRepositoryImpl implements WeatherRepository {
   WeatherRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://retoolapi.dev/toSaX1/data');
+            baseUrl: 'https://api.open-meteo.com/v1/forecast?latitude=10.823&longitude=106.6296&daily=weathercode&timezone=Asia%2FBangkok&start_date=2023-07-14&end_date=2023-07-28');
 
   @override
   Future<WeatherModel> getWeatherModel({
-    String latitude = '10.82',
+   String latitude = '10.82',
     String longtitude = '106.83',
     String daily = 'weathercode',
     String timezone = 'Asia/Bangkok',
-    String startDate = '2023-01-01',
-    String endDate = '2023-02-08',
+    String startDate = '2023-07-14',
+    String endDate = '2023-07-28',
   }) {
     return restApi.getWeatherModel(
         daily: daily,

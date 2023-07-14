@@ -6,7 +6,7 @@ abstract class WeatherRepository {
     String longtitude = '106.83',
     String daily = 'weathercode',
     String timezone = 'Asia/Bangkok',
-    String startDate = '2023-01-01',
-    String endDate = '2023-02-08',
+    String startDate = '2023-07-14',
+    String endDate = '2023-07-28',
   });
 }
