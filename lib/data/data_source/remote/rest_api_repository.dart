@@ -2,6 +2,8 @@ import 'package:common_project/data/models/user_model.dart';
 import 'package:common_project/data/models/weather_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+
+import '../../models/temperature_model.dart';
 part 'rest_api_repository.g.dart';
 
 @RestApi()
@@ -37,6 +39,14 @@ abstract class RestApiRepository {
     @Query('latitude') String? latitude,
     @Query('longitude') String? longtitude,
     @Query('daily') String? daily,
+    @Query('timezone') String? timezone,
+    @Query('start_date') String? startDate,
+    @Query('end_date') String? endDate,
+  });
+  Future<TemperatureModel> getTemperatureModels({
+    @Query('latitude') String? latitude,
+    @Query('longitude') String? longitude,
+    @Query('hourly') String? hourly,
     @Query('timezone') String? timezone,
     @Query('start_date') String? startDate,
     @Query('end_date') String? endDate,

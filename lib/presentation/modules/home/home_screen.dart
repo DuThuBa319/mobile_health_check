@@ -1,7 +1,9 @@
 import 'package:common_project/presentation/bloc/daily_weather_bloc/daily_weather_bloc.dart';
+import 'package:common_project/presentation/bloc/hourly_temperarute_bloc/hourly_temperature_bloc.dart';
 import 'package:common_project/presentation/common_widget/common_button.dart';
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:common_project/presentation/modules/daily_weather/daily_weather_screen.dart';
+import 'package:common_project/presentation/modules/hourly_temperature/hourly_temperature_screen.dart';
 import 'package:common_project/presentation/modules/user_profile/user_profile_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -86,10 +88,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ));
                 },
               ),
-              const CommonButton(
+               CommonButton(
                 title: 'Hourly Temperature',
                 height: 80,
                 buttonColor: Colors.red,
+                  onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return BlocProvider<HourlyTemperatureBloc>(
+                        create: (context) => getIt<HourlyTemperatureBloc>(),
+                        child: const HourlyTemperatureScreen(),
+                      );
+                    },
+                  ));
+                },
               )
             ],
           ),
