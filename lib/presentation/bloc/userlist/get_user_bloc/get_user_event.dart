@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
-
-import '../../../../data/models/user_model.dart';
+part of 'get_user_bloc.dart';
 
 @immutable
 abstract class UserEvent {}
 
-class GetUserEvent extends UserEvent {
-  GetUserEvent();
+class GetListUserEvent extends UserEvent {
+  GetListUserEvent();
 }
 
 class FilterUserEvent extends UserEvent {
   FilterUserEvent({required this.searchText});
-  String searchText;
+  final String searchText;
 }
 
 class RegistUserEvent extends UserEvent {
   RegistUserEvent({required this.user});
-  UserModel user;
+  final UserModel user;
 }
 // class FilterUserEvent extends UserEvent {
 //   FilterUserEvent({required this.searchText});

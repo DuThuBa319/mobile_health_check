@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
-
-import '../../../../data/models/user_model.dart';
+part of 'get_user_detail_bloc.dart';
 
 @immutable
 abstract class UserDetailEvent {}
@@ -21,7 +19,7 @@ class UpdateUserEvent extends UserDetailEvent {
   final int userId;
   final UserModel user;
 
-   UpdateUserEvent({required this.userId,required this.user}) : super();
+  UpdateUserEvent({required this.userId, required this.user}) : super();
 }
 
 

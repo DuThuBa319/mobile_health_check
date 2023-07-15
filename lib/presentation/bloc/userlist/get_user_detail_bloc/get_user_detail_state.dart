@@ -1,58 +1,66 @@
-part of 'get_user_bloc.dart';
+part of 'get_user_detail_bloc.dart';
 
 // ViewModel is used for store all properties which want to be stored, processed and updated, chứa dữ liệu của 1 state
 class _ViewModel {
-  final List<UserEntity>? userEntity;
+  final UserEntity? userDetailEntity;
   const _ViewModel({
-    this.userEntity,
+    this.userDetailEntity,
   });
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith({
-    List<UserEntity>? userEntity,
+    UserEntity? userDetailEntity,
   }) {
-    return _ViewModel(userEntity: userEntity ?? this.userEntity);
+    return _ViewModel(
+        userDetailEntity: userDetailEntity ?? this.userDetailEntity);
   }
 }
 
 // Abstract class
-abstract class GetUserState {
+abstract class GetUserDetailState {
   final _ViewModel viewModel;
-  // Status of the state. GetUser "success" "failed" "loading"
+  // Status of the state. GetUserDetail "success" "failed" "loading"
   final BlocStatusState status;
 
-  GetUserState(this.viewModel, {this.status = BlocStatusState.initial});
+  GetUserDetailState(this.viewModel, {this.status = BlocStatusState.initial});
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
-  // "T" is generic class. "T" is a child class of GetUserState (abstract class)
-  T copyWith<T extends GetUserState>({
+  // "T" is generic class. "T" is a child class of GetUserDetailState (abstract class)
+  T copyWith<T extends GetUserDetailState>({
     _ViewModel? viewModel,
     required BlocStatusState status,
   }) {
-    return _factories[T == GetUserState ? runtimeType : T]!(
+    return _factories[T == GetUserDetailState ? runtimeType : T]!(
       viewModel ?? this.viewModel,
       status,
     );
   }
 }
 
-class GetUserInitialState extends GetUserState {
-  GetUserInitialState({
+class GetUserDetailInitialState extends GetUserDetailState {
+  GetUserDetailInitialState({
     _ViewModel viewModel =
         const _ViewModel(), //ViewModel là dữ liệu trong state
     BlocStatusState status = BlocStatusState.initial, //status của state
   }) : super(viewModel);
 }
 
-class GetListUserState extends GetUserState {
-  GetListUserState({
+class GetDetailUserState extends GetUserDetailState {
+  GetDetailUserState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
 
-class RegistUserState extends GetUserState {
-  RegistUserState({
+class UpdateUserState extends GetUserDetailState {
+  UpdateUserState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class DeleteUserState extends GetUserDetailState {
+  DeleteUserState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
@@ -64,15 +72,19 @@ final _factories = <
   _ViewModel viewModel,
   BlocStatusState status,
 )>{
-  GetUserInitialState: (viewModel, status) => GetUserInitialState(
+  GetUserDetailInitialState: (viewModel, status) => GetUserDetailInitialState(
         viewModel: viewModel,
         status: status,
       ),
-  GetListUserState: (viewModel, status) => GetListUserState(
+  GetDetailUserState: (viewModel, status) => GetDetailUserState(
         viewModel: viewModel,
         status: status,
       ),
-  RegistUserState: (viewModel, status) => RegistUserState(
+  UpdateUserState: (viewModel, status) => UpdateUserState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  DeleteUserState: (viewModel, status) => DeleteUserState(
         viewModel: viewModel,
         status: status,
       ),

@@ -6,8 +6,8 @@ import '../../bloc/login/login_bloc.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
+import '../../route/route_list.dart';
 import '../../theme/theme_color.dart';
-import '../home/home_screen.dart';
 
 part 'login_screen.action.dart';
 

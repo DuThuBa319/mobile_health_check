@@ -1,15 +1,11 @@
-import 'package:common_project/presentation/bloc/login/login_bloc.dart';
-import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
+import 'package:common_project/presentation/modules/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-
 import 'di/di.dart';
+import 'presentation/route/route.dart';
 
-void main() async {
+void main() {
   // SỬA CHỖ NÀY
-  GetIt getIt = GetIt.instance;
 
   // 2 DÒNG Ở TRÊN SỬA
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,22 +16,24 @@ void main() async {
       statusBarIconBrightness: Brightness.dark));
 }
 
-class MyApp extends StatelessWidget {
-  static GetIt getIt = GetIt.instance;
-
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Common Project',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: BlocProvider<LoginBloc>(
-          create: (context) => getIt<LoginBloc>(),
-          child: const LoginScreen(),
-        ));
+      title: 'Common Project',
+      onGenerateRoute: AppRoute.onGenerateRoute,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomeScreen(),
+    );
   }
 }

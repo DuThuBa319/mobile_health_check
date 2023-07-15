@@ -1,19 +1,22 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../data/models/user_model.dart';
+import '../../../../domain/entities/user_entity.dart';
 import '../../../../domain/usecases/user_detail_usecase.dart';
 import '../../../common_widget/enum_common.dart';
-import 'get_user_detail_event.dart';
-import 'get_user_detail_state.dart';
+part 'get_user_detail_event.dart';
+part 'get_user_detail_state.dart';
 
 @injectable
 class GetUserDetailBloc extends Bloc<UserDetailEvent, GetUserDetailState> {
   final UserDetailUsecase _userUserDetailCase;
 
   GetUserDetailBloc(this._userUserDetailCase)
-      : super(GetUserDetailLoadingState()) {
+      : super(GetUserDetailInitialState()) {
     on<GetUserDetailEvent>(_onGetUserDetail);
     on<DeleteUserEvent>(_onDeleteUser);
     on<UpdateUserEvent>(_onUpdateUser);
@@ -24,7 +27,7 @@ class GetUserDetailBloc extends Bloc<UserDetailEvent, GetUserDetailState> {
     Emitter<GetUserDetailState> emit,
   ) async {
     emit(
-      GetUserDetailLoadingState(
+      GetDetailUserState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
@@ -34,13 +37,13 @@ class GetUserDetailBloc extends Bloc<UserDetailEvent, GetUserDetailState> {
       final response =
           await _userUserDetailCase.getUserDetailEntity(event.userId);
       final newViewModel = state.viewModel.copyWith(userDetailEntity: response);
-      emit(GetUserDetailSuccessState(
+      emit(state.copyWith(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
     } catch (e) {
       emit(
-        GetUserDetailFailedState(
+        state.copyWith(
           status: BlocStatusState.failure,
           viewModel: state.viewModel,
         ),
@@ -53,7 +56,7 @@ class GetUserDetailBloc extends Bloc<UserDetailEvent, GetUserDetailState> {
     Emitter<GetUserDetailState> emit,
   ) async {
     emit(
-      GetUserDetailLoadingState(
+      DeleteUserState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
@@ -61,14 +64,13 @@ class GetUserDetailBloc extends Bloc<UserDetailEvent, GetUserDetailState> {
     try {
       await _userUserDetailCase.deleteUserEntity(event.userId);
       emit(
-        GetUserDetailSuccessState(
+        DeleteUserState(
           status: BlocStatusState.success,
-          viewModel: state.viewModel.copyWith(userDetailEntity: null),
         ),
       );
     } catch (e) {
       emit(
-        GetUserDetailFailedState(
+        state.copyWith(
           status: BlocStatusState.failure,
           viewModel: state.viewModel,
         ),
@@ -81,7 +83,7 @@ class GetUserDetailBloc extends Bloc<UserDetailEvent, GetUserDetailState> {
     Emitter<GetUserDetailState> emit,
   ) async {
     emit(
-      GetUserDetailLoadingState(
+      UpdateUserState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
@@ -91,13 +93,13 @@ class GetUserDetailBloc extends Bloc<UserDetailEvent, GetUserDetailState> {
 
       final newViewModel = state.viewModel
           .copyWith(userDetailEntity: state.viewModel.userDetailEntity);
-      emit(GetUserDetailSuccessState(
+      emit(state.copyWith(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
     } catch (e) {
       emit(
-        GetUserDetailFailedState(
+        state.copyWith(
           status: BlocStatusState.failure,
           viewModel: state.viewModel,
         ),

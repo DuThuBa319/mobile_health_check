@@ -10,7 +10,6 @@ part 'login_state.dart';
 
 @injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  // final UserUsecase _usecase;
   LoginBloc() : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
   }

@@ -1,6 +1,5 @@
 import 'package:common_project/data/models/user_model.dart';
 import 'package:common_project/domain/entities/user_entity.dart';
-import 'package:common_project/presentation/bloc/userlist/get_user_detail_bloc%20copy/get_user_detail_event.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../data/data_source/remote/module_repositories/user_api_detail_repository.dart';

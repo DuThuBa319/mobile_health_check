@@ -1,24 +1,27 @@
 part of 'home_screen.dart';
 
 extension HomeAction on _HomeScreenState {
-  void goToShoppingScreen() {
+  void goToOCRScreen() {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const ShoppingScreen(),
+          builder: (context) => MultiBlocProvider(providers: [
+            BlocProvider(
+              create: (context) => ImagePickerBloc(),
+            )
+          ], child: const OCRScannerScreen()),
         ));
   }
 
-  
+  void goToShoppingScreen() {
+    Navigator.pushNamed(context, RouteList.shoppingCart);
+  }
 
-  void _blocListener(BuildContext context, GetUserState state) {
-    // logger.d('change state', state);
-    // _refreshController
-    //   ..refreshCompleted()
-    //   ..loadComplete();
-    if (state is GetUserSuccessState &&
-        state.status == BlocStatusState.success) {
-      showToast('Đã tải dữ liệu thành công');
-    }
+  void goToDailyWeatherScreen() {
+    Navigator.pushNamed(context, RouteList.example);
+  }
+
+  void goToUserList() {
+    Navigator.pushNamed(context, RouteList.userList);
   }
 }

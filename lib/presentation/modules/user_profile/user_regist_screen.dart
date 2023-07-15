@@ -1,17 +1,15 @@
-import 'package:common_project/presentation/bloc/userlist/get_user_bloc/get_user_event.dart';
 import 'package:flutter/material.dart';
 
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/user_model.dart';
 import '../../bloc/userlist/get_user_bloc/get_user_bloc.dart';
-import '../../bloc/userlist/get_user_bloc/get_user_state.dart';
-import '../../common_widget/dialog/show_toast.dart';
+
 import '../../theme/theme_color.dart';
 
 class RegistScreen extends StatefulWidget {
-  const RegistScreen({Key? key}) : super(key: key);
+  final GetUserBloc? userBLoc;
+  const RegistScreen({Key? key, required this.userBLoc}) : super(key: key);
 
   @override
   State<RegistScreen> createState() => _RegistScreenState();
@@ -28,7 +26,7 @@ class _RegistScreenState extends State<RegistScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetUserBloc, GetUserState>(
-        listener: _listener,
+        listener: (context, state) => _listener(context, state),
         builder: (context, state) {
           return CustomScreenForm(
               appBarColor: AppColor.appBarColor,
