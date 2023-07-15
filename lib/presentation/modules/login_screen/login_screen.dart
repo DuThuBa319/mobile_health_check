@@ -22,7 +22,7 @@ class _LoginState extends State<LoginScreen> {
   LoginBloc get bloc => BlocProvider.of(context);
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _showPass = true;
+  bool showPass = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -121,7 +121,7 @@ class _LoginState extends State<LoginScreen> {
                       children: <Widget>[
                         TextField(
                           controller: _passwordController,
-                          obscureText: _showPass,
+                          obscureText: showPass,
                           style: const TextStyle(
                             fontSize: 20,
                             color: Colors.black,
@@ -135,11 +135,11 @@ class _LoginState extends State<LoginScreen> {
                           ),
                         ),
                         Container(
-                          child: _showPass
+                          child: showPass
                               ? IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      _showPass = false;
+                                      showPass = false;
                                     });
                                   },
                                   icon: const Icon(Icons.visibility),
@@ -150,7 +150,7 @@ class _LoginState extends State<LoginScreen> {
                               : IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      _showPass = true;
+                                      showPass = true;
                                     });
                                   },
                                   icon: const Icon(Icons.visibility_off),

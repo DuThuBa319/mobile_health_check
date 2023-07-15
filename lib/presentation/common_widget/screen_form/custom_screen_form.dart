@@ -31,7 +31,7 @@ class CustomScreenForm extends StatefulWidget {
       required this.child,
       this.isShowLeadingButton = false,
       this.leadingButton,
-      required this.selectedIndex,
+      this.selectedIndex = -1,
       this.isScrollable = false,
       required this.title,
       this.isShowRightButon = false,

@@ -9,7 +9,6 @@ part 'weather_model.g.dart';
 class WeatherModel {
   @JsonKey(name: 'daily')
   DailyWeatherModel? dailyWeatherModel;
-
   WeatherModel(this.dailyWeatherModel);
   factory WeatherModel.fromJson(Map<String, dynamic> json) =>
       _$WeatherModelFromJson(json);

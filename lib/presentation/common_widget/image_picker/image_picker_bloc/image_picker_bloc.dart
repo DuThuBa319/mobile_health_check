@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:file_picker/file_picker.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -142,14 +141,12 @@ Future<List<File>?> selectFile(ImageSource source) async {
     }
   }
   if (source == ImageSource.gallery) {
-    final pickedFiles =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
-    for (final file in pickedFiles!.files) {
-      if (file.extension == 'jpg' || file.extension == 'png') {
-        files.add(File(file.path!));
-      }
+    final pickedFile = await ImagePicker().pickImage(source: source);
+
+    if (pickedFile != null) {
+      files.add(File(pickedFile.path));
+      return files;
     }
-    return files;
   }
   return null;
 }

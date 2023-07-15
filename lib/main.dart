@@ -1,11 +1,12 @@
 import 'package:common_project/presentation/modules/home/home_screen.dart';
-import 'package:common_project/presentation/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get_it/get_it.dart';
 import 'di/di.dart';
+import 'presentation/route/route.dart';
 
 void main() {
+  // SỬA CHỖ NÀY
+
   // 2 DÒNG Ở TRÊN SỬA
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
@@ -16,8 +17,6 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  static GetIt getIt = GetIt.instance;
-
   const MyApp({super.key});
 
   @override
@@ -29,16 +28,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Common Project',
-        onGenerateRoute: AppRoute.onGenerateRoute,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const HomeScreen()
-        // home: BlocProvider(
-        //   create: (context) => LoginBloc(),
-        //   child: const LoginScreen(),
-        // ),
-        );
+      title: 'Common Project',
+      onGenerateRoute: AppRoute.onGenerateRoute,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomeScreen(),
+    );
   }
 }

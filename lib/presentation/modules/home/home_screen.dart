@@ -2,6 +2,7 @@ import 'package:common_project/presentation/common_widget/common_button.dart';
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+
 import '../../common_widget/image_picker/image_picker_bloc/image_picker_bloc.dart';
 import '../../route/route_list.dart';
 import '../../theme/theme_color.dart';
@@ -47,11 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 80,
                 onTap: goToShoppingScreen,
               ),
-              const CommonButton(
-                title: 'User List',
-                height: 80,
-                buttonColor: Colors.amber,
-              ),
+              CommonButton(
+                  title: 'User List',
+                  height: 80,
+                  buttonColor: Colors.amber,
+                  onTap: goToUserList),
               CommonButton(
                 title: 'Daily Weather',
                 height: 80,

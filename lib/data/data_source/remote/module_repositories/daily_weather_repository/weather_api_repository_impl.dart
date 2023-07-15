@@ -15,7 +15,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
   WeatherRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://api.open-meteo.com/v1/forecast');
+            baseUrl: 'https://api.open-meteo.com/v1/forecast/');
 
   @override
   Future<WeatherModel> getWeatherModel({

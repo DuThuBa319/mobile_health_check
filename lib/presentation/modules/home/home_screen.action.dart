@@ -1,10 +1,6 @@
 part of 'home_screen.dart';
 
 extension HomeAction on _HomeScreenState {
-  void goToShoppingScreen() {
-    Navigator.pushNamed(context, RouteList.shoppingCart);
-  }
-
   void goToOCRScreen() {
     Navigator.push(
         context,
@@ -17,7 +13,15 @@ extension HomeAction on _HomeScreenState {
         ));
   }
 
+  void goToShoppingScreen() {
+    Navigator.pushNamed(context, RouteList.shoppingCart);
+  }
+
   void goToDailyWeatherScreen() {
     Navigator.pushNamed(context, RouteList.example);
+  }
+
+  void goToUserList() {
+    Navigator.pushNamed(context, RouteList.userList);
   }
 }
