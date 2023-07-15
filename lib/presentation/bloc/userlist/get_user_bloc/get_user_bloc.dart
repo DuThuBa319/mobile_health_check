@@ -88,7 +88,6 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
       );
 
       final newUser = await _userUserCase.addUserEntity(event.user);
-
       final newViewModel = state.viewModel.copyWith(
         userEntity: state.viewModel.userEntity,
       );

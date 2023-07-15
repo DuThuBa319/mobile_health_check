@@ -28,7 +28,7 @@ class _RegistScreenState extends State<RegistScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetUserBloc, GetUserState>(
-        listener: (context, state) => _listener(context, state),
+        listener: _listener,
         builder: (context, state) {
           return CustomScreenForm(
               appBarColor: AppColor.appBarColor,

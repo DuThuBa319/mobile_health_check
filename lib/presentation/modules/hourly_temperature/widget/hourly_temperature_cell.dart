@@ -12,6 +12,7 @@ class HourlyTemperatureCell extends StatefulWidget {
     this.temperatureEntity,
   }) : super(key: key);
 
+// 23-6-2023 --- 30/7/2023
   @override
   State<HourlyTemperatureCell> createState() => _HourlyTemperatureCellState();
 }
@@ -19,7 +20,6 @@ class HourlyTemperatureCell extends StatefulWidget {
 class _HourlyTemperatureCellState extends State<HourlyTemperatureCell> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),

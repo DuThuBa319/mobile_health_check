@@ -113,18 +113,10 @@ class HourlyTemperatureEntity {
   DateTime? get dateTime {
     if (time == null) {
       return null;
-    } else {
-      final parsedDateTime = DateTime.parse(time!);
-      final hourMinuteDateTime = DateTime(
-        parsedDateTime.year,
-        parsedDateTime.month,
-        parsedDateTime.day,
-        parsedDateTime.hour,
-        parsedDateTime.minute,
-      );
-      return hourMinuteDateTime;
     }
+    return DateTime.parse(time!);
   }
+//DATETIME FORMAT
 
   String get dateDisplay {
     if (dateTime == null) {

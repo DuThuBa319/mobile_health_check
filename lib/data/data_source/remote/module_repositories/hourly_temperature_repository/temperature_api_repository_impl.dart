@@ -15,11 +15,11 @@ class TemperatureRepositoryImpl implements TemperatureApiRepository {
   TemperatureRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://api.open-meteo.com/v1/forecast?latitude=10.823&longitude=106.6296&hourly=temperature_2m,relativehumidity_2m,weathercode&timezone=Asia%2FBangkok&start_date=2023-07-14&end_date=2023-07-28');
+            baseUrl: 'https://api.open-meteo.com/v1/forecast');
 
   @override
   Future<TemperatureModel> getTemperatureModel({
-   String latitude = '10.82',
+    String latitude = '10.82',
     String longitude = '106.63',
     String hourly = 'temperature_2m,relativehumidity_2m,weathercode',
     String timezone = 'Asia/Bangkok',
