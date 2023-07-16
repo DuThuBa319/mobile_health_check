@@ -11,4 +11,5 @@ class RouteList {
   static const String shoppingCart = '/shop';
   static const String userList = '/user_list';
   static const String registUser = '/regist_user';
+  static const String hourlyTemperature = '/hourly_Temperature';
 }

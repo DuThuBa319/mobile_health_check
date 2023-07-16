@@ -44,7 +44,7 @@ class _HourlyTemperatureScreenState extends State<HourlyTemperatureScreen> {
           backgroundColor: Colors.white,
           isShowAppBar: true,
           isShowLeadingButton: true,
-          title: 'Hourly Temperature API Screen',
+          title: 'Hourly Temperature',
           child: Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Column(

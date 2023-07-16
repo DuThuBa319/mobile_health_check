@@ -25,74 +25,59 @@ class _RegistScreenState extends State<RegistScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GetUserBloc, GetUserState>(
-        listener: (context, state) => _listener(context, state),
-        builder: (context, state) {
-          return CustomScreenForm(
-              appBarColor: AppColor.appBarColor,
-              backgroundColor: Colors.white,
-              isShowAppBar: true,
-              isShowLeadingButton: true,
-              title: 'Regist New User',
-              child: ListView(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                children: [
-                  TextField(
-                    controller: _controllerId,
-                    decoration: const InputDecoration(labelText: 'ID'),
-                  ),
-                  const SizedBox(height: 15),
-                  TextField(
-                    controller: _controllerAge,
-                    decoration: const InputDecoration(labelText: 'Age'),
-                  ),
-                  const SizedBox(height: 15),
-                  TextField(
-                    controller: _controllerJob,
-                    decoration: const InputDecoration(labelText: 'Job'),
-                  ),
-                  const SizedBox(height: 15),
-                  TextField(
-                    controller: _controllerName,
-                    decoration: const InputDecoration(labelText: 'Name'),
-                  ),
-                  const SizedBox(height: 15),
-                  TextField(
-                    controller: _controllerEmail,
-                    decoration: const InputDecoration(labelText: 'Email'),
-                  ),
-                  const SizedBox(height: 15),
-                  TextField(
-                    controller: _controllerPhoneNumber,
-                    decoration:
-                        const InputDecoration(labelText: 'Phone Number'),
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        BlocProvider.of<GetUserBloc>(context)
-                            .add(RegistUserEvent(
-                                user: UserModel(
-                          id: int.parse(_controllerId.text),
-                          age: int.parse(_controllerAge.text),
-                          job: _controllerJob.text,
-                          name: _controllerName.text,
-                          email: _controllerEmail.text,
-                          phoneNumber: _controllerPhoneNumber.text,
-                        )));
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Create User'),
-                    ),
-                  ),
-                ],
-              ));
-        });
-  }
-}
-
-void _listener(BuildContext context, GetUserState state) {
-  if (state is GetUserSuccessState) {
-    showToast('Regist User');
+    return CustomScreenForm(
+        appBarColor: AppColor.appBarColor,
+        backgroundColor: Colors.white,
+        isShowAppBar: true,
+        isShowLeadingButton: true,
+        title: 'Regist New User',
+        child: ListView(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          children: [
+            TextField(
+              controller: _controllerId,
+              decoration: const InputDecoration(labelText: 'ID'),
+            ),
+            const SizedBox(height: 15),
+            TextField(
+              controller: _controllerAge,
+              decoration: const InputDecoration(labelText: 'Age'),
+            ),
+            const SizedBox(height: 15),
+            TextField(
+              controller: _controllerJob,
+              decoration: const InputDecoration(labelText: 'Job'),
+            ),
+            const SizedBox(height: 15),
+            TextField(
+              controller: _controllerName,
+              decoration: const InputDecoration(labelText: 'Name'),
+            ),
+            const SizedBox(height: 15),
+            TextField(
+              controller: _controllerEmail,
+              decoration: const InputDecoration(labelText: 'Email'),
+            ),
+            const SizedBox(height: 15),
+            TextField(
+              controller: _controllerPhoneNumber,
+              decoration: const InputDecoration(labelText: 'Phone Number'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                widget.userBLoc?.add(RegistUserEvent(
+                    user: UserModel(
+                  id: int.parse(_controllerId.text),
+                  age: int.parse(_controllerAge.text),
+                  job: _controllerJob.text,
+                  name: _controllerName.text,
+                  email: _controllerEmail.text,
+                  phoneNumber: _controllerPhoneNumber.text,
+                )));
+              },
+              child: const Text('Create User'),
+            ),
+          ],
+        ));
   }
 }

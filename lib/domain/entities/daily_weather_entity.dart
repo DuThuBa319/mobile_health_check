@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../presentation/common_widget/assets.dart';
 import '../../presentation/common_widget/enum_common.dart';
@@ -75,7 +76,11 @@ class DailyWeatherEntity {
   }
 
   String get dateDisplay {
-    return dateTime?.toIso8601String() ?? '--';
+    if (dateTime == null) {
+      return '';
+    } else {
+      return DateFormat().add_E().add_yMd().format(dateTime!);
+    }
   }
 
   Color get weatherColor {

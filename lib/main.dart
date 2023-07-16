@@ -1,4 +1,5 @@
-import 'package:common_project/presentation/modules/home/home_screen.dart';
+import 'package:common_project/presentation/common_widget/assets.dart';
+import 'package:common_project/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'di/di.dart';
@@ -33,7 +34,37 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      Navigator.pushNamed(context, RouteList.login);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Image.asset(
+          Assets.logoCHA,
+          scale: 3,
+        ),
+      ),
     );
   }
 }

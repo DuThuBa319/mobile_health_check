@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../presentation/common_widget/assets.dart';
 import '../../presentation/common_widget/enum_common.dart';
@@ -122,13 +123,7 @@ class HourlyTemperatureEntity {
     if (dateTime == null) {
       return '';
     } else {
-      final month = dateTime!.month.toString();
-      final day = dateTime!.day.toString();
-
-      final year = dateTime!.year.toString();
-      final hour = dateTime!.hour.toString().padLeft(2, '0');
-      final minute = dateTime!.minute.toString().padLeft(2, '0');
-      return '$year-$month-$day  ${hour}h:${minute}m';
+      return DateFormat().add_yMd().add_Hm().format(dateTime!);
     }
   }
 

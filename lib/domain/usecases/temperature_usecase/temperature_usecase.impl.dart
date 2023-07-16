@@ -10,8 +10,8 @@ class HourlyTemperatureUsecaseImpl extends HourlyTemperatureUsecase {
 
   @override
   Future<List<HourlyTemperatureEntity>?> getTemperatureEntity({
-    String latitude = '10.82',
-    String longitude = '106.63',
+    String latitude = '10.4602',
+    String longitude = '105.6329',
     String startDate = '2023-07-14',
     String endDate = '2023-07-28',
   }) async {

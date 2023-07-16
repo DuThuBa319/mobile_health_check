@@ -24,4 +24,7 @@ extension HomeAction on _HomeScreenState {
   void goToUserList() {
     Navigator.pushNamed(context, RouteList.userList);
   }
+   void goToHourlyTemperatureScreen() {
+    Navigator.pushNamed(context, RouteList.hourlyTemperature);
+  }
 }

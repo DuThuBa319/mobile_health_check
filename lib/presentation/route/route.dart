@@ -1,4 +1,8 @@
+import 'package:common_project/presentation/bloc/hourly_temperarute_bloc/hourly_temperature_bloc.dart';
+import 'package:common_project/presentation/bloc/login/login_bloc.dart';
 import 'package:common_project/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
+import 'package:common_project/presentation/modules/hourly_temperature/hourly_temperature_screen.dart';
+import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
 import 'package:common_project/presentation/modules/user_profile/user_profile_screen.dart';
 import 'package:common_project/presentation/modules/user_profile/user_regist_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +19,15 @@ class AppRoute {
     switch (routeSettings.name) {
       case '/home':
         return MaterialPageRoute(builder: (context) => const HomeScreen());
+        case '/login':
+        return  MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<LoginBloc>(
+              create: (context) => getIt<LoginBloc>(),
+              child: const LoginScreen(),
+            );
+          },
+        );
       case '/shop':
         return MaterialPageRoute(
           builder: (context) => const ShoppingScreen(),
@@ -43,6 +56,15 @@ class AppRoute {
           builder: (context) {
             return RegistScreen(
               userBLoc: args,
+            );
+          },
+        );
+      case '/hourly_Temperature':
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<HourlyTemperatureBloc>(
+              create: (context) => getIt<HourlyTemperatureBloc>(),
+              child: const HourlyTemperatureScreen(),
             );
           },
         );

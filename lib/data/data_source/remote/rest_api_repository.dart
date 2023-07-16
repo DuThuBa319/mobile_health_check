@@ -43,7 +43,8 @@ abstract class RestApiRepository {
     @Query('start_date') String? startDate,
     @Query('end_date') String? endDate,
   });
-  Future<TemperatureModel> getTemperatureModels({
+   @GET('')
+  Future<TemperatureModel> getTemperatureModel({
     @Query('latitude') String? latitude,
     @Query('longitude') String? longitude,
     @Query('hourly') String? hourly,

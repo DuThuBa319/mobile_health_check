@@ -51,11 +51,7 @@ class _RestApiRepository implements RestApiRepository {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
         .map((dynamic i) => UserModel.fromJson(i as Map<String, dynamic>))
         .toList();
@@ -80,11 +76,7 @@ class _RestApiRepository implements RestApiRepository {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserModel.fromJson(_result.data!);
     return value;
   }
@@ -108,11 +100,7 @@ class _RestApiRepository implements RestApiRepository {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserModel.fromJson(_result.data!);
     return value;
   }
@@ -138,11 +126,7 @@ class _RestApiRepository implements RestApiRepository {
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
   }
 
   @override
@@ -162,11 +146,7 @@ class _RestApiRepository implements RestApiRepository {
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
   }
 
   @override
@@ -202,17 +182,13 @@ class _RestApiRepository implements RestApiRepository {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = WeatherModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<TemperatureModel> getTemperatureModels({
+  Future<TemperatureModel> getTemperatureModel({
     String? latitude,
     String? longitude,
     String? hourly,
@@ -244,11 +220,7 @@ class _RestApiRepository implements RestApiRepository {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = TemperatureModel.fromJson(_result.data!);
     return value;
   }
@@ -264,22 +236,5 @@ class _RestApiRepository implements RestApiRepository {
       }
     }
     return requestOptions;
-  }
-
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
-    if (baseUrl == null || baseUrl.trim().isEmpty) {
-      return dioBaseUrl;
-    }
-
-    final url = Uri.parse(baseUrl);
-
-    if (url.isAbsolute) {
-      return url.toString();
-    }
-
-    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

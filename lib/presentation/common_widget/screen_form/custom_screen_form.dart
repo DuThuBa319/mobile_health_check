@@ -70,11 +70,11 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                 widget.title,
                 style: AppTextTheme.title1
                     .copyWith(color: widget.appComponentColor),
-              ),
+             ),
               actions: [
                 widget.rightButton ??
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Icon(Icons.notifications),
                         SizedBox(
                           width: 10,
@@ -118,8 +118,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                         const Icon(Icons.account_circle, color: Colors.black),
                     label: 'User Profile'),
                 commonBottomBarItem(
-                    iconAssets: Image.asset(Assets.icWeather),
-                    label: 'Weather'),
+                    iconAssets: Image.asset(Assets.icSunny), label: 'Weather'),
               ],
               onTap: _onItemTapped,
             )

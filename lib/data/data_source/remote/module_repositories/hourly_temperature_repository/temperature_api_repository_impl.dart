@@ -19,14 +19,14 @@ class TemperatureRepositoryImpl implements TemperatureApiRepository {
 
   @override
   Future<TemperatureModel> getTemperatureModel({
-    String latitude = '10.82',
-    String longitude = '106.63',
+    String latitude = '10.4602',
+    String longitude = '105.6329',
     String hourly = 'temperature_2m,relativehumidity_2m,weathercode',
     String timezone = 'Asia/Bangkok',
     String startDate=  '2023-07-14',
     String endDate = '2023-07-28',
   }) {
-    return restApi.getTemperatureModels(
+    return restApi.getTemperatureModel(
         latitude: latitude,
         longitude: longitude,
         hourly: hourly,

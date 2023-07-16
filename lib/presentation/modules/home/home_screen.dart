@@ -1,8 +1,5 @@
-import 'package:common_project/presentation/bloc/daily_weather_bloc/daily_weather_bloc.dart';
 import 'package:common_project/presentation/common_widget/common_button.dart';
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:common_project/presentation/modules/daily_weather/daily_weather_screen.dart';
-import 'package:common_project/presentation/modules/user_profile/user_profile_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -62,10 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 buttonColor: Colors.orange,
                 onTap: goToDailyWeatherScreen,
               ),
-              const CommonButton(
+              CommonButton(
                 title: 'Hourly Temperature',
                 height: 80,
                 buttonColor: Colors.red,
+                onTap: goToHourlyTemperatureScreen,
               )
             ],
           ),
