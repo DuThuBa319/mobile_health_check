@@ -1,6 +1,8 @@
 import 'package:common_project/presentation/bloc/hourly_temperarute_bloc/hourly_temperature_bloc.dart';
 import 'package:common_project/presentation/bloc/login/login_bloc.dart';
 import 'package:common_project/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
+import 'package:common_project/presentation/common_widget/image_picker/image_picker_bloc/image_picker_bloc.dart';
+import 'package:common_project/presentation/modules/OCR_scanner/OCR_scanner_screen.dart';
 import 'package:common_project/presentation/modules/hourly_temperature/hourly_temperature_screen.dart';
 import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
 import 'package:common_project/presentation/modules/user_profile/user_profile_screen.dart';
@@ -19,8 +21,8 @@ class AppRoute {
     switch (routeSettings.name) {
       case '/home':
         return MaterialPageRoute(builder: (context) => const HomeScreen());
-        case '/login':
-        return  MaterialPageRoute(
+      case '/login':
+        return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<LoginBloc>(
               create: (context) => getIt<LoginBloc>(),
@@ -66,6 +68,16 @@ class AppRoute {
               create: (context) => getIt<HourlyTemperatureBloc>(),
               child: const HourlyTemperatureScreen(),
             );
+          },
+        );
+      case '/ocr_screen':
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (context) => ImagePickerBloc(),
+              )
+            ], child: const OCRScannerScreen());
           },
         );
       default:

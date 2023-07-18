@@ -29,10 +29,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Common Project',
       onGenerateRoute: AppRoute.onGenerateRoute,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const SplashScreen(),
     );
@@ -61,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          Assets.logoCHA,
+          Assets.logoFlutter,
           scale: 3,
         ),
       ),

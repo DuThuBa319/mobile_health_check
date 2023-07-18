@@ -1,9 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:common_project/presentation/theme/app_text_theme.dart';
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import '../../route/route_list.dart';
-import '../assets.dart';
 
 class CustomScreenForm extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
@@ -70,14 +70,19 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                 widget.title,
                 style: AppTextTheme.title1
                     .copyWith(color: widget.appComponentColor),
-             ),
+              ),
               actions: [
                 widget.rightButton ??
-                    const Row(
-                      children: [
-                        Icon(Icons.notifications),
+                    Row(
+                      children: const [
+                        Badge(
+                          badgeContent: Text("3",
+                              style:
+                                  TextStyle(fontSize: 10, color: Colors.white)),
+                          child: Icon(Icons.notifications),
+                        ),
                         SizedBox(
-                          width: 10,
+                          width: 30,
                         ),
                       ],
                     )
@@ -95,34 +100,91 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               : widget.child),
 // bottom app bar -------------------------
       bottomNavigationBar: widget.isShowBottomNayvigationBar == true
-          ? BottomNavigationBar(
-              backgroundColor: widget.appBarColor,
-              type: BottomNavigationBarType.fixed,
-              currentIndex: widget.selectedIndex,
-              unselectedItemColor: widget.appComponentColor,
-              unselectedLabelStyle:
-                  AppTextTheme.body5.copyWith(fontWeight: FontWeight.normal),
-              selectedItemColor: Colors.orange,
-              selectedLabelStyle: AppTextTheme.body5
-                  .copyWith(fontWeight: FontWeight.bold, color: Colors.orange),
-              items: [
-                commonBottomBarItem(
-                    iconAssets: const Icon(Icons.home, color: Colors.black),
-                    label: 'Home'),
-                commonBottomBarItem(
-                    iconAssets:
-                        const Icon(Icons.shopping_cart, color: Colors.black),
-                    label: 'Shopping'),
-                commonBottomBarItem(
-                    iconAssets:
-                        const Icon(Icons.account_circle, color: Colors.black),
-                    label: 'User Profile'),
-                commonBottomBarItem(
-                    iconAssets: Image.asset(Assets.icSunny), label: 'Weather'),
-              ],
-              onTap: _onItemTapped,
+          ? BottomAppBar(
+              color: AppColor.appBarColor,
+              elevation: 0,
+              shape: const CircularNotchedRectangle(),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  iconBottomBar(
+                      label: 'Home',
+                      iconData: Icons.home,
+                      isSelected: widget.selectedIndex == 0 ? true : false,
+                      iconIndex: 0),
+                  iconBottomBar(
+                      label: 'Shopping',
+                      iconData: Icons.shopping_cart,
+                      isSelected: widget.selectedIndex == 1 ? true : false,
+                      iconIndex: 1),
+                  const SizedBox(width: 30),
+                  iconBottomBar(
+                      label: 'User Profile',
+                      iconData: Icons.account_circle,
+                      isSelected: widget.selectedIndex == 2 ? true : false,
+                      iconIndex: 2),
+                  iconBottomBar(
+                      label: 'Weather',
+                      iconData: Icons.sunny,
+                      isSelected: widget.selectedIndex == 3 ? true : false,
+                      iconIndex: 3),
+                ],
+              ),
             )
           : null,
+      // floating button
+      floatingActionButton: widget.isShowBottomNayvigationBar == true
+          ? FloatingActionButton(
+              elevation: 0,
+              onPressed: () {
+                Navigator.pushNamed(context, RouteList.OCR_screen);
+              },
+              backgroundColor: const Color(0xFF03A1E4),
+              child: const Icon(Icons.add),
+            )
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
+
+  Widget iconBottomBar(
+      {String? label,
+      required IconData iconData,
+      required bool isSelected,
+      required int iconIndex}) {
+    return GestureDetector(
+      onTap: () {
+        _onItemTapped(iconIndex);
+      },
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height / 12,
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width / 6,
+              height: MediaQuery.of(context).size.height / 25,
+              margin: const EdgeInsets.only(top: 10, bottom: 5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24), color: Colors.white),
+              child: Icon(
+                iconData,
+                color: isSelected ? Colors.orangeAccent : Colors.black,
+              ),
+            ),
+            label != null
+                ? Text(
+                    label,
+                    style: TextStyle(
+                        color: isSelected ? Colors.orangeAccent : Colors.black,
+                        fontSize: 12,
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal),
+                  )
+                : const SizedBox(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -142,29 +204,12 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       if (index == 1 && index != widget.selectedIndex) {
         Navigator.pushReplacementNamed(context, RouteList.shoppingCart);
       }
+      if (index == 2 && index != widget.selectedIndex) {
+        Navigator.pushReplacementNamed(context, RouteList.userList);
+      }
       if (index == 3 && index != widget.selectedIndex) {
         Navigator.pushReplacementNamed(context, RouteList.example);
       }
     }
-  }
-
-  BottomNavigationBarItem commonBottomBarItem(
-      {String? label, Widget? iconAssets}) {
-    return BottomNavigationBarItem(
-      icon: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width / 5.5,
-            height: MediaQuery.of(context).size.height / 25,
-            margin: const EdgeInsets.only(bottom: 3, top: 5),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24), color: Colors.white),
-            child: iconAssets,
-          ),
-        ],
-      ),
-      label: label,
-      backgroundColor: AppColor.blue001D37,
-    );
   }
 }

@@ -1,7 +1,6 @@
 class Assets {
   Assets._();
 
-  static const String logoCHA = 'lib/assets/images/LOGO.jpg';
   static const String icSunny = 'lib/assets/images/ic_sunny.png';
   static const String icRainy = 'lib/assets/images/ic_rainy.png';
   static const String icThunderstorm = 'lib/assets/images/ic_thunderstorm.png';
@@ -14,6 +13,5 @@ class Assets {
   static const String nightRainy = 'lib/assets/images/NightRainy.png';
   static const String nightFoggy = 'lib/assets/images/NightFoggy.png';
   static const String nightThunderStorm = 'lib/assets/images/NightThunder.png';
-  static const String loGo = 'lib/assets/images/LOGO.jpg';
-
+  static const String logoFlutter = 'lib/assets/images/flutter_logo.png';
 }

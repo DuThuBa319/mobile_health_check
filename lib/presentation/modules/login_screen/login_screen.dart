@@ -45,7 +45,7 @@ class _LoginState extends State<LoginScreen> {
                 children: <Widget>[
                   Center(
                     child: Image.asset(
-                      Assets.logoCHA,
+                      Assets.logoFlutter,
                       scale: 3,
                     ),
                   ),
