@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:common_project/domain/entities/user_entity.dart';
 import 'package:common_project/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
 import 'package:flutter/material.dart';
@@ -36,17 +38,26 @@ class _UserListCellState extends State<UserListCell> {
           }));
         },
         child: Card(
-            margin: const EdgeInsets.all(8),
-            color: AppColor.primaryColor,
-            child: ListTile(
-              leading: const SizedBox(
-                  height: 40, width: 40, child: Icon(Icons.people)),
-              title: Text(
-                widget.userEntity?.name ?? '',
-                style: AppTextTheme.body2,
+            margin: const EdgeInsets.all(10),
+            elevation: 10,
+            shadowColor: Color.fromARGB(
+                Random().nextInt(255),
+                Random().nextInt(255),
+                Random().nextInt(255),
+                Random().nextInt(255)),
+            color: AppColor.white,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: const SizedBox(
+                    height: 40, width: 40, child: Icon(Icons.people)),
+                title: Text(
+                  widget.userEntity?.name ?? '',
+                  style: AppTextTheme.body2,
+                ),
+                subtitle: Text(widget.userEntity?.email ?? '',
+                    style: AppTextTheme.body4),
               ),
-              subtitle: Text(widget.userEntity?.email ?? '',
-                  style: AppTextTheme.body4),
             )));
   }
 }

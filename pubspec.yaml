@@ -55,7 +55,7 @@ dependencies:
   pull_to_refresh: ^2.0.0 
   badges: ^3.1.1
   intl: ^0.18.1
-  flutter_spinkit: ^5.2.0
+  
   permission_handler: ^10.4.1
  
   google_mlkit_text_recognition: ^0.9.0
@@ -69,6 +69,7 @@ dev_dependencies:
   injectable: ^2.1.1
   build_runner: ^2.2.0
   injectable_generator: ^2.1.5
+  http: ^1.1.0
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -78,7 +79,7 @@ dev_dependencies:
   equatable: ^2.0.5
   json_serializable: 
   retrofit_generator:
-
+  cloud_firestore: ^4.8.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

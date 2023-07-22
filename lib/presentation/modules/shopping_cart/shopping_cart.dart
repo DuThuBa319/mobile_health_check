@@ -32,6 +32,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
         isShowRightButon: true,
         selectedIndex: 1,
         isShowBottomNayvigationBar: true,
+        isScrollable: true,
         rightButton: Row(
           children: [
             const IconButton(
@@ -53,28 +54,28 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
         child: Stack(children: [
           Container(
             margin: const EdgeInsets.only(left: 15),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text("Aristoratic HandBag ",
                         style: TextStyle(color: Colors.white, fontSize: 15)),
                   ],
                 ),
-                const Text("Office Code ",
+                Text("Office Code ",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 35,
                         fontWeight: FontWeight.bold)),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(top: 80),
                   child: Text("Price ",
                       style: TextStyle(color: Colors.white, fontSize: 15)),
                 ),
-                const Text("\$${234}",
+                Text("\$${234}",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 35,
@@ -85,6 +86,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
           //CONTAINER NỀN TRẮNG
           Container(
             margin: EdgeInsets.only(top: size.height * 0.32),
+            height: MediaQuery.of(context).size.height * 0.7,
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -97,11 +99,11 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //Row đầu tiên chỉ có "color" và "size"
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 25, 0),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 25, 0),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text("Color",
                               style: TextStyle(
                                   fontSize: 20,

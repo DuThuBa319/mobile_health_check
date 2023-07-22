@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:common_project/presentation/theme/app_text_theme.dart';
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class CustomScreenForm extends StatefulWidget {
   final Color? appComponentColor;
   final bool isShowLeadingButton;
   final Widget? leadingButton;
-  final Widget? bottomAppBar;
+
   final int selectedIndex;
   final String title;
   final Widget child;
@@ -25,7 +25,6 @@ class CustomScreenForm extends StatefulWidget {
       this.appBarColor = Colors.black,
       this.backgroundColor = Colors.white,
       this.appComponentColor = Colors.white,
-      this.bottomAppBar,
       this.isShowBottomNayvigationBar,
       this.isShowAppBar = true,
       required this.child,
@@ -73,9 +72,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               ),
               actions: [
                 widget.rightButton ??
-                    Row(
-                      children: const [
-                        Badge(
+                    const Row(
+                      children: [
+                        badges.Badge(
                           badgeContent: Text("3",
                               style:
                                   TextStyle(fontSize: 10, color: Colors.white)),
@@ -93,7 +92,6 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       body: SafeArea(
           child: widget.isScrollable == true
               ? SingleChildScrollView(
-                  padding: const EdgeInsets.all(20),
                   physics: const BouncingScrollPhysics(),
                   child: widget.child,
                 )
@@ -104,6 +102,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               color: AppColor.appBarColor,
               elevation: 0,
               shape: const CircularNotchedRectangle(),
+              notchMargin: 5,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -118,7 +117,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       iconData: Icons.shopping_cart,
                       isSelected: widget.selectedIndex == 1 ? true : false,
                       iconIndex: 1),
-                  const SizedBox(width: 30),
+                  if (widget.selectedIndex == 0) const SizedBox(width: 30),
                   iconBottomBar(
                       label: 'User Profile',
                       iconData: Icons.account_circle,
@@ -134,16 +133,17 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
             )
           : null,
       // floating button
-      floatingActionButton: widget.isShowBottomNayvigationBar == true
-          ? FloatingActionButton(
-              elevation: 0,
-              onPressed: () {
-                Navigator.pushNamed(context, RouteList.OCR_screen);
-              },
-              backgroundColor: const Color(0xFF03A1E4),
-              child: const Icon(Icons.add),
-            )
-          : null,
+      floatingActionButton:
+          widget.isShowBottomNayvigationBar == true && widget.selectedIndex == 0
+              ? FloatingActionButton(
+                  elevation: 0,
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteList.OCR_screen);
+                  },
+                  backgroundColor: const Color(0xFF03A1E4),
+                  child: const Icon(Icons.add),
+                )
+              : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -196,6 +196,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     if (widget.selectedIndex == 0) {
       if (index == 1 && index != widget.selectedIndex) {
         Navigator.pushNamed(context, RouteList.shoppingCart);
+      }
+      if (index == 2 && index != widget.selectedIndex) {
+        Navigator.pushNamed(context, RouteList.userList);
       }
       if (index == 3 && index != widget.selectedIndex) {
         Navigator.pushNamed(context, RouteList.example);

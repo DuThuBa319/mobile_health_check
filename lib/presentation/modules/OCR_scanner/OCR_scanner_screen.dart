@@ -1,10 +1,11 @@
-import 'dart:developer';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:common_project/presentation/common_widget/image_picker/image_picker_widget.dart';
 import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:http/http.dart' as http;
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/image_picker/image_picker_bloc/image_picker_bloc.dart';
@@ -18,6 +19,8 @@ class OCRScannerScreen extends StatefulWidget {
 }
 
 class _OCRScannerScreenState extends State<OCRScannerScreen> {
+  String? message = "";
+  File? selectedImage;
   ImagePickerBloc get imageBloc => BlocProvider.of(context);
   TextEditingController textController = TextEditingController();
   @override

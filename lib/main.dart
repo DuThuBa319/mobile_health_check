@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'di/di.dart';
 import 'presentation/route/route.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
   // SỬA CHỖ NÀY
 
   // 2 DÒNG Ở TRÊN SỬA
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
+  await Firebase.initializeApp();
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
