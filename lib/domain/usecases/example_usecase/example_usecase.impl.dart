@@ -12,8 +12,8 @@ class ExampleUsecaseImpl extends ExampleUsecase {
   Future<List<DailyWeatherEntity>?> getWeatherEntity({
     String latitude = '10.82',
     String longtitude = '106.83',
-    String startDate = '2023-01-01',
-    String endDate = '2023-02-08',
+    String startDate = '2023-07-14',
+    String endDate = '2023-07-28',
   }) async {
     final response = await _repository.getWeatherModel(
       latitude: latitude,

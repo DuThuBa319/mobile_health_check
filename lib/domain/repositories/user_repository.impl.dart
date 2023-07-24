@@ -2,15 +2,21 @@
 part of 'user_repository.dart';
 
 @Injectable(
-  as: LoginRepository,
+  as: UserListRepository,
 )
-class LoginRepositoryImpl extends LoginRepository {
+class UserListRepositoryImpl extends UserListRepository {
   final UserRepository _userApi;
-  LoginRepositoryImpl(
+  UserListRepositoryImpl(
     this._userApi,
   );
   @override
   Future<List<UserModel>?> getListUserModels() {
     return _userApi.getListUserModels();
   }
+   @override
+  Future<UserModel> AddUserModel(UserModel user) {
+    return _userApi.RegistUser(user);
+  }
 }
+
+//repo này chứa một cái list<UserModel>

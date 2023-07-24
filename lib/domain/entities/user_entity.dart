@@ -13,3 +13,4 @@ class UserEntity {
   UserEntity(
       {this.age, this.email, this.id, this.job, this.name, this.phoneNumber});
 }
+//cái gì mà repo ko cung cấp thì mình sẽ cung cấp trong entity

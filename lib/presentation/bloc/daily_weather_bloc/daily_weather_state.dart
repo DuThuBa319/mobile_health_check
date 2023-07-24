@@ -1,6 +1,6 @@
 part of 'daily_weather_bloc.dart';
 
-// ViewModel is used for store all properties which want to be stored, processed and updated
+// ViewModel is used for store all properties which want to be stored, processed and updated, chứa dữ liệu của 1 state
 class _ViewModel {
   final List<DailyWeatherEntity>? dailyWeatherEntity;
   const _ViewModel({
@@ -39,8 +39,8 @@ abstract class DailyWeatherState {
 
 class DailyWeatherInitialState extends DailyWeatherState {
   DailyWeatherInitialState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
+    _ViewModel viewModel = const _ViewModel(),  //ViewModel là dữ liệu trong state
+    BlocStatusState status = BlocStatusState.initial, //status của state
   }) : super(viewModel);
 }
 
