@@ -133,6 +133,17 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
             )
           : null,
       // floating button
+      // floatingActionButton:
+      //     widget.isShowBottomNayvigationBar == true && widget.selectedIndex == 0
+      //         ? FloatingActionButton(
+      //             elevation: 0,
+      //             onPressed: () {
+      //               Navigator.pushNamed(context, RouteList.OCR_screen);
+      //             },
+      //             backgroundColor: const Color(0xFF03A1E4),
+      //             child: const Icon(Icons.add),
+      //           )
+      //         : null,
       floatingActionButton:
           widget.isShowBottomNayvigationBar == true && widget.selectedIndex == 0
               ? FloatingActionButton(
@@ -141,7 +152,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                     Navigator.pushNamed(context, RouteList.OCR_screen);
                   },
                   backgroundColor: const Color(0xFF03A1E4),
-                  child: const Icon(Icons.add),
+                  child: const Icon(Icons.camera_alt),
                 )
               : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

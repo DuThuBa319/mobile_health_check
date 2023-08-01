@@ -13,4 +13,5 @@ class RouteList {
   static const String registUser = '/regist_user';
   static const String hourlyTemperature = '/hourly_Temperature';
   static const String OCR_screen = '/ocr_screen';
+  static const String camera = '/camera';
 }
