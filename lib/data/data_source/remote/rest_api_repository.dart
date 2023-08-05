@@ -1,9 +1,12 @@
+import 'package:common_project/data/models/temperature_model.dart';
 import 'package:common_project/data/models/user_model.dart';
-import 'package:common_project/data/models/weather_model.dart';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../models/temperature_model.dart';
+import '../../models/blood_pressure_model.dart';
+import '../../models/blood_sugar_model.dart';
+
 part 'rest_api_repository.g.dart';
 
 @RestApi()
@@ -35,21 +38,17 @@ abstract class RestApiRepository {
   Future<void> deleteUser(@Path('id') int id);
 
   @GET('')
-  Future<WeatherModel> getWeatherModel({
-    @Query('latitude') String? latitude,
-    @Query('longitude') String? longtitude,
-    @Query('daily') String? daily,
-    @Query('timezone') String? timezone,
-    @Query('start_date') String? startDate,
-    @Query('end_date') String? endDate,
-  });
-   @GET('')
-  Future<TemperatureModel> getTemperatureModel({
-    @Query('latitude') String? latitude,
-    @Query('longitude') String? longitude,
-    @Query('hourly') String? hourly,
-    @Query('timezone') String? timezone,
-    @Query('start_date') String? startDate,
-    @Query('end_date') String? endDate,
-  });
+  Future<List<TemperatureModel>> getListTemperatureModels();
+  @GET('/{id}')
+  Future<TemperatureModel> getTemperatureModel({@Path('id') required int id});
+
+  @GET('')
+  Future<List<BloodPressureModel>> getListBloodPressureModels();
+  @GET('/{id}')
+  Future<BloodPressureModel> getBloodPressureModel(
+      {@Path('id') required int id});
+  @GET('')
+  Future<List<BloodSugarModel>> getListBloodSugarModels();
+  @GET('/{id}')
+  Future<BloodSugarModel> getBloodSugarModel({@Path('id') required int id});
 }

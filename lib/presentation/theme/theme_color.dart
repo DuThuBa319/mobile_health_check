@@ -58,7 +58,8 @@ class AppColor {
   static const Color primaryDarkText = Colors.black;
   static const Color subDarkText = Colors.grey;
 
-  //constant color
+  //custom constant color
   static const Color backgroundColor = Colors.white;
-  static const Color appBarColor = Color(0xFF03A1E4);
+  static const Color appBarColor = Color.fromARGB(255, 123, 211, 255);
+  static const Color cardBackgroundColor = Color.fromARGB(255, 232, 247, 255);
 }

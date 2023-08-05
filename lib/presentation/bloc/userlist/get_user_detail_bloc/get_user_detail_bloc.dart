@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../data/models/user_model.dart';
 import '../../../../domain/entities/user_entity.dart';
-import '../../../../domain/usecases/user_detail_usecase.dart';
+import '../../../../domain/usecases/user_usecase/user_detail_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_user_detail_event.dart';
 part 'get_user_detail_state.dart';

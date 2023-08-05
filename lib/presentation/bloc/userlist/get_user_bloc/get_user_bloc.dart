@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../data/models/user_model.dart';
-import '../../../../domain/usecases/user_usecase.dart';
+import '../../../../domain/usecases/user_usecase/user_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_user_event.dart';
 part 'get_user_state.dart';

@@ -1,18 +1,44 @@
 part of 'ocr_scanner_bloc.dart';
 
 class _ViewModel {
-  final File? imageFile;
+  final File? bloodPressureImageFile;
+  final File? bloodGlucoseImageFile;
+  final File? temperatureImageFile;
   final int? sys;
   final int? dia;
   final int? pulse;
-  const _ViewModel({this.imageFile, this.dia, this.pulse, this.sys});
+  final double? temperature;
+  final int? glucose;
+  const _ViewModel(
+      {this.bloodGlucoseImageFile,
+      this.bloodPressureImageFile,
+      this.glucose,
+      this.temperature,
+      this.temperatureImageFile,
+      this.dia,
+      this.pulse,
+      this.sys});
 
-  _ViewModel copyWith({File? imageFile, int? sys, int? dia, int? pulse}) {
+  _ViewModel copyWith(
+      {File? bloodPressureImageFile,
+      File? bloodGlucoseImageFile,
+      File? temperatureImageFile,
+      int? sys,
+      int? dia,
+      int? pulse,
+      int? glucose,
+      double? temperature}) {
     return _ViewModel(
-      imageFile: imageFile ?? this.imageFile,
+      bloodPressureImageFile:
+          bloodPressureImageFile ?? this.bloodPressureImageFile,
+      bloodGlucoseImageFile:
+          bloodGlucoseImageFile ?? this.bloodGlucoseImageFile,
+      temperatureImageFile: temperatureImageFile ?? this.temperatureImageFile,
       sys: sys ?? this.sys,
       dia: dia ?? this.dia,
       pulse: pulse ?? this.pulse,
+      temperature: temperature ?? this.temperature,
+      glucose: glucose ?? this.glucose,
     );
   }
 }
@@ -49,8 +75,24 @@ class OCRScannerInitialState extends OCRScannerState {
   }) : super(viewModel);
 }
 
-class GetDataState extends OCRScannerState {
-  GetDataState({
+class GetBloodPressureDataState extends OCRScannerState {
+  GetBloodPressureDataState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class GetBloodGlucoseDataState extends OCRScannerState {
+  GetBloodGlucoseDataState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class GetTemperatureDataState extends OCRScannerState {
+  GetTemperatureDataState({
     // ignore: library_private_types_in_public_api
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
@@ -66,7 +108,15 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  GetDataState: (viewModel, status) => GetDataState(
+  GetTemperatureDataState: (viewModel, status) => GetTemperatureDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  GetBloodGlucoseDataState: (viewModel, status) => GetBloodGlucoseDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  GetBloodPressureDataState: (viewModel, status) => GetBloodPressureDataState(
         viewModel: viewModel,
         status: status,
       ),

@@ -14,4 +14,9 @@ class Assets {
   static const String nightFoggy = 'lib/assets/images/NightFoggy.png';
   static const String nightThunderStorm = 'lib/assets/images/NightThunder.png';
   static const String logoFlutter = 'lib/assets/images/flutter_logo.png';
+  static const String oldMan = 'lib/assets/images/old_man.png';
+  static const String bloodSugar = 'lib/assets/images/blood_sugar_icon.png';
+  static const String bloodPressure =
+      'lib/assets/images/blood_pressure_icon.png';
+  static const String temperature = 'lib/assets/images/thermometer_icon.png';
 }

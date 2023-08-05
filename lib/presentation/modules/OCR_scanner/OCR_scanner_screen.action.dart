@@ -2,10 +2,10 @@ part of 'OCR_scanner_screen.dart';
 
 extension OCRScannerScreenAction on _OCRScannerScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
-    if (state is GetDataState && state.status == BlocStatusState.loading) {
+    if (state.status == BlocStatusState.loading) {
       showToast('Đang tải dữ liệu');
     }
-    if (state is GetDataState && state.status == BlocStatusState.success) {
+    if (state.status == BlocStatusState.success) {
       showToast('Tải dữ liệu thành công');
     }
   }

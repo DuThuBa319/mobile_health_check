@@ -3,7 +3,17 @@ part of 'ocr_scanner_bloc.dart';
 @immutable
 abstract class OCRScannerEvent {}
 
-class GetDataEvent extends OCRScannerEvent {
+class GetBloodPressureDataEvent extends OCRScannerEvent {
   final BuildContext context;
-  GetDataEvent({required this.context});
+  GetBloodPressureDataEvent({required this.context});
+}
+
+class GetBloodGlucoseDataEvent extends OCRScannerEvent {
+  final BuildContext context;
+  GetBloodGlucoseDataEvent({required this.context});
+}
+
+class GetTemperatureDataEvent extends OCRScannerEvent {
+  final BuildContext context;
+  GetTemperatureDataEvent({required this.context});
 }

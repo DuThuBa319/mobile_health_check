@@ -123,7 +123,7 @@ class _CameraScreenState extends State<CameraScreen>
                               state.status == BlocStatusState.loading
                           ? const Positioned(
                               top: 80,
-                              child: Text('Giữ ví trí trong 2s',
+                              child: Text('Giữ ví trí trong vài giây',
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.white)),
                             )

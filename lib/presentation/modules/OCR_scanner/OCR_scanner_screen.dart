@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:common_project/presentation/common_widget/common_button.dart';
+import 'package:common_project/presentation/common_widget/loading_widget.dart';
+import 'package:common_project/presentation/theme/app_text_theme.dart';
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
@@ -28,7 +31,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScreenForm(
-      title: 'Home',
+      title: 'Demo Reading',
       isShowAppBar: true,
       isShowLeadingButton: false,
       backgroundColor: Colors.white,
@@ -37,118 +40,272 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
       child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
         listener: blocListener,
         builder: (context, state) {
+          if (state.status == BlocStatusState.loading) {
+            return const Center(
+                child: Loading(
+              brightness: Brightness.light,
+            ));
+          }
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Container(
-                        height: 400,
-                        width: 350,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(width: 1, color: Colors.blue)),
-                        child: state.viewModel.imageFile == null
-                            ? IconButton(
-                                icon: const Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.blue,
-                                  size: 70,
-                                ),
-                                onPressed: () async {
-                                  scanBloc.add(GetDataEvent(context: context));
-                                },
-                              )
-                            : ClipRRect(
-                                borderRadius:
-                                    BorderRadiusDirectional.circular(20),
-                                child: FullScreenWidget(
-                                    disposeLevel: DisposeLevel.High,
-                                    child: Image.file(
-                                      File(state.viewModel.imageFile!.path),
-                                    )),
-                              ),
-                      ),
+                    //! Blood Pressure Meter
+                    Text(
+                      'Blood Pressure Meter',
+                      style: AppTextTheme.title2,
                     ),
+                    const SizedBox(height: 20),
+                    imagePicker(state, context,
+                        imageFile: state.viewModel.bloodPressureImageFile,
+                        event: GetBloodPressureDataEvent(context: context)),
                     const SizedBox(
                       height: 30,
                     ),
-                    state.viewModel.imageFile != null
-                        ? Column(
-                            children: [
-                              Container(
-                                height: 150,
-                                width: 300,
-                                margin: const EdgeInsets.only(bottom: 28),
-                                padding:
-                                    const EdgeInsets.fromLTRB(17, 10, 16, 0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: AppColor.greyF3),
-                                child: DefaultTextStyle(
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Wrap(
-                                        direction: Axis.vertical,
-                                        spacing: 10,
-                                        children: [
-                                          Text('Huyết áp tâm thu:'),
-                                          Text('Huyết áp tâm trương:'),
-                                          Text('Nhịp tim:'),
-                                        ],
-                                      ),
-                                      Wrap(
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.end,
-                                        direction: Axis.vertical,
-                                        spacing: 10,
-                                        children: [
-                                          Text(state.viewModel.sys.toString()),
-                                          Text(state.viewModel.dia.toString()),
-                                          Text(
-                                              state.viewModel.pulse.toString()),
-                                        ],
-                                      ),
-                                    ],
+                    state.viewModel.bloodPressureImageFile != null
+                        ? Center(
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 150,
+                                  width: 350,
+                                  margin: const EdgeInsets.only(bottom: 28),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(17, 10, 16, 0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: AppColor.greyF3),
+                                  child: DefaultTextStyle(
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Wrap(
+                                          direction: Axis.vertical,
+                                          spacing: 10,
+                                          children: [
+                                            Text('Huyết áp tâm thu:'),
+                                            Text('Huyết áp tâm trương:'),
+                                            Text('Nhịp tim:'),
+                                          ],
+                                        ),
+                                        Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.end,
+                                          direction: Axis.vertical,
+                                          spacing: 10,
+                                          children: [
+                                            Text('${state.viewModel.sys} mmHg'),
+                                            Text('${state.viewModel.dia} mmHg'),
+                                            Text(
+                                                '${state.viewModel.pulse} bpm'),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    scanBloc
-                                        .add(GetDataEvent(context: context));
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: 200,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        border: Border.all(
-                                            color: Colors.blue, width: 2)),
-                                    child: const Text('Chụp lại',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold)),
-                                  )),
-                            ],
+                              ],
+                            ),
                           )
                         : Container(),
+                    const SizedBox(height: 20),
+                    //! Blood Glucose Meter
+                    Text(
+                      'Blood Glucose Meter',
+                      style: AppTextTheme.title2,
+                    ),
+                    const SizedBox(height: 20),
+                    imagePicker(state, context,
+                        imageFile: state.viewModel.bloodGlucoseImageFile,
+                        event: GetBloodGlucoseDataEvent(context: context)),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    state.viewModel.bloodGlucoseImageFile != null
+                        ? Center(
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 75,
+                                  width: 300,
+                                  margin: const EdgeInsets.only(bottom: 28),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(17, 10, 16, 0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: AppColor.greyF3),
+                                  child: DefaultTextStyle(
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Wrap(
+                                          direction: Axis.vertical,
+                                          spacing: 10,
+                                          children: [
+                                            Text('Chỉ số đường huyết:'),
+                                          ],
+                                        ),
+                                        Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.end,
+                                          direction: Axis.vertical,
+                                          spacing: 10,
+                                          children: [
+                                            Text(
+                                                '${state.viewModel.glucose} mg/dL'),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(),
+                    const SizedBox(height: 40),
+                    //! Thermometer
+                    Text(
+                      'Thermometer',
+                      style: AppTextTheme.title2,
+                    ),
+                    const SizedBox(height: 20),
+                    imagePicker(state, context,
+                        imageFile: state.viewModel.temperatureImageFile,
+                        event: GetTemperatureDataEvent(context: context)),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    state.viewModel.temperatureImageFile != null
+                        ? Center(
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 75,
+                                  width: 200,
+                                  margin: const EdgeInsets.only(bottom: 28),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(17, 10, 16, 0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: AppColor.greyF3),
+                                  child: DefaultTextStyle(
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Wrap(
+                                          direction: Axis.vertical,
+                                          spacing: 10,
+                                          children: [
+                                            Text('Nhiệt độ:'),
+                                          ],
+                                        ),
+                                        Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.end,
+                                          direction: Axis.vertical,
+                                          spacing: 10,
+                                          children: [
+                                            Text(
+                                                '${state.viewModel.temperature} °C'),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(),
+                    const SizedBox(height: 30),
+                    const Center(
+                        child: CommonButton(height: 70, title: 'Cập nhật'))
                   ]),
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget imagePicker(OCRScannerState state, BuildContext context,
+      {File? imageFile, required OCRScannerEvent event}) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Center(
+          child: Container(
+            height: 250,
+            width: 250,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 1, color: Colors.blue)),
+            child: imageFile == null
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.blue,
+                      size: 70,
+                    ),
+                    onPressed: () async {
+                      scanBloc.add(event);
+                    },
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadiusDirectional.circular(20),
+                    child: FullScreenWidget(
+                        disposeLevel: DisposeLevel.High,
+                        child: Image.file(
+                          File(imageFile.path),
+                        )),
+                  ),
+          ),
+        ),
+        imageFile != null
+            ? Positioned(
+                bottom: -20,
+                right: 40,
+                child: InkWell(
+                  onTap: () {
+                    scanBloc.add(event);
+                  },
+                  child: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(width: 1, color: Colors.blue),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Icon(
+                        Icons.autorenew_rounded,
+                        size: 40,
+                        color: Colors.blue,
+                      )),
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 }

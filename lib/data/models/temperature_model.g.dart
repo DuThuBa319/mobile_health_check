@@ -8,10 +8,11 @@ part of 'temperature_model.dart';
 
 TemperatureModel _$TemperatureModelFromJson(Map<String, dynamic> json) =>
     TemperatureModel(
-      json['hourly'] == null
+      temperature: (json['temperature'] as num?)?.toDouble(),
+      updatedDate: json['updatedDate'] == null
           ? null
-          : HourlyTemperatureModel.fromJson(
-              json['hourly'] as Map<String, dynamic>),
+          : DateTime.parse(json['updatedDate'] as String),
+      id: json['id'] as int?,
     );
 
 Map<String, dynamic> _$TemperatureModelToJson(TemperatureModel instance) {
@@ -23,6 +24,8 @@ Map<String, dynamic> _$TemperatureModelToJson(TemperatureModel instance) {
     }
   }
 
-  writeNotNull('hourly', instance.hourlyTemperatureModel?.toJson());
+  writeNotNull('id', instance.id);
+  writeNotNull('temperature', instance.temperature);
+  writeNotNull('updatedDate', instance.updatedDate?.toIso8601String());
   return val;
 }
