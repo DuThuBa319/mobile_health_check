@@ -9,6 +9,7 @@ class _ViewModel {
   final int? pulse;
   final double? temperature;
   final int? glucose;
+  final int? listBloodPressureLength;
   const _ViewModel(
       {this.bloodGlucoseImageFile,
       this.bloodPressureImageFile,
@@ -17,7 +18,8 @@ class _ViewModel {
       this.temperatureImageFile,
       this.dia,
       this.pulse,
-      this.sys});
+      this.sys,
+      this.listBloodPressureLength});
 
   _ViewModel copyWith(
       {File? bloodPressureImageFile,
@@ -27,7 +29,8 @@ class _ViewModel {
       int? dia,
       int? pulse,
       int? glucose,
-      double? temperature}) {
+      double? temperature,
+      int? listBloodPressureLength}) {
     return _ViewModel(
       bloodPressureImageFile:
           bloodPressureImageFile ?? this.bloodPressureImageFile,
@@ -39,6 +42,8 @@ class _ViewModel {
       pulse: pulse ?? this.pulse,
       temperature: temperature ?? this.temperature,
       glucose: glucose ?? this.glucose,
+      listBloodPressureLength:
+          listBloodPressureLength ?? this.listBloodPressureLength,
     );
   }
 }
@@ -83,6 +88,14 @@ class GetBloodPressureDataState extends OCRScannerState {
   }) : super(viewModel, status: status);
 }
 
+class UploadBloodPressureDataState extends OCRScannerState {
+  UploadBloodPressureDataState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 class GetBloodGlucoseDataState extends OCRScannerState {
   GetBloodGlucoseDataState({
     // ignore: library_private_types_in_public_api
@@ -117,6 +130,11 @@ final _factories = <Type,
         status: status,
       ),
   GetBloodPressureDataState: (viewModel, status) => GetBloodPressureDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  UploadBloodPressureDataState: (viewModel, status) =>
+      UploadBloodPressureDataState(
         viewModel: viewModel,
         status: status,
       ),

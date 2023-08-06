@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:common_project/domain/entities/blood_pressure_entity.dart';
+import 'package:common_project/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import '../../../common_widget/enum_common.dart';
@@ -11,8 +13,11 @@ part 'ocr_scanner_state.dart';
 
 @injectable
 class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
-  OCRScannerBloc() : super(OCRScannerInitialState()) {
+  BloodPressureUsecase bloodPressureUseCase;
+  OCRScannerBloc(this.bloodPressureUseCase) : super(OCRScannerInitialState()) {
+    on<GetInitialBloodPressureDataEvent>(_onGetInitialBloodPressureData);
     on<GetBloodPressureDataEvent>(_onGetBloodPressureData);
+    on<UploadBloodPressureDataEvent>(_onUploadBloodPressureData);
     on<GetBloodGlucoseDataEvent>(_onGetBloodGlucoseData);
     on<GetTemperatureDataEvent>(_onGetTemperatureData);
   }
@@ -45,6 +50,73 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         state.copyWith(
           status: BlocStatusState.success,
           viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onGetInitialBloodPressureData(
+    GetInitialBloodPressureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetBloodPressureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final response =
+          await bloodPressureUseCase.getListBloodPressureEntities();
+      int length = response.length;
+      final newViewModel =
+          state.viewModel.copyWith(listBloodPressureLength: length);
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onUploadBloodPressureData(
+    UploadBloodPressureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      UploadBloodPressureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final entity = BloodPressureEntity(
+          dia: state.viewModel.dia,
+          sys: state.viewModel.sys,
+          pulse: state.viewModel.pulse,
+          updatedDate: DateTime.now(),
+          id: (state.viewModel.listBloodPressureLength ?? 0) + 1);
+      await bloodPressureUseCase.createBloodPressureEntity(
+          bloodPressureEntity: entity);
+
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
         ),
       );
     } catch (e) {

@@ -24,4 +24,11 @@ class BloodPressureApiRepositoryImpl implements BloodPressureApiRepository {
   Future<BloodPressureModel> getBloodPressureModel({required int id}) {
     return restApi.getBloodPressureModel(id: id);
   }
+
+  @override
+  Future<BloodPressureModel> createBloodPressureModel(
+      {required BloodPressureModel bloodPressureModel}) {
+    return restApi.createBloodPressureModel(
+        bloodPressureModel: bloodPressureModel);
+  }
 }

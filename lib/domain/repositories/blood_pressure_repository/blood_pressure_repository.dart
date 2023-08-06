@@ -9,4 +9,6 @@ part 'blood_pressure_repository.impl.dart';
 abstract class BloodPressureRepository {
   Future<List<BloodPressureModel>> getListBloodPressureModels();
   Future<BloodPressureModel> getBloodPressureModel({required int id});
+  Future<BloodPressureModel> createBloodPressureModel(
+      {required BloodPressureModel bloodPressureModel});
 }

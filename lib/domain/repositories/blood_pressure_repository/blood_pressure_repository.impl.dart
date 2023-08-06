@@ -18,6 +18,13 @@ class BloodPressureRepositoryImpl extends BloodPressureRepository {
   Future<BloodPressureModel> getBloodPressureModel({required int id}) {
     return bloodPressureApi.getBloodPressureModel(id: id);
   }
+
+  @override
+  Future<BloodPressureModel> createBloodPressureModel(
+      {required BloodPressureModel bloodPressureModel}) {
+    return bloodPressureApi.createBloodPressureModel(
+        bloodPressureModel: bloodPressureModel);
+  }
 }
 
 //repo này chứa một cái list<UserModel>

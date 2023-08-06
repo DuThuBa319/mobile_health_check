@@ -26,4 +26,14 @@ class BloodPressureUsecaseImpl extends BloodPressureUsecase {
 
     return response.getBloodPressureEntity();
   }
+
+  @override
+  Future<BloodPressureEntity> createBloodPressureEntity(
+      {required BloodPressureEntity bloodPressureEntity}) async {
+    final bloodPressuremodel = bloodPressureEntity.getBloodPressureModel();
+    final response = await _repository.createBloodPressureModel(
+        bloodPressureModel: bloodPressuremodel);
+
+    return response.getBloodPressureEntity();
+  }
 }

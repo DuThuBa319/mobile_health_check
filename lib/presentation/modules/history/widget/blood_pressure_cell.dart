@@ -1,3 +1,4 @@
+import 'package:common_project/presentation/modules/history/sub_screen/blood_pressure_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -22,7 +23,14 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BloodPressureDetailScreen(
+                    bloodPressureEntity: widget.response),
+              ));
+        },
         child: Container(
           height: screenSize.height * 0.15,
           width: screenSize.width,
@@ -72,7 +80,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const SizedBox(width: 180),
+                const SizedBox(width: 165),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [

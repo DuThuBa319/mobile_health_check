@@ -51,4 +51,7 @@ abstract class RestApiRepository {
   Future<List<BloodSugarModel>> getListBloodSugarModels();
   @GET('/{id}')
   Future<BloodSugarModel> getBloodSugarModel({@Path('id') required int id});
+  @POST('')
+  Future<BloodPressureModel> createBloodPressureModel(
+      {@Body() required BloodPressureModel bloodPressureModel});
 }

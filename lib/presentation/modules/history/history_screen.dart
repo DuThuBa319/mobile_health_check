@@ -140,6 +140,7 @@ class HistoryScreenState extends State<HistoryScreen> {
               ),
             ),
           ),
+          const SizedBox(height: 20),
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,

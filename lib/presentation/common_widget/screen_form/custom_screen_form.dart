@@ -119,7 +119,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       iconIndex: 1),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, RouteList.OCR_screen);
+                      Navigator.pushNamed(context, RouteList.selectEquip);
                     },
                     child: Container(
                         height: 47,
@@ -251,9 +251,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       if (index == 1 && index != widget.selectedIndex) {
         Navigator.pushNamed(context, RouteList.history);
       }
-      if (index == 2 && index != widget.selectedIndex) {
-        Navigator.pushNamed(context, RouteList.trend);
-      }
+      // if (index == 2 && index != widget.selectedIndex) {
+      //   Navigator.pushNamed(context, RouteList.trend);
+      // }
       if (index == 3 && index != widget.selectedIndex) {
         //  Navigator.pushNamed(context, RouteList.example);
       }
@@ -261,9 +261,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       if (index == 1 && index != widget.selectedIndex) {
         Navigator.pushReplacementNamed(context, RouteList.history);
       }
-      if (index == 2 && index != widget.selectedIndex) {
-        Navigator.pushReplacementNamed(context, RouteList.trend);
-      }
+      // if (index == 2 && index != widget.selectedIndex) {
+      //   Navigator.pushReplacementNamed(context, RouteList.trend);
+      // }
       if (index == 3 && index != widget.selectedIndex) {
         //   Navigator.pushReplacementNamed(context, RouteList.example);
       }

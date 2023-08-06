@@ -13,4 +13,7 @@ enum WeatherWithTimeStatus {
   undefine,
   nightClear
 }
-enum Splash{loGo}
+
+enum Splash { loGo }
+
+enum MeasuringTask { temperature, bloodPressure, bloodSugar }

@@ -1,13 +1,14 @@
 import 'package:common_project/presentation/bloc/login/login_bloc.dart';
 import 'package:common_project/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
+import 'package:common_project/presentation/common_widget/enum_common.dart';
 import 'package:common_project/presentation/modules/OCR_scanner/OCR_scanner_screen.dart';
 import 'package:common_project/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'package:common_project/presentation/modules/camera_demo/camera_demo_screen.dart';
 import 'package:common_project/presentation/modules/history/bloc/history_bloc.dart';
 import 'package:common_project/presentation/modules/history/history_screen.dart';
-import 'package:common_project/presentation/modules/history/sub_screen/blood_pressure_detail.dart';
 
 import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
+import 'package:common_project/presentation/modules/pick_equipment/pick_equipment_screen.dart';
 import 'package:common_project/presentation/modules/user_profile/user_profile_screen.dart';
 import 'package:common_project/presentation/modules/user_profile/user_regist_screen.dart';
 import 'package:flutter/material.dart';
@@ -54,13 +55,18 @@ class AppRoute {
         );
 
       case '/ocr_screen':
+        final task = routeSettings.arguments as MeasuringTask;
         return MaterialPageRoute(
           builder: (context) {
-            return MultiBlocProvider(providers: [
-              BlocProvider(
-                create: (context) => OCRScannerBloc(),
-              )
-            ], child: const OCRScannerScreen());
+            return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt<OCRScannerBloc>(),
+                  )
+                ],
+                child: OCRScannerScreen(
+                  task: task,
+                ));
           },
         );
       case '/camera':
@@ -83,10 +89,16 @@ class AppRoute {
             ], child: const HistoryScreen());
           },
         );
-      case '/trend':
+      // case '/trend':
+      //   return MaterialPageRoute(
+      //     builder: (context) {
+      //       return const BloodPressureDetailScreen();
+      //     },
+      //   );
+      case '/select':
         return MaterialPageRoute(
           builder: (context) {
-            return const BloodPressureDetailScreen();
+            return const PickEquipmentScreen();
           },
         );
       default:

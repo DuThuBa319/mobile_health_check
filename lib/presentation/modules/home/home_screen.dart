@@ -76,13 +76,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text('Nguyễn Trọng Khang',
+                    Text('Trong Khang',
                         style: AppTextTheme.body2.copyWith(
                             color: Colors.black, fontWeight: FontWeight.w500)),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text('TP. Hồ Chí Minh',
+                    Text('Ho Chi Minh city',
                         style: AppTextTheme.body4.copyWith(
                             color: Colors.black, fontWeight: FontWeight.w400)),
                     const SizedBox(
@@ -91,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        InfoText(title: 'Weight', content: '72 kg'),
-                        InfoText(title: 'Age', content: '67'),
-                        InfoText(title: 'Height', content: '176 cm'),
+                        infoText(title: 'Weight', content: '72 kg'),
+                        infoText(title: 'Age', content: '67'),
+                        infoText(title: 'Height', content: '176 cm'),
                       ],
                     ),
                   ],
@@ -106,33 +106,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: AppTextTheme.body2
                       .copyWith(fontSize: 20, fontWeight: FontWeight.w500),
                 )),
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(15, 10, 0, 10),
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  itemCount: 6,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.fromLTRB(0, 10, 20, 10),
-                      color: AppColor.cardBackgroundColor,
-                      child: const Text('AAAAAAAA'),
-                    );
-                  },
-                ),
-              ),
-            )
+            const SizedBox(height: 200),
+            Padding(
+                padding: const EdgeInsets.only(left: 12, top: 10),
+                child: Text(
+                  'Trends',
+                  style: AppTextTheme.body2
+                      .copyWith(fontSize: 20, fontWeight: FontWeight.w500),
+                )),
           ],
         ),
       ),
     );
   }
 
-  Column InfoText({required String title, required String content}) {
+  Widget infoText({required String title, required String content}) {
     return Column(
       children: [
         Text(title,

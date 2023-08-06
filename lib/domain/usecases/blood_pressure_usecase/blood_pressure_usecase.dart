@@ -8,4 +8,6 @@ part 'blood_pressure_usecase.impl.dart';
 abstract class BloodPressureUsecase {
   Future<List<BloodPressureEntity>> getListBloodPressureEntities();
   Future<BloodPressureEntity> getBloodPressureEntity({required int id});
+  Future<BloodPressureEntity> createBloodPressureEntity(
+      {required BloodPressureEntity bloodPressureEntity});
 }

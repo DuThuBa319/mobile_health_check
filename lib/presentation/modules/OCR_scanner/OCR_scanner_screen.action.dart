@@ -6,10 +6,44 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
       showToast('Đang tải dữ liệu');
     }
     if (state.status == BlocStatusState.success) {
+      if (state is UploadBloodPressureDataState) {
+        successAlert(
+          context,
+          alertText: 'Cập nhật  thành công',
+        );
+      }
       showToast('Tải dữ liệu thành công');
     }
   }
 
+  Future<dynamic> successAlert(
+    BuildContext context, {
+    required String alertText,
+  }) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => Center(
+        child: AlertDialog(
+          title: const Text('Phản hồi'),
+          content: Text(
+            alertText,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Thoát'),
+              onPressed: () {
+                //Navigator.pop(context);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, RouteList.home, (Route<dynamic> route) => false);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   // Future<void> _imagePickerBlocListener(
   //     BuildContext context, ImagePickerState state) async {
   //   if (state is GetImageState && state.status == BlocStatusState.loading) {

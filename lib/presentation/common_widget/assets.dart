@@ -19,4 +19,9 @@ class Assets {
   static const String bloodPressure =
       'lib/assets/images/blood_pressure_icon.png';
   static const String temperature = 'lib/assets/images/thermometer_icon.png';
+  static const String thermometer = 'lib/assets/images/thermometer_img.png';
+  static const String bloodGlucoseMeter =
+      'lib/assets/images/blood_glucose_img.png';
+  static const String bloodPressureMeter =
+      'lib/assets/images/blood_pressure_img.png';
 }
