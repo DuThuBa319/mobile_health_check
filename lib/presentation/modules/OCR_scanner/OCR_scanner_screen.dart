@@ -98,7 +98,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   direction: Axis.vertical,
                                                   spacing: 10,
                                                   children: [
-                                                    Text('Nhiệt độ:'),
+                                                    Text('Temperature:'),
                                                   ],
                                                 ),
                                                 Wrap(
@@ -194,7 +194,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   direction: Axis.vertical,
                                                   spacing: 10,
                                                   children: [
-                                                    Text('Chỉ số đường huyết:'),
+                                                    Text('Blood glucose:'),
                                                   ],
                                                 ),
                                                 Wrap(
@@ -295,10 +295,9 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   direction: Axis.vertical,
                                                   spacing: 10,
                                                   children: [
-                                                    Text('Huyết áp tâm thu:'),
-                                                    Text(
-                                                        'Huyết áp tâm trương:'),
-                                                    Text('Nhịp tim:'),
+                                                    Text('Systolic:'),
+                                                    Text('Diastolic:'),
+                                                    Text('Pulse:'),
                                                   ],
                                                 ),
                                                 Wrap(
@@ -329,7 +328,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                             Center(
                                 child: CommonButton(
                               height: 70,
-                              title: 'Cập nhật',
+                              title: 'Upload',
                               onTap: () {
                                 scanBloc.add(UploadBloodPressureDataEvent());
                               },

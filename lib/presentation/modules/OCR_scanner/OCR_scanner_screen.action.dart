@@ -9,7 +9,7 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
       if (state is UploadBloodPressureDataState) {
         successAlert(
           context,
-          alertText: 'Cập nhật  thành công',
+          alertText: 'Upload successfully',
         );
       }
       showToast('Tải dữ liệu thành công');
@@ -25,14 +25,14 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
       context: context,
       builder: (BuildContext context) => Center(
         child: AlertDialog(
-          title: const Text('Phản hồi'),
+          title: const Text('Response'),
           content: Text(
             alertText,
             style: Theme.of(context).textTheme.bodySmall,
           ),
           actions: [
             TextButton(
-              child: const Text('Thoát'),
+              child: const Text('Exit'),
               onPressed: () {
                 //Navigator.pop(context);
                 Navigator.pushNamedAndRemoveUntil(
