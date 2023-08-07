@@ -28,7 +28,7 @@ class SizeConfig {
   static double ratioRadius = 0;
 
   ///Hàm chạy để khởi tạo các giá trị tỉ lệ, dùng trong trang đầu tiên của ứng dụng
-  void init(BuildContext context) {
+  static void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;

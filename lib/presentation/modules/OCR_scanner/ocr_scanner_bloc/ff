@@ -1,0 +1,219 @@
+child: CustomScreenForm(
+        title: 'Demo Reading',
+        isShowAppBar: true,
+        isShowLeadingButton: false,
+        backgroundColor: Colors.white,
+        appBarColor: Colors.blue,
+        selectedIndex: 6,
+        child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
+          listener: blocListener,
+          builder: (context, state) {
+            if (state.status == BlocStatusState.loading) {
+              return const Center(
+                  child: Loading(
+                brightness: Brightness.light,
+              ));
+            }
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //! Blood Pressure Meter
+                      Text(
+                        'Blood Pressure Meter',
+                        style: AppTextTheme.title2,
+                      ),
+                      const SizedBox(height: 20),
+                      imagePicker(state, context,
+                          imageFile: state.viewModel.bloodPressureImageFile,
+                          event: GetBloodPressureDataEvent(context: context)),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      state.viewModel.bloodPressureImageFile != null
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    width: 350,
+                                    margin: const EdgeInsets.only(bottom: 28),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        17, 10, 16, 0),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: AppColor.greyF3),
+                                    child: DefaultTextStyle(
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Wrap(
+                                            direction: Axis.vertical,
+                                            spacing: 10,
+                                            children: [
+                                              Text('Huyết áp tâm thu:'),
+                                              Text('Huyết áp tâm trương:'),
+                                              Text('Nhịp tim:'),
+                                            ],
+                                          ),
+                                          Wrap(
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.end,
+                                            direction: Axis.vertical,
+                                            spacing: 10,
+                                            children: [
+                                              Text(
+                                                  '${state.viewModel.sys} mmHg'),
+                                              Text(
+                                                  '${state.viewModel.dia} mmHg'),
+                                              Text(
+                                                  '${state.viewModel.pulse} bpm'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(),
+                      const SizedBox(height: 20),
+                      //! Blood Glucose Meter
+                      Text(
+                        'Blood Glucose Meter',
+                        style: AppTextTheme.title2,
+                      ),
+                      const SizedBox(height: 20),
+                      imagePicker(state, context,
+                          imageFile: state.viewModel.bloodGlucoseImageFile,
+                          event: GetBloodGlucoseDataEvent(context: context)),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      state.viewModel.bloodGlucoseImageFile != null
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 75,
+                                    width: 300,
+                                    margin: const EdgeInsets.only(bottom: 28),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        17, 10, 16, 0),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: AppColor.greyF3),
+                                    child: DefaultTextStyle(
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Wrap(
+                                            direction: Axis.vertical,
+                                            spacing: 10,
+                                            children: [
+                                              Text('Chỉ số đường huyết:'),
+                                            ],
+                                          ),
+                                          Wrap(
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.end,
+                                            direction: Axis.vertical,
+                                            spacing: 10,
+                                            children: [
+                                              Text(
+                                                  '${state.viewModel.glucose} mg/dL'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(),
+                      const SizedBox(height: 40),
+                      //! Thermometer
+                      Text(
+                        'Thermometer',
+                        style: AppTextTheme.title2,
+                      ),
+                      const SizedBox(height: 20),
+                      imagePicker(state, context,
+                          imageFile: state.viewModel.temperatureImageFile,
+                          event: GetTemperatureDataEvent(context: context)),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      state.viewModel.temperatureImageFile != null
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 75,
+                                    width: 200,
+                                    margin: const EdgeInsets.only(bottom: 28),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        17, 10, 16, 0),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: AppColor.greyF3),
+                                    child: DefaultTextStyle(
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Wrap(
+                                            direction: Axis.vertical,
+                                            spacing: 10,
+                                            children: [
+                                              Text('Nhiệt độ:'),
+                                            ],
+                                          ),
+                                          Wrap(
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.end,
+                                            direction: Axis.vertical,
+                                            spacing: 10,
+                                            children: [
+                                              Text(
+                                                  '${state.viewModel.temperature} °C'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(),
+                      const SizedBox(height: 30),
+                      const Center(
+                          child: CommonButton(height: 70, title: 'Cập nhật'))
+                    ]),
+              ),
+            );
+          },
+        ),
+      ),
