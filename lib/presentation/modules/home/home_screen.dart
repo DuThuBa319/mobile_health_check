@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return CustomScreenForm(
+    return const CustomScreenForm(
       title: 'Home',
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
