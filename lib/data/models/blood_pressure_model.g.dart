@@ -15,6 +15,7 @@ BloodPressureModel _$BloodPressureModelFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['updatedDate'] as String),
       id: json['id'] as int?,
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$BloodPressureModelToJson(BloodPressureModel instance) {
@@ -31,5 +32,6 @@ Map<String, dynamic> _$BloodPressureModelToJson(BloodPressureModel instance) {
   writeNotNull('dia', instance.dia);
   writeNotNull('pulse', instance.pulse);
   writeNotNull('updatedDate', instance.updatedDate?.toIso8601String());
+  writeNotNull('imageUrl', instance.imageUrl);
   return val;
 }

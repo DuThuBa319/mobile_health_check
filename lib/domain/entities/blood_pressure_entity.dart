@@ -8,8 +8,14 @@ class BloodPressureEntity {
   int? dia;
   int? pulse;
   DateTime? updatedDate;
+  String? imageUrl;
   BloodPressureEntity(
-      {this.dia, this.pulse, this.sys, this.updatedDate, this.id});
+      {this.dia,
+      this.pulse,
+      this.sys,
+      this.updatedDate,
+      this.id,
+      this.imageUrl});
 
   String get comment {
     if (sys != null && dia != null) {

@@ -11,8 +11,14 @@ class BloodPressureModel {
   String? dia;
   String? pulse;
   DateTime? updatedDate;
+  String? imageUrl;
   BloodPressureModel(
-      {this.dia, this.pulse, this.sys, this.updatedDate, this.id});
+      {this.dia,
+      this.pulse,
+      this.sys,
+      this.updatedDate,
+      this.id,
+      this.imageUrl});
 
   factory BloodPressureModel.fromJson(Map<String, dynamic> json) =>
       _$BloodPressureModelFromJson(json);
@@ -24,6 +30,7 @@ class BloodPressureModel {
         sys: int.parse(sys!),
         dia: int.parse(dia!),
         pulse: int.parse(pulse!),
+        imageUrl: imageUrl,
         updatedDate: updatedDate);
   }
 }

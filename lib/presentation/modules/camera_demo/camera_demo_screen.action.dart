@@ -45,6 +45,9 @@ extension CameraScreenAction on CameraScreenState {
 
     // Update the Boolean
     if (mounted) {
+      await controller!.setFlashMode(
+        FlashMode.off,
+      );
       setState(() {
         isCameraInitialized = controller!.value.isInitialized;
         backgroundColor = Colors.black;

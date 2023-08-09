@@ -66,7 +66,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                                 .copyWith(color: Colors.black)),
                         const SizedBox(height: 2),
                         Text(
-                          DateFormat('hh:mm dd/MM/yyyy')
+                          DateFormat('HH:mm dd/MM/yyyy')
                               .format(widget.response!.updatedDate!),
                           style: AppTextTheme.title5.copyWith(fontSize: 10),
                         )

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/service/firebase/firebase_storage_service.dart';
 import 'package:mobile_health_check/domain/entities/blood_pressure_entity.dart';
 import 'package:mobile_health_check/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
 import 'package:flutter/cupertino.dart';
@@ -105,15 +107,25 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
     try {
+      String? imageUrl;
+
+      final result = await FirebaseStorageService.uploadFile(
+          file: state.viewModel.bloodPressureImageFile!,
+          fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
+          folder: 'Nguyen Trong Khang/Huyet ap/');
+      if (result != null) {
+        imageUrl = result.url;
+      }
+
       final entity = BloodPressureEntity(
           dia: state.viewModel.dia,
           sys: state.viewModel.sys,
           pulse: state.viewModel.pulse,
+          imageUrl: imageUrl,
           updatedDate: DateTime.now(),
           id: (state.viewModel.listBloodPressureLength ?? 0) + 1);
       await bloodPressureUseCase.createBloodPressureEntity(
           bloodPressureEntity: entity);
-
       emit(
         state.copyWith(
           status: BlocStatusState.success,

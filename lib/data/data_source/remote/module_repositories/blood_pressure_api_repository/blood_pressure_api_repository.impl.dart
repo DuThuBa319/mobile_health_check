@@ -13,7 +13,7 @@ class BloodPressureApiRepositoryImpl implements BloodPressureApiRepository {
   BloodPressureApiRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://retoolapi.dev/XUw274/data');
+            baseUrl: 'https://retoolapi.dev/Imqoiv/data');
 
   @override
   Future<List<BloodPressureModel>> getListBloodPressureModels() {

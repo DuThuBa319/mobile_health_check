@@ -74,7 +74,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                     const Text('Time'),
                     Text(DateFormat('dd/MM/yyyy')
                         .format(widget.bloodPressureEntity!.updatedDate!)),
-                    Text(DateFormat('hh:mm')
+                    Text(DateFormat('HH:mm')
                         .format(widget.bloodPressureEntity!.updatedDate!))
                   ],
                 )),
