@@ -75,6 +75,7 @@ class BloodPressureEntity {
         sys: sys.toString(),
         dia: dia.toString(),
         pulse: pulse.toString(),
+        imageUrl: imageUrl,
         updatedDate: updatedDate);
   }
 }

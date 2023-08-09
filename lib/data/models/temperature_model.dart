@@ -7,9 +7,11 @@ part 'temperature_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class TemperatureModel {
   int? id;
-  double? temperature;
+  String? temperature;
   DateTime? updatedDate;
-  TemperatureModel({this.temperature, this.updatedDate, this.id});
+  String? imageUrl;
+  TemperatureModel(
+      {this.temperature, this.updatedDate, this.id, this.imageUrl});
 
   factory TemperatureModel.fromJson(Map<String, dynamic> json) =>
       _$TemperatureModelFromJson(json);
@@ -17,6 +19,8 @@ class TemperatureModel {
   Map<String, dynamic> toJson() => _$TemperatureModelToJson(this);
   TemperatureEntity getTemperatureEntity() {
     return TemperatureEntity(
-        id: id, temperature: temperature, updatedDate: updatedDate);
+        id: id,
+        temperature: double.parse(temperature!),
+        updatedDate: updatedDate);
   }
 }
