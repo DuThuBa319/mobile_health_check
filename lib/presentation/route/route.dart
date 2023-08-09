@@ -1,16 +1,16 @@
-import 'package:common_project/presentation/bloc/login/login_bloc.dart';
-import 'package:common_project/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
-import 'package:common_project/presentation/common_widget/enum_common.dart';
-import 'package:common_project/presentation/modules/OCR_scanner/OCR_scanner_screen.dart';
-import 'package:common_project/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
-import 'package:common_project/presentation/modules/camera_demo/camera_demo_screen.dart';
-import 'package:common_project/presentation/modules/history/bloc/history_bloc.dart';
-import 'package:common_project/presentation/modules/history/history_screen.dart';
+import 'package:mobile_health_check/presentation/bloc/login/login_bloc.dart';
+import 'package:mobile_health_check/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
+import 'package:mobile_health_check/presentation/modules/OCR_scanner/OCR_scanner_screen.dart';
+import 'package:mobile_health_check/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
+import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
+import 'package:mobile_health_check/presentation/modules/history/bloc/history_bloc.dart';
+import 'package:mobile_health_check/presentation/modules/history/history_screen.dart';
 
-import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
-import 'package:common_project/presentation/modules/pick_equipment/pick_equipment_screen.dart';
-import 'package:common_project/presentation/modules/user_profile/user_profile_screen.dart';
-import 'package:common_project/presentation/modules/user_profile/user_regist_screen.dart';
+import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
+import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
+import 'package:mobile_health_check/presentation/modules/user_profile/user_profile_screen.dart';
+import 'package:mobile_health_check/presentation/modules/user_profile/user_regist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +29,7 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<LoginBloc>(
-              create: (context) => getIt<LoginBloc>(),
+              create: (context) => LoginBloc(),
               child: const LoginScreen(),
             );
           },

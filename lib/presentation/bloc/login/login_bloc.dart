@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
-import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 import '../../common_widget/enum_common.dart';
@@ -8,7 +7,6 @@ import '../../common_widget/enum_common.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
-@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);

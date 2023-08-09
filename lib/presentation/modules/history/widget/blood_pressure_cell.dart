@@ -1,4 +1,4 @@
-import 'package:common_project/presentation/modules/history/sub_screen/blood_pressure_detail.dart';
+import 'package:mobile_health_check/presentation/modules/history/sub_screen/blood_pressure_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

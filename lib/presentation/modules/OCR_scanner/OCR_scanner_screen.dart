@@ -1,12 +1,10 @@
-import 'dart:io';
-
-import 'package:common_project/presentation/common_widget/common_button.dart';
-import 'package:common_project/presentation/common_widget/loading_widget.dart';
-import 'package:common_project/presentation/theme/theme_color.dart';
+import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
+import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
-
-import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'dart:io';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import 'package:flutter/material.dart';
 import '../../common_widget/dialog/show_toast.dart';

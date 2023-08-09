@@ -1,6 +1,6 @@
-import 'package:common_project/function.dart';
-import 'package:common_project/presentation/common_widget/common_button.dart';
-import 'package:common_project/presentation/theme/app_text_theme.dart';
+import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

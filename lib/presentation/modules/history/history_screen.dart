@@ -1,5 +1,5 @@
-import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:common_project/presentation/modules/history/widget/blood_pressure_cell.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/presentation/modules/history/widget/blood_pressure_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

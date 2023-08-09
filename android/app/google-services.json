@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "815294027707",
-    "project_id": "commonproject-2f53a",
-    "storage_bucket": "commonproject-2f53a.appspot.com"
+    "project_number": "570191014591",
+    "project_id": "mobilehealthcarecheck",
+    "storage_bucket": "mobilehealthcarecheck.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:815294027707:android:08136a04eb332c9d37569e",
+        "mobilesdk_app_id": "1:570191014591:android:518802ba628cc9dacd340a",
         "android_client_info": {
-          "package_name": "com.example.common_project"
+          "package_name": "com.example.mobile_health_check"
         }
       },
       "oauth_client": [
         {
-          "client_id": "815294027707-lolji4ig3cd8fai55jj7nltjajhcll0c.apps.googleusercontent.com",
+          "client_id": "570191014591-qn8d950l22arkdp8sogn04cot2hs69bi.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBrinvPQzwWkzxBj0IHPoiM4yjirenUoZY"
+          "current_key": "AIzaSyAwCJr5m9uy-26yCm4frUZFD5bE4NTrcyk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "815294027707-lolji4ig3cd8fai55jj7nltjajhcll0c.apps.googleusercontent.com",
+              "client_id": "570191014591-qn8d950l22arkdp8sogn04cot2hs69bi.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "570191014591-5q2css210dfvr2j87f9fmae1f9sil341.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobileHealthCheck"
+              }
             }
           ]
         }

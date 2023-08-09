@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.common_project"
+        applicationId "com.example.mobile_health_check"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 24
@@ -65,16 +65,16 @@ android {
 
     productFlavors {
         dev {
-            applicationId "com.example.common_project"
-            resValue "string", "app_name", "Common Project Dev"
+            applicationId "com.example.mobile_health_check"
+            resValue "string", "app_name", "Mobile Health Check Dev"
         }
         staging {
-            applicationId "com.example.common_project.staging"
-            resValue "string", "app_name", "Common Project Staging"
+            applicationId "com.example.mobile_health_check.staging"
+            resValue "string", "app_name", "Mobile Health Check Staging"
         }
         prod {
-            applicationId "com.example.common_project"
-            resValue "string", "app_name", "Common Project Prod"
+            applicationId "com.example.mobile_health_check"
+            resValue "string", "app_name", "Mobile Health Check Prod"
         }
     }
 }

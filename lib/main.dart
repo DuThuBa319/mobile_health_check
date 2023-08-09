@@ -1,17 +1,18 @@
-import 'package:common_project/presentation/common_widget/assets.dart';
-import 'package:common_project/presentation/route/route_list.dart';
+import 'package:mobile_health_check/presentation/common_widget/assets.dart';
+import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
 import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_health_check/common/service/firebase/firebase_options.dart';
 
 List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   try {
     cameras = await availableCameras();
   } on CameraException catch (e) {
@@ -38,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Common Project',
+      title: 'Health Check App',
       onGenerateRoute: AppRoute.onGenerateRoute,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -59,11 +60,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
 
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
-      Navigator.pushNamed(context, RouteList.home);
+      Navigator.pushNamed(context, RouteList.login);
     });
   }
 

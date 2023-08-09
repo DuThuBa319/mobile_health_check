@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:common_project/domain/entities/user_entity.dart';
+import 'package:mobile_health_check/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

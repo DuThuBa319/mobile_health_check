@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:common_project/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
+import 'package:mobile_health_check/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';

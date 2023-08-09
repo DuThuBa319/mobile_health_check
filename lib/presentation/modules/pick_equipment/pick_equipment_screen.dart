@@ -1,8 +1,8 @@
-import 'package:common_project/presentation/common_widget/assets.dart';
-import 'package:common_project/presentation/common_widget/enum_common.dart';
-import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:common_project/presentation/theme/app_text_theme.dart';
-import 'package:common_project/presentation/theme/theme_color.dart';
+import 'package:mobile_health_check/presentation/common_widget/assets.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
+import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import '../../route/route_list.dart';

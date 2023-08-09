@@ -1,4 +1,4 @@
-import 'package:common_project/data/data_source/remote/rest_api_repository.dart';
+import 'package:mobile_health_check/data/data_source/remote/rest_api_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../models/user_model.dart';

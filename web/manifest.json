@@ -1,6 +1,6 @@
 {
-    "name": "common_project",
-    "short_name": "common_project",
+    "name": "mobile_health_check",
+    "short_name": "mobile_health_check",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,7 +1,7 @@
 part of 'camera_demo_screen.dart';
 
 // HẠN CHẾ SETSTATE NHẤT CÓ THỂ, PHẢI THỂ HIỆN ĐƯỢC CÁI STRING
-extension CameraScreenAction on _CameraScreenState {
+extension CameraScreenAction on CameraScreenState {
   void blocListener(BuildContext context, CameraState state) async {
     if (state is GetImageState && state.status == BlocStatusState.loading) {
       showToast('Đang xử lý');

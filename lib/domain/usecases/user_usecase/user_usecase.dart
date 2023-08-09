@@ -1,5 +1,5 @@
-import 'package:common_project/data/models/user_model.dart';
-import 'package:common_project/domain/entities/user_entity.dart';
+import 'package:mobile_health_check/data/models/user_model.dart';
+import 'package:mobile_health_check/domain/entities/user_entity.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../data/data_source/remote/module_repositories/user_api_repository/user_api_repository.dart';

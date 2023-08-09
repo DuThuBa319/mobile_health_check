@@ -1,5 +1,5 @@
-import 'package:common_project/data/models/temperature_model.dart';
-import 'package:common_project/data/models/user_model.dart';
+import 'package:mobile_health_check/data/models/temperature_model.dart';
+import 'package:mobile_health_check/data/models/user_model.dart';
 
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';

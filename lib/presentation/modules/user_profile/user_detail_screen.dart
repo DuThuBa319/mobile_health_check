@@ -1,15 +1,14 @@
-import 'package:common_project/domain/entities/user_entity.dart';
-import 'package:common_project/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
-import 'package:common_project/presentation/common_widget/enum_common.dart';
-import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:common_project/presentation/theme/theme_color.dart';
+import 'package:mobile_health_check/domain/entities/user_entity.dart';
+import 'package:mobile_health_check/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../di/di.dart';
 import '../../bloc/userlist/get_user_detail_bloc/get_user_detail_bloc.dart';
 
 import '../../common_widget/loading_widget.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../theme/app_text_theme.dart';
 import 'user_edit_screen.dart';
@@ -26,8 +25,8 @@ class UserDetailScreen extends StatefulWidget {
 }
 
 class _UserDetailScreenState extends State<UserDetailScreen> {
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  // final RefreshController _refreshController =
+  //     RefreshController(initialRefresh: false);
   GetUserDetailBloc get detailBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {

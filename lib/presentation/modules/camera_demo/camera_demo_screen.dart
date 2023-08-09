@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:common_project/presentation/common_widget/loading_widget.dart';
-import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:common_project/main.dart';
+import 'package:mobile_health_check/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 
@@ -17,10 +17,10 @@ class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
 
   @override
-  State<CameraScreen> createState() => _CameraScreenState();
+  State<CameraScreen> createState() => CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen>
+class CameraScreenState extends State<CameraScreen>
     with WidgetsBindingObserver {
   Color backgroundColor = Colors.white;
   //! initialize

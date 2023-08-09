@@ -1,4 +1,4 @@
-import 'package:common_project/domain/entities/user_entity.dart';
+import 'package:mobile_health_check/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';

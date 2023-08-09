@@ -1,7 +1,7 @@
-import 'package:common_project/data/models/user_model.dart';
-import 'package:common_project/domain/entities/user_entity.dart';
-import 'package:common_project/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:common_project/presentation/theme/theme_color.dart';
+import 'package:mobile_health_check/data/models/user_model.dart';
+import 'package:mobile_health_check/domain/entities/user_entity.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import '../../bloc/userlist/get_user_detail_bloc/get_user_detail_bloc.dart';
 

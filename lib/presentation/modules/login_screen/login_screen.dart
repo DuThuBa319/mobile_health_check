@@ -1,4 +1,4 @@
-import 'package:common_project/presentation/common_widget/assets.dart';
+import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
