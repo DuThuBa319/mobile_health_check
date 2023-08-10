@@ -106,11 +106,12 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       final entity = BloodPressureEntity(
-          dia: state.viewModel.dia,
-          sys: state.viewModel.sys,
-          pulse: state.viewModel.pulse,
-          updatedDate: DateTime.now(),
-          id: (state.viewModel.listBloodPressureLength ?? 0) + 1);
+        dia: state.viewModel.dia,
+        sys: state.viewModel.sys,
+        pulse: state.viewModel.pulse,
+        updatedDate: DateTime.now(),
+        // imageLink: (state.viewModel.listBloodPressureLength ?? 0) + 1
+      );
       await bloodPressureUseCase.createBloodPressureEntity(
           bloodPressureEntity: entity);
 

@@ -112,8 +112,11 @@ _i1.GetIt $initGetIt(
   gh.factory<_i25.GetUserBloc>(() => _i25.GetUserBloc(gh<_i16.UserUsecase>()));
   gh.factory<_i26.GetUserDetailBloc>(
       () => _i26.GetUserDetailBloc(gh<_i13.UserDetailUsecase>()));
-  gh.factory<_i27.HistoryBloc>(
-      () => _i27.HistoryBloc(gh<_i20.BloodPressureUsecase>()));
+  gh.factory<_i27.HistoryBloc>(() => _i27.HistoryBloc(
+        gh<_i20.BloodPressureUsecase>(),
+        gh<_i24.BloodSugarUsecase>(),
+        gh<_i10.TemperatureUsecase>(),
+      ));
   gh.factory<_i28.OCRScannerBloc>(
       () => _i28.OCRScannerBloc(gh<_i20.BloodPressureUsecase>()));
   gh.factory<_i29.UserDetailModelRepository>(

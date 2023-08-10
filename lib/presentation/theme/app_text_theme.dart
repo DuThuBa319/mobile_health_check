@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'theme_color.dart';
 
 class AppTextTheme {
+  static const fontSize0 = 30.0;
   static const fontSize1 = 24.0;
   static const fontSize2 = 18.0;
   static const fontSize3 = 16.0;
@@ -13,6 +14,10 @@ class AppTextTheme {
     decoration: TextDecoration.underline,
     color: AppColor.primaryColorLight,
     fontSize: 14,
+  );
+  static TextStyle body0 = const TextStyle(
+    color: Colors.black,
+    fontSize: fontSize0,
   );
 
   static TextStyle body1 = const TextStyle(
@@ -40,6 +45,11 @@ class AppTextTheme {
     fontSize: fontSize5,
   );
 
+  static TextStyle title0 = const TextStyle(
+    color: AppColor.gray767676,
+    fontSize: fontSize0,
+    fontWeight: FontWeight.bold,
+  );
   static TextStyle title1 = const TextStyle(
     color: AppColor.gray767676,
     fontSize: fontSize1,

@@ -1,4 +1,5 @@
 import 'package:common_project/presentation/common_widget/enum_common.dart';
+import 'package:common_project/presentation/theme/app_text_theme.dart';
 import 'package:common_project/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,96 +39,117 @@ class _UserListState extends State<UserListScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScreenForm(
-        title: 'User List Screen',
-        isShowAppBar: true,
-        isShowLeadingButton: true,
+        isShowAppBar: false,
+        appBarColor: AppColor.backgroundColor,
+        isShowLeadingButton: false,
         isShowBottomNayvigationBar: true,
-        isShowRightButon: true,
-        appBarColor: AppColor.appBarColor,
-        backgroundColor: AppColor.greyF3,
-        rightButton: IconButton(
-          onPressed: gotoRegistUserScreen,
-          icon: const Icon(Icons.add),
-        ),
-        selectedIndex: 2,
+        isShowRightButon: false,
+        backgroundColor: AppColor.backgroundColor,
+        // rightButton: IconButton(
+        //   onPressed: gotoRegistUserScreen,
+        //   icon: const Icon(Icons.add),
+        // ),
+        selectedIndex: 1,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: filterKeyword,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    borderSide: BorderSide.none,
-                  ),
-                  hintText: 'Eg: Johny',
-                  hintStyle: const TextStyle(color: Colors.black54),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.search),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Danh sách bệnh nhân',
+                  style: AppTextTheme.body0.copyWith(
                     color: Colors.black,
-                    onPressed: () {
-                      userBloc.add(
-                        FilterUserEvent(searchText: filterKeyword.text),
-                      );
-                    },
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-            ),
-            BlocConsumer<GetUserBloc, GetUserState>(
-                listener: _blocListener,
-                builder: (context, state) {
-                  if (state is GetUserInitialState) {
-                    userBloc.add(GetListUserEvent());
-                  }
-                  if (state is GetListUserState &&
-                      state.status == BlocStatusState.loading) {
-                    return const Expanded(
-                      child: Center(
-                        child: Loading(brightness: Brightness.light),
-                      ),
-                    );
-                  }
-
-                  if (state is GetListUserState &&
-                      state.status == BlocStatusState.success) {
-                    return Expanded(
-                      child: SmartRefresher(
-                        controller: _refreshController,
-                        onRefresh: () async {
-                          await Future.delayed(
-                              const Duration(milliseconds: 1000));
-                          _refreshController.refreshCompleted();
-                          userBloc.add(GetListUserEvent());
-                        },
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: state.viewModel.userEntity?.length ?? 0,
-                          itemBuilder: (BuildContext context, int index) {
-                            final userEntity =
-                                state.viewModel.userEntity?[index];
-                            return UserListCell(
-                              userEntity: userEntity,
-                              userBloc: userBloc,
+                const SizedBox(height: 5),
+                lineDecor(),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 20),
+                  child: Container(
+                    decoration: const BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.black12,
+                      )
+                    ]),
+                    child: TextField(
+                      controller: filterKeyword,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide.none,
+                        ),
+                        hintText: 'Tìm kiếm bệnh nhân',
+                        hintStyle: const TextStyle(color: Colors.black54),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          color: Colors.black,
+                          onPressed: () {
+                            userBloc.add(
+                              FilterUserEvent(searchText: filterKeyword.text),
                             );
                           },
                         ),
                       ),
-                    );
-                  }
-                  if (state is GetListUserState &&
-                      state.status == BlocStatusState.failure) {
-                    return const Center(
-                      child: Text("error"),
-                    );
-                  }
-                  return Container();
-                }),
-          ]),
+                    ),
+                  ),
+                ),
+                BlocConsumer<GetUserBloc, GetUserState>(
+                    listener: _blocListener,
+                    builder: (context, state) {
+                      if (state is GetUserInitialState) {
+                        userBloc.add(GetListUserEvent());
+                      }
+                      if (state is GetListUserState &&
+                          state.status == BlocStatusState.loading) {
+                        return const Expanded(
+                          child: Center(
+                            child: Loading(brightness: Brightness.light),
+                          ),
+                        );
+                      }
+
+                      if (state is GetListUserState &&
+                          state.status == BlocStatusState.success) {
+                        return Expanded(
+                          child: SmartRefresher(
+                            controller: _refreshController,
+                            onRefresh: () async {
+                              await Future.delayed(
+                                  const Duration(milliseconds: 1000));
+                              _refreshController.refreshCompleted();
+                              userBloc.add(GetListUserEvent());
+                            },
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount:
+                                  state.viewModel.userEntity?.length ?? 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                final userEntity =
+                                    state.viewModel.userEntity?[index];
+                                return UserListCell(
+                                  userEntity: userEntity,
+                                  userBloc: userBloc,
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                      if (state is GetListUserState &&
+                          state.status == BlocStatusState.failure) {
+                        return const Center(
+                          child: Text("error"),
+                        );
+                      }
+                      return Container();
+                    }),
+              ]),
         ));
 
     /*

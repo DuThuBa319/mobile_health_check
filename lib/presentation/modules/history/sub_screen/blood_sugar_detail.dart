@@ -1,22 +1,21 @@
+import 'package:common_project/domain/entities/blood_sugar_entity.dart';
 import 'package:common_project/function.dart';
 import 'package:common_project/presentation/common_widget/common_button.dart';
 import 'package:common_project/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../theme/theme_color.dart';
 
-class BloodPressureDetailScreen extends StatefulWidget {
-  final BloodPressureEntity? bloodPressureEntity;
-  const BloodPressureDetailScreen({super.key, this.bloodPressureEntity});
+class BloodSugarDetailScreen extends StatefulWidget {
+  final BloodSugarEntity? bloodSugarEntity;
+  const BloodSugarDetailScreen({super.key, this.bloodSugarEntity});
 
   @override
-  State<BloodPressureDetailScreen> createState() =>
-      _BloodPressureDetailScreenState();
+  State<BloodSugarDetailScreen> createState() => _BloodSugarDetailScreenState();
 }
 
-class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
+class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
   @override
   void initState() {
     super.initState();
@@ -63,9 +62,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                   children: [
                     const Text('Time'),
                     Text(DateFormat('dd/MM/yyyy')
-                        .format(widget.bloodPressureEntity!.updatedDate!)),
+                        .format(widget.bloodSugarEntity!.updatedDate!)),
                     Text(DateFormat('hh:mm')
-                        .format(widget.bloodPressureEntity!.updatedDate!))
+                        .format(widget.bloodSugarEntity!.updatedDate!))
                   ],
                 )),
             const SizedBox(
@@ -85,49 +84,28 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                       children: [
                         Column(
                           children: [
-                            const Text('Systolic'),
+                            // const Text('Systolic'),
                             const SizedBox(height: 5),
                             Text(
-                              'mmHg',
+                              'mg/dL',
                               style: AppTextTheme.title4
                                   .copyWith(fontWeight: FontWeight.w500),
                             ),
                             const SizedBox(height: 25),
-                            Text(widget.bloodPressureEntity!.sys!.toString(),
+                            Text(
+                                widget.bloodSugarEntity!.bloodSugar!.toString(),
                                 style: AppTextTheme.title1.copyWith(
                                     color: const Color.fromARGB(
                                         255, 107, 106, 106),
                                     fontWeight: FontWeight.w800)),
                           ],
                         ),
+                        
                         Column(
                           children: [
-                            const Text('Diastolic'),
-                            const SizedBox(height: 5),
-                            Text(
-                              'mmHg',
-                              style: AppTextTheme.title4
-                                  .copyWith(fontWeight: FontWeight.w500),
-                            ),
+                          
                             const SizedBox(height: 25),
-                            Text(widget.bloodPressureEntity!.dia!.toString(),
-                                style: AppTextTheme.title1.copyWith(
-                                    color: const Color.fromARGB(
-                                        255, 107, 106, 106),
-                                    fontWeight: FontWeight.w800)),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            const Text('Pulse'),
-                            const SizedBox(height: 5),
-                            Text(
-                              'bpm',
-                              style: AppTextTheme.title4
-                                  .copyWith(fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 25),
-                            Text(widget.bloodPressureEntity!.pulse!.toString(),
+                            Text(widget.bloodSugarEntity!.imageLink!.toString(),
                                 style: AppTextTheme.title1.copyWith(
                                     color: const Color.fromARGB(
                                         255, 107, 106, 106),
@@ -139,24 +117,28 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                     const SizedBox(height: 25),
                     Row(
                       children: [
-                        Icon(Icons.favorite,
-                            color: widget.bloodPressureEntity!.statusColor),
+                        const Icon(
+                          Icons.favorite,
+                        ),
+                        // color: widget.bloodSugarEntity!.statusColor),
                         Container(
                             margin: const EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                                color: widget.bloodPressureEntity!.statusColor,
-                                borderRadius: BorderRadius.circular(5)),
+                            // decoration: BoxDecoration(
+                            //     color: widget.bloodSugarEntity!.statusColor,
+                            //     borderRadius: BorderRadius.circular(5)),
                             height: 8,
                             width: SizeConfig.screenWidth * 0.72),
-                        Icon(Icons.favorite,
-                            color: widget.bloodPressureEntity!.statusColor),
+                        const Icon(
+                          Icons.favorite,
+                        )
+                        // color: widget.bloodSugarEntity!.statusColor),
                       ],
                     ),
                     const SizedBox(height: 25),
-                    Text(widget.bloodPressureEntity!.comment,
-                        style: AppTextTheme.body2.copyWith(
-                            color: widget.bloodPressureEntity!.statusColor,
-                            fontWeight: FontWeight.w700)),
+                    // Text(widget.bloodSugarEntity!.,
+                    //     style: AppTextTheme.body2.copyWith(
+                    //         color: widget.bloodSugarEntity!.statusColor,
+                    //         fontWeight: FontWeight.w700)),
                   ],
                 )),
             const SizedBox(height: 30),

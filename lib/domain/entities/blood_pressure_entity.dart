@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import '../../data/models/blood_pressure_model.dart';
 
 class BloodPressureEntity {
-  int? id;
   int? sys;
   int? dia;
   int? pulse;
   DateTime? updatedDate;
+  String? imageLink;
+ 
   BloodPressureEntity(
-      {this.dia, this.pulse, this.sys, this.updatedDate, this.id});
+      {this.dia, this.pulse, this.sys, this.updatedDate, this.imageLink});
 
   String get comment {
     if (sys != null && dia != null) {
@@ -65,10 +66,10 @@ class BloodPressureEntity {
 
   BloodPressureModel getBloodPressureModel() {
     return BloodPressureModel(
-        id: id,
-        sys: sys.toString(),
-        dia: dia.toString(),
-        pulse: pulse.toString(),
+       imageLink: imageLink,
+        sys: sys,
+        dia: dia,
+        pulse: pulse,
         updatedDate: updatedDate);
   }
 }

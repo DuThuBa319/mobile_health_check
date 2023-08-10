@@ -9,7 +9,6 @@ import '../../../di/di.dart';
 import '../../bloc/userlist/get_user_detail_bloc/get_user_detail_bloc.dart';
 
 import '../../common_widget/loading_widget.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../theme/app_text_theme.dart';
 import 'user_edit_screen.dart';
@@ -26,8 +25,6 @@ class UserDetailScreen extends StatefulWidget {
 }
 
 class _UserDetailScreenState extends State<UserDetailScreen> {
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
   GetUserDetailBloc get detailBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {

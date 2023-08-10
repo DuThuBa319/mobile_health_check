@@ -5,7 +5,7 @@ import 'package:common_project/presentation/modules/OCR_scanner/OCR_scanner_scre
 import 'package:common_project/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'package:common_project/presentation/modules/camera_demo/camera_demo_screen.dart';
 import 'package:common_project/presentation/modules/history/bloc/history_bloc.dart';
-import 'package:common_project/presentation/modules/history/history_screen.dart';
+import 'package:common_project/presentation/modules/history/blood_pressure_history_screen.dart';
 
 import 'package:common_project/presentation/modules/login_screen/login_screen.dart';
 import 'package:common_project/presentation/modules/pick_equipment/pick_equipment_screen.dart';
@@ -17,6 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
 
+import '../modules/history/blood_sugar_history_screen.dart';
+import '../modules/history/temperature_history_screen.dart';
 import '../modules/home/home_screen.dart';
 
 class AppRoute {
@@ -79,14 +81,34 @@ class AppRoute {
             ], child: const CameraScreen());
           },
         );
-      case '/history':
+      case '/bloodPressureHistory':
         return MaterialPageRoute(
           builder: (context) {
             return MultiBlocProvider(providers: [
               BlocProvider(
                 create: (context) => getIt<HistoryBloc>(),
               )
-            ], child: const HistoryScreen());
+            ], child: const BloodPressureHistoryScreen());
+          },
+        );
+        case '/bloodSugarHistory':
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (context) => getIt<HistoryBloc>(),
+              )
+            ], child: const BloodSugarHistoryScreen());
+          },
+        );
+        case '/temperatureHistory':
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (context) => getIt<HistoryBloc>(),
+              )
+            ], child: const TemperatureScreen());
           },
         );
       // case '/trend':

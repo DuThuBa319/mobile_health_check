@@ -1,24 +1,23 @@
+import 'package:common_project/domain/entities/blood_sugar_entity.dart';
 import 'package:common_project/presentation/modules/history/bloc/history_bloc.dart';
-import 'package:common_project/presentation/modules/history/sub_screen/blood_pressure_detail.dart';
+import 'package:common_project/presentation/modules/history/sub_screen/blood_sugar_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 
-class BloodPressureCellWidget extends StatefulWidget {
+class BloodSugarCellWidget extends StatefulWidget {
   final HistoryBloc? historyBloc;
-  final BloodPressureEntity? response;
-  const BloodPressureCellWidget({super.key, this.historyBloc, this.response});
+  final BloodSugarEntity? response;
+  const BloodSugarCellWidget({super.key, this.historyBloc, this.response});
 
   @override
-  State<BloodPressureCellWidget> createState() =>
-      _BloodPressureCellWidgetState();
+  State<BloodSugarCellWidget> createState() => _BloodSugarCellWidgetState();
 }
 
-class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
+class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -27,14 +26,20 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BloodPressureDetailScreen(
-                    bloodPressureEntity: widget.response),
+                builder: (context) =>
+                    BloodSugarDetailScreen(bloodSugarEntity: widget.response),
               ));
         },
         child: Container(
           decoration: BoxDecoration(
-            color: AppColor.cardBackground,
-            borderRadius: BorderRadius.circular(10),
+            color: const Color.fromARGB(255, 193, 232, 255),
+            borderRadius: BorderRadius.circular(20),
+            // boxShadow: const [
+            //   BoxShadow(
+            //     blurRadius: 15,
+            //     color: Colors.black26,
+            //   )
+            // ]
           ),
           height: screenSize.height * 0.15,
           width: screenSize.width,
@@ -50,14 +55,18 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                         padding: const EdgeInsets.all(5),
                         height: screenSize.width * 0.10,
                         width: screenSize.width * 0.10,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             color: AppColor.bloodPressureColor,
-                            shape: BoxShape.circle),
-                        child: Center(
-                          child: Image.asset(
-                            Assets.bloodPressureicon,
-                            fit: BoxFit.cover,
-                          ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 10,
+                                color: Colors.black26,
+                              )
+                            ]),
+                        child: Image.asset(
+                          Assets.bloodSugar,
+                          fit: BoxFit.cover,
                         )),
                     const SizedBox(
                       width: 10,
@@ -83,30 +92,19 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const SizedBox(width: 180),
+                SizedBox(width: screenSize.width * 0.65),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('${widget.response?.sys}/${widget.response?.dia}',
+                    Text('${widget.response!.bloodSugar}',
                         style: AppTextTheme.body1.copyWith(
                             fontSize: 30, fontWeight: FontWeight.w400)),
-                    Text('mmHg',
+                    Text('mg/dL',
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w400)),
+                            fontSize: 15, fontWeight: FontWeight.w400)),
                   ],
                 ),
                 const SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('${widget.response?.pulse}',
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: 30, fontWeight: FontWeight.w400)),
-                    Text('bpm',
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w400)),
-                  ],
-                ),
               ],
             )
           ]),

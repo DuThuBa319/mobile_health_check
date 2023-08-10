@@ -1,6 +1,6 @@
 class BloodSugarEntity {
-  int? id;
   double? bloodSugar;
   DateTime? updatedDate;
-  BloodSugarEntity({this.bloodSugar, this.updatedDate, this.id});
+  String? imageLink;
+  BloodSugarEntity({this.imageLink, this.updatedDate, this.bloodSugar});
 }

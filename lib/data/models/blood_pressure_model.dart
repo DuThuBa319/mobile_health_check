@@ -6,13 +6,18 @@ part 'blood_pressure_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class BloodPressureModel {
-  int? id;
-  String? sys;
-  String? dia;
-  String? pulse;
+  @JsonKey(name: 'systolic')
+  int? sys;
+  @JsonKey(name: 'diastolic')
+  int? dia;
+  @JsonKey(name: 'pulseRate')
+  int? pulse;
+  @JsonKey(name: 'timestamp')
   DateTime? updatedDate;
+  @JsonKey(name: 'imageLink"')
+  String? imageLink;
   BloodPressureModel(
-      {this.dia, this.pulse, this.sys, this.updatedDate, this.id});
+      {this.dia, this.pulse, this.sys, this.updatedDate, this.imageLink});
 
   factory BloodPressureModel.fromJson(Map<String, dynamic> json) =>
       _$BloodPressureModelFromJson(json);
@@ -20,10 +25,10 @@ class BloodPressureModel {
   Map<String, dynamic> toJson() => _$BloodPressureModelToJson(this);
   BloodPressureEntity getBloodPressureEntity() {
     return BloodPressureEntity(
-        id: id,
-        sys: int.parse(sys!),
-        dia: int.parse(dia!),
-        pulse: int.parse(pulse!),
+        imageLink: imageLink,
+        sys: sys,
+        dia: dia,
+        pulse: pulse,
         updatedDate: updatedDate);
   }
 }
