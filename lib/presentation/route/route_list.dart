@@ -12,7 +12,10 @@ class RouteList {
 
   static const String scanScreen = '/ocr_screen';
   static const String camera = '/camera';
-  static const String history = '/history';
+  static const String bloodPressureHistory = '/bloodPressureHistory';
+  static const String bloodSugarHistory = '/bloodSugarHistory';
+  static const String temperatureHistory = '/temperatureHistory';
+
   static const String trend = '/trend';
   static const String selectEquip = '/select';
 }

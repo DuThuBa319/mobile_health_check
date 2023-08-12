@@ -1,26 +1,27 @@
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:mobile_health_check/presentation/modules/history/widget/blood_pressure_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/presentation/modules/history/widget/temperature_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/loading_widget.dart';
+import '../../common_widget/screen_form/custom_screen_form.dart';
+import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 import 'bloc/history_bloc.dart';
-part 'history_screen.action.dart';
+part 'temperature_history_screen_action.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class TemperatureScreen extends StatefulWidget {
+  const TemperatureScreen({super.key});
 
   @override
-  State<HistoryScreen> createState() => HistoryScreenState();
+  State<TemperatureScreen> createState() => TemperatureScreenState();
 }
 
-class HistoryScreenState extends State<HistoryScreen> {
+class TemperatureScreenState extends State<TemperatureScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
   DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
   DateTime dateTo = DateTime.now();
@@ -38,16 +39,38 @@ class HistoryScreenState extends State<HistoryScreen> {
       isShowBottomNayvigationBar: true,
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
-      backgroundColor: AppColor.backgroundColor,
-      leadingButton: const Icon(Icons.menu),
-      selectedIndex: 1,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      leadingButton: IconButton(
+          onPressed: () => Navigator.pushNamed(context, RouteList.home),
+          icon: const Icon(Icons.arrow_back)),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 15),
-          Text('Date Range Picker',
-              style: AppTextTheme.body2.copyWith(fontWeight: FontWeight.w500)),
-          const SizedBox(height: 10),
+          Container(
+            margin: const EdgeInsets.only(left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 5),
+                const Text(
+                  'Chọn các mốc thời gian',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                const SizedBox(height: 5),
+                lineDecor(),
+                // lineDecor(),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -56,10 +79,12 @@ class HistoryScreenState extends State<HistoryScreen> {
                   selectedDate(isSelectedDateFrom: true);
                 },
                 child: Container(
-                    width: screenWidth * 0.37,
+                    width: screenWidth * 0.40,
                     height: screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 71, 200, 255),
+                        border:
+                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,15 +93,15 @@ class HistoryScreenState extends State<HistoryScreen> {
                           width: 10,
                         ),
                         const Icon(Icons.calendar_month,
-                            color: Colors.white, size: 30),
+                            color: AppColor.color43C8F5, size: 30),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(strDateFrom,
-                              style: AppTextTheme.body4
-                                  .copyWith(color: Colors.white)),
+                              style: AppTextTheme.body4.copyWith(
+                                  color: AppColor.color43C8F5, fontSize: 20)),
                         )
                       ],
                     )),
@@ -89,10 +114,12 @@ class HistoryScreenState extends State<HistoryScreen> {
                   selectedDate(isSelectedDateFrom: false);
                 },
                 child: Container(
-                    width: screenWidth * 0.37,
+                    width: screenWidth * 0.40,
                     height: screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 71, 200, 255),
+                        border:
+                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       children: [
@@ -100,15 +127,15 @@ class HistoryScreenState extends State<HistoryScreen> {
                           width: 10,
                         ),
                         const Icon(Icons.calendar_month,
-                            color: Colors.white, size: 30),
+                            color: AppColor.color43C8F5, size: 30),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(strDateTo,
-                              style: AppTextTheme.body4
-                                  .copyWith(color: Colors.white)),
+                              style: AppTextTheme.body4.copyWith(
+                                  color: AppColor.color43C8F5, fontSize: 20)),
                         )
                       ],
                     )),
@@ -116,27 +143,29 @@ class HistoryScreenState extends State<HistoryScreen> {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: 15,
           ),
-          InkWell(
-            onTap: () {
-              if (dateFrom.isAfter(dateTo)) {
-                showAlertDialog(context);
-              } else {
-                onGetHistoryData();
-              }
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: screenWidth * 0.37,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color.fromARGB(255, 71, 200, 255),
-              ),
-              child: Text(
-                'Search',
-                style: AppTextTheme.title3.copyWith(color: Colors.white),
+          Center(
+            child: InkWell(
+              onTap: () {
+                if (dateFrom.isAfter(dateTo)) {
+                  showAlertDialog(context);
+                } else {
+                  onGetTemperatureData();
+                }
+              },
+              child: Container(
+                alignment: Alignment.center,
+                width: screenWidth * 0.4,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color.fromARGB(255, 71, 200, 255),
+                ),
+                child: Text(
+                  'tìm kiếm',
+                  style: AppTextTheme.title3.copyWith(color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -150,11 +179,12 @@ class HistoryScreenState extends State<HistoryScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
+                    onGetTemperatureInitData();
                     //onGetHistoryData();
-                    return Center(
-                        child: Text('Vui lòng chọn thông tin',
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                    // return Center(
+                    //     child: Text('Vui lòng chọn thông tin',
+                    //         style: AppTextTheme.body2
+                    //             .copyWith(color: Colors.red)));
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
@@ -163,7 +193,7 @@ class HistoryScreenState extends State<HistoryScreen> {
                       ),
                     );
                   }
-                  if ((state.viewModel.listBloodPressure == null &&
+                  if ((state.viewModel.listTemperature == null &&
                           state is GetHistoryDataState &&
                           state.status == BlocStatusState.success) ||
                       state.status == BlocStatusState.failure) {
@@ -174,24 +204,23 @@ class HistoryScreenState extends State<HistoryScreen> {
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
-                    if (state.viewModel.listBloodPressure!.isEmpty) {
+                    if (state.viewModel.listTemperature!.isEmpty) {
                       return Center(
                           child: Text('Không có dữ liệu',
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
                       return Container(
-                        margin: const EdgeInsets.fromLTRB(15, 10, 0, 10),
+                        margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
-                          itemCount: state.viewModel.listBloodPressure!.length,
+                          itemCount: state.viewModel.listTemperature?.length,
                           itemBuilder: (context, index) {
-                            return BloodPressureCellWidget(
+                            return TemperatureCellWidget(
                               historyBloc: historyBloc,
-                              response:
-                                  state.viewModel.listBloodPressure![index],
+                              response: state.viewModel.listTemperature?[index],
                             );
                           },
                         ),

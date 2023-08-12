@@ -183,7 +183,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '',
+              '/BodyTemperatures/P001',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -240,7 +240,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '',
+              '/BloodPressures/P001',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -297,7 +297,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '',
+              '/BloodSugars/P001',
               queryParameters: queryParameters,
               data: _data,
             )

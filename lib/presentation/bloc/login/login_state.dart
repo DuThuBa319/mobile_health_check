@@ -72,8 +72,7 @@ class LoginFailState extends LoginState {
   }) : super(viewModel, status: status);
 }
 
-final _factories = <
-    Type,
+final _factories = <Type,
     Function(
   _ViewModel viewModel,
   BlocStatusState status,

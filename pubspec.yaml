@@ -31,7 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
+ 
   firebase_storage: ^11.2.5
   path_provider: ^2.0.15
   flutter_bloc: ^8.1.3

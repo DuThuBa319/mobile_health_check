@@ -32,12 +32,14 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
               ));
         },
         child: Container(
+          decoration: BoxDecoration(
+            color: AppColor.cardBackground,
+            borderRadius: BorderRadius.circular(10),
+          ),
           height: screenSize.height * 0.15,
           width: screenSize.width,
           margin: const EdgeInsets.fromLTRB(0, 10, 20, 10),
-          padding:
-              const EdgeInsets.only(top: 10, bottom: 10, left: 12, right: 12),
-          color: AppColor.cardBackgroundColor,
+          padding: const EdgeInsets.only(top: 10, left: 12, right: 12),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,14 +48,16 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                   children: [
                     Container(
                         padding: const EdgeInsets.all(5),
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 255, 224, 133),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset(
-                          Assets.bloodPressure,
-                          scale: 0.5,
+                        height: screenSize.width * 0.10,
+                        width: screenSize.width * 0.10,
+                        decoration: const BoxDecoration(
+                            color: AppColor.bloodPressureColor,
+                            shape: BoxShape.circle),
+                        child: Center(
+                          child: Image.asset(
+                            Assets.bloodPressureicon,
+                            fit: BoxFit.cover,
+                          ),
                         )),
                     const SizedBox(
                       width: 10,
@@ -63,12 +67,12 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                       children: [
                         Text('ĐO HUYẾT ÁP',
                             style: AppTextTheme.title4
-                                .copyWith(color: Colors.black)),
+                                .copyWith(color: Colors.black, fontSize: 17)),
                         const SizedBox(height: 2),
                         Text(
                           DateFormat('HH:mm dd/MM/yyyy')
                               .format(widget.response!.updatedDate!),
-                          style: AppTextTheme.title5.copyWith(fontSize: 10),
+                          style: AppTextTheme.title5.copyWith(fontSize: 13),
                         )
                       ],
                     )
@@ -76,32 +80,34 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const SizedBox(width: 165),
+                const SizedBox(width: 180),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('${widget.response!.sys}/${widget.response!.dia}',
+                    Text('${widget.response?.sys}/${widget.response?.dia}',
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: 32, fontWeight: FontWeight.w400)),
-                    Text('mmHg',
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w400)),
+                          fontSize: 33,
+                        )),
+                    Text(
+                      'mmHg',
+                      style: AppTextTheme.title5.copyWith(fontSize: 13),
+                    ),
                   ],
                 ),
                 const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('${widget.response!.pulse}',
+                    Text('${widget.response?.pulse}',
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: 24, fontWeight: FontWeight.w400)),
-                    Text('bpm',
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w400)),
+                            fontSize: 25, fontWeight: FontWeight.w400)),
+                    Text(
+                      'bpm',
+                      style: AppTextTheme.title5.copyWith(fontSize: 13),
+                    ),
                   ],
                 ),
               ],

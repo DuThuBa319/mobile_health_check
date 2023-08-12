@@ -16,12 +16,15 @@ class Assets {
   static const String logoFlutter = 'lib/assets/images/flutter_logo.png';
   static const String oldMan = 'lib/assets/images/old_man.png';
   static const String bloodSugar = 'lib/assets/images/blood_sugar_icon.png';
-  static const String bloodPressure =
+  static const String bloodPressureicon =
       'lib/assets/images/blood_pressure_icon.png';
   static const String temperature = 'lib/assets/images/thermometer_icon.png';
   static const String thermometer = 'lib/assets/images/thermometer_img.png';
   static const String bloodGlucoseMeter =
-      'lib/assets/images/blood_glucose_img.png';
+      'lib/assets/images/blood_glucos_equipment.png';
   static const String bloodPressureMeter =
-      'lib/assets/images/blood_pressure_img.png';
+      'lib/assets/images/blood_pressure_equipment.png';
+  static const String bodyTemperatureMeter =
+      'lib/assets/images/body_temperature_equipment.png';
+  static const String photo = 'lib/assets/images/photo.png';
 }

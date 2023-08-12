@@ -4,14 +4,10 @@ import 'dart:math';
 import 'package:mobile_health_check/domain/entities/user_entity.dart';
 import 'package:mobile_health_check/presentation/bloc/userlist/get_user_bloc/get_user_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../di/di.dart';
-import '../../../bloc/userlist/get_user_detail_bloc/get_user_detail_bloc.dart';
 
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
-import '../user_detail_screen.dart';
+import '../../home/home_screen.dart';
 
 class UserListCell extends StatefulWidget {
   final UserEntity? userEntity;
@@ -26,20 +22,28 @@ class UserListCell extends StatefulWidget {
 class _UserListCellState extends State<UserListCell> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return BlocProvider<GetUserDetailBloc>(
-                create: (context) => getIt<GetUserDetailBloc>(),
-                child: UserDetailScreen(
-                  id: widget.userEntity?.id ?? 0,
-                  userBloc: widget.userBloc,
-                ));
-          }));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //   return BlocProvider<GetUserDetailBloc>(
+          //       create: (context) => getIt<GetUserDetailBloc>(),
+          //       child: UserDetailScreen(
+          //         id: widget.userEntity?.id ?? 0,
+          //         userBloc: widget.userBloc,
+          //       ));
+          // }));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ));
         },
         child: Card(
-            margin: const EdgeInsets.all(10),
-            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  15), // Đặt giá trị bán kính bo góc tại đây
+            ),
+            elevation: 20,
             shadowColor: Color.fromARGB(
                 Random().nextInt(255),
                 Random().nextInt(255),
@@ -50,12 +54,17 @@ class _UserListCellState extends State<UserListCell> {
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
                 leading: const SizedBox(
-                    height: 40, width: 40, child: Icon(Icons.people)),
+                    height: 40,
+                    width: 40,
+                    child: Icon(
+                      Icons.people_alt_outlined,
+                      color: AppColor.black,
+                    )),
                 title: Text(
                   widget.userEntity?.name ?? '',
-                  style: AppTextTheme.body2,
+                  style: AppTextTheme.body2.copyWith(fontSize: 20),
                 ),
-                subtitle: Text(widget.userEntity?.email ?? '',
+                subtitle: Text(widget.userEntity?.phoneNumber ?? '',
                     style: AppTextTheme.body4),
               ),
             )));

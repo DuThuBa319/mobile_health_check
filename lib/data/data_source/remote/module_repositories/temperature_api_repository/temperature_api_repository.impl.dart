@@ -13,7 +13,7 @@ class TemperatureApiRepositoryImpl implements TemperatureApiRepository {
   TemperatureApiRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://retoolapi.dev/SBtH5Z/temperature');
+            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net/api');
 
   @override
   Future<List<TemperatureModel>> getListTemperatureModels() {

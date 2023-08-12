@@ -8,11 +8,11 @@ part of 'blood_sugar_model.dart';
 
 BloodSugarModel _$BloodSugarModelFromJson(Map<String, dynamic> json) =>
     BloodSugarModel(
-      bloodSugar: (json['bloodSugar'] as num?)?.toDouble(),
-      updatedDate: json['updatedDate'] == null
+      bloodSugar: (json['value'] as num?)?.toDouble(),
+      updatedDate: json['timestamp'] == null
           ? null
-          : DateTime.parse(json['updatedDate'] as String),
-      id: json['id'] as int?,
+          : DateTime.parse(json['timestamp'] as String),
+      imageLink: json['imageLink'] as String?,
     );
 
 Map<String, dynamic> _$BloodSugarModelToJson(BloodSugarModel instance) {
@@ -24,8 +24,8 @@ Map<String, dynamic> _$BloodSugarModelToJson(BloodSugarModel instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  writeNotNull('bloodSugar', instance.bloodSugar);
-  writeNotNull('updatedDate', instance.updatedDate?.toIso8601String());
+  writeNotNull('value', instance.bloodSugar);
+  writeNotNull('timestamp', instance.updatedDate?.toIso8601String());
+  writeNotNull('imageLink', instance.imageLink);
   return val;
 }

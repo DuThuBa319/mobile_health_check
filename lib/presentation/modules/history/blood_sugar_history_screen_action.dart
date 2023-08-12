@@ -1,11 +1,26 @@
-part of 'history_screen.dart';
+part of 'blood_sugar_history_screen.dart';
 
-extension HistoryScreenAction on HistoryScreenState {
+extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
+  Widget lineDecor() {
+    return Container(
+      decoration: const BoxDecoration(
+          color: AppColor.lineDecor,
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      height: 12,
+      width: 100,
+    );
+  }
+
   void blocListener(BuildContext context, HistoryState state) {
     // logger.d('change state', state);
     // _refreshController
     //   ..refreshCompleted()
     //   ..loadComplete();
+    if (state is GetHistoryDataState &&
+        state.status == BlocStatusState.loading) {
+      showToast('Đang tải dữ liệu');
+      //   );
+    }
 
     if (state is GetHistoryDataState &&
         state.status == BlocStatusState.loading) {
@@ -35,25 +50,32 @@ extension HistoryScreenAction on HistoryScreenState {
       if (isSelectedDateFrom) {
         dateFrom = datePicker;
         strDateFrom = DateFormat('dd/MM/yyyy').format(datePicker);
+        // ignore: invalid_use_of_protected_member
         setState(() {});
       } else {
         dateTo = datePicker;
         strDateTo = DateFormat('dd/MM/yyyy').format(datePicker);
+        // ignore: invalid_use_of_protected_member
         setState(() {});
       }
     }
   }
 
-  Future<void> onGetHistoryData() async {
-    historyBloc.add(GetHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
+  Future<void> onGetBloodSugarData() async {
+    historyBloc.add(
+        GetBloodSugarHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
   }
 
-  Future<void> _onRefresh() async {
+  Future<void> onGetBloodSugarInitData() async {
+    historyBloc.add(GetBloodSugarHistoryInitDataEvent());
+  }
+
+  Future<void> _onBloodSugarRefresh() async {
     // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000));
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
-    await onGetHistoryData();
+    await onGetBloodSugarData();
   }
 
   void showAlertDialog(BuildContext context) {
