@@ -14,6 +14,7 @@ class BloodPressureUsecaseImpl extends BloodPressureUsecase {
     var responseEntities = <BloodPressureEntity>[];
     for (final response in responses) {
       responseEntities.add(response.getBloodPressureEntity());
+      print(response);
     }
 
     return responseEntities;

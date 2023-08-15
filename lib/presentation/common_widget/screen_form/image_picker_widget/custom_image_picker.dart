@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 
 import '../../../../function.dart';
 import '../../assets.dart';
@@ -15,10 +16,11 @@ part 'custom_image_picker_action.dart';
 class ImagePickerSingle extends StatefulWidget {
   final bool? isOnTapActive;
   final bool? isforAvatar;
-  final XFile? availableImage;
+  final String? imagePath;
+
   const ImagePickerSingle({
     Key? key,
-    this.availableImage,
+    required this.imagePath,
     required this.isOnTapActive,
     required this.isforAvatar,
   }) : super(key: key);
@@ -30,112 +32,98 @@ class ImagePickerSingle extends StatefulWidget {
 
 class _ImagePickerSingleState extends State<ImagePickerSingle> {
   final picker = ImagePicker();
+
   XFile? image;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: widget.isforAvatar == false
-            ? image == null
-                ? Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 15),
-                        height: SizeConfig.screenWidth * 0.7,
-                        width: SizeConfig.screenWidth * 0.7,
-                        // decoration: BoxDecoration(
-                        //   border: Border.all(width: 4, color: Colors.blue),
-                        //   borderRadius: BorderRadiusDirectional.circular(20),
-                        // ),
-                        child: Image.asset(
-                          fit: BoxFit.cover,
-                          Assets.photo,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 4, color: Colors.white),
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                        ),
-                        margin: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * 0.55,
-                            top: SizeConfig.screenWidth * 0.50),
-                        child: SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: GestureDetector(
-                            child: Container(
-                              padding: EdgeInsets.zero,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle, color: Colors.blue),
-                              child: const Icon(
-                                Icons.add_a_photo,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                            ),
-                            onTap: () {
-                              if (widget.isOnTapActive == true) {
-                                selectSource(context);
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
+            ? widget.imagePath == null
+                ? Container(
+                    margin: const EdgeInsets.only(left: 15),
+                    height: SizeConfig.screenWidth * 0.8,
+                    width: SizeConfig.screenWidth * 0.8,
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(width: 4, color: Colors.blue),
+                    //   borderRadius: BorderRadiusDirectional.circular(20),
+                    // ),
+                    child: Image.asset(
+                      fit: BoxFit.cover,
+                      Assets.photo,
+                      color: Colors.white,
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(width: 4, color: Colors.white),
+                      //     color: Colors.blue,
+                      //     shape: BoxShape.circle,
+                      //   ),
+                      //   margin: EdgeInsets.only(
+                      //       left: SizeConfig.screenWidth * 0.55,
+                      //       top: SizeConfig.screenWidth * 0.50),
+                      //   child: SizedBox(
+                      //     height: 60,
+                      //     width: 60,
+                      //     child: GestureDetector(
+                      //       child: Container(
+                      //         padding: EdgeInsets.zero,
+                      //         decoration: const BoxDecoration(
+                      //             shape: BoxShape.circle, color: Colors.blue),
+                      //         child: const Icon(
+                      //           Icons.add_a_photo,
+                      //           color: Colors.white,
+                      //           size: 30,
+                      //         ),
+                      //       ),
+                      //       onTap: () {
+                      //         if (widget.isOnTapActive == true) {
+                      //           selectSource(context);
+                      //         }
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
+                    ),
                   )
-                : Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 15),
-                        height: SizeConfig.screenWidth * 0.7,
-                        width: SizeConfig.screenWidth * 0.7,
-                        child: ClipRRect(
-                          borderRadius: BorderRadiusDirectional.circular(20),
-                          child: image != null
-                              ? FullScreenWidget(
-                                  disposeLevel: DisposeLevel.Medium,
-                                  child: Image.file(
-                                    File(image!.path),
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : const Icon(
-                                  Icons.add_a_photo,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 4, color: Colors.white),
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                        ),
-                        margin: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * 0.65,
-                            top: SizeConfig.screenWidth * 0.6),
-                        child: SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: GestureDetector(
-                            child: const Icon(
-                              Icons.delete_forever,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            onTap: () {
-                              if (widget.isOnTapActive == true) {
-                                deleteImage();
-                              }
-                            },
+                : Container(
+                    margin: const EdgeInsets.only(left: 15),
+                    height: SizeConfig.screenWidth * 0.8,
+                    width: SizeConfig.screenWidth * 0.8,
+                    child: ClipRRect(
+                        borderRadius: BorderRadiusDirectional.circular(20),
+                        child: FullScreenWidget(
+                          disposeLevel: DisposeLevel.High,
+                          child: Image.network(
+                            widget.imagePath!,
+                            fit: BoxFit.fill,
                           ),
-                        ),
-                      ),
-                    ],
+                        )),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     border: Border.all(width: 4, color: Colors.white),
+                    //     color: Colors.blue,
+                    //     shape: BoxShape.circle,
+                    //   ),
+                    //   margin: EdgeInsets.only(
+                    //       left: SizeConfig.screenWidth * 0.65,
+                    //       top: SizeConfig.screenWidth * 0.6),
+                    //   child: SizedBox(
+                    //     height: 60,
+                    //     width: 60,
+                    //     child: GestureDetector(
+                    //       child: const Icon(
+                    //         Icons.delete_forever,
+                    //         color: Colors.white,
+                    //         size: 30,
+                    //       ),
+                    //       onTap: () {
+                    //         if (widget.isOnTapActive == true) {
+                    //           deleteImage();
+                    //         }
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                   )
 
             ////////////////////////////
@@ -200,7 +188,8 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.white),
+                          border:
+                              Border.all(width: 3, color: AppColor.topGradient),
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
@@ -212,8 +201,9 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                           width: 35,
                           child: GestureDetector(
                             child: const Icon(
-                              Icons.delete_forever_outlined,
+                              Icons.delete,
                               size: 30,
+                              color: AppColor.black,
                             ),
                             onTap: () {
                               if (widget.isOnTapActive == true) {

@@ -5,14 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mobile_health_check/presentation/modules/user_profile/widget/user_list_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
+import '../../../classes/language_constant.dart';
 import '../../bloc/userlist/get_user_bloc/get_user_bloc.dart';
 
 import '../../common_widget/dialog/show_toast.dart';
+import '../../common_widget/line_decor.dart';
 import '../../common_widget/loading_widget.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
+
 part 'user_profile_screen.action.dart';
 
 //Class Home
@@ -49,7 +51,7 @@ class _UserListState extends State<UserListScreen> {
         //   onPressed: gotoRegistUserScreen,
         //   icon: const Icon(Icons.add),
         // ),
-        selectedIndex: 1,
+        selectedIndex: 0,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
           child: Column(
@@ -57,7 +59,7 @@ class _UserListState extends State<UserListScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Danh sách bệnh nhân',
+                  translation(context).patientList,
                   style: AppTextTheme.body0.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -67,7 +69,7 @@ class _UserListState extends State<UserListScreen> {
                 lineDecor(),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 20),
+                  padding: const EdgeInsets.only(top: 8, bottom: 20),
                   child: Container(
                     decoration: const BoxDecoration(boxShadow: [
                       BoxShadow(
@@ -84,7 +86,7 @@ class _UserListState extends State<UserListScreen> {
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: 'Tìm kiếm bệnh nhân',
+                        hintText: translation(context).searchPatient,
                         hintStyle: const TextStyle(color: Colors.black54),
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.search),
@@ -151,19 +153,5 @@ class _UserListState extends State<UserListScreen> {
                     }),
               ]),
         ));
-
-    /*
-     Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('User List Screen'),
-          actions: [
-            IconButton(
-              onPressed: gotoRegistUserScreen,
-              icon: const Icon(Icons.add),
-            ),
-          ],
-        ),
-        body: */
   }
 }

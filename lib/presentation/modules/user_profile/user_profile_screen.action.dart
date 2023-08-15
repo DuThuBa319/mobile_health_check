@@ -23,13 +23,5 @@ extension UserListScreenAction on _UserListState {
     Navigator.pushNamed(context, RouteList.registUser, arguments: userBloc);
   }
 
-  Widget lineDecor() {
-    return Container(
-      decoration: const BoxDecoration(
-          color: AppColor.lineDecor,
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      height: 12,
-      width: 100,
-    );
-  }
+ 
 }

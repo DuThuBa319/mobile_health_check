@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/temperature_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../theme/app_text_theme.dart';
@@ -74,7 +75,7 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Đo Thân Nhiệt',
+                        Text(translation(context).bodyTemperature,
                             style: AppTextTheme.title4
                                 .copyWith(color: Colors.black, fontSize: 17)),
                         const SizedBox(height: 2),

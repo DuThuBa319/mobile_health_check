@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class CommonButton extends StatelessWidget {
   final double height;
+  final double? width;
   final Color? buttonColor;
   final String title;
   final Color? textColor;
   final void Function()? onTap;
   const CommonButton(
       {super.key,
+      this.width,
       this.buttonColor = Colors.blue,
       required this.height,
       this.onTap,
@@ -20,7 +22,7 @@ class CommonButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: height,
-        width: MediaQuery.of(context).size.width * 0.85,
+        width: width ?? MediaQuery.of(context).size.width * 0.85,
         padding: EdgeInsets.only(
             top: height / 4, bottom: height / 4, right: 10, left: 10),
         decoration: BoxDecoration(

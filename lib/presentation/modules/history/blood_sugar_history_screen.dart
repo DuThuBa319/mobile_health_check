@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/history/widget/blood_sugar_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../classes/language_constant.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
+import '../../common_widget/line_decor.dart';
 import '../../common_widget/loading_widget.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../route/route_list.dart';
@@ -35,12 +37,12 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return CustomScreenForm(
-      title: 'History',
+      title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
       leadingButton: IconButton(
           onPressed: () => Navigator.pushNamed(context, RouteList.home),
           icon: const Icon(Icons.arrow_back)),
@@ -56,9 +58,9 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 5),
-                const Text(
-                  'Chọn các mốc thời gian',
-                  style: TextStyle(
+                Text(
+                  translation(context).selectTime,
+                  style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
@@ -163,7 +165,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                   color: const Color.fromARGB(255, 71, 200, 255),
                 ),
                 child: Text(
-                  'tìm kiếm',
+                   translation(context).search,
                   style: AppTextTheme.title3.copyWith(color: Colors.white),
                 ),
               ),
@@ -214,6 +216,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       return Container(
                         margin: const EdgeInsets.fromLTRB(15, 10, 0, 10),
                         child: ListView.builder(
+                          reverse: true,
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,

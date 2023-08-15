@@ -124,6 +124,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         updatedDate: DateTime.now(),
         // imageLink: (state.viewModel.listBloodPressureLength ?? 0) + 1
       );
+
       await bloodPressureUseCase.createBloodPressureEntity(
           bloodPressureEntity: entity);
       emit(

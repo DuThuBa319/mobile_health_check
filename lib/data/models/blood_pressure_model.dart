@@ -12,12 +12,18 @@ class BloodPressureModel {
   int? dia;
   @JsonKey(name: 'pulseRate')
   int? pulse;
+  @JsonKey(name: 'imageLink')
+  String? imageLink;
   @JsonKey(name: 'timestamp')
   DateTime? updatedDate;
-  @JsonKey(name: 'imageLink"')
-  String? imageLink;
-  BloodPressureModel(
-      {this.dia, this.pulse, this.sys, this.updatedDate, this.imageLink});
+
+  BloodPressureModel({
+    this.dia,
+    this.sys,
+    this.pulse,
+    this.imageLink,
+    this.updatedDate,
+  });
 
   factory BloodPressureModel.fromJson(Map<String, dynamic> json) =>
       _$BloodPressureModelFromJson(json);
@@ -25,10 +31,10 @@ class BloodPressureModel {
   Map<String, dynamic> toJson() => _$BloodPressureModelToJson(this);
   BloodPressureEntity getBloodPressureEntity() {
     return BloodPressureEntity(
-        imageLink: imageLink,
-        sys: sys,
         dia: dia,
+        sys: sys,
         pulse: pulse,
+        imageLink: imageLink == "" ? null : imageLink,
         updatedDate: updatedDate);
   }
 }

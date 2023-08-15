@@ -2,6 +2,7 @@ import 'package:mobile_health_check/presentation/modules/history/sub_screen/bloo
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../theme/app_text_theme.dart';
@@ -65,7 +66,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ĐO HUYẾT ÁP',
+                        Text(translation(context).bloodPressure,
                             style: AppTextTheme.title4
                                 .copyWith(color: Colors.black, fontSize: 17)),
                         const SizedBox(height: 2),

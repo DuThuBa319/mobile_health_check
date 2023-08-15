@@ -38,7 +38,7 @@ class _RestApiRepository implements RestApiRepository {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<UserModel>>(Options(
       method: 'GET',
@@ -67,7 +67,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<UserModel>(Options(
       method: 'GET',
@@ -150,7 +150,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'DELETE',
       headers: _headers,
@@ -174,7 +174,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<TemperatureModel>>(Options(
       method: 'GET',
@@ -204,7 +204,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<TemperatureModel>(Options(
       method: 'GET',
@@ -231,7 +231,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<BloodPressureModel>>(Options(
       method: 'GET',
@@ -240,7 +240,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/BloodPressures/P001',
+              '',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -261,7 +261,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BloodPressureModel>(Options(
       method: 'GET',
@@ -288,7 +288,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<BloodSugarModel>>(Options(
       method: 'GET',
@@ -317,7 +317,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BloodSugarModel>(Options(
       method: 'GET',

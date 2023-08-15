@@ -3,6 +3,7 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
+import '../../../classes/language_constant.dart';
 import '../../route/route_list.dart';
 
 class CustomScreenForm extends StatefulWidget {
@@ -127,18 +128,18 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   //        size: 30, color: Colors.white)),
                   // ),
                   iconBottomBar(
-                      label: 'Home',
+                      label: translation(context).homeScreen,
                       iconData: Icons.home,
-                      isSelected: widget.selectedIndex == 1 ? true : false,
-                      iconIndex: 1),
-                  iconBottomBar(
-                      label: 'Thông báo',
-                      iconData: Icons.message_outlined,
                       isSelected: widget.selectedIndex == 0 ? true : false,
                       iconIndex: 0),
+                  iconBottomBar(
+                      label: translation(context).messagesScreen,
+                      iconData: Icons.message_outlined,
+                      isSelected: widget.selectedIndex == 1 ? true : false,
+                      iconIndex: 1),
 
                   iconBottomBar(
-                      label: 'Cài đặt',
+                      label: translation(context).settingScreen,
                       iconData: Icons.settings_sharp,
                       isSelected: widget.selectedIndex == 2 ? true : false,
                       iconIndex: 2),
@@ -244,13 +245,13 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
   }
 
   void _onItemTapped(int index) {
-    if (index == 1 && index != widget.selectedIndex) {
+    if (index == 0 && index != widget.selectedIndex) {
       Navigator.pushNamed(context, RouteList.userList);
     }
     if (index == 2 && index != widget.selectedIndex) {
-      // Navigator.pushNamed(context, RouteList.trend);
+      Navigator.pushNamed(context, RouteList.setting);
     }
-    if (index == 3 && index != widget.selectedIndex) {
+    if (index == 1 && index != widget.selectedIndex) {
       //  Navigator.pushNamed(context, RouteList.example);
     }
   }

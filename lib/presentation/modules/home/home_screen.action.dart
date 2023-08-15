@@ -35,26 +35,16 @@ extension HomeAction on _HomeScreenState {
                 .copyWith(color: Colors.black, fontWeight: FontWeight.w400)),
         const SizedBox(height: 5),
         Text(content,
-            style: AppTextTheme.body2
+            style: AppTextTheme.body1
                 .copyWith(color: Colors.black, fontWeight: FontWeight.w500)),
       ],
-    );
-  }
-
-  Widget lineDecor() {
-    return Container(
-      decoration: const BoxDecoration(
-          color: AppColor.lineDecor,
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      height: 12,
-      width: 100,
     );
   }
 
   Widget historyLook() {
     return Row(
       children: [
-        Text("Xem lịch sử",
+        Text(translation(context).watchHistory,
             style: AppTextTheme.body5.copyWith(
                 color: Colors.blue,
                 fontSize: 17,
@@ -112,7 +102,7 @@ extension HomeAction on _HomeScreenState {
                   children: [
                     Text(indicator,
                         style: AppTextTheme.title4
-                            .copyWith(color: Colors.black, fontSize: 20)),
+                            .copyWith(color: Colors.black, fontSize: 18)),
                     const SizedBox(height: 2),
                     // Text(
                     //   DateFormat('hh:mm dd/MM/yyyy')

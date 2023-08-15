@@ -4,7 +4,9 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+import '../../../classes/language_constant.dart';
 import '../../common_widget/assets.dart';
+import '../../common_widget/line_decor.dart';
 import '../../route/route_list.dart';
 import '../../theme/theme_color.dart';
 part 'home_screen.action.dart';
@@ -33,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: CustomScreenForm(
-        title: 'Thông tin bệnh nhân',
+        title: translation(context).patientIn4,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: true,
@@ -49,8 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  margin: const EdgeInsets.only(bottom: 15),
-                  height: sreenHeight * 0.31,
+                  height: sreenHeight * 0.33,
                   width: sreenWidth,
                   decoration: BoxDecoration(
                     // color: const Color.fromARGB(255, 123, 211, 255),
@@ -78,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const Center(
                         child: ImagePickerSingle(
+                          imagePath: null,
                           isOnTapActive: true,
                           isforAvatar: true,
                         ),
@@ -103,9 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          infoText(title: 'Cân nặng', content: '72 kg'),
-                          infoText(title: 'Tuổi', content: '67'),
-                          infoText(title: 'Chiều cao', content: '176 cm'),
+                          infoText(
+                              title: translation(context).weight,
+                              content: '72 kg'),
+                          infoText(
+                              title: translation(context).age, content: '67'),
+                          infoText(
+                              title: translation(context).height,
+                              content: '176 cm'),
                         ],
                       ),
                     ],
@@ -116,9 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Chỉ số cập nhật gần nhất',
+                      translation(context).lastUpdate,
                       style: AppTextTheme.body0
                           .copyWith(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 2,
                     ),
                     lineDecor(),
                   ],
@@ -131,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   homeCell(
                       imagePath: Assets.bloodPressureMeter,
-                      indicator: "ĐO HUYẾT ÁP",
+                      indicator: translation(context).bloodPressure,
                       color: AppColor.bloodPressureEquip),
                   Positioned(
                     left: sreenWidth * 0.73,
@@ -147,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   homeCell(
                       imagePath: Assets.bodyTemperatureMeter,
-                      indicator: "ĐO THÂN NHIỆT",
+                      indicator: translation(context).bodyTemperature,
                       color: AppColor.bodyTemperatureColor),
                   Positioned(
                     left: sreenWidth * 0.73,
@@ -163,8 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   homeCell(
                       imagePath: Assets.bloodGlucoseMeter,
-                      indicator: "ĐO ĐƯỜNG HUYẾT",
-                      color: AppColor .bloodGlucosColor),
+                      indicator: translation(context).bloodSugar,
+                      color: AppColor.bloodGlucosColor),
                   Positioned(
                     left: sreenWidth * 0.73,
                     top: sreenHeight * 0.01,

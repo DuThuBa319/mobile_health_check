@@ -37,24 +37,27 @@ abstract class RestApiRepository {
   @DELETE('/{id}') //delete
   Future<void> deleteUser(@Path('id') int id);
 
+//BLOOD PRESSURE
+  @GET('')
+  Future<List<BloodPressureModel>> getListBloodPressureModels();
+  @GET('/{id}')
+  Future<BloodPressureModel> getBloodPressureModel(
+      {@Path('id') required int id});
+  @POST('')
+  Future<BloodPressureModel> createBloodPressureModel(
+      {@Body() required BloodPressureModel bloodPressureModel});
+
+//BLOOD SUGAR
+
+  @GET('/BloodSugars/P001')
+  Future<List<BloodSugarModel>> getListBloodSugarModels();
+  @GET('/{id}')
+  Future<BloodSugarModel> getBloodSugarModel({@Path('id') required int id});
+
+//BODYTEMERPATURE
+
   @GET('/BodyTemperatures/P001')
   Future<List<TemperatureModel>> getListTemperatureModels();
   @GET('/{id}')
   Future<TemperatureModel> getTemperatureModel({@Path('id') required int id});
-
-  @GET('/BloodPressures/P001')
-  Future<List<BloodPressureModel>> getListBloodPressureModels();
-
-  @GET('/{id}')
-  Future<BloodPressureModel> getBloodPressureModel(
-      {@Path('id') required int id});
-
-  @GET('/BloodSugars/P001')
-  Future<List<BloodSugarModel>> getListBloodSugarModels();
-
-  @GET('/{id}')
-  Future<BloodSugarModel> getBloodSugarModel({@Path('id') required int id});
-  @POST('')
-  Future<BloodPressureModel> createBloodPressureModel(
-      {@Body() required BloodPressureModel bloodPressureModel});
 }

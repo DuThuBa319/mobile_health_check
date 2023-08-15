@@ -8,8 +8,11 @@ import 'package:mobile_health_check/presentation/modules/history/bloc/history_bl
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
 import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
+import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_password_setting.dart';
+import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_phone_setting.dart';
+import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_setting_menu.dart';
+import 'package:mobile_health_check/presentation/modules/setting_screen/language_setting.dart';
 import 'package:mobile_health_check/presentation/modules/user_profile/user_profile_screen.dart';
-import 'package:mobile_health_check/presentation/modules/user_profile/user_regist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -111,12 +114,31 @@ class AppRoute {
             ], child: const TemperatureScreen());
           },
         );
-      // case '/trend':
-      //   return MaterialPageRoute(
-      //     builder: (context) {
-      //       return const BloodPressureDetailScreen();
-      //     },
-      //   );
+      case '/setting':
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SettingMenu();
+          },
+        );
+      case '/settingDrPhone':
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SettingDrPhone();
+          },
+        );
+      case '/settingLanguage':
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SettingLanguage();
+          },
+        );
+      case '/settingDrPass':
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SettingDrPassword();
+          },
+        );
+
       case '/select':
         return MaterialPageRoute(
           builder: (context) {

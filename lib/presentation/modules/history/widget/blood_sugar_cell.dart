@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../theme/app_text_theme.dart';
@@ -74,7 +75,7 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ĐO ĐƯỜNG HUYẾT',
+                        Text(translation(context).bloodSugar,
                             style: AppTextTheme.title4
                                 .copyWith(color: Colors.black, fontSize: 17)),
                         const SizedBox(height: 2),

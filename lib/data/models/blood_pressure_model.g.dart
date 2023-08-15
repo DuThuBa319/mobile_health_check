@@ -9,12 +9,12 @@ part of 'blood_pressure_model.dart';
 BloodPressureModel _$BloodPressureModelFromJson(Map<String, dynamic> json) =>
     BloodPressureModel(
       dia: json['diastolic'] as int?,
-      pulse: json['pulseRate'] as int?,
       sys: json['systolic'] as int?,
+      pulse: json['pulseRate'] as int?,
+      imageLink: json['imageLink'] as String?,
       updatedDate: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
-      imageLink: json['imageLink"'] as String?,
     );
 
 Map<String, dynamic> _$BloodPressureModelToJson(BloodPressureModel instance) {
@@ -29,7 +29,7 @@ Map<String, dynamic> _$BloodPressureModelToJson(BloodPressureModel instance) {
   writeNotNull('systolic', instance.sys);
   writeNotNull('diastolic', instance.dia);
   writeNotNull('pulseRate', instance.pulse);
+  writeNotNull('imageLink', instance.imageLink);
   writeNotNull('timestamp', instance.updatedDate?.toIso8601String());
-  writeNotNull('imageLink"', instance.imageLink);
   return val;
 }

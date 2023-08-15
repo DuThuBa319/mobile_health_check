@@ -42,11 +42,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     try {
       final responses =
           await bloodPressureUseCase.getListBloodPressureEntities();
+
       List<BloodPressureEntity>? listBloodPressure = [];
       for (var response in responses) {
         if (response.updatedDate!.isAfter(event.startDate) &&
             response.updatedDate!.isBefore(event.endDate)) {
           listBloodPressure.add(response);
+          print(listBloodPressure);
         }
       }
       final newViewModel =
@@ -81,9 +83,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     try {
       final responses =
           await bloodPressureUseCase.getListBloodPressureEntities();
-
+      List<BloodPressureEntity>? listBloodPressure = [];
+      for (var response in responses) {
+        listBloodPressure.add(response);
+        print(listBloodPressure);
+      }
       final newViewModel =
-          state.viewModel.copyWith(listBloodPressure: responses);
+          state.viewModel.copyWith(listBloodPressure: listBloodPressure);
       emit(
         state.copyWith(
           status: BlocStatusState.success,

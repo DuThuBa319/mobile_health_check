@@ -1,15 +1,7 @@
 part of 'temperature_history_screen.dart';
 
 extension TemperatureScreenAction on TemperatureScreenState {
-  Widget lineDecor() {
-    return Container(
-      decoration: const BoxDecoration(
-          color: AppColor.lineDecor,
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      height: 12,
-      width: 100,
-    );
-  }
+  
 
   void blocListener(BuildContext context, HistoryState state) {
     // logger.d('change state', state);

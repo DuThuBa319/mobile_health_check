@@ -6,11 +6,16 @@ class BloodPressureEntity {
   int? sys;
   int? dia;
   int? pulse;
-  DateTime? updatedDate;
   String? imageLink;
+  DateTime? updatedDate;
 
-  BloodPressureEntity(
-      {this.dia, this.pulse, this.sys, this.updatedDate, this.imageLink});
+  BloodPressureEntity({
+    this.sys,
+    this.dia,
+    this.pulse,
+    this.imageLink,
+    this.updatedDate,
+  });
 
   String get comment {
     if (sys != null && dia != null) {
@@ -66,10 +71,10 @@ class BloodPressureEntity {
 
   BloodPressureModel getBloodPressureModel() {
     return BloodPressureModel(
-        imageLink: imageLink,
-        sys: sys,
         dia: dia,
+        sys: sys,
         pulse: pulse,
+        imageLink: imageLink,
         updatedDate: updatedDate);
   }
 }

@@ -10,6 +10,7 @@ class BloodSugarModel {
   double? bloodSugar;
   @JsonKey(name: 'timestamp')
   DateTime? updatedDate;
+  @JsonKey(name: 'imageLink')
   String? imageLink;
   BloodSugarModel({this.bloodSugar, this.updatedDate, this.imageLink});
 
@@ -19,6 +20,8 @@ class BloodSugarModel {
   Map<String, dynamic> toJson() => _$BloodSugarModelToJson(this);
   BloodSugarEntity getBloodSugarEntity() {
     return BloodSugarEntity(
-        imageLink: imageLink, bloodSugar: bloodSugar, updatedDate: updatedDate);
+        imageLink: imageLink == "" ? null : imageLink,
+        bloodSugar: bloodSugar,
+        updatedDate: updatedDate);
   }
 }
