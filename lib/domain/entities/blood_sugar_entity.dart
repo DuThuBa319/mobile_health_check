@@ -37,7 +37,7 @@ class BloodSugarEntity {
         return ' Đường huyết bình thường'; //  Đường huyết cao
       } else if (bloodSugar! >= 101 && bloodSugar! <= 125) {
         //|| dia! >= 90 && dia! <= 99
-        return 'Tiền tiểu đường ';
+        return 'Tiền tiểu đường';
       } else if (bloodSugar! >= 126) {
         //|| dia! >= 100 && dia! <= 109
         return 'Đường huyết cao';

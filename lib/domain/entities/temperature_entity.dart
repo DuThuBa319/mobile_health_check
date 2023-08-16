@@ -35,7 +35,7 @@ class TemperatureEntity {
         return 'Thân nhiệt thấp';
       } else if (36 <= temperature! && temperature! <= 36.9) {
         //|| dia! >= 80 && dia! <= 89
-        return ' Thân nhiệt bình thường'; //  Thân nhiệt cao
+        return 'Thân nhiệt bình thường'; //  Thân nhiệt cao
       } else if (temperature! >= 37 && temperature! <= 38) {
         //|| dia! >= 90 && dia! <= 99
         return 'Thân nhiệt cao';

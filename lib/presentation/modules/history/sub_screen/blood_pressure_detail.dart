@@ -23,7 +23,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
   void initState() {
     super.initState();
   }
-
+////////////////////////
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -181,7 +181,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Text(widget.bloodPressureEntity!.comment,
+                    Text(
+                                        // ignore: unrelated_type_equality_checks
+                        widget.bloodPressureEntity!.comment,
                         style: AppTextTheme.body2.copyWith(
                             color: widget.bloodPressureEntity!.statusColor,
                             fontWeight: FontWeight.w700)),
