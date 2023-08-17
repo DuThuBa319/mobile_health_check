@@ -3,6 +3,7 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
+import '../../../classes/language_constant.dart';
 import '../../route/route_list.dart';
 
 class CustomScreenForm extends StatefulWidget {
@@ -13,12 +14,11 @@ class CustomScreenForm extends StatefulWidget {
   final Color? appComponentColor;
   final bool isShowLeadingButton;
   final Widget? leadingButton;
-
-  final int selectedIndex;
-  final String title;
+  final int? selectedIndex;
+  final String? title;
   final Widget child;
   final bool? isScrollable;
-  final bool? isShowRightButon;
+  final bool isShowRightButon;
   final Widget? rightButton;
   const CustomScreenForm(
       {super.key,
@@ -30,9 +30,9 @@ class CustomScreenForm extends StatefulWidget {
       required this.child,
       this.isShowLeadingButton = false,
       this.leadingButton,
-      this.selectedIndex = -1,
+      this.selectedIndex,
       this.isScrollable = false,
-      required this.title,
+      this.title,
       this.isShowRightButon = false,
       this.rightButton});
 
@@ -56,7 +56,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       IconButton(
                         icon: Icon(
                           Icons.arrow_back,
-                          size: 24,
+                          size: 35,
                           color: widget.appComponentColor,
                         ),
                         onPressed: () {
@@ -66,25 +66,30 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   : null,
               centerTitle: true,
               title: Text(
-                widget.title,
-                style: AppTextTheme.title1
+                widget.title!,
+                style: AppTextTheme.title0
                     .copyWith(color: widget.appComponentColor),
               ),
               actions: [
-                widget.rightButton ??
-                    const Row(
-                      children: [
-                        badges.Badge(
-                          badgeContent: Text("N",
-                              style:
-                                  TextStyle(fontSize: 10, color: Colors.white)),
-                          child: Icon(Icons.notifications),
-                        ),
-                        SizedBox(
-                          width: 30,
-                        ),
-                      ],
-                    )
+                widget.isShowRightButon
+                    ? widget.rightButton ??
+                        const Row(
+                          children: [
+                            badges.Badge(
+                              badgeContent: Text("N",
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.white)),
+                              child: Icon(Icons.notifications),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                          ],
+                        )
+                    : const SizedBox(
+                        height: 20,
+                        width: 20,
+                      )
               ],
             )
           : null,
@@ -99,7 +104,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 // bottom app bar -------------------------
       bottomNavigationBar: widget.isShowBottomNayvigationBar == true
           ? BottomAppBar(
-              color: AppColor.greyF3,
+              color: AppColor.white,
               elevation: 40,
               shape: const CircularNotchedRectangle(),
               notchMargin: 5,
@@ -107,40 +112,37 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  //      InkWell(
+                  //   onTap: () {
+                  //     Navigator.pushNamed(context, RouteList.selectEquip);
+                  //   },
+                  //   child: Container(
+                  //       height: 47,
+                  //       width: 47,
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(30),
+                  //         color: const Color.fromARGB(255, 123, 211, 255),
+                  //       ),
+                  //       child: const Icon(Icons.add,
+                  //
+                  //        size: 30, color: Colors.white)),
+                  // ),
                   iconBottomBar(
-                      label: 'Home',
+                      label: translation(context).homeScreen,
                       iconData: Icons.home,
                       isSelected: widget.selectedIndex == 0 ? true : false,
                       iconIndex: 0),
                   iconBottomBar(
-                      label: 'History',
-                      iconData: Icons.history,
+                      label: translation(context).messagesScreen,
+                      iconData: Icons.message_outlined,
                       isSelected: widget.selectedIndex == 1 ? true : false,
                       iconIndex: 1),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteList.selectEquip);
-                    },
-                    child: Container(
-                        height: 47,
-                        width: 47,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: const Color.fromARGB(255, 123, 211, 255),
-                        ),
-                        child: const Icon(Icons.add,
-                            size: 30, color: Colors.white)),
-                  ),
+
                   iconBottomBar(
-                      label: 'Trends',
-                      iconData: Icons.insert_chart_outlined_sharp,
+                      label: translation(context).settingScreen,
+                      iconData: Icons.settings_sharp,
                       isSelected: widget.selectedIndex == 2 ? true : false,
                       iconIndex: 2),
-                  iconBottomBar(
-                      label: 'Settings',
-                      iconData: Icons.settings,
-                      isSelected: widget.selectedIndex == 3 ? true : false,
-                      iconIndex: 3),
                 ],
               ),
             )
@@ -244,29 +246,19 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 
   void _onItemTapped(int index) {
     if (index == 0 && index != widget.selectedIndex) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, RouteList.home, (Route<dynamic> route) => false);
+      Navigator.pushNamed(context, RouteList.userList);
     }
-    if (widget.selectedIndex == 0) {
-      if (index == 1 && index != widget.selectedIndex) {
-        Navigator.pushNamed(context, RouteList.history);
-      }
-      // if (index == 2 && index != widget.selectedIndex) {
-      //   Navigator.pushNamed(context, RouteList.trend);
-      // }
-      if (index == 3 && index != widget.selectedIndex) {
-        //  Navigator.pushNamed(context, RouteList.example);
-      }
-    } else {
-      if (index == 1 && index != widget.selectedIndex) {
-        Navigator.pushReplacementNamed(context, RouteList.history);
-      }
-      // if (index == 2 && index != widget.selectedIndex) {
-      //   Navigator.pushReplacementNamed(context, RouteList.trend);
-      // }
-      if (index == 3 && index != widget.selectedIndex) {
-        //   Navigator.pushReplacementNamed(context, RouteList.example);
-      }
+    if (index == 2 && index != widget.selectedIndex) {
+      Navigator.pushNamed(context, RouteList.setting);
+    }
+    if (index == 1 && index != widget.selectedIndex) {
+      //  Navigator.pushNamed(context, RouteList.example);
     }
   }
+  // if (index == 1 && index != widget.selectedIndex) {
+  //   Navigator.pushReplacementNamed(context, RouteList.history);
+  // }
+  // if (index == 2 && index != widget.selectedIndex) {
+  //   Navigator.pushReplacementNamed(context, RouteList.trend);
+  // }
 }

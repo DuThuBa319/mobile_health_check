@@ -1,26 +1,30 @@
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:mobile_health_check/presentation/modules/history/widget/blood_pressure_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/presentation/modules/history/widget/blood_sugar_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../classes/language_constant.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
+import '../../common_widget/line_decor.dart';
 import '../../common_widget/loading_widget.dart';
+import '../../common_widget/screen_form/custom_screen_form.dart';
+import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 import 'bloc/history_bloc.dart';
-part 'history_screen.action.dart';
+part 'blood_sugar_history_screen_action.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class BloodSugarHistoryScreen extends StatefulWidget {
+  const BloodSugarHistoryScreen({super.key});
 
   @override
-  State<HistoryScreen> createState() => HistoryScreenState();
+  State<BloodSugarHistoryScreen> createState() =>
+      BloodSugarHistoryScreenState();
 }
 
-class HistoryScreenState extends State<HistoryScreen> {
+class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
   DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
   DateTime dateTo = DateTime.now();
@@ -33,21 +37,42 @@ class HistoryScreenState extends State<HistoryScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return CustomScreenForm(
-      title: 'History',
+      title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
-      backgroundColor: AppColor.backgroundColor,
-      leadingButton: const Icon(Icons.menu),
-      selectedIndex: 1,
+      backgroundColor: Colors.white,
+      leadingButton: IconButton(
+          onPressed: () => Navigator.pushNamed(context, RouteList.home),
+          icon: const Icon(Icons.arrow_back)),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 15),
-          Text('Date Range Picker',
-              style: AppTextTheme.body2.copyWith(fontWeight: FontWeight.w500)),
-          const SizedBox(height: 10),
+          Container(
+            margin: const EdgeInsets.only(left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 5),
+                Text(
+                  translation(context).selectTime,
+                  style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                const SizedBox(height: 5),
+                lineDecor(),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -56,10 +81,12 @@ class HistoryScreenState extends State<HistoryScreen> {
                   selectedDate(isSelectedDateFrom: true);
                 },
                 child: Container(
-                    width: screenWidth * 0.37,
+                    width: screenWidth * 0.40,
                     height: screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 71, 200, 255),
+                        border:
+                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,15 +95,15 @@ class HistoryScreenState extends State<HistoryScreen> {
                           width: 10,
                         ),
                         const Icon(Icons.calendar_month,
-                            color: Colors.white, size: 30),
+                            color: AppColor.color43C8F5, size: 30),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(strDateFrom,
-                              style: AppTextTheme.body4
-                                  .copyWith(color: Colors.white)),
+                              style: AppTextTheme.body4.copyWith(
+                                  color: AppColor.color43C8F5, fontSize: 20)),
                         )
                       ],
                     )),
@@ -89,10 +116,12 @@ class HistoryScreenState extends State<HistoryScreen> {
                   selectedDate(isSelectedDateFrom: false);
                 },
                 child: Container(
-                    width: screenWidth * 0.37,
+                    width: screenWidth * 0.40,
                     height: screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 71, 200, 255),
+                        border:
+                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       children: [
@@ -100,15 +129,15 @@ class HistoryScreenState extends State<HistoryScreen> {
                           width: 10,
                         ),
                         const Icon(Icons.calendar_month,
-                            color: Colors.white, size: 30),
+                            color: AppColor.color43C8F5, size: 30),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(strDateTo,
-                              style: AppTextTheme.body4
-                                  .copyWith(color: Colors.white)),
+                              style: AppTextTheme.body4.copyWith(
+                                  color: AppColor.color43C8F5, fontSize: 20)),
                         )
                       ],
                     )),
@@ -116,27 +145,29 @@ class HistoryScreenState extends State<HistoryScreen> {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: 15,
           ),
-          InkWell(
-            onTap: () {
-              if (dateFrom.isAfter(dateTo)) {
-                showAlertDialog(context);
-              } else {
-                onGetHistoryData();
-              }
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: screenWidth * 0.37,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color.fromARGB(255, 71, 200, 255),
-              ),
-              child: Text(
-                'Search',
-                style: AppTextTheme.title3.copyWith(color: Colors.white),
+          Center(
+            child: InkWell(
+              onTap: () {
+                if (dateFrom.isAfter(dateTo)) {
+                  showAlertDialog(context);
+                } else {
+                  onGetBloodSugarData();
+                }
+              },
+              child: Container(
+                alignment: Alignment.center,
+                width: screenWidth * 0.4,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color.fromARGB(255, 71, 200, 255),
+                ),
+                child: Text(
+                   translation(context).search,
+                  style: AppTextTheme.title3.copyWith(color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -144,17 +175,19 @@ class HistoryScreenState extends State<HistoryScreen> {
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
-              onRefresh: _onRefresh,
+              onRefresh: _onBloodSugarRefresh,
               header: const WaterDropHeader(),
               child: BlocConsumer<HistoryBloc, HistoryState>(
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
                     //onGetHistoryData();
-                    return Center(
-                        child: Text('Vui lòng chọn thông tin',
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                    onGetBloodSugarInitData();
+
+                    // return Center(
+                    //     child: Text('Vui lòng chọn thông tin',
+                    //         style: AppTextTheme.body2
+                    //             .copyWith(color: Colors.red)));
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
@@ -163,7 +196,7 @@ class HistoryScreenState extends State<HistoryScreen> {
                       ),
                     );
                   }
-                  if ((state.viewModel.listBloodPressure == null &&
+                  if ((state.viewModel.listBloodSugar == null &&
                           state is GetHistoryDataState &&
                           state.status == BlocStatusState.success) ||
                       state.status == BlocStatusState.failure) {
@@ -174,7 +207,7 @@ class HistoryScreenState extends State<HistoryScreen> {
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
-                    if (state.viewModel.listBloodPressure!.isEmpty) {
+                    if (state.viewModel.listBloodSugar!.isEmpty) {
                       return Center(
                           child: Text('Không có dữ liệu',
                               style: AppTextTheme.body2
@@ -183,15 +216,15 @@ class HistoryScreenState extends State<HistoryScreen> {
                       return Container(
                         margin: const EdgeInsets.fromLTRB(15, 10, 0, 10),
                         child: ListView.builder(
+                          reverse: true,
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
-                          itemCount: state.viewModel.listBloodPressure!.length,
+                          itemCount: state.viewModel.listBloodSugar?.length,
                           itemBuilder: (context, index) {
-                            return BloodPressureCellWidget(
+                            return BloodSugarCellWidget(
                               historyBloc: historyBloc,
-                              response:
-                                  state.viewModel.listBloodPressure![index],
+                              response: state.viewModel.listBloodSugar?[index],
                             );
                           },
                         ),

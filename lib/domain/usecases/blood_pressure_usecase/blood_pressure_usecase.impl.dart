@@ -11,10 +11,10 @@ class BloodPressureUsecaseImpl extends BloodPressureUsecase {
   @override
   Future<List<BloodPressureEntity>> getListBloodPressureEntities() async {
     final responses = await _repository.getListBloodPressureModels();
-
     var responseEntities = <BloodPressureEntity>[];
     for (final response in responses) {
       responseEntities.add(response.getBloodPressureEntity());
+      print(response);
     }
 
     return responseEntities;

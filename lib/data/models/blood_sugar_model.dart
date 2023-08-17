@@ -6,10 +6,13 @@ part 'blood_sugar_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class BloodSugarModel {
-  int? id;
+  @JsonKey(name: 'value')
   double? bloodSugar;
+  @JsonKey(name: 'timestamp')
   DateTime? updatedDate;
-  BloodSugarModel({this.bloodSugar, this.updatedDate, this.id});
+  @JsonKey(name: 'imageLink')
+  String? imageLink;
+  BloodSugarModel({this.bloodSugar, this.updatedDate, this.imageLink});
 
   factory BloodSugarModel.fromJson(Map<String, dynamic> json) =>
       _$BloodSugarModelFromJson(json);
@@ -17,6 +20,8 @@ class BloodSugarModel {
   Map<String, dynamic> toJson() => _$BloodSugarModelToJson(this);
   BloodSugarEntity getBloodSugarEntity() {
     return BloodSugarEntity(
-        id: id, bloodSugar: bloodSugar, updatedDate: updatedDate);
+        imageLink: imageLink == "" ? null : imageLink,
+        bloodSugar: bloodSugar,
+        updatedDate: updatedDate);
   }
 }

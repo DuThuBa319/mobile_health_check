@@ -1,12 +1,14 @@
-import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'classes/language_constant.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
+import 'presentation/common_widget/assets.dart';
 import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_options.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 List<CameraDescription> cameras = [];
 Future<void> main() async {
@@ -31,13 +33,34 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
+  Locale? _locale;
+
+  setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    getLocale().then((locale) => {setLocale(locale)});
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: _locale,
       debugShowCheckedModeBanner: false,
       title: 'Health Check App',
       onGenerateRoute: AppRoute.onGenerateRoute,
@@ -60,12 +83,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    super.initState();
     // TODO: implement initState
-
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
-      Navigator.pushNamed(context, RouteList.selectEquip);
+      Navigator.pushNamed(context, RouteList.userList);
     });
   }
 

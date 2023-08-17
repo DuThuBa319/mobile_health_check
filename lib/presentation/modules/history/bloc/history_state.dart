@@ -2,10 +2,18 @@ part of 'history_bloc.dart';
 
 class _ViewModel {
   final List<BloodPressureEntity>? listBloodPressure;
-  const _ViewModel({this.listBloodPressure});
+  final List<BloodSugarEntity>? listBloodSugar;
+  final List<TemperatureEntity>? listTemperature;
+  const _ViewModel(
+      {this.listTemperature, this.listBloodSugar, this.listBloodPressure});
 
-  _ViewModel copyWith({List<BloodPressureEntity>? listBloodPressure}) {
+  _ViewModel copyWith(
+      {List<BloodPressureEntity>? listBloodPressure,
+      List<BloodSugarEntity>? listBloodSugar,
+      List<TemperatureEntity>? listTemperature}) {
     return _ViewModel(
+      listTemperature: listTemperature ?? this.listTemperature,
+      listBloodSugar: listBloodSugar ?? this.listBloodSugar,
       listBloodPressure: listBloodPressure ?? this.listBloodPressure,
     );
   }

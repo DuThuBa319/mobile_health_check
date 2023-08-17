@@ -1,6 +1,8 @@
-part of 'history_screen.dart';
+part of 'temperature_history_screen.dart';
 
-extension HistoryScreenAction on HistoryScreenState {
+extension TemperatureScreenAction on TemperatureScreenState {
+  
+
   void blocListener(BuildContext context, HistoryState state) {
     // logger.d('change state', state);
     // _refreshController
@@ -39,21 +41,26 @@ extension HistoryScreenAction on HistoryScreenState {
       } else {
         dateTo = datePicker;
         strDateTo = DateFormat('dd/MM/yyyy').format(datePicker);
+        // ignore: invalid_use_of_protected_member
         setState(() {});
       }
     }
   }
 
-  Future<void> onGetHistoryData() async {
-    historyBloc.add(GetHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
+  Future<void> onGetTemperatureData() async {
+    historyBloc.add(
+        GetTemperatureHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
   }
 
+  Future<void> onGetTemperatureInitData() async {
+    historyBloc.add(GetTemperatureHistoryInitDataEvent());
+  }
   Future<void> _onRefresh() async {
     // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000));
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
-    await onGetHistoryData();
+    await onGetTemperatureData();
   }
 
   void showAlertDialog(BuildContext context) {

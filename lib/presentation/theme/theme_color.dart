@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
+  static const Color lineDecor = Color(0xfffb7b7b);
+  static const Color saveSetting = Color(0xFFFF6B6B);
+
+  static const Color bloodPressureColor = Color(0xffFFDE83);
+  static const Color bodyTemperatureColor = Color(0xff80E5FB);
+  static const Color bloodGlucosColor = Color(0xffFA9898);
+  static const Color bloodPressureEquip = Color(0xffFFBC97);
+  static const Color topGradient = Color(0xff7BD4FF);
+
   static const Color white = Colors.white;
   static const Color black = Colors.black;
   static const Color primaryColor = Color(0xFF03a1e4);
   static const Color primaryColorLight = Color(0xFF43c8f5);
-  static const Color cardBackground = Color(0xFFf7f8f8);
+  static const Color cardBackground = Color.fromARGB(255, 215, 242, 255);
   static const Color iconSelected = primaryColor;
   static const Color iconUnselected = Colors.grey;
   static const Color lightGrey = Color(0xFFbebebe);
@@ -59,7 +68,9 @@ class AppColor {
   static const Color subDarkText = Colors.grey;
 
   //custom constant color
-  static const Color backgroundColor = Colors.white;
-  static const Color appBarColor = Color.fromARGB(255, 123, 211, 255);
+  static const Color backgroundColor = Color(0xffd0f7ff);
+  static const Color circleBackground = Color.fromARGB(255, 149, 232, 250);
+
+  static const Color appBarColor = Color(0xff8AD8FF);
   static const Color cardBackgroundColor = Color.fromARGB(255, 232, 247, 255);
 }
