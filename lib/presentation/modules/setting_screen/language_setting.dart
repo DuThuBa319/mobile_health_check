@@ -33,24 +33,19 @@ class _SettingLanguageState extends State<SettingLanguage> {
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
-        backgroundColor: AppColor.topGradient,
+        backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),
         selectedIndex: 2,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 25,
-              right: 25,
-            ),
+          child: Container(
+            margin: EdgeInsets.only(
+                top: sreenHeight * 0.05, left: sreenWidth * 0.05),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: sreenHeight * 0.05,
-                  ),
                   Row(
                     children: [
                       const Icon(Icons.language_outlined, size: 40),
@@ -71,28 +66,23 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     child: Column(
                       children: [
                         Container(
+                          padding: const EdgeInsets.only(left: 20, right: 15),
                           margin: const EdgeInsets.only(top: 15, bottom: 15),
                           decoration: BoxDecoration(
-                            color: AppColor.cardBackground,
+                            color: AppColor.white,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           height: sreenHeight * 0.1,
                           width: sreenWidth * 0.7,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: sreenWidth * 0.7 * 0.15,
-                              ),
                               Text(Language.languageList()[0].name,
                                   style: AppTextTheme.body1.copyWith()),
-                              SizedBox(
-                                width: sreenWidth * 0.7 * 0.17,
-                              ),
                               GestureDetector(
                                   child: Container(
-                                    height: sreenHeight * 0.1 * 0.5,
-                                    width: sreenWidth * 0.7 * 0.4,
+                                    height: sreenHeight * 0.05,
+                                    width: sreenHeight * 0.05,
                                     decoration: BoxDecoration(
                                       color: select1 == false
                                           ? Colors.white
@@ -102,7 +92,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                           width: 3,
                                           color: select1 == false
                                               ? AppColor.topGradient
-                                              : Colors.white),
+                                              : AppColor.backgroundColor),
                                     ),
                                   ),
                                   onTap: () {
@@ -115,25 +105,23 @@ class _SettingLanguageState extends State<SettingLanguage> {
                           ),
                         ),
                         Container(
+                          padding: const EdgeInsets.only(left: 20, right: 15),
                           margin: const EdgeInsets.only(top: 15, bottom: 15),
                           decoration: BoxDecoration(
-                            color: AppColor.cardBackground,
+                            color: AppColor.white,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           height: sreenHeight * 0.1,
                           width: sreenWidth * 0.7,
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: sreenWidth * 0.7 * 0.15,
-                                ),
                                 Text(Language.languageList()[1].name,
                                     style: AppTextTheme.body1.copyWith()),
                                 GestureDetector(
                                     child: Container(
-                                      height: sreenHeight * 0.1 * 0.5,
-                                      width: sreenWidth * 0.7 * 0.4,
+                                      height: sreenHeight * 0.05,
+                                      width: sreenHeight * 0.05,
                                       decoration: BoxDecoration(
                                         color: select2 == false
                                             ? Colors.white
@@ -143,7 +131,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                             width: 3,
                                             color: select2 == false
                                                 ? AppColor.topGradient
-                                                : Colors.white),
+                                                : AppColor.backgroundColor),
                                       ),
                                     ),
                                     onTap: () {
@@ -170,16 +158,17 @@ class _SettingLanguageState extends State<SettingLanguage> {
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
-                          showToast("Chuyển đổi ngôn ngữ thành công");
-                          print(select1);
+                          showToast("Change language successfully");
+                          Navigator.pushNamed(context, RouteList.setting);
                         } else if (select2 == true && select1 == false) {
                           selectedLanguage = Language(2, VIETNAMESE, 'vi');
                           Locale locale =
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
-                          showToast("Chuyển đổi ngôn ngữ thành công");
-                          print(select1);
+                          showToast("Đổi ngôn ngữ thành công");
+
+                          Navigator.pushNamed(context, RouteList.setting);
                         }
                       },
                     ),

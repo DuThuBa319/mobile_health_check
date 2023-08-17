@@ -1,8 +1,6 @@
 part of 'temperature_history_screen.dart';
 
 extension TemperatureScreenAction on TemperatureScreenState {
-  
-
   void blocListener(BuildContext context, HistoryState state) {
     // logger.d('change state', state);
     // _refreshController
@@ -55,6 +53,7 @@ extension TemperatureScreenAction on TemperatureScreenState {
   Future<void> onGetTemperatureInitData() async {
     historyBloc.add(GetTemperatureHistoryInitDataEvent());
   }
+
   Future<void> _onRefresh() async {
     // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000));

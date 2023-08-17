@@ -9,11 +9,9 @@ import '../../../classes/language_constant.dart';
 import '../../bloc/userlist/get_user_bloc/get_user_bloc.dart';
 
 import '../../common_widget/dialog/show_toast.dart';
-import '../../common_widget/line_decor.dart';
 import '../../common_widget/loading_widget.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../route/route_list.dart';
-import '../../theme/app_text_theme.dart';
 
 part 'user_profile_screen.action.dart';
 
@@ -41,15 +39,17 @@ class _UserListState extends State<UserListScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScreenForm(
-        isShowAppBar: false,
-        appBarColor: AppColor.backgroundColor,
+        isShowAppBar: true,
         isShowLeadingButton: false,
         isShowBottomNayvigationBar: true,
         isShowRightButon: false,
         backgroundColor: AppColor.backgroundColor,
+        appBarColor: AppColor.topGradient,
+
         // rightButton: IconButton(
         //   onPressed: gotoRegistUserScreen,
         //   icon: const Icon(Icons.add),
+        title: translation(context).patientList,
         // ),
         selectedIndex: 0,
         child: Padding(
@@ -58,15 +58,6 @@ class _UserListState extends State<UserListScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  translation(context).patientList,
-                  style: AppTextTheme.body0.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                lineDecor(),
                 const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 20),
@@ -83,7 +74,7 @@ class _UserListState extends State<UserListScreen> {
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
                         hintText: translation(context).searchPatient,

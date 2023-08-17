@@ -41,24 +41,23 @@ class _HomeScreenState extends State<HomeScreen> {
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         appBarColor: const Color(0xff7BD4FF),
-        backgroundColor: AppColor.backgroundColor,
+        backgroundColor: AppColor.cardBackground,
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.userList),
             icon: const Icon(Icons.arrow_back)),
-        rightButton: null,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  height: sreenHeight * 0.33,
+                  height: sreenHeight * 0.32,
                   width: sreenWidth,
                   decoration: BoxDecoration(
                     // color: const Color.fromARGB(255, 123, 211, 255),
                     gradient: const LinearGradient(
                       colors: [
                         Color(0xff7BD4FF),
-                        AppColor.backgroundColor,
+                        Color(0xffDBF3FF),
 
                         // Colors.white, // Xanh nhạt nhất
                         // Xanh đậm nhất
@@ -84,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           isforAvatar: true,
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
+                      SizedBox(
+                        height: sreenHeight * 0.02,
                       ),
                       Text(
                         'Nguyễn Văn A',
@@ -99,8 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: AppTextTheme.body3.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.w400)),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: sreenHeight * 0.03,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -118,14 +117,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 10),
+                padding: const EdgeInsets.only(left: 15, right: 10, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       translation(context).lastUpdate,
                       style: AppTextTheme.body0
-                          .copyWith(fontSize: 25, fontWeight: FontWeight.bold),
+                          .copyWith(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 2,
@@ -137,54 +136,25 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Stack(
+              Column(
                 children: [
                   homeCell(
+                      naviagte: "bloodPressureHistory",
                       imagePath: Assets.bloodPressureMeter,
                       indicator: translation(context).bloodPressure,
                       color: AppColor.bloodPressureEquip),
-                  Positioned(
-                    left: sreenWidth * 0.73,
-                    top: sreenHeight * 0.01,
-                    child: GestureDetector(
-                        child: historyLook(),
-                        onTap: () => Navigator.pushReplacementNamed(
-                            context, RouteList.bloodPressureHistory)),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
                   homeCell(
+                      naviagte: "bodyTemperatureColor",
                       imagePath: Assets.bodyTemperatureMeter,
                       indicator: translation(context).bodyTemperature,
                       color: AppColor.bodyTemperatureColor),
-                  Positioned(
-                    left: sreenWidth * 0.73,
-                    top: sreenHeight * 0.01,
-                    child: GestureDetector(
-                        child: historyLook(),
-                        onTap: () => Navigator.pushReplacementNamed(
-                            context, RouteList.temperatureHistory)),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
                   homeCell(
+                      naviagte: "bloodSugarHistory",
                       imagePath: Assets.bloodGlucoseMeter,
                       indicator: translation(context).bloodSugar,
                       color: AppColor.bloodGlucosColor),
-                  Positioned(
-                    left: sreenWidth * 0.73,
-                    top: sreenHeight * 0.01,
-                    child: GestureDetector(
-                        child: historyLook(),
-                        onTap: () => Navigator.pushReplacementNamed(
-                            context, RouteList.bloodSugarHistory)),
-                  ),
                 ],
-              ),
+              )
             ],
           ),
         ),

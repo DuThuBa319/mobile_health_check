@@ -44,7 +44,7 @@ class BloodPressureHistoryScreenState
       isShowBottomNayvigationBar: true,
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
       leadingButton: IconButton(
           onPressed: () => Navigator.pushNamed(context, RouteList.home),
           icon: const Icon(Icons.arrow_back)),
@@ -91,22 +91,13 @@ class BloodPressureHistoryScreenState
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(strDateFrom,
-                              style: AppTextTheme.body4.copyWith(
-                                  color: AppColor.color43C8F5, fontSize: 20)),
-                        )
+                        Text(strDateFrom,
+                            style: AppTextTheme.body4.copyWith(
+                                color: AppColor.color43C8F5, fontSize: 20))
                       ],
                     )),
               ),
@@ -118,7 +109,7 @@ class BloodPressureHistoryScreenState
                   selectedDate(isSelectedDateFrom: false);
                 },
                 child: Container(
-                    width: screenWidth * 0.40,
+                    width: screenWidth * 0.41,
                     height: screenHeight * 0.055,
                     decoration: BoxDecoration(
                         border:
@@ -126,21 +117,13 @@ class BloodPressureHistoryScreenState
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(strDateTo,
-                              style: AppTextTheme.body4.copyWith(
-                                  color: AppColor.color43C8F5, fontSize: 20)),
-                        )
+                        Text(strDateTo,
+                            style: AppTextTheme.body4.copyWith(
+                                color: AppColor.color43C8F5, fontSize: 20))
                       ],
                     )),
               )
@@ -214,22 +197,19 @@ class BloodPressureHistoryScreenState
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
-                      return Container(
-                        margin: const EdgeInsets.fromLTRB(15, 10, 0, 10),
-                        child: ListView.builder(
-                          reverse: true,
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          itemCount: state.viewModel.listBloodPressure?.length,
-                          itemBuilder: (context, index) {
-                            return BloodPressureCellWidget(
-                              historyBloc: historyBloc,
-                              response:
-                                  state.viewModel.listBloodPressure?[index],
-                            );
-                          },
-                        ),
+                      return ListView.builder(
+                        reverse: true,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: state.viewModel.listBloodPressure?.length,
+                        itemBuilder: (context, index) {
+                          return BloodPressureCellWidget(
+                            historyBloc: historyBloc,
+                            response:
+                                state.viewModel.listBloodPressure?[index],
+                          );
+                        },
                       );
                     }
                   }

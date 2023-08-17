@@ -41,110 +41,90 @@ extension HomeAction on _HomeScreenState {
     );
   }
 
-  Widget historyLook() {
-    return Row(
-      children: [
-        Text(translation(context).watchHistory,
-            style: AppTextTheme.body5.copyWith(
-                color: Colors.blue,
-                fontSize: 17,
-                decoration: TextDecoration.underline,
-                decorationThickness: 1)),
-      ],
-    );
-  }
-
   Widget homeCell(
-      {required String imagePath,
+      {required String naviagte,
+      required String imagePath,
       required String indicator,
       required Color color}) {
     Size screenSize = MediaQuery.of(context).size;
 
     return Container(
       decoration: BoxDecoration(
-          color: AppColor.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 15,
-              color: Colors.black26,
-            )
-          ]),
-      height: screenSize.height * 0.18,
+        color: AppColor.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            blurRadius: 15,
+            color: Colors.black12,
+          )
+        ],
+      ),
+      height: screenSize.height * 0.15,
       width: screenSize.width,
       margin: const EdgeInsets.fromLTRB(15, 0, 12, 10),
-      padding: const EdgeInsets.only(top: 10, left: 12, right: 12),
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    padding: const EdgeInsets.all(5),
-                    height: screenSize.width * 0.20,
-                    width: screenSize.width * 0.20,
-                    decoration: BoxDecoration(
-                      color: color,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Image.asset(
-                      imagePath,
-                      fit: BoxFit.cover,
-                    )),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(top: 10, left: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+              padding: const EdgeInsets.all(5),
+              height: screenSize.width * 0.25,
+              width: screenSize.width * 0.25,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.fitWidth,
+              )),
+          const SizedBox(
+            width: 5,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: screenSize.width * 0.6,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(indicator,
-                        style: AppTextTheme.title4
-                            .copyWith(color: Colors.black, fontSize: 18)),
-                    const SizedBox(height: 2),
-                    // Text(
-                    //   DateFormat('hh:mm dd/MM/yyyy')
-                    //       .format(widget.response!.updatedDate!),
-                    //   style: AppTextTheme.title5.copyWith(fontSize: 10),
-                    // )
+                        style: AppTextTheme.title3.copyWith(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                    GestureDetector(
+                      child: Text(translation(context).watchHistory,
+                          style: AppTextTheme.body5.copyWith(
+                              color: Colors.blue,
+                              fontSize: 15,
+                              decoration: TextDecoration.underline,
+                              decorationThickness: 1)),
+                      onTap: () {
+                        if (naviagte == "bloodPressureHistory") {
+                          Navigator.pushNamed(
+                              context, RouteList.bloodPressureHistory);
+                        }
+                        if (naviagte == "bloodSugarHistory") {
+                          Navigator.pushNamed(
+                              context, RouteList.bloodSugarHistory);
+                        } else if (naviagte == "bodyTemperatureColor") {
+                          Navigator.pushNamed(
+                              context, RouteList.temperatureHistory);
+                        }
+                      },
+                    ),
                   ],
-                )
-              ],
-            ),
-          ],
-        ),
-        const Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            SizedBox(width: 165),
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.end,
-            //   children: [
-            //     Text('${widget.response!.sys}/${widget.response!.dia}',
-            //         style: AppTextTheme.body2.copyWith(
-            //             fontSize: 30, fontWeight: FontWeight.w400)),
-            //     Text('mmHg',
-            //         style: AppTextTheme.body2.copyWith(
-            //             fontSize: 10, fontWeight: FontWeight.w400)),
-            //   ],
-            // ),
-            // const SizedBox(width: 20),
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.end,
-            //   children: [
-            //     Text('${widget.response!.pulse}',
-            //         style: AppTextTheme.body1.copyWith(
-            //             fontSize: 24, fontWeight: FontWeight.w400)),
-            //     Text('bpm',
-            //         style: AppTextTheme.body1.copyWith(
-            //             fontSize: 14, fontWeight: FontWeight.w400)),
-            //   ],
-            // ),
-          ],
-        )
-      ]),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 2)
+        ],
+      ),
     );
   }
 }

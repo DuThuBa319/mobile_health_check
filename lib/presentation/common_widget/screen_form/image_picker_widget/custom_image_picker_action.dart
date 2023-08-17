@@ -19,7 +19,7 @@ extension ImagePickerAction on _ImagePickerSingleState {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: SizeConfig.screenHeight * 0.14,
+          height: SizeConfig.screenHeight * 0.12,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30),

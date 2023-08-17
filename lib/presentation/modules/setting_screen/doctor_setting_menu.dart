@@ -29,7 +29,7 @@ class _SettingMenuState extends State<SettingMenu> {
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
-        backgroundColor: AppColor.topGradient,
+        backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.userList),
             icon: const Icon(Icons.arrow_back)),
@@ -37,6 +37,7 @@ class _SettingMenuState extends State<SettingMenu> {
         child: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.only(
+              top: 10,
               left: 25,
               right: 25,
             ),

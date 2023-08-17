@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../classes/language_constant.dart';
 import '../../data/models/temperature_model.dart';
 
 class TemperatureEntity {
@@ -28,20 +29,20 @@ class TemperatureEntity {
     return Colors.grey;
   }
 
-  String get comment {
+  String statusComment(BuildContext context) {
     if (temperature != null) {
       if (temperature! < 35.9) {
         //|| dia! <= 60
-        return 'Thân nhiệt thấp';
+        return translation(context).hypothermia;
       } else if (36 <= temperature! && temperature! <= 36.9) {
         //|| dia! >= 80 && dia! <= 89
-        return 'Thân nhiệt bình thường'; //  Thân nhiệt cao
+        return translation(context).normalBT; //  Thân nhiệt cao
       } else if (temperature! >= 37 && temperature! <= 38) {
         //|| dia! >= 90 && dia! <= 99
-        return 'Thân nhiệt cao';
+        return translation(context).hyperthermia;
       } else if (temperature! >= 38.1) {
         //|| dia! >= 100 && dia! <= 109
-        return 'Thân nhiệt rất cao';
+        return translation(context).veryhightbodytemperature;
       }
     }
 

@@ -44,7 +44,8 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
           ),
           height: screenSize.height * 0.15,
           width: screenSize.width,
-          padding: const EdgeInsets.only(top: 10, left: 12, right: 12),
+          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          padding: const EdgeInsets.only(top: 10, left: 12),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,15 +56,9 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                         padding: const EdgeInsets.all(5),
                         height: screenSize.width * 0.13,
                         width: screenSize.width * 0.13,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColor.bodyTemperatureColor,
-                          borderRadius: BorderRadius.circular(30),
-                          // boxShadow: const [
-                          //   BoxShadow(
-                          //     blurRadius: 10,
-                          //     color: Colors.black26,
-                          //   )
-                          // ]
+                          shape: BoxShape.circle,
                         ),
                         child: Image.asset(
                           Assets.temperature,
@@ -90,20 +85,24 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 5,
+            ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(width: screenSize.width * 0.62),
+                const SizedBox(),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('${widget.response?.temperature}',
+                    Text('${widget.response?.temperature}°',
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: 40,
-                        )),
-                    Text('°C',
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: 30, fontWeight: FontWeight.w400)),
+                            fontSize: 40, fontWeight: FontWeight.w400)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, right: 10),
+                      child: Text('C',
+                          style: AppTextTheme.body1.copyWith(
+                              fontSize: 30, fontWeight: FontWeight.w500)),
+                    ),
                   ],
                 ),
               ],

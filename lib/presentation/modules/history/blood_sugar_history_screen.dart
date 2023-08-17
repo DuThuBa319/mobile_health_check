@@ -89,22 +89,13 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(strDateFrom,
-                              style: AppTextTheme.body4.copyWith(
-                                  color: AppColor.color43C8F5, fontSize: 20)),
-                        )
+                        Text(strDateFrom,
+                            style: AppTextTheme.body4.copyWith(
+                                color: AppColor.color43C8F5, fontSize: 20))
                       ],
                     )),
               ),
@@ -124,21 +115,13 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(strDateTo,
-                              style: AppTextTheme.body4.copyWith(
-                                  color: AppColor.color43C8F5, fontSize: 20)),
-                        )
+                        Text(strDateTo,
+                            style: AppTextTheme.body4.copyWith(
+                                color: AppColor.color43C8F5, fontSize: 20))
                       ],
                     )),
               )
@@ -165,7 +148,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                   color: const Color.fromARGB(255, 71, 200, 255),
                 ),
                 child: Text(
-                   translation(context).search,
+                  translation(context).search,
                   style: AppTextTheme.title3.copyWith(color: Colors.white),
                 ),
               ),
@@ -213,21 +196,18 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
-                      return Container(
-                        margin: const EdgeInsets.fromLTRB(15, 10, 0, 10),
-                        child: ListView.builder(
-                          reverse: true,
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          itemCount: state.viewModel.listBloodSugar?.length,
-                          itemBuilder: (context, index) {
-                            return BloodSugarCellWidget(
-                              historyBloc: historyBloc,
-                              response: state.viewModel.listBloodSugar?[index],
-                            );
-                          },
-                        ),
+                      return ListView.builder(
+                        reverse: true,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: state.viewModel.listBloodSugar?.length,
+                        itemBuilder: (context, index) {
+                          return BloodSugarCellWidget(
+                            historyBloc: historyBloc,
+                            response: state.viewModel.listBloodSugar?[index],
+                          );
+                        },
                       );
                     }
                   }

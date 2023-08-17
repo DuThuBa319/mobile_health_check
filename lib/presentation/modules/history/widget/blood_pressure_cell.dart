@@ -39,7 +39,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
           ),
           height: screenSize.height * 0.15,
           width: screenSize.width,
-          margin: const EdgeInsets.fromLTRB(0, 10, 20, 10),
+          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           padding: const EdgeInsets.only(top: 10, left: 12, right: 12),
           child: Column(children: [
             Row(
@@ -81,6 +81,9 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 5,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -90,7 +93,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                   children: [
                     Text('${widget.response?.sys}/${widget.response?.dia}',
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: 33,
+                          fontSize: 40,
                         )),
                     Text(
                       'mmHg',
@@ -104,7 +107,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                   children: [
                     Text('${widget.response?.pulse}',
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: 25, fontWeight: FontWeight.w400)),
+                            fontSize: 30, fontWeight: FontWeight.w400)),
                     Text(
                       'bpm',
                       style: AppTextTheme.title5.copyWith(fontSize: 13),

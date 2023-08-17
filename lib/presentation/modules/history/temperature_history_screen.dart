@@ -89,22 +89,13 @@ class TemperatureScreenState extends State<TemperatureScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(strDateFrom,
-                              style: AppTextTheme.body4.copyWith(
-                                  color: AppColor.color43C8F5, fontSize: 20)),
-                        )
+                        Text(strDateFrom,
+                            style: AppTextTheme.body4.copyWith(
+                                color: AppColor.color43C8F5, fontSize: 20))
                       ],
                     )),
               ),
@@ -124,21 +115,13 @@ class TemperatureScreenState extends State<TemperatureScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(strDateTo,
-                              style: AppTextTheme.body4.copyWith(
-                                  color: AppColor.color43C8F5, fontSize: 20)),
-                        )
+                        Text(strDateTo,
+                            style: AppTextTheme.body4.copyWith(
+                                color: AppColor.color43C8F5, fontSize: 20))
                       ],
                     )),
               )
@@ -212,21 +195,18 @@ class TemperatureScreenState extends State<TemperatureScreen> {
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
-                      return Container(
-                        margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        child: ListView.builder(
-                          reverse: true,
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          itemCount: state.viewModel.listTemperature?.length,
-                          itemBuilder: (context, index) {
-                            return TemperatureCellWidget(
-                              historyBloc: historyBloc,
-                              response: state.viewModel.listTemperature?[index],
-                            );
-                          },
-                        ),
+                      return ListView.builder(
+                        reverse: true,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: state.viewModel.listTemperature?.length,
+                        itemBuilder: (context, index) {
+                          return TemperatureCellWidget(
+                            historyBloc: historyBloc,
+                            response: state.viewModel.listTemperature?[index],
+                          );
+                        },
                       );
                     }
                   }

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'dart:math';
 
 import 'package:mobile_health_check/domain/entities/user_entity.dart';
@@ -41,9 +42,9 @@ class _UserListCellState extends State<UserListCell> {
         child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
-                  15), // Đặt giá trị bán kính bo góc tại đây
+                  10), // Đặt giá trị bán kính bo góc tại đây
             ),
-            elevation: 20,
+            elevation: 2,
             shadowColor: Color.fromARGB(
                 Random().nextInt(255),
                 Random().nextInt(255),
@@ -59,10 +60,12 @@ class _UserListCellState extends State<UserListCell> {
                     child: Icon(
                       Icons.people_alt_outlined,
                       color: AppColor.black,
+                      size: 30,
                     )),
                 title: Text(
                   widget.userEntity?.name ?? '',
-                  style: AppTextTheme.body2.copyWith(fontSize: 20),
+                  style: AppTextTheme.body2
+                      .copyWith(fontSize: 22, fontWeight: FontWeight.w400),
                 ),
                 subtitle: Text(widget.userEntity?.phoneNumber ?? '',
                     style: AppTextTheme.body4),
