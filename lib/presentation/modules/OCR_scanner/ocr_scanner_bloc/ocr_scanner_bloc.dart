@@ -220,7 +220,7 @@ Future<List<int?>> uploadBloodPressureImage(
   final request = http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://dassie-pleased-certainly.ngrok-free.app/blood_pressure"));
+          "hhttps://dassie-pleased-certainly.ngrok-free.app/blood_pressure"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -248,7 +248,7 @@ Future<int?> uploadBloodGlucoseImage({required File croppedImage}) async {
   final request = http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://dassie-pleased-certainly.ngrok-free.app/blood_glucose"));
+          "hhttps://dassie-pleased-certainly.ngrok-free.app/blood_glucose"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),

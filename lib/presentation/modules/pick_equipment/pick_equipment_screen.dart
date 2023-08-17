@@ -1,4 +1,5 @@
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
+import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -6,6 +7,7 @@ import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import '../../route/route_list.dart';
+part 'pick_equipment_screen.action.dart';
 
 class PickEquipmentScreen extends StatefulWidget {
   const PickEquipmentScreen({super.key});
@@ -22,51 +24,61 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
       title: 'Select Equipment',
       isShowAppBar: true,
       isShowLeadingButton: true,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 15, right: 12),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 20,
-              crossAxisCount: 2,
-              childAspectRatio: 1 / 1.2),
-          shrinkWrap: false,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            if (index == 1) {
-              return equipmentCell(
-                  cellTitle: 'Blood Glucose Meter',
-                  imagePath: Assets.bloodGlucoseMeter,
-                  cellColor: Colors.red[400],
-                  subCellColor: Colors.red[100],
-                  onTapFunction: () {
-                    Navigator.pushNamed(context, RouteList.scanScreen,
-                        arguments: MeasuringTask.bloodSugar);
-                  });
-            }
-            if (index == 2) {
-              return equipmentCell(
-                  cellTitle: 'Thermometer',
-                  imagePath: Assets.thermometer,
-                  cellColor: Colors.blue[400],
-                  subCellColor: Colors.blue[100],
-                  onTapFunction: () {
-                    Navigator.pushNamed(context, RouteList.scanScreen,
-                        arguments: MeasuringTask.temperature);
-                  });
-            }
-            return equipmentCell(
-                cellTitle: 'Blood Pressure Meter',
-                imagePath: Assets.bloodPressureMeter,
-                cellColor: const Color.fromARGB(255, 254, 179, 110),
-                subCellColor: const Color.fromARGB(255, 255, 188, 151),
-                onTapFunction: () {
-                  Navigator.pushNamed(context, RouteList.scanScreen,
-                      arguments: MeasuringTask.bloodPressure);
-                });
-          },
-        ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 20, left: 15, right: 12),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 20,
+                  crossAxisCount: 2,
+                  childAspectRatio: 1 / 1.2),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                if (index == 1) {
+                  return equipmentCell(
+                      cellTitle: 'Blood Glucose Meter',
+                      imagePath: Assets.bloodGlucoseMeter,
+                      cellColor: Colors.red[400],
+                      subCellColor: Colors.red[100],
+                      onTapFunction: () {
+                        Navigator.pushNamed(context, RouteList.scanScreen,
+                            arguments: MeasuringTask.bloodSugar);
+                      });
+                }
+                if (index == 2) {
+                  return equipmentCell(
+                      cellTitle: 'Thermometer',
+                      imagePath: Assets.thermometer,
+                      cellColor: Colors.blue[400],
+                      subCellColor: Colors.blue[100],
+                      onTapFunction: () {
+                        Navigator.pushNamed(context, RouteList.scanScreen,
+                            arguments: MeasuringTask.temperature);
+                      });
+                }
+                return equipmentCell(
+                    cellTitle: 'Blood Pressure Meter',
+                    imagePath: Assets.bloodPressureMeter,
+                    cellColor: const Color.fromARGB(255, 254, 179, 110),
+                    subCellColor: const Color.fromARGB(255, 255, 188, 151),
+                    onTapFunction: () {
+                      Navigator.pushNamed(context, RouteList.scanScreen,
+                          arguments: MeasuringTask.bloodPressure);
+                    });
+              },
+            ),
+          ),
+          const SizedBox(height: 100),
+          CommonButton(
+            height: 80,
+            title: 'Upload',
+            onTap: upload,
+          )
+        ],
       ),
     );
   }
