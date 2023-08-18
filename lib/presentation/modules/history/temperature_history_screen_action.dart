@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 part of 'temperature_history_screen.dart';
 
 extension TemperatureScreenAction on TemperatureScreenState {
@@ -39,7 +41,6 @@ extension TemperatureScreenAction on TemperatureScreenState {
       } else {
         dateTo = datePicker;
         strDateTo = DateFormat('dd/MM/yyyy').format(datePicker);
-        // ignore: invalid_use_of_protected_member
         setState(() {});
       }
     }

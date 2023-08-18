@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, unused_local_variable
 import 'package:flutter/material.dart';
 
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';

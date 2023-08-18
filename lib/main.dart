@@ -83,6 +83,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
