@@ -6,7 +6,7 @@ import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 
 import '../../../../data/models/patient_list_model.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
-import '../../common_widget/enum_common.dart';
+import '../../../common_widget/enum_common.dart';
 part 'get_patient_event.dart';
 part 'get_patient_state.dart';
 

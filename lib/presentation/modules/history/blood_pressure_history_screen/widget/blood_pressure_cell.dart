@@ -1,13 +1,13 @@
-import 'package:mobile_health_check/presentation/modules/history/sub_screen/blood_pressure_detail.dart';
+import 'package:mobile_health_check/presentation/modules/history/detail_screen/blood_pressure_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../classes/language_constant.dart';
-import '../../../../domain/entities/blood_pressure_entity.dart';
-import '../../../common_widget/assets.dart';
-import '../../../theme/app_text_theme.dart';
-import '../../../theme/theme_color.dart';
-import '../bloc/history_bloc.dart';
+import '../../../../../classes/language_constant.dart';
+import '../../../../../domain/entities/blood_pressure_entity.dart';
+import '../../../../common_widget/assets.dart';
+import '../../../../theme/app_text_theme.dart';
+import '../../../../theme/theme_color.dart';
+import '../../history_bloc/history_bloc.dart';
 
 class BloodPressureCellWidget extends StatefulWidget {
   final HistoryBloc? historyBloc;

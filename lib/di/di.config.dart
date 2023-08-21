@@ -43,13 +43,13 @@ import '../domain/usecases/blood_sugar_usecase/blood_sugar_usecase.dart'
     as _i21;
 import '../domain/usecases/patient_usecase/patient_usecase.dart' as _i13;
 import '../domain/usecases/temperature_usecase/temperature_usecase.dart' as _i9;
-import '../presentation/bloc/patient_list_&_infor/get_patient_bloc.dart'
-    as _i22;
 import '../presentation/common_widget/image_picker/image_picker_bloc/image_picker_bloc.dart'
     as _i5;
 import '../presentation/modules/camera_demo/camera_bloc/camera_bloc.dart'
     as _i3;
-import '../presentation/modules/history/bloc/history_bloc.dart' as _i23;
+import '../presentation/modules/history/history_bloc/history_bloc.dart' as _i23;
+import '../presentation/modules/patient/patient_list_&_infor_bloc/get_patient_bloc.dart'
+    as _i22;
 import 'di.dart' as _i24;
 
 // ignore_for_file: unnecessary_lambdas

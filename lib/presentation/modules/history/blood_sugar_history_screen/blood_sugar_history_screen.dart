@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/presentation/modules/history/widget/temperature_cell.dart';
+import 'package:mobile_health_check/presentation/modules/history/blood_sugar_history_screen/widget/blood_sugar_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../classes/language_constant.dart';
-import '../../common_widget/dialog/show_toast.dart';
-import '../../common_widget/enum_common.dart';
-import '../../common_widget/line_decor.dart';
-import '../../common_widget/loading_widget.dart';
-import '../../common_widget/screen_form/custom_screen_form.dart';
-import '../../theme/app_text_theme.dart';
-import '../../theme/theme_color.dart';
-import 'bloc/history_bloc.dart';
-part 'temperature_history_screen_action.dart';
+import '../../../../classes/language_constant.dart';
+import '../../../common_widget/dialog/show_toast.dart';
+import '../../../common_widget/enum_common.dart';
+import '../../../common_widget/line_decor.dart';
+import '../../../common_widget/loading_widget.dart';
+import '../../../common_widget/screen_form/custom_screen_form.dart';
+import '../../../theme/app_text_theme.dart';
+import '../../../theme/theme_color.dart';
+import '../history_bloc/history_bloc.dart';
 
-class TemperatureHistoryScreen extends StatefulWidget {
-  const TemperatureHistoryScreen({super.key, this.id});
+part 'blood_sugar_history_screen_action.dart';
+
+class BloodSugarHistoryScreen extends StatefulWidget {
   final String? id;
 
+  const BloodSugarHistoryScreen({super.key, this.id});
+
   @override
-  State<TemperatureHistoryScreen> createState() =>
-      TemperatureHistoryScreenState();
+  State<BloodSugarHistoryScreen> createState() =>
+      BloodSugarHistoryScreenState();
 }
 
-class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
+class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
   DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
   DateTime dateTo = DateTime.now();
@@ -64,7 +66,6 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                 ),
                 const SizedBox(height: 5),
                 lineDecor(),
-                // lineDecor(),
               ],
             ),
           ),
@@ -134,7 +135,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                 if (dateFrom.isAfter(dateTo)) {
                   showAlertDialog(context);
                 } else {
-                  onGetTemperatureData();
+                  onGetBloodSugarData();
                 }
               },
               child: Container(
@@ -156,14 +157,15 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
-              onRefresh: _onRefresh,
+              onRefresh: _onBloodSugarRefresh,
               header: const WaterDropHeader(),
               child: BlocConsumer<HistoryBloc, HistoryState>(
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
-                    onGetTemperatureInitData();
                     //onGetHistoryData();
+                    onGetBloodSugarInitData();
+
                     // return Center(
                     //     child: Text('Vui lòng chọn thông tin',
                     //         style: AppTextTheme.body2
@@ -176,7 +178,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                       ),
                     );
                   }
-                  if ((state.viewModel.listTemperature == null &&
+                  if ((state.viewModel.listBloodSugar == null &&
                           state is GetHistoryDataState &&
                           state.status == BlocStatusState.success) ||
                       state.status == BlocStatusState.failure) {
@@ -187,7 +189,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
-                    if (state.viewModel.listTemperature!.isEmpty) {
+                    if (state.viewModel.listBloodSugar!.isEmpty) {
                       return Center(
                           child: Text('Không có dữ liệu',
                               style: AppTextTheme.body2
@@ -198,11 +200,11 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
-                        itemCount: state.viewModel.listTemperature?.length,
+                        itemCount: state.viewModel.listBloodSugar?.length,
                         itemBuilder: (context, index) {
-                          return TemperatureCellWidget(
+                          return BloodSugarCellWidget(
                             historyBloc: historyBloc,
-                            response: state.viewModel.listTemperature?[index],
+                            response: state.viewModel.listBloodSugar?[index],
                           );
                         },
                       );

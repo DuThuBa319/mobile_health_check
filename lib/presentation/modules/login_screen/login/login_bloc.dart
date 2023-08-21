@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-import '../../common_widget/enum_common.dart';
+import '../../../common_widget/enum_common.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

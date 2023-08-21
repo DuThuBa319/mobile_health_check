@@ -1,46 +1,37 @@
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/widget/temperature_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../classes/language_constant.dart';
-import '../../common_widget/dialog/show_toast.dart';
-import '../../common_widget/enum_common.dart';
-import '../../common_widget/line_decor.dart';
-import '../../common_widget/loading_widget.dart';
-import '../../common_widget/screen_form/custom_screen_form.dart';
-import '../../theme/app_text_theme.dart';
-import '../../theme/theme_color.dart';
-import 'bloc/history_bloc.dart';
-import 'widget/blood_pressure_cell.dart';
-part 'blood_pressure_history_screen_action.dart';
+import '../../../../classes/language_constant.dart';
+import '../../../common_widget/dialog/show_toast.dart';
+import '../../../common_widget/enum_common.dart';
+import '../../../common_widget/line_decor.dart';
+import '../../../common_widget/loading_widget.dart';
+import '../../../common_widget/screen_form/custom_screen_form.dart';
+import '../../../theme/app_text_theme.dart';
+import '../../../theme/theme_color.dart';
+import '../history_bloc/history_bloc.dart';
 
-class BloodPressureHistoryScreen extends StatefulWidget {
+part 'temperature_history_screen_action.dart';
+
+class TemperatureHistoryScreen extends StatefulWidget {
+  const TemperatureHistoryScreen({super.key, this.id});
   final String? id;
-  // final HistoryBloc historyBloc;
-
-  const BloodPressureHistoryScreen({
-    Key? key,
-    required this.id,
-    // required this.historyBloc,
-  }) : super(key: key);
 
   @override
-  State<BloodPressureHistoryScreen> createState() =>
-      BloodPressureHistoryScreenState();
+  State<TemperatureHistoryScreen> createState() =>
+      TemperatureHistoryScreenState();
 }
 
-class BloodPressureHistoryScreenState
-    extends State<BloodPressureHistoryScreen> {
+class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
-  DateTime timeFrom =
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
-  DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
-  String strTimeFrom = DateFormat('dd/MM/yyyy').format(
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00)));
-  String strTimeTo = DateFormat('dd/MM/yyyy')
-      .format(DateTime.now().add(const Duration(hours: 23, minutes: 59)));
+  DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
+  DateTime dateTo = DateTime.now();
+  String strDateFrom = DateFormat('dd/MM/yyyy')
+      .format(DateTime.now().add(const Duration(days: -1)));
+  String strDateTo = DateFormat('dd/MM/yyyy').format(DateTime.now());
   HistoryBloc get historyBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
@@ -74,11 +65,12 @@ class BloodPressureHistoryScreenState
                 ),
                 const SizedBox(height: 5),
                 lineDecor(),
+                // lineDecor(),
               ],
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +92,7 @@ class BloodPressureHistoryScreenState
                       children: [
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        Text(strTimeFrom,
+                        Text(strDateFrom,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5, fontSize: 20))
                       ],
@@ -114,7 +106,7 @@ class BloodPressureHistoryScreenState
                   selectedDate(isSelectedDateFrom: false);
                 },
                 child: Container(
-                    width: screenWidth * 0.41,
+                    width: screenWidth * 0.40,
                     height: screenHeight * 0.055,
                     decoration: BoxDecoration(
                         border:
@@ -126,7 +118,7 @@ class BloodPressureHistoryScreenState
                       children: [
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        Text(strTimeTo,
+                        Text(strDateTo,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5, fontSize: 20))
                       ],
@@ -140,10 +132,10 @@ class BloodPressureHistoryScreenState
           Center(
             child: InkWell(
               onTap: () {
-                if (timeFrom.isAfter(timeTo)) {
+                if (dateFrom.isAfter(dateTo)) {
                   showAlertDialog(context);
                 } else {
-                  onGetBloodPressureData();
+                  onGetTemperatureData();
                 }
               },
               child: Container(
@@ -171,7 +163,7 @@ class BloodPressureHistoryScreenState
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
-                    onGetBloodPressureInitData();
+                    onGetTemperatureInitData();
                     //onGetHistoryData();
                     // return Center(
                     //     child: Text('Vui lòng chọn thông tin',
@@ -185,7 +177,7 @@ class BloodPressureHistoryScreenState
                       ),
                     );
                   }
-                  if ((state.viewModel.listBloodPressure == null &&
+                  if ((state.viewModel.listTemperature == null &&
                           state is GetHistoryDataState &&
                           state.status == BlocStatusState.success) ||
                       state.status == BlocStatusState.failure) {
@@ -196,7 +188,7 @@ class BloodPressureHistoryScreenState
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
-                    if (state.viewModel.listBloodPressure!.isEmpty) {
+                    if (state.viewModel.listTemperature!.isEmpty) {
                       return Center(
                           child: Text('Không có dữ liệu',
                               style: AppTextTheme.body2
@@ -207,11 +199,11 @@ class BloodPressureHistoryScreenState
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
-                        itemCount: state.viewModel.listBloodPressure?.length,
+                        itemCount: state.viewModel.listTemperature?.length,
                         itemBuilder: (context, index) {
-                          return BloodPressureCellWidget(
+                          return TemperatureCellWidget(
                             historyBloc: historyBloc,
-                            response: state.viewModel.listBloodPressure?[index],
+                            response: state.viewModel.listTemperature?[index],
                           );
                         },
                       );

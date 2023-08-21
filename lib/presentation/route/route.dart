@@ -1,4 +1,3 @@
-import 'package:mobile_health_check/presentation/bloc/login/login_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
@@ -11,9 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/patient_list_&_infor/get_patient_bloc.dart';
 import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
-import '../modules/patient_profile/patients_list_screen.dart';
+import '../modules/login_screen/login/login_bloc.dart';
+import '../modules/patient/patient_list/patients_list_screen.dart';
+import '../modules/patient/patient_list_&_infor_bloc/get_patient_bloc.dart';
+
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;

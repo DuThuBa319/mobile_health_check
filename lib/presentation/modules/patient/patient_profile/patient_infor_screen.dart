@@ -1,26 +1,31 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/classes/language_constant.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:mobile_health_check/presentation/modules/history/bloc/history_bloc.dart';
-import 'package:mobile_health_check/presentation/modules/history/blood_sugar_history_screen.dart';
-import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen.dart';
+
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-import '../../../classes/language_constant.dart';
-import '../../../di/di.dart';
-import '../../../domain/entities/patient_infor_entity.dart';
-import '../../bloc/patient_list_&_infor/get_patient_bloc.dart';
+import '../../../../di/di.dart';
+
+import '../../../../domain/entities/patient_infor_entity.dart';
+import '../../../common_widget/assets.dart';
+import '../../../common_widget/enum_common.dart';
+import '../../../common_widget/line_decor.dart';
+import '../../../common_widget/loading_widget.dart';
+import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+
 // import '../../bloc/userlist/get_user_bloc/get_user_bloc.dart';
-import '../../common_widget/assets.dart';
-import '../../common_widget/enum_common.dart';
-import '../../common_widget/line_decor.dart';
-import '../../common_widget/loading_widget.dart';
-import '../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
-import '../../route/route_list.dart';
-import '../../theme/theme_color.dart';
-import '../history/blood_pressure_history_screen.dart';
+import '../../../route/route_list.dart';
+import '../../../theme/theme_color.dart';
+
+import '../../history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
+import '../../history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
+import '../../history/history_bloc/history_bloc.dart';
+import '../../history/temperature_history_screen/temperature_history_screen.dart';
+
+import '../patient_list_&_infor_bloc/get_patient_bloc.dart';
 part 'patient_infor_screen.action.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -87,8 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   if (state is GetUserDetailState &&
                       state.status == BlocStatusState.success) {
-                   PatientInforEntity user = state.viewModel.userDetailEntity ??
-                        state.viewModel.userDetailEntity!;
+                    PatientInforEntity user =
+                        state.viewModel.userDetailEntity ??
+                            state.viewModel.userDetailEntity!;
                     print(user);
                     return SingleChildScrollView(
                       child: Column(

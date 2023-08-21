@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../classes/language_constant.dart';
-import '../../../../domain/entities/blood_sugar_entity.dart';
-import '../../../common_widget/assets.dart';
-import '../../../theme/app_text_theme.dart';
-import '../../../theme/theme_color.dart';
-import '../bloc/history_bloc.dart';
-import '../sub_screen/blood_sugar_detail.dart';
+import '../../../../../classes/language_constant.dart';
+import '../../../../../domain/entities/blood_sugar_entity.dart';
+import '../../../../common_widget/assets.dart';
+import '../../../../theme/app_text_theme.dart';
+import '../../../../theme/theme_color.dart';
+import '../../detail_screen/blood_sugar_detail.dart';
+import '../../history_bloc/history_bloc.dart';
 
 class BloodSugarCellWidget extends StatefulWidget {
   final HistoryBloc? historyBloc;
