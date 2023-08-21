@@ -14,16 +14,32 @@ class BloodPressureApiRepositoryImpl implements BloodPressureApiRepository {
     required this.dio,
   }) : restApi = RestApiRepository(dio,
             baseUrl:
-                'https://healthcareapplicationcloud.azurewebsites.net/api/BloodPressures/P001');
+                'https://healthcareapplicationcloud.azurewebsites.net/api/BloodPressures');
 //'https://retoolapi.dev/M5VJBr/bloodsugar
   @override
-  Future<List<BloodPressureModel>> getListBloodPressureModels() {
-    return restApi.getListBloodPressureModels();
+  Future<List<BloodPressureModel>> getListBloodPressureModels({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return restApi.getListBloodPressureModels(
+      id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,
+    );
   }
 
   @override
-  Future<BloodPressureModel> getBloodPressureModel({required int id}) {
-    return restApi.getBloodPressureModel(id: id);
+  Future<BloodPressureModel> getBloodPressureModel({
+    required int id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return restApi.getBloodPressureModel(
+      id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,
+    );
   }
 
   @override

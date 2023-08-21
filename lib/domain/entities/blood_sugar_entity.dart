@@ -5,8 +5,9 @@ import '../../data/models/blood_sugar_model.dart';
 
 class BloodSugarEntity {
   double? bloodSugar;
-  DateTime? updatedDate;
   String? imageLink;
+  DateTime? updatedDate;
+
   BloodSugarEntity({this.imageLink, this.updatedDate, this.bloodSugar});
   Color? get statusColor {
     if (bloodSugar != null) {
@@ -50,6 +51,8 @@ class BloodSugarEntity {
 
   BloodSugarModel getBloodSugarModel() {
     return BloodSugarModel(
-        imageLink: imageLink, bloodSugar: bloodSugar, updatedDate: updatedDate);
+        imageLinkBloodSugar: imageLink,
+        bloodSugar: bloodSugar,
+        updatedDate: updatedDate);
   }
 }

@@ -1,11 +1,12 @@
-import 'package:mobile_health_check/data/models/temperature_model.dart';
-import 'package:mobile_health_check/data/models/user_model.dart';
+import 'package:mobile_health_check/data/models/patient_list_model.dart';
 
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../models/blood_pressure_model.dart';
 import '../../models/blood_sugar_model.dart';
+import '../../models/patient_infor_model.dart';
+import '../../models/temperature_model.dart';
 
 part 'rest_api_repository.g.dart';
 
@@ -13,19 +14,12 @@ part 'rest_api_repository.g.dart';
 abstract class RestApiRepository {
   factory RestApiRepository(Dio dio, {String baseUrl}) = _RestApiRepository;
 
-  @GET('')
-  Future<List<UserModel>> getListUserModels({
-    @Query('id') int? id,
-    @Query('Age') int? age,
-    @Query('Job') String? job,
-    @Query('Name') String? name,
-    @Query('Email') String? email,
-    @Query('PhoneNumber') String? phonenumber,
-  });
+  @GET('/Persons/AllPatients')
+  Future<List<UserModel>> getListUserModels();
 
-  @GET('/{id}') //để hiện detail
-  Future<UserModel> getUserModel(
-    @Path('id') int id,
+  @GET('/Persons/PatientInfo/{id}') //để hiện detail
+  Future<PatientInforModel> getPatientInforModel(
+    @Path('id') String? id,
   );
 
   @POST("") //regist
@@ -37,27 +31,53 @@ abstract class RestApiRepository {
   @DELETE('/{id}') //delete
   Future<void> deleteUser(@Path('id') int id);
 
-//BLOOD PRESSURE
-  @GET('')
-  Future<List<BloodPressureModel>> getListBloodPressureModels();
+//BLOOD PRESSURE////////////////////////////
   @GET('/{id}')
-  Future<BloodPressureModel> getBloodPressureModel(
-      {@Path('id') required int id});
+  Future<List<BloodPressureModel>> getListBloodPressureModels({
+    @Path('id') required String? id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
+
+  @GET('/{id}')
+  Future<BloodPressureModel> getBloodPressureModel({
+    @Path('id') required int id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
+
   @POST('')
   Future<BloodPressureModel> createBloodPressureModel(
       {@Body() required BloodPressureModel bloodPressureModel});
 
-//BLOOD SUGAR
+//BLOOD SUGAR//////////////////////////////
 
-  @GET('/BloodSugars/P001')
-  Future<List<BloodSugarModel>> getListBloodSugarModels();
   @GET('/{id}')
-  Future<BloodSugarModel> getBloodSugarModel({@Path('id') required int id});
+  Future<List<BloodSugarModel>> getListBloodSugarModels({
+    @Path('id') required String? id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
 
-//BODYTEMERPATURE
-
-  @GET('/BodyTemperatures/P001')
-  Future<List<TemperatureModel>> getListTemperatureModels();
   @GET('/{id}')
-  Future<TemperatureModel> getTemperatureModel({@Path('id') required int id});
+  Future<BloodSugarModel> getBloodSugarModel({
+    @Path('id') required int id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
+
+// BODYTEMERPATURE/////////////////////
+
+  @GET('/{id}')
+  Future<List<TemperatureModel>> getListTemperatureModels({
+    @Path('id') required String? id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
+  @GET('/{id}')
+  Future<TemperatureModel> getTemperatureModel({
+    @Path('id') required int id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
 }

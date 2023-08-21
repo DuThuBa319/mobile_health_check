@@ -10,8 +10,16 @@ class TemperatureRepositoryImpl extends TemperatureRepository {
     this.temperatureApi,
   );
   @override
-  Future<List<TemperatureModel>> getListTemperatureModels() {
-    return temperatureApi.getListTemperatureModels();
+  Future<List<TemperatureModel>> getListTemperatureModels({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return temperatureApi.getListTemperatureModels(
+      id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,
+    );
   }
 
   @override

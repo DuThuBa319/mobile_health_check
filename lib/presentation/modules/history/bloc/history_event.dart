@@ -4,34 +4,47 @@ part of 'history_bloc.dart';
 abstract class HistoryEvent {}
 
 class GetBloodPressureHistoryDataEvent extends HistoryEvent {
-  final DateTime startDate;
-  final DateTime endDate;
+  final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
   GetBloodPressureHistoryDataEvent(
-      {required this.endDate, required this.startDate});
+      {required this.endTime, required this.startTime, required this.id});
 }
 
 class GetBloodPressureHistoryInitDataEvent extends HistoryEvent {
-  GetBloodPressureHistoryInitDataEvent();
+  final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
+  GetBloodPressureHistoryInitDataEvent(
+      {required this.endTime, required this.startTime, required this.id});
 }
 
 class GetBloodSugarHistoryDataEvent extends HistoryEvent {
-  final DateTime startDate;
-  final DateTime endDate;
+  final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
   GetBloodSugarHistoryDataEvent(
-      {required this.endDate, required this.startDate});
+      {required this.endTime, required this.startTime, required this.id});
 }
 
 class GetBloodSugarHistoryInitDataEvent extends HistoryEvent {
-  GetBloodSugarHistoryInitDataEvent();
+  final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
+  GetBloodSugarHistoryInitDataEvent({required this.endTime, required this.startTime, required this.id});
 }
 
 class GetTemperatureHistoryDataEvent extends HistoryEvent {
-  final DateTime startDate;
-  final DateTime endDate;
+ final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
   GetTemperatureHistoryDataEvent(
-      {required this.endDate, required this.startDate});
+      {required this.endTime, required this.startTime, required this.id});
 }
 
 class GetTemperatureHistoryInitDataEvent extends HistoryEvent {
-  GetTemperatureHistoryInitDataEvent();
+   final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
+  GetTemperatureHistoryInitDataEvent({required this.endTime, required this.startTime, required this.id});
 }

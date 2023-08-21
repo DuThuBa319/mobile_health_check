@@ -12,7 +12,7 @@ BloodSugarModel _$BloodSugarModelFromJson(Map<String, dynamic> json) =>
       updatedDate: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
-      imageLink: json['imageLink'] as String?,
+      imageLinkBloodSugar: json['imageLink'] as String?,
     );
 
 Map<String, dynamic> _$BloodSugarModelToJson(BloodSugarModel instance) {
@@ -26,6 +26,6 @@ Map<String, dynamic> _$BloodSugarModelToJson(BloodSugarModel instance) {
 
   writeNotNull('value', instance.bloodSugar);
   writeNotNull('timestamp', instance.updatedDate?.toIso8601String());
-  writeNotNull('imageLink', instance.imageLink);
+  writeNotNull('imageLink', instance.imageLinkBloodSugar);
   return val;
 }

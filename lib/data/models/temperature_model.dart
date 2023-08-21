@@ -12,17 +12,18 @@ class TemperatureModel {
   @JsonKey(name: 'timestamp')
   DateTime? updatedDate;
   @JsonKey(name: 'imageLink')
-  String? imageLink;
-  TemperatureModel({this.temperature, this.updatedDate, this.imageLink});
+  String? imageLinkTemperature;
+  TemperatureModel({this.temperature, this.updatedDate, this.imageLinkTemperature});
 
   factory TemperatureModel.fromJson(Map<String, dynamic> json) =>
       _$TemperatureModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TemperatureModelToJson(this);
+
   TemperatureEntity getTemperatureEntity() {
     return TemperatureEntity(
-        imageLink: imageLink == "" ? null : imageLink,
         temperature: temperature,
+        imageLink: imageLinkTemperature == "" ? null : imageLinkTemperature,
         updatedDate: updatedDate);
   }
 }

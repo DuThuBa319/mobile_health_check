@@ -2,7 +2,7 @@
 
 part of 'temperature_history_screen.dart';
 
-extension TemperatureScreenAction on TemperatureScreenState {
+extension TemperatureHistoryScreenAction on TemperatureHistoryScreenState {
   void blocListener(BuildContext context, HistoryState state) {
     // logger.d('change state', state);
     // _refreshController
@@ -47,12 +47,13 @@ extension TemperatureScreenAction on TemperatureScreenState {
   }
 
   Future<void> onGetTemperatureData() async {
-    historyBloc.add(
-        GetTemperatureHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
+    historyBloc.add(GetTemperatureHistoryDataEvent(
+        endTime: dateTo, startTime: dateFrom, id: widget.id));
   }
 
   Future<void> onGetTemperatureInitData() async {
-    historyBloc.add(GetTemperatureHistoryInitDataEvent());
+    historyBloc.add(GetTemperatureHistoryInitDataEvent(
+        endTime: dateTo, startTime: dateFrom, id: widget.id));
   }
 
   Future<void> _onRefresh() async {

@@ -1,8 +1,6 @@
 part of 'blood_sugar_history_screen.dart';
 
 extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
- 
-
   void blocListener(BuildContext context, HistoryState state) {
     // logger.d('change state', state);
     // _refreshController
@@ -54,12 +52,13 @@ extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
   }
 
   Future<void> onGetBloodSugarData() async {
-    historyBloc.add(
-        GetBloodSugarHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
+    historyBloc.add(GetBloodSugarHistoryDataEvent(
+        endTime: dateTo, startTime: dateFrom, id: widget.id));
   }
 
   Future<void> onGetBloodSugarInitData() async {
-    historyBloc.add(GetBloodSugarHistoryInitDataEvent());
+    historyBloc.add(GetBloodSugarHistoryInitDataEvent(
+        endTime: dateTo, startTime: dateFrom, id: widget.id));
   }
 
   Future<void> _onBloodSugarRefresh() async {

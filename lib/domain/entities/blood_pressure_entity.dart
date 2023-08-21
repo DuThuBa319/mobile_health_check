@@ -79,7 +79,7 @@ class BloodPressureEntity {
         dia: dia,
         sys: sys,
         pulse: pulse,
-        imageLink: imageLink,
+        imageLinkBloodPressure: imageLink,
         updatedDate: updatedDate);
   }
 }

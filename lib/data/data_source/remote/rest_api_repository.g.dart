@@ -19,26 +19,11 @@ class _RestApiRepository implements RestApiRepository {
   String? baseUrl;
 
   @override
-  Future<List<UserModel>> getListUserModels({
-    int? id,
-    int? age,
-    String? job,
-    String? name,
-    String? email,
-    String? phonenumber,
-  }) async {
+  Future<List<UserModel>> getListUserModels() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'id': id,
-      r'Age': age,
-      r'Job': job,
-      r'Name': name,
-      r'Email': email,
-      r'PhoneNumber': phonenumber,
-    };
-    queryParameters.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<UserModel>>(Options(
       method: 'GET',
@@ -47,7 +32,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '',
+              '/Persons/AllPatients',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -63,20 +48,21 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<UserModel> getUserModel(int id) async {
+  Future<PatientInforModel> getPatientInforModel(String? id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<UserModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<PatientInforModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/Persons/PatientInfo/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -85,7 +71,7 @@ class _RestApiRepository implements RestApiRepository {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserModel.fromJson(_result.data!);
+    final value = PatientInforModel.fromJson(_result.data!);
     return value;
   }
 
@@ -150,7 +136,7 @@ class _RestApiRepository implements RestApiRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'DELETE',
       headers: _headers,
@@ -170,68 +156,19 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<List<TemperatureModel>> getListTemperatureModels() async {
+  Future<List<BloodPressureModel>> getListBloodPressureModels({
+    String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<TemperatureModel>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/BodyTemperatures/P001',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map(
-            (dynamic i) => TemperatureModel.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
-  Future<TemperatureModel> getTemperatureModel({required int id}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TemperatureModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = TemperatureModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<List<BloodPressureModel>> getListBloodPressureModels() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<BloodPressureModel>>(Options(
       method: 'GET',
@@ -240,7 +177,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '',
+              '/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -257,11 +194,19 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<BloodPressureModel> getBloodPressureModel({required int id}) async {
+  Future<BloodPressureModel> getBloodPressureModel({
+    required int id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BloodPressureModel>(Options(
       method: 'GET',
@@ -280,62 +225,6 @@ class _RestApiRepository implements RestApiRepository {
               baseUrl,
             ))));
     final value = BloodPressureModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<List<BloodSugarModel>> getListBloodSugarModels() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<BloodSugarModel>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/BloodSugars/P001',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) => BloodSugarModel.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
-  Future<BloodSugarModel> getBloodSugarModel({required int id}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BloodSugarModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BloodSugarModel.fromJson(_result.data!);
     return value;
   }
 
@@ -365,6 +254,151 @@ class _RestApiRepository implements RestApiRepository {
               baseUrl,
             ))));
     final value = BloodPressureModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<BloodSugarModel>> getListBloodSugarModels({
+    String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<BloodSugarModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => BloodSugarModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<BloodSugarModel> getBloodSugarModel({
+    required int id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<BloodSugarModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BloodSugarModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<TemperatureModel>> getListTemperatureModels({
+    String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<TemperatureModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map(
+            (dynamic i) => TemperatureModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<TemperatureModel> getTemperatureModel({
+    required int id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<TemperatureModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = TemperatureModel.fromJson(_result.data!);
     return value;
   }
 

@@ -10,7 +10,6 @@ import '../../common_widget/enum_common.dart';
 import '../../common_widget/line_decor.dart';
 import '../../common_widget/loading_widget.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
-import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 import 'bloc/history_bloc.dart';
@@ -18,7 +17,14 @@ import 'widget/blood_pressure_cell.dart';
 part 'blood_pressure_history_screen_action.dart';
 
 class BloodPressureHistoryScreen extends StatefulWidget {
-  const BloodPressureHistoryScreen({super.key});
+  final String? id;
+  // final HistoryBloc historyBloc;
+
+  const BloodPressureHistoryScreen({
+    Key? key,
+    required this.id,
+    // required this.historyBloc,
+  }) : super(key: key);
 
   @override
   State<BloodPressureHistoryScreen> createState() =>
@@ -28,11 +34,13 @@ class BloodPressureHistoryScreen extends StatefulWidget {
 class BloodPressureHistoryScreenState
     extends State<BloodPressureHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
-  DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
-  DateTime dateTo = DateTime.now();
-  String strDateFrom = DateFormat('dd/MM/yyyy')
-      .format(DateTime.now().add(const Duration(days: -1)));
-  String strDateTo = DateFormat('dd/MM/yyyy').format(DateTime.now());
+  DateTime timeFrom =
+      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
+  DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
+  String strTimeFrom = DateFormat('dd/MM/yyyy').format(
+      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00)));
+  String strTimeTo = DateFormat('dd/MM/yyyy')
+      .format(DateTime.now().add(const Duration(hours: 23, minutes: 59)));
   HistoryBloc get historyBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
@@ -45,9 +53,6 @@ class BloodPressureHistoryScreenState
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
       backgroundColor: Colors.white,
-      leadingButton: IconButton(
-          onPressed: () => Navigator.pushNamed(context, RouteList.home),
-          icon: const Icon(Icons.arrow_back)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -95,7 +100,7 @@ class BloodPressureHistoryScreenState
                       children: [
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        Text(strDateFrom,
+                        Text(strTimeFrom,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5, fontSize: 20))
                       ],
@@ -121,7 +126,7 @@ class BloodPressureHistoryScreenState
                       children: [
                         const Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5, size: 30),
-                        Text(strDateTo,
+                        Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5, fontSize: 20))
                       ],
@@ -135,7 +140,7 @@ class BloodPressureHistoryScreenState
           Center(
             child: InkWell(
               onTap: () {
-                if (dateFrom.isAfter(dateTo)) {
+                if (timeFrom.isAfter(timeTo)) {
                   showAlertDialog(context);
                 } else {
                   onGetBloodPressureData();
@@ -206,8 +211,7 @@ class BloodPressureHistoryScreenState
                         itemBuilder: (context, index) {
                           return BloodPressureCellWidget(
                             historyBloc: historyBloc,
-                            response:
-                                state.viewModel.listBloodPressure?[index],
+                            response: state.viewModel.listBloodPressure?[index],
                           );
                         },
                       );

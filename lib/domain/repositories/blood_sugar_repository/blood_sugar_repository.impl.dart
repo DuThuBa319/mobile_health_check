@@ -10,8 +10,16 @@ class BloodSugarRepositoryImpl extends BloodSugarRepository {
     this.bloodSugarApi,
   );
   @override
-  Future<List<BloodSugarModel>> getListBloodSugarModels() {
-    return bloodSugarApi.getListBloodSugarModels();
+  Future<List<BloodSugarModel>> getListBloodSugarModels({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return bloodSugarApi.getListBloodSugarModels(  id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,
+
+    );
   }
 
   @override

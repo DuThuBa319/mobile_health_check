@@ -9,8 +9,16 @@ class TemperatureUsecaseImpl extends TemperatureUsecase {
   TemperatureUsecaseImpl(this._repository);
 
   @override
-  Future<List<TemperatureEntity>> getListTemperatureEntities() async {
-    final responses = await _repository.getListTemperatureModels();
+  Future<List<TemperatureEntity>> getListTemperatureEntities({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    final responses = await _repository.getListTemperatureModels(
+      id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,
+    );
 
     var responseEntities = <TemperatureEntity>[];
     for (final response in responses) {

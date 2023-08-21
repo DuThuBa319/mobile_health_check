@@ -10,20 +10,21 @@ import '../../common_widget/enum_common.dart';
 import '../../common_widget/line_decor.dart';
 import '../../common_widget/loading_widget.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
-import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 import 'bloc/history_bloc.dart';
 part 'temperature_history_screen_action.dart';
 
-class TemperatureScreen extends StatefulWidget {
-  const TemperatureScreen({super.key});
+class TemperatureHistoryScreen extends StatefulWidget {
+  const TemperatureHistoryScreen({super.key, this.id});
+  final String? id;
 
   @override
-  State<TemperatureScreen> createState() => TemperatureScreenState();
+  State<TemperatureHistoryScreen> createState() =>
+      TemperatureHistoryScreenState();
 }
 
-class TemperatureScreenState extends State<TemperatureScreen> {
+class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
   DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
   DateTime dateTo = DateTime.now();
@@ -42,9 +43,6 @@ class TemperatureScreenState extends State<TemperatureScreen> {
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
       backgroundColor: Colors.white,
-      leadingButton: IconButton(
-          onPressed: () => Navigator.pushNamed(context, RouteList.home),
-          icon: const Icon(Icons.arrow_back)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

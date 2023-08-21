@@ -51,7 +51,7 @@ class TemperatureEntity {
 
   TemperatureModel getTemperatureModel() {
     return TemperatureModel(
-        imageLink: imageLink,
+        imageLinkTemperature: imageLink,
         temperature: temperature,
         updatedDate: updatedDate);
   }

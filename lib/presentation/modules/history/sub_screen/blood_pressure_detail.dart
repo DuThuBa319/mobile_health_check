@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
-import '../../../theme/theme_color.dart';
 
 class BloodPressureDetailScreen extends StatefulWidget {
   final BloodPressureEntity? bloodPressureEntity;
@@ -34,8 +33,8 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColor.topGradient,
-              AppColor.backgroundColor
+              Color(0xffA9E7FF),
+              Color(0xffA9E7FF),
               // Colors.white, // Xanh nhạt nhất
               // Xanh đậm nhất
             ],

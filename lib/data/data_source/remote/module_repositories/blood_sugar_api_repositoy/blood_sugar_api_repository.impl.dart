@@ -14,12 +14,18 @@ class BloodSugarApiRepositoryImpl implements BloodSugarApiRepository {
     required this.dio,
   }) : restApi = RestApiRepository(
           dio,
-          baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net/api',
+          baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net/api/BloodSugars',
         );
 
   @override
-  Future<List<BloodSugarModel>> getListBloodSugarModels() {
-    return restApi.getListBloodSugarModels();
+  Future<List<BloodSugarModel>> getListBloodSugarModels({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return restApi.getListBloodSugarModels(   id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,);
   }
 
   @override

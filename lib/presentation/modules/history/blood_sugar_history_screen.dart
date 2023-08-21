@@ -17,7 +17,9 @@ import 'bloc/history_bloc.dart';
 part 'blood_sugar_history_screen_action.dart';
 
 class BloodSugarHistoryScreen extends StatefulWidget {
-  const BloodSugarHistoryScreen({super.key});
+    final String? id;
+
+  const BloodSugarHistoryScreen({super.key, this.id});
 
   @override
   State<BloodSugarHistoryScreen> createState() =>
@@ -43,9 +45,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
       backgroundColor: Colors.white,
-      leadingButton: IconButton(
-          onPressed: () => Navigator.pushNamed(context, RouteList.home),
-          icon: const Icon(Icons.arrow_back)),
+     
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
