@@ -75,13 +75,14 @@ class AppRoute {
           },
         );
       case '/camera':
+        final task = routeSettings.arguments as MeasuringTask;
         return MaterialPageRoute(
           builder: (context) {
             return MultiBlocProvider(providers: [
               BlocProvider(
                 create: (context) => CameraBloc(),
               )
-            ], child: const CameraScreen());
+            ], child: CameraScreen(task: task));
           },
         );
       case '/bloodPressureHistory':

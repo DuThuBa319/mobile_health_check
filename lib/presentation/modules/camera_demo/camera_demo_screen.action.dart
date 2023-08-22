@@ -14,6 +14,7 @@ extension CameraScreenAction on CameraScreenState {
 
   void onNewCameraSelected(CameraDescription cameraDescription) async {
     final previousCameraController = controller;
+
     // Instantiating the camera controller
     final CameraController cameraController = CameraController(
       cameraDescription,
@@ -54,9 +55,7 @@ extension CameraScreenAction on CameraScreenState {
       });
     }
 
-    cameraController
-        .getMaxZoomLevel()
-        .then((value) => maxAvailableZoom = value);
+    cameraController.getMaxZoomLevel().then((value) => maxAvailableZoom = 4);
 
     cameraController
         .getMinZoomLevel()

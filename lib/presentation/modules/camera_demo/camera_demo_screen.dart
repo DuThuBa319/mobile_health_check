@@ -14,7 +14,8 @@ import 'camera_bloc/camera_bloc.dart';
 part 'camera_demo_screen.action.dart';
 
 class CameraScreen extends StatefulWidget {
-  const CameraScreen({super.key});
+  final MeasuringTask task;
+  const CameraScreen({super.key, this.task = MeasuringTask.bloodPressure});
 
   @override
   State<CameraScreen> createState() => CameraScreenState();
@@ -28,8 +29,9 @@ class CameraScreenState extends State<CameraScreen>
   bool isCameraInitialized = false;
   //* zoom
   double minAvailableZoom = 1.0;
-  double maxAvailableZoom = 1.0;
+  double maxAvailableZoom = 4.0;
   double currentZoomLevel = 1.0;
+
   //* exposure: độ sáng
   double minAvailableExposureOffset = 0.0;
   double maxAvailableExposureOffset = 0.0;
@@ -40,6 +42,15 @@ class CameraScreenState extends State<CameraScreen>
   @override
   void initState() {
     // TODO: implement initState
+    if (widget.task == MeasuringTask.bloodPressure) {
+      currentZoomLevel = 1.0;
+    }
+    if (widget.task == MeasuringTask.bloodSugar) {
+      currentZoomLevel = 2.0;
+    }
+    if (widget.task == MeasuringTask.temperature) {
+      currentZoomLevel = 2.6;
+    }
     WidgetsBinding.instance.addObserver(this);
     onNewCameraSelected(cameras[0]);
     super.initState();
@@ -139,42 +150,28 @@ class CameraScreenState extends State<CameraScreen>
                             child: Stack(
                                 alignment: Alignment.topCenter,
                                 children: [
-                                  Positioned(
-                                    top: 120,
-                                    child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.55,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.27,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.black,
-                                        )),
-                                  ),
+                                  cropArea(context, task: widget.task)
                                 ]),
                           ),
                         ]),
                       ),
+                      cropStroke(context, task: widget.task),
                       Positioned(
-                        top: 120,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.55,
-                          height: MediaQuery.of(context).size.height * 0.27,
-                          decoration: const ShapeDecoration(
-                              color: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 2, color: Colors.white))),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 160,
+                        bottom: 280,
                         child: Row(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.83,
-                              padding: const EdgeInsets.only(left: 20),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.zoom_in)),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.70,
+                              padding: const EdgeInsets.only(left: 10),
                               child: Slider(
                                 value: currentZoomLevel,
                                 min: minAvailableZoom,
@@ -191,14 +188,14 @@ class CameraScreenState extends State<CameraScreen>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.black87,
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   '${currentZoomLevel.toStringAsFixed(1)}x',
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                               ),
                             ),
@@ -206,11 +203,21 @@ class CameraScreenState extends State<CameraScreen>
                         ),
                       ),
                       Positioned(
-                        bottom: 120,
+                        bottom: 220,
                         child: Row(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.83,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.sunny),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
                               padding: const EdgeInsets.only(left: 20),
                               child: Slider(
                                 value: currentExposureOffset,
@@ -228,14 +235,14 @@ class CameraScreenState extends State<CameraScreen>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.black87,
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   '${currentExposureOffset.toStringAsFixed(1)}x',
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                               ),
                             ),
@@ -250,7 +257,9 @@ class CameraScreenState extends State<CameraScreen>
                             InkWell(
                               onTap: () async {
                                 cameraBloc.add(GetImageEvent(
-                                    controller: controller!, context: context));
+                                    task: widget.task,
+                                    controller: controller!,
+                                    context: context));
                                 // await imageDialog(context, imageFile: imageFile);
                               },
                               child: const Stack(
@@ -263,6 +272,9 @@ class CameraScreenState extends State<CameraScreen>
                                 ],
                               ),
                             ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.05,
+                            ),
                             Container(
                               height: 50,
                               padding:
@@ -270,7 +282,7 @@ class CameraScreenState extends State<CameraScreen>
                               color: Colors.blue,
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   InkWell(
                                     onTap: () async {
@@ -281,46 +293,50 @@ class CameraScreenState extends State<CameraScreen>
                                         FlashMode.off,
                                       );
                                     },
-                                    child: Icon(
-                                      Icons.flash_off,
-                                      color: currentFlashMode == FlashMode.off
-                                          ? Colors.amber
-                                          : Colors.white,
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
+                                      child: Icon(
+                                        Icons.flash_off,
+                                        color: currentFlashMode == FlashMode.off
+                                            ? Colors.amber
+                                            : Colors.white,
+                                      ),
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () async {
-                                      setState(() {
-                                        currentFlashMode = FlashMode.auto;
-                                      });
-                                      await controller!.setFlashMode(
-                                        FlashMode.auto,
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.flash_auto,
-                                      color: currentFlashMode == FlashMode.auto
-                                          ? Colors.amber
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      setState(() {
-                                        currentFlashMode = FlashMode.always;
-                                      });
-                                      await controller!.setFlashMode(
-                                        FlashMode.always,
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.flash_on,
-                                      color:
-                                          currentFlashMode == FlashMode.always
-                                              ? Colors.amber
-                                              : Colors.white,
-                                    ),
-                                  ),
+                                  // InkWell(
+                                  //   onTap: () async {
+                                  //     setState(() {
+                                  //       currentFlashMode = FlashMode.auto;
+                                  //     });
+                                  //     await controller!.setFlashMode(
+                                  //       FlashMode.auto,
+                                  //     );
+                                  //   },
+                                  //   child: Icon(
+                                  //     Icons.flash_auto,
+                                  //     color: currentFlashMode == FlashMode.auto
+                                  //         ? Colors.amber
+                                  //         : Colors.white,
+                                  //   ),
+                                  // ),
+                                  // InkWell(
+                                  //   onTap: () async {
+                                  //     setState(() {
+                                  //       currentFlashMode = FlashMode.always;
+                                  //     });
+                                  //     await controller!.setFlashMode(
+                                  //       FlashMode.always,
+                                  //     );
+                                  //   },
+                                  //   child: Icon(
+                                  //     Icons.flash_on,
+                                  //     color:
+                                  //         currentFlashMode == FlashMode.always
+                                  //             ? Colors.amber
+                                  //             : Colors.white,
+                                  //   ),
+                                  // ),
                                   InkWell(
                                     onTap: () async {
                                       setState(() {
@@ -330,11 +346,16 @@ class CameraScreenState extends State<CameraScreen>
                                         FlashMode.torch,
                                       );
                                     },
-                                    child: Icon(
-                                      Icons.highlight,
-                                      color: currentFlashMode == FlashMode.torch
-                                          ? Colors.amber
-                                          : Colors.white,
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
+                                      child: Icon(
+                                        Icons.highlight,
+                                        color:
+                                            currentFlashMode == FlashMode.torch
+                                                ? Colors.amber
+                                                : Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -351,5 +372,79 @@ class CameraScreenState extends State<CameraScreen>
                   ));
           },
         ));
+  }
+
+  Widget cropStroke(BuildContext context, {required MeasuringTask task}) {
+    if (task == MeasuringTask.bloodPressure) {
+      return Positioned(
+        top: 120,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.55,
+          height: MediaQuery.of(context).size.height * 0.27,
+          decoration: const ShapeDecoration(
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(width: 2, color: Colors.white))),
+        ),
+      );
+    }
+    if (task == MeasuringTask.bloodSugar) {
+      return Positioned(
+        top: 150,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.23,
+          decoration: const ShapeDecoration(
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(width: 2, color: Colors.white))),
+        ),
+      );
+    }
+    return Positioned(
+      top: 200,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.68,
+        height: MediaQuery.of(context).size.height * 0.10,
+        decoration: const ShapeDecoration(
+            color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+                side: BorderSide(width: 2, color: Colors.white))),
+      ),
+    );
+  }
+
+  Widget cropArea(BuildContext context, {required MeasuringTask task}) {
+    if (task == MeasuringTask.bloodPressure) {
+      return Positioned(
+        top: 120,
+        child: Container(
+            width: MediaQuery.of(context).size.width * 0.55,
+            height: MediaQuery.of(context).size.height * 0.27,
+            decoration: const BoxDecoration(
+              color: Colors.black,
+            )),
+      );
+    }
+    if (task == MeasuringTask.bloodSugar) {
+      return Positioned(
+        top: 150,
+        child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.23,
+            decoration: const BoxDecoration(
+              color: Colors.black,
+            )),
+      );
+    }
+    return Positioned(
+      top: 200,
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.68,
+          height: MediaQuery.of(context).size.height * 0.10,
+          decoration: const BoxDecoration(
+            color: Colors.black,
+          )),
+    );
   }
 }

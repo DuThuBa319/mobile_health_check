@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_storage_service.dart';
@@ -35,10 +36,13 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       List<int?> dataList = [];
-      final selectedImage =
-          await Navigator.pushNamed(event.context, RouteList.camera) as File?;
+      final selectedImage = await Navigator.pushNamed(
+          event.context, RouteList.camera,
+          arguments: MeasuringTask.bloodPressure) as File?;
       if (selectedImage != null) {
         dataList = await uploadBloodPressureImage(croppedImage: selectedImage);
+
+        //  dataList = await sendImageToAzureFunction(selectedImage);
       }
       int? sys = dataList[0];
       int? dia = dataList[1];
@@ -75,11 +79,12 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
     try {
-      final response =
-          await bloodPressureUseCase.getListBloodPressureEntities();
-      int length = response.length;
-      final newViewModel =
-          state.viewModel.copyWith(listBloodPressureLength: length);
+      // final response =
+      //     await bloodPressureUseCase.getListBloodPressureEntities();
+      // int length = response.length;
+      // final newViewModel =
+      //     state.viewModel.copyWith(listBloodPressureLength: length);
+      final newViewModel = state.viewModel.copyWith(listBloodPressureLength: 0);
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -154,8 +159,9 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       int? glucose;
-      final selectedImage =
-          await Navigator.pushNamed(event.context, RouteList.camera) as File?;
+      final selectedImage = await Navigator.pushNamed(
+          event.context, RouteList.camera,
+          arguments: MeasuringTask.bloodSugar) as File?;
       if (selectedImage != null) {
         glucose = await uploadBloodGlucoseImage(croppedImage: selectedImage);
       }
@@ -190,8 +196,9 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       double? temperature;
-      final selectedImage =
-          await Navigator.pushNamed(event.context, RouteList.camera) as File?;
+      final selectedImage = await Navigator.pushNamed(
+          event.context, RouteList.camera,
+          arguments: MeasuringTask.temperature) as File?;
       if (selectedImage != null) {
         temperature = await uploadTemperatureImage(croppedImage: selectedImage);
       }
@@ -221,7 +228,7 @@ Future<List<int?>> uploadBloodPressureImage(
   final request = http.MultipartRequest(
       "POST",
       Uri.parse(
-          "hhttps://dassie-pleased-certainly.ngrok-free.app/blood_pressure"));
+          "https://readnumber.azurewebsites.net/api/read_number?code=cnTAwfYI1ahTktKrj8cF3HiQb1pzK7J2AVG06mQDDPtDAzFuk59RVQ%3D%3D"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -232,9 +239,9 @@ Future<List<int?>> uploadBloodPressureImage(
 
   try {
     final resJson = jsonDecode(res.body);
-    String message = resJson['message'];
+    // String message = resJson['message'];
 
-    debugPrint(message);
+    // debugPrint(message);
     dataList.add(resJson['sys']);
     dataList.add(resJson['dia']);
     dataList.add(resJson['pulse']);
@@ -249,7 +256,7 @@ Future<int?> uploadBloodGlucoseImage({required File croppedImage}) async {
   final request = http.MultipartRequest(
       "POST",
       Uri.parse(
-          "hhttps://dassie-pleased-certainly.ngrok-free.app/blood_glucose"));
+          "https://pipefish-relevant-kindly.ngrok-free.app/blood_glucose"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -273,7 +280,7 @@ Future<int?> uploadBloodGlucoseImage({required File croppedImage}) async {
 Future<double?> uploadTemperatureImage({required File croppedImage}) async {
   double? temperature;
   final request = http.MultipartRequest("POST",
-      Uri.parse("https://dassie-pleased-certainly.ngrok-free.app/temperature"));
+      Uri.parse("https://pipefish-relevant-kindly.ngrok-free.app/temperature"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -295,3 +302,34 @@ Future<double?> uploadTemperatureImage({required File croppedImage}) async {
 }
 
 enum ReadDataTask { temperature, bloodPressure, bloodGlucose }
+
+Future<List<int?>> sendImageToAzureFunction(File imageFile) async {
+  try {
+    const url =
+        "https://readnumber.azurewebsites.net/api/read_number?code=cnTAwfYI1ahTktKrj8cF3HiQb1pzK7J2AVG06mQDDPtDAzFuk59RVQ==";
+    final imageBytes = await imageFile.readAsBytes();
+    List<int>? dataList = [];
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, Uint8List>{
+        'body': imageBytes,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final resJson = jsonDecode(response.body);
+      // String message = resJson['message'];
+
+      // debugPrint(message);
+      dataList.add(resJson['sys']);
+      dataList.add(resJson['dia']);
+      dataList.add(resJson['pulse']);
+    }
+    return dataList;
+  } catch (e) {
+    return [];
+  }
+}

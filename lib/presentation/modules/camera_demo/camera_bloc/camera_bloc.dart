@@ -27,8 +27,8 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     try {
       File? croppedImage;
       File? imageFile = await pickImage(controller: event.controller);
-      croppedImage =
-          await cropImage(context: event.context, pickedFile: imageFile);
+      croppedImage = await cropImage(
+          context: event.context, pickedFile: imageFile, task: event.task);
       final newViewModel = state.viewModel.copyWith(imageFile: croppedImage);
       emit(
         state.copyWith(
@@ -77,19 +77,40 @@ Future<XFile?> takePicture({required CameraController controller}) async {
 }
 
 Future<File> cropImage(
-    {required File pickedFile, required BuildContext context}) async {
+    {required File pickedFile,
+    required BuildContext context,
+    required MeasuringTask task}) async {
   double screenWidth = MediaQuery.of(context).size.width;
   double screenHeight = MediaQuery.of(context).size.height;
+  double desiredLeft = 0, desiredTop = 0, desiredWidth = 0, desiredHeight = 0;
+  switch (task) {
+    case MeasuringTask.bloodPressure:
+      desiredLeft = 75; // Set the left position of the desired area (in pixels)
+      desiredTop = 160; // Set the top position of the desired area (in pixels)
+      desiredWidth =
+          screenWidth * 0.64; // Set the width of the desired area (in pixels)
+      desiredHeight = screenHeight * 0.46;
+      break;
+    case MeasuringTask.bloodSugar:
+      desiredLeft = 30; // Set the left position of the desired area (in pixels)
+      desiredTop = 200; // Set the top position of the desired area (in pixels)
+      desiredWidth =
+          screenWidth * 0.87; // Set the width of the desired area (in pixels)
+      desiredHeight = screenHeight * 0.41;
+      break;
+    case MeasuringTask.temperature:
+      desiredLeft = 62; // Set the left position of the desired area (in pixels)
+      desiredTop = 280; // Set the top position of the desired area (in pixels)
+      desiredWidth =
+          screenWidth * 0.70; // Set the width of the desired area (in pixels)
+      desiredHeight = screenHeight * 0.18;
+      break;
+    default:
+      break;
+  }
 
   // Calculate the desired area coordinates and size based on the image dimensions
-  double desiredLeft =
-      95; // Set the left position of the desired area (in pixels)
-  double desiredTop =
-      180; // Set the top position of the desired area (in pixels)
-  double desiredWidth =
-      screenWidth * 0.55; // Set the width of the desired area (in pixels)
-  double desiredHeight =
-      screenHeight * 0.40; // Set the height of the desired area (in pixels)
+  // Set the height of the desired area (in pixels)
   var decodedImage =
       await decodeImageFromList(File(pickedFile.path).readAsBytesSync());
   double imageWidth = decodedImage.width.toDouble();

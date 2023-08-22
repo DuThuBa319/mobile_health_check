@@ -43,7 +43,7 @@ class BloodPressureEntity {
     return Colors.grey;
   }
 
-  String get comment {
+  String statusComment(BuildContext context) {
     if (sys != null && dia != null) {
       if (sys! <= 90) {
         //|| dia! <= 60
