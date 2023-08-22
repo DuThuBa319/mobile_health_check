@@ -2,12 +2,12 @@ import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/login/login_bloc.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../route/route_list.dart';
 import '../../theme/theme_color.dart';
+import 'login/login_bloc.dart';
 
 part 'login_screen.action.dart';
 

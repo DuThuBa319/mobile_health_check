@@ -33,7 +33,7 @@ class _SettingDrPasswordState extends State<SettingDrPassword> {
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
-        backgroundColor: AppColor.topGradient,
+        backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),
@@ -47,15 +47,11 @@ class _SettingDrPasswordState extends State<SettingDrPassword> {
                 children: [
                   SizedBox(height: screenHeight * 0.08),
                   lineDecor(),
-                  Stack(
-                    children: [
-                      SettingPasswordCell(
-                          selectSetting: translation(context).oldPassword,
-                          height: screenHeight * 0.1,
-                          width: screenWidth * 0.9,
-                          showPass: showPass),
-                    ],
-                  ),
+                  SettingPasswordCell(
+                      selectSetting: translation(context).oldPassword,
+                      height: screenHeight * 0.1,
+                      width: screenWidth * 0.9,
+                      showPass: showPass),
                   SettingPasswordCell(
                       selectSetting: translation(context).newPassword,
                       height: screenHeight * 0.1,
@@ -73,7 +69,7 @@ class _SettingDrPasswordState extends State<SettingDrPassword> {
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          showToast("Update Password Successfullly");
+                          showToast(   translation(context).updatePasswordSuccessfullly);
                         }),
                   )
                 ]),

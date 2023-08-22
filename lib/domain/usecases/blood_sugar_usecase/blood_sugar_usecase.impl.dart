@@ -9,8 +9,14 @@ class BloodSugarUsecaseImpl extends BloodSugarUsecase {
   BloodSugarUsecaseImpl(this._repository);
 
   @override
-  Future<List<BloodSugarEntity>> getListBloodSugarEntities() async {
-    final responses = await _repository.getListBloodSugarModels();
+  Future<List<BloodSugarEntity>> getListBloodSugarEntities({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    final responses = await _repository.getListBloodSugarModels(  id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,);
 
     var responseEntities = <BloodSugarEntity>[];
     for (final response in responses) {

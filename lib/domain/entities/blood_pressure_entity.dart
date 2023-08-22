@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../classes/language_constant.dart';
 import '../../data/models/blood_pressure_model.dart';
 
 class BloodPressureEntity {
@@ -47,22 +48,26 @@ class BloodPressureEntity {
     if (sys != null && dia != null) {
       if (sys! <= 90) {
         //|| dia! <= 60
-        return "Huyết áp thấp";
+        return translation(context).hypotension;
+        // huyết áp thấp
       } else if (sys! <= 120) {
         // || dia! <= 80
-        return 'Huyết áp bình thường';
+        return translation(context).normalBP;
+        //Huyết áp bình thường
       } else if (sys! >= 120 && sys! <= 139) {
         //|| dia! >= 80 && dia! <= 89
-        return 'Tiền huyết áp cao'; // tiền huyết áp cao
+        return translation(context).prehypertension;
+        // tiền huyết áp cao
       } else if (sys! >= 140 && sys! <= 159) {
         //|| dia! >= 90 && dia! <= 99
-        return 'Huyết áp cấp độ 1';
+        return translation(context).stage1hypertension;
+        // huyết áp cấp độ 1
       } else if (sys! >= 160 && sys! <= 179) {
         //|| dia! >= 100 && dia! <= 109
-        return 'Huyết áp cấp độ 2';
+        return translation(context).stage2hypertension;
       } else if (sys! >= 180) {
         //|| dia! >= 110
-        return 'Huyết áp cấp độ 3';
+        return translation(context).stage3hypertension;
       }
     }
 
@@ -74,7 +79,7 @@ class BloodPressureEntity {
         dia: dia,
         sys: sys,
         pulse: pulse,
-        imageLink: imageLink,
+        imageLinkBloodPressure: imageLink,
         updatedDate: updatedDate);
   }
 }

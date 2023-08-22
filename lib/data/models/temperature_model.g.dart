@@ -12,7 +12,7 @@ TemperatureModel _$TemperatureModelFromJson(Map<String, dynamic> json) =>
       updatedDate: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
-      imageLink: json['imageLink'] as String?,
+      imageLinkTemperature: json['imageLink'] as String?,
     );
 
 Map<String, dynamic> _$TemperatureModelToJson(TemperatureModel instance) {
@@ -26,6 +26,6 @@ Map<String, dynamic> _$TemperatureModelToJson(TemperatureModel instance) {
 
   writeNotNull('value', instance.temperature);
   writeNotNull('timestamp', instance.updatedDate?.toIso8601String());
-  writeNotNull('imageLink', instance.imageLink);
+  writeNotNull('imageLink', instance.imageLinkTemperature);
   return val;
 }

@@ -28,7 +28,7 @@ class _SettingDrPhoneState extends State<SettingDrPhone> {
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
-        backgroundColor: AppColor.topGradient,
+        backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),
@@ -59,7 +59,8 @@ class _SettingDrPhoneState extends State<SettingDrPhone> {
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          showToast("Save PhoneNumber Successfully");
+                          showToast(translation(context)
+                              .updatePhoneNumberSuccessfullly);
                         }),
                   )
                 ]),

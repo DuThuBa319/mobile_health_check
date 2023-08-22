@@ -6,8 +6,16 @@ import '../../repositories/blood_pressure_repository/blood_pressure_repository.d
 part 'blood_pressure_usecase.impl.dart';
 
 abstract class BloodPressureUsecase {
-  Future<List<BloodPressureEntity>> getListBloodPressureEntities();
-  Future<BloodPressureEntity> getBloodPressureEntity({required int id});
+  Future<List<BloodPressureEntity>> getListBloodPressureEntities({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  });
+  Future<BloodPressureEntity> getBloodPressureEntity({
+    required int id,
+    DateTime? startTime,
+    DateTime? endTime,
+  });
   Future<BloodPressureEntity> createBloodPressureEntity(
       {required BloodPressureEntity bloodPressureEntity});
 }

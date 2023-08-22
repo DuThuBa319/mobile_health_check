@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../classes/language_constant.dart';
 import '../../data/models/blood_sugar_model.dart';
 
 class BloodSugarEntity {
   double? bloodSugar;
-  DateTime? updatedDate;
   String? imageLink;
+  DateTime? updatedDate;
+
   BloodSugarEntity({this.imageLink, this.updatedDate, this.bloodSugar});
   Color? get statusColor {
     if (bloodSugar != null) {
@@ -27,20 +29,20 @@ class BloodSugarEntity {
     return Colors.grey;
   }
 
-  String get comment {
+  String statusComment(BuildContext context) {
     if (bloodSugar != null) {
       if (bloodSugar! <= 70) {
         //|| dia! <= 60
-        return 'Đường huyết thấp';
+        return translation(context).hypoglycemia;
       } else if (bloodSugar! >= 80 && bloodSugar! <= 100) {
         //|| dia! >= 80 && dia! <= 89
-        return ' Đường huyết bình thường'; //  Đường huyết cao
+        return translation(context).normalBS; //  Đường huyết cao
       } else if (bloodSugar! >= 101 && bloodSugar! <= 125) {
         //|| dia! >= 90 && dia! <= 99
-        return 'Tiền tiểu đường';
+        return translation(context).prediabetes;
       } else if (bloodSugar! >= 126) {
         //|| dia! >= 100 && dia! <= 109
-        return 'Đường huyết cao';
+        return translation(context).hyperglycemia;
       }
     }
 
@@ -49,6 +51,8 @@ class BloodSugarEntity {
 
   BloodSugarModel getBloodSugarModel() {
     return BloodSugarModel(
-        imageLink: imageLink, bloodSugar: bloodSugar, updatedDate: updatedDate);
+        imageLinkBloodSugar: imageLink,
+        bloodSugar: bloodSugar,
+        updatedDate: updatedDate);
   }
 }

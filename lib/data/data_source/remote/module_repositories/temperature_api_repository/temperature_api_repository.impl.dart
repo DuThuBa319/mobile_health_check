@@ -13,11 +13,17 @@ class TemperatureApiRepositoryImpl implements TemperatureApiRepository {
   TemperatureApiRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net/api');
+            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net/api/BodyTemperatures');
 
   @override
-  Future<List<TemperatureModel>> getListTemperatureModels() {
-    return restApi.getListTemperatureModels();
+  Future<List<TemperatureModel>> getListTemperatureModels({
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return restApi.getListTemperatureModels( id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,);
   }
 
   @override

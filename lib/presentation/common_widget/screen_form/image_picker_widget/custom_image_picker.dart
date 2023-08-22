@@ -44,6 +44,7 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                     margin: const EdgeInsets.only(left: 15),
                     height: SizeConfig.screenWidth * 0.8,
                     width: SizeConfig.screenWidth * 0.8,
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
                     // decoration: BoxDecoration(
                     //   border: Border.all(width: 4, color: Colors.blue),
                     //   borderRadius: BorderRadiusDirectional.circular(20),
@@ -162,8 +163,7 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.white),
-                          color: Colors.blue,
+                          border: Border.all(width: 2, color: AppColor.white),
                           shape: BoxShape.circle,
                         ),
                         child: SizedBox(
@@ -188,9 +188,8 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          border:
-                              Border.all(width: 3, color: AppColor.topGradient),
-                          color: Colors.white,
+                          border: Border.all(width: 3, color: AppColor.white),
+                          color: AppColor.topGradient,
                           shape: BoxShape.circle,
                         ),
                         margin: EdgeInsets.only(
@@ -201,9 +200,9 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                           width: 35,
                           child: GestureDetector(
                             child: const Icon(
-                              Icons.delete,
+                              Icons.delete_outline_outlined,
                               size: 30,
-                              color: AppColor.black,
+                              color: AppColor.white,
                             ),
                             onTap: () {
                               if (widget.isOnTapActive == true) {
