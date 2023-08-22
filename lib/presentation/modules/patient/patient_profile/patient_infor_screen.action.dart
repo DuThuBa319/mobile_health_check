@@ -100,13 +100,13 @@ extension HomeAction on _HomeScreenState {
                     Text(indicator,
                         style: AppTextTheme.title3.copyWith(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: screenSize.width * 0.035,
                             fontWeight: FontWeight.bold)),
                     GestureDetector(
                       child: Text(translation(context).watchHistory,
                           style: AppTextTheme.body5.copyWith(
                               color: Colors.blue,
-                              fontSize: 15,
+                              fontSize: screenSize.width * 0.03,
                               decoration: TextDecoration.underline,
                               decorationThickness: 1)),
                       onTap: () {
@@ -120,10 +120,9 @@ extension HomeAction on _HomeScreenState {
                                 ));
                           }));
                         }
-                        
 
                         if (naviagte == "bloodSugarHistory") {
-                        Navigator.push(context,
+                          Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return BlocProvider<HistoryBloc>(
                                 create: (context) => getIt<HistoryBloc>(),
@@ -132,11 +131,11 @@ extension HomeAction on _HomeScreenState {
                                 ));
                           }));
                         } else if (naviagte == "bodyTemperatureColor") {
-                         Navigator.push(context,
+                          Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return BlocProvider<HistoryBloc>(
                                 create: (context) => getIt<HistoryBloc>(),
-                                child:TemperatureHistoryScreen(
+                                child: TemperatureHistoryScreen(
                                   id: widget.id ?? widget.id!,
                                 ));
                           }));
@@ -149,7 +148,8 @@ extension HomeAction on _HomeScreenState {
               const SizedBox(height: 2),
               Text(
                 DateFormat('HH:mm dd/MM/yyyy').format(dateTime ?? dateTime!),
-                style: AppTextTheme.title5.copyWith(fontSize: 12),
+                style: AppTextTheme.title5
+                    .copyWith(fontSize: screenSize.width * 0.025),
               ),
               const SizedBox(
                 height: 8,

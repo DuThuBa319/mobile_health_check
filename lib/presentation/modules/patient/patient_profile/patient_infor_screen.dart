@@ -30,14 +30,10 @@ part 'patient_infor_screen.action.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? id;
-  final GetUserBloc userBloc;
-  final PatientInforEntity? patientInforEntity;
 
   const HomeScreen({
-    this.patientInforEntity,
     Key? key,
     required this.id,
-    required this.userBloc,
   }) : super(key: key);
 
   @override
@@ -70,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
             isShowBottomNayvigationBar: true,
             isShowLeadingButton: true,
             appBarColor: const Color(0xff7BD4FF),
-            backgroundColor: AppColor.cardBackground,
+            backgroundColor: const Color(0xffDBF3FF),
             leadingButton: IconButton(
                 onPressed: () =>
                     Navigator.pushNamed(context, RouteList.userList),
@@ -102,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Container(
                               width: sreenWidth,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 // color: const Color.fromARGB(255, 123, 211, 255),
-                                gradient: const LinearGradient(
+                                gradient: LinearGradient(
                                   colors: [
                                     Color(0xff7BD4FF),
                                     Color(0xffDBF3FF),
@@ -116,10 +112,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   end: Alignment.bottomCenter,
                                   // Thay đổi begin và end để điều chỉnh hướng chuyển đổi màu
                                 ),
-                                borderRadius: BorderRadius.vertical(
-                                    bottom: Radius.elliptical(
-                                        MediaQuery.of(context).size.width,
-                                        100)),
+                                // borderRadius: BorderRadius.vertical(
+                                //     bottom: Radius.elliptical(
+                                //         MediaQuery.of(context).size.width,
+                                //         100)),
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -167,6 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           title: translation(context).height,
                                           content: "${user.height}"),
                                     ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
                                   ),
                                 ],
                               )),

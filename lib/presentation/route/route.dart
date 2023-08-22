@@ -15,13 +15,22 @@ import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
 import '../modules/login_screen/login/login_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
 import '../modules/patient/patient_list_&_infor_bloc/get_patient_bloc.dart';
+import '../modules/patient/patient_profile/patient_infor_screen.dart';
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      // case '/home':
-      //   return MaterialPageRoute(builder: (context) => const HomeScreen());
+      case '/home':
+        final id = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<GetUserBloc>(
+              create: (context) => getIt<GetUserBloc>(),
+              child: HomeScreen(id: id),
+            );
+          },
+        );
       case '/login':
         return MaterialPageRoute(
           builder: (context) {
