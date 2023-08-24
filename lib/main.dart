@@ -143,7 +143,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
-      Navigator.pushNamed(context, RouteList.selectEquip);
+      Navigator.pushNamed(context, RouteList.userList);
     });
   }
 

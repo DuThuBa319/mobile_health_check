@@ -1,18 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'dart:math';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/patient_entity.dart';
 import 'package:flutter/material.dart';
-
 
 import '../../../../../di/di.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
 import '../../patient_list_&_infor_bloc/get_patient_bloc.dart';
 import '../../patient_profile/patient_infor_screen.dart';
-
 
 class UserListCell extends StatefulWidget {
   final UserEntity? userEntity;
@@ -52,12 +48,6 @@ class _UserListCellState extends State<UserListCell> {
               borderRadius: BorderRadius.circular(
                   10), // Đặt giá trị bán kính bo góc tại đây
             ),
-            elevation: 2,
-            shadowColor: Color.fromARGB(
-                Random().nextInt(255),
-                Random().nextInt(255),
-                Random().nextInt(255),
-                Random().nextInt(255)),
             color: AppColor.white,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
