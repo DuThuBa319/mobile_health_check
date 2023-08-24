@@ -163,7 +163,11 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
-                    onGetTemperatureInitData();
+                    return Center(
+                        child: Text('Hãy chọn các mốc thời gian',
+                            style: AppTextTheme.body2
+                                .copyWith(color: Colors.red)));
+                    // onGetTemperatureInitData();
                     //onGetHistoryData();
                     // return Center(
                     //     child: Text('Vui lòng chọn thông tin',
@@ -190,7 +194,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                       state is GetHistoryDataState) {
                     if (state.viewModel.listTemperature!.isEmpty) {
                       return Center(
-                          child: Text('Không có dữ liệu',
+                          child: Text('Hãy chọn các mốc thời gian',
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {

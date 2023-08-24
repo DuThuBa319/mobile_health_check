@@ -1,5 +1,5 @@
 {
-    "homeScreen": "Home",
+    "homeScreen": "Patient List",
     "settingScreen": "Setting",
     "messagesScreen": "  Messages",
     "searchPatient": "Search patient",
@@ -43,7 +43,7 @@
     "hypothermia": "Hypothermia",
     "normalBT": "Normal body temperature",
     "hyperthermia": "Hyperthermia",
-    "veryhightbodytemperature": "Very high body temperature",
+    "veryhightbodytemperature": "Very high",
     "changeLanguageSuccess": "Change language success",
     "updatePasswordSuccessfullly": "Update Password Successfullly",
     "updatePhoneNumberSuccessfullly": "Update Phone Number Successfullly"

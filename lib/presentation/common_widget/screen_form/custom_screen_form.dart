@@ -106,7 +106,6 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
           ? BottomAppBar(
               color: AppColor.white,
               elevation: 40,
-              shape: const CircularNotchedRectangle(),
               notchMargin: 5,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -129,7 +128,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   // ),
                   iconBottomBar(
                       label: translation(context).homeScreen,
-                      iconData: Icons.home,
+                      iconData: Icons.list,
                       isSelected: widget.selectedIndex == 0 ? true : false,
                       iconIndex: 0),
                   iconBottomBar(
@@ -215,7 +214,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
         _onItemTapped(iconIndex);
       },
       child: Container(
-        padding: const EdgeInsets.only(top: 10),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.005,
+        ),
         height: MediaQuery.of(context).size.height / 15,
         child: Column(
           children: [

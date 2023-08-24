@@ -45,6 +45,7 @@ Future<void> initOneSignal() async {
     // We didn't ask for permission yet or the permission has been denied before but not permanently.
     //  await openAppSettings(); ==> nằm trong Dialog làm phía trên
   }
+
   OneSignal.User.pushSubscription.addObserver((state) {
     print(state.current.jsonRepresentation());
   });

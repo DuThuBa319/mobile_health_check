@@ -173,7 +173,11 @@ class BloodPressureHistoryScreenState
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
-                    onGetBloodPressureInitData();
+                    return Center(
+                        child: Text('Hãy chọn các mốc thời gian',
+                            style: AppTextTheme.body2
+                                .copyWith(color: Colors.red)));
+                    // onGetBloodPressureInitData();
                     //onGetHistoryData();
                     // return Center(
                     //     child: Text('Vui lòng chọn thông tin',
@@ -200,11 +204,12 @@ class BloodPressureHistoryScreenState
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodPressure!.isEmpty) {
                       return Center(
-                          child: Text('Không có dữ liệu',
+                          child: Text('Hãy chọn các mốc thời gian',
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
                       return ListView.builder(
+                        
                         reverse: true,
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,

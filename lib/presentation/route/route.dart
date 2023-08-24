@@ -1,4 +1,5 @@
 import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
+import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
 import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
@@ -12,16 +13,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../common_widget/enum_common.dart';
 import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
+import '../modules/history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
+import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
+import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/login_screen/login/login_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
 import '../modules/patient/patient_list_&_infor_bloc/get_patient_bloc.dart';
+import '../modules/patient/patient_profile/patient_infor_screen.dart';
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;
+
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      // case '/home':
-      //   return MaterialPageRoute(builder: (context) => const HomeScreen());
+      case '/home':
+        final id = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<GetUserBloc>(
+              create: (context) => getIt<GetUserBloc>(),
+              child: HomeScreen(id: id),
+            );
+          },
+        );
       case '/login':
         return MaterialPageRoute(
           builder: (context) {
@@ -67,6 +81,8 @@ class AppRoute {
       //     },
       //   );
       case '/camera':
+        final id = routeSettings.arguments as String;
+
         final task = routeSettings.arguments as MeasuringTask;
         return MaterialPageRoute(
           builder: (context) {
@@ -77,36 +93,42 @@ class AppRoute {
             ], child: CameraScreen(task: task));
           },
         );
-      // case '/bloodPressureHistory':
-      //   return MaterialPageRoute(
-      //     builder: (context) {
-      //       return MultiBlocProvider(providers: [
-      //         BlocProvider(
-      //           create: (context) => getIt<HistoryBloc>(),
-      //         )
-      //       ], child: const BloodPressureHistoryScreen());
-      //     },
-      //   );
-      // case '/bloodSugarHistory':
-      //   return MaterialPageRoute(
-      //     builder: (context) {
-      //       return MultiBlocProvider(providers: [
-      //         BlocProvider(
-      //           create: (context) => getIt<HistoryBloc>(),
-      //         )
-      //       ], child: const BloodSugarHistoryScreen());
-      //     },
-      //   );
-      // case '/temperatureHistory':
-      //   return MaterialPageRoute(
-      //     builder: (context) {
-      //       return MultiBlocProvider(providers: [
-      //         BlocProvider(
-      //           create: (context) => getIt<HistoryBloc>(),
-      //         )
-      //       ], child: const TemperatureScreen());
-      //     },
-      //   );
+      case '/bloodPressureHistory':
+        final id = routeSettings.arguments as String;
+
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (context) => getIt<HistoryBloc>(),
+              )
+            ], child: BloodPressureHistoryScreen(id: id));
+          },
+        );
+      case '/bloodSugarHistory':
+        final id = routeSettings.arguments as String;
+
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (context) => getIt<HistoryBloc>(),
+              )
+            ], child: BloodSugarHistoryScreen(id: id));
+          },
+        );
+      case '/temperatureHistory':
+        final id = routeSettings.arguments as String;
+
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (context) => getIt<HistoryBloc>(),
+              )
+            ], child: TemperatureHistoryScreen(id: id));
+          },
+        );
       case '/setting':
         return MaterialPageRoute(
           builder: (context) {

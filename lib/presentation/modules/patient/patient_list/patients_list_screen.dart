@@ -54,12 +54,11 @@ class _UserListState extends State<UserListScreen> {
         // ),
         selectedIndex: 0,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 20),
                   child: Container(

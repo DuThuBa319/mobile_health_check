@@ -100,46 +100,30 @@ extension HomeAction on _HomeScreenState {
                     Text(indicator,
                         style: AppTextTheme.title3.copyWith(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: screenSize.width * 0.035,
                             fontWeight: FontWeight.bold)),
                     GestureDetector(
                       child: Text(translation(context).watchHistory,
                           style: AppTextTheme.body5.copyWith(
                               color: Colors.blue,
-                              fontSize: 15,
+                              fontSize: screenSize.width * 0.03,
                               decoration: TextDecoration.underline,
                               decorationThickness: 1)),
                       onTap: () {
                         if (naviagte == "bloodPressureHistory") {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return BlocProvider<HistoryBloc>(
-                                create: (context) => getIt<HistoryBloc>(),
-                                child: BloodPressureHistoryScreen(
-                                  id: widget.id ?? widget.id!,
-                                ));
-                          }));
+                          Navigator.pushNamed(
+                              context, RouteList.bloodPressureHistory,
+                              arguments: widget.id ?? widget.id!);
                         }
-                        
 
                         if (naviagte == "bloodSugarHistory") {
-                        Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return BlocProvider<HistoryBloc>(
-                                create: (context) => getIt<HistoryBloc>(),
-                                child: BloodSugarHistoryScreen(
-                                  id: widget.id ?? widget.id!,
-                                ));
-                          }));
+                          Navigator.pushNamed(
+                              context, RouteList.bloodSugarHistory,
+                              arguments: widget.id ?? widget.id!);
                         } else if (naviagte == "bodyTemperatureColor") {
-                         Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return BlocProvider<HistoryBloc>(
-                                create: (context) => getIt<HistoryBloc>(),
-                                child:TemperatureHistoryScreen(
-                                  id: widget.id ?? widget.id!,
-                                ));
-                          }));
+                          Navigator.pushNamed(
+                              context, RouteList.temperatureHistory,
+                              arguments: widget.id ?? widget.id!);
                         }
                       },
                     ),
@@ -149,7 +133,8 @@ extension HomeAction on _HomeScreenState {
               const SizedBox(height: 2),
               Text(
                 DateFormat('HH:mm dd/MM/yyyy').format(dateTime ?? dateTime!),
-                style: AppTextTheme.title5.copyWith(fontSize: 12),
+                style: AppTextTheme.title5
+                    .copyWith(fontSize: screenSize.width * 0.025),
               ),
               const SizedBox(
                 height: 8,

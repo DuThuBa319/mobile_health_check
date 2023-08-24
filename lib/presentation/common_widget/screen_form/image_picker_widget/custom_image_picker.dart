@@ -32,7 +32,6 @@ class ImagePickerSingle extends StatefulWidget {
 
 class _ImagePickerSingleState extends State<ImagePickerSingle> {
   final picker = ImagePicker();
-
   XFile? image;
 
   @override
@@ -45,60 +44,22 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                     height: SizeConfig.screenWidth * 0.8,
                     width: SizeConfig.screenWidth * 0.8,
                     decoration: const BoxDecoration(shape: BoxShape.circle),
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(width: 4, color: Colors.blue),
-                    //   borderRadius: BorderRadiusDirectional.circular(20),
-                    // ),
                     child: Image.asset(
                       fit: BoxFit.cover,
                       Assets.photo,
                       color: Colors.white,
-                      // Container(
-                      //   decoration: BoxDecoration(
-                      //     border: Border.all(width: 4, color: Colors.white),
-                      //     color: Colors.blue,
-                      //     shape: BoxShape.circle,
-                      //   ),
-                      //   margin: EdgeInsets.only(
-                      //       left: SizeConfig.screenWidth * 0.55,
-                      //       top: SizeConfig.screenWidth * 0.50),
-                      //   child: SizedBox(
-                      //     height: 60,
-                      //     width: 60,
-                      //     child: GestureDetector(
-                      //       child: Container(
-                      //         padding: EdgeInsets.zero,
-                      //         decoration: const BoxDecoration(
-                      //             shape: BoxShape.circle, color: Colors.blue),
-                      //         child: const Icon(
-                      //           Icons.add_a_photo,
-                      //           color: Colors.white,
-                      //           size: 30,
-                      //         ),
-                      //       ),
-                      //       onTap: () {
-                      //         if (widget.isOnTapActive == true) {
-                      //           selectSource(context);
-                      //         }
-                      //       },
-                      //     ),
-                      //   ),
-                      // ),
                     ),
                   )
                 : Container(
                     margin: const EdgeInsets.only(left: 15),
                     height: SizeConfig.screenWidth * 0.8,
                     width: SizeConfig.screenWidth * 0.8,
-                    child: ClipRRect(
-                        borderRadius: BorderRadiusDirectional.circular(20),
-                        child: FullScreenWidget(
-                          disposeLevel: DisposeLevel.High,
-                          child: Image.network(
-                            widget.imagePath!,
-                            fit: BoxFit.fill,
-                          ),
-                        )),
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                    child: Image.asset(
+                      fit: BoxFit.cover,
+                      Assets.photo,
+                      color: Colors.white,
+                    ),
                     // Container(
                     //   decoration: BoxDecoration(
                     //     border: Border.all(width: 4, color: Colors.white),

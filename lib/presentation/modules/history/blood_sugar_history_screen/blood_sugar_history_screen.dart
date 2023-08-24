@@ -163,8 +163,12 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
+                     return Center(
+                        child: Text('Hãy chọn các mốc thời gian',
+                            style: AppTextTheme.body2
+                                .copyWith(color: Colors.red)));
                     //onGetHistoryData();
-                    onGetBloodSugarInitData();
+                    // onGetBloodSugarInitData();
 
                     // return Center(
                     //     child: Text('Vui lòng chọn thông tin',
@@ -191,7 +195,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodSugar!.isEmpty) {
                       return Center(
-                          child: Text('Không có dữ liệu',
+                          child: Text('Hãy chọn các mốc thời gian',
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
