@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 
 import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
+import '../../../../function.dart';
+import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 
 class BloodPressureDetailScreen extends StatefulWidget {
   final BloodPressureEntity? bloodPressureEntity;
@@ -24,13 +26,13 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
 ////////////////////////
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    SizeConfig.init(context);
 
     return SingleChildScrollView(
       child: Expanded(
         child: Container(
-         
-          padding: EdgeInsets.fromLTRB(12, screenSize.width * 0.08, 12, 10),
+          padding:
+              EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.08, 12, 10),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -49,11 +51,11 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: screenSize.width * 0.1,
+                  height: SizeConfig.screenWidth * 0.1,
                 ),
                 Container(
-                    width: screenSize.width,
-                    height: screenSize.height * 0.07,
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.07,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
@@ -62,47 +64,48 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                       children: [
                         Text(
                           translation(context).time,
-                          style: AppTextTheme.body1
-                              .copyWith(fontSize: screenSize.width * 0.06),
+                          style: AppTextTheme.body1.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.06),
                         ),
                         Text(
                           DateFormat('dd/MM/yyyy')
                               .format(widget.bloodPressureEntity!.updatedDate!),
-                          style: AppTextTheme.body1
-                              .copyWith(fontSize: screenSize.width * 0.06),
+                          style: AppTextTheme.body1.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.06),
                         ),
                         Text(
                           DateFormat('HH:mm')
                               .format(widget.bloodPressureEntity!.updatedDate!),
-                          style: AppTextTheme.body1
-                              .copyWith(fontSize: screenSize.width * 0.06),
+                          style: AppTextTheme.body1.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.06),
                         )
                       ],
                     )),
-      
+
                 // Container(
                 //     decoration: BoxDecoration(
                 //         color: Colors.white,
-                //         borderRadius: BorderRadius.circular(screenSize.width * 0.08)),
-                //     width: screenSize.height * 0.35,
-                //     height: screenSize.height * 0.35,
+                //         borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.08)),
+                //     screenWidth: SizeConfig.screenHeight * 0.35,
+                //     screenHeight: SizeConfig.screenHeight * 0.35,
                 //     child: ),
                 SizedBox(
-                  height: screenSize.width * 0.08,
+                  height: SizeConfig.screenWidth * 0.08,
                 ),
-                // const ImagePickerSingle(
-                //   imagePath: null,
-                //   // widget.bloodPressureEntity?.imageLink,
-                //   isOnTapActive: true,
-                //   isforAvatar: false,
-                // ),
+               CustomImagePicker(
+                  imagePath: widget.bloodPressureEntity?.imageLink ??
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                  isOnTapActive: true,
+                  isforAvatar: false,
+                ),
                 SizedBox(
-                  height: screenSize.width * 0.08,
+                  height: SizeConfig.screenWidth * 0.08,
                 ),
                 Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
-                    width: screenSize.width,
-                    height: screenSize.height * 0.26,
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 15),
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.26,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
@@ -119,10 +122,10 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                 const SizedBox(height: 5),
                                 Text(
                                   'mmHg',
-                                  style:
-                                      AppTextTheme.title5.copyWith(fontSize: 15),
+                                  style: AppTextTheme.title5
+                                      .copyWith(fontSize: 15),
                                 ),
-                                SizedBox(height: screenSize.width * 0.07),
+                                SizedBox(height: SizeConfig.screenWidth * 0.07),
                                 Text(widget.bloodPressureEntity!.sys.toString(),
                                     style: AppTextTheme.title1.copyWith(
                                         color: widget
@@ -139,10 +142,10 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                 const SizedBox(height: 5),
                                 Text(
                                   'mmHg',
-                                  style:
-                                      AppTextTheme.title5.copyWith(fontSize: 15),
+                                  style: AppTextTheme.title5
+                                      .copyWith(fontSize: 15),
                                 ),
-                                SizedBox(height: screenSize.width * 0.07),
+                                SizedBox(height: SizeConfig.screenWidth * 0.07),
                                 Text(widget.bloodPressureEntity!.dia.toString(),
                                     style: AppTextTheme.title1.copyWith(
                                         color: widget
@@ -159,11 +162,13 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                 const SizedBox(height: 5),
                                 Text(
                                   'bpm',
-                                  style:
-                                      AppTextTheme.title5.copyWith(fontSize: 15),
+                                  style: AppTextTheme.title5
+                                      .copyWith(fontSize: 15),
                                 ),
-                                SizedBox(height: screenSize.width * 0.07),
-                                Text(widget.bloodPressureEntity!.pulse.toString(),
+                                SizedBox(height: SizeConfig.screenWidth * 0.07),
+                                Text(
+                                    widget.bloodPressureEntity!.pulse
+                                        .toString(),
                                     style: AppTextTheme.title1.copyWith(
                                         color: widget
                                             .bloodPressureEntity!.statusColor,
@@ -173,7 +178,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: screenSize.width * 0.04),
+                        SizedBox(height: SizeConfig.screenWidth * 0.02),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -185,12 +190,11 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                         widget.bloodPressureEntity!.statusColor,
                                     borderRadius: BorderRadius.circular(5)),
                                 height: 8,
-                                width: screenSize.width * 0.72),
+                                width: SizeConfig.screenWidth * 0.72),
                             Icon(Icons.favorite,
                                 color: widget.bloodPressureEntity!.statusColor),
                           ],
                         ),
-                        SizedBox(height: screenSize.width * 0.03),
                         Text(
                             // ignore: unrelated_type_equality_checks
                             widget.bloodPressureEntity!.statusComment(context),
@@ -199,9 +203,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                 fontWeight: FontWeight.w700)),
                       ],
                     )),
-                SizedBox(height: screenSize.width * 0.05),
+                SizedBox(height: SizeConfig.screenWidth * 0.05),
                 CommonButton(
-                  height: screenSize.height * 0.07,
+                  height: SizeConfig.screenHeight * 0.07,
                   title: translation(context).back,
                   buttonColor: Colors.red,
                   onTap: () {

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,12 +11,12 @@ import '../../dialog/show_toast.dart';
 part 'custom_image_picker_action.dart';
 
 // ignore: must_be_immutable
-class ImagePickerSingle extends StatefulWidget {
+class CustomImagePicker extends StatefulWidget {
   final bool? isOnTapActive;
   final bool? isforAvatar;
   final String? imagePath;
 
-  const ImagePickerSingle({
+  const CustomImagePicker({
     Key? key,
     required this.imagePath,
     required this.isOnTapActive,
@@ -27,15 +25,18 @@ class ImagePickerSingle extends StatefulWidget {
 
   @override
   // ignore: library_private_types_in_public_api
-  _ImagePickerSingleState createState() => _ImagePickerSingleState();
+  _CustomImagePickerState createState() => _CustomImagePickerState();
 }
 
-class _ImagePickerSingleState extends State<ImagePickerSingle> {
+class _CustomImagePickerState extends State<CustomImagePicker> {
   final picker = ImagePicker();
+
   XFile? image;
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
+
     return Container(
         child: widget.isforAvatar == false
             ? widget.imagePath == null
@@ -54,12 +55,15 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                     margin: const EdgeInsets.only(left: 15),
                     height: SizeConfig.screenWidth * 0.8,
                     width: SizeConfig.screenWidth * 0.8,
-                    decoration: const BoxDecoration(shape: BoxShape.circle),
-                    child: Image.asset(
-                      fit: BoxFit.cover,
-                      Assets.photo,
-                      color: Colors.white,
-                    ),
+                    child: ClipRRect(
+                        borderRadius: BorderRadiusDirectional.circular(20),
+                        child: FullScreenWidget(
+                          disposeLevel: DisposeLevel.High,
+                          child: Image.network(
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                            fit: BoxFit.fill,
+                          ),
+                        )),
                     // Container(
                     //   decoration: BoxDecoration(
                     //     border: Border.all(width: 4, color: Colors.white),
@@ -76,7 +80,7 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                     //       child: const Icon(
                     //         Icons.delete_forever,
                     //         color: Colors.white,
-                    //         size: 30,
+                    //         size: SizeConfig.screenWidth * 0.08,
                     //       ),
                     //       onTap: () {
                     //         if (widget.isOnTapActive == true) {
@@ -89,7 +93,7 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                   )
 
             ////////////////////////////
-            : image == null
+            : widget.imagePath == null
                 ? Container(
                     decoration: const BoxDecoration(
                       color: Colors.blue,
@@ -100,16 +104,16 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                     //     top: SizeConfig.screenWidth * 0.6
                     //     ),
                     child: SizedBox(
-                      height: 100,
-                      width: 100,
+                      height: SizeConfig.screenWidth * 0.3,
+                      width: SizeConfig.screenWidth * 0.3,
                       child: GestureDetector(
                         child: Container(
                           padding: EdgeInsets.zero,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: Colors.white),
-                          child: const Icon(
+                          child: Icon(
                             Icons.add_a_photo_outlined,
-                            size: 50,
+                            size: SizeConfig.screenWidth * 0.125,
                           ),
                         ),
                         onTap: () {
@@ -128,23 +132,35 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                           shape: BoxShape.circle,
                         ),
                         child: SizedBox(
-                          height: 100,
-                          width: 100,
+                          height: SizeConfig.screenWidth * 0.3,
+                          width: SizeConfig.screenWidth * 0.3,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(80),
-                            child: image != null
-                                ? FullScreenWidget(
-                                    disposeLevel: DisposeLevel.Medium,
-                                    child: Image.file(
-                                      File(image!.path),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : const Icon(
-                                    Icons.add_a_photo_outlined,
-                                    size: 50,
-                                  ),
-                          ),
+                              borderRadius: BorderRadius.circular(80),
+                              child: widget.imagePath != null &&
+                                      widget.imagePath != ""
+                                  ?
+                                  //  image != null
+                                  //     ? FullScreenWidget(
+                                  //         disposeLevel: DisposeLevel.Medium,
+                                  //         child: Image.file(
+                                  //           File(image!.path),
+                                  //           fit: BoxFit.cover,
+                                  //         ),
+                                  //       )
+                                  FullScreenWidget(
+                                      disposeLevel: DisposeLevel.Medium,
+                                      child: Image.network(
+                                        widget.imagePath!,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    )
+                                  : FullScreenWidget(
+                                      disposeLevel: DisposeLevel.High,
+                                      child: Image.network(
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                                        fit: BoxFit.fill,
+                                      ),
+                                    )),
                         ),
                       ),
                       Container(
@@ -154,15 +170,15 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
                           shape: BoxShape.circle,
                         ),
                         margin: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * 0.18,
-                            top: SizeConfig.screenWidth * 0.17),
+                            left: SizeConfig.screenWidth * 0.22,
+                            top: SizeConfig.screenWidth * 0.23),
                         child: SizedBox(
-                          height: 35,
-                          width: 35,
+                          height: SizeConfig.screenWidth * 0.09,
+                          width: SizeConfig.screenWidth * 0.09,
                           child: GestureDetector(
-                            child: const Icon(
+                            child: Icon(
                               Icons.delete_outline_outlined,
-                              size: 30,
+                              size: SizeConfig.screenWidth * 0.08,
                               color: AppColor.white,
                             ),
                             onTap: () {

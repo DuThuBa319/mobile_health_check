@@ -1,4 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:mobile_health_check/domain/entities/patient_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -11,14 +12,14 @@ part 'get_patient_event.dart';
 part 'get_patient_state.dart';
 
 @injectable
-class GetUserBloc extends Bloc<UserEvent, GetUserState> {
-  final UserUsecase _userUserCase;
+class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
+  final PatientUsecase _patientUseCase;
 
-  GetUserBloc(this._userUserCase) : super(GetUserInitialState()) {
-    on<GetListUserEvent>(_onGetUser);
-    on<FilterUserEvent>(_onSearchUser);
-    // on<RegistUserEvent>(_registUser);
-    on<GetUserDetailEvent>(_getPatientInfor);
+  GetPatientBloc(this._patientUseCase) : super(GetPatientInitialState()) {
+    on<GetPatientListEvent>(_onGetPatientList);
+    on<FilterPatientEvent>(_onSearchPatient);
+    // on<RegistPatientEvent>(_registPatient);
+    on<GetPatientInforEvent>(_getPatientInfor);
     // on<GetBloodPressureHistoryDataEvent>(_onGetBloodPressureHistoryData);
     // on<GetBloodSugarHistoryDataEvent>(_onGetBloodSugarHistoryData);
     // on<GetTemperatureHistoryDataEvent>(_onGetTemperatureHistoryData);
@@ -28,20 +29,20 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
     // on<GetTemperatureHistoryInitDataEvent>(_onGetTemperatureHistoryInitData);
   }
 
-  Future<void> _onGetUser(
-    GetListUserEvent event,
-    Emitter<GetUserState> emit,
+  Future<void> _onGetPatientList(
+    GetPatientListEvent event,
+    Emitter<GetPatientState> emit,
   ) async {
     emit(
-      GetListUserState(
+      GetPatientListState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
     );
     try {
-      final response = await _userUserCase.getListUserEntity();
-      final newViewModel = state.viewModel.copyWith(userEntity: response);
-      emit(GetListUserState(
+      final response = await _patientUseCase.getPatientListEntity();
+      final newViewModel = state.viewModel.copyWith(patientEntity: response);
+      emit(GetPatientListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
@@ -55,24 +56,25 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
     }
   }
 
-  Future<void> _onSearchUser(
-    FilterUserEvent event,
-    Emitter<GetUserState> emit,
+  Future<void> _onSearchPatient(
+    FilterPatientEvent event,
+    Emitter<GetPatientState> emit,
   ) async {
     emit(
-      GetListUserState(
+      GetPatientListState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
     );
     try {
-      final users = await _userUserCase.getListUserEntity();
-      final filteredUsers = users
+      final patients = await _patientUseCase.getPatientListEntity();
+      final filteredPatients = patients
           ?.where((value) =>
               value.name.toLowerCase().contains(event.searchText.toLowerCase()))
           .toList();
-      final newViewModel = state.viewModel.copyWith(userEntity: filteredUsers);
-      emit(GetListUserState(
+      final newViewModel =
+          state.viewModel.copyWith(patientEntity: filteredPatients);
+      emit(GetPatientListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
@@ -86,25 +88,25 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
     }
   }
 
-  // Future<void> _registUser(
-  //   RegistUserEvent event,
-  //   Emitter<GetUserState> emit,
+  // Future<void> _registPatient(
+  //   RegistPatientEvent event,
+  //   Emitter<GetPatientState> emit,
   // ) async {
   //   emit(
-  //     RegistUserState(
+  //     RegistPatientState(
   //       status: BlocStatusState.loading,
   //       viewModel: state.viewModel,
   //     ),
   //   );
   //   try {
-  //     final newUser = await _userUserCase.addUserEntity(event.user);
+  //     final newPatient = await _PatientPatientCase.addPatientEntity(event.Patient);
 
   //     final newViewModel = state.viewModel.copyWith(
-  //       userEntity: state.viewModel.userEntity,
+  //       PatientEntity: state.viewModel.PatientEntity,
   //     );
 
   //     emit(
-  //       RegistUserState(
+  //       RegistPatientState(
   //         status: BlocStatusState.success,
   //         viewModel: newViewModel,
   //       ),
@@ -120,19 +122,20 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
   // }
 
   Future<void> _getPatientInfor(
-    GetUserDetailEvent event,
-    Emitter<GetUserState> emit,
+    GetPatientInforEvent event,
+    Emitter<GetPatientState> emit,
   ) async {
     emit(
-      GetUserDetailState(
+      GetPatientInforState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
     );
     try {
-      final response = await _userUserCase.getPatientInforEntity(event.id);
-      final newViewModel = state.viewModel.copyWith(userDetailEntity: response);
-      emit(GetUserDetailState(
+      final response = await _patientUseCase.getPatientInforEntity(event.id);
+      final newViewModel =
+          state.viewModel.copyWith(patientInforEntity: response);
+      emit(GetPatientInforState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
@@ -148,10 +151,10 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
 }
 //   Future<void> _onGetBloodPressureHistoryData(
 //     GetBloodPressureHistoryDataEvent event,
-//     Emitter<GetUserState> emit,
+//     Emitter<GetPatientState> emit,
 //   ) async {
 //     emit(
-//       GetUserDetailState(
+//       GetPatientInforState(
 //         status: BlocStatusState.loading,
 //         viewModel: state.viewModel,
 //       ),
@@ -189,10 +192,10 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
 //   ////
 //   Future<void> _onGetBloodPressureHistoryInitData(
 //     GetBloodPressureHistoryInitDataEvent event,
-//     Emitter<GetUserState> emit,
+//     Emitter<GetPatientState> emit,
 //   ) async {
 //     emit(
-//       GetUserDetailState(
+//       GetPatientInforState(
 //         status: BlocStatusState.loading,
 //         viewModel: state.viewModel,
 //       ),
@@ -227,10 +230,10 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
 
 //   Future<void> _onGetBloodSugarHistoryInitData(
 //     GetBloodSugarHistoryInitDataEvent event,
-//     Emitter<GetUserState> emit,
+//     Emitter<GetPatientState> emit,
 //   ) async {
 //     emit(
-//       GetUserDetailState(
+//       GetPatientInforState(
 //         status: BlocStatusState.loading,
 //         viewModel: state.viewModel,
 //       ),
@@ -258,10 +261,10 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
 
 //   Future<void> _onGetBloodSugarHistoryData(
 //     GetBloodSugarHistoryDataEvent event,
-//     Emitter<GetUserState> emit,
+//     Emitter<GetPatientState> emit,
 //   ) async {
 //     emit(
-//       GetUserDetailState(
+//       GetPatientInforState(
 //         status: BlocStatusState.loading,
 //         viewModel: state.viewModel,
 //       ),
@@ -297,10 +300,10 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
 
 //   Future<void> _onGetTemperatureHistoryInitData(
 //     GetTemperatureHistoryInitDataEvent event,
-//     Emitter<GetUserState> emit,
+//     Emitter<GetPatientState> emit,
 //   ) async {
 //     emit(
-//       GetUserDetailState(
+//       GetPatientInforState(
 //         status: BlocStatusState.loading,
 //         viewModel: state.viewModel,
 //       ),
@@ -328,10 +331,10 @@ class GetUserBloc extends Bloc<UserEvent, GetUserState> {
 // //////
 //   Future<void> _onGetTemperatureHistoryData(
 //     GetTemperatureHistoryDataEvent event,
-//     Emitter<GetUserState> emit,
+//     Emitter<GetPatientState> emit,
 //   ) async {
 //     emit(
-//       GetUserDetailState(
+//       GetPatientInforState(
 //         status: BlocStatusState.loading,
 //         viewModel: state.viewModel,
 //       ),

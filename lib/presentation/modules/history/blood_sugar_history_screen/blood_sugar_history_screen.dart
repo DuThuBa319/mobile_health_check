@@ -5,6 +5,7 @@ import 'package:mobile_health_check/presentation/modules/history/blood_sugar_his
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language_constant.dart';
+import '../../../../function.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -36,8 +37,8 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
   HistoryBloc get historyBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    SizeConfig.init(context);
+
     return CustomScreenForm(
       title: translation(context).history,
       isShowAppBar: true,
@@ -80,8 +81,8 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                   selectedDate(isSelectedDateFrom: true);
                 },
                 child: Container(
-                    width: screenWidth * 0.40,
-                    height: screenHeight * 0.055,
+                    width: SizeConfig.screenWidth * 0.40,
+                    height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
                         border:
                             Border.all(width: 2, color: AppColor.color43C8F5),
@@ -94,20 +95,21 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                             color: AppColor.color43C8F5, size: 30),
                         Text(strDateFrom,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5, fontSize: 20))
+                                color: AppColor.color43C8F5,
+                                fontSize: SizeConfig.screenWidth * 0.05))
                       ],
                     )),
               ),
-              const SizedBox(
-                width: 20,
+              SizedBox(
+                width: SizeConfig.screenWidth * 0.05,
               ),
               InkWell(
                 onTap: () {
                   selectedDate(isSelectedDateFrom: false);
                 },
                 child: Container(
-                    width: screenWidth * 0.40,
-                    height: screenHeight * 0.055,
+                    width: SizeConfig.screenWidth * 0.40,
+                    height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
                         border:
                             Border.all(width: 2, color: AppColor.color43C8F5),
@@ -120,7 +122,8 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                             color: AppColor.color43C8F5, size: 30),
                         Text(strDateTo,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5, fontSize: 20))
+                                color: AppColor.color43C8F5,
+                                fontSize: SizeConfig.screenWidth * 0.05))
                       ],
                     )),
               )
@@ -140,7 +143,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
               },
               child: Container(
                 alignment: Alignment.center,
-                width: screenWidth * 0.4,
+                width: SizeConfig.screenWidth * 0.4,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
@@ -153,7 +156,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: SizeConfig.screenWidth * 0.05),
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
@@ -163,7 +166,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
-                     return Center(
+                    return Center(
                         child: Text('Hãy chọn các mốc thời gian',
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));

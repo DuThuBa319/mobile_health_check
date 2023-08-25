@@ -1,11 +1,11 @@
-import 'package:mobile_health_check/data/models/patient_list_model.dart';
 
 import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:retrofit/http.dart';
 
 import '../../models/blood_pressure_model.dart';
 import '../../models/blood_sugar_model.dart';
 import '../../models/patient_infor_model.dart';
+import '../../models/patient_list_model.dart';
 import '../../models/temperature_model.dart';
 
 part 'rest_api_repository.g.dart';
@@ -15,21 +15,21 @@ abstract class RestApiRepository {
   factory RestApiRepository(Dio dio, {String baseUrl}) = _RestApiRepository;
 
   @GET('/Persons/AllPatients')
-  Future<List<UserModel>> getListUserModels();
+  Future<List<PatientModel>> getPatientListModels();
 
   @GET('/Persons/PatientInfo/{id}') //để hiện detail
   Future<PatientInforModel> getPatientInforModel(
     @Path('id') String? id,
   );
 
-  @POST("") //regist
-  Future<UserModel> registuser(@Body() UserModel userData);
+  // @POST("") //regist
+  // Future<PatientModel> registPatient(@Body() PatientModel patient);
 
   @PUT("/{id}") //update
-  Future<void> updateUser(@Path("id") int id, @Body() UserModel userData);
+  Future<void> updatePatient(@Path("id") int id, @Body() PatientModel patient);
 
   @DELETE('/{id}') //delete
-  Future<void> deleteUser(@Path('id') int id);
+  Future<void> deletePatient(@Path('id') int id);
 
 //BLOOD PRESSURE////////////////////////////
   @GET('/{id}')

@@ -1,6 +1,7 @@
 part of 'patient_infor_screen.dart';
 
-extension HomeAction on _HomeScreenState {
+// ignore: library_private_types_in_public_api
+extension PatientInforScreenAction on _PatientInforScreenState {
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
@@ -53,7 +54,7 @@ extension HomeAction on _HomeScreenState {
     double? bodyTemperature,
     int? pulse,
   }) {
-    Size screenSize = MediaQuery.of(context).size;
+    SizeConfig.init(context);
     return Container(
       decoration: BoxDecoration(
         color: AppColor.white,
@@ -65,8 +66,8 @@ extension HomeAction on _HomeScreenState {
           )
         ],
       ),
-      height: screenSize.height * 0.15,
-      width: screenSize.width,
+      height: SizeConfig.screenHeight * 0.15,
+      width: SizeConfig.screenWidth,
       margin: const EdgeInsets.fromLTRB(15, 0, 12, 10),
       padding: const EdgeInsets.only(top: 10, left: 12),
       child: Row(
@@ -75,8 +76,8 @@ extension HomeAction on _HomeScreenState {
         children: [
           Container(
               padding: const EdgeInsets.all(5),
-              height: screenSize.width * 0.25,
-              width: screenSize.width * 0.25,
+              height: SizeConfig.screenWidth * 0.25,
+              width: SizeConfig.screenWidth * 0.25,
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(15),
@@ -93,22 +94,22 @@ extension HomeAction on _HomeScreenState {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: screenSize.width * 0.6,
+                width: SizeConfig.screenWidth * 0.6,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(indicator,
                         style: AppTextTheme.title3.copyWith(
                             color: Colors.black,
-                            fontSize: screenSize.width * 0.035,
+                            fontSize: SizeConfig.screenWidth * 0.035,
                             fontWeight: FontWeight.bold)),
                     GestureDetector(
                       child: Text(translation(context).watchHistory,
                           style: AppTextTheme.body5.copyWith(
-                              color: Colors.blue,
-                              fontSize: screenSize.width * 0.03,
-                              decoration: TextDecoration.underline,
-                              decorationThickness: 1)),
+                            color: Colors.blue,
+                            fontSize: SizeConfig.screenWidth * 0.03,
+                            decoration: TextDecoration.underline,
+                          )),
                       onTap: () {
                         if (naviagte == "bloodPressureHistory") {
                           Navigator.pushNamed(
@@ -134,16 +135,16 @@ extension HomeAction on _HomeScreenState {
               Text(
                 DateFormat('HH:mm dd/MM/yyyy').format(dateTime ?? dateTime!),
                 style: AppTextTheme.title5
-                    .copyWith(fontSize: screenSize.width * 0.025),
+                    .copyWith(fontSize: SizeConfig.screenWidth * 0.025),
               ),
               const SizedBox(
                 height: 8,
               ),
               naviagte == "bloodPressureHistory"
                   ? Container(
-                      margin:
-                          EdgeInsets.only(top: 5, left: screenSize.width * 0.1),
-                      width: screenSize.width * 0.5,
+                      margin: EdgeInsets.only(
+                          top: 5, left: SizeConfig.screenWidth * 0.1),
+                      width: SizeConfig.screenWidth * 0.5,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -165,7 +166,7 @@ extension HomeAction on _HomeScreenState {
                             ],
                           ),
                           SizedBox(
-                            width: screenSize.width * 0.05,
+                            width: SizeConfig.screenWidth * 0.05,
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -189,55 +190,62 @@ extension HomeAction on _HomeScreenState {
                   : naviagte == "bloodSugarHistory"
                       ? Container(
                           margin: EdgeInsets.only(
-                              top: 20, left: screenSize.width * 0.1),
-                          width: screenSize.width * 0.5,
+                              top: 20, left: SizeConfig.screenWidth * 0.1),
+                          width: SizeConfig.screenWidth * 0.5,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("$bloodSugar",
-                                  style: AppTextTheme.title3.copyWith(
-                                      color: Colors.black,
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w500)),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 12, left: 5),
-                                child: Text("mg/dL",
-                                    style: AppTextTheme.title3.copyWith(
-                                        color: const Color(0xff615A5A),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500)),
-                              )
-                            ],
-                          ),
-                        )
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "$bloodSugar",
+                                          style: AppTextTheme.title3.copyWith(
+                                              color: Colors.black,
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.w500)),
+                                      TextSpan(
+                                          text: " mg/dL",
+                                          style: AppTextTheme.title3.copyWith(
+                                              color: const Color(0xff615A5A),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500))
+                                    ],
+                                  ),
+                                )
+                              ]))
                       : Container(
                           margin: EdgeInsets.only(
-                              top: 20, left: screenSize.width * 0.1),
-                          width: screenSize.width * 0.5,
+                              top: 20, left: SizeConfig.screenWidth * 0.1),
+                          width: SizeConfig.screenWidth * 0.5,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("$bodyTemperature",
-                                  style: AppTextTheme.title3.copyWith(
-                                      color: Colors.black,
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w500)),
-                              Text("°",
-                                  style: AppTextTheme.title3.copyWith(
-                                      color: const Color(0xff615A5A),
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w500)),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: Text("C",
-                                    style: AppTextTheme.title3.copyWith(
-                                        color: const Color(0xff615A5A),
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w500)),
-                              )
+                              RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(children: [
+                                    TextSpan(
+                                        text: "$bodyTemperature",
+                                        style: AppTextTheme.title3.copyWith(
+                                            color: Colors.black,
+                                            fontSize: 35,
+                                            fontWeight: FontWeight.w500)),
+                                    TextSpan(
+                                        text: "°",
+                                        style: AppTextTheme.title3.copyWith(
+                                            color: const Color(0xff615A5A),
+                                            fontSize: 35,
+                                            fontWeight: FontWeight.w500)),
+                                    TextSpan(
+                                        text: "C",
+                                        style: AppTextTheme.title3.copyWith(
+                                            color: const Color(0xff615A5A),
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.w500))
+                                  ]))
                             ],
                           ),
                         )

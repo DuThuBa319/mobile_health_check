@@ -1,8 +1,8 @@
 import '../../../../models/patient_infor_model.dart';
 import '../../../../models/patient_list_model.dart';
 
-abstract class UserApiRepository {
-  Future<List<UserModel>> getListUserModels();
+abstract class PatientApiRepository {
+  Future<List<PatientModel>> getPatientListModels();
   Future<PatientInforModel> getPatientInforModel(String? id);
-  Future<UserModel> RegistUser(UserModel user);
+  // Future<PatientModel> registPatient(PatientModel patient);
 }

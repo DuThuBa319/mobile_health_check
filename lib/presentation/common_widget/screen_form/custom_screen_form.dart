@@ -4,6 +4,7 @@ import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/language_constant.dart';
+import '../../../function.dart';
 import '../../route/route_list.dart';
 
 class CustomScreenForm extends StatefulWidget {
@@ -43,6 +44,8 @@ class CustomScreenForm extends StatefulWidget {
 class _CustomScreenFormState extends State<CustomScreenForm> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
+
     return Scaffold(
       backgroundColor: widget.backgroundColor,
 //app bar ---------------------------------------
@@ -67,8 +70,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               centerTitle: true,
               title: Text(
                 widget.title!,
-                style: AppTextTheme.title0
-                    .copyWith(color: widget.appComponentColor),
+                style: AppTextTheme.title1.copyWith(
+                    color: widget.appComponentColor,
+                    fontSize: SizeConfig.screenWidth * 0.07),
               ),
               actions: [
                 widget.isShowRightButon
@@ -247,7 +251,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 
   void _onItemTapped(int index) {
     if (index == 0 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.userList);
+      Navigator.pushNamed(context, RouteList.patientList);
     }
     if (index == 2 && index != widget.selectedIndex) {
       Navigator.pushNamed(context, RouteList.setting);

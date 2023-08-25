@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,8 @@ class SettingDrPhone extends StatefulWidget {
 class _SettingDrPhoneState extends State<SettingDrPhone> {
   @override
   Widget build(BuildContext context) {
-    final sreenHeight = MediaQuery.of(context).size.height;
-    final sreenWidth = MediaQuery.of(context).size.width;
+    SizeConfig.init(context);
+
     return CustomScreenForm(
         title: translation(context).setting,
         isShowRightButon: false,
@@ -34,28 +35,30 @@ class _SettingDrPhoneState extends State<SettingDrPhone> {
             icon: const Icon(Icons.arrow_back)),
         selectedIndex: 2,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 25,
-              right: 25,
+          child: Container(
+            margin: EdgeInsets.only(
+              top: SizeConfig.screenWidth * 0.2,
+              left: SizeConfig.screenWidth * 0.05,
+              right: SizeConfig.screenWidth * 0.05,
             ),
+            height: SizeConfig.screenHeight * 0.8,
+            width: SizeConfig.screenWidth * 0.9,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: sreenHeight * 0.08),
                   lineDecor(),
-                  settingPhoneCell(translation(context).oldPhoneNumber,
-                      sreenHeight * 0.1, sreenWidth * 0.9),
+                  settingPhoneCell(
+                      translation(context).oldPhoneNumber, context),
                   settingPhoneCell(
                     translation(context).newPhoneNumber,
-                    sreenHeight * 0.1,
-                    sreenWidth * 0.9,
+                    context,
                   ),
-                  SizedBox(height: sreenHeight * 0.01),
+                  SizedBox(height: SizeConfig.screenHeight * 0.01),
                   Center(
                     child: CommonButton(
-                        height: sreenHeight * 0.07,
+                        width: SizeConfig.screenWidth * 0.9,
+                        height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {

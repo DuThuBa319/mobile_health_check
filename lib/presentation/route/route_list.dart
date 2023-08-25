@@ -4,11 +4,14 @@ class RouteList {
 
   static const String account = '/account';
 
-  static const String home = '/home';
+  static const String patientInfor = '/patientInfor';
   static const String login = '/login';
 
-  static const String userList = '/user_list';
-  static const String registUser = '/regist_user';
+  static const String patientList = '/patient_list';
+  static const String registPatient = '/regist_patient';
+  static const String bloodPressuerDetail = '/bloodPressuerDetail';
+  static const String bloodSugarDetail = '/bloodSugarDetail';
+  static const String bodyTemperatureDetail = '/bodyTemperatureDetail';
 
   static const String scanScreen = '/ocr_screen';
   static const String camera = '/camera';

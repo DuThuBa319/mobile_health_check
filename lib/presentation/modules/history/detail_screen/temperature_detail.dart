@@ -26,12 +26,10 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, screenSize.width * 0.08, 12, 10),
+        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.08, 12, 10),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -49,7 +47,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenSize.width * 0.1,
+                height: SizeConfig.screenWidth * 0.1,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -63,32 +61,33 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       Text(
                         translation(context).time,
                         style: AppTextTheme.body1
-                            .copyWith(fontSize: screenSize.width * 0.06),
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy')
                             .format(widget.temperatureEntity!.updatedDate!),
                         style: AppTextTheme.body1
-                            .copyWith(fontSize: screenSize.width * 0.06),
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
                         DateFormat('HH:mm')
                             .format(widget.temperatureEntity!.updatedDate!),
                         style: AppTextTheme.body1
-                            .copyWith(fontSize: screenSize.width * 0.06),
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       )
                     ],
                   )),
               SizedBox(
-                height: screenSize.width * 0.08,
+                height: SizeConfig.screenWidth * 0.08,
               ),
-              const ImagePickerSingle(
-                imagePath: null,
+              CustomImagePicker(
+                imagePath: widget.temperatureEntity?.imageLink ??
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
               SizedBox(
-                height: screenSize.width * 0.08,
+                height: SizeConfig.screenWidth * 0.08,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
@@ -103,10 +102,10 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                     children: [
                       Text(translation(context).bodyTemperature,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: screenSize.width * 0.075,
+                              fontSize: SizeConfig.screenWidth * 0.075,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
-                      SizedBox(height: screenSize.height * 0.005),
+                      SizedBox(height: SizeConfig.screenHeight * 0.005),
                       Center(
                         child: RichText(
                           textAlign: TextAlign.center,
@@ -117,14 +116,14 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                                       "${widget.temperatureEntity!.temperature ?? widget.temperatureEntity!.temperature!}°",
                                   style: AppTextTheme.body0.copyWith(
                                     letterSpacing: -4,
-                                    fontSize: screenSize.width * 0.2,
+                                    fontSize: SizeConfig.screenWidth * 0.2,
                                     color:
                                         widget.temperatureEntity!.statusColor,
                                   )),
                               TextSpan(
                                   text: 'C',
                                   style: AppTextTheme.body0.copyWith(
-                                    fontSize: screenSize.width * 0.15,
+                                    fontSize: SizeConfig.screenWidth * 0.15,
                                     color:
                                         widget.temperatureEntity!.statusColor,
                                   )),
@@ -141,7 +140,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       //         "${widget.TemperatureEntity!.Temperature ?? widget.TemperatureEntity!.Temperature!}",
                       //         style: AppTextTheme.body0.copyWith(
                       //           letterSpacing: -4,
-                      //           fontSize: screenSize.width * 0.2,
+                      //           fontSize: SizeConfig.screenWidth * 0.2,
                       //           color: widget.TemperatureEntity!.statusColor,
                       //         )),
                       //     const SizedBox(
@@ -149,23 +148,23 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       //     ),
                       //     Text('mg/dL',
                       //         style: AppTextTheme.body0.copyWith(
-                      //           fontSize: screenSize.width * 0.08,
+                      //           fontSize: SizeConfig.screenWidth * 0.08,
                       //           color: widget.TemperatureEntity!.statusColor,
                       //         )),
                       //   ],
                       // ),
-                      SizedBox(height: screenSize.width * 0.05),
+                      SizedBox(height: SizeConfig.screenWidth * 0.05),
                       Center(
                         child: Text(
                             widget.temperatureEntity!.statusComment(context),
                             style: AppTextTheme.body2.copyWith(
                                 color: widget.temperatureEntity!.statusColor,
                                 fontWeight: FontWeight.w700,
-                                fontSize: screenSize.width * 0.06)),
+                                fontSize: SizeConfig.screenWidth * 0.06)),
                       ),
                     ],
                   )),
-              SizedBox(height: screenSize.width * 0.05),
+              SizedBox(height: SizeConfig.screenWidth * 0.05),
               CommonButton(
                 height: SizeConfig.screenHeight * 0.07,
                 title: translation(context).back,

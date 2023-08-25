@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,7 @@ class _SettingDrPasswordState extends State<SettingDrPassword> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    SizeConfig.init(context);
 
     return CustomScreenForm(
         title: translation(context).setting,
@@ -45,31 +45,26 @@ class _SettingDrPasswordState extends State<SettingDrPassword> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: screenHeight * 0.08),
+                  SizedBox(height: SizeConfig.screenHeight * 0.08),
                   lineDecor(),
                   SettingPasswordCell(
                       selectSetting: translation(context).oldPassword,
-                      height: screenHeight * 0.1,
-                      width: screenWidth * 0.9,
                       showPass: showPass),
                   SettingPasswordCell(
                       selectSetting: translation(context).newPassword,
-                      height: screenHeight * 0.1,
-                      width: screenWidth * 0.9,
                       showPass: showPass),
                   SettingPasswordCell(
                       selectSetting: translation(context).confirmPass,
-                      height: screenHeight * 0.1,
-                      width: screenWidth * 0.9,
                       showPass: showPass),
-                  SizedBox(height: screenHeight * 0.01),
+                  SizedBox(height: SizeConfig.screenHeight * 0.01),
                   Center(
                     child: CommonButton(
-                        height: screenHeight * 0.07,
+                        height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          showToast(   translation(context).updatePasswordSuccessfullly);
+                          showToast(
+                              translation(context).updatePasswordSuccessfullly);
                         }),
                   )
                 ]),

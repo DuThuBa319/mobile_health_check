@@ -6,13 +6,14 @@ part of 'patient_list_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
+PatientModel _$PatientModelFromJson(Map<String, dynamic> json) => PatientModel(
       id: json['personId'] as String,
       name: json['name'] as String,
       phoneNumber: json['phoneNumber'] as String,
     );
 
-Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
+Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
+    <String, dynamic>{
       'personId': instance.id,
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,

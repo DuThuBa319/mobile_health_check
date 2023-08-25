@@ -11,14 +11,20 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/entities/blood_pressure_entity.dart';
+import '../../domain/entities/blood_sugar_entity.dart';
+import '../../domain/entities/temperature_entity.dart';
 import '../common_widget/enum_common.dart';
 import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
 import '../modules/history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
 import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
+import '../modules/history/detail_screen/blood_pressure_detail.dart';
+import '../modules/history/detail_screen/blood_sugar_detail.dart';
+import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/login_screen/login/login_bloc.dart';
+import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
-import '../modules/patient/patient_list_&_infor_bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
 
 class AppRoute {
@@ -26,13 +32,13 @@ class AppRoute {
 
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/home':
+      case '/patientInfor':
         final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
-            return BlocProvider<GetUserBloc>(
-              create: (context) => getIt<GetUserBloc>(),
-              child: HomeScreen(id: id),
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: PatientInforScreen(id: id),
             );
           },
         );
@@ -46,21 +52,21 @@ class AppRoute {
           },
         );
 
-      case '/user_list':
+      case '/patient_list':
         return MaterialPageRoute(
           builder: (context) {
-            return BlocProvider<GetUserBloc>(
-              create: (context) => getIt<GetUserBloc>(),
-              child: const UserListScreen(),
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: const PatientListScreen(),
             );
           },
         );
-      // case '/regist_user':
-      //   final args = routeSettings.arguments as GetUserBloc;
+      // case '/regist_Patient':
+      //   final args = routeSettings.arguments as GetPatientBloc;
       //   return MaterialPageRoute(
       //     builder: (context) {
       //       return RegistScreen(
-      //         userBLoc: args,
+      //         PatientBLoc: args,
       //       );
       //     },
       //   );
@@ -107,7 +113,6 @@ class AppRoute {
         );
       case '/bloodSugarHistory':
         final id = routeSettings.arguments as String;
-
         return MaterialPageRoute(
           builder: (context) {
             return MultiBlocProvider(providers: [
@@ -119,7 +124,6 @@ class AppRoute {
         );
       case '/temperatureHistory':
         final id = routeSettings.arguments as String;
-
         return MaterialPageRoute(
           builder: (context) {
             return MultiBlocProvider(providers: [
@@ -129,6 +133,25 @@ class AppRoute {
             ], child: TemperatureHistoryScreen(id: id));
           },
         );
+
+      case '/bloodPressuerDetail':
+        final response = routeSettings.arguments as BloodPressureEntity?;
+        return MaterialPageRoute(
+            builder: (context) => BloodPressureDetailScreen(
+                  bloodPressureEntity: response,
+                ));
+      case '/bloodSugarDetail':
+        final response = routeSettings.arguments as BloodSugarEntity?;
+        return MaterialPageRoute(
+            builder: (context) => BloodSugarDetailScreen(
+                  bloodSugarEntity: response,
+                ));
+      case '/bodyTemperatureDetail':
+        final response = routeSettings.arguments as TemperatureEntity?;
+        return MaterialPageRoute(
+            builder: (context) => TemperatureDetailScreen(
+                  temperatureEntity: response,
+                ));
       case '/setting':
         return MaterialPageRoute(
           builder: (context) {
@@ -163,9 +186,9 @@ class AppRoute {
       default:
         return MaterialPageRoute(
           builder: (context) {
-            return BlocProvider<GetUserBloc>(
-              create: (context) => getIt<GetUserBloc>(),
-              child: const UserListScreen(),
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: const PatientListScreen(),
             );
           },
         );

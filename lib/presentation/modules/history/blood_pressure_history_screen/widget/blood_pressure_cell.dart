@@ -1,10 +1,11 @@
-import 'package:mobile_health_check/presentation/modules/history/detail_screen/blood_pressure_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/blood_pressure_entity.dart';
+import '../../../../../function.dart';
 import '../../../../common_widget/assets.dart';
+import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
 import '../../history_bloc/history_bloc.dart';
@@ -22,25 +23,29 @@ class BloodPressureCellWidget extends StatefulWidget {
 class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    SizeConfig.init(context);
+
     return GestureDetector(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => BloodPressureDetailScreen(
-                    bloodPressureEntity: widget.response),
-              ));
+          Navigator.pushNamed(context, RouteList.bloodPressuerDetail,
+              arguments: widget.response);
         },
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.cardBackground,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.02),
           ),
-          height: screenSize.height * 0.15,
-          width: screenSize.width,
-          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          padding: const EdgeInsets.only(top: 10, left: 10),
+          height: SizeConfig.screenHeight * 0.15,
+          width: SizeConfig.screenWidth,
+          margin: EdgeInsets.fromLTRB(
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02),
+          padding: EdgeInsets.only(
+              top: SizeConfig.screenWidth * 0.02,
+              left: SizeConfig.screenWidth * 0.02,
+              right: SizeConfig.screenWidth * 0.02),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,8 +54,8 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                   children: [
                     Container(
                         padding: const EdgeInsets.all(5),
-                        height: screenSize.width * 0.10,
-                        width: screenSize.width * 0.10,
+                        height: SizeConfig.screenWidth * 0.1,
+                        width: SizeConfig.screenWidth * 0.1,
                         decoration: const BoxDecoration(
                             color: AppColor.bloodPressureColor,
                             shape: BoxShape.circle),
@@ -60,8 +65,8 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                             fit: BoxFit.cover,
                           ),
                         )),
-                    const SizedBox(
-                      width: 10,
+                    SizedBox(
+                      width: SizeConfig.screenWidth * 0.02,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,13 +74,13 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                         Text(translation(context).bloodPressure,
                             style: AppTextTheme.title4.copyWith(
                                 color: Colors.black,
-                                fontSize: screenSize.width * 0.04)),
+                                fontSize: SizeConfig.screenWidth * 0.045)),
                         const SizedBox(height: 2),
                         Text(
                           DateFormat('HH:mm dd/MM/yyyy')
                               .format(widget.response!.updatedDate!),
-                          style: AppTextTheme.title5
-                              .copyWith(fontSize: screenSize.width * 0.03),
+                          style: AppTextTheme.title5.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.03),
                         )
                       ],
                     )
@@ -88,37 +93,38 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SizedBox(width: screenSize.width * 0.37),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('${widget.response?.sys}/${widget.response?.dia}',
                         style: AppTextTheme.body1.copyWith(
-                          fontSize:
-                              screenSize.width * 0.1, // 0,1 xấp xỉ 38 39 40
+                          fontSize: SizeConfig.screenWidth *
+                              0.1, // 0,1 xấp xỉ 38 39 40
                         )),
                     Text(
                       'mmHg',
                       style: AppTextTheme.title5.copyWith(
-                          fontSize:
-                              screenSize.width * 0.03), // 0.03 xấp xỉ 12 13
+                          fontSize: SizeConfig.screenWidth *
+                              0.03), // 0.03 xấp xỉ 12 13
                     ),
                   ],
                 ),
-                const SizedBox(width: 20),
+                SizedBox(width: SizeConfig.screenWidth * 0.05),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text('${widget.response?.pulse}',
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: screenSize.width * 0.08, //0.08 xấp xỉ 30
+                            fontSize:
+                                SizeConfig.screenWidth * 0.08, //0.08 xấp xỉ 30
                             fontWeight: FontWeight.w400)),
                     Text(
                       'bpm',
                       style: AppTextTheme.title5
-                          .copyWith(fontSize: screenSize.width * 0.03),
+                          .copyWith(fontSize: SizeConfig.screenWidth * 0.03),
                     ),
                   ],
                 ),

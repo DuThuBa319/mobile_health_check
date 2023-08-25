@@ -1,12 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mobile_health_check/data/models/blood_pressure_model.dart';
-import 'package:mobile_health_check/data/models/blood_sugar_model.dart';
-import 'package:mobile_health_check/data/models/temperature_model.dart';
-import 'package:mobile_health_check/data/models/patient_infor_address_model.dart';
-import 'package:mobile_health_check/domain/entities/blood_pressure_entity.dart';
-import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
-import '../../domain/entities/blood_sugar_entity.dart';
 import '../../domain/entities/patient_entity.dart';
 
 part 'patient_list_model.g.dart';
@@ -15,7 +8,7 @@ part 'patient_list_model.g.dart';
 // còn trong thư viện retrofit thì các endpoint này còn có tên gọi là các @querry
 @JsonSerializable(explicitToJson: true)
 // igmnore: must_be_imutable
-class UserModel {
+class PatientModel {
   @JsonKey(name: "personId")
   String id;
   String name;
@@ -26,11 +19,11 @@ class UserModel {
   String phoneNumber;
   // @JsonKey(name: 'avatar')
   // String? avatarPath;
-  // UserAddressModel? address;
+  // PatientAddressModel? address;
   // List<TemperatureModel>? bodyTemperatures;
   // List<BloodSugarModel>? bloodSugars;
   // List<BloodPressureModel>? bloodPressures;
-  UserModel({
+  PatientModel({
     // this.bloodPressures,
     // this.bloodSugars,
     // this.bodyTemperatures,
@@ -45,11 +38,11 @@ class UserModel {
     // this.avatarPath,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
-  Map<String, dynamic> toJson() => _$UserModelToJson(this);
+  factory PatientModel.fromJson(Map<String, dynamic> json) =>
+      _$PatientModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PatientModelToJson(this);
 
-  UserEntity getUserEntity() {
+  PatientEntity getPatientEntity() {
     // List<BloodPressureEntity> bloodPressureEntities = [];
     // if (bloodPressures != null) {
     //   for (var model in bloodPressures!) {
@@ -74,7 +67,7 @@ class UserModel {
     //   }
     // }
 
-    return UserEntity(
+    return PatientEntity(
       id: id,
       // age: age,
       name: name,

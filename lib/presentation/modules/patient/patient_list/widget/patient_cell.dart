@@ -3,31 +3,34 @@
 import 'package:mobile_health_check/domain/entities/patient_entity.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../function.dart';
 import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
-import '../../patient_list_&_infor_bloc/get_patient_bloc.dart';
+import '../../bloc/get_patient_bloc.dart';
 
-class UserListCell extends StatefulWidget {
-  final UserEntity? userEntity;
-  final GetUserBloc userBloc;
-  const UserListCell({
+class PatientListCell extends StatefulWidget {
+  final PatientEntity? patientEntity;
+  final GetPatientBloc patientBloc;
+  const PatientListCell({
     Key? key,
-    this.userEntity,
-    required this.userBloc,
+    this.patientEntity,
+    required this.patientBloc,
   }) : super(key: key);
 
   @override
-  State<UserListCell> createState() => _UserListCellState();
+  State<PatientListCell> createState() => _PatientListCellState();
 }
 
-class _UserListCellState extends State<UserListCell> {
+class _PatientListCellState extends State<PatientListCell> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
+
     return GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, RouteList.home,
-              arguments: widget.userEntity?.id);
+          Navigator.pushNamed(context, RouteList.patientInfor,
+              arguments: widget.patientEntity?.id);
         },
         child: Card(
             margin: const EdgeInsets.only(bottom: 10),
@@ -39,23 +42,24 @@ class _UserListCellState extends State<UserListCell> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
-                leading: const SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: Icon(
+                leading: SizedBox(
+                    height: SizeConfig.screenWidth * 0.1,
+                    width: SizeConfig.screenWidth * 0.1,
+                    child: const Icon(
                       Icons.people_alt_outlined,
                       color: AppColor.black,
                       size: 30,
                     )),
                 title: Text(
-                  widget.userEntity?.name ?? '',
-                  style: AppTextTheme.body2
-                      .copyWith(fontSize: 22, fontWeight: FontWeight.w400),
+                  widget.patientEntity?.name ?? '',
+                  style: AppTextTheme.body2.copyWith(
+                      fontSize: SizeConfig.screenWidth * 0.05,
+                      fontWeight: FontWeight.w400),
                 ),
                 subtitle: Text(
-                    widget.userEntity?.phoneNumber == ""
+                    widget.patientEntity?.phoneNumber == ""
                         ? "chưa cập nhật"
-                        : widget.userEntity!.phoneNumber,
+                        : widget.patientEntity!.phoneNumber,
                     style: AppTextTheme.body4),
               ),
             )));
