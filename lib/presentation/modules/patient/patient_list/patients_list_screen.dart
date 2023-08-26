@@ -3,7 +3,6 @@ import 'package:mobile_health_check/presentation/modules/patient/patient_list/wi
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../classes/language_constant.dart';
@@ -11,7 +10,6 @@ import '../../../../classes/language_constant.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
-import '../../../route/route_list.dart';
 
 import '../patient_list_&_infor_bloc/get_patient_bloc.dart';
 
@@ -35,6 +33,12 @@ final TextEditingController emailController = TextEditingController();
 final TextEditingController phoneNumberController = TextEditingController();
 
 class _UserListState extends State<UserListScreen> {
+  @override
+  void initState() {
+    //initOneSignal();
+    super.initState();
+  }
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   GetUserBloc get userBloc => BlocProvider.of(context);

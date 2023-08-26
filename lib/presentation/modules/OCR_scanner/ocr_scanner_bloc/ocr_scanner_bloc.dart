@@ -36,22 +36,26 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       List<int?> dataList = [];
+      var newViewModel = state.viewModel;
       final selectedImage = await Navigator.pushNamed(
           event.context, RouteList.camera,
-          arguments: MeasuringTask.bloodPressure) as File?;
+          arguments: MeasuringTask.bloodPressure) as CroppedImage?;
       if (selectedImage != null) {
-        dataList = await uploadBloodPressureImage(croppedImage: selectedImage);
+        dataList = await uploadBloodPressureImage(
+            croppedImage: selectedImage.croppedImage,
+            flashOn: selectedImage.flashOn);
 
         //  dataList = await sendImageToAzureFunction(selectedImage);
+
+        int? sys = dataList[0];
+        int? dia = dataList[1];
+        int? pulse = dataList[2];
+        newViewModel = state.viewModel.copyWith(
+            bloodPressureImageFile: selectedImage.croppedImage,
+            sys: sys,
+            dia: dia,
+            pulse: pulse);
       }
-      int? sys = dataList[0];
-      int? dia = dataList[1];
-      int? pulse = dataList[2];
-      final newViewModel = state.viewModel.copyWith(
-          bloodPressureImageFile: selectedImage,
-          sys: sys,
-          dia: dia,
-          pulse: pulse);
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -112,7 +116,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
     try {
-      String? imageUrl;
+      String? imageUrl = " ";
 
       final result = await FirebaseStorageService.uploadFile(
           file: state.viewModel.bloodPressureImageFile!,
@@ -159,15 +163,19 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       int? glucose;
+      var newViewModel = state.viewModel;
       final selectedImage = await Navigator.pushNamed(
           event.context, RouteList.camera,
-          arguments: MeasuringTask.bloodSugar) as File?;
+          arguments: MeasuringTask.bloodSugar) as CroppedImage?;
       if (selectedImage != null) {
-        glucose = await uploadBloodGlucoseImage(croppedImage: selectedImage);
+        glucose = await uploadBloodGlucoseImage(
+            croppedImage: selectedImage.croppedImage,
+            flashOn: selectedImage.flashOn);
+        newViewModel = state.viewModel.copyWith(
+            bloodGlucoseImageFile: selectedImage.croppedImage,
+            glucose: glucose);
       }
 
-      final newViewModel = state.viewModel
-          .copyWith(bloodGlucoseImageFile: selectedImage, glucose: glucose);
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -196,15 +204,19 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       double? temperature;
+      var newViewModel = state.viewModel;
       final selectedImage = await Navigator.pushNamed(
           event.context, RouteList.camera,
-          arguments: MeasuringTask.temperature) as File?;
+          arguments: MeasuringTask.temperature) as CroppedImage?;
       if (selectedImage != null) {
-        temperature = await uploadTemperatureImage(croppedImage: selectedImage);
+        temperature = await uploadTemperatureImage(
+            croppedImage: selectedImage.croppedImage,
+            flashOn: selectedImage.flashOn);
+        newViewModel = state.viewModel.copyWith(
+            temperatureImageFile: selectedImage.croppedImage,
+            temperature: temperature);
       }
 
-      final newViewModel = state.viewModel.copyWith(
-          temperatureImageFile: selectedImage, temperature: temperature);
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -223,16 +235,17 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
 }
 
 Future<List<int?>> uploadBloodPressureImage(
-    {required File croppedImage}) async {
+    {required File croppedImage, required bool flashOn}) async {
   List<int?> dataList = [];
   final request = http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://readnumber.azurewebsites.net/api/read_number?code=cnTAwfYI1ahTktKrj8cF3HiQb1pzK7J2AVG06mQDDPtDAzFuk59RVQ%3D%3D"));
+          "https://pipefish-relevant-kindly.ngrok-free.app/blood_pressure"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
       filename: croppedImage.path.split("/").last));
+  request.fields['flashOn'] = flashOn.toString();
   request.headers.addAll(headers);
   final response = await request.send();
   http.Response res = await http.Response.fromStream(response);
@@ -251,7 +264,8 @@ Future<List<int?>> uploadBloodPressureImage(
   return dataList;
 }
 
-Future<int?> uploadBloodGlucoseImage({required File croppedImage}) async {
+Future<int?> uploadBloodGlucoseImage(
+    {required File croppedImage, required bool flashOn}) async {
   int? glucose;
   final request = http.MultipartRequest(
       "POST",
@@ -261,6 +275,7 @@ Future<int?> uploadBloodGlucoseImage({required File croppedImage}) async {
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
       filename: croppedImage.path.split("/").last));
+  request.fields['flashOn'] = flashOn.toString();
   request.headers.addAll(headers);
   final response = await request.send();
   http.Response res = await http.Response.fromStream(response);
@@ -277,7 +292,8 @@ Future<int?> uploadBloodGlucoseImage({required File croppedImage}) async {
   return glucose;
 }
 
-Future<double?> uploadTemperatureImage({required File croppedImage}) async {
+Future<double?> uploadTemperatureImage(
+    {required File croppedImage, required bool flashOn}) async {
   double? temperature;
   final request = http.MultipartRequest("POST",
       Uri.parse("https://pipefish-relevant-kindly.ngrok-free.app/temperature"));
@@ -285,6 +301,7 @@ Future<double?> uploadTemperatureImage({required File croppedImage}) async {
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
       filename: croppedImage.path.split("/").last));
+  request.fields['flashOn'] = flashOn.toString();
   request.headers.addAll(headers);
   final response = await request.send();
   http.Response res = await http.Response.fromStream(response);

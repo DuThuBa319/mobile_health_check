@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
@@ -12,6 +13,7 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../common_widget/enum_common.dart';
+import '../modules/OCR_scanner/OCR_scanner_screen.dart';
 import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
 import '../modules/history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
 import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
@@ -65,21 +67,21 @@ class AppRoute {
       //     },
       //   );
 
-      // case '/ocr_screen':
-      //   final task = routeSettings.arguments as MeasuringTask;
-      //   return MaterialPageRoute(
-      //     builder: (context) {
-      //       return MultiBlocProvider(
-      //           providers: [
-      //             BlocProvider(
-      //               create: (context) => getIt<OCRScannerBloc>(),
-      //             )
-      //           ],
-      //           child: OCRScannerScreen(
-      //             task: task,
-      //           ));
-      //     },
-      //   );
+      case '/ocr_screen':
+        final task = routeSettings.arguments as MeasuringTask;
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(
+                providers: [
+                  BlocProvider<OCRScannerBloc>(
+                    create: (context) => getIt<OCRScannerBloc>(),
+                  )
+                ],
+                child: OCRScannerScreen(
+                  task: task,
+                ));
+          },
+        );
       case '/camera':
         final id = routeSettings.arguments as String;
 
