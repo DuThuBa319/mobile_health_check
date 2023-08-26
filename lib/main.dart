@@ -144,7 +144,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
-      Navigator.pushNamed(context, RouteList.patientList);
+      Navigator.pushNamed(context, RouteList.login);
     });
   }
 
@@ -153,7 +153,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          Assets.logoFlutter,
+          Assets.appLogo,
           scale: 3,
         ),
       ),

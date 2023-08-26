@@ -46,5 +46,5 @@
     "veryhightbodytemperature": "Very high",
     "changeLanguageSuccess": "Change language success",
     "updatePasswordSuccessfullly": "Update Password Successfullly",
-    "updatePhoneNumberSuccessfullly": "Update Phone Number Successfullly"
+    "updatePhoneNumberSuccessfullly": "Update Phone Number Successfullly",    "password": "Password", "phoneNumber": "PhoneNumber","signIn": "Sign in", "signUp": "Sign up!", "forgotPass": "Forgot your password?", "dontHaveAccount": "Don't have an account?"
 }

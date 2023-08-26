@@ -66,23 +66,19 @@ class _SettingMenuState extends State<SettingMenu> {
                     onTap: () => Navigator.pushNamed(
                         context, RouteList.settingDrPassword),
                     child: settingMenuCell(
-                        translation(context).updatePassword,
-                      context),
+                        translation(context).updatePassword, context),
                   ),
                   GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, RouteList.settingDrPhone),
                     child: settingMenuCell(
-                        translation(context).updatePhoneNumber,
-                      
-                        context),
+                        translation(context).updatePhoneNumber, context),
                   ),
                   GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, RouteList.settingLanguage),
-                    child: settingMenuCell(
-                        translation(context).language,
-                       context),
+                    child:
+                        settingMenuCell(translation(context).language, context),
                   ),
                   SizedBox(height: SizeConfig.screenWidth * 0.01),
                   Center(
@@ -90,7 +86,9 @@ class _SettingMenuState extends State<SettingMenu> {
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).logOut,
                         buttonColor: AppColor.saveSetting,
-                        onTap: null),
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteList.login);
+                        }),
                   )
                 ]),
           ),
