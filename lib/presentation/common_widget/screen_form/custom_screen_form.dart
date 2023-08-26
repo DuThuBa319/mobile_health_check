@@ -136,7 +136,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       isSelected: widget.selectedIndex == 0 ? true : false,
                       iconIndex: 0),
                   iconBottomBar(
-                      label: translation(context).messagesScreen,
+                      label: translation(context).notification,
                       iconData: Icons.message_outlined,
                       isSelected: widget.selectedIndex == 1 ? true : false,
                       iconIndex: 1),
@@ -257,7 +257,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       Navigator.pushNamed(context, RouteList.setting);
     }
     if (index == 1 && index != widget.selectedIndex) {
-      //  Navigator.pushNamed(context, RouteList.example);
+      Navigator.pushNamed(context, RouteList.notification);
     }
   }
   // if (index == 1 && index != widget.selectedIndex) {

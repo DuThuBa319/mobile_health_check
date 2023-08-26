@@ -2,6 +2,7 @@ import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
+import 'package:mobile_health_check/presentation/modules/notification/notification_screen.dart';
 import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_password_setting.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_phone_setting.dart';
@@ -86,6 +87,7 @@ class AppRoute {
       //           ));
       //     },
       //   );
+
       case '/camera':
         final id = routeSettings.arguments as String;
 
@@ -152,6 +154,13 @@ class AppRoute {
             builder: (context) => TemperatureDetailScreen(
                   temperatureEntity: response,
                 ));
+      case '/notification':
+        return MaterialPageRoute(
+          builder: (context) {
+            return const NotificationScreen();
+          },
+        );
+
       case '/setting':
         return MaterialPageRoute(
           builder: (context) {

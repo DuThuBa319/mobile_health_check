@@ -2,7 +2,7 @@ import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../../../classes/language_constant.dart';
+import '../../../classes/language_constant.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 
 //Class Home
@@ -20,7 +20,7 @@ class _PatientListState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return CustomScreenForm(
         isShowAppBar: true,
-        isShowLeadingButton: false,
+        isShowLeadingButton: true,
         isShowBottomNayvigationBar: true,
         isShowRightButon: false,
         backgroundColor: AppColor.backgroundColor,
@@ -29,9 +29,9 @@ class _PatientListState extends State<NotificationScreen> {
         // rightButton: IconButton(
         //   onPressed: gotoRegistPatientScreen,
         //   icon: const Icon(Icons.add),
-        title: translation(context).patientList,
+        title: translation(context).notification,
         // ),
-        selectedIndex: 0,
+        selectedIndex: 1,
         child: Container());
   }
 }
