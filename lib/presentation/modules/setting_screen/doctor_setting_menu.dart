@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 
 import '../../../classes/language_constant.dart';
+import '../../../function.dart';
 import '../../common_widget/common_button.dart';
 import '../../common_widget/line_decor.dart';
 import '../../route/route_list.dart';
@@ -21,8 +22,7 @@ class SettingMenu extends StatefulWidget {
 class _SettingMenuState extends State<SettingMenu> {
   @override
   Widget build(BuildContext context) {
-    final sreenHeight = MediaQuery.of(context).size.height;
-    final sreenWidth = MediaQuery.of(context).size.width;
+    SizeConfig.init(context);
     return CustomScreenForm(
         title: translation(context).setting,
         isShowRightButon: false,
@@ -32,23 +32,24 @@ class _SettingMenuState extends State<SettingMenu> {
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteList.userList),
+            onPressed: () =>
+                Navigator.pushNamed(context, RouteList.patientList),
             icon: const Icon(Icons.arrow_back)),
         selectedIndex: 2,
         child: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.only(
-              top: 10,
-              left: 25,
-              right: 25,
+            margin: EdgeInsets.only(
+              top: SizeConfig.screenWidth * 0.02,
+              left: SizeConfig.screenWidth * 0.05,
+              right: SizeConfig.screenWidth * 0.05,
             ),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 10),
+                  SizedBox(height: SizeConfig.screenWidth * 0.02),
                   const Center(
-                    child: ImagePickerSingle(
+                    child: CustomImagePicker(
                       imagePath: null,
                       isOnTapActive: true,
                       isforAvatar: true,
@@ -60,34 +61,34 @@ class _SettingMenuState extends State<SettingMenu> {
                               .copyWith(fontWeight: FontWeight.bold))),
                   Center(
                       child: Text("+84 0395651845", style: AppTextTheme.body3)),
-                  const SizedBox(height: 50),
+                  SizedBox(height: SizeConfig.screenWidth * 0.1),
                   lineDecor(),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
                         context, RouteList.settingDrPassword),
-                    child: settingMenuCell(translation(context).updatePassword,
-                        sreenHeight * 0.1, sreenWidth * 0.9),
+                    child: settingMenuCell(
+                        translation(context).updatePassword,
+                      context),
                   ),
                   GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, RouteList.settingDrPhone),
                     child: settingMenuCell(
                         translation(context).updatePhoneNumber,
-                        sreenHeight * 0.1,
-                        sreenWidth * 0.9),
+                      
+                        context),
                   ),
                   GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, RouteList.settingLanguage),
-                    child: settingMenuCell(translation(context).language,
-                        sreenHeight * 0.1, sreenWidth * 0.9),
+                    child: settingMenuCell(
+                        translation(context).language,
+                       context),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: SizeConfig.screenWidth * 0.01),
                   Center(
                     child: CommonButton(
-                        height: sreenHeight * 0.07,
+                        height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).logOut,
                         buttonColor: AppColor.saveSetting,
                         onTap: () async {

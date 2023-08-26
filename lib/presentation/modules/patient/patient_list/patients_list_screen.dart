@@ -11,16 +11,17 @@ import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
 
-import '../patient_list_&_infor_bloc/get_patient_bloc.dart';
+import '../../../route/route_list.dart';
+import '../bloc/get_patient_bloc.dart';
 
 part 'patients_list_screen.action.dart';
 
 //Class Home
-class UserListScreen extends StatefulWidget {
-  const UserListScreen({Key? key}) : super(key: key);
+class PatientListScreen extends StatefulWidget {
+  const PatientListScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserListScreen> createState() => _UserListState();
+  State<PatientListScreen> createState() => _PatientListState();
 }
 
 TextEditingController filterKeyword = TextEditingController(text: '');
@@ -32,16 +33,10 @@ final TextEditingController nameController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
 final TextEditingController phoneNumberController = TextEditingController();
 
-class _UserListState extends State<UserListScreen> {
-  @override
-  void initState() {
-    //initOneSignal();
-    super.initState();
-  }
-
+class _PatientListState extends State<PatientListScreen> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  GetUserBloc get userBloc => BlocProvider.of(context);
+  GetPatientBloc get patientBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
     return CustomScreenForm(
@@ -53,7 +48,7 @@ class _UserListState extends State<UserListScreen> {
         appBarColor: AppColor.topGradient,
 
         // rightButton: IconButton(
-        //   onPressed: gotoRegistUserScreen,
+        //   onPressed: gotoRegistPatientScreen,
         //   icon: const Icon(Icons.add),
         title: translation(context).patientList,
         // ),
@@ -88,8 +83,9 @@ class _UserListState extends State<UserListScreen> {
                           icon: const Icon(Icons.search),
                           color: Colors.black,
                           onPressed: () {
-                            userBloc.add(
-                              FilterUserEvent(searchText: filterKeyword.text),
+                            patientBloc.add(
+                              FilterPatientEvent(
+                                  searchText: filterKeyword.text),
                             );
                           },
                         ),
@@ -97,13 +93,13 @@ class _UserListState extends State<UserListScreen> {
                     ),
                   ),
                 ),
-                BlocConsumer<GetUserBloc, GetUserState>(
+                BlocConsumer<GetPatientBloc, GetPatientState>(
                     listener: _blocListener,
                     builder: (context, state) {
-                      if (state is GetUserInitialState) {
-                        userBloc.add(GetListUserEvent());
+                      if (state is GetPatientInitialState) {
+                        patientBloc.add(GetPatientListEvent());
                       }
-                      if (state is GetListUserState &&
+                      if (state is GetPatientListState &&
                           state.status == BlocStatusState.loading) {
                         return const Expanded(
                           child: Center(
@@ -112,7 +108,7 @@ class _UserListState extends State<UserListScreen> {
                         );
                       }
 
-                      if (state is GetListUserState &&
+                      if (state is GetPatientListState &&
                           state.status == BlocStatusState.success) {
                         return Expanded(
                           child: SmartRefresher(
@@ -121,25 +117,25 @@ class _UserListState extends State<UserListScreen> {
                               await Future.delayed(
                                   const Duration(milliseconds: 1000));
                               _refreshController.refreshCompleted();
-                              userBloc.add(GetListUserEvent());
+                              patientBloc.add(GetPatientListEvent());
                             },
                             child: ListView.builder(
                               shrinkWrap: true,
                               itemCount:
-                                  state.viewModel.userEntity?.length ?? 0,
+                                  state.viewModel.patientEntity?.length ?? 0,
                               itemBuilder: (BuildContext context, int index) {
-                                final userEntity =
-                                    state.viewModel.userEntity?[index];
-                                return UserListCell(
-                                  userEntity: userEntity,
-                                  userBloc: userBloc,
+                                final patientEntity =
+                                    state.viewModel.patientEntity?[index];
+                                return PatientListCell(
+                                  patientEntity: patientEntity,
+                                  patientBloc: patientBloc,
                                 );
                               },
                             ),
                           ),
                         );
                       }
-                      if (state is GetListUserState &&
+                      if (state is GetPatientListState &&
                           state.status == BlocStatusState.failure) {
                         return const Center(
                           child: Text("error"),

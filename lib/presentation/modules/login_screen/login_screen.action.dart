@@ -12,8 +12,7 @@ extension LoginAction on _LoginState {
       //     MaterialPageRoute(
       //       builder: (context) => const HomeScreen(),
       //     ));
-      await initOneSignal();
-      Navigator.pushNamed(context, RouteList.userList);
+      Navigator.pushNamed(context, RouteList.patientInfor);
     } else if (state is LoginFailState) {
       final message = state.viewModel.errorMessage ?? '--';
 

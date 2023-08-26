@@ -1,4 +1,4 @@
-class UserEntity {
+class PatientEntity {
   String id;
   String name;
   // int? age;
@@ -7,12 +7,12 @@ class UserEntity {
   // double? height;
   String phoneNumber;
   // String? avatarPath;
-  // UserAddressModel? address;
+  //PatientAddressModel? address;
   // List<TemperatureEntity>? bodyTemperatures;
   // List<BloodSugarEntity>? bloodSugars;
   // List<BloodPressureEntity>? bloodPressures;
 
-  UserEntity({
+  PatientEntity({
     // this.bloodPressures,
     // this.bloodSugars,
     // this.bodyTemperatures,
@@ -51,7 +51,7 @@ class UserEntity {
 
   //   return Colors.grey;
   // }
-  // UserModel getUserModel() {
+  //PatientModel getUserModel() {
   //   List<BloodPressureModel> bloodPressureModels = [];
   //   if (bloodPressures != null) {
   //     for (var model in bloodPressures!) {
@@ -71,7 +71,7 @@ class UserEntity {
   //     }
   //   }
 
-  //   return UserModel(
+  //   returnPatientModel(
   //     id: id,
   //     age: age,
   //     name: name,

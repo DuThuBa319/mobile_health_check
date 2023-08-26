@@ -2,27 +2,28 @@
 part of 'patient_repository.dart';
 
 @Injectable(
-  as: UserListRepository,
+  as: PatientListRepository,
 )
-class UserListRepositoryImpl extends UserListRepository {
-  final UserApiRepository _userApi;
-  UserListRepositoryImpl(
-    this._userApi,
+class PatientListRepositoryImpl extends PatientListRepository {
+  final PatientApiRepository _patientApi;
+
+  PatientListRepositoryImpl(
+    this._patientApi,
   );
   @override
-  Future<List<UserModel>?> getListUserModels() {
-    return _userApi.getListUserModels();
+  Future<List<PatientModel>?> getPatientListModels() {
+    return _patientApi.getPatientListModels();
   }
 
-  @override
-  Future<UserModel> AddUserModel(UserModel user) {
-    return _userApi.RegistUser(user);
-  }
+  // @override
+  // Future<PatientModel> addPatientModel(PatientModel patient) {
+  //   return _patientApi.registPatient(patient);
+  // }
 
   @override
   Future<PatientInforModel> getPatientInforModel(String? id) {
-    return _userApi.getPatientInforModel(id);
+    return _patientApi.getPatientInforModel(id);
   }
 }
 
-//repo này chứa một cái list<UserModel>
+//repo này chứa một cái list<PatientModel>

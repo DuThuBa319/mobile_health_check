@@ -19,13 +19,13 @@ class _RestApiRepository implements RestApiRepository {
   String? baseUrl;
 
   @override
-  Future<List<UserModel>> getListUserModels() async {
+  Future<List<PatientModel>> getPatientListModels() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<UserModel>>(Options(
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<PatientModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -42,7 +42,7 @@ class _RestApiRepository implements RestApiRepository {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => UserModel.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => PatientModel.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
@@ -76,43 +76,15 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<UserModel> registuser(UserModel userData) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(userData.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<UserModel>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = UserModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<void> updateUser(
+  Future<void> updatePatient(
     int id,
-    UserModel userData,
+    PatientModel patient,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(userData.toJson());
+    _data.addAll(patient.toJson());
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'PUT',
       headers: _headers,
@@ -132,7 +104,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> deleteUser(int id) async {
+  Future<void> deletePatient(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/function.dart';
 
 import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/blood_sugar_entity.dart';
@@ -21,7 +22,7 @@ class BloodSugarCellWidget extends StatefulWidget {
 class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    SizeConfig.init(context);
     return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -34,20 +35,25 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.cardBackground,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.02),
           ),
-          height: screenSize.height * 0.15,
-          width: screenSize.width,
-        margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          padding: const EdgeInsets.only(top: 10, left: 12, right: 12),
+          height: SizeConfig.screenHeight * 0.15,
+          width: SizeConfig.screenWidth,
+          margin: EdgeInsets.fromLTRB(
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02),
+          padding: EdgeInsets.only(
+              top: SizeConfig.screenWidth * 0.02, left: 12, right: 12),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                     padding: const EdgeInsets.all(5),
-                    height: screenSize.width * 0.10,
-                    width: screenSize.width * 0.10,
+                    height: SizeConfig.screenWidth * 0.1,
+                    width: SizeConfig.screenWidth * 0.1,
                     decoration: const BoxDecoration(
                         color: AppColor.bodyTemperatureColor,
                         shape: BoxShape.circle),
@@ -55,49 +61,53 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                       Assets.bloodSugar,
                       fit: BoxFit.cover,
                     )),
-                const SizedBox(
-                  width: 10,
+                SizedBox(
+                  width: SizeConfig.screenWidth * 0.01,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(translation(context).bloodSugar,
-                        style: AppTextTheme.title4
-                            .copyWith(color: Colors.black, fontSize: 17)),
+                        style: AppTextTheme.title4.copyWith(
+                            color: Colors.black,
+                            fontSize: SizeConfig.screenWidth * 0.045)),
                     const SizedBox(height: 2),
                     Text(
                       DateFormat('HH:mm dd/MM/yyyy')
                           .format(widget.response!.updatedDate!),
-                      style: AppTextTheme.title5.copyWith(fontSize: 13),
+                      style: AppTextTheme.title5
+                          .copyWith(fontSize: SizeConfig.screenWidth * 0.03),
                     )
                   ],
                 )
               ],
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: SizeConfig.screenWidth * 0.06,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(),
-                Row(
-                  children: [
-                    Text('${widget.response!.bloodSugar}',
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: 50, fontWeight: FontWeight.w400)),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text('mg/dL',
-                          style: AppTextTheme.title5.copyWith(fontSize: 15)),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                  ],
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: '${widget.response!.bloodSugar}',
+                          style: AppTextTheme.title3.copyWith(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenWidth * 0.1,
+                              fontWeight: FontWeight.w500)),
+                      TextSpan(
+                          text: " mg/dL",
+                          style: AppTextTheme.title3.copyWith(
+                              color: const Color(0xff615A5A),
+                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontWeight: FontWeight.w500))
+                    ],
+                  ),
                 )
               ],
             ),

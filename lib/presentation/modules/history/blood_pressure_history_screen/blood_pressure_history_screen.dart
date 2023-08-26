@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/function.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language_constant.dart';
@@ -46,8 +47,7 @@ class BloodPressureHistoryScreenState
   HistoryBloc get historyBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    SizeConfig.init(context);
     return CustomScreenForm(
       title: translation(context).history,
       isShowAppBar: true,
@@ -69,8 +69,8 @@ class BloodPressureHistoryScreenState
                 const SizedBox(height: 5),
                 Text(
                   translation(context).selectTime,
-                  style: const TextStyle(
-                      fontSize: 24,
+                  style: TextStyle(
+                      fontSize: SizeConfig.screenWidth * 0.06,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -90,8 +90,8 @@ class BloodPressureHistoryScreenState
                   selectedDate(isSelectedDateFrom: true);
                 },
                 child: Container(
-                    width: screenWidth * 0.40,
-                    height: screenHeight * 0.055,
+                    width: SizeConfig.screenWidth * 0.40,
+                    height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
                         border:
                             Border.all(width: 2, color: AppColor.color43C8F5),
@@ -100,24 +100,26 @@ class BloodPressureHistoryScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5, size: 30),
+                        Icon(Icons.calendar_month,
+                            color: AppColor.color43C8F5,
+                            size: SizeConfig.screenWidth * 0.08),
                         Text(strTimeFrom,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5, fontSize: 20))
+                                color: AppColor.color43C8F5,
+                                fontSize: SizeConfig.screenWidth * 0.05))
                       ],
                     )),
               ),
-              const SizedBox(
-                width: 20,
+              SizedBox(
+                width: SizeConfig.screenWidth * 0.05,
               ),
               InkWell(
                 onTap: () {
                   selectedDate(isSelectedDateFrom: false);
                 },
                 child: Container(
-                    width: screenWidth * 0.41,
-                    height: screenHeight * 0.055,
+                    width: SizeConfig.screenWidth * 0.41,
+                    height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
                         border:
                             Border.all(width: 2, color: AppColor.color43C8F5),
@@ -126,11 +128,13 @@ class BloodPressureHistoryScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5, size: 30),
+                        Icon(Icons.calendar_month,
+                            color: AppColor.color43C8F5,
+                            size: SizeConfig.screenWidth * 0.08),
                         Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5, fontSize: 20))
+                                color: AppColor.color43C8F5,
+                                fontSize: SizeConfig.screenWidth * 0.05))
                       ],
                     )),
               )
@@ -150,7 +154,7 @@ class BloodPressureHistoryScreenState
               },
               child: Container(
                 alignment: Alignment.center,
-                width: screenWidth * 0.4,
+                width: SizeConfig.screenWidth * 0.4,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
@@ -163,7 +167,7 @@ class BloodPressureHistoryScreenState
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: SizeConfig.screenWidth * 0.05),
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
@@ -209,7 +213,6 @@ class BloodPressureHistoryScreenState
                                   .copyWith(color: Colors.red)));
                     } else {
                       return ListView.builder(
-                        
                         reverse: true,
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,

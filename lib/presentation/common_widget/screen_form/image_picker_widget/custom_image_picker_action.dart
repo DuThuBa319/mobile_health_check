@@ -1,7 +1,7 @@
 part of 'custom_image_picker.dart';
 
 // ignore: library_private_types_in_public_api
-extension ImagePickerAction on _ImagePickerSingleState {
+extension ImagePickerAction on _CustomImagePickerState {
   Future<XFile?> sourceCamera(ImageSource source) async {
     final pickedFile =
         await picker.pickImage(imageQuality: 100, source: source);
@@ -18,12 +18,13 @@ extension ImagePickerAction on _ImagePickerSingleState {
     await showModalBottomSheet<ImageSource>(
       context: context,
       builder: (BuildContext context) {
+        SizeConfig.init(context);
         return Container(
-          height: SizeConfig.screenHeight * 0.12,
-          decoration: const BoxDecoration(
+          height: SizeConfig.screenHeight * 0.14,
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+              topLeft: Radius.circular(SizeConfig.screenWidth * 0.025),
+              topRight: Radius.circular(SizeConfig.screenWidth * 0.025),
             ),
           ),
           child: Wrap(

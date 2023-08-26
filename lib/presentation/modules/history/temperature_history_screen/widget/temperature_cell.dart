@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/temperature_entity.dart';
+import '../../../../../function.dart';
 import '../../../../common_widget/assets.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
@@ -21,7 +22,7 @@ class TemperatureCellWidget extends StatefulWidget {
 class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    SizeConfig.init(context);
     return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -34,7 +35,7 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.cardBackground,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.02),
             // boxShadow: const [
             //   BoxShadow(
             //     blurRadius: 15,
@@ -42,10 +43,10 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
             //   )
             // ]
           ),
-          height: screenSize.height * 0.15,
-          width: screenSize.width,
-          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          padding: const EdgeInsets.only(top: 10, left: 12),
+          height: SizeConfig.screenHeight * 0.15,
+          width: SizeConfig.screenWidth,
+          margin:  EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02, SizeConfig.screenWidth * 0.02, SizeConfig.screenWidth * 0.02, SizeConfig.screenWidth * 0.02),
+          padding:  EdgeInsets.only(top: SizeConfig.screenWidth * 0.02, left: SizeConfig.screenWidth * 0.02, right: SizeConfig.screenWidth * 0.02),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,8 +55,8 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                   children: [
                     Container(
                         padding: const EdgeInsets.all(5),
-                        height: screenSize.width * 0.13,
-                        width: screenSize.width * 0.13,
+                        height: SizeConfig.screenWidth * 0.13,
+                        width: SizeConfig.screenWidth * 0.13,
                         decoration: const BoxDecoration(
                           color: AppColor.bodyTemperatureColor,
                           shape: BoxShape.circle,
@@ -64,20 +65,22 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                           Assets.temperature,
                           fit: BoxFit.cover,
                         )),
-                    const SizedBox(
-                      width: 10,
+                     SizedBox(
+                      width: SizeConfig.screenWidth * 0.02,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(translation(context).bodyTemperature,
-                            style: AppTextTheme.title4
-                                .copyWith(color: Colors.black, fontSize: 17)),
+                            style: AppTextTheme.title4.copyWith(
+                                color: Colors.black,
+                                fontSize: SizeConfig.screenWidth * 0.045)),
                         const SizedBox(height: 2),
                         Text(
                           DateFormat('hh:mm dd/MM/yyyy')
                               .format(widget.response!.updatedDate!),
-                          style: AppTextTheme.title5.copyWith(fontSize: 13),
+                          style: AppTextTheme.title5.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.03),
                         )
                       ],
                     )
@@ -89,22 +92,30 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
               height: 5,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(),
-                Row(
-                  children: [
-                    Text('${widget.response?.temperature}°',
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: 40, fontWeight: FontWeight.w400)),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, right: 10),
-                      child: Text('C',
+                RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: '${widget.response?.temperature}',
                           style: AppTextTheme.body1.copyWith(
-                              fontSize: 30, fontWeight: FontWeight.w500)),
-                    ),
-                  ],
-                ),
+                              fontSize: SizeConfig.screenWidth * 0.1,
+                              fontWeight: FontWeight.w400)),
+                      TextSpan(
+                          text: "°",
+                          style: AppTextTheme.body1.copyWith(
+                              color: const Color(0xff615A5A),
+                              fontSize: SizeConfig.screenWidth * 0.1,
+                              fontWeight: FontWeight.w500)),
+                      TextSpan(
+                          text: 'C',
+                          style: AppTextTheme.body1.copyWith(
+                              color: const Color(0xff615A5A),
+                              fontSize: SizeConfig.screenWidth * 0.08,
+                              fontWeight: FontWeight.w500))
+                    ]))
               ],
             )
           ]),

@@ -36,7 +36,7 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
               onPressed: () {
                 //Navigator.pop(context);
                 Navigator.pushNamedAndRemoveUntil(
-                    context, RouteList.home, (Route<dynamic> route) => false);
+                    context, RouteList.patientInfor, (Route<dynamic> route) => false);
               },
             ),
           ],

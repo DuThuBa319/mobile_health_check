@@ -1,12 +1,12 @@
 part of 'patient_usecase.dart';
 
 @Injectable(
-  as: UserUsecase,
+  as: PatientUsecase,
 )
-class UserUsecaseImpl extends UserUsecase {
-  final UserListRepository _repository;
+class PatientUsecaseImpl extends PatientUsecase {
+  final PatientListRepository _repository;
 
-  UserUsecaseImpl(this._repository);
+  PatientUsecaseImpl(this._repository);
 
   @override
   Future<PatientInforEntity>? getPatientInforEntity(String? id) async {
@@ -16,13 +16,13 @@ class UserUsecaseImpl extends UserUsecase {
   }
 
   @override
-  Future<List<UserEntity>?> getListUserEntity() async {
-    final responses = await _repository.getListUserModels();
+  Future<List<PatientEntity>?> getPatientListEntity() async {
+    final responses = await _repository.getPatientListModels();
 
-    final responseEntities = <UserEntity>[];
+    final responseEntities = <PatientEntity>[];
     if (responses != null) {
       for (final response in responses) {
-        final entity = response.getUserEntity();
+        final entity = response.getPatientEntity();
         responseEntities.add(entity);
       }
     }
@@ -30,10 +30,10 @@ class UserUsecaseImpl extends UserUsecase {
     return responseEntities;
   }
   // @override
-  // Future<UserEntity> addUserEntity(UserModel user) async {
+  // Future<PatientEntity> addPatientEntity(PatientModel Patient) async {
   //   try {
-  //     final response = await _repository.RegistUser(user);
-  //     final newUser = UserEntity(
+  //     final response = await _repository.RegistPatient(Patient);
+  //     final newPatient = PatientEntity(
   //         id: response.id,
   //         age: response.age,
   //         name: response.name,
@@ -43,9 +43,9 @@ class UserUsecaseImpl extends UserUsecase {
   //         personType: response.personType,
   //         weight: response.weight);
 
-  //     return newUser;
+  //     return newPatient;
   //   } catch (e) {
-  //     throw Exception('Failed to add user');
+  //     throw Exception('Failed to add Patient');
   //   }
   // }
 }
