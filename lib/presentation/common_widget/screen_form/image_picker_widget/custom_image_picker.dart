@@ -36,6 +36,7 @@ class _ImagePickerSingleState extends State<ImagePickerSingle> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Container(
         child: widget.isforAvatar == false
             ? widget.imagePath == null

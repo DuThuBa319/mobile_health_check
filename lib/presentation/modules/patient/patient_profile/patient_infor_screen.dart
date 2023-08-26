@@ -7,8 +7,6 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../di/di.dart';
-
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../common_widget/enum_common.dart';
@@ -19,11 +17,6 @@ import '../../../common_widget/screen_form/image_picker_widget/custom_image_pick
 // import '../../bloc/userlist/get_user_bloc/get_user_bloc.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
-
-import '../../history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
-import '../../history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
-import '../../history/history_bloc/history_bloc.dart';
-import '../../history/temperature_history_screen/temperature_history_screen.dart';
 
 import '../patient_list_&_infor_bloc/get_patient_bloc.dart';
 part 'patient_infor_screen.action.dart';

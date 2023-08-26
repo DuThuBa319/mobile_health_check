@@ -1,13 +1,3 @@
-import 'package:mobile_health_check/data/models/blood_sugar_model.dart';
-import 'package:mobile_health_check/data/models/temperature_model.dart';
-import 'package:mobile_health_check/data/models/patient_list_model.dart';
-import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
-
-import '../../data/models/blood_pressure_model.dart';
-import '../../data/models/patient_infor_address_model.dart';
-import 'blood_pressure_entity.dart';
-import 'blood_sugar_entity.dart';
-
 class UserEntity {
   String id;
   String name;

@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/common/service/onesginal/onesignal_service.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,11 @@ class _SettingMenuState extends State<SettingMenu> {
                         height: sreenHeight * 0.07,
                         title: translation(context).logOut,
                         buttonColor: AppColor.saveSetting,
-                        onTap: null),
+                        onTap: () async {
+                          final response = await OneSignalNotificationService
+                              .sendNotification("hello", "Notification");
+                          print(response.body.toString());
+                        }),
                   )
                 ]),
           ),
