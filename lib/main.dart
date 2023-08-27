@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -126,7 +127,12 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
-      Navigator.pushNamed(context, RouteList.login);
+      final isLogin = userDataData.isLogin;
+      if (isLogin == true) {
+        Navigator.pushNamed(context, RouteList.patientList);
+      } else {
+        Navigator.pushNamed(context, RouteList.login);
+      }
     });
   }
 
@@ -135,7 +141,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          Assets.logoFlutter,
+          Assets.appLogo,
           scale: 3,
         ),
       ),

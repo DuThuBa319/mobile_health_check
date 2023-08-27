@@ -1,10 +1,10 @@
 part of 'login_bloc.dart';
 
 class User {
-  String? name;
+  String? uuid;
 
   User({
-    this.name,
+    this.uuid,
   });
 }
 
@@ -14,7 +14,7 @@ class _ViewModel {
   final String? errorMessage;
   final User? person;
 
-  const _ViewModel({this.isLogin = false, this.person, this.errorMessage});
+  const _ViewModel({this.isLogin = false, this.errorMessage, this.person});
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith({
@@ -25,7 +25,7 @@ class _ViewModel {
     return _ViewModel(
       isLogin: isLogin ?? this.isLogin,
       errorMessage: errorMessage ?? this.errorMessage,
-      //    person: person ?? this.person,
+      person: person ?? this.person,
     );
   }
 }

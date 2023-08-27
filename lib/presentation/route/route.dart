@@ -89,7 +89,7 @@ class AppRoute {
           },
         );
       case '/camera':
-        final id = routeSettings.arguments as String;
+        //final id = routeSettings.arguments as String;
 
         final task = routeSettings.arguments as MeasuringTask;
         return MaterialPageRoute(
