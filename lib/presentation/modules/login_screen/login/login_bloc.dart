@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/singletons.dart';
@@ -53,10 +54,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final userCredential =
           await firebaseAuthService.signInWithEmailAndPassword(
               email: event.username!, password: event.password!);
-      userDataData.setUser(UserModel(
-          email: userCredential.user?.email,
-          id: userCredential.user?.uid,
-          name: userCredential.user?.email));
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(userCredential.user?.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) async {
+        if (documentSnapshot.exists) {
+          await userDataData.setUser(UserModel(
+              email: userCredential.user?.email,
+              phoneNumber:
+                  documentSnapshot.get(FieldPath(const ['phoneNumber'])),
+              id: documentSnapshot.get(FieldPath(const ['doctorId'])),
+              name: documentSnapshot.get(FieldPath(const ['name']))));
+        } else {
+          debugPrint('Document does not exist on the database');
+        }
+      });
+
       emit(
         LoginSuccessState(
           status: BlocStatusState.success,

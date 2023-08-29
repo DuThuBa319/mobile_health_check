@@ -9,18 +9,22 @@ class User extends Equatable {
   final String? email;
   final String? id;
   final String? name;
+  final String? phoneNumber;
+
   // final String? status;
   // final DateTime? dob;
 
-  const User({
-    // this.avatar,
-    // this.createdAt,
-    this.email,
-    this.id,
-    this.name,
-    // this.status,
-    // this.dob,
-  });
+  const User(
+      {
+      // this.avatar,
+      // this.createdAt,
+      this.email,
+      this.id,
+      this.name,
+      this.phoneNumber
+      // this.status,
+      // this.dob,
+      });
 
   @override
   List<Object?> get props => [
@@ -34,6 +38,6 @@ class User extends Equatable {
       ];
 
   UserModel convertToModel() {
-    return UserModel(id: id, name: name);
+    return UserModel(id: id, name: name, phoneNumber: phoneNumber);
   }
 }

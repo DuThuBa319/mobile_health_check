@@ -30,6 +30,7 @@ class FirebaseAuthService {
       "last": "Lovelace",
       "born": 1815
     };
+
     await FirebaseFirestore.instance
         .collection("users")
         .doc(userCredential.user?.uid)

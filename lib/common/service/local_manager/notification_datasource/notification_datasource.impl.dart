@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
 
+import '../../onesginal/bloc/notification_bloc.dart';
 import '../base_datasource.dart';
 
 import 'notification_datasource.dart';
@@ -9,9 +12,10 @@ import 'notification_datasource.dart';
 )
 class NotificationDataSourceImpl extends BaseDataSource
     implements NotificationDataSource {
+  final NotificationBloc notificationBloc = NotificationBloc();
   @override
   Future<void> clearData() async {
-    await localDataManager.secureStorage.deleteAll();
+    await localDataManager.preferencesHelper.remove('unreadCount');
   }
 
   // @override
@@ -30,7 +34,7 @@ class NotificationDataSourceImpl extends BaseDataSource
   // }
 
   @override
-  int get unreadCount =>
+  int? get unreadCount =>
       localDataManager.preferencesHelper.getData("unreadCount");
 
   // @override
@@ -57,8 +61,7 @@ class NotificationDataSourceImpl extends BaseDataSource
   @override
   Future<void> increaseUnreadNotificationCount() async {
     int newCount =
-        localDataManager.preferencesHelper.getData("unreadCount") + 1;
-
+        (localDataManager.preferencesHelper.getData("unreadCount") ?? 0) + 1;
     localDataManager.preferencesHelper.saveData("unreadCount", newCount);
   }
 
@@ -66,7 +69,6 @@ class NotificationDataSourceImpl extends BaseDataSource
   Future<void> decreaseUnreadNotificationCount() async {
     int newCount =
         localDataManager.preferencesHelper.getData("unreadCount") - 1;
-
     localDataManager.preferencesHelper.saveData("unreadCount", newCount);
   }
 }

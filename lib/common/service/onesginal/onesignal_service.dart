@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:injectable/injectable.dart';
-import 'package:mobile_health_check/common/singletons.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 @Singleton()
@@ -29,22 +28,10 @@ class OneSignalNotificationService {
     }
     await OneSignal.shared.setAppId("eb1e614e-54fe-4824-9c1a-aad236ec92d3");
 
-    OneSignal.shared.setNotificationWillShowInForegroundHandler(
-        (OSNotificationReceivedEvent event) async {
-      // _inAppNotificationController.add(
-      //   NotificationModel.fromJson(event.notification.additionalData ?? {}),
-      // );
-      // LogUtils.d(
-      //   'Onesignal ShowInForeground ${event.notification.additionalData}',
-      // );
-      await notificationData.increaseUnreadNotificationCount();
-      print('###${notificationData.unreadCount}');
-      event.complete(event.notification);
-    });
-    OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
-      await notificationData.decreaseUnreadNotificationCount();
-      print('###${notificationData.unreadCount}');
-    });
+//Hàm Phía Dưới triển khai khi có thông báo mới từ OneSignal gửi đến
+
+    //Hàm phía dưới triển khai khi nhấn vào POP-UP
+
     OneSignal.shared.setPermissionObserver((OSPermissionStateChanges changes) {
       // will be called whenever the permission changes
       // (ie. user taps Allow on the permission prompt in iOS)
@@ -89,21 +76,30 @@ class OneSignalNotificationService {
     return OneSignal.shared.deleteTags(keys);
   }
 
-  static void subscribeNotification() {
+  static void subscribeNotification({required String doctorId}) {
     // if (user.id == null) {
     //   return;
     // }
-    // OneSignal.shared.setExternalUserId(user.id!);
+    OneSignal.shared.setExternalUserId(doctorId);
     // OneSignal.shared.sendTag('email', user.email);
     // OneSignal.shared.sendTag('userId', user.id);
     // OneSignal.shared.setExternalUserId("240914");
+
     OneSignal.shared.sendTag("role", "doctor");
-    OneSignal.shared.sendTag("doctorId", "240914");
+    OneSignal.shared.sendTag("doctorId", doctorId);
   }
 
-  static void unsubscribeNotification() {
+  static void unsubscribeFromNotifications({required String doctorId}) {
+    // Clear any tags and external user ID
+    OneSignal.shared.deleteTags(["role", "doctorId"]);
     OneSignal.shared.removeExternalUserId();
+
+    // Unsubscribe the user from notifications
   }
+
+  // static void unsubscribeNotification() {
+  //   OneSignal.shared.removeExternalUserId();
+  // }
 
   static void onNotificationOpened(
     void Function(OSNotificationOpenedResult) callback,

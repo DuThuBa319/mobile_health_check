@@ -16,20 +16,26 @@ class UserModel extends User {
   final String? id;
   @override
   final String? name;
+  @override
+  final String? phoneNumber;
   // @override
   // final String? status;
   // @override
   // final DateTime? dob;
 
-  const UserModel({
-    // this.avatar,
-    // this.createdAt,
-    this.email,
-    this.id,
-    this.name,
-    // this.status,
-    // this.dob,
-  }) : super(
+  const UserModel(
+      {
+      // this.avatar,
+      // this.createdAt,
+
+      this.email,
+      this.id,
+      this.name,
+      this.phoneNumber
+      // this.status,
+      // this.dob,
+      })
+      : super(
           // avatar: avatar,
           // createdAt: createdAt,
           email: email,

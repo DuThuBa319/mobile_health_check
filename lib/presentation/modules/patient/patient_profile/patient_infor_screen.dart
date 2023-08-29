@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../common/singletons.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../common_widget/enum_common.dart';
