@@ -73,4 +73,5 @@ class AppColor {
 
   static const Color appBarColor = Color(0xff8AD8FF);
   static const Color cardBackgroundColor = Color.fromARGB(255, 232, 247, 255);
+  static const Color blueD0F7FF = Color(0xFFD0F7FF);
 }

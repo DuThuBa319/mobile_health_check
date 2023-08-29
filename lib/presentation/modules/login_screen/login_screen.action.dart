@@ -27,6 +27,8 @@ extension LoginAction on _LoginState {
   Future<void> login() async {
     final userName = _usernameController.text;
     final password = _passwordController.text;
+    // await firebaseAuthService.createUserWithEmailAndPassword(
+    //     email: userName, password: password);
     bloc.add(
       LoginUserEvent(
         username: userName,

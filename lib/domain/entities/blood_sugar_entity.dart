@@ -9,6 +9,17 @@ class BloodSugarEntity {
   DateTime? updatedDate;
 
   BloodSugarEntity({this.imageLink, this.updatedDate, this.bloodSugar});
+  BloodSugarEntity copywith({
+    double? bloodSugar,
+    String? imageLink,
+    DateTime? updatedDate,
+  }) {
+    return BloodSugarEntity(
+        bloodSugar: bloodSugar ?? this.bloodSugar,
+        imageLink: imageLink ?? this.imageLink,
+        updatedDate: updatedDate ?? this.updatedDate);
+  }
+
   Color? get statusColor {
     if (bloodSugar != null) {
       if (bloodSugar! <= 70) {

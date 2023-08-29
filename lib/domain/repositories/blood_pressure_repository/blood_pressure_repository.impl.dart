@@ -36,10 +36,10 @@ class BloodPressureRepositoryImpl extends BloodPressureRepository {
   }
 
   @override
-  Future<BloodPressureModel> createBloodPressureModel(
-      {required BloodPressureModel bloodPressureModel}) {
+  Future<bool> createBloodPressureModel(
+      {required BloodPressureModel bloodPressureModel, required String id}) {
     return bloodPressureApi.createBloodPressureModel(
-        bloodPressureModel: bloodPressureModel);
+        id: id, bloodPressureModel: bloodPressureModel);
   }
 }
 

@@ -121,8 +121,11 @@ _i1.GetIt $initGetIt(
         gh<_i28.BloodSugarUsecase>(),
         gh<_i18.TemperatureUsecase>(),
       ));
-  gh.factory<_i31.OCRScannerBloc>(
-      () => _i31.OCRScannerBloc(gh<_i24.BloodPressureUsecase>()));
+  gh.factory<_i31.OCRScannerBloc>(() => _i31.OCRScannerBloc(
+        gh<_i24.BloodPressureUsecase>(),
+        gh<_i28.BloodSugarUsecase>(),
+        gh<_i18.TemperatureUsecase>(),
+      ));
   return getIt;
 }
 

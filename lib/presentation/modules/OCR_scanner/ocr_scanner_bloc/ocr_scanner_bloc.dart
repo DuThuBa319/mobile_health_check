@@ -1,13 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_storage_service.dart';
 import 'package:mobile_health_check/domain/entities/blood_pressure_entity.dart';
+import 'package:mobile_health_check/domain/entities/blood_sugar_entity.dart';
+import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mobile_health_check/domain/usecases/temperature_usecase/temperature_usecase.dart';
+import '../../../../domain/usecases/blood_sugar_usecase/blood_sugar_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../route/route_list.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +20,12 @@ part 'ocr_scanner_state.dart';
 @injectable
 class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
   BloodPressureUsecase bloodPressureUseCase;
-  OCRScannerBloc(this.bloodPressureUseCase) : super(OCRScannerInitialState()) {
-    on<GetInitialBloodPressureDataEvent>(_onGetInitialBloodPressureData);
+  BloodSugarUsecase bloodSugarUseCase;
+  TemperatureUsecase temperatureUseCase;
+  OCRScannerBloc(this.bloodPressureUseCase, this.bloodSugarUseCase,
+      this.temperatureUseCase)
+      : super(OCRScannerInitialState()) {
+    // on<GetInitialBloodPressureDataEvent>(_onGetInitialBloodPressureData);
     on<GetBloodPressureDataEvent>(_onGetBloodPressureData);
     on<UploadBloodPressureDataEvent>(_onUploadBloodPressureData);
     on<GetBloodGlucoseDataEvent>(_onGetBloodGlucoseData);
@@ -46,99 +53,20 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
             flashOn: selectedImage.flashOn);
 
         //  dataList = await sendImageToAzureFunction(selectedImage);
+        final bloodPressureEntity = BloodPressureEntity(
+            dia: dataList[1],
+            sys: dataList[0],
+            pulse: dataList[2],
+            updatedDate: DateTime.now());
 
-        int? sys = dataList[0];
-        int? dia = dataList[1];
-        int? pulse = dataList[2];
         newViewModel = state.viewModel.copyWith(
             bloodPressureImageFile: selectedImage.croppedImage,
-            sys: sys,
-            dia: dia,
-            pulse: pulse);
+            bloodPressureEntity: bloodPressureEntity);
       }
       emit(
         state.copyWith(
           status: BlocStatusState.success,
           viewModel: newViewModel,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
-
-  Future<void> _onGetInitialBloodPressureData(
-    GetInitialBloodPressureDataEvent event,
-    Emitter<OCRScannerState> emit,
-  ) async {
-    emit(
-      GetBloodPressureDataState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      // final response =
-      //     await bloodPressureUseCase.getListBloodPressureEntities();
-      // int length = response.length;
-      // final newViewModel =
-      //     state.viewModel.copyWith(listBloodPressureLength: length);
-      final newViewModel = state.viewModel.copyWith(listBloodPressureLength: 0);
-      emit(
-        state.copyWith(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
-
-  Future<void> _onUploadBloodPressureData(
-    UploadBloodPressureDataEvent event,
-    Emitter<OCRScannerState> emit,
-  ) async {
-    emit(
-      UploadBloodPressureDataState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      String? imageUrl = " ";
-
-      final result = await FirebaseStorageService.uploadFile(
-          file: state.viewModel.bloodPressureImageFile!,
-          fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
-          folder: 'Nguyen Trong Khang/Huyet ap/');
-      if (result != null) {
-        imageUrl = result.url;
-      }
-
-      final entity = BloodPressureEntity(
-        dia: state.viewModel.dia,
-        sys: state.viewModel.sys,
-        pulse: state.viewModel.pulse,
-        updatedDate: DateTime.now(),
-        // imageLink: (state.viewModel.listBloodPressureLength ?? 0) + 1
-      );
-
-      await bloodPressureUseCase.createBloodPressureEntity(
-          bloodPressureEntity: entity);
-      emit(
-        state.copyWith(
-          status: BlocStatusState.success,
         ),
       );
     } catch (e) {
@@ -162,7 +90,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
     try {
-      int? glucose;
+      double? glucose;
       var newViewModel = state.viewModel;
       final selectedImage = await Navigator.pushNamed(
           event.context, RouteList.camera,
@@ -171,9 +99,11 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         glucose = await uploadBloodGlucoseImage(
             croppedImage: selectedImage.croppedImage,
             flashOn: selectedImage.flashOn);
+
         newViewModel = state.viewModel.copyWith(
             bloodGlucoseImageFile: selectedImage.croppedImage,
-            glucose: glucose);
+            bloodSugarEntity: BloodSugarEntity(
+                bloodSugar: glucose, updatedDate: DateTime.now()));
       }
 
       emit(
@@ -214,13 +144,137 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
             flashOn: selectedImage.flashOn);
         newViewModel = state.viewModel.copyWith(
             temperatureImageFile: selectedImage.croppedImage,
-            temperature: temperature);
+            temperatureEntity: TemperatureEntity(
+                temperature: temperature, updatedDate: DateTime.now()));
       }
 
       emit(
         state.copyWith(
           status: BlocStatusState.success,
           viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onUploadBloodPressureData(
+    UploadBloodPressureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      UploadBloodPressureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      String? imageUrl = " ";
+
+      final result = await FirebaseStorageService.uploadFile(
+          file: state.viewModel.bloodPressureImageFile!,
+          fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
+          folder: 'Nguyen Trong Khang/Huyet ap/');
+      if (result != null) {
+        imageUrl = result.url;
+      }
+
+      final entity =
+          state.viewModel.bloodPressureEntity?.copywith(imageLink: imageUrl);
+
+      await bloodPressureUseCase.createBloodPressureEntity(
+          id: "P001", bloodPressureEntity: entity ?? BloodPressureEntity());
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onUploadBloodGlucoseData(
+    UploadBloodPressureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      UploadBloodPressureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      String? imageUrl = " ";
+
+      final result = await FirebaseStorageService.uploadFile(
+          file: state.viewModel.bloodGlucoseImageFile!,
+          fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
+          folder: 'Nguyen Trong Khang/Duong huyet/');
+      if (result != null) {
+        imageUrl = result.url;
+      }
+
+      final entity =
+          state.viewModel.bloodSugarEntity?.copywith(imageLink: imageUrl);
+
+      await bloodSugarUseCase.createBloodSugarEntity(
+          id: "P001", bloodSugarEntity: entity ?? BloodSugarEntity());
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onUploadBodyTemperatureData(
+    UploadBloodPressureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      UploadBloodPressureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      String? imageUrl = " ";
+
+      final result = await FirebaseStorageService.uploadFile(
+          file: state.viewModel.temperatureImageFile!,
+          fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
+          folder: 'Nguyen Trong Khang/Duong huyet/');
+      if (result != null) {
+        imageUrl = result.url;
+      }
+
+      final entity =
+          state.viewModel.temperatureEntity?.copywith(imageLink: imageUrl);
+
+      await temperatureUseCase.createTemperatureEntity(
+          id: "P001", temperatureEntity: entity ?? TemperatureEntity());
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
         ),
       );
     } catch (e) {
@@ -240,7 +294,7 @@ Future<List<int?>> uploadBloodPressureImage(
   final request = http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://pipefish-relevant-kindly.ngrok-free.app/blood_pressure"));
+          "https://flask-server.azurewebsites.net/api/bloodpressure?code=VsvpcH9u0z8Wlo4EBEqBg9LlUE0x37h65w5QZdu2Pb74AzFux8d7gQ%3D%3D"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -264,13 +318,13 @@ Future<List<int?>> uploadBloodPressureImage(
   return dataList;
 }
 
-Future<int?> uploadBloodGlucoseImage(
+Future<double?> uploadBloodGlucoseImage(
     {required File croppedImage, required bool flashOn}) async {
-  int? glucose;
+  double? glucose;
   final request = http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://pipefish-relevant-kindly.ngrok-free.app/blood_glucose"));
+          "https://flask-server.azurewebsites.net/api/bloodglucose?code=7s34g-FdGx_VRWYQHkCvb55Zv4mkXOgECRhsqmnzqtBrAzFua74kWA%3D%3D"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -282,10 +336,10 @@ Future<int?> uploadBloodGlucoseImage(
 
   try {
     final resJson = jsonDecode(res.body);
-    String message = resJson['message'];
+    // String message = resJson['message'];
 
-    debugPrint(message);
-    glucose = int.parse(resJson['glucose']);
+    // debugPrint(message);
+    glucose = double.parse(resJson['glucose']);
   } catch (e) {
     debugPrint('$e');
   }
@@ -295,8 +349,10 @@ Future<int?> uploadBloodGlucoseImage(
 Future<double?> uploadTemperatureImage(
     {required File croppedImage, required bool flashOn}) async {
   double? temperature;
-  final request = http.MultipartRequest("POST",
-      Uri.parse("https://pipefish-relevant-kindly.ngrok-free.app/temperature"));
+  final request = http.MultipartRequest(
+      "POST",
+      Uri.parse(
+          "https://flask-server.azurewebsites.net/api/bodytemperature?code=Za4DcoO9bc5IMMUnBDMqWR8QY8r9dvg4VoMD_tdph7xrAzFuE31tfA%3D%3D"));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -308,9 +364,9 @@ Future<double?> uploadTemperatureImage(
 
   try {
     final resJson = jsonDecode(res.body);
-    String message = resJson['message'];
+    // String message = resJson['message'];
 
-    debugPrint(message);
+    // debugPrint(message);
     temperature = double.parse(resJson['temperature']);
   } catch (e) {
     debugPrint('$e');
@@ -319,34 +375,3 @@ Future<double?> uploadTemperatureImage(
 }
 
 enum ReadDataTask { temperature, bloodPressure, bloodGlucose }
-
-Future<List<int?>> sendImageToAzureFunction(File imageFile) async {
-  try {
-    const url =
-        "https://readnumber.azurewebsites.net/api/read_number?code=cnTAwfYI1ahTktKrj8cF3HiQb1pzK7J2AVG06mQDDPtDAzFuk59RVQ==";
-    final imageBytes = await imageFile.readAsBytes();
-    List<int>? dataList = [];
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, Uint8List>{
-        'body': imageBytes,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final resJson = jsonDecode(response.body);
-      // String message = resJson['message'];
-
-      // debugPrint(message);
-      dataList.add(resJson['sys']);
-      dataList.add(resJson['dia']);
-      dataList.add(resJson['pulse']);
-    }
-    return dataList;
-  } catch (e) {
-    return [];
-  }
-}

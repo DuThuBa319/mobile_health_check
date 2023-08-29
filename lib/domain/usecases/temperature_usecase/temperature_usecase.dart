@@ -12,4 +12,6 @@ abstract class TemperatureUsecase {
     DateTime? endTime,
   });
   Future<TemperatureEntity> getTemperatureEntity({required int id});
+  Future<bool> createTemperatureEntity(
+      {required String id, required TemperatureEntity temperatureEntity});
 }

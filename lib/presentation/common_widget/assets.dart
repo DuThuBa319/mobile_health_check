@@ -28,4 +28,5 @@ class Assets {
       'lib/assets/images/body_temperature_equipment.png';
   static const String photo = 'lib/assets/images/photo.png';
   static const String appLogo = 'lib/assets/images/AppLogo.png';
+  static const String icCameraAdd = 'lib/assets/images/ic_camera_add.png';
 }

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 @singleton
 class FirebaseAuthService {
@@ -17,23 +19,23 @@ class FirebaseAuthService {
         email: email, password: password);
   }
 
-  // Future<void> createUserWithEmailAndPassword({
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   await _firebaseAuth.createUserWithEmailAndPassword(
-  //       email: email, password: password);
-  // }
-
-  // Future<bool> checkIfLogin() async {
-  //   bool isLogin = false;
-  //   _firebaseAuth.authStateChanges().listen((User? user) {
-  //     if (user != null) {
-  //       isLogin = true;
-  //     }
-  //   });
-  //   return isLogin;
-  // }
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    final user = <String, dynamic>{
+      "first": "Ada",
+      "last": "Lovelace",
+      "born": 1815
+    };
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(userCredential.user?.uid)
+        .set(user);
+    debugPrint("Signed up with New ID");
+  }
 
   Future<void> signOut() {
     // userDataData.setToken('');

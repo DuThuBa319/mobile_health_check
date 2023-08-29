@@ -7,6 +7,8 @@ import 'dart:io';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import 'package:flutter/material.dart';
+import '../../../function.dart';
+import '../../common_widget/assets.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 
@@ -36,8 +38,9 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
             title: 'Thermometer',
             isShowAppBar: true,
             isShowLeadingButton: true,
-            backgroundColor: Colors.white,
-            appBarColor: Colors.blue,
+            appComponentColor: Colors.black,
+            backgroundColor: AppColor.blueD0F7FF,
+            appBarColor: AppColor.blueD0F7FF,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
                 builder: (context, state) {
@@ -106,17 +109,43 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   spacing: 10,
                                                   children: [
                                                     Text(
-                                                        '${state.viewModel.temperature} °C'),
+                                                        '${state.viewModel.temperatureEntity?.temperature} °C'),
                                                   ],
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
+                                        const SizedBox(height: 50),
+                                        Center(
+                                            child: CommonButton(
+                                          height: 70,
+                                          title: 'Upload',
+                                          onTap: () {
+                                            scanBloc.add(
+                                                UploadBloodPressureDataEvent());
+                                          },
+                                        ))
                                       ],
                                     ),
                                   )
-                                : Container(),
+                                : Center(
+                                    child: Column(
+                                    children: [
+                                      SizedBox(
+                                          height:
+                                              SizeConfig.screenHeight * 0.33),
+                                      CommonButton(
+                                        buttonColor: AppColor.greyD9,
+                                        textColor: Colors.black,
+                                        height: 70,
+                                        title: 'Upload',
+                                        onTap: () {
+                                          // scanBloc.add(UploadBloodPressureDataEvent());
+                                        },
+                                      ),
+                                    ],
+                                  )),
                             // const SizedBox(height: 30),
                             // const Center(
                             //     child: CommonButton(height: 70, title: 'Cập nhật'))
@@ -202,17 +231,43 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   spacing: 10,
                                                   children: [
                                                     Text(
-                                                        '${state.viewModel.glucose} mg/dL'),
+                                                        '${state.viewModel.bloodSugarEntity?.bloodSugar} mg/dL'),
                                                   ],
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
+                                        const SizedBox(height: 50),
+                                        Center(
+                                            child: CommonButton(
+                                          height: 70,
+                                          title: 'Upload',
+                                          onTap: () {
+                                            scanBloc.add(
+                                                UploadBloodPressureDataEvent());
+                                          },
+                                        ))
                                       ],
                                     ),
                                   )
-                                : Container(),
+                                : Center(
+                                    child: Column(
+                                    children: [
+                                      SizedBox(
+                                          height:
+                                              SizeConfig.screenHeight * 0.33),
+                                      CommonButton(
+                                        buttonColor: AppColor.greyD9,
+                                        textColor: Colors.black,
+                                        height: 70,
+                                        title: 'Upload',
+                                        onTap: () {
+                                          // scanBloc.add(UploadBloodPressureDataEvent());
+                                        },
+                                      ),
+                                    ],
+                                  )),
 
                             //const SizedBox(height: 30),
                             // const Center(
@@ -228,14 +283,15 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
             title: 'Blood Pressure Meter',
             isShowAppBar: true,
             isShowLeadingButton: true,
-            backgroundColor: Colors.white,
-            appBarColor: Colors.blue,
+            appComponentColor: Colors.black,
+            backgroundColor: AppColor.blueD0F7FF,
+            appBarColor: AppColor.blueD0F7FF,
             selectedIndex: 6,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
                 builder: (context, state) {
                   if (state is OCRScannerInitialState) {
-                    scanBloc.add(GetInitialBloodPressureDataEvent());
+                    // scanBloc.add(GetInitialBloodPressureDataEvent());
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
@@ -305,32 +361,47 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   spacing: 10,
                                                   children: [
                                                     Text(
-                                                        '${state.viewModel.sys} mmHg'),
+                                                        '${state.viewModel.bloodPressureEntity?.sys} mmHg'),
                                                     Text(
-                                                        '${state.viewModel.dia} mmHg'),
+                                                        '${state.viewModel.bloodPressureEntity?.dia} mmHg'),
                                                     Text(
-                                                        '${state.viewModel.pulse} bpm'),
+                                                        '${state.viewModel.bloodPressureEntity?.pulse} bpm'),
                                                   ],
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
+                                        const SizedBox(height: 50),
+                                        Center(
+                                            child: CommonButton(
+                                          height: 70,
+                                          title: 'Upload',
+                                          onTap: () {
+                                            scanBloc.add(
+                                                UploadBloodPressureDataEvent());
+                                          },
+                                        ))
                                       ],
                                     ),
                                   )
-                                : Container(),
-                            const SizedBox(height: 20),
-
-                            const SizedBox(height: 30),
-                            Center(
-                                child: CommonButton(
-                              height: 70,
-                              title: 'Upload',
-                              onTap: () {
-                                // scanBloc.add(UploadBloodPressureDataEvent());
-                              },
-                            ))
+                                : Center(
+                                    child: Column(
+                                    children: [
+                                      SizedBox(
+                                          height:
+                                              SizeConfig.screenHeight * 0.33),
+                                      CommonButton(
+                                        buttonColor: AppColor.greyD9,
+                                        textColor: Colors.black,
+                                        height: 70,
+                                        title: 'Upload',
+                                        onTap: () {
+                                          // scanBloc.add(UploadBloodPressureDataEvent());
+                                        },
+                                      ),
+                                    ],
+                                  )),
                           ]),
                     ),
                   );
@@ -348,31 +419,32 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
       clipBehavior: Clip.none,
       children: [
         Center(
-          child: Container(
-            height: 250,
-            width: 250,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(width: 1, color: Colors.blue)),
-            child: imageFile == null
-                ? IconButton(
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.blue,
-                      size: 70,
+          child: Material(
+            elevation: 10,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            child: Container(
+              height: SizeConfig.screenWidth * 0.75,
+              width: SizeConfig.screenWidth * 0.75,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: imageFile == null
+                  ? GestureDetector(
+                      onTap: () async {
+                        scanBloc.add(event);
+                      },
+                      child: Image.asset(Assets.icCameraAdd),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadiusDirectional.circular(20),
+                      child: FullScreenWidget(
+                          disposeLevel: DisposeLevel.High,
+                          child: Image.file(
+                            File(imageFile.path),
+                          )),
                     ),
-                    onPressed: () async {
-                      scanBloc.add(event);
-                    },
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadiusDirectional.circular(20),
-                    child: FullScreenWidget(
-                        disposeLevel: DisposeLevel.High,
-                        child: Image.file(
-                          File(imageFile.path),
-                        )),
-                  ),
+            ),
           ),
         ),
         imageFile != null

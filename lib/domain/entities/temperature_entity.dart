@@ -9,6 +9,17 @@ class TemperatureEntity {
   String? imageLink;
 
   TemperatureEntity({this.temperature, this.updatedDate, this.imageLink});
+  TemperatureEntity copywith({
+    double? temperature,
+    String? imageLink,
+    DateTime? updatedDate,
+  }) {
+    return TemperatureEntity(
+        temperature: temperature ?? this.temperature,
+        imageLink: imageLink ?? this.imageLink,
+        updatedDate: updatedDate ?? this.updatedDate);
+  }
+
   Color? get statusColor {
     if (temperature != null) {
       if (temperature! < 35.9) {

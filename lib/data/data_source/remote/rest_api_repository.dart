@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -46,9 +45,10 @@ abstract class RestApiRepository {
     @Query('EndTime') DateTime? endTime,
   });
 
-  @POST('')
-  Future<BloodPressureModel> createBloodPressureModel(
-      {@Body() required BloodPressureModel bloodPressureModel});
+  @POST('/{id}')
+  Future<bool> createBloodPressureModel(
+      {@Path('id') required String id,
+      @Body() required BloodPressureModel bloodPressureModel});
 
 //BLOOD SUGAR//////////////////////////////
 
@@ -65,7 +65,10 @@ abstract class RestApiRepository {
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
-
+  @POST('/{id}')
+  Future<bool> createBloodSugarModel(
+      {@Path('id') required String id,
+      @Body() required BloodSugarModel bloodSugarModel});
 // BODYTEMERPATURE/////////////////////
 
   @GET('/{id}')
@@ -80,4 +83,8 @@ abstract class RestApiRepository {
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
+  @POST('/{id}')
+  Future<bool> createTemperatureModel(
+      {@Path('id') required String id,
+      @Body() required TemperatureModel temperatureModel});
 }

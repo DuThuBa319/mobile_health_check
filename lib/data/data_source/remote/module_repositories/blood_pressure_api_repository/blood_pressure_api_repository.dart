@@ -13,6 +13,6 @@ abstract class BloodPressureApiRepository {
     DateTime? endTime,
   });
 
-  Future<BloodPressureModel> createBloodPressureModel(
-      {required BloodPressureModel bloodPressureModel});
+  Future<bool> createBloodPressureModel(
+      {required String id, required BloodPressureModel bloodPressureModel});
 }

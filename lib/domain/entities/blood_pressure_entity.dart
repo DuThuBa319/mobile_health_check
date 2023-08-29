@@ -17,6 +17,20 @@ class BloodPressureEntity {
     this.imageLink,
     this.updatedDate,
   });
+  BloodPressureEntity copywith({
+    int? sys,
+    int? dia,
+    int? pulse,
+    String? imageLink,
+    DateTime? updatedDate,
+  }) {
+    return BloodPressureEntity(
+        sys: sys ?? this.sys,
+        dia: dia ?? this.dia,
+        pulse: pulse ?? this.pulse,
+        imageLink: imageLink ?? this.imageLink,
+        updatedDate: updatedDate ?? this.updatedDate);
+  }
 
   Color get statusColor {
     if (sys != null && dia != null) {

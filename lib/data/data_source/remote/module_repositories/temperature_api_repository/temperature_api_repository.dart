@@ -7,4 +7,6 @@ abstract class TemperatureApiRepository {
     DateTime? endTime,
   });
   Future<TemperatureModel> getTemperatureModel({required int id});
+  Future<bool> createTemperatureModel(
+      {required String id, required TemperatureModel temperatureModel});
 }

@@ -4,46 +4,36 @@ class _ViewModel {
   final File? bloodPressureImageFile;
   final File? bloodGlucoseImageFile;
   final File? temperatureImageFile;
-  final int? sys;
-  final int? dia;
-  final int? pulse;
-  final double? temperature;
-  final int? glucose;
-  final int? listBloodPressureLength;
-  const _ViewModel(
-      {this.bloodGlucoseImageFile,
-      this.bloodPressureImageFile,
-      this.glucose,
-      this.temperature,
-      this.temperatureImageFile,
-      this.dia,
-      this.pulse,
-      this.sys,
-      this.listBloodPressureLength});
+  final BloodPressureEntity? bloodPressureEntity;
+  final BloodSugarEntity? bloodSugarEntity;
+  final TemperatureEntity? temperatureEntity;
 
-  _ViewModel copyWith(
-      {File? bloodPressureImageFile,
-      File? bloodGlucoseImageFile,
-      File? temperatureImageFile,
-      int? sys,
-      int? dia,
-      int? pulse,
-      int? glucose,
-      double? temperature,
-      int? listBloodPressureLength}) {
+  const _ViewModel({
+    this.bloodGlucoseImageFile,
+    this.bloodPressureImageFile,
+    this.bloodPressureEntity,
+    this.bloodSugarEntity,
+    this.temperatureEntity,
+    this.temperatureImageFile,
+  });
+
+  _ViewModel copyWith({
+    File? bloodPressureImageFile,
+    File? bloodGlucoseImageFile,
+    File? temperatureImageFile,
+    BloodPressureEntity? bloodPressureEntity,
+    BloodSugarEntity? bloodSugarEntity,
+    TemperatureEntity? temperatureEntity,
+  }) {
     return _ViewModel(
       bloodPressureImageFile:
           bloodPressureImageFile ?? this.bloodPressureImageFile,
       bloodGlucoseImageFile:
           bloodGlucoseImageFile ?? this.bloodGlucoseImageFile,
       temperatureImageFile: temperatureImageFile ?? this.temperatureImageFile,
-      sys: sys ?? this.sys,
-      dia: dia ?? this.dia,
-      pulse: pulse ?? this.pulse,
-      temperature: temperature ?? this.temperature,
-      glucose: glucose ?? this.glucose,
-      listBloodPressureLength:
-          listBloodPressureLength ?? this.listBloodPressureLength,
+      bloodPressureEntity: bloodPressureEntity ?? bloodPressureEntity,
+      bloodSugarEntity: bloodSugarEntity ?? bloodSugarEntity,
+      temperatureEntity: temperatureEntity ?? temperatureEntity,
     );
   }
 }

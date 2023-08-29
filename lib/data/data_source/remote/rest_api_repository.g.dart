@@ -201,31 +201,32 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<BloodPressureModel> createBloodPressureModel(
-      {required BloodPressureModel bloodPressureModel}) async {
+  Future<bool> createBloodPressureModel({
+    required String id,
+    required BloodPressureModel bloodPressureModel,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(bloodPressureModel.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BloodPressureModel>(Options(
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BloodPressureModel.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
     return value;
   }
 
@@ -302,6 +303,36 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
+  Future<bool> createBloodSugarModel({
+    required String id,
+    required BloodSugarModel bloodSugarModel,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(bloodSugarModel.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
   Future<List<TemperatureModel>> getListTemperatureModels({
     String? id,
     DateTime? startTime,
@@ -371,6 +402,36 @@ class _RestApiRepository implements RestApiRepository {
               baseUrl,
             ))));
     final value = TemperatureModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<bool> createTemperatureModel({
+    required String id,
+    required TemperatureModel temperatureModel,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(temperatureModel.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
     return value;
   }
 

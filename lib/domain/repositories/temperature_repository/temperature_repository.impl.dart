@@ -26,6 +26,13 @@ class TemperatureRepositoryImpl extends TemperatureRepository {
   Future<TemperatureModel> getTemperatureModel({required int id}) {
     return temperatureApi.getTemperatureModel(id: id);
   }
+
+  @override
+  Future<bool> createTemperatureModel(
+      {required TemperatureModel temperatureModel, required String id}) {
+    return temperatureApi.createTemperatureModel(
+        id: id, temperatureModel: temperatureModel);
+  }
 }
 
 //repo này chứa một cái list<UserModel>

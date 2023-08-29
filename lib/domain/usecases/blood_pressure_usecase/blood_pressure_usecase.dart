@@ -16,6 +16,6 @@ abstract class BloodPressureUsecase {
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<BloodPressureEntity> createBloodPressureEntity(
-      {required BloodPressureEntity bloodPressureEntity});
+  Future<bool> createBloodPressureEntity(
+      {required String id, required BloodPressureEntity bloodPressureEntity});
 }

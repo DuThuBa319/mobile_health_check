@@ -1,8 +1,8 @@
-import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'classes/language_constant.dart';
+import 'common/singletons.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
 import 'presentation/common_widget/assets.dart';
@@ -127,9 +127,10 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
+
       final isLogin = userDataData.isLogin;
       if (isLogin == true) {
-        Navigator.pushNamed(context, RouteList.patientList);
+        Navigator.pushNamed(context, RouteList.selectEquip);
       } else {
         Navigator.pushNamed(context, RouteList.login);
       }
