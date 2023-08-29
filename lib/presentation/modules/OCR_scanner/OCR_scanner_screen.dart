@@ -328,7 +328,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                               height: 70,
                               title: 'Upload',
                               onTap: () {
-                                scanBloc.add(UploadBloodPressureDataEvent());
+                                // scanBloc.add(UploadBloodPressureDataEvent());
                               },
                             ))
                           ]),

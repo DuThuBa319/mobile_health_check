@@ -114,8 +114,11 @@ extension CameraScreenAction on CameraScreenState {
                 const SizedBox(width: 10),
                 TextButton(
                     onPressed: () {
+                      final CroppedImage croppedImage = CroppedImage(imageFile,
+                          currentFlashMode == FlashMode.off ? false : true);
+
                       Navigator.pop(context);
-                      Navigator.pop(context, imageFile);
+                      Navigator.pop(context, croppedImage);
                     },
                     child: const Text('Đồng ý'))
               ],

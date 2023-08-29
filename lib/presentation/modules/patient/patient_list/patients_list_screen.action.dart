@@ -6,13 +6,16 @@ extension PatientListScreenAction on _PatientListState {
     // _refreshController
     //   ..refreshCompleted()
     //   ..loadComplete();
-    if (state is GetPatientListState && state.status == BlocStatusState.loading) {
+    if (state is GetPatientListState &&
+        state.status == BlocStatusState.loading) {
       showToast('Loading');
     }
-    if (state is GetPatientListState && state.status == BlocStatusState.success) {
+    if (state is GetPatientListState &&
+        state.status == BlocStatusState.success) {
       showToast('Loaded');
     }
-    if (state is RegistPatientState && state.status == BlocStatusState.success) {
+    if (state is RegistPatientState &&
+        state.status == BlocStatusState.success) {
       showToast('Regist Patient successfully');
       patientBloc.add(GetPatientListEvent());
       Navigator.pop(context);
@@ -20,6 +23,7 @@ extension PatientListScreenAction on _PatientListState {
   }
 
   void gotoRegistPatientScreen() {
-    Navigator.pushNamed(context, RouteList.registPatient, arguments: patientBloc);
+    Navigator.pushNamed(context, RouteList.registPatient,
+        arguments: patientBloc);
   }
 }

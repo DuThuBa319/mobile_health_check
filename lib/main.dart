@@ -1,8 +1,9 @@
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/common/service/onesginal/bloc/notification_bloc.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'classes/language_constant.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
@@ -11,19 +12,22 @@ import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await initOneSignal();
   try {
     cameras = await availableCameras();
   } on CameraException catch (e) {
     print('Error in fetching the cameras: $e');
   }
-  runApp(const MyApp());
+
+  runApp(
+    const MyApp(),
+  );
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
@@ -48,6 +52,7 @@ Future<void> main() async {
 //   OneSignal.User.pushSubscription.addObserver((state) {
 //     print(state.current.jsonRepresentation());
 //   });
+
 //   OneSignal.Notifications.addPermissionObserver((state) {
 //     print("Has permission $state");
 //   });
@@ -66,22 +71,6 @@ Future<void> main() async {
 //     /// notification.display() to display after preventing default
 //     event.notification.display();
 //   });
-//   // OneSignal.InAppMessages.addClickListener((event) {
-//   //   print(
-//   //       "In App Message Clicked: \n${event.result.jsonRepresentation().replaceAll("\\n", "\n")}");
-//   // });
-//   // OneSignal.InAppMessages.addWillDisplayListener((event) {
-//   //   print("ON WILL DISPLAY IN APP MESSAGE ${event.message.messageId}");
-//   // });
-//   // OneSignal.InAppMessages.addDidDisplayListener((event) {
-//   //   print("ON DID DISPLAY IN APP MESSAGE ${event.message.messageId}");
-//   // });
-//   // OneSignal.InAppMessages.addWillDismissListener((event) {
-//   //   print("ON WILL DISMISS IN APP MESSAGE ${event.message.messageId}");
-//   // });
-//   // OneSignal.InAppMessages.addDidDismissListener((event) {
-//   //   print("ON DID DISMISS IN APP MESSAGE ${event.message.messageId}");
-//   // });
 // }
 
 class MyApp extends StatefulWidget {
@@ -113,18 +102,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: _locale,
-      debugShowCheckedModeBanner: false,
-      title: 'Health Check App',
-      onGenerateRoute: AppRoute.onGenerateRoute,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return BlocProvider(
+      create: (context) => NotificationBloc(),
+      child: MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: _locale,
+        debugShowCheckedModeBanner: false,
+        title: 'Health Check App',
+        onGenerateRoute: AppRoute.onGenerateRoute,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }
@@ -143,7 +135,12 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     Future.delayed(const Duration(seconds: 2)).then((value) {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
-      Navigator.pushNamed(context, RouteList.login);
+      final isLogin = userDataData.isLogin;
+      if (isLogin == true) {
+        Navigator.pushNamed(context, RouteList.patientList);
+      } else {
+        Navigator.pushNamed(context, RouteList.login);
+      }
     });
   }
 

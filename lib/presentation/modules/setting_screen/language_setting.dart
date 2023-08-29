@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
+import '../../../common/singletons.dart';
 import '../../../main.dart';
 import '../../common_widget/common_button.dart';
 import '../../common_widget/line_decor.dart';
@@ -34,6 +35,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
+
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),

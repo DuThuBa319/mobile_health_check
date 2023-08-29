@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../common/singletons.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../common_widget/enum_common.dart';
@@ -191,77 +192,87 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 patient.bodyTemperatures!.isNotEmpty ||
                                 patient.bloodSugars!.isNotEmpty
                             ? Expanded(
-                              child: SmartRefresher(
-                                  controller: _refreshController,
-                                  onRefresh: () async {
-                                    await Future.delayed(
-                                        const Duration(milliseconds: 1000));
-                                    _refreshController.refreshCompleted();
-                                    patientBloc.add(GetPatientInforEvent(
-                                        id: widget.id ?? widget.id!));
-                                  },
-                                  child: ListView(
-                                    shrinkWrap: true,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(context,
-                                              RouteList.bloodPressuerDetail,
-                                              arguments:
-                                                  patient.bloodPressures?[0]);
-                                        },
-                                        child: homeCell(
-                                            dia: patient.bloodPressures?[0].dia,
-                                            sys: patient.bloodPressures?[0].sys,
-                                            pulse:
-                                                patient.bloodPressures?[0].pulse,
-                                            dateTime: patient
-                                                .bloodPressures?[0].updatedDate,
-                                            naviagte: "bloodPressureHistory",
-                                            imagePath: Assets.bloodPressureMeter,
-                                            indicator: translation(context)
-                                                .bloodPressure,
-                                            color: AppColor.bloodPressureEquip),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(context,
-                                              RouteList.bodyTemperatureDetail,
-                                              arguments:
-                                                  patient.bodyTemperatures?[0]);
-                                        },
-                                        child: homeCell(
-                                            bodyTemperature: patient
-                                                .bodyTemperatures?[0].temperature,
-                                            dateTime: patient
-                                                .bodyTemperatures?[0].updatedDate,
-                                            naviagte: "bodyTemperatureColor",
-                                            imagePath:
-                                                Assets.bodyTemperatureMeter,
-                                            indicator: translation(context)
-                                                .bodyTemperature,
-                                            color: AppColor.bodyTemperatureColor),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, RouteList.bloodSugarDetail,
-                                              arguments: patient.bloodSugars?[0]);
-                                        },
-                                        child: homeCell(
-                                            dateTime: patient
-                                                .bloodSugars?[0].updatedDate,
-                                            bloodSugar: patient
-                                                .bloodSugars?[0].bloodSugar,
-                                            naviagte: "bloodSugarHistory",
-                                            imagePath: Assets.bloodGlucoseMeter,
-                                            indicator:
-                                                translation(context).bloodSugar,
-                                            color: AppColor.bloodGlucosColor),
-                                      )
-                                    ],
-                                  )),
-                            )
+                                child: SmartRefresher(
+                                    controller: _refreshController,
+                                    onRefresh: () async {
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 1000));
+                                      _refreshController.refreshCompleted();
+                                      patientBloc.add(GetPatientInforEvent(
+                                          id: widget.id ?? widget.id!));
+                                    },
+                                    child: ListView(
+                                      shrinkWrap: true,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                RouteList.bloodPressuerDetail,
+                                                arguments:
+                                                    patient.bloodPressures?[0]);
+                                          },
+                                          child: homeCell(
+                                              dia: patient
+                                                  .bloodPressures?[0].dia,
+                                              sys: patient
+                                                  .bloodPressures?[0].sys,
+                                              pulse: patient
+                                                  .bloodPressures?[0].pulse,
+                                              dateTime: patient
+                                                  .bloodPressures?[0]
+                                                  .updatedDate,
+                                              naviagte: "bloodPressureHistory",
+                                              imagePath:
+                                                  Assets.bloodPressureMeter,
+                                              indicator: translation(context)
+                                                  .bloodPressure,
+                                              color:
+                                                  AppColor.bloodPressureEquip),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                RouteList.bodyTemperatureDetail,
+                                                arguments: patient
+                                                    .bodyTemperatures?[0]);
+                                          },
+                                          child: homeCell(
+                                              bodyTemperature: patient
+                                                  .bodyTemperatures?[0]
+                                                  .temperature,
+                                              dateTime: patient
+                                                  .bodyTemperatures?[0]
+                                                  .updatedDate,
+                                              naviagte: "bodyTemperatureColor",
+                                              imagePath:
+                                                  Assets.bodyTemperatureMeter,
+                                              indicator: translation(context)
+                                                  .bodyTemperature,
+                                              color: AppColor
+                                                  .bodyTemperatureColor),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                RouteList.bloodSugarDetail,
+                                                arguments:
+                                                    patient.bloodSugars?[0]);
+                                          },
+                                          child: homeCell(
+                                              dateTime: patient
+                                                  .bloodSugars?[0].updatedDate,
+                                              bloodSugar: patient
+                                                  .bloodSugars?[0].bloodSugar,
+                                              naviagte: "bloodSugarHistory",
+                                              imagePath:
+                                                  Assets.bloodGlucoseMeter,
+                                              indicator: translation(context)
+                                                  .bloodSugar,
+                                              color: AppColor.bloodGlucosColor),
+                                        )
+                                      ],
+                                    )),
+                              )
                             : Center(
                                 child: Container(
                                   margin: EdgeInsets.only(

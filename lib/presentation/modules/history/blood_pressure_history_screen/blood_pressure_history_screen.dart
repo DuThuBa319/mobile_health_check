@@ -6,6 +6,7 @@ import 'package:mobile_health_check/function.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language_constant.dart';
+import '../../../../common/singletons.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -55,6 +56,8 @@ class BloodPressureHistoryScreenState
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
       backgroundColor: Colors.white,
+              unreadCount: notificationData.unreadCount,
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

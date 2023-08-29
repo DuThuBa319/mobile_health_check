@@ -12,7 +12,7 @@ class PatientEntity {
   // List<BloodSugarEntity>? bloodSugars;
   // List<BloodPressureEntity>? bloodPressures;
 
- PatientEntity({
+  PatientEntity({
     // this.bloodPressures,
     // this.bloodSugars,
     // this.bodyTemperatures,

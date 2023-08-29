@@ -36,7 +36,6 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-
     return Container(
         child: widget.isforAvatar == false
             ? widget.imagePath == null
