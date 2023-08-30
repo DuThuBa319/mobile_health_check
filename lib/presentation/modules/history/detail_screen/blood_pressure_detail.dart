@@ -93,7 +93,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                   height: SizeConfig.screenWidth * 0.08,
                 ),
                 CustomImagePicker(
-                  imagePath: widget.bloodPressureEntity?.imageLink ??
+                  imagePath: widget.bloodPressureEntity?.imageLink ?? widget.bloodPressureEntity?.imageLink! ??
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
                   isOnTapActive: true,
                   isforAvatar: false,

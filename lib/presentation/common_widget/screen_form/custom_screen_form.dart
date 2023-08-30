@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:mobile_health_check/common/service/onesginal/bloc/notification_bloc.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +24,13 @@ class CustomScreenForm extends StatefulWidget {
   final bool isShowRightButon;
   final Widget? rightButton;
   final int? unreadCount;
-  final NotificationBloc? notificationBloc;
-  final NotificationState? notificationState;
+  // final NotificationBloc? notificationBloc;
+  // final NotificationState? notificationState;
 
   const CustomScreenForm({
     super.key,
-    this.notificationBloc,
-    this.notificationState,
+    // this.notificationBloc,
+    // this.notificationState,
     this.unreadCount,
     this.appBarColor = Colors.black,
     this.backgroundColor = Colors.white,

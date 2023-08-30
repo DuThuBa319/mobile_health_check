@@ -4,6 +4,7 @@ import 'package:mobile_health_check/function.dart';
 
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 
+import '../../../classes/language_constant.dart';
 import '../../theme/app_text_theme.dart';
 
 Widget settingMenuCell(String selectSetting, BuildContext context) {
@@ -30,12 +31,12 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
           const SizedBox(
             width: 10,
           ),
-          selectSetting == "Cập nhật mật khẩu"
+          selectSetting == translation(context).updatePassword
               ? const Icon(
                   Icons.lock_outline_rounded,
                   size: 38,
                 )
-              : selectSetting == "Cập nhật số điện thoại"
+              : selectSetting == translation(context).updatePhoneNumber
                   ? const Icon(Icons.account_box_rounded, size: 38)
                   : const Icon(Icons.language, size: 38),
           const SizedBox(
