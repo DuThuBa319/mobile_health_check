@@ -19,8 +19,7 @@ PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       address: json['address'] == null
           ? null
-          : PatientInforAddressModel.fromJson(
-              json['address'] as Map<String, dynamic>),
+          : AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       id: json['personId'] as String,
       name: json['name'] as String,
       age: json['age'] as int?,

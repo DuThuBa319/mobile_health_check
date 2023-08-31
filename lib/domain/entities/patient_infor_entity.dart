@@ -1,6 +1,6 @@
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
-import '../../data/models/patient_infor_address_model.dart';
+import '../../data/models/address_model/address_model.dart';
 import 'blood_pressure_entity.dart';
 import 'blood_sugar_entity.dart';
 
@@ -14,7 +14,7 @@ class PatientInforEntity {
   int? gender;
   String phoneNumber;
   String? avatarPath;
-  PatientInforAddressModel? address;
+  AddressModel? address;
   List<TemperatureEntity>? bodyTemperatures;
   List<BloodSugarEntity>? bloodSugars;
   List<BloodPressureEntity>? bloodPressures;

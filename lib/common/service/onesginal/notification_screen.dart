@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../classes/language_constant.dart';
-import 'bloc/notification_bloc.dart';
 import '../../../presentation/common_widget/screen_form/custom_screen_form.dart';
 import '../../../presentation/theme/app_text_theme.dart';
 
@@ -93,27 +91,17 @@ Widget NotificationCell(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
-        border: Border.all(
-            color: indicator == "Huyết áp"
-                ? AppColor.bloodPressureEquip
-                : indicator == "Thân nhiệt"
-                    ? AppColor.bodyTemperatureColor
-                    : AppColor.bloodGlucosColor,
-            width: 3)),
+        border: Border.all(color: AppColor.bodyTemperatureColor, width: 3)),
     child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
               height: SizeConfig.screenWidth * 0.07,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                color: indicator == "Huyết áp"
-                    ? AppColor.bloodPressureEquip
-                    : indicator == "Thân nhiệt"
-                        ? AppColor.bodyTemperatureColor
-                        : AppColor.bloodGlucosColor,
+                color: AppColor.bodyTemperatureColor,
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

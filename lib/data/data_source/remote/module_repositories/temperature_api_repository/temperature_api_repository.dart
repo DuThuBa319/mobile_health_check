@@ -1,4 +1,5 @@
-import '../../../../models/temperature_model.dart';
+
+import '../../../../models/temperature_model/temperature_model.dart';
 
 abstract class TemperatureApiRepository {
   Future<List<TemperatureModel>> getListTemperatureModels({

@@ -1,11 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:mobile_health_check/domain/entities/patient_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
+import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
-import '../../../../data/models/patient_list_model.dart';
+import '../../../../data/models/patient_list_model/patient_list_model.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_patient_event.dart';
@@ -14,8 +16,9 @@ part 'get_patient_state.dart';
 @injectable
 class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final PatientUsecase _patientUseCase;
-
-  GetPatientBloc(this._patientUseCase) : super(GetPatientInitialState()) {
+  final DoctorInforUsecase _doctorInforUsecase;
+  GetPatientBloc(this._patientUseCase, this._doctorInforUsecase)
+      : super(GetPatientInitialState()) {
     on<GetPatientListEvent>(_onGetPatientList);
     on<FilterPatientEvent>(_onSearchPatient);
     // on<RegistPatientEvent>(_registPatient);
@@ -42,6 +45,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     try {
       final response = await _patientUseCase.getPatientListEntity();
       final newViewModel = state.viewModel.copyWith(patientEntity: response);
+      // final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
+      // final newViewModel = state.viewModel.copyWith(doctorInforEntity: response);
       emit(GetPatientListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,

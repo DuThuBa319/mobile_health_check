@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../data/data_source/remote/module_repositories/temperature_api_repository/temperature_api_repository.dart';
-import '../../../data/models/temperature_model.dart';
+import '../../../data/models/temperature_model/temperature_model.dart';
 
 part 'temperature_repository.impl.dart';
 

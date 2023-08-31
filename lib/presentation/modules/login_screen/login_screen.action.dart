@@ -10,6 +10,7 @@ extension LoginAction on _LoginState {
       await OneSignalNotificationService.create();
       OneSignalNotificationService.subscribeNotification(
           doctorId: userDataData.getUser()!.id!);
+          
       Navigator.pushNamed(context, RouteList.patientList);
       //get unread notification count,userInfo
     } else if (state is LoginFailState) {

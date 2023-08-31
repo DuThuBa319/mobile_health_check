@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
+import '../../models/blood_pressure_model/blood_pressure_model.dart';
+import '../../models/blood_sugar_model/blood_sugar_model.dart';
+import '../../models/doctor_infor_model/doctor_infor_model.dart';
+import '../../models/patient_infor_model/patient_infor_model.dart';
+import '../../models/patient_list_model/patient_list_model.dart';
+import '../../models/temperature_model/temperature_model.dart';
 
-import '../../models/blood_pressure_model.dart';
-import '../../models/blood_sugar_model.dart';
-import '../../models/patient_infor_model.dart';
-import '../../models/patient_list_model.dart';
-import '../../models/temperature_model.dart';
 
 part 'rest_api_repository.g.dart';
 
@@ -21,6 +22,10 @@ abstract class RestApiRepository {
     @Path('id') String? id,
   );
 
+ @GET('/Persons/DoctorInfo/{id}') //để hiện detail
+  Future<DoctorInforModel> getDoctorInforModel(
+    @Path('id') String? id,
+  );
   // @POST("") //regist
   // Future<PatientModel> registPatient(@Body() PatientModel patient);
 

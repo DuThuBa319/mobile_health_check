@@ -58,19 +58,25 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                   )
                 : Container(
                     margin: const EdgeInsets.only(left: 15),
-                    height: SizeConfig.screenWidth * 0.8,
-                    width: SizeConfig.screenWidth * 0.8,
-                    child: ClipRRect(
-                        borderRadius: BorderRadiusDirectional.circular(20),
-                        child: FullScreenWidget(
-                          disposeLevel: DisposeLevel.High,
-                          child: Image.network(
-                            widget.imagePath ??
-                                widget.imagePath! ??
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
-                            fit: BoxFit.fill,
+                    height: SizeConfig.screenWidth * 0.9,
+                    width: SizeConfig.screenWidth * 0.9,
+                    child: FullScreenWidget(
+                      disposeLevel: DisposeLevel.Medium,
+                      child: Hero(
+                        tag: "",
+                        child: Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image.network(
+                              widget.imagePath ??
+                                  widget.imagePath! ??
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                              fit: BoxFit.fill,
+                            ),
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   )
 
             ////////////////////////////

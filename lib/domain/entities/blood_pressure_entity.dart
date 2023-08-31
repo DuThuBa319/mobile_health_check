@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../classes/language_constant.dart';
-import '../../data/models/blood_pressure_model.dart';
+import '../../data/models/blood_pressure_model/blood_pressure_model.dart';
 
 class BloodPressureEntity {
   int? sys;

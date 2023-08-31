@@ -5,6 +5,8 @@ abstract class PatientEvent {}
 
 class GetPatientListEvent extends PatientEvent {
   GetPatientListEvent();
+  // final String id;
+  // GetPatientListEvent({required this.id}) : super();
 }
 
 class FilterPatientEvent extends PatientEvent {

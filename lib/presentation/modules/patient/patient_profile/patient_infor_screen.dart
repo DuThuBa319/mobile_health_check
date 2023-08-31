@@ -87,123 +87,139 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                         state.viewModel.patientInforEntity ??
                             state.viewModel.patientInforEntity!;
                     print(patient);
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            width: SizeConfig.screenWidth,
-                            decoration: const BoxDecoration(
-                              // color: const Color.fromARGB(255, 123, 211, 255),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color(0xff7BD4FF),
-                                  Color(0xffDBF3FF),
-
-                                  // Colors.white, // Xanh nhạt nhất
-                                  // Xanh đậm nhất
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                // Thay đổi begin và end để điều chỉnh hướng chuyển đổi màu
-                              ),
-                              // borderRadius: BorderRadius.vertical(
-                              //     bottom: Radius.elliptical(
-                              //         MediaQuery.of(context).size.width,
-                              //         SizeConfig.screenWidth*0.020)),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: SizeConfig.screenWidth * 0.025,
-                                ),
-                                Center(
-                                  child: CustomImagePicker(
-                                    age: patient.age,
-                                    gender: 1,
-                                    imagePath: patient.avatarPath,
-                                    isOnTapActive: true,
-                                    isforAvatar: true,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: SizeConfig.screenHeight * 0.025,
-                                ),
-                                Text(
-                                  patient.name,
-                                  style: AppTextTheme.body1.copyWith(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(patient.address?.city ?? "--",
-                                    style: AppTextTheme.body3.copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400)),
-                                SizedBox(
-                                  height: SizeConfig.screenHeight * 0.03,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    infoText(
-                                        title: translation(context).weight,
-                                        content: "${patient.weight!.toInt()}"),
-                                    infoText(
-                                        title: translation(context).age,
-                                        content: "${patient.age!.toInt()}"),
-                                    infoText(
-                                        title: translation(context).height,
-                                        content: "${patient.height!.toInt()}"),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: SizeConfig.screenHeight * 0.01,
-                                ),
-                              ],
-                            )),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 15,
-                              top: SizeConfig.screenHeight * 0.03,
-                              bottom: SizeConfig.screenWidth * 0.02),
+                    return SmartRefresher(
+                        controller: _refreshController,
+                        onRefresh: () async {
+                          await Future.delayed(
+                              const Duration(milliseconds: 1000));
+                          _refreshController.refreshCompleted();
+                          patientBloc.add(GetPatientInforEvent(
+                              id: widget.id ?? widget.id!));
+                        },
+                        child: SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                translation(context).lastUpdate,
-                                style: AppTextTheme.body0.copyWith(
-                                    fontSize: SizeConfig.screenHeight * 0.02,
-                                    fontWeight: FontWeight.bold),
+                              Container(
+                                  width: SizeConfig.screenWidth,
+                                  decoration: const BoxDecoration(
+                                    // color: const Color.fromARGB(255, 123, 211, 255),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xff7BD4FF),
+                                        Color(0xffDBF3FF),
+
+                                        // Colors.white, // Xanh nhạt nhất
+                                        // Xanh đậm nhất
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      // Thay đổi begin và end để điều chỉnh hướng chuyển đổi màu
+                                    ),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //     bottom: Radius.elliptical(
+                                    //         MediaQuery.of(context).size.width,
+                                    //         SizeConfig.screenWidth*0.020)),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: SizeConfig.screenWidth * 0.025,
+                                      ),
+                                      Center(
+                                        child: CustomImagePicker(
+                                          age: patient.age,
+                                          gender: 1,
+                                          imagePath: patient.avatarPath,
+                                          isOnTapActive: true,
+                                          isforAvatar: true,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: SizeConfig.screenHeight * 0.025,
+                                      ),
+                                      Text(
+                                        patient.name,
+                                        style: AppTextTheme.body1.copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(patient.address?.city ?? "--",
+                                          style: AppTextTheme.body3.copyWith(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400)),
+                                      SizedBox(
+                                        height: SizeConfig.screenHeight * 0.03,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          infoText(
+                                              title:
+                                                  translation(context).weight,
+                                              content:
+                                                  "${patient.weight!.toInt()}"),
+                                          infoText(
+                                              title: translation(context).age,
+                                              content:
+                                                  "${patient.age!.toInt()}"),
+                                          infoText(
+                                              title:
+                                                  translation(context).height,
+                                              content:
+                                                  "${patient.height!.toInt()}"),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: SizeConfig.screenHeight * 0.01,
+                                      ),
+                                    ],
+                                  )),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: 15,
+                                    top: SizeConfig.screenHeight * 0.03,
+                                    bottom: SizeConfig.screenWidth * 0.02),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      translation(context).lastUpdate,
+                                      style: AppTextTheme.body0.copyWith(
+                                          fontSize:
+                                              SizeConfig.screenHeight * 0.02,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 2,
+                                    ),
+                                    lineDecor(),
+                                    SizedBox(
+                                      height: SizeConfig.screenWidth * 0.02,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              lineDecor(),
-                              SizedBox(
-                                height: SizeConfig.screenWidth * 0.02,
-                              ),
-                            ],
-                          ),
-                        ),
-                        patient.bloodPressures!.isNotEmpty ||
-                                patient.bodyTemperatures!.isNotEmpty ||
-                                patient.bloodSugars!.isNotEmpty
-                            ? Expanded(
-                                child: SmartRefresher(
-                                    controller: _refreshController,
-                                    onRefresh: () async {
-                                      await Future.delayed(
-                                          const Duration(milliseconds: 1000));
-                                      _refreshController.refreshCompleted();
-                                      patientBloc.add(GetPatientInforEvent(
-                                          id: widget.id ?? widget.id!));
-                                    },
-                                    child: ListView(
-                                      shrinkWrap: true,
+                              patient.bloodPressures!.isNotEmpty ||
+                                      patient.bodyTemperatures!.isNotEmpty ||
+                                      patient.bloodSugars!.isNotEmpty
+                                  ?
+                                  // Expanded(
+                                  //     child: SmartRefresher(
+                                  //         controller: _refreshController,
+                                  //         onRefresh: () async {
+                                  //           await Future.delayed(
+                                  //               const Duration(milliseconds: 1000));
+                                  //           _refreshController.refreshCompleted();
+                                  //           patientBloc.add(GetPatientInforEvent(
+                                  //               id: widget.id ?? widget.id!));
+                                  //         },
+                                  Column(
                                       children: [
                                         GestureDetector(
                                           onTap: () {
@@ -272,22 +288,23 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               color: AppColor.bloodGlucosColor),
                                         )
                                       ],
-                                    )),
-                              )
-                            : Center(
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      top: SizeConfig.screenHeight * 0.2),
-                                  child: Text("Chưa có dữ liệu",
-                                      style: AppTextTheme.body0.copyWith(
-                                          color: Colors.red,
-                                          fontSize:
-                                              SizeConfig.screenHeight * 0.02,
-                                          fontWeight: FontWeight.w500)),
-                                ),
-                              )
-                      ],
-                    );
+                                    )
+                                  : Center(
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                            top: SizeConfig.screenHeight * 0.2),
+                                        child: Text("Chưa có dữ liệu",
+                                            style: AppTextTheme.body0.copyWith(
+                                                color: Colors.red,
+                                                fontSize:
+                                                    SizeConfig.screenHeight *
+                                                        0.02,
+                                                fontWeight: FontWeight.w500)),
+                                      ),
+                                    )
+                            ],
+                          ),
+                        ));
                   }
                   if (state.status == BlocStatusState.failure) {
                     return const Center(

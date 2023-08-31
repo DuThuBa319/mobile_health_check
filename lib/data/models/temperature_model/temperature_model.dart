@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/temperature_entity.dart';
+import '../../../domain/entities/temperature_entity.dart';
 
 part 'temperature_model.g.dart';
 

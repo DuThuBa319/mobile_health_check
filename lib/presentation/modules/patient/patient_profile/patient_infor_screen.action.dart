@@ -104,12 +104,21 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                             fontSize: SizeConfig.screenWidth * 0.035,
                             fontWeight: FontWeight.bold)),
                     GestureDetector(
-                      child: Text(translation(context).watchHistory,
-                          style: AppTextTheme.body5.copyWith(
-                            color: Colors.blue,
-                            fontSize: SizeConfig.screenWidth * 0.03,
-                            decoration: TextDecoration.underline,
-                          )),
+                      child: Container(
+                        width: SizeConfig.screenWidth * 0.25,
+                        height: SizeConfig.screenWidth * 0.05,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(translation(context).watchHistory,
+                                style: AppTextTheme.body5.copyWith(
+                                  color: Colors.blue,
+                                  fontSize: SizeConfig.screenWidth * 0.03,
+                                  decoration: TextDecoration.underline,
+                                )),
+                          ],
+                        ),
+                      ),
                       onTap: () {
                         if (naviagte == "bloodPressureHistory") {
                           Navigator.pushNamed(

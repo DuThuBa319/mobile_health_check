@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../classes/language_constant.dart';
-import '../../data/models/blood_sugar_model.dart';
+import '../../data/models/blood_sugar_model/blood_sugar_model.dart';
 
 class BloodSugarEntity {
   double? bloodSugar;

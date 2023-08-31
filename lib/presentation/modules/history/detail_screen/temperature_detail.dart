@@ -77,20 +77,16 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       )
                     ],
                   )),
-              SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
-              ),
               CustomImagePicker(
-                imagePath: widget.temperatureEntity?.imageLink ?? widget.temperatureEntity?.imageLink! ??
+                imagePath: widget.temperatureEntity?.imageLink ??
+                    widget.temperatureEntity?.imageLink! ??
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
-              SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
-              ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                  margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.1),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight * 0.26,
                   decoration: BoxDecoration(
@@ -164,7 +160,6 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       ),
                     ],
                   )),
-              SizedBox(height: SizeConfig.screenWidth * 0.05),
               CommonButton(
                 height: SizeConfig.screenHeight * 0.07,
                 title: translation(context).back,

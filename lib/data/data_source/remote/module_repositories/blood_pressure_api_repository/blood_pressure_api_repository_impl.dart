@@ -2,7 +2,7 @@ import 'package:mobile_health_check/data/data_source/remote/rest_api_repository.
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../models/blood_pressure_model.dart';
+import '../../../../models/blood_pressure_model/blood_pressure_model.dart';
 import 'blood_pressure_api_repository.dart';
 
 @Injectable(as: BloodPressureApiRepository)

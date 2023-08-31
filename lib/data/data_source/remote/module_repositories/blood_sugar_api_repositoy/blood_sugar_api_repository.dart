@@ -1,4 +1,4 @@
-import '../../../../models/blood_sugar_model.dart';
+import '../../../../models/blood_sugar_model/blood_sugar_model.dart';
 
 abstract class BloodSugarApiRepository {
   Future<List<BloodSugarModel>> getListBloodSugarModels({

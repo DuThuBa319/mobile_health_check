@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../data/data_source/remote/module_repositories/blood_pressure_api_repository/blood_pressure_api_repository.dart';
-import '../../../data/models/blood_pressure_model.dart';
+import '../../../data/models/blood_pressure_model/blood_pressure_model.dart';
 
 part 'blood_pressure_repository.impl.dart';
 

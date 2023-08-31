@@ -5,18 +5,20 @@ part 'notification_onesignal_model.g.dart';
 @JsonSerializable()
 class NotificationModel {
   String? patientName;
-  //NotificationMetadata? data;
-  //LocalizationModel? contents;
   String? content;
   String? heading;
+  bool? read;
+  DateTime? sendDate;
+  //NotificationMetadata? data;
+  //LocalizationModel? contents;
+
   // @JsonKey(name: 'subject_type')
   // String? subjectType;
   // @JsonKey(name: 'subject_id')
   // String? subjectId;
   // @JsonKey(name: 'send_after')
   // DateTime? sendAfter;
-  bool? read;
-  DateTime? sendDate;
+
 
   NotificationModel({
     this.content,

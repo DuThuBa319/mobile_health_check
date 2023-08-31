@@ -76,20 +76,20 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                       )
                     ],
                   )),
-              SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
-              ),
               CustomImagePicker(
-                imagePath: widget.bloodSugarEntity?.imageLink ??  widget.bloodSugarEntity?.imageLink! ??
+                imagePath: widget.bloodSugarEntity?.imageLink ??
+                    widget.bloodSugarEntity?.imageLink! ??
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenWidth * 0.02,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                  margin:
+                      EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight * 0.26,
                   decoration: BoxDecoration(

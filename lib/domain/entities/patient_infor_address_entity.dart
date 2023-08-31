@@ -1,6 +1,6 @@
-import '../../data/models/patient_infor_address_model.dart';
+import '../../data/models/address_model/address_model.dart';
 
-class PatientInforAddressEntity {
+class AddressEntity {
   String? street;
 
   String? ward;
@@ -11,7 +11,7 @@ class PatientInforAddressEntity {
 
   String? country;
 
-  PatientInforAddressEntity(
+  AddressEntity(
     this.city,
     this.country,
     this.street,
@@ -19,7 +19,7 @@ class PatientInforAddressEntity {
     this.district,
   );
 
-  PatientInforAddressModel getAddressModel() {
-    return PatientInforAddressModel(city, country, district, street, ward);
+  AddressModel getAddressModel() {
+    return AddressModel(city, country, district, street, ward);
   }
 }

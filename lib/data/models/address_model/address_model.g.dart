@@ -1,14 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'patient_infor_address_model.dart';
+part of 'address_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PatientInforAddressModel _$PatientInforAddressModelFromJson(
-        Map<String, dynamic> json) =>
-    PatientInforAddressModel(
+AddressModel _$AddressModelFromJson(Map<String, dynamic> json) => AddressModel(
       json['city'] as String?,
       json['country'] as String?,
       json['street'] as String?,
@@ -16,8 +14,7 @@ PatientInforAddressModel _$PatientInforAddressModelFromJson(
       json['district'] as String?,
     );
 
-Map<String, dynamic> _$PatientInforAddressModelToJson(
-    PatientInforAddressModel instance) {
+Map<String, dynamic> _$AddressModelToJson(AddressModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

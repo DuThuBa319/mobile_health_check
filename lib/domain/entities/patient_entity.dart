@@ -1,30 +1,12 @@
 class PatientEntity {
   String id;
   String name;
-  // int? age;
-  // int? personType;
-  // double? weight;
-  // double? height;
   String phoneNumber;
-  // String? avatarPath;
-  //PatientAddressModel? address;
-  // List<TemperatureEntity>? bodyTemperatures;
-  // List<BloodSugarEntity>? bloodSugars;
-  // List<BloodPressureEntity>? bloodPressures;
 
   PatientEntity({
-    // this.bloodPressures,
-    // this.bloodSugars,
-    // this.bodyTemperatures,
-    // this.address,
     required this.id,
     required this.name,
-    // this.age,
-    // this.personType,
-    // this.weight,
-    // this.height,
     required this.phoneNumber,
-    // this.avatarPath,
   });
   //  Color get statusColor {
   //   if (sys != null && dia != null) {

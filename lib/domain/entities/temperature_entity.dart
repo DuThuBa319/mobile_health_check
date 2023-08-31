@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../classes/language_constant.dart';
-import '../../data/models/temperature_model.dart';
+import '../../data/models/temperature_model/temperature_model.dart';
 
 class TemperatureEntity {
   double? temperature;

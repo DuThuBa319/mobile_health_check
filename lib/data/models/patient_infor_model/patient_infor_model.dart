@@ -1,12 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mobile_health_check/data/models/blood_pressure_model.dart';
-import 'package:mobile_health_check/data/models/blood_sugar_model.dart';
-import 'package:mobile_health_check/data/models/patient_infor_address_model.dart';
-import 'package:mobile_health_check/data/models/temperature_model.dart';
+
 import 'package:mobile_health_check/domain/entities/blood_pressure_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
-import '../../domain/entities/blood_sugar_entity.dart';
-import '../../domain/entities/patient_infor_entity.dart';
+
+import '../../../domain/entities/blood_sugar_entity.dart';
+import '../../../domain/entities/patient_infor_entity.dart';
+import '../address_model/address_model.dart';
+import '../blood_pressure_model/blood_pressure_model.dart';
+import '../blood_sugar_model/blood_sugar_model.dart';
+import '../temperature_model/temperature_model.dart';
+
 
 part 'patient_infor_model.g.dart';
 
@@ -27,7 +30,7 @@ class PatientInforModel {
   String phoneNumber;
   @JsonKey(name: 'avatar')
   String? avatarPath;
-  PatientInforAddressModel? address;
+  AddressModel? address;
   List<TemperatureModel>? bodyTemperatures;
   List<BloodSugarModel>? bloodSugars;
   List<BloodPressureModel>? bloodPressures;
