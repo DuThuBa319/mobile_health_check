@@ -17,7 +17,6 @@ extension PatientListScreenAction on _PatientListState {
     if (state is RegistPatientState &&
         state.status == BlocStatusState.success) {
       showToast('Regist Patient successfully');
-      patientBloc.add(GetPatientListEvent());
       Navigator.pop(context);
     }
   }
@@ -25,5 +24,30 @@ extension PatientListScreenAction on _PatientListState {
   void gotoRegistPatientScreen() {
     Navigator.pushNamed(context, RouteList.registPatient,
         arguments: patientBloc);
+  }
+   Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to exit an App'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.of(context).pop(false), //<-- SEE HERE
+                child: const Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  SystemNavigator.pop();
+                },
+                // <-- SEE HERE
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
   }
 }

@@ -27,7 +27,7 @@ class _ViewModel {
     return _ViewModel(
       patientInforEntity: patientInforEntity ?? this.patientInforEntity,
       patientEntity: patientEntity ?? this.patientEntity,
-      doctorInforEntity: doctorInforEntity?? this.doctorInforEntity,
+      doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,
       // listBloodPressure: listBloodPressure ?? listBloodPressure,
       // listBloodSugar: listBloodSugar ?? listBloodSugar,
       // listTemperature: listTemperature ?? listTemperature

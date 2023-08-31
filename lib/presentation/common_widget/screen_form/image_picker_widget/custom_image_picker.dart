@@ -39,8 +39,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
   Widget build(BuildContext context) {
     int? personAge = widget.age;
     int? personGender = widget.gender;
-    print(personAge);
-    print(personGender);
+
     SizeConfig.init(context);
     return Container(
         child: widget.isforAvatar == false
@@ -93,24 +92,24 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                         child: Image.asset(
                       fit: BoxFit.fill,
                       // gender =0 => nam
-                      // gender =1 => nw
-                      (widget.gender == 1 &&
+                      // gender =1 => nu
+                      (widget.gender == 0 &&
                               widget.age! <= 25 &&
                               widget.age! > 0)
                           ? Assets.boy
-                          : (widget.gender == 1 &&
+                          : (widget.gender == 0 &&
                                   26 <= widget.age! &&
                                   widget.age! <= 50)
                               ? Assets.man
-                              : (widget.gender == 1 &&
+                              : (widget.gender == 0 &&
                                       50 < widget.age! &&
                                       widget.age! < 150)
                                   ? Assets.oldMan
-                                  : (widget.gender == 0 &&
+                                  : (widget.gender == 1 &&
                                           widget.age! <= 25 &&
                                           widget.age! > 0)
                                       ? Assets.girl
-                                      : (widget.gender == 0 &&
+                                      : (widget.gender == 1 &&
                                               26 <= widget.age! &&
                                               widget.age! <= 50)
                                           ? Assets.women

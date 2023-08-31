@@ -25,3 +25,11 @@ class GetTemperatureDataEvent extends OCRScannerEvent {
 class UploadBloodPressureDataEvent extends OCRScannerEvent {
   UploadBloodPressureDataEvent();
 }
+
+class UploadBloodGlucoseDataEvent extends OCRScannerEvent {
+  UploadBloodGlucoseDataEvent();
+}
+
+class UploadTemperatureDataEvent extends OCRScannerEvent {
+  UploadTemperatureDataEvent();
+}

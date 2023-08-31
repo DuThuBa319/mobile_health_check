@@ -3,10 +3,11 @@ import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/presentation/modules/patient/patient_list/patients_list_screen.dart';
 
+import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../../common/service/onesginal/onesignal_service.dart';
+import '../../../main.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
@@ -28,6 +29,7 @@ class _LoginState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool showPass = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -36,6 +38,7 @@ class _LoginState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Language? selectedLanguage;
     SizeConfig.init(context);
     return BlocConsumer<LoginBloc, LoginState>(
       listener: _blocListener,
@@ -46,13 +49,52 @@ class _LoginState extends State<LoginScreen> {
             child: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(
                   SizeConfig.screenWidth * 0.08,
-                  SizeConfig.screenWidth * 0.2,
+                  SizeConfig.screenWidth * 0.1,
                   SizeConfig.screenWidth * 0.08,
                   0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              selectedLanguage = Language(1, ENGLISH, 'en');
+                              Locale locale = await setLocale(
+                                  selectedLanguage!.languageCode);
+                              // ignore: use_build_context_synchronously
+                              MyApp.setLocale(context, locale);
+                              showToast("Change language successfully");
+                            },
+                            child: Image.asset(
+                              Assets.enFlag,
+                              scale: 12,
+                            ),
+                          ),
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.02,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              selectedLanguage = Language(2, VIETNAMESE, 'vi');
+                              Locale locale = await setLocale(
+                                  selectedLanguage!.languageCode);
+                              // ignore: use_build_context_synchronously
+                              MyApp.setLocale(context, locale);
+                              showToast("Đổi ngôn ngữ thành công");
+                            },
+                            child: Image.asset(
+                              Assets.vnFlag,
+                              scale: 12,
+                            ),
+                          ),
+                        ],
+                      )),
+
                   Center(
                     child: Image.asset(
                       Assets.appLogo,

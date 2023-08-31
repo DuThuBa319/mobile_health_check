@@ -36,4 +36,7 @@ class Assets {
   static const String oldWoman = 'lib/assets/images/old_woman.png';
   static const String manDoctor = 'lib/assets/images/manDoctor.png';
   static const String womenDoctor = 'lib/assets/images/womenDoctor.png';
+  static const String doctor = 'lib/assets/images/doctor.png';
+  static const String vnFlag = 'lib/assets/images/vietnam.png';
+  static const String enFlag = 'lib/assets/images/usa.png';
 }

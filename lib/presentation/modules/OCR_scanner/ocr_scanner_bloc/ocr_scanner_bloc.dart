@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_storage_service.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/blood_pressure_entity.dart';
 import 'package:mobile_health_check/domain/entities/blood_sugar_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
@@ -29,7 +30,9 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     on<GetBloodPressureDataEvent>(_onGetBloodPressureData);
     on<UploadBloodPressureDataEvent>(_onUploadBloodPressureData);
     on<GetBloodGlucoseDataEvent>(_onGetBloodGlucoseData);
+    on<UploadBloodGlucoseDataEvent>(_onUploadBloodGlucoseData);
     on<GetTemperatureDataEvent>(_onGetTemperatureData);
+    on<UploadTemperatureDataEvent>(_onUploadTemperatureData);
   }
   Future<void> _onGetBloodPressureData(
     GetBloodPressureDataEvent event,
@@ -189,7 +192,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
           state.viewModel.bloodPressureEntity?.copywith(imageLink: imageUrl);
 
       await bloodPressureUseCase.createBloodPressureEntity(
-          id: "P001", bloodPressureEntity: entity ?? BloodPressureEntity());
+          id: userDataData.getUser()!.id!,
+          bloodPressureEntity: entity ?? BloodPressureEntity());
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -206,11 +210,11 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
   }
 
   Future<void> _onUploadBloodGlucoseData(
-    UploadBloodPressureDataEvent event,
+    UploadBloodGlucoseDataEvent event,
     Emitter<OCRScannerState> emit,
   ) async {
     emit(
-      UploadBloodPressureDataState(
+      UploadBloodGlucoseDataState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
@@ -230,7 +234,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
           state.viewModel.bloodSugarEntity?.copywith(imageLink: imageUrl);
 
       await bloodSugarUseCase.createBloodSugarEntity(
-          id: "P001", bloodSugarEntity: entity ?? BloodSugarEntity());
+          id: userDataData.getUser()!.id!,
+          bloodSugarEntity: entity ?? BloodSugarEntity());
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -246,12 +251,12 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     }
   }
 
-  Future<void> _onUploadBodyTemperatureData(
-    UploadBloodPressureDataEvent event,
+  Future<void> _onUploadTemperatureData(
+    UploadTemperatureDataEvent event,
     Emitter<OCRScannerState> emit,
   ) async {
     emit(
-      UploadBloodPressureDataState(
+      UploadTemperatureDataState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
@@ -262,7 +267,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       final result = await FirebaseStorageService.uploadFile(
           file: state.viewModel.temperatureImageFile!,
           fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
-          folder: 'Nguyen Trong Khang/Duong huyet/');
+          folder: 'Nguyen Trong Khang/Nhiet Do/');
       if (result != null) {
         imageUrl = result.url;
       }
@@ -271,7 +276,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
           state.viewModel.temperatureEntity?.copywith(imageLink: imageUrl);
 
       await temperatureUseCase.createTemperatureEntity(
-          id: "P001", temperatureEntity: entity ?? TemperatureEntity());
+          id: userDataData.getUser()!.id!,
+          temperatureEntity: entity ?? TemperatureEntity());
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -306,9 +312,7 @@ Future<List<int?>> uploadBloodPressureImage(
 
   try {
     final resJson = jsonDecode(res.body);
-    // String message = resJson['message'];
 
-    // debugPrint(message);
     dataList.add(resJson['sys']);
     dataList.add(resJson['dia']);
     dataList.add(resJson['pulse']);

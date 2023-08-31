@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 
 import '../../../classes/language_constant.dart';
-import '../../../common/singletons.dart';
 import '../../common_widget/common_button.dart';
 import '../../common_widget/line_decor.dart';
 import '../../route/route_list.dart';

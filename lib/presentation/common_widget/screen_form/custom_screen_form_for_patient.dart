@@ -2,14 +2,13 @@ import 'package:badges/badges.dart' as badges;
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
 import '../../../function.dart';
 import '../../route/route_list.dart';
 
-class CustomScreenForm extends StatefulWidget {
+class PatientCustomScreenForm extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
   final bool isShowAppBar;
   final Color? appBarColor;
@@ -25,7 +24,7 @@ class CustomScreenForm extends StatefulWidget {
   final Widget? rightButton;
   final int? unreadCount;
 
-  const CustomScreenForm({
+  const PatientCustomScreenForm({
     super.key,
     this.unreadCount,
     this.appBarColor = Colors.black,
@@ -44,39 +43,14 @@ class CustomScreenForm extends StatefulWidget {
   });
 
   @override
-  State<CustomScreenForm> createState() => _CustomScreenFormState();
+  State<PatientCustomScreenForm> createState() =>
+      _PatientCustomScreenFormState();
 }
 
-class _CustomScreenFormState extends State<CustomScreenForm> {
+class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    // ignore: unused_element
-    OneSignal.shared.setNotificationWillShowInForegroundHandler(
-        (OSNotificationReceivedEvent event) async {
-      // _inAppNotificationController.add(
-      //   NotificationModel.fromJson(event.notification.additionalData ?? {}),
-      // );
-      // LogUtils.d(
-      //   'Onesignal ShowInForeground ${event.notification.additionalData}',
-      // );
-      await notificationData.increaseUnreadNotificationCount();
-      // widget.notificationBloc
-      //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
-      print('###${notificationData.unreadCount}');
-
-      event.complete(event.notification);
-      setState(() {});
-    });
-
-    OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
-      //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
-      await notificationData.decreaseUnreadNotificationCount();
-      // widget.notificationBloc
-      //     ?.add(DecreaseNotificationEvent(count: notificationData.unreadCount));
-      print('###${notificationData.unreadCount}');
-      setState(() {});
-    });
 
     return Scaffold(
       backgroundColor: widget.backgroundColor,
@@ -167,33 +141,33 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                     // ),
                     iconBottomBar(
                         label: translation(context).homeScreen,
-                        iconData: Icons.list,
+                        iconData: Icons.camera_alt,
                         isSelected: widget.selectedIndex == 0 ? true : false,
                         iconIndex: 0),
 
-                    badges.Badge(
-                      showBadge: true,
-                      badgeStyle: const badges.BadgeStyle(
-                          elevation: 0, badgeColor: Colors.redAccent),
-                      position: badges.BadgePosition.topEnd(
-                          top: -3,
-                          end: (notificationData.unreadCount ?? 0) < 10
-                              ? 3
-                              : -3),
-                      badgeContent:
-                          Text('${notificationData.unreadCount ?? 0}'),
-                      child: iconBottomBar(
-                          label: translation(context).notification,
-                          iconData: Icons.notifications_none_rounded,
-                          isSelected: widget.selectedIndex == 1 ? true : false,
-                          iconIndex: 1),
-                    ),
+                    // badges.Badge(
+                    //   showBadge: true,
+                    //   badgeStyle: const badges.BadgeStyle(
+                    //       elevation: 0, badgeColor: Colors.redAccent),
+                    //   position: badges.BadgePosition.topEnd(
+                    //       top: -3,
+                    //       end: (notificationData.unreadCount ?? 0) < 10
+                    //           ? 3
+                    //           : -3),
+                    //   badgeContent:
+                    //       Text('${notificationData.unreadCount ?? 0}'),
+                    //   child: iconBottomBar(
+                    //       label: translation(context).notification,
+                    //       iconData: Icons.notifications_none_rounded,
+                    //       isSelected: widget.selectedIndex == 1 ? true : false,
+                    //       iconIndex: 1),
+                    // ),
 
                     iconBottomBar(
                         label: translation(context).settingScreen,
                         iconData: Icons.settings_sharp,
-                        isSelected: widget.selectedIndex == 2 ? true : false,
-                        iconIndex: 2),
+                        isSelected: widget.selectedIndex == 1 ? true : false,
+                        iconIndex: 1),
                   ],
                 ),
               ),
@@ -245,14 +219,10 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 
   void _onItemTapped(int index) {
     if (index == 0 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.patientList,
-          arguments: userDataData.getUser()!.id!);
-    }
-    if (index == 2 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.setting);
+      Navigator.pushNamed(context, RouteList.selectEquip);
     }
     if (index == 1 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.notification);
+      Navigator.pushNamed(context, RouteList.patientSetting);
     }
   }
 

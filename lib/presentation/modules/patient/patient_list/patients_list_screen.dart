@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/modules/patient/patient_list/widget/patient_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -18,7 +19,12 @@ part 'patients_list_screen.action.dart';
 
 //Class Home
 class PatientListScreen extends StatefulWidget {
-  const PatientListScreen({Key? key}) : super(key: key);
+  final String? id;
+
+  const PatientListScreen({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<PatientListScreen> createState() => _PatientListState();
@@ -39,111 +45,117 @@ class _PatientListState extends State<PatientListScreen> {
   GetPatientBloc get patientBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
-    return CustomScreenForm(
-        isShowAppBar: true,
-        isShowLeadingButton: false,
-        isShowBottomNayvigationBar: true,
-        isShowRightButon: false,
-        backgroundColor: AppColor.backgroundColor,
-        appBarColor: AppColor.topGradient,
-        // unreadCount: notificationData.unreadCount,
-        // rightButton: IconButton(
-        //   onPressed: gotoRegistPatientScreen,
-        //   icon: const Icon(Icons.add),
-        title: translation(context).patientList,
-        // ),
-        selectedIndex: 0,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8, bottom: 20),
-                  child: Container(
-                    decoration: const BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        blurRadius: 5,
-                        color: Colors.black12,
-                      )
-                    ]),
-                    child: TextField(
-                      controller: filterKeyword,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                        hintText: translation(context).searchPatient,
-                        hintStyle: const TextStyle(color: Colors.black54),
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.search),
-                          color: Colors.black,
-                          onPressed: () {
-                            patientBloc.add(
-                              FilterPatientEvent(
-                                  searchText: filterKeyword.text),
-                            );
-                          },
+    return  WillPopScope(
+       onWillPop: _onWillPop,
+      child: CustomScreenForm(
+          isShowAppBar: true,
+          isShowLeadingButton: false,
+          isShowBottomNayvigationBar: true,
+          isShowRightButon: false,
+          backgroundColor: AppColor.backgroundColor,
+          appBarColor: AppColor.topGradient,
+          // unreadCount: notificationData.unreadCount,
+          // rightButton: IconButton(
+          //   onPressed: gotoRegistPatientScreen,
+          //   icon: const Icon(Icons.add),
+          title: translation(context).patientList,
+          // ),
+          selectedIndex: 0,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8, bottom: 20),
+                    child: Container(
+                      decoration: const BoxDecoration(boxShadow: [
+                        BoxShadow(
+                          blurRadius: 5,
+                          color: Colors.black12,
+                        )
+                      ]),
+                      child: TextField(
+                        controller: filterKeyword,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          hintText: translation(context).searchPatient,
+                          hintStyle: const TextStyle(color: Colors.black54),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.search),
+                            color: Colors.black,
+                            onPressed: () {
+                              patientBloc.add(
+                                FilterPatientEvent(
+                                    searchText: filterKeyword.text),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                BlocConsumer<GetPatientBloc, GetPatientState>(
-                    listener: _blocListener,
-                    builder: (context, state) {
-                      if (state is GetPatientInitialState) {
-                        patientBloc.add(GetPatientListEvent());
-                      }
-                      if (state is GetPatientListState &&
-                          state.status == BlocStatusState.loading) {
-                        return const Expanded(
-                          child: Center(
-                            child: Loading(brightness: Brightness.light),
-                          ),
-                        );
-                      }
-
-                      if (state is GetPatientListState &&
-                          state.status == BlocStatusState.success) {
-                        return Expanded(
-                          child: SmartRefresher(
-                            controller: _refreshController,
-                            onRefresh: () async {
-                              await Future.delayed(
-                                  const Duration(milliseconds: 1000));
-                              _refreshController.refreshCompleted();
-                              patientBloc.add(GetPatientListEvent());
-                            },
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount:
-                                  state.viewModel.patientEntity?.length ?? 0,
-                              itemBuilder: (BuildContext context, int index) {
-                                final patientEntity =
-                                    state.viewModel.patientEntity?[index];
-                                return PatientListCell(
-                                  patientEntity: patientEntity,
-                                  patientBloc: patientBloc,
-                                );
-                              },
+                  BlocConsumer<GetPatientBloc, GetPatientState>(
+                      listener: _blocListener,
+                      builder: (context, state) {
+                        if (state is GetPatientInitialState) {
+                          patientBloc.add(
+                              GetPatientListEvent(id: widget.id ?? widget.id!));
+                        }
+                        if (state is GetPatientListState &&
+                            state.status == BlocStatusState.loading) {
+                          return const Expanded(
+                            child: Center(
+                              child: Loading(brightness: Brightness.light),
                             ),
-                          ),
-                        );
-                      }
-                      if (state is GetPatientListState &&
-                          state.status == BlocStatusState.failure) {
-                        return const Center(
-                          child: Text("error"),
-                        );
-                      }
-                      return Container();
-                    }),
-              ]),
-        ));
+                          );
+                        }
+    
+                        if (state is GetPatientListState &&
+                            state.status == BlocStatusState.success) {
+                          return Expanded(
+                            child: SmartRefresher(
+                              controller: _refreshController,
+                              onRefresh: () async {
+                                await Future.delayed(
+                                    const Duration(milliseconds: 1000));
+                                _refreshController.refreshCompleted();
+                                patientBloc.add(GetPatientListEvent(
+                                    id: widget.id ?? widget.id!));
+                              },
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: state.viewModel.doctorInforEntity
+                                        ?.patients?.length ??
+                                    0,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final patientEntity = state.viewModel
+                                      .doctorInforEntity?.patients![index];
+                                  return PatientListCell(
+                                    patientEntity: patientEntity,
+                                    patientBloc: patientBloc,
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                        if (state is GetPatientListState &&
+                            state.status == BlocStatusState.failure) {
+                          return const Center(
+                            child: Text("error"),
+                          );
+                        }
+                        return Container();
+                      }),
+                ]),
+          )),
+    );
   }
 }

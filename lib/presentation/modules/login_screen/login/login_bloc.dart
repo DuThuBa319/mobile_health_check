@@ -62,9 +62,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (documentSnapshot.exists) {
           await userDataData.setUser(UserModel(
               email: userCredential.user?.email,
+              role: documentSnapshot.get(FieldPath(const ['role'])),
               phoneNumber:
                   documentSnapshot.get(FieldPath(const ['phoneNumber'])),
-              id: documentSnapshot.get(FieldPath(const ['doctorId'])),
+              id: documentSnapshot.get(FieldPath(const ['id'])),
               name: documentSnapshot.get(FieldPath(const ['name']))));
         } else {
           debugPrint('Document does not exist on the database');

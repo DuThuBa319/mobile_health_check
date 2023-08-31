@@ -43,10 +43,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       ),
     );
     try {
-      final response = await _patientUseCase.getPatientListEntity();
-      final newViewModel = state.viewModel.copyWith(patientEntity: response);
-      // final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
-      // final newViewModel = state.viewModel.copyWith(doctorInforEntity: response);
+      // final response = await _patientUseCase.getPatientListEntity();
+      // final newViewModel = state.viewModel.copyWith(patientEntity: response);
+      final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
+      final newViewModel = state.viewModel.copyWith(doctorInforEntity: response);
       emit(GetPatientListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,

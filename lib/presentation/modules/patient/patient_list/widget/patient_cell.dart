@@ -12,8 +12,10 @@ import '../../bloc/get_patient_bloc.dart';
 class PatientListCell extends StatefulWidget {
   final PatientEntity? patientEntity;
   final GetPatientBloc patientBloc;
+  // final DoctorInforEntity? doctorInforEntity;
   const PatientListCell({
     Key? key,
+    // this.doctorInforEntity,
     this.patientEntity,
     required this.patientBloc,
   }) : super(key: key);

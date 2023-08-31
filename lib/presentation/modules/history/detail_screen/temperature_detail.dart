@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -19,9 +21,16 @@ class TemperatureDetailScreen extends StatefulWidget {
 }
 
 class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
+    Timer(const Duration(milliseconds: 1500), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override
@@ -77,13 +86,20 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       )
                     ],
                   )),
-              CustomImagePicker(
-                imagePath: widget.temperatureEntity?.imageLink ??
-                    widget.temperatureEntity?.imageLink! ??
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
-                isOnTapActive: true,
-                isforAvatar: false,
-              ),
+              _isLoading
+                  ? Container(
+                      margin: const EdgeInsets.only(left: 15),
+                      height: SizeConfig.screenWidth * 0.9,
+                      width: SizeConfig.screenWidth * 0.9,
+                      child: const Center(child: CircularProgressIndicator()),
+                    )
+                  : CustomImagePicker(
+                      imagePath: widget.temperatureEntity?.imageLink ??
+                          widget.temperatureEntity?.imageLink! ??
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                      isOnTapActive: true,
+                      isforAvatar: false,
+                    ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
                   margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.1),

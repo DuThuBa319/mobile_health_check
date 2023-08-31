@@ -21,8 +21,9 @@ class RouteList {
   static const String temperatureHistory = '/temperatureHistory';
   static const String settingDrPhone = '/settingDrPhone';
   static const String settingDrPassword = '/settingDrPass';
-  static const String settingLanguage= '/settingLanguage';
- 
+  static const String settingLanguage = '/settingLanguage';
+
   static const String setting = '/setting';
+  static const String patientSetting = '/patientSetting';
   static const String selectEquip = '/select';
 }

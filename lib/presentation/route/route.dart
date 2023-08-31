@@ -29,6 +29,7 @@ import '../modules/login_screen/login/login_bloc.dart';
 import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
+import '../modules/setting_screen/patient_setting_menu.dart';
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;
@@ -56,6 +57,7 @@ class AppRoute {
         );
 
       case '/patient_list':
+        final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
             return MultiBlocProvider(
@@ -64,7 +66,7 @@ class AppRoute {
                   create: (context) => getIt<GetPatientBloc>(),
                 ),
               ],
-              child: const PatientListScreen(),
+              child: PatientListScreen(id: id),
             );
           },
         );
@@ -171,6 +173,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (context) {
           return const SettingMenu();
         });
+      case '/patientSetting':
+        return MaterialPageRoute(builder: (context) {
+          return const PatientSettingMenu();
+        });
       case '/settingDrPhone':
         return MaterialPageRoute(
           builder: (context) {
@@ -197,11 +203,13 @@ class AppRoute {
           },
         );
       default:
+        final id = routeSettings.arguments as String;
+
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: const PatientListScreen(),
+              child: PatientListScreen(id: id),
             );
           },
         );

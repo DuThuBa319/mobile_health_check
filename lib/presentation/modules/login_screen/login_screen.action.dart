@@ -7,13 +7,27 @@ extension LoginAction on _LoginState {
     }
 
     if (state is LoginSuccessState) {
-      await OneSignalNotificationService.create();
-      OneSignalNotificationService.subscribeNotification(
-          doctorId: userDataData.getUser()!.id!);
-          
-      Navigator.pushNamed(context, RouteList.patientList);
+
+      if (userDataData.getUser()!.role! == 'doctor') {
+        await OneSignalNotificationService.create();
+
+        OneSignalNotificationService.subscribeNotification(
+            doctorId: userDataData.getUser()!.id!);
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, RouteList.patientList,
+            arguments: userDataData.getUser()!.id!);
+      }
+      if (userDataData.getUser()!.role! == 'patient') {
+        // await OneSignalNotificationService.create();
+
+        // OneSignalNotificationService.subscribeNotification(
+        //     doctorId: userDataData.getUser()!.id!);
+        Navigator.pushNamed(context, RouteList.selectEquip);
+      }
+
       //get unread notification count,userInfo
-    } else if (state is LoginFailState) {
+    } 
+    else if (state is LoginFailState) {
       final message = state.viewModel.errorMessage ?? '--';
 
       showNoticeDialog(context: context, message: message);

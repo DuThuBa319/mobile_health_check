@@ -1,29 +1,30 @@
 import 'package:mobile_health_check/common/service/onesginal/onesignal_service.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/presentation/common_widget/assets.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 
 import '../../../classes/language_constant.dart';
 import '../../../function.dart';
 import '../../common_widget/common_button.dart';
+import '../../common_widget/line_decor.dart';
+import '../../common_widget/screen_form/custom_screen_form_for_patient.dart';
 import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 
-class SettingMenu extends StatefulWidget {
-  const SettingMenu({super.key});
+class PatientSettingMenu extends StatefulWidget {
+  const PatientSettingMenu({super.key});
 
   @override
-  State<SettingMenu> createState() => _SettingMenuState();
+  State<PatientSettingMenu> createState() => _PatientSettingMenuState();
 }
 
-class _SettingMenuState extends State<SettingMenu> {
+class _PatientSettingMenuState extends State<PatientSettingMenu> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return CustomScreenForm(
+    return PatientCustomScreenForm(
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -32,43 +33,38 @@ class _SettingMenuState extends State<SettingMenu> {
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()!.id!),
+            onPressed: () =>
+                Navigator.pushNamed(context, RouteList.patientList),
             icon: const Icon(Icons.arrow_back)),
-        selectedIndex: 2,
+        selectedIndex: 1,
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.1,
-            ),
             margin: EdgeInsets.only(
               top: SizeConfig.screenWidth * 0.02,
               left: SizeConfig.screenWidth * 0.05,
               right: SizeConfig.screenWidth * 0.05,
             ),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                        color: AppColor.backgroundColor,
-                        shape: BoxShape.circle),
-                    height: SizeConfig.screenWidth * 0.25,
-                    width: SizeConfig.screenWidth * 0.25,
-                    child: ClipRect(
-                        child: Image.asset(
-                      Assets.doctor,
-                      fit: BoxFit.fill,
-                    )),
+                  SizedBox(height: SizeConfig.screenWidth * 0.02),
+                  const Center(
+                    child: CustomImagePicker(
+                      imagePath: null,
+                      isOnTapActive: true,
+                      isforAvatar: true,
+                    ),
                   ),
-                  Text("Dr. ${userDataData.getUser()?.name}",
-                      style: AppTextTheme.body0.copyWith(
-                        fontWeight: FontWeight.w500,
-                      )),
-                  Text(userDataData.getUser()?.phoneNumber ?? '--',
-                      style: AppTextTheme.body3),
-                  SizedBox(height: SizeConfig.screenWidth * 0.05),
+                  Center(
+                      child: Text(userDataData.getUser()?.name ?? '--',
+                          style: AppTextTheme.body0
+                              .copyWith(fontWeight: FontWeight.bold))),
+                  Center(
+                      child: Text(userDataData.getUser()?.phoneNumber ?? '--',
+                          style: AppTextTheme.body3)),
+                  SizedBox(height: SizeConfig.screenWidth * 0.1),
+                  lineDecor(),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
                         context, RouteList.settingDrPassword),
@@ -88,21 +84,23 @@ class _SettingMenuState extends State<SettingMenu> {
                         settingMenuCell(translation(context).language, context),
                   ),
                   SizedBox(height: SizeConfig.screenWidth * 0.01),
-                  CommonButton(
-                      height: SizeConfig.screenHeight * 0.07,
-                      title: translation(context).logOut,
-                      buttonColor: AppColor.saveSetting,
-                      onTap: () {
-                        OneSignalNotificationService
-                            .unsubscribeFromNotifications(
-                                doctorId: userDataData.getUser()!.id!);
-                        notificationData.clearData();
+                  Center(
+                    child: CommonButton(
+                        height: SizeConfig.screenHeight * 0.07,
+                        title: translation(context).logOut,
+                        buttonColor: AppColor.saveSetting,
+                        onTap: () {
+                          OneSignalNotificationService
+                              .unsubscribeFromNotifications(
+                                  doctorId: userDataData.getUser()!.id!);
+                          notificationData.clearData();
 
-                        userDataData.clearData();
-                        firebaseAuthService.signOut();
+                          userDataData.clearData();
+                          firebaseAuthService.signOut();
 
-                        Navigator.pushNamed(context, RouteList.login);
-                      })
+                          Navigator.pushNamed(context, RouteList.login);
+                        }),
+                  )
                 ]),
           ),
         ));

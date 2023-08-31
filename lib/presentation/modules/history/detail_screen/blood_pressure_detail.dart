@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +20,16 @@ class BloodPressureDetailScreen extends StatefulWidget {
 }
 
 class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
+    Timer(const Duration(milliseconds: 1500), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
 ////////////////////////
@@ -83,26 +92,33 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
               //     decoration: BoxDecoration(
               //         color: Colors.white,
               //         borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.08)),
-              //     screenWidth: SizeConfig.screenHeight * 0.35,
-              //     screenHeight: SizeConfig.screenHeight * 0.35,
+              //     screenWidth: SizeConfig.screenHeight * 0.SizeConfig.screenWidth * 0.1,
+              //     screenHeight: SizeConfig.screenHeight * 0.SizeConfig.screenWidth * 0.1,
               //     child: ),
               SizedBox(
                 height: SizeConfig.screenWidth * 0.08,
               ),
-              CustomImagePicker(
-                imagePath: widget.bloodPressureEntity?.imageLink ??
-                    widget.bloodPressureEntity?.imageLink! ??
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
-                isOnTapActive: true,
-                isforAvatar: false,
-              ),
+              _isLoading
+                  ? Container(
+                      margin: const EdgeInsets.only(left: 15),
+                      height: SizeConfig.screenWidth * 0.9,
+                      width: SizeConfig.screenWidth * 0.9,
+                      child: const Center(child: CircularProgressIndicator()),
+                    )
+                  : CustomImagePicker(
+                      imagePath: widget.bloodPressureEntity?.imageLink ??
+                          widget.bloodPressureEntity?.imageLink! ??
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                      isOnTapActive: true,
+                      isforAvatar: false,
+                    ),
               SizedBox(
                 height: SizeConfig.screenWidth * 0.08,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.26,
+                  height: SizeConfig.screenHeight * 0.245,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),
@@ -122,13 +138,13 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                 style:
                                     AppTextTheme.title5.copyWith(fontSize: 15),
                               ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.07),
+                              SizedBox(height: SizeConfig.screenWidth * 0.04),
                               Text(widget.bloodPressureEntity!.sys.toString(),
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget
                                           .bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: 35)),
+                                      fontSize: SizeConfig.screenWidth * 0.1)),
                             ],
                           ),
                           Column(
@@ -142,13 +158,13 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                 style:
                                     AppTextTheme.title5.copyWith(fontSize: 15),
                               ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.07),
+                              SizedBox(height: SizeConfig.screenWidth * 0.04),
                               Text(widget.bloodPressureEntity!.dia.toString(),
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget
                                           .bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: 35)),
+                                      fontSize: SizeConfig.screenWidth * 0.1)),
                             ],
                           ),
                           Column(
@@ -162,13 +178,13 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                 style:
                                     AppTextTheme.title5.copyWith(fontSize: 15),
                               ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.07),
+                              SizedBox(height: SizeConfig.screenWidth * 0.04),
                               Text(widget.bloodPressureEntity!.pulse.toString(),
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget
                                           .bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: 35)),
+                                      fontSize: SizeConfig.screenWidth * 0.1)),
                             ],
                           )
                         ],

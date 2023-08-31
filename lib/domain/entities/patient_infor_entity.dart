@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../data/models/address_model/address_model.dart';
@@ -34,6 +35,13 @@ class PatientInforEntity {
     required this.phoneNumber,
     this.avatarPath,
   });
+
+
+
+
+
+
+
   //  Color get statusColor {
   //   if (sys != null && dia != null) {
   //     if (sys! <= 90) {
@@ -59,25 +67,7 @@ class PatientInforEntity {
 
   //   return Colors.grey;
   // }
-  // PatientInforModel getUserModel() {
-  //   List<BloodPressureModel> bloodPressureModels = [];
-  //   if (bloodPressures != null) {
-  //     for (var model in bloodPressures!) {
-  //       bloodPressureModels.add(model.getBloodPressureModel());
-  //     }
-  //   }
-  //   List<BloodSugarModel> bloodSugarModels = [];
-  //   if (bloodSugars != null) {
-  //     for (var model in bloodSugars!) {
-  //       bloodSugarModels.add(model.getBloodSugarModel());
-  //     }
-  //   }
-  //   List<TemperatureModel> temperatureModels = [];
-  //   if (temperatures != null) {
-  //     for (var model in temperatures!) {
-  //       temperatureModels.add(model.getTemperatureModel());
-  //     }
-  //   }
+ 
 
   //   return PatientInforModel(
   //     id: id,

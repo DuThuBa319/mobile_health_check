@@ -130,8 +130,10 @@ _i1.GetIt $initGetIt(
       () => _i32.BloodSugarRepositoryImpl(gh<_i30.BloodSugarApiRepository>()));
   gh.factory<_i33.BloodSugarUsecase>(
       () => _i33.BloodSugarUsecaseImpl(gh<_i32.BloodSugarRepository>()));
-  gh.factory<_i34.GetPatientBloc>(
-      () => _i34.GetPatientBloc(gh<_i19.PatientUsecase>()));
+  gh.factory<_i34.GetPatientBloc>(() => _i34.GetPatientBloc(
+        gh<_i19.PatientUsecase>(),
+        gh<_i8.DoctorInforUsecase>(),
+      ));
   gh.factory<_i35.HistoryBloc>(() => _i35.HistoryBloc(
         gh<_i29.BloodPressureUsecase>(),
         gh<_i33.BloodSugarUsecase>(),

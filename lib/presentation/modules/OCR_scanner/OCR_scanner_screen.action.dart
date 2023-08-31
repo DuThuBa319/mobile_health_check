@@ -6,7 +6,9 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
       showToast('Đang tải dữ liệu');
     }
     if (state.status == BlocStatusState.success) {
-      if (state is UploadBloodPressureDataState) {
+      if (state is UploadBloodPressureDataState ||
+          state is UploadBloodGlucoseDataState ||
+          state is UploadTemperatureDataState) {
         successAlert(
           context,
           alertText: 'Upload successfully',
@@ -35,11 +37,8 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
               child: const Text('Exit'),
               onPressed: () {
                 //Navigator.pop(context);
-                Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    RouteList.patientInfor,
-                    arguments: "P001",
-                    (Route<dynamic> route) => false);
+                Navigator.pushNamedAndRemoveUntil(context,
+                    RouteList.selectEquip, (Route<dynamic> route) => false);
               },
             ),
           ],

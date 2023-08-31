@@ -2,32 +2,6 @@ part of 'patient_infor_screen.dart';
 
 // ignore: library_private_types_in_public_api
 extension PatientInforScreenAction on _PatientInforScreenState {
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            title: const Text('Are you sure?'),
-            content: const Text('Do you want to exit an App'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () =>
-                    Navigator.of(context).pop(false), //<-- SEE HERE
-                child: const Text('No'),
-              ),
-              TextButton(
-                onPressed: () {
-                  SystemNavigator.pop();
-                },
-                // <-- SEE HERE
-                child: const Text('Yes'),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
-
   Widget infoText({required String? title, required String? content}) {
     return Column(
       children: [
@@ -43,6 +17,9 @@ extension PatientInforScreenAction on _PatientInforScreenState {
   }
 
   Widget homeCell({
+    BloodPressureEntity? bloodPressureEntity,
+    BloodSugarEntity? bloodSugarEntity,
+    TemperatureEntity? temperatureEntity,
     DateTime? dateTime,
     required String naviagte,
     required String imagePath,
@@ -58,7 +35,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     return Container(
       decoration: BoxDecoration(
         color: AppColor.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.05),
         boxShadow: const [
           BoxShadow(
             blurRadius: 15,
@@ -68,7 +45,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
       ),
       height: SizeConfig.screenHeight * 0.15,
       width: SizeConfig.screenWidth,
-      margin: const EdgeInsets.fromLTRB(15, 0, 12, 10),
+      margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.04, 0, 12, 10),
       padding: const EdgeInsets.only(top: 10, left: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,11 +77,12 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   children: [
                     Text(indicator,
                         style: AppTextTheme.title3.copyWith(
-                            color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.035,
-                            fontWeight: FontWeight.bold)),
+                          color: Colors.black,
+                          fontSize: SizeConfig.screenWidth * 0.035,
+                          fontWeight: FontWeight.bold,
+                        )),
                     GestureDetector(
-                      child: Container(
+                      child: SizedBox(
                         width: SizeConfig.screenWidth * 0.25,
                         height: SizeConfig.screenWidth * 0.05,
                         child: Row(
@@ -162,15 +140,16 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text("$sys/$dia",
+                              Text(
+                                  "${bloodPressureEntity?.sys}/${bloodPressureEntity?.dia}",
                                   style: AppTextTheme.title3.copyWith(
-                                      color: Colors.black,
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w500)),
+                                      fontSize: SizeConfig.screenWidth * 0.1,
+                                      fontWeight: FontWeight.w500,
+                                      color: bloodPressureEntity?.statusColor)),
                               Text("mmHg",
                                   style: AppTextTheme.title3.copyWith(
                                       color: const Color(0xff615A5A),
-                                      fontSize: 15,
+                                      fontSize: SizeConfig.screenWidth * 0.04,
                                       fontWeight: FontWeight.w500))
                             ],
                           ),
@@ -181,15 +160,15 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("$pulse",
+                              Text("${bloodPressureEntity?.pulse}",
                                   style: AppTextTheme.title3.copyWith(
-                                      color: Colors.black,
-                                      fontSize: 25,
+                                      color: bloodPressureEntity?.statusColor,
+                                      fontSize: SizeConfig.screenWidth * 0.06,
                                       fontWeight: FontWeight.w500)),
                               Text("bpm",
                                   style: AppTextTheme.title3.copyWith(
                                       color: const Color(0xff615A5A),
-                                      fontSize: 15,
+                                      fontSize: SizeConfig.screenWidth * 0.04,
                                       fontWeight: FontWeight.w500))
                             ],
                           ),
@@ -199,7 +178,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   : naviagte == "bloodSugarHistory"
                       ? Container(
                           margin: EdgeInsets.only(
-                              top: 20, left: SizeConfig.screenWidth * 0.1),
+                              top: SizeConfig.screenWidth * 0.0,
+                              left: SizeConfig.screenWidth * 0.1),
                           width: SizeConfig.screenWidth * 0.5,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -210,16 +190,20 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                          text: "$bloodSugar",
+                                          text:
+                                              "${bloodSugarEntity?.bloodSugar}",
                                           style: AppTextTheme.title3.copyWith(
-                                              color: Colors.black,
-                                              fontSize: 35,
+                                              color:
+                                                  bloodSugarEntity?.statusColor,
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.1,
                                               fontWeight: FontWeight.w500)),
                                       TextSpan(
                                           text: " mg/dL",
                                           style: AppTextTheme.title3.copyWith(
                                               color: const Color(0xff615A5A),
-                                              fontSize: 20,
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.04,
                                               fontWeight: FontWeight.w500))
                                     ],
                                   ),
@@ -227,7 +211,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                               ]))
                       : Container(
                           margin: EdgeInsets.only(
-                              top: 20, left: SizeConfig.screenWidth * 0.1),
+                              top: SizeConfig.screenWidth * 0.0,
+                              left: SizeConfig.screenWidth * 0.1),
                           width: SizeConfig.screenWidth * 0.5,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -237,16 +222,20 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                   textAlign: TextAlign.center,
                                   text: TextSpan(children: [
                                     TextSpan(
-                                        text: "$bodyTemperature",
+                                        text:
+                                            "${temperatureEntity?.temperature}",
                                         style: AppTextTheme.title3.copyWith(
-                                            color: Colors.black,
-                                            fontSize: 35,
+                                            color:
+                                                temperatureEntity?.statusColor,
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.1,
                                             fontWeight: FontWeight.w500)),
                                     TextSpan(
                                         text: "°",
                                         style: AppTextTheme.title3.copyWith(
                                             color: const Color(0xff615A5A),
-                                            fontSize: 35,
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.1,
                                             fontWeight: FontWeight.w500)),
                                     TextSpan(
                                         text: "C",
