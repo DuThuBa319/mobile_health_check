@@ -81,7 +81,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                 height: SizeConfig.screenWidth * 0.08,
               ),
               CustomImagePicker(
-                imagePath: widget.temperatureEntity?.imageLink ??
+                imagePath: widget.temperatureEntity?.imageLink ?? widget.temperatureEntity?.imageLink! ??
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
                 isOnTapActive: true,
                 isforAvatar: false,

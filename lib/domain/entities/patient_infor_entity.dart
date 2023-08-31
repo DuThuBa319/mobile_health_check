@@ -11,6 +11,7 @@ class PatientInforEntity {
   int? personType;
   double? weight;
   double? height;
+  int? gender;
   String phoneNumber;
   String? avatarPath;
   PatientInforAddressModel? address;
@@ -19,6 +20,7 @@ class PatientInforEntity {
   List<BloodPressureEntity>? bloodPressures;
 
   PatientInforEntity({
+    this.gender,
     this.bloodPressures,
     this.bloodSugars,
     this.bodyTemperatures,

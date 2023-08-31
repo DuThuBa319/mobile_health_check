@@ -14,7 +14,6 @@ class Assets {
   static const String nightFoggy = 'lib/assets/images/NightFoggy.png';
   static const String nightThunderStorm = 'lib/assets/images/NightThunder.png';
   static const String logoFlutter = 'lib/assets/images/flutter_logo.png';
-  static const String oldMan = 'lib/assets/images/old_man.png';
   static const String bloodSugar = 'lib/assets/images/blood_sugar_icon.png';
   static const String bloodPressureicon =
       'lib/assets/images/blood_pressure_icon.png';
@@ -29,4 +28,12 @@ class Assets {
   static const String photo = 'lib/assets/images/photo.png';
   static const String appLogo = 'lib/assets/images/AppLogo.png';
   static const String icCameraAdd = 'lib/assets/images/ic_camera_add.png';
+  static const String girl = 'lib/assets/images/girl.png';
+  static const String boy = 'lib/assets/images/boy.png';
+  static const String women = 'lib/assets/images/women.png';
+  static const String man = 'lib/assets/images/man.png';
+  static const String oldMan = 'lib/assets/images/old_man.png';
+  static const String oldWoman = 'lib/assets/images/old_woman.png';
+  static const String manDoctor = 'lib/assets/images/manDoctor.png';
+  static const String womenDoctor = 'lib/assets/images/womenDoctor.png';
 }

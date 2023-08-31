@@ -22,6 +22,8 @@ class PatientInforModel {
   int? personType;
   double? weight;
   double? height;
+  @JsonKey(name: "gender")
+  int? gender;
   String phoneNumber;
   @JsonKey(name: 'avatar')
   String? avatarPath;
@@ -42,6 +44,7 @@ class PatientInforModel {
     this.height,
     required this.phoneNumber,
     this.avatarPath,
+    this.gender,
   });
 
   factory PatientInforModel.fromJson(Map<String, dynamic> json) =>
@@ -53,7 +56,6 @@ class PatientInforModel {
     if (bloodPressures != null) {
       for (var model in bloodPressures!) {
         bloodPressureEntities.add(model.getBloodPressureEntity());
-     
       }
     }
     List<BloodSugarEntity> bloodSugarEntities = [];
@@ -70,6 +72,7 @@ class PatientInforModel {
     }
 
     return PatientInforEntity(
+      
       id: id,
       age: age,
       name: name,
@@ -79,6 +82,7 @@ class PatientInforModel {
       bloodPressures: bloodPressureEntities,
       bloodSugars: bloodSugarEntities,
       height: height,
+      gender: gender,
       personType: personType,
       bodyTemperatures: temperatureEntities,
       weight: weight,
