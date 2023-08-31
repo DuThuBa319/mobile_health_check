@@ -94,8 +94,24 @@ class GetBloodGlucoseDataState extends OCRScannerState {
   }) : super(viewModel, status: status);
 }
 
+class UploadBloodGlucoseDataState extends OCRScannerState {
+  UploadBloodGlucoseDataState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 class GetTemperatureDataState extends OCRScannerState {
   GetTemperatureDataState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class UploadTemperatureDataState extends OCRScannerState {
+  UploadTemperatureDataState({
     // ignore: library_private_types_in_public_api
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
@@ -125,6 +141,15 @@ final _factories = <Type,
       ),
   UploadBloodPressureDataState: (viewModel, status) =>
       UploadBloodPressureDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  UploadBloodGlucoseDataState: (viewModel, status) =>
+      UploadBloodGlucoseDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  UploadTemperatureDataState: (viewModel, status) => UploadTemperatureDataState(
         viewModel: viewModel,
         status: status,
       ),

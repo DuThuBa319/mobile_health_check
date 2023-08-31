@@ -10,7 +10,7 @@ class User extends Equatable {
   final String? id;
   final String? name;
   final String? phoneNumber;
-
+  final String? role;
   // final String? status;
   // final DateTime? dob;
 
@@ -21,7 +21,8 @@ class User extends Equatable {
       this.email,
       this.id,
       this.name,
-      this.phoneNumber
+      this.phoneNumber,
+      this.role
       // this.status,
       // this.dob,
       });
@@ -33,11 +34,14 @@ class User extends Equatable {
         email,
         id,
         name,
+        phoneNumber,
+        role
         // status,
         // dob,
       ];
 
   UserModel convertToModel() {
-    return UserModel(id: id, name: name, phoneNumber: phoneNumber);
+    return UserModel(
+        id: id, name: name, phoneNumber: phoneNumber, email: email);
   }
 }

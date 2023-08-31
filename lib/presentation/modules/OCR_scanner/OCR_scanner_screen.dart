@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -13,6 +14,7 @@ import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 
 import '../../route/route_list.dart';
+import '../../theme/app_text_theme.dart';
 import 'ocr_scanner_bloc/ocr_scanner_bloc.dart';
 part 'OCR_scanner_screen.action.dart';
 
@@ -70,65 +72,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                               height: 30,
                             ),
                             state.viewModel.temperatureImageFile != null
-                                ? Center(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: 75,
-                                          width: 200,
-                                          margin:
-                                              const EdgeInsets.only(bottom: 28),
-                                          padding: const EdgeInsets.fromLTRB(
-                                              17, 10, 16, 0),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: AppColor.greyF3),
-                                          child: DefaultTextStyle(
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Wrap(
-                                                  direction: Axis.vertical,
-                                                  spacing: 10,
-                                                  children: [
-                                                    Text('Temperature:'),
-                                                  ],
-                                                ),
-                                                Wrap(
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.end,
-                                                  direction: Axis.vertical,
-                                                  spacing: 10,
-                                                  children: [
-                                                    Text(
-                                                        '${state.viewModel.temperatureEntity?.temperature} °C'),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 50),
-                                        Center(
-                                            child: CommonButton(
-                                          height: 70,
-                                          title: 'Upload',
-                                          onTap: () {
-                                            scanBloc.add(
-                                                UploadBloodPressureDataEvent());
-                                          },
-                                        ))
-                                      ],
-                                    ),
-                                  )
+                                ? temperatureCell(state)
                                 : Center(
                                     child: Column(
                                     children: [
@@ -410,6 +354,124 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
         }
         return Container();
       },
+    );
+  }
+
+  Center temperatureCell(OCRScannerState state) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            height: SizeConfig.screenHeight * 0.24,
+            width: SizeConfig.screenWidth * 0.8,
+            margin: const EdgeInsets.only(bottom: 28),
+            padding: const EdgeInsets.fromLTRB(17, 10, 16, 0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: AppColor.greyF3),
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.width * 0.2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.blue[100],
+                        ),
+                        child: Image.asset(
+                          Assets.thermometer,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text('CHỈ SỐ ĐO',
+                                style: AppTextTheme.title3.copyWith(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.05,
+                                    fontWeight: FontWeight.bold)),
+                            Text(
+                                DateFormat('HH:mm dd/MM/yyyy').format(state
+                                    .viewModel.temperatureEntity!.updatedDate!),
+                                style: AppTextTheme.title3.copyWith(
+                                    color: AppColor.gray767676,
+                                    fontSize: SizeConfig.screenWidth * 0.035,
+                                    fontWeight: FontWeight.bold))
+                          ]),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text('Thân nhiệt:',
+                      style: AppTextTheme.title3.copyWith(
+                          color: Colors.black,
+                          fontSize: SizeConfig.screenWidth * 0.05,
+                          fontWeight: FontWeight.bold)),
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 20, left: SizeConfig.screenWidth * 0.1),
+                    width: SizeConfig.screenWidth * 0.5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text:
+                                      "${state.viewModel.temperatureEntity?.temperature}",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: Colors.black,
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: "°",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: "C",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w500))
+                            ]))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: SizeConfig.screenHeight * 0.04),
+          Center(
+              child: CommonButton(
+            height: 70,
+            title: 'Upload',
+            onTap: () {
+              scanBloc.add(UploadTemperatureDataEvent());
+            },
+          ))
+        ],
+      ),
     );
   }
 

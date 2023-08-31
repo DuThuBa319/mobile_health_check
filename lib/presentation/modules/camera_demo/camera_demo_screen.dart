@@ -49,7 +49,7 @@ class CameraScreenState extends State<CameraScreen>
       currentZoomLevel = 2.0;
     }
     if (widget.task == MeasuringTask.temperature) {
-      currentZoomLevel = 2.6;
+      currentZoomLevel = 2;
     }
     WidgetsBinding.instance.addObserver(this);
     onNewCameraSelected(cameras[0]);
@@ -404,8 +404,8 @@ class CameraScreenState extends State<CameraScreen>
     return Positioned(
       top: 200,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.68,
-        height: MediaQuery.of(context).size.height * 0.10,
+        width: MediaQuery.of(context).size.width * 0.6,
+        height: MediaQuery.of(context).size.height * 0.12,
         decoration: const ShapeDecoration(
             color: Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -440,8 +440,8 @@ class CameraScreenState extends State<CameraScreen>
     return Positioned(
       top: 200,
       child: Container(
-          width: MediaQuery.of(context).size.width * 0.68,
-          height: MediaQuery.of(context).size.height * 0.10,
+          width: MediaQuery.of(context).size.width * 0.6,
+          height: MediaQuery.of(context).size.height * 0.12,
           decoration: const BoxDecoration(
             color: Colors.black,
           )),

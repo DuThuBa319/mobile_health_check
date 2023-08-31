@@ -7,10 +7,21 @@ extension LoginAction on _LoginState {
     }
 
     if (state is LoginSuccessState) {
-      await OneSignalNotificationService.create();
-      OneSignalNotificationService.subscribeNotification(
-          doctorId: userDataData.getUser()!.id!);
-      Navigator.pushNamed(context, RouteList.patientList);
+      if (userDataData.getUser()!.role! == 'doctor') {
+        await OneSignalNotificationService.create();
+
+        OneSignalNotificationService.subscribeNotification(
+            doctorId: userDataData.getUser()!.id!);
+        Navigator.pushNamed(context, RouteList.patientList);
+      }
+      if (userDataData.getUser()!.role! == 'patient') {
+        // await OneSignalNotificationService.create();
+
+        // OneSignalNotificationService.subscribeNotification(
+        //     doctorId: userDataData.getUser()!.id!);
+        Navigator.pushNamed(context, RouteList.selectEquip);
+      }
+
       //get unread notification count,userInfo
     } else if (state is LoginFailState) {
       final message = state.viewModel.errorMessage ?? '--';

@@ -11,6 +11,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       id: json['id'] as String?,
       name: json['name'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
+      role: json['role'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) {
@@ -26,5 +27,6 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   writeNotNull('id', instance.id);
   writeNotNull('name', instance.name);
   writeNotNull('phoneNumber', instance.phoneNumber);
+  writeNotNull('role', instance.role);
   return val;
 }

@@ -24,13 +24,9 @@ class CustomScreenForm extends StatefulWidget {
   final bool isShowRightButon;
   final Widget? rightButton;
   final int? unreadCount;
-  // final NotificationBloc? notificationBloc;
-  // final NotificationState? notificationState;
 
   const CustomScreenForm({
     super.key,
-    // this.notificationBloc,
-    // this.notificationState,
     this.unreadCount,
     this.appBarColor = Colors.black,
     this.backgroundColor = Colors.white,
@@ -203,64 +199,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               ),
             )
           : null,
-
-      // floatingActionButton:
-      //     widget.isShowBottomNayvigationBar == true && widget.selectedIndex == 0
-      //         ? FloatingActionButton(
-      //             elevation: 0,
-      //             onPressed: () {
-      //               Navigator.pushNamed(context, RouteList.OCR_screen);
-      //             },
-      //             backgroundColor: const Color(0xFF03A1E4),
-      //             child: const Icon(
-      //               Icons.add,
-      //               size: 40,
-      //             ),
-      //           )
-      //         : null,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  // Widget iconBottomBar(
-  //     {String? label,
-  //     required IconData iconData,
-  //     required bool isSelected,
-  //     required int iconIndex}) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       _onItemTapped(iconIndex);
-  //     },
-  //     child: SizedBox(
-  //       height: MediaQuery.of(context).size.height / 12,
-  //       child: Column(
-  //         children: [
-  //           Container(
-  //             width: MediaQuery.of(context).size.width / 6,
-  //             height: MediaQuery.of(context).size.height / 25,
-  //             margin: const EdgeInsets.only(top: 10, bottom: 5),
-  //             decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(24), color: Colors.white),
-  //             child: Icon(
-  //               iconData,
-  //               color: isSelected ? Colors.orangeAccent : Colors.black,
-  //             ),
-  //           ),
-  //           label != null
-  //               ? Text(
-  //                   label,
-  //                   style: TextStyle(
-  //                       color: isSelected ? Colors.orangeAccent : Colors.black,
-  //                       fontSize: 12,
-  //                       fontWeight:
-  //                           isSelected ? FontWeight.bold : FontWeight.normal),
-  //                 )
-  //               : const SizedBox(),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
   Widget iconBottomBar(
       {String? label,
       required IconData iconData,

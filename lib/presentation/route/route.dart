@@ -29,6 +29,7 @@ import '../modules/login_screen/login/login_bloc.dart';
 import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
+import '../modules/setting_screen/patient_setting_menu.dart';
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;
@@ -170,6 +171,10 @@ class AppRoute {
       case '/setting':
         return MaterialPageRoute(builder: (context) {
           return const SettingMenu();
+        });
+      case '/patientSetting':
+        return MaterialPageRoute(builder: (context) {
+          return const PatientSettingMenu();
         });
       case '/settingDrPhone':
         return MaterialPageRoute(

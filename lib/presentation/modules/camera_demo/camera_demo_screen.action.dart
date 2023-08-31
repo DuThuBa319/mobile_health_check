@@ -62,6 +62,7 @@ extension CameraScreenAction on CameraScreenState {
     cameraController
         .getMinZoomLevel()
         .then((value) => minAvailableZoom = value);
+    cameraController.setZoomLevel(currentZoomLevel);
     cameraController
         .getMinExposureOffset()
         .then((value) => minAvailableExposureOffset = value);

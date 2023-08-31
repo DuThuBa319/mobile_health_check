@@ -99,10 +99,10 @@ Future<File> cropImage(
       desiredHeight = screenHeight * 0.41;
       break;
     case MeasuringTask.temperature:
-      desiredLeft = 62; // Set the left position of the desired area (in pixels)
-      desiredTop = 280; // Set the top position of the desired area (in pixels)
+      desiredLeft = 60; // Set the left position of the desired area (in pixels)
+      desiredTop = 300; // Set the top position of the desired area (in pixels)
       desiredWidth =
-          screenWidth * 0.70; // Set the width of the desired area (in pixels)
+          screenWidth * 0.65; // Set the width of the desired area (in pixels)
       desiredHeight = screenHeight * 0.18;
       break;
     default:
