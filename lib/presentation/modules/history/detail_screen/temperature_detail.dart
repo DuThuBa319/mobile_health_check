@@ -86,6 +86,9 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       )
                     ],
                   )),
+              SizedBox(
+                height: SizeConfig.screenWidth * 0.02,
+              ),
               _isLoading
                   ? Container(
                       margin: const EdgeInsets.only(left: 15),
@@ -95,11 +98,13 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                     )
                   : CustomImagePicker(
                       imagePath: widget.temperatureEntity?.imageLink ??
-                          widget.temperatureEntity?.imageLink! ??
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                          widget.temperatureEntity?.imageLink!,
                       isOnTapActive: true,
                       isforAvatar: false,
                     ),
+              SizedBox(
+                height: SizeConfig.screenWidth * 0.02,
+              ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
                   margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.1),
@@ -181,7 +186,9 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                 title: translation(context).back,
                 buttonColor: Colors.red,
                 onTap: () {
-                  Navigator.pop(context);
+                  if (_isLoading == false) {
+                    Navigator.pop(context);
+                }
                 },
               )
             ],

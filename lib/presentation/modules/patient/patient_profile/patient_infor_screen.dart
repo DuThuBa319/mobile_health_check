@@ -89,6 +89,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                         state.viewModel.patientInforEntity!;
                 print(patient);
                 return SmartRefresher(
+                    header: const WaterDropHeader(),
                     controller: _refreshController,
                     onRefresh: () async {
                       await Future.delayed(const Duration(milliseconds: 1000));

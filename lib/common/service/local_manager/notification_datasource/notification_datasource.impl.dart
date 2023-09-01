@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 
-import '../../onesginal/bloc/notification_bloc.dart';
 import '../base_datasource.dart';
 
 import 'notification_datasource.dart';
@@ -12,7 +11,6 @@ import 'notification_datasource.dart';
 )
 class NotificationDataSourceImpl extends BaseDataSource
     implements NotificationDataSource {
-  final NotificationBloc notificationBloc = NotificationBloc();
   @override
   Future<void> clearData() async {
     await localDataManager.preferencesHelper.remove('unreadCount');

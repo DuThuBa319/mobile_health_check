@@ -8,11 +8,11 @@ extension PatientListScreenAction on _PatientListState {
     //   ..loadComplete();
     if (state is GetPatientListState &&
         state.status == BlocStatusState.loading) {
-      showToast('Loading');
+      showToast('Đang tải dữ liệu');
     }
     if (state is GetPatientListState &&
         state.status == BlocStatusState.success) {
-      showToast('Loaded');
+      showToast('Tải dữ liệu thành công');
     }
     if (state is RegistPatientState &&
         state.status == BlocStatusState.success) {

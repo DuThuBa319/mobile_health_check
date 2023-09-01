@@ -1,22 +1,25 @@
 part of 'notification_bloc.dart';
 
-// ViewModel is used for store all properties which want to be stored, processed and updated, chứa dữ liệu của 1 state
+// ViewModel is used for store all properties which want to be stored, processed and Getd, chứa dữ liệu của 1 state
 class _ViewModel {
   // final List<BloodPressureEntity>? listBloodPressure;
   // final List<BloodSugarEntity>? listBloodSugar;
   // final List<TemperatureEntity>? listTemperature;
-  final int? count;
+  final List<NotificationEntity>? notificationEntity;
   const _ViewModel(
       {
+        this.notificationEntity
       // this.listBloodPressure,
       // this.listBloodSugar,
       // this.listTemperature,
-      this.count});
+    });
 
-  // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
-  _ViewModel copyWith({count}) {
+  // Using copyWith function to retains the before data and just "Get some specific props" instead of "Get all props"
+  _ViewModel copyWith({notificationEntity}) {
     // ignore: unnecessary_this
-    return _ViewModel(count: count);
+    return _ViewModel(
+      notificationEntity: notificationEntity?? this.notificationEntity
+    );
   }
 }
 
@@ -28,7 +31,7 @@ abstract class NotificationState {
 
   NotificationState(this.viewModel, {this.status = BlocStatusState.initial});
 
-  // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
+  // Using copyWith function to retains the before data and just "Get some specific props" instead of "Get all props"
   // "T" is generic class. "T" is a child class of NotificationState (abstract class)
   T copyWith<T extends NotificationState>({
     _ViewModel? viewModel,
@@ -49,8 +52,8 @@ class NotificationInitialState extends NotificationState {
   }) : super(viewModel);
 }
 
-class UpdateNotificationState extends NotificationState {
-  UpdateNotificationState({
+class GetNotificationListState extends NotificationState {
+  GetNotificationListState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
@@ -65,7 +68,7 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  UpdateNotificationState: (viewModel, status) => UpdateNotificationState(
+  GetNotificationListState: (viewModel, status) => GetNotificationListState(
         viewModel: viewModel,
         status: status,
       ),

@@ -255,7 +255,8 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       Navigator.pushNamed(context, RouteList.setting);
     }
     if (index == 1 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.notification);
+      Navigator.pushNamed(context, RouteList.notification,
+          arguments: userDataData.getUser()!.id!);
     }
   }
 

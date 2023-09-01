@@ -32,7 +32,7 @@ class _PatientListCellState extends State<PatientListCell> {
     return GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, RouteList.patientInfor,
-              arguments: widget.patientEntity?.id);
+              arguments: widget.patientEntity?.id,  );
         },
         child: Card(
             margin: const EdgeInsets.only(bottom: 10),

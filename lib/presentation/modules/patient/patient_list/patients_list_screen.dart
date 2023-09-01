@@ -45,8 +45,8 @@ class _PatientListState extends State<PatientListScreen> {
   GetPatientBloc get patientBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
-    return  WillPopScope(
-       onWillPop: _onWillPop,
+    return WillPopScope(
+      onWillPop: _onWillPop,
       child: CustomScreenForm(
           isShowAppBar: true,
           isShowLeadingButton: false,
@@ -116,11 +116,13 @@ class _PatientListState extends State<PatientListScreen> {
                             ),
                           );
                         }
-    
+
                         if (state is GetPatientListState &&
                             state.status == BlocStatusState.success) {
                           return Expanded(
                             child: SmartRefresher(
+                                                    header: const WaterDropHeader(),
+
                               controller: _refreshController,
                               onRefresh: () async {
                                 await Future.delayed(
@@ -130,6 +132,8 @@ class _PatientListState extends State<PatientListScreen> {
                                     id: widget.id ?? widget.id!));
                               },
                               child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 itemCount: state.viewModel.doctorInforEntity
                                         ?.patients?.length ??

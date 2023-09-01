@@ -3,7 +3,6 @@ import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
-import 'package:mobile_health_check/common/service/onesginal/notification_screen.dart';
 import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_password_setting.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_phone_setting.dart';
@@ -26,6 +25,8 @@ import '../modules/history/detail_screen/blood_sugar_detail.dart';
 import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/login_screen/login/login_bloc.dart';
+import '../modules/notification_onesignal/bloc/notification_bloc.dart';
+import '../modules/notification_onesignal/notification_screen.dart';
 import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
@@ -162,10 +163,15 @@ class AppRoute {
             builder: (context) => TemperatureDetailScreen(
                   temperatureEntity: response,
                 ));
+
       case '/notification':
+        final id = routeSettings.arguments as String?;
         return MaterialPageRoute(
           builder: (context) {
-            return const NotificationScreen();
+            return BlocProvider<NotificationBloc>(
+              create: (context) => getIt<NotificationBloc>(),
+              child: NotificationScreen(id: id),
+            );
           },
         );
 
@@ -204,7 +210,6 @@ class AppRoute {
         );
       default:
         final id = routeSettings.arguments as String;
-
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(

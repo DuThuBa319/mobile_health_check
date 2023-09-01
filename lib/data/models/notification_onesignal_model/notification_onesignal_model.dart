@@ -4,10 +4,14 @@ part 'notification_onesignal_model.g.dart';
 
 @JsonSerializable()
 class NotificationModel {
-  String? patientName;
-  String? content;
+  String? notificaitonId;
   String? heading;
+  String? content;
+  String? patientId;
+  String? patientName;
+  @JsonKey(name: "seen")
   bool? read;
+  @JsonKey(name: "sendAt")
   DateTime? sendDate;
   //NotificationMetadata? data;
   //LocalizationModel? contents;
@@ -19,10 +23,11 @@ class NotificationModel {
   // @JsonKey(name: 'send_after')
   // DateTime? sendAfter;
 
-
   NotificationModel({
-    this.content,
+    this.notificaitonId,
     this.heading,
+    this.content,
+    this.patientId,
     this.patientName,
     this.read,
     this.sendDate,
