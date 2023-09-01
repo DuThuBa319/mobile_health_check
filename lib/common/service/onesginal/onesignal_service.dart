@@ -80,6 +80,7 @@ class OneSignalNotificationService {
     // if (user.id == null) {
     //   return;
     // }
+     
     OneSignal.shared.setExternalUserId(doctorId);
     // OneSignal.shared.sendTag('email', user.email);
     // OneSignal.shared.sendTag('userId', user.id);

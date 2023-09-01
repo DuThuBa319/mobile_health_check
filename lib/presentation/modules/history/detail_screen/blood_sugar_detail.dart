@@ -25,7 +25,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 1500), () {
+    Timer(const Duration(milliseconds: 3000), () {
       setState(() {
         _isLoading = false;
       });

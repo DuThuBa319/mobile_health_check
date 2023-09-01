@@ -36,6 +36,8 @@ class NotificationDataSourceImpl extends BaseDataSource
   @override
   int? get unreadCount =>
       localDataManager.preferencesHelper.getData("unreadCount");
+  @override
+  int? get localeId => localDataManager.preferencesHelper.getData("localeId");
 
   // @override
   // User? getUser() {
@@ -56,6 +58,11 @@ class NotificationDataSourceImpl extends BaseDataSource
   @override
   Future<void> saveUnreadNotificationCount(int count) async {
     localDataManager.preferencesHelper.saveData("unreadCount", count);
+  }
+
+  @override
+  Future<void> saveLocale(int localeId) async {
+    localDataManager.preferencesHelper.saveData("localeId", localeId);
   }
 
   @override

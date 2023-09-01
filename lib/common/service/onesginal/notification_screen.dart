@@ -61,8 +61,26 @@ class _PatientListState extends State<NotificationScreen> {
                 //           return Text("${state.unreadCount}");
                 //         })),
                 lineDecor(),
+
                 Expanded(
-                  child: ListView.builder(
+                  child:
+                      // ListView.builder(
+                      //     itemCount: messages.length,
+                      //     itemBuilder: (context, index) {
+                      //       return ListTile(
+                      //         title: Text(messages[index]),
+                      //       );
+                      //     },
+                      //   ),
+                      //     ListView.builder(
+                      //   itemCount: messages.length,
+                      //   itemBuilder: (context, index) {
+                      //     return ListTile(
+                      //       title: Text(messages[index]),
+                      //     );
+                      //   },
+                      // ),
+                      ListView.builder(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return NotificationCell(context, "");

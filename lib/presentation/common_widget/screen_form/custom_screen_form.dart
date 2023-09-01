@@ -24,9 +24,11 @@ class CustomScreenForm extends StatefulWidget {
   final bool isShowRightButon;
   final Widget? rightButton;
   final int? unreadCount;
+  final String? messageBody;
 
   const CustomScreenForm({
     super.key,
+    this.messageBody,
     this.unreadCount,
     this.appBarColor = Colors.black,
     this.backgroundColor = Colors.white,
@@ -64,7 +66,6 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       // widget.notificationBloc
       //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
       print('###${notificationData.unreadCount}');
-
       event.complete(event.notification);
       setState(() {});
     });
@@ -72,6 +73,8 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
       //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
       await notificationData.decreaseUnreadNotificationCount();
+      // final data = openedResult.notification.body;
+      // print("xxxxxxxaaaa$data");
       // widget.notificationBloc
       //     ?.add(DecreaseNotificationEvent(count: notificationData.unreadCount));
       print('###${notificationData.unreadCount}');
