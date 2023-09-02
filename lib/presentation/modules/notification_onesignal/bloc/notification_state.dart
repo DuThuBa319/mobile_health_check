@@ -6,20 +6,23 @@ class _ViewModel {
   // final List<BloodSugarEntity>? listBloodSugar;
   // final List<TemperatureEntity>? listTemperature;
   final List<NotificationEntity>? notificationEntity;
-  const _ViewModel(
-      {
-        this.notificationEntity
+  final NotificationEntity? notificationInforEntity;
+
+  const _ViewModel({this.notificationInforEntity, this.notificationEntity
       // this.listBloodPressure,
       // this.listBloodSugar,
       // this.listTemperature,
-    });
+      });
 
   // Using copyWith function to retains the before data and just "Get some specific props" instead of "Get all props"
-  _ViewModel copyWith({notificationEntity}) {
+  _ViewModel copyWith(
+      {List<NotificationEntity>? notificationEntity,
+      NotificationEntity? notificationInforEntity}) {
     // ignore: unnecessary_this
     return _ViewModel(
-      notificationEntity: notificationEntity?? this.notificationEntity
-    );
+        notificationEntity: notificationEntity ?? this.notificationEntity,
+        notificationInforEntity:
+            notificationInforEntity ?? this.notificationInforEntity);
   }
 }
 
@@ -59,6 +62,13 @@ class GetNotificationListState extends NotificationState {
   }) : super(viewModel, status: status);
 }
 
+class SetReadedNotificationState extends NotificationState {
+  SetReadedNotificationState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -69,6 +79,10 @@ final _factories = <Type,
         status: status,
       ),
   GetNotificationListState: (viewModel, status) => GetNotificationListState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  SetReadedNotificationState: (viewModel, status) => SetReadedNotificationState(
         viewModel: viewModel,
         status: status,
       ),

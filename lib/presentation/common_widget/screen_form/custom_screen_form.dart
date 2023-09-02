@@ -7,6 +7,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
 import '../../../function.dart';
+import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../route/route_list.dart';
 
 class CustomScreenForm extends StatefulWidget {
@@ -25,9 +26,10 @@ class CustomScreenForm extends StatefulWidget {
   final Widget? rightButton;
   final int? unreadCount;
   final String? messageBody;
-
+  final NotificationBloc? notificationBloc;
   const CustomScreenForm({
     super.key,
+    this.notificationBloc,
     this.messageBody,
     this.unreadCount,
     this.appBarColor = Colors.black,
@@ -63,6 +65,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       //   'Onesignal ShowInForeground ${event.notification.additionalData}',
       // );
       await notificationData.increaseUnreadNotificationCount();
+
       // widget.notificationBloc
       //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
       print('###${notificationData.unreadCount}');
@@ -73,12 +76,16 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
       //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
       await notificationData.decreaseUnreadNotificationCount();
+
       // final data = openedResult.notification.body;
       // print("xxxxxxxaaaa$data");
       // widget.notificationBloc
       //     ?.add(DecreaseNotificationEvent(count: notificationData.unreadCount));
       print('###${notificationData.unreadCount}');
-      setState(() {});
+      setState(() {
+        Navigator.pushNamed(context, RouteList.patientInfor,
+            arguments: openedResult.notification.additionalData?["patientId"]);
+      });
     });
 
     return Scaffold(

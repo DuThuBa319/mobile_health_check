@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../data/models/notification_onesignal_model/notification_onesignal_model.dart';
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../../function.dart';
 import '../../../route/route_list.dart';
@@ -11,10 +12,12 @@ import '../bloc/notification_bloc.dart';
 class NotificationCell extends StatefulWidget {
   final NotificationEntity? notificationEntity;
   final NotificationBloc? notificationBloc;
+
   // final DoctorInforEntity? doctorInforEntity;
   const NotificationCell({
     Key? key,
     // this.doctorInforEntity,
+
     this.notificationBloc,
     this.notificationEntity,
   }) : super(key: key);
@@ -29,6 +32,20 @@ class _NotificationCellState extends State<NotificationCell> {
     SizeConfig.init(context);
     return GestureDetector(
       onTap: () {
+        if (widget.notificationEntity?.read == false) {
+          NotificationModel setTrue = NotificationModel(
+            notificaitonId: widget.notificationEntity?.notificaitonId,
+            heading: widget.notificationEntity?.heading,
+            content: widget.notificationEntity?.content,
+            patientId: widget.notificationEntity?.patientId,
+            patientName: widget.notificationEntity?.patientName,
+            read: true,
+            sendDate: widget.notificationEntity?.sendDate,
+          );
+          widget.notificationBloc!.add(SetReadedNotificationEvent(
+              notificationId: widget.notificationEntity?.notificaitonId,
+              notificationModel: setTrue));
+        }
         Navigator.pushNamed(context, RouteList.patientInfor,
             arguments: widget.notificationEntity?.patientId);
       },

@@ -9,4 +9,6 @@ part 'notification_onesignal_repository.impl.dart';
 
 abstract class NotificationRepository {
   Future<List<NotificationModel>> getNotificationListModels(String? id);
+  Future<void> setReadedNotificationModel(
+      String? notificationId, NotificationModel? notificationModel);
 }

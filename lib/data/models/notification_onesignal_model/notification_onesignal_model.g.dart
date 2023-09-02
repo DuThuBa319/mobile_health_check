@@ -8,11 +8,11 @@ part of 'notification_onesignal_model.dart';
 
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
     NotificationModel(
-      patientName: json['patientName'] as String?,
       notificaitonId: json['notificaitonId'] as String?,
       heading: json['heading'] as String?,
       content: json['content'] as String?,
       patientId: json['patientId'] as String?,
+      patientName: json['patientName'] as String?,
       read: json['seen'] as bool?,
       sendDate: json['sendAt'] == null
           ? null

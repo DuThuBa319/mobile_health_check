@@ -13,6 +13,7 @@ import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../route/route_list.dart';
+import '../../notification_onesignal/bloc/notification_bloc.dart';
 import '../bloc/get_patient_bloc.dart';
 
 part 'patients_list_screen.action.dart';
@@ -43,9 +44,10 @@ class _PatientListState extends State<PatientListScreen> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   GetPatientBloc get patientBloc => BlocProvider.of(context);
+  NotificationBloc get notificationBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return WillPopScope(  
       onWillPop: _onWillPop,
       child: CustomScreenForm(
           isShowAppBar: true,
@@ -121,8 +123,7 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.success) {
                           return Expanded(
                             child: SmartRefresher(
-                                                    header: const WaterDropHeader(),
-
+                              header: const WaterDropHeader(),
                               controller: _refreshController,
                               onRefresh: () async {
                                 await Future.delayed(
