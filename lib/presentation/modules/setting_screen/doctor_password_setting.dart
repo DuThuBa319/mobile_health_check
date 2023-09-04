@@ -30,11 +30,10 @@ class _SettingDrPasswordState extends State<SettingDrPassword> {
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
-        isShowBottomNayvigationBar: true,
+        isShowBottomNayvigationBar: false,
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),

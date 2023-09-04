@@ -26,7 +26,7 @@ class _SettingDrPhoneState extends State<SettingDrPhone> {
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
-        isShowBottomNayvigationBar: true,
+        isShowBottomNayvigationBar: false,
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,

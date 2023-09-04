@@ -96,10 +96,16 @@ class _SplashScreenState extends State<SplashScreen> {
       final isLogin = userDataData.isLogin;
       if (isLogin == true) {
         //  Navigato r.pushNamed(context, RouteList.selectEquip);
-        Navigator.pushNamed(context, RouteList.patientList,
-            arguments: userDataData.getUser()!.id!);
+        if (userDataData.getUser()!.role == "doctor") {
+          Navigator.pushNamed(context, RouteList.patientList,
+              arguments: userDataData.getUser()!.id!);
+        } else if (userDataData.getUser()!.role == "patient") {
+          Navigator.pushNamed(
+            context,
+            RouteList.selectEquip,
+          );
+        }
       } else {
-
         Navigator.pushNamed(context, RouteList.login);
       }
     });

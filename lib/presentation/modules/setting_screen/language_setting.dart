@@ -31,7 +31,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
-        isShowBottomNayvigationBar: true,
+        isShowBottomNayvigationBar: false,
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,

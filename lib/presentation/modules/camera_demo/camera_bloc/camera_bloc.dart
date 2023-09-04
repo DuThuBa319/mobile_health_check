@@ -12,8 +12,93 @@ part 'camera_state.dart';
 @injectable
 class CameraBloc extends Bloc<CameraEvent, CameraState> {
   CameraBloc() : super(CameraInitialState()) {
+    on<CameraInitializedEvent>(_onInitializeCamera);
+    on<CameraStoppedEvent>(_onStopCamera);
     on<GetImageEvent>(_onGetImage);
+    on<CameraUpdateUiEvent>(_onRefreshScreen);
   }
+  Future<void> _onRefreshScreen(
+    CameraUpdateUiEvent event,
+    Emitter<CameraState> emit,
+  ) async {
+    await state.viewModel.cameraController!
+        .setExposureOffset(event.exposureValue!);
+    emit(
+      CameraReadyState(
+        status: BlocStatusState.success,
+        viewModel: state.viewModel,
+      ),
+    );
+  }
+
+  Future<void> _onStopCamera(
+    CameraStoppedEvent event,
+    Emitter<CameraState> emit,
+  ) async {
+    emit(
+      CameraStoppedState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await event.controller.dispose();
+      emit(
+        state.copyWith(
+            status: BlocStatusState.success,
+            viewModel:
+                state.viewModel.copyWith(cameraController: event.controller)),
+      );
+    } on CameraException {
+      event.controller.dispose();
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+        ),
+      );
+    } catch (e) {
+      state.copyWith(
+        status: BlocStatusState.failure,
+      );
+    }
+  }
+
+  Future<void> _onInitializeCamera(
+    CameraInitializedEvent event,
+    Emitter<CameraState> emit,
+  ) async {
+    emit(
+      CameraReadyState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final controller = event.controller;
+      await controller.initialize();
+      await controller.setZoomLevel(event.zoomValue);
+      final newViewModel =
+          state.viewModel.copyWith(cameraController: controller);
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } on CameraException {
+      event.controller.dispose();
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+        ),
+      );
+    } catch (e) {
+      state.copyWith(
+        status: BlocStatusState.failure,
+      );
+    }
+  }
+
   Future<void> _onGetImage(
     GetImageEvent event,
     Emitter<CameraState> emit,
