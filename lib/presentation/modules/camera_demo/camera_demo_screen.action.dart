@@ -29,48 +29,53 @@ extension CameraScreenAction on CameraScreenState {
 
     // Replace with the new controller
     if (mounted) {
-      setState(() {
-        controller = cameraController;
-      });
+      controller = cameraController;
+      cameraBloc.add(CameraInitializedEvent(
+          controller: cameraController,
+          context: context,
+          task: widget.task,
+          zoomValue: currentZoomLevel));
     }
 
     // Update UI if controller updated
     cameraController.addListener(() {
-      if (mounted) setState(() {});
+      if (mounted) {
+        //cameraBloc.add(CameraUpdateUiEvent());
+      }
     });
 
     // Initialize controller
-    try {
-      await cameraController.initialize();
-    } on CameraException catch (e) {
-      debugPrint('Error initializing camera: $e');
-    }
+    // try {
+    //   await controller!.initialize();
+    // } on CameraException catch (e) {
+    //   debugPrint('Error initializing camera: $e');
+    // }
 
     // Update the Boolean
-    if (mounted) {
-      await controller!.setFlashMode(
-        FlashMode.off,
-      );
-      setState(() {
-        isCameraInitialized = controller!.value.isInitialized;
-        backgroundColor = Colors.black;
-      });
-    }
+    // if (mounted) {
+    //   await controller!.setFlashMode(
+    //     FlashMode.off,
+    //   );
+    //   setState(() {
+    //     isCameraInitialized = controller!.value.isInitialized;
+    //     backgroundColor = Colors.black;
+    //   });
+    // }
 
-    cameraController.getMaxZoomLevel().then((value) => maxAvailableZoom = 4);
+    // cameraController.getMaxZoomLevel().then((value) => maxAvailableZoom = 4);
 
-    cameraController
-        .getMinZoomLevel()
-        .then((value) => minAvailableZoom = value);
-    cameraController.setZoomLevel(currentZoomLevel);
-    cameraController
-        .getMinExposureOffset()
-        .then((value) => minAvailableExposureOffset = value);
+    // cameraController
+    //     .getMinZoomLevel()
+    //     .then((value) => minAvailableZoom = value);
+    // cameraController.setZoomLevel(currentZoomLevel);
+    // cameraController
+    //     .getMinExposureOffset()
+    //     .then((value) => minAvailableExposureOffset = value);
 
-    cameraController
-        .getMaxExposureOffset()
-        .then((value) => maxAvailableExposureOffset = value);
-    currentFlashMode = controller!.value.flashMode;
+    // cameraController
+    //     .getMaxExposureOffset()
+    //     .then((value) => maxAvailableExposureOffset = value);
+    // currentFlashMode = controller!.value.flashMode;
   }
 
   void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
@@ -117,7 +122,7 @@ extension CameraScreenAction on CameraScreenState {
                     onPressed: () {
                       final CroppedImage croppedImage = CroppedImage(imageFile,
                           currentFlashMode == FlashMode.off ? false : true);
-
+                      controller!.dispose();
                       Navigator.pop(context);
                       Navigator.pop(context, croppedImage);
                     },

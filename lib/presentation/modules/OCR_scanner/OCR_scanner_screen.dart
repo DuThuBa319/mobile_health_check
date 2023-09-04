@@ -104,8 +104,10 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
             title: 'Blood Glucose Meter',
             isShowAppBar: true,
             isShowLeadingButton: true,
-            backgroundColor: Colors.white,
-            appBarColor: Colors.blue,
+            appComponentColor: Colors.black,
+            backgroundColor: AppColor.blueD0F7FF,
+            appBarColor: AppColor.blueD0F7FF,
+            selectedIndex: 0,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
                 builder: (context, state) {
@@ -136,65 +138,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                               height: 30,
                             ),
                             state.viewModel.bloodGlucoseImageFile != null
-                                ? Center(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: 75,
-                                          width: 300,
-                                          margin:
-                                              const EdgeInsets.only(bottom: 28),
-                                          padding: const EdgeInsets.fromLTRB(
-                                              17, 10, 16, 0),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: AppColor.greyF3),
-                                          child: DefaultTextStyle(
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Wrap(
-                                                  direction: Axis.vertical,
-                                                  spacing: 10,
-                                                  children: [
-                                                    Text('Blood glucose:'),
-                                                  ],
-                                                ),
-                                                Wrap(
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.end,
-                                                  direction: Axis.vertical,
-                                                  spacing: 10,
-                                                  children: [
-                                                    Text(
-                                                        '${state.viewModel.bloodSugarEntity?.bloodSugar} mg/dL'),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 50),
-                                        Center(
-                                            child: CommonButton(
-                                          height: 70,
-                                          title: 'Upload',
-                                          onTap: () {
-                                            scanBloc.add(
-                                                UploadBloodPressureDataEvent());
-                                          },
-                                        ))
-                                      ],
-                                    ),
-                                  )
+                                ? bloodGlucoseCell(state)
                                 : Center(
                                     child: Column(
                                     children: [
@@ -230,7 +174,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
             appComponentColor: Colors.black,
             backgroundColor: AppColor.blueD0F7FF,
             appBarColor: AppColor.blueD0F7FF,
-            selectedIndex: 6,
+            selectedIndex: 0,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
                 builder: (context, state) {
@@ -264,71 +208,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                               height: 30,
                             ),
                             state.viewModel.bloodPressureImageFile != null
-                                ? Center(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: 150,
-                                          width: 350,
-                                          margin:
-                                              const EdgeInsets.only(bottom: 28),
-                                          padding: const EdgeInsets.fromLTRB(
-                                              17, 10, 16, 0),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: AppColor.greyF3),
-                                          child: DefaultTextStyle(
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Wrap(
-                                                  direction: Axis.vertical,
-                                                  spacing: 10,
-                                                  children: [
-                                                    Text('Systolic:'),
-                                                    Text('Diastolic:'),
-                                                    Text('Pulse:'),
-                                                  ],
-                                                ),
-                                                Wrap(
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.end,
-                                                  direction: Axis.vertical,
-                                                  spacing: 10,
-                                                  children: [
-                                                    Text(
-                                                        '${state.viewModel.bloodPressureEntity?.sys} mmHg'),
-                                                    Text(
-                                                        '${state.viewModel.bloodPressureEntity?.dia} mmHg'),
-                                                    Text(
-                                                        '${state.viewModel.bloodPressureEntity?.pulse} bpm'),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 50),
-                                        Center(
-                                            child: CommonButton(
-                                          height: 70,
-                                          title: 'Upload',
-                                          onTap: () {
-                                            scanBloc.add(
-                                                UploadBloodPressureDataEvent());
-                                          },
-                                        ))
-                                      ],
-                                    ),
-                                  )
+                                ? bloodPressureCell(state)
                                 : Center(
                                     child: Column(
                                     children: [
@@ -357,7 +237,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
     );
   }
 
-  Center temperatureCell(OCRScannerState state) {
+  Widget temperatureCell(OCRScannerState state) {
     return Center(
       child: Column(
         children: [
@@ -468,6 +348,259 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
             title: 'Upload',
             onTap: () {
               scanBloc.add(UploadTemperatureDataEvent());
+            },
+          ))
+        ],
+      ),
+    );
+  }
+
+  Widget bloodPressureCell(OCRScannerState state) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            height: SizeConfig.screenHeight * 0.24,
+            width: SizeConfig.screenWidth * 0.8,
+            margin: const EdgeInsets.only(bottom: 28),
+            padding: const EdgeInsets.fromLTRB(17, 10, 16, 0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: AppColor.greyF3),
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.width * 0.2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: const Color.fromARGB(255, 255, 188, 151),
+                        ),
+                        child: Image.asset(
+                          Assets.bloodPressureMeter,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text('CHỈ SỐ ĐO',
+                                style: AppTextTheme.title3.copyWith(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.05,
+                                    fontWeight: FontWeight.bold)),
+                            Text(
+                                DateFormat('HH:mm dd/MM/yyyy').format(state
+                                    .viewModel
+                                    .bloodPressureEntity!
+                                    .updatedDate!),
+                                style: AppTextTheme.title3.copyWith(
+                                    color: AppColor.gray767676,
+                                    fontSize: SizeConfig.screenWidth * 0.035,
+                                    fontWeight: FontWeight.bold))
+                          ]),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text('Huyết áp:',
+                      style: AppTextTheme.title3.copyWith(
+                          color: Colors.black,
+                          fontSize: SizeConfig.screenWidth * 0.05,
+                          fontWeight: FontWeight.bold)),
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 5, left: SizeConfig.screenWidth * 0.1),
+                    width: SizeConfig.screenWidth * 0.5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                                "${state.viewModel.bloodPressureEntity?.sys}/${state.viewModel.bloodPressureEntity?.dia}",
+                                style: AppTextTheme.title3.copyWith(
+                                    fontSize: SizeConfig.screenWidth * 0.1,
+                                    fontWeight: FontWeight.w500,
+                                    color: state.viewModel.bloodPressureEntity
+                                        ?.statusColor)),
+                            Text("mmHg",
+                                style: AppTextTheme.title3.copyWith(
+                                    color: const Color(0xff615A5A),
+                                    fontSize: SizeConfig.screenWidth * 0.04,
+                                    fontWeight: FontWeight.w500))
+                          ],
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.05,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "${state.viewModel.bloodPressureEntity?.pulse}",
+                                style: AppTextTheme.title3.copyWith(
+                                    color: state.viewModel.bloodPressureEntity
+                                        ?.statusColor,
+                                    fontSize: SizeConfig.screenWidth * 0.06,
+                                    fontWeight: FontWeight.w500)),
+                            Text("bpm",
+                                style: AppTextTheme.title3.copyWith(
+                                    color: const Color(0xff615A5A),
+                                    fontSize: SizeConfig.screenWidth * 0.04,
+                                    fontWeight: FontWeight.w500))
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: SizeConfig.screenHeight * 0.04),
+          Center(
+              child: CommonButton(
+            height: 70,
+            title: 'Upload',
+            onTap: () {
+              scanBloc.add(UploadTemperatureDataEvent());
+            },
+          ))
+        ],
+      ),
+    );
+  }
+
+  Widget bloodGlucoseCell(OCRScannerState state) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            height: SizeConfig.screenHeight * 0.24,
+            width: SizeConfig.screenWidth * 0.8,
+            margin: const EdgeInsets.only(bottom: 28),
+            padding: const EdgeInsets.fromLTRB(17, 10, 16, 0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: AppColor.greyF3),
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.width * 0.2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red[100],
+                        ),
+                        child: Image.asset(
+                          Assets.bloodGlucoseMeter,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text('CHỈ SỐ ĐO',
+                                style: AppTextTheme.title3.copyWith(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.05,
+                                    fontWeight: FontWeight.bold)),
+                            Text(
+                                DateFormat('HH:mm dd/MM/yyyy').format(state
+                                    .viewModel.bloodSugarEntity!.updatedDate!),
+                                style: AppTextTheme.title3.copyWith(
+                                    color: AppColor.gray767676,
+                                    fontSize: SizeConfig.screenWidth * 0.035,
+                                    fontWeight: FontWeight.bold))
+                          ]),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text('Đường huyết:',
+                      style: AppTextTheme.title3.copyWith(
+                          color: Colors.black,
+                          fontSize: SizeConfig.screenWidth * 0.05,
+                          fontWeight: FontWeight.bold)),
+                  Container(
+                      margin: EdgeInsets.only(
+                          top: SizeConfig.screenWidth * 0.0,
+                          left: SizeConfig.screenWidth * 0.1),
+                      width: SizeConfig.screenWidth * 0.5,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text:
+                                          "${state.viewModel.bloodSugarEntity?.bloodSugar}",
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: state.viewModel
+                                              .bloodSugarEntity?.statusColor,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.1,
+                                          fontWeight: FontWeight.w500)),
+                                  TextSpan(
+                                      text: " mg/dL",
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: const Color(0xff615A5A),
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.04,
+                                          fontWeight: FontWeight.w500))
+                                ],
+                              ),
+                            )
+                          ]))
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: SizeConfig.screenHeight * 0.04),
+          Center(
+              child: CommonButton(
+            height: 70,
+            title: 'Upload',
+            onTap: () {
+              scanBloc.add(UploadBloodGlucoseDataEvent());
             },
           ))
         ],

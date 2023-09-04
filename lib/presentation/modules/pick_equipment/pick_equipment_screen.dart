@@ -127,8 +127,8 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   child: Container(
                     padding: const EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    height: MediaQuery.of(context).size.width * 0.36,
+                    width: SizeConfig.screenWidth * 0.35,
+                    height: SizeConfig.screenWidth * 0.36,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: subCellColor,

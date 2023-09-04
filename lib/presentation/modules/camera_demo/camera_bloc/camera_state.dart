@@ -1,18 +1,21 @@
 part of 'camera_bloc.dart';
 
-class _ViewModel {
+class ViewModel {
   final File? imageFile;
-  const _ViewModel({this.imageFile});
+  final CameraController? cameraController;
+  const ViewModel({this.imageFile, this.cameraController});
 
-  _ViewModel copyWith({File? imageFile}) {
-    return _ViewModel(imageFile: imageFile ?? this.imageFile);
+  ViewModel copyWith({File? imageFile, CameraController? cameraController}) {
+    return ViewModel(
+        imageFile: imageFile ?? this.imageFile,
+        cameraController: cameraController ?? this.cameraController);
   }
 }
 
 // Abstract class
 abstract class CameraState {
   // ignore: library_private_types_in_public_api
-  final _ViewModel viewModel;
+  final ViewModel viewModel;
   // Status of the state. Camera "success" "failed" "loading"
   final BlocStatusState status;
 
@@ -22,7 +25,7 @@ abstract class CameraState {
   // "T" is generic class. "T" is a child class of CameraState (abstract class)
   T copyWith<T extends CameraState>({
     // ignore: library_private_types_in_public_api
-    _ViewModel? viewModel,
+    ViewModel? viewModel,
     required BlocStatusState status,
   }) {
     return _factories[T == CameraState ? runtimeType : T]!(
@@ -35,30 +38,65 @@ abstract class CameraState {
 class CameraInitialState extends CameraState {
   CameraInitialState({
     // ignore: library_private_types_in_public_api
-    _ViewModel viewModel =
-        const _ViewModel(), //ViewModel là dữ liệu trong state
+    ViewModel viewModel = const ViewModel(), //ViewModel là dữ liệu trong state
     BlocStatusState status = BlocStatusState.initial, //status của state
   }) : super(viewModel);
+}
+
+class CameraReadyState extends CameraState {
+  CameraReadyState({
+    // ignore: library_private_types_in_public_api
+    ViewModel viewModel = const ViewModel(), //ViewModel là dữ liệu trong state
+    BlocStatusState status = BlocStatusState.initial, //status của state
+  }) : super(viewModel, status: status);
+}
+
+class CameraStoppedState extends CameraState {
+  CameraStoppedState({
+    // ignore: library_private_types_in_public_api
+    ViewModel viewModel = const ViewModel(), //ViewModel là dữ liệu trong state
+    BlocStatusState status = BlocStatusState.initial, //status của state
+  }) : super(viewModel, status: status);
 }
 
 class GetImageState extends CameraState {
   GetImageState({
     // ignore: library_private_types_in_public_api
-    _ViewModel viewModel = const _ViewModel(),
+    ViewModel viewModel = const ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class UpdateUiState extends CameraState {
+  UpdateUiState({
+    // ignore: library_private_types_in_public_api
+    ViewModel viewModel = const ViewModel(), //ViewModel là dữ liệu trong state
+    BlocStatusState status = BlocStatusState.initial, //status của state
   }) : super(viewModel, status: status);
 }
 
 final _factories = <Type,
     Function(
-  _ViewModel viewModel,
+  ViewModel viewModel,
   BlocStatusState status,
 )>{
   CameraInitialState: (viewModel, status) => CameraInitialState(
         viewModel: viewModel,
         status: status,
       ),
+  CameraStoppedState: (viewModel, status) => CameraStoppedState(
+        viewModel: viewModel,
+        status: status,
+      ),
   GetImageState: (viewModel, status) => GetImageState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  CameraReadyState: (viewModel, status) => CameraReadyState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  UpdateUiState: (viewModel, status) => UpdateUiState(
         viewModel: viewModel,
         status: status,
       ),
