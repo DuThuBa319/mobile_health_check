@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../data/models/notification_onesignal_model/notification_onesignal_model.dart';
+import '../../../../common/singletons.dart';
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../../function.dart';
 import '../../../route/route_list.dart';
@@ -31,21 +31,14 @@ class _NotificationCellState extends State<NotificationCell> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (widget.notificationEntity?.read == false) {
-          NotificationModel setTrue = NotificationModel(
-            notificaitonId: widget.notificationEntity?.notificaitonId,
-            heading: widget.notificationEntity?.heading,
-            content: widget.notificationEntity?.content,
-            patientId: widget.notificationEntity?.patientId,
-            patientName: widget.notificationEntity?.patientName,
-            read: true,
-            sendDate: widget.notificationEntity?.sendDate,
-          );
+          await notificationData.decreaseUnreadNotificationCount();
           widget.notificationBloc!.add(SetReadedNotificationEvent(
-              notificationId: widget.notificationEntity?.notificaitonId,
-              notificationModel: setTrue));
+            notificationId: widget.notificationEntity?.notificaitonId,
+          ));
         }
+        // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, RouteList.patientInfor,
             arguments: widget.notificationEntity?.patientId);
       },
@@ -77,7 +70,7 @@ class _NotificationCellState extends State<NotificationCell> {
                     margin:
                         EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
                     padding: const EdgeInsets.only(top: 1, bottom: 1),
-                    height: SizeConfig.screenWidth * 0.12,
+                    height: SizeConfig.screenWidth * 0.11,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(5),
@@ -104,15 +97,6 @@ class _NotificationCellState extends State<NotificationCell> {
                                     style: AppTextTheme.body3.copyWith(
                                         fontSize: SizeConfig.screenWidth * 0.04,
                                         fontWeight: FontWeight.bold)),
-                                const SizedBox(
-                                  height: 2,
-                                ),
-                                Text(
-                                    "Id: ${widget.notificationEntity?.patientId}",
-                                    style: AppTextTheme.body3.copyWith(
-                                        color: const Color(0xff424242),
-                                        fontSize: SizeConfig.screenWidth * 0.04,
-                                        fontWeight: FontWeight.w500))
                               ],
                             )
                           ],

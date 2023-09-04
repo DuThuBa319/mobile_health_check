@@ -97,10 +97,8 @@ class _SettingMenuState extends State<SettingMenu> {
                             .unsubscribeFromNotifications(
                                 doctorId: userDataData.getUser()!.id!);
                         notificationData.clearData();
-
                         userDataData.clearData();
                         firebaseAuthService.signOut();
-
                         Navigator.pushNamed(context, RouteList.login);
                       })
                 ]),

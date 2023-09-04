@@ -5,18 +5,18 @@ part of 'notification_onesignal_repository.dart';
   as: NotificationRepository,
 )
 class NotificationListRepositoryImpl extends NotificationRepository {
-  final NotificationApiRepository _NotificationApi;
+  final NotificationApiRepository _notificationApi;
 
   NotificationListRepositoryImpl(
-    this._NotificationApi,
+    this._notificationApi,
   );
   @override
   Future<List<NotificationModel>> getNotificationListModels(String? id) {
-    return _NotificationApi.getNotificationListModels(id);
+    return _notificationApi.getNotificationListModels(id);
   }
   @override
-Future<void> setReadedNotificationModel(String? notificationId, NotificationModel? notificationModel){
-  return  _NotificationApi.setReadedNotificationModel(notificationId, notificationModel);
+Future<void> setReadedNotificationModel(String? notificationId){
+  return  _notificationApi.setReadedNotificationModel(notificationId);
 }
   // @override
   // Future<NotificationModel> addNotificationModel(NotificationModel Notification) {

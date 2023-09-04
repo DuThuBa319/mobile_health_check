@@ -50,4 +50,7 @@
 "updatePhoneNumberSuccessfullly":"Dổi số điện thoại đăng nhập thành công",
 "veryhightbodytemperature":"Nhiệt độ rất cao",
 "watchHistory":"Lịch sử",
-"weight":"Cân nặng"}
+"weight":"Cân nặng",
+"loadingData":"Đang tải dữ liệu",
+"dataLoaded" :"Tải dữ liệu thành công",
+"loadingError":"Tải dữ liệu không thành công"}

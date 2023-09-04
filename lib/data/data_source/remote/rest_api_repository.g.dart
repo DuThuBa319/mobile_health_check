@@ -135,16 +135,12 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> setReadedNotificationModel(
-    String? notificationId,
-    NotificationModel? notificationModel,
-  ) async {
+  Future<void> setReadedNotificationModel(String? notificationId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(notificationModel?.toJson() ?? <String, dynamic>{});
+    final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'PUT',
       headers: _headers,

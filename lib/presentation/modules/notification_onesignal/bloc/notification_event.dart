@@ -12,9 +12,8 @@ class GetNotificationListEvent extends NotificationEvent {
 
 class SetReadedNotificationEvent extends NotificationEvent {
   final String? notificationId;
-  final NotificationModel notificationModel;
 
   SetReadedNotificationEvent(
-      {required this.notificationId, required this.notificationModel})
+      {required this.notificationId})
       : super();
 }

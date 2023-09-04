@@ -52,4 +52,7 @@
 "updatePhoneNumberSuccessfullly":"Update Phone Number Successfullly",
 "veryhightbodytemperature":"Very high",
 "watchHistory":"History",
-"weight":"Weight"}
+"weight":"Weight",
+"loadingData":"Loading data",
+"dataLoaded" :"Data Loaded Successfully",
+"loadingError":"loading Error"}

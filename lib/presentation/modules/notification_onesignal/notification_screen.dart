@@ -36,7 +36,6 @@ class _NotificationListState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-
     return CustomScreenForm(
         isShowAppBar: true,
         isShowLeadingButton: true,
@@ -73,7 +72,6 @@ class _NotificationListState extends State<NotificationScreen> {
                 //           return Text("${state.unreadCount}");
                 //         })),
                 lineDecor(),
-
                 Expanded(
                   child: SmartRefresher(
                       controller: _refreshController,
@@ -132,32 +130,7 @@ class _NotificationListState extends State<NotificationScreen> {
                           })),
                 ),
 
-                // Expanded(
-                //   child:
-                //       // ListView.builder(
-                //       //     itemCount: messages.length,
-                //       //     itemBuilder: (context, index) {
-                //       //       return ListTile(
-                //       //         title: Text(messages[index]),
-                //       //       );
-                //       //     },
-                //       //   ),
-                //       //     ListView.builder(
-                //       //   itemCount: messages.length,
-                //       //   itemBuilder: (context, index) {
-                //       //     return ListTile(
-                //       //       title: Text(messages[index]),
-                //       //     );
-                //       //   },
-                //       // ),
-                //       ListView.builder(
-                //     shrinkWrap: true,
-                //     itemBuilder: (context, index) {
-                //       return NotificationCell(context, "");
-                //     },
-                //     itemCount: 10,
-                //   ),
-                // ),
+              
               ],
             ),
           ),

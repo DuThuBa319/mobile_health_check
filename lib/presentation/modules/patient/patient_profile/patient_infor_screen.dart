@@ -9,11 +9,11 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../common/singletons.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
+import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../common_widget/loading_widget.dart';
@@ -63,12 +63,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         isShowLeadingButton: true,
         appBarColor: const Color(0xff7BD4FF),
         backgroundColor: const Color(0xffDBF3FF),
-        leadingButton: IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()!.id!),
-            icon: const Icon(Icons.arrow_back)),
+        // leadingButton: IconButton(
+        //     onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
+        //         arguments: userDataData.getUser()!.id!),
+        //     icon: const Icon(Icons.arrow_back)),
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
-            listener: (context, state) {},
+            listener: _blocListener,
             builder: (context, state) {
               if (state is GetPatientInitialState) {
                 patientBloc

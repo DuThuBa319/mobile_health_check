@@ -24,8 +24,8 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
     return restApi.getNotificationListModels(id);
   }
 @override
-  Future<void> setReadedNotificationModel(String? notificationId,NotificationModel? notificationModel) {
-    return restApi.setReadedNotificationModel(notificationId,notificationModel);
+  Future<void> setReadedNotificationModel(String? notificationId) {
+    return restApi.setReadedNotificationModel(notificationId);
   }
   // @override
   // Future<NotificationModel> registNotification(NotificationModel Notification) {

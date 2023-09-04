@@ -10,7 +10,9 @@ class UserModel extends User {
   // final String? avatar;
   // @override
   // final DateTime? createdAt;
-  
+
+  @override
+  final int? unreadCount;
   @override
   final String? email;
   @override
@@ -21,25 +23,21 @@ class UserModel extends User {
   final String? phoneNumber;
   @override
   final String? role;
+  @override
   // @override
   // final String? status;
   // @override
   // final DateTime? dob;
 
-  const UserModel(
-      {
-      
-
-      this.email,
-      this.id,
-      this.name,
-      this.phoneNumber,
-      this.role,
-      
-      })
-      : super(
-          // avatar: avatar,
-          // createdAt: createdAt,
+  const UserModel({
+    this.unreadCount,
+    this.email,
+    this.id,
+    this.name,
+    this.phoneNumber,
+    this.role,
+  }) : super(
+          unreadCount: unreadCount,
           email: email,
           id: id,
           name: name,

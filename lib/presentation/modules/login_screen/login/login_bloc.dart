@@ -67,6 +67,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                   documentSnapshot.get(FieldPath(const ['phoneNumber'])),
               id: documentSnapshot.get(FieldPath(const ['id'])),
               name: documentSnapshot.get(FieldPath(const ['name']))));
+          if (userDataData.getUser()!.role == 'doctor') {
+            await notificationData.saveUnreadNotificationCount(
+                documentSnapshot.get(FieldPath(const ['unreadCount'])));
+            debugPrint("mmmmmmmmmmmmmm${notificationData.unreadCount}");
+          }
         } else {
           debugPrint('Document does not exist on the database');
         }

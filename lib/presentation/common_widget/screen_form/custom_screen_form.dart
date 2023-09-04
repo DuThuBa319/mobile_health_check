@@ -6,6 +6,8 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
+import '../../../di/di.dart';
+import '../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../function.dart';
 import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../route/route_list.dart';
@@ -76,7 +78,10 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
       //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
       await notificationData.decreaseUnreadNotificationCount();
-
+      final NotificationUsecase notificationUsecase =
+          getIt<NotificationUsecase>();
+      await notificationUsecase.setReadedNotificationEntity(
+          openedResult.notification.notificationId);
       // final data = openedResult.notification.body;
       // print("xxxxxxxaaaa$data");
       // widget.notificationBloc

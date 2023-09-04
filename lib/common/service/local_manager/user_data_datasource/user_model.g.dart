@@ -7,6 +7,7 @@ part of 'user_model.dart';
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
+      unreadCount: json['unreadCount'] as int?,
       email: json['email'] as String?,
       id: json['id'] as String?,
       name: json['name'] as String?,
@@ -23,6 +24,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
     }
   }
 
+  writeNotNull('unreadCount', instance.unreadCount);
   writeNotNull('email', instance.email);
   writeNotNull('id', instance.id);
   writeNotNull('name', instance.name);

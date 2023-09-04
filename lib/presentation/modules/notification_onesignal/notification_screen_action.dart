@@ -9,11 +9,11 @@ extension NotificationScreenAction on _NotificationListState {
     //   ..loadComplete();
     if (state is GetNotificationListState &&
         state.status == BlocStatusState.loading) {
-      showToast('Đang tải dữ liệu');
+      showToast(translation(context).loadingData);
     }
     if (state is GetNotificationListState &&
         state.status == BlocStatusState.success) {
-      showToast('Tải dữ liệu thành công');
+      showToast(translation(context).dataLoaded);
     }
   }
 }

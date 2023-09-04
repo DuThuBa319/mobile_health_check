@@ -8,23 +8,17 @@ extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
     //   ..loadComplete();
     if (state is GetHistoryDataState &&
         state.status == BlocStatusState.loading) {
-      showToast('Đang tải dữ liệu');
-      //   );
-    }
-
-    if (state is GetHistoryDataState &&
-        state.status == BlocStatusState.loading) {
-      showToast('Đang tải dữ liệu');
+      showToast(translation(context).loadingData);
       //   );
     }
     if (state is GetHistoryDataState &&
         state.status == BlocStatusState.success) {
-      showToast('Đã tải dữ liệu thành công');
+      showToast(translation(context).dataLoaded);
       // Navigator.of(context, rootNavigator: true).pop();
     }
     if (state is GetHistoryDataState &&
         state.status == BlocStatusState.failure) {
-      showToast('Tải dữ liệu không thành công');
+      showToast(translation(context).loadingError);
       // Navigator.of(context, rootNavigator: true).pop();
     }
   }

@@ -35,7 +35,7 @@ abstract class RestApiRepository {
 
   
 @PUT("/api/Notification/{notificationId}/seen") //update
-  Future<void> setReadedNotificationModel(@Path("notificationId") String? notificationId, @Body() NotificationModel? notificationModel);
+  Future<void> setReadedNotificationModel(@Path("notificationId") String? notificationId);
 
 
 

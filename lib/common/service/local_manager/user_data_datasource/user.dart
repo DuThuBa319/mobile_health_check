@@ -11,6 +11,7 @@ class User extends Equatable {
   final String? name;
   final String? phoneNumber;
   final String? role;
+  final int? unreadCount;
   // final String? status;
   // final DateTime? dob;
 
@@ -18,6 +19,7 @@ class User extends Equatable {
       {
       // this.avatar,
       // this.createdAt,
+      this.unreadCount,
       this.email,
       this.id,
       this.name,
@@ -30,7 +32,9 @@ class User extends Equatable {
   @override
   List<Object?> get props => [
         // avatar,
-        // createdAt,
+        // createdAt
+        // ,
+        unreadCount,
         email,
         id,
         name,

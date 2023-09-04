@@ -2,6 +2,29 @@ part of 'patient_infor_screen.dart';
 
 // ignore: library_private_types_in_public_api
 extension PatientInforScreenAction on _PatientInforScreenState {
+ void _blocListener(BuildContext context, GetPatientState state) {
+    // logger.d('change state', state);
+    // _refreshController
+    //   ..refreshCompleted()
+    //   ..loadComplete();
+    if (state is GetPatientInforState &&
+        state.status == BlocStatusState.loading) {
+      showToast(translation(context).loadingData);
+    }
+    if (state is GetPatientInforState &&
+        state.status == BlocStatusState.success) {
+      showToast(translation(context).dataLoaded);
+    }
+    if (state is GetPatientInforState &&
+        state.status == BlocStatusState.failure) {
+      showToast(translation(context).loadingError);
+    }
+  }
+
+
+
+
+  
   Widget infoText({required String? title, required String? content}) {
     return Column(
       children: [

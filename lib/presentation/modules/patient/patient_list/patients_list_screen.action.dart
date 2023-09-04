@@ -8,11 +8,15 @@ extension PatientListScreenAction on _PatientListState {
     //   ..loadComplete();
     if (state is GetPatientListState &&
         state.status == BlocStatusState.loading) {
-      showToast('Đang tải dữ liệu');
+      showToast(translation(context).loadingData);
     }
     if (state is GetPatientListState &&
         state.status == BlocStatusState.success) {
-      showToast('Tải dữ liệu thành công');
+      showToast(translation(context).dataLoaded);
+    }
+    if (state is GetPatientListState &&
+        state.status == BlocStatusState.failure) {
+      showToast(translation(context).loadingError);
     }
     if (state is RegistPatientState &&
         state.status == BlocStatusState.success) {
@@ -25,7 +29,8 @@ extension PatientListScreenAction on _PatientListState {
     Navigator.pushNamed(context, RouteList.registPatient,
         arguments: patientBloc);
   }
-   Future<bool> _onWillPop() async {
+
+  Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
           barrierDismissible: false,
