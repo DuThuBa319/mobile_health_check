@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 
-import '../../onesginal/bloc/notification_bloc.dart';
 import '../base_datasource.dart';
 
 import 'notification_datasource.dart';
@@ -12,7 +11,6 @@ import 'notification_datasource.dart';
 )
 class NotificationDataSourceImpl extends BaseDataSource
     implements NotificationDataSource {
-  final NotificationBloc notificationBloc = NotificationBloc();
   @override
   Future<void> clearData() async {
     await localDataManager.preferencesHelper.remove('unreadCount');
@@ -36,6 +34,8 @@ class NotificationDataSourceImpl extends BaseDataSource
   @override
   int? get unreadCount =>
       localDataManager.preferencesHelper.getData("unreadCount");
+  @override
+  int? get localeId => localDataManager.preferencesHelper.getData("localeId");
 
   // @override
   // User? getUser() {
@@ -56,6 +56,11 @@ class NotificationDataSourceImpl extends BaseDataSource
   @override
   Future<void> saveUnreadNotificationCount(int count) async {
     localDataManager.preferencesHelper.saveData("unreadCount", count);
+  }
+
+  @override
+  Future<void> saveLocale(int localeId) async {
+    localDataManager.preferencesHelper.saveData("localeId", localeId);
   }
 
   @override

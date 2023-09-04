@@ -69,10 +69,30 @@ class _LoginState extends State<LoginScreen> {
                               // ignore: use_build_context_synchronously
                               MyApp.setLocale(context, locale);
                               showToast("Change language successfully");
+                              await notificationData
+                                  .saveLocale(selectedLanguage!.id);
+                              print(notificationData.localeId);
+                              setState(() {});
                             },
-                            child: Image.asset(
-                              Assets.enFlag,
-                              scale: 12,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  Assets.enFlag,
+                                  scale: SizeConfig.screenWidth * 0.03,
+                                ),
+                                Positioned(
+                                  left: SizeConfig.screenWidth * 0.095,
+                                  top: 8,
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    // ignore: unrelated_type_equality_checks
+                                    color: (notificationData.localeId == 1)
+                                        ? Colors.blue
+                                        : Colors.grey,
+                                    size: SizeConfig.screenWidth * 0.04,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           SizedBox(
@@ -86,10 +106,30 @@ class _LoginState extends State<LoginScreen> {
                               // ignore: use_build_context_synchronously
                               MyApp.setLocale(context, locale);
                               showToast("Đổi ngôn ngữ thành công");
+                              await notificationData
+                                  .saveLocale(selectedLanguage!.id);
+                              print(notificationData.localeId);
+                              setState(() {});
                             },
-                            child: Image.asset(
-                              Assets.vnFlag,
-                              scale: 12,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  Assets.vnFlag,
+                                  scale: SizeConfig.screenWidth * 0.03,
+                                ),
+                                Positioned(
+                                  left: SizeConfig.screenWidth * 0.095,
+                                  top: 8,
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    // ignore: unrelated_type_equality_checks
+                                    color: (notificationData.localeId == 2)
+                                        ? Colors.blue
+                                        : Colors.grey,
+                                    size: SizeConfig.screenWidth * 0.04,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ],
@@ -235,7 +275,8 @@ class _LoginState extends State<LoginScreen> {
                             bottom: SizeConfig.screenWidth * 0.2),
                         decoration: BoxDecoration(
                             color: AppColor.topGradient,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.screenWidth * 0.03)),
                         height: SizeConfig.screenWidth * 0.15,
                         width: SizeConfig.screenWidth * 0.9,
                         child: Center(

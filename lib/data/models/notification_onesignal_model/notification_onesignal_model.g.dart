@@ -8,13 +8,15 @@ part of 'notification_onesignal_model.dart';
 
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
     NotificationModel(
-      content: json['content'] as String?,
+      notificaitonId: json['notificaitonId'] as String?,
       heading: json['heading'] as String?,
+      content: json['content'] as String?,
+      patientId: json['patientId'] as String?,
       patientName: json['patientName'] as String?,
-      read: json['read'] as bool?,
-      sendDate: json['sendDate'] == null
+      read: json['seen'] as bool?,
+      sendDate: json['sendAt'] == null
           ? null
-          : DateTime.parse(json['sendDate'] as String),
+          : DateTime.parse(json['sendAt'] as String),
     );
 
 Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
@@ -26,11 +28,13 @@ Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
     }
   }
 
-  writeNotNull('patientName', instance.patientName);
-  writeNotNull('content', instance.content);
+  writeNotNull('notificaitonId', instance.notificaitonId);
   writeNotNull('heading', instance.heading);
-  writeNotNull('read', instance.read);
-  writeNotNull('sendDate', instance.sendDate?.toIso8601String());
+  writeNotNull('content', instance.content);
+  writeNotNull('patientId', instance.patientId);
+  writeNotNull('patientName', instance.patientName);
+  writeNotNull('seen', instance.read);
+  writeNotNull('sendAt', instance.sendDate?.toIso8601String());
   return val;
 }
 

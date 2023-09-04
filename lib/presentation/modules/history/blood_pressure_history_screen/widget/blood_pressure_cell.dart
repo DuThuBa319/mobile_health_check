@@ -101,6 +101,8 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                   children: [
                     Text('${widget.response?.sys}/${widget.response?.dia}',
                         style: AppTextTheme.body1.copyWith(
+                          color: widget.response?.statusColor,
+
                           fontSize: SizeConfig.screenWidth *
                               0.1, // 0,1 xấp xỉ 38 39 40
                         )),
@@ -119,6 +121,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                   children: [
                     Text('${widget.response?.pulse}',
                         style: AppTextTheme.body1.copyWith(
+                            color: widget.response?.statusColor,
                             fontSize:
                                 SizeConfig.screenWidth * 0.08, //0.08 xấp xỉ 30
                             fontWeight: FontWeight.w400)),

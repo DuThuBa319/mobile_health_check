@@ -7,6 +7,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
 import '../../../function.dart';
+import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../route/route_list.dart';
 
 class CustomScreenForm extends StatefulWidget {
@@ -24,9 +25,12 @@ class CustomScreenForm extends StatefulWidget {
   final bool isShowRightButon;
   final Widget? rightButton;
   final int? unreadCount;
-
+  final String? messageBody;
+  final NotificationBloc? notificationBloc;
   const CustomScreenForm({
     super.key,
+    this.notificationBloc,
+    this.messageBody,
     this.unreadCount,
     this.appBarColor = Colors.black,
     this.backgroundColor = Colors.white,
@@ -61,10 +65,10 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       //   'Onesignal ShowInForeground ${event.notification.additionalData}',
       // );
       await notificationData.increaseUnreadNotificationCount();
+
       // widget.notificationBloc
       //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
       print('###${notificationData.unreadCount}');
-
       event.complete(event.notification);
       setState(() {});
     });
@@ -72,10 +76,16 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
       //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
       await notificationData.decreaseUnreadNotificationCount();
+
+      // final data = openedResult.notification.body;
+      // print("xxxxxxxaaaa$data");
       // widget.notificationBloc
       //     ?.add(DecreaseNotificationEvent(count: notificationData.unreadCount));
       print('###${notificationData.unreadCount}');
-      setState(() {});
+      setState(() {
+        Navigator.pushNamed(context, RouteList.patientInfor,
+            arguments: openedResult.notification.additionalData?["patientId"]);
+      });
     });
 
     return Scaffold(
@@ -252,7 +262,8 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       Navigator.pushNamed(context, RouteList.setting);
     }
     if (index == 1 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.notification);
+      Navigator.pushNamed(context, RouteList.notification,
+          arguments: userDataData.getUser()!.id!);
     }
   }
 

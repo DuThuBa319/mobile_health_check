@@ -37,6 +37,7 @@ class PreferencesHelperImpl extends PreferencesHelper {
     if (data is double) {
       prefs?.setDouble(key, data);
     }
+    
     if (data is List<String>) {
       prefs?.setStringList(key, data);
     }

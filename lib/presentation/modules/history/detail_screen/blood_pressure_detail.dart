@@ -25,7 +25,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 1500), () {
+    Timer(const Duration(milliseconds: 3000), () {
       setState(() {
         _isLoading = false;
       });
@@ -107,8 +107,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                     )
                   : CustomImagePicker(
                       imagePath: widget.bloodPressureEntity?.imageLink ??
-                          widget.bloodPressureEntity?.imageLink! ??
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                          widget.bloodPressureEntity?.imageLink!,
                       isOnTapActive: true,
                       isforAvatar: false,
                     ),
@@ -220,7 +219,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                 title: translation(context).back,
                 buttonColor: Colors.red,
                 onTap: () {
-                  Navigator.pop(context);
+                  if (_isLoading == false) {
+                    Navigator.pop(context);
+                  }
                 },
               )
             ],

@@ -45,8 +45,15 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
           ),
           height: SizeConfig.screenHeight * 0.15,
           width: SizeConfig.screenWidth,
-          margin:  EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02, SizeConfig.screenWidth * 0.02, SizeConfig.screenWidth * 0.02, SizeConfig.screenWidth * 0.02),
-          padding:  EdgeInsets.only(top: SizeConfig.screenWidth * 0.02, left: SizeConfig.screenWidth * 0.02, right: SizeConfig.screenWidth * 0.02),
+          margin: EdgeInsets.fromLTRB(
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.02),
+          padding: EdgeInsets.only(
+              top: SizeConfig.screenWidth * 0.02,
+              left: SizeConfig.screenWidth * 0.02,
+              right: SizeConfig.screenWidth * 0.02),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +72,7 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                           Assets.temperature,
                           fit: BoxFit.cover,
                         )),
-                     SizedBox(
+                    SizedBox(
                       width: SizeConfig.screenWidth * 0.02,
                     ),
                     Column(
@@ -101,6 +108,7 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                       TextSpan(
                           text: '${widget.response?.temperature}',
                           style: AppTextTheme.body1.copyWith(
+                              color: widget.response?.statusColor,
                               fontSize: SizeConfig.screenWidth * 0.1,
                               fontWeight: FontWeight.w400)),
                       TextSpan(

@@ -25,7 +25,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 1500), () {
+    Timer(const Duration(milliseconds: 3000), () {
       setState(() {
         _isLoading = false;
       });
@@ -37,7 +37,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.08, 12, 10),
+        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.06, 12, 10),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -55,7 +55,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.1,
+                height: SizeConfig.screenWidth * 0.08,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -85,6 +85,9 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                       )
                     ],
                   )),
+              SizedBox(
+                height: SizeConfig.screenWidth * 0.02,
+              ),
               _isLoading
                   ? Container(
                       margin: const EdgeInsets.only(left: 15),
@@ -94,8 +97,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                     )
                   : CustomImagePicker(
                       imagePath: widget.bloodSugarEntity?.imageLink ??
-                          widget.bloodSugarEntity?.imageLink! ??
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                          widget.bloodSugarEntity?.imageLink! ,
                       isOnTapActive: true,
                       isforAvatar: false,
                     ),
@@ -183,7 +185,9 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                 title: translation(context).back,
                 buttonColor: Colors.red,
                 onTap: () {
-                  Navigator.pop(context);
+                if (_isLoading == false) {
+                    Navigator.pop(context);
+                  }
                 },
               )
             ],

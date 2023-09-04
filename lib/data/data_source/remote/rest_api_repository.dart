@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:mobile_health_check/data/models/notification_onesignal_model/notification_onesignal_model.dart';
 import 'package:retrofit/http.dart';
 import '../../models/blood_pressure_model/blood_pressure_model.dart';
 import '../../models/blood_sugar_model/blood_sugar_model.dart';
@@ -26,8 +27,18 @@ abstract class RestApiRepository {
   Future<DoctorInforModel> getDoctorInforModel(
     @Path('id') String? id,
   );
-  // @POST("") //regist
-  // Future<PatientModel> registPatient(@Body() PatientModel patient);
+
+@GET('/api/Notification/{id}') //để hiện detail
+  Future<List<NotificationModel>> getNotificationListModels(
+    @Path('id') String? id,
+  );
+
+  
+@PUT("/api/Notification/{notificationId}/seen") //update
+  Future<void> setReadedNotificationModel(@Path("notificationId") String? notificationId, @Body() NotificationModel? notificationModel);
+
+
+
 
   @PUT("/{id}") //update
   Future<void> updatePatient(@Path("id") int id, @Body() PatientModel patient);

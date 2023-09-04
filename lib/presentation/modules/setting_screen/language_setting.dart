@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
+import '../../../common/singletons.dart';
 import '../../../main.dart';
 import '../../common_widget/common_button.dart';
 import '../../common_widget/line_decor.dart';
@@ -19,9 +20,6 @@ class SettingLanguage extends StatefulWidget {
 }
 
 class _SettingLanguageState extends State<SettingLanguage> {
-  bool select1 = false;
-  bool select2 = false;
-
   @override
   Widget build(BuildContext context) {
     final sreenHeight = MediaQuery.of(context).size.height;
@@ -85,22 +83,25 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                     height: sreenHeight * 0.05,
                                     width: sreenHeight * 0.05,
                                     decoration: BoxDecoration(
-                                      color: select1 == false
+                                      color: (notificationData.localeId == 2)
                                           ? Colors.white
                                           : Colors.blue,
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                           width: 3,
-                                          color: select1 == false
-                                              ? AppColor.topGradient
-                                              : AppColor.backgroundColor),
+                                          color:
+                                              (notificationData.localeId == 2)
+                                                  ? AppColor.topGradient
+                                                  : AppColor.backgroundColor),
                                     ),
                                   ),
-                                  onTap: () {
-                                    setState(() {
-                                      select1 = true;
-                                      select2 = false;
-                                    });
+                                  onTap: () async {
+                                    selectedLanguage =
+                                        Language(1, ENGLISH, 'en');
+                                    await notificationData
+                                        .saveLocale(selectedLanguage!.id);
+                                    setState(() {});
+                                    // print(notificationData.localeId);
                                   }),
                             ],
                           ),
@@ -124,22 +125,25 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                       height: sreenHeight * 0.05,
                                       width: sreenHeight * 0.05,
                                       decoration: BoxDecoration(
-                                        color: select2 == false
+                                        color: (notificationData.localeId == 1)
                                             ? Colors.white
                                             : Colors.blue,
                                         shape: BoxShape.circle,
                                         border: Border.all(
                                             width: 3,
-                                            color: select2 == false
-                                                ? AppColor.topGradient
-                                                : AppColor.backgroundColor),
+                                            color:
+                                                (notificationData.localeId == 1)
+                                                    ? AppColor.topGradient
+                                                    : AppColor.backgroundColor),
                                       ),
                                     ),
-                                    onTap: () {
-                                      setState(() {
-                                        select2 = true;
-                                        select1 = false;
-                                      });
+                                    onTap: () async {
+                                      selectedLanguage =
+                                          Language(2, VIETNAMESE, 'vi');
+                                      await notificationData
+                                          .saveLocale(selectedLanguage!.id);
+                                      // print(notificationData.localeId);
+                                      setState(() {});
                                     })
                               ]),
                         ),
@@ -153,24 +157,23 @@ class _SettingLanguageState extends State<SettingLanguage> {
                       title: translation(context).save,
                       buttonColor: AppColor.saveSetting,
                       onTap: () async {
-                        if (select1 == true && select2 == false) {
+                        if (notificationData.localeId == 1) {
                           selectedLanguage = Language(1, ENGLISH, 'en');
                           Locale locale =
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
                           showToast("Change language successfully");
-                          Navigator.pushNamed(context, RouteList.setting);
-                        } else if (select2 == true && select1 == false) {
+                        }
+                        if (notificationData.localeId == 2) {
                           selectedLanguage = Language(2, VIETNAMESE, 'vi');
                           Locale locale =
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
                           showToast("Đổi ngôn ngữ thành công");
-
-                          Navigator.pushNamed(context, RouteList.setting);
                         }
+                        Navigator.pushNamed(context, RouteList.setting);
                       },
                     ),
                   )

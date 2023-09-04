@@ -42,6 +42,7 @@ class MyApp extends StatefulWidget {
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state?.setLocale(newLocale);
+    // ignore: unrelated_type_equality_checks
   }
 }
 
@@ -51,6 +52,13 @@ class _MyAppState extends State<MyApp> {
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
+      if (_locale?.languageCode == 'en') {
+        notificationData.saveLocale(1);
+      }
+      if (_locale?.languageCode == 'vi') {
+        notificationData.saveLocale(2);
+      }
+      // ignore: unrelated_type_equality_checks
     });
   }
 

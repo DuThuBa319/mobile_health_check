@@ -37,8 +37,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    int? personAge = widget.age;
-    int? personGender = widget.gender;
+
 
     SizeConfig.init(context);
     return Container(
@@ -68,8 +67,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             borderRadius: BorderRadius.circular(15),
                             child: Image.network(
                               widget.imagePath ??
-                                  widget.imagePath! ??
-                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
+                                  widget.imagePath!,
                               fit: BoxFit.fill,
                             ),
                           ),

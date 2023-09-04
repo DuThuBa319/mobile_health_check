@@ -97,7 +97,7 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                       TextSpan(
                           text: '${widget.response!.bloodSugar}',
                           style: AppTextTheme.title3.copyWith(
-                              color: Colors.black,
+                              color:  widget.response?.statusColor,
                               fontSize: SizeConfig.screenWidth * 0.1,
                               fontWeight: FontWeight.w500)),
                       TextSpan(

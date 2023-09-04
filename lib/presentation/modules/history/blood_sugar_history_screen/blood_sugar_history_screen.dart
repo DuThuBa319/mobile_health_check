@@ -36,6 +36,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
       .format(DateTime.now().add(const Duration(days: -1)));
   String strDateTo = DateFormat('dd/MM/yyyy').format(DateTime.now());
   HistoryBloc get historyBloc => BlocProvider.of(context);
+  
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
