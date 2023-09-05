@@ -39,4 +39,5 @@ class Assets {
   static const String doctor = 'lib/assets/images/doctor.png';
   static const String vnFlag = 'lib/assets/images/vietnam.png';
   static const String enFlag = 'lib/assets/images/usa.png';
+  static const String edit = 'lib/assets/images/edit.png';
 }

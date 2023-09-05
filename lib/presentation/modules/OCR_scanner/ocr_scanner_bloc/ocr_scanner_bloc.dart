@@ -29,11 +29,13 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     // on<GetInitialBloodPressureDataEvent>(_onGetInitialBloodPressureData);
     on<GetBloodPressureDataEvent>(_onGetBloodPressureData);
     on<UploadBloodPressureDataEvent>(_onUploadBloodPressureData);
+    on<EditBloodPressureDataEvent>(_onEditBloodPressureData);
     on<GetBloodGlucoseDataEvent>(_onGetBloodGlucoseData);
     on<UploadBloodGlucoseDataEvent>(_onUploadBloodGlucoseData);
     on<GetTemperatureDataEvent>(_onGetTemperatureData);
     on<UploadTemperatureDataEvent>(_onUploadTemperatureData);
   }
+
   Future<void> _onGetBloodPressureData(
     GetBloodPressureDataEvent event,
     Emitter<OCRScannerState> emit,
@@ -70,6 +72,44 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         state.copyWith(
           status: BlocStatusState.success,
           viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onEditBloodPressureData(
+    EditBloodPressureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetBloodPressureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final bloodPressureEntity = BloodPressureEntity(
+          dia: event.editedDia,
+          sys: event.editedSys,
+          pulse: event.editedPul,
+          updatedDate: DateTime.now());
+      state.viewModel.copyWith(bloodPressureEntity: bloodPressureEntity);
+      print("mmmmmmm${bloodPressureEntity.dia}");
+      print("mmmmmmm${bloodPressureEntity.sys}");
+
+      print("mmmmmmm${bloodPressureEntity.pulse}");
+
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
         ),
       );
     } catch (e) {

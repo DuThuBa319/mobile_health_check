@@ -33,3 +33,15 @@ class UploadBloodGlucoseDataEvent extends OCRScannerEvent {
 class UploadTemperatureDataEvent extends OCRScannerEvent {
   UploadTemperatureDataEvent();
 }
+
+class EditBloodPressureDataEvent extends OCRScannerEvent {
+  final int? editedSys;
+  final int? editedDia;
+  final int? editedPul;
+  final BuildContext context;
+  EditBloodPressureDataEvent(
+      {required this.context,
+      required this.editedDia,
+      required this.editedPul,
+      required this.editedSys});
+}

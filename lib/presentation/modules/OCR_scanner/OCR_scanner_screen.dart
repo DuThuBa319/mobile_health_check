@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import 'package:flutter/material.dart';
+import '../../../classes/language_constant.dart';
 import '../../../function.dart';
 import '../../common_widget/assets.dart';
 import '../../common_widget/dialog/show_toast.dart';
@@ -30,7 +31,13 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
   String? message = "";
 
   OCRScannerBloc get scanBloc => BlocProvider.of(context);
-  TextEditingController textController = TextEditingController();
+  TextEditingController editSys = TextEditingController();
+  TextEditingController editDia = TextEditingController();
+  TextEditingController editPul = TextEditingController();
+
+  TextEditingController editBloogSugarController = TextEditingController();
+  TextEditingController editBodyTemperatureController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -54,7 +61,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                   }
                   return SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(SizeConfig.screenWidth * 0.05),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -63,26 +70,27 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                             //   'Thermometer',
                             //   style: AppTextTheme.title2,
                             // ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: SizeConfig.screenWidth * 0.05),
                             imagePicker(state, context,
                                 imageFile: state.viewModel.temperatureImageFile,
                                 event:
                                     GetTemperatureDataEvent(context: context)),
-                            const SizedBox(
-                              height: 30,
+                            SizedBox(
+                              height: SizeConfig.screenWidth * 0.08,
                             ),
                             state.viewModel.temperatureImageFile != null
                                 ? temperatureCell(state)
                                 : Center(
                                     child: Column(
                                     children: [
-                                      SizedBox(
-                                          height:
-                                              SizeConfig.screenHeight * 0.33),
+                                      // SizedBox(
+                                      //     height:
+                                      //         SizeConfig.screenHeight * 0.33),
                                       CommonButton(
                                         buttonColor: AppColor.greyD9,
                                         textColor: Colors.black,
-                                        height: 70,
+                                        height: SizeConfig.screenWidth * 0.18,
+                                        width: SizeConfig.screenWidth * 0.8,
                                         title: 'Upload',
                                         onTap: () {
                                           // scanBloc.add(UploadBloodPressureDataEvent());
@@ -90,9 +98,9 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       ),
                                     ],
                                   )),
-                            // const SizedBox(height: 30),
+                            // const SizedBox(height: SizeConfig.screenWidth*0.08),
                             // const Center(
-                            //     child: CommonButton(height: 70, title: 'Cập nhật'))
+                            //     child: CommonButton(height: SizeConfig.screenWidth*0.18, title: 'Cập nhật'))
                           ]),
                     ),
                   );
@@ -119,7 +127,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                   }
                   return SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(SizeConfig.screenWidth * 0.05),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -128,27 +136,28 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                             //   'Blood Glucose Meter',
                             //   style: AppTextTheme.title2,
                             // ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: SizeConfig.screenWidth * 0.05),
                             imagePicker(state, context,
                                 imageFile:
                                     state.viewModel.bloodGlucoseImageFile,
                                 event:
                                     GetBloodGlucoseDataEvent(context: context)),
-                            const SizedBox(
-                              height: 30,
+                            SizedBox(
+                              height: SizeConfig.screenWidth * 0.08,
                             ),
                             state.viewModel.bloodGlucoseImageFile != null
                                 ? bloodGlucoseCell(state)
                                 : Center(
                                     child: Column(
                                     children: [
-                                      SizedBox(
-                                          height:
-                                              SizeConfig.screenHeight * 0.33),
+                                      // SizedBox(
+                                      //     height:
+                                      //         SizeConfig.screenHeight * 0.33),
                                       CommonButton(
                                         buttonColor: AppColor.greyD9,
                                         textColor: Colors.black,
-                                        height: 70,
+                                        height: SizeConfig.screenWidth * 0.18,
+                                        width: SizeConfig.screenWidth * 0.8,
                                         title: 'Upload',
                                         onTap: () {
                                           // scanBloc.add(UploadBloodPressureDataEvent());
@@ -157,9 +166,9 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                     ],
                                   )),
 
-                            //const SizedBox(height: 30),
+                            //const SizedBox(height: SizeConfig.screenWidth*0.08),
                             // const Center(
-                            //     child: CommonButton(height: 70, title: 'Cập nhật'))
+                            //     child: CommonButton(height: SizeConfig.screenWidth*0.18, title: 'Cập nhật'))
                           ]),
                     ),
                   );
@@ -173,7 +182,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
             isShowLeadingButton: true,
             appComponentColor: Colors.black,
             backgroundColor: AppColor.blueD0F7FF,
-            appBarColor: AppColor.blueD0F7FF,
+            appBarColor: AppColor.topGradient,
             selectedIndex: 0,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
@@ -189,7 +198,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                   }
                   return SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(SizeConfig.screenWidth * 0.05),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -198,27 +207,28 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                             //   'Blood Pressure Meter',
                             //   style: AppTextTheme.title2,
                             // ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: SizeConfig.screenWidth * 0.05),
                             imagePicker(state, context,
                                 imageFile:
                                     state.viewModel.bloodPressureImageFile,
                                 event: GetBloodPressureDataEvent(
                                     context: context)),
-                            const SizedBox(
-                              height: 30,
+                            SizedBox(
+                              height: SizeConfig.screenWidth * 0.08,
                             ),
                             state.viewModel.bloodPressureImageFile != null
                                 ? bloodPressureCell(state)
                                 : Center(
                                     child: Column(
                                     children: [
-                                      SizedBox(
-                                          height:
-                                              SizeConfig.screenHeight * 0.33),
+                                      // SizedBox(
+                                      //     height:
+                                      //         SizeConfig.screenHeight * 0.33),
                                       CommonButton(
                                         buttonColor: AppColor.greyD9,
                                         textColor: Colors.black,
-                                        height: 70,
+                                        height: SizeConfig.screenWidth * 0.18,
+                                        width: SizeConfig.screenWidth * 0.8,
                                         title: 'Upload',
                                         onTap: () {
                                           // scanBloc.add(UploadBloodPressureDataEvent());
@@ -244,14 +254,20 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           Container(
             height: SizeConfig.screenHeight * 0.24,
             width: SizeConfig.screenWidth * 0.8,
-            margin: const EdgeInsets.only(bottom: 28),
-            padding: const EdgeInsets.fromLTRB(17, 10, 16, 0),
+            margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
+            padding: EdgeInsets.fromLTRB(
+                SizeConfig.screenWidth * 0.04,
+                SizeConfig.screenWidth * 0.03,
+                SizeConfig.screenWidth * 0.04,
+                0),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8), color: AppColor.greyF3),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.screenWidth * 0.05),
+                color: AppColor.white),
             child: DefaultTextStyle(
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 16,
+                fontSize: SizeConfig.screenWidth * 0.04,
                 fontWeight: FontWeight.w400,
               ),
               child: Column(
@@ -261,43 +277,61 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.03),
                         width: MediaQuery.of(context).size.width * 0.2,
                         height: MediaQuery.of(context).size.width * 0.2,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.blue[100],
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.screenWidth * 0.05),
+                          color: AppColor.bodyTemperatureColor,
                         ),
                         child: Image.asset(
-                          Assets.thermometer,
+                          Assets.temperature,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      Column(
+                      SizedBox(
+                        width: SizeConfig.screenWidth * 0.5,
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text('CHỈ SỐ ĐO',
-                                style: AppTextTheme.title3.copyWith(
-                                    color: Colors.black,
-                                    fontSize: SizeConfig.screenWidth * 0.05,
-                                    fontWeight: FontWeight.bold)),
-                            Text(
-                                DateFormat('HH:mm dd/MM/yyyy').format(state
-                                    .viewModel.temperatureEntity!.updatedDate!),
-                                style: AppTextTheme.title3.copyWith(
-                                    color: AppColor.gray767676,
-                                    fontSize: SizeConfig.screenWidth * 0.035,
-                                    fontWeight: FontWeight.bold))
-                          ]),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(translation(context).bodyTemperature,
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: Colors.black,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.045,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                      DateFormat('HH:mm dd/MM/yyyy').format(
+                                          state.viewModel.temperatureEntity!
+                                              .updatedDate!),
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: AppColor.gray767676,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.035,
+                                          fontWeight: FontWeight.bold))
+                                ]),
+                            GestureDetector(
+                                child: SizedBox(
+                                    width: SizeConfig.screenWidth * 0.075,
+                                    height: SizeConfig.screenWidth * 0.075,
+                                    child: Image.asset(Assets.edit)))
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: SizeConfig.screenWidth * 0.03),
                   Text('Thân nhiệt:',
                       style: AppTextTheme.title3.copyWith(
                           color: Colors.black,
@@ -305,7 +339,8 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                           fontWeight: FontWeight.bold)),
                   Container(
                     margin: EdgeInsets.only(
-                        top: 20, left: SizeConfig.screenWidth * 0.1),
+                        top: SizeConfig.screenWidth * 0.05,
+                        left: SizeConfig.screenWidth * 0.1),
                     width: SizeConfig.screenWidth * 0.5,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -318,7 +353,8 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                   text:
                                       "${state.viewModel.temperatureEntity?.temperature}",
                                   style: AppTextTheme.title3.copyWith(
-                                      color: Colors.black,
+                                      color: state.viewModel.temperatureEntity
+                                          ?.statusColor,
                                       fontSize: 35,
                                       fontWeight: FontWeight.w500)),
                               TextSpan(
@@ -331,7 +367,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                   text: "C",
                                   style: AppTextTheme.title3.copyWith(
                                       color: const Color(0xff615A5A),
-                                      fontSize: 30,
+                                      fontSize: SizeConfig.screenWidth * 0.08,
                                       fontWeight: FontWeight.w500))
                             ]))
                       ],
@@ -344,7 +380,8 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           SizedBox(height: SizeConfig.screenHeight * 0.04),
           Center(
               child: CommonButton(
-            height: 70,
+            height: SizeConfig.screenWidth * 0.18,
+            width: SizeConfig.screenWidth * 0.8,
             title: 'Upload',
             onTap: () {
               scanBloc.add(UploadTemperatureDataEvent());
@@ -362,14 +399,20 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           Container(
             height: SizeConfig.screenHeight * 0.24,
             width: SizeConfig.screenWidth * 0.8,
-            margin: const EdgeInsets.only(bottom: 28),
-            padding: const EdgeInsets.fromLTRB(17, 10, 16, 0),
+            margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
+            padding: EdgeInsets.fromLTRB(
+                SizeConfig.screenWidth * 0.04,
+                SizeConfig.screenWidth * 0.03,
+                SizeConfig.screenWidth * 0.04,
+                0),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8), color: AppColor.greyF3),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.screenWidth * 0.05),
+                color: AppColor.white),
             child: DefaultTextStyle(
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 16,
+                fontSize: SizeConfig.screenWidth * 0.04,
                 fontWeight: FontWeight.w400,
               ),
               child: Column(
@@ -379,54 +422,207 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.03),
                         width: MediaQuery.of(context).size.width * 0.2,
                         height: MediaQuery.of(context).size.width * 0.2,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: const Color.fromARGB(255, 255, 188, 151),
-                        ),
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.screenWidth * 0.05),
+                            color: AppColor.yellowFFF59D),
                         child: Image.asset(
-                          Assets.bloodPressureMeter,
-                          fit: BoxFit.fitWidth,
+                          Assets.bloodPressureicon,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      Column(
+                      SizedBox(
+                        width: SizeConfig.screenWidth * 0.5,
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text('CHỈ SỐ ĐO',
-                                style: AppTextTheme.title3.copyWith(
-                                    color: Colors.black,
-                                    fontSize: SizeConfig.screenWidth * 0.05,
-                                    fontWeight: FontWeight.bold)),
-                            Text(
-                                DateFormat('HH:mm dd/MM/yyyy').format(state
-                                    .viewModel
-                                    .bloodPressureEntity!
-                                    .updatedDate!),
-                                style: AppTextTheme.title3.copyWith(
-                                    color: AppColor.gray767676,
-                                    fontSize: SizeConfig.screenWidth * 0.035,
-                                    fontWeight: FontWeight.bold))
-                          ]),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(translation(context).bloodPressure,
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: Colors.black,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.045,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                      DateFormat('HH:mm dd/MM/yyyy').format(
+                                          state.viewModel.bloodPressureEntity!
+                                              .updatedDate!),
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: AppColor.gray767676,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.035,
+                                          fontWeight: FontWeight.bold))
+                                ]),
+                            GestureDetector(
+                                onTap: () {
+                                  showDialog<void>(
+                                    context: context,
+                                    barrierDismissible:
+                                        false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('AlertDialog Title'),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              Container(
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                height: SizeConfig.screenWidth *
+                                                    0.2,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: AppColor
+                                                      .cardBackgroundColor,
+                                                ),
+                                                child: TextField(
+                                                  controller: editSys,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        SizeConfig.screenWidth *
+                                                            0.05,
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    labelText: "SYS:",
+                                                    labelStyle: TextStyle(
+                                                        color:
+                                                            AppColor.gray767676,
+                                                        fontSize: SizeConfig
+                                                                .screenWidth *
+                                                            0.05),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                height: SizeConfig.screenWidth *
+                                                    0.2,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: AppColor
+                                                      .cardBackgroundColor,
+                                                ),
+                                                child: TextField(
+                                                  controller: editDia,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        SizeConfig.screenWidth *
+                                                            0.05,
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    labelText: "DIA:",
+                                                    labelStyle: TextStyle(
+                                                        color:
+                                                            AppColor.gray767676,
+                                                        fontSize: SizeConfig
+                                                                .screenWidth *
+                                                            0.05),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                height: SizeConfig.screenWidth *
+                                                    0.2,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: AppColor
+                                                      .cardBackgroundColor,
+                                                ),
+                                                child: TextField(
+                                                  controller: editPul,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        SizeConfig.screenWidth *
+                                                            0.05,
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    labelText: "PUL:",
+                                                    labelStyle: TextStyle(
+                                                        color:
+                                                            AppColor.gray767676,
+                                                        fontSize: SizeConfig
+                                                                .screenWidth *
+                                                            0.05),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child:
+                                                Text(translation(context).save),
+                                            onPressed: () {
+                                              int? editedDia =
+                                                  int.parse(editDia.text);
+                                              int? editedSys =
+                                                  int.parse(editSys.text);
+                                              int? editedPul =
+                                                  int.parse(editPul.text);
+                                              scanBloc.add(
+                                                  EditBloodPressureDataEvent(
+                                                      context: context,
+                                                      editedDia: editedDia,
+                                                      editedPul: editedPul,
+                                                      editedSys: editedSys));
+                                              setState(() {});
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child: SizedBox(
+                                    width: SizeConfig.screenWidth * 0.075,
+                                    height: SizeConfig.screenWidth * 0.075,
+                                    child: Image.asset(Assets.edit)))
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: SizeConfig.screenWidth * 0.03),
                   Text('Huyết áp:',
                       style: AppTextTheme.title3.copyWith(
                           color: Colors.black,
                           fontSize: SizeConfig.screenWidth * 0.05,
                           fontWeight: FontWeight.bold)),
                   Container(
-                    margin: EdgeInsets.only(
-                        top: 5, left: SizeConfig.screenWidth * 0.1),
-                    width: SizeConfig.screenWidth * 0.5,
+                    margin: const EdgeInsets.only(top: 5),
+                    width: SizeConfig.screenWidth * 0.8,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -480,7 +676,8 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           SizedBox(height: SizeConfig.screenHeight * 0.04),
           Center(
               child: CommonButton(
-            height: 70,
+            height: SizeConfig.screenWidth * 0.18,
+            width: SizeConfig.screenWidth * 0.8,
             title: 'Upload',
             onTap: () {
               scanBloc.add(UploadTemperatureDataEvent());
@@ -498,14 +695,20 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           Container(
             height: SizeConfig.screenHeight * 0.24,
             width: SizeConfig.screenWidth * 0.8,
-            margin: const EdgeInsets.only(bottom: 28),
-            padding: const EdgeInsets.fromLTRB(17, 10, 16, 0),
+            margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
+            padding: EdgeInsets.fromLTRB(
+                SizeConfig.screenWidth * 0.04,
+                SizeConfig.screenWidth * 0.03,
+                SizeConfig.screenWidth * 0.04,
+                0),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8), color: AppColor.greyF3),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.screenWidth * 0.05),
+                color: AppColor.white),
             child: DefaultTextStyle(
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 16,
+                fontSize: SizeConfig.screenWidth * 0.04,
                 fontWeight: FontWeight.w400,
               ),
               child: Column(
@@ -515,43 +718,60 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.03),
                         width: MediaQuery.of(context).size.width * 0.2,
                         height: MediaQuery.of(context).size.width * 0.2,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.red[100],
-                        ),
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.screenWidth * 0.05),
+                            color: AppColor.bodyTemperatureColor),
                         child: Image.asset(
-                          Assets.bloodGlucoseMeter,
+                          Assets.bloodSugar,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      Column(
+                      SizedBox(
+                        width: SizeConfig.screenWidth * 0.5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text('CHỈ SỐ ĐO',
-                                style: AppTextTheme.title3.copyWith(
-                                    color: Colors.black,
-                                    fontSize: SizeConfig.screenWidth * 0.05,
-                                    fontWeight: FontWeight.bold)),
-                            Text(
-                                DateFormat('HH:mm dd/MM/yyyy').format(state
-                                    .viewModel.bloodSugarEntity!.updatedDate!),
-                                style: AppTextTheme.title3.copyWith(
-                                    color: AppColor.gray767676,
-                                    fontSize: SizeConfig.screenWidth * 0.035,
-                                    fontWeight: FontWeight.bold))
-                          ]),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(translation(context).bloodSugar,
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: Colors.black,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.045,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                      DateFormat('HH:mm dd/MM/yyyy').format(
+                                          state.viewModel.bloodSugarEntity!
+                                              .updatedDate!),
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: AppColor.gray767676,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.035,
+                                          fontWeight: FontWeight.bold))
+                                ]),
+                            GestureDetector(
+                                child: SizedBox(
+                                    width: SizeConfig.screenWidth * 0.075,
+                                    height: SizeConfig.screenWidth * 0.075,
+                                    child: Image.asset(Assets.edit)))
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: SizeConfig.screenWidth * 0.03),
                   Text('Đường huyết:',
                       style: AppTextTheme.title3.copyWith(
                           color: Colors.black,
@@ -597,7 +817,8 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           SizedBox(height: SizeConfig.screenHeight * 0.04),
           Center(
               child: CommonButton(
-            height: 70,
+            height: SizeConfig.screenWidth * 0.18,
+            width: SizeConfig.screenWidth * 0.8,
             title: 'Upload',
             onTap: () {
               scanBloc.add(UploadBloodGlucoseDataEvent());
@@ -615,51 +836,56 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
       children: [
         Center(
           child: Material(
-            elevation: 10,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            elevation: SizeConfig.screenWidth * 0.03,
+            borderRadius: BorderRadius.all(
+                Radius.circular(SizeConfig.screenWidth * 0.05)),
             child: Container(
-              height: SizeConfig.screenWidth * 0.75,
-              width: SizeConfig.screenWidth * 0.75,
+              height: SizeConfig.screenWidth * 0.8,
+              width: SizeConfig.screenWidth * 0.8,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.screenWidth * 0.05),
               ),
               child: imageFile == null
                   ? GestureDetector(
                       onTap: () async {
                         scanBloc.add(event);
                       },
-                      child: Image.asset(Assets.icCameraAdd),
+                      child: Image.asset(
+                        Assets.icCameraAdd,
+                      ),
                     )
                   : ClipRRect(
-                      borderRadius: BorderRadiusDirectional.circular(20),
+                      borderRadius: BorderRadiusDirectional.circular(
+                          SizeConfig.screenWidth * 0.05),
                       child: FullScreenWidget(
                           disposeLevel: DisposeLevel.High,
-                          child: Image.file(
-                            File(imageFile.path),
-                          )),
+                          child: Image.file(File(imageFile.path),
+                              fit: BoxFit.fill)),
                     ),
             ),
           ),
         ),
         imageFile != null
             ? Positioned(
-                bottom: -20,
-                right: 40,
+                bottom: -SizeConfig.screenWidth * 0.05,
+                right: SizeConfig.screenWidth * 0.01,
                 child: InkWell(
                   onTap: () {
                     scanBloc.add(event);
                   },
                   child: Container(
-                      height: 60,
-                      width: 60,
+                      height: SizeConfig.screenWidth * 0.15,
+                      width: SizeConfig.screenWidth * 0.15,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(width: 1, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Icon(
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.screenWidth * 0.08)),
+                      child: Icon(
                         Icons.autorenew_rounded,
-                        size: 40,
+                        size: SizeConfig.screenWidth * 0.1,
                         color: Colors.blue,
                       )),
                 ),
