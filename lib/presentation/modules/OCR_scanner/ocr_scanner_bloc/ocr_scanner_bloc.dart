@@ -32,8 +32,11 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     on<EditBloodPressureDataEvent>(_onEditBloodPressureData);
     on<GetBloodGlucoseDataEvent>(_onGetBloodGlucoseData);
     on<UploadBloodGlucoseDataEvent>(_onUploadBloodGlucoseData);
+    on<EditBloodSugarDataEvent>(_onEditBloodSugarData);
     on<GetTemperatureDataEvent>(_onGetTemperatureData);
     on<UploadTemperatureDataEvent>(_onUploadTemperatureData);
+    on<EditBodyTemperatureDataEvent>(_onEditBodyTemperatureData);
+
   }
 
   Future<void> _onGetBloodPressureData(
@@ -56,7 +59,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         dataList = await uploadBloodPressureImage(
             croppedImage: selectedImage.croppedImage,
             flashOn: selectedImage.flashOn);
-
         //  dataList = await sendImageToAzureFunction(selectedImage);
         final bloodPressureEntity = BloodPressureEntity(
             dia: dataList[1],
@@ -94,33 +96,49 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         viewModel: state.viewModel,
       ),
     );
-    try {
-      final bloodPressureEntity = BloodPressureEntity(
-          dia: event.editedDia,
-          sys: event.editedSys,
-          pulse: event.editedPul,
-          updatedDate: DateTime.now());
-      state.viewModel.copyWith(bloodPressureEntity: bloodPressureEntity);
-      print("mmmmmmm${bloodPressureEntity.dia}");
-      print("mmmmmmm${bloodPressureEntity.sys}");
-
-      print("mmmmmmm${bloodPressureEntity.pulse}");
-
-      emit(
-        state.copyWith(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
+    final bloodPressureEntity = BloodPressureEntity(
+        dia: event.editedDia,
+        sys: event.editedSys,
+        pulse: event.editedPul,
+        updatedDate: DateTime.now());
+    final newViewModel =
+        state.viewModel.copyWith(bloodPressureEntity: bloodPressureEntity);
+  
+    emit(
+      state.copyWith(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ),
+    );
   }
+
+
+ Future<void> _onEditBloodSugarData(
+    EditBloodSugarDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetBloodGlucoseDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    final bloodSugarEntity = BloodSugarEntity(
+       bloodSugar: event.glucose,
+        updatedDate: DateTime.now());
+    final newViewModel =
+        state.viewModel.copyWith(bloodSugarEntity:bloodSugarEntity);
+  
+    emit(
+      state.copyWith(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ),
+    );
+  }
+
+
+
 
   Future<void> _onGetBloodGlucoseData(
     GetBloodGlucoseDataEvent event,
@@ -249,6 +267,37 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     }
   }
 
+
+
+ Future<void> _onEditBodyTemperatureData(
+    EditBodyTemperatureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetTemperatureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    final bodyTemperatureEntity = TemperatureEntity(
+      temperature:event.temperature ,
+        updatedDate: DateTime.now());
+    final newViewModel =
+        state.viewModel.copyWith(temperatureEntity:bodyTemperatureEntity );
+  
+    emit(
+      state.copyWith(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ),
+    );
+  }
+
+
+
+
+
+
   Future<void> _onUploadBloodGlucoseData(
     UploadBloodGlucoseDataEvent event,
     Emitter<OCRScannerState> emit,
@@ -352,7 +401,6 @@ Future<List<int?>> uploadBloodPressureImage(
 
   try {
     final resJson = jsonDecode(res.body);
-
     dataList.add(resJson['sys']);
     dataList.add(resJson['dia']);
     dataList.add(resJson['pulse']);

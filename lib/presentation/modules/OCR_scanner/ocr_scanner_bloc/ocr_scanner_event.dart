@@ -45,3 +45,22 @@ class EditBloodPressureDataEvent extends OCRScannerEvent {
       required this.editedPul,
       required this.editedSys});
 }
+
+class EditBloodSugarDataEvent extends OCRScannerEvent {
+  final double? glucose;
+  final BuildContext context;
+  EditBloodSugarDataEvent({
+    required this.context,
+    required this.glucose,
+  });
+}
+
+class EditBodyTemperatureDataEvent extends OCRScannerEvent {
+  final double? temperature;
+
+  final BuildContext context;
+  EditBodyTemperatureDataEvent({
+    required this.context,
+    required this.temperature,
+  });
+}

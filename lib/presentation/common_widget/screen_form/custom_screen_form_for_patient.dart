@@ -65,7 +65,7 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
                       IconButton(
                         icon: Icon(
                           Icons.arrow_back,
-                          size: 35,
+                          size: SizeConfig.screenWidth * 0.08,
                           color: widget.appComponentColor,
                         ),
                         onPressed: () {
@@ -88,8 +88,9 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
                             badges.Badge(
                               badgeContent: Text(
                                   "${notificationData.unreadCount}",
-                                  style: const TextStyle(
-                                      fontSize: 10, color: Colors.white)),
+                                  style: TextStyle(
+                                      fontSize: SizeConfig.screenWidth * 0.02,
+                                      color: Colors.white)),
                               child: const Icon(Icons.notifications),
                             ),
                             const SizedBox(
@@ -97,9 +98,9 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
                             ),
                           ],
                         )
-                    : const SizedBox(
-                        height: 20,
-                        width: 20,
+                    : SizedBox(
+                        height: SizeConfig.screenWidth * 0.05,
+                        width: SizeConfig.screenWidth * 0.05,
                       )
               ],
             )
@@ -116,7 +117,7 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
       bottomNavigationBar: widget.isShowBottomNayvigationBar == true
           ? BottomAppBar(
               color: AppColor.white,
-              elevation: 40,
+              elevation: SizeConfig.screenWidth * 0.1,
               notchMargin: 5,
               child: Container(
                 margin: const EdgeInsets.only(top: 5),
@@ -140,7 +141,7 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
                     //        size: 30, color: Colors.white)),
                     // ),
                     iconBottomBar(
-                        label: translation(context).homeScreen,
+                        label: translation(context).selectEquip,
                         iconData: Icons.camera_alt,
                         isSelected: widget.selectedIndex == 0 ? true : false,
                         iconIndex: 0),
@@ -151,7 +152,7 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
                     //       elevation: 0, badgeColor: Colors.redAccent),
                     //   position: badges.BadgePosition.topEnd(
                     //       top: -3,
-                    //       end: (notificationData.unreadCount ?? 0) < 10
+                    //       end: (notificationData.unreadCount ?? 0) < SizeConfig.screenWidth*0.02
                     //           ? 3
                     //           : -3),
                     //   badgeContent:
@@ -197,7 +198,7 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
               color: isSelected
                   ? const Color.fromARGB(255, 123, 211, 255)
                   : AppColor.gray767676,
-              size: 27,
+              size: SizeConfig.screenWidth * 0.07,
             ),
             label != null
                 ? Text(

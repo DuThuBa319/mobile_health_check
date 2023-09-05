@@ -55,4 +55,13 @@
 "weight":"Weight",
 "loadingData":"Loading data",
 "dataLoaded" :"Data Loaded Successfully",
-"loadingError":"loading Error"}
+"loadingError":"loading Error",
+"selectEquip":"Select Equipment",
+"bloodGlucoseMeter":"Blood Glucose Meter",
+"thermometer":"Thermometer",
+"bloodPressureMeter":"Blood Pressure Meter",
+"upload":"Upload",
+"exit":"Exit",
+"uploadSuccessfully":"Upload Successfully",
+"editIndicatore":"Edit value"
+}

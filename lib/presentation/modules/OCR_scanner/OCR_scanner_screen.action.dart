@@ -3,7 +3,7 @@ part of 'OCR_scanner_screen.dart';
 extension OCRScannerScreenAction on _OCRScannerScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
     if (state.status == BlocStatusState.loading) {
-      showToast('Đang tải dữ liệu');
+      showToast(translation(context).loadingData);
     }
     if (state.status == BlocStatusState.success) {
       if (state is UploadBloodPressureDataState ||
@@ -11,10 +11,10 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
           state is UploadTemperatureDataState) {
         successAlert(
           context,
-          alertText: 'Upload successfully',
+          alertText:translation(context).uploadSuccessfully,
         );
       }
-      showToast('Tải dữ liệu thành công');
+      showToast(translation(context).dataLoaded);
     }
   }
 
@@ -27,14 +27,14 @@ extension OCRScannerScreenAction on _OCRScannerScreenState {
       context: context,
       builder: (BuildContext context) => Center(
         child: AlertDialog(
-          title: const Text('Response'),
+          title: Text(translation(context).notification),
           content: Text(
             alertText,
             style: Theme.of(context).textTheme.bodySmall,
           ),
           actions: [
             TextButton(
-              child: const Text('Exit'),
+              child: Text(translation(context).exit),
               onPressed: () {
                 //Navigator.pop(context);
                 Navigator.pushNamedAndRemoveUntil(context,

@@ -1,11 +1,11 @@
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form_for_patient.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'dart:io';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import 'package:flutter/material.dart';
 import '../../../classes/language_constant.dart';
@@ -43,13 +43,13 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
     return Builder(
       builder: (context) {
         if (widget.task == MeasuringTask.temperature) {
-          return CustomScreenForm(
-            title: 'Thermometer',
+          return PatientCustomScreenForm(
+            title: translation(context).thermometer,
             isShowAppBar: true,
             isShowLeadingButton: true,
-            appComponentColor: Colors.black,
+            appComponentColor: Colors.white,
             backgroundColor: AppColor.blueD0F7FF,
-            appBarColor: AppColor.blueD0F7FF,
+            appBarColor: AppColor.topGradient,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
                 builder: (context, state) {
@@ -67,10 +67,10 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                           children: [
                             //! Thermometer
                             // Text(
-                            //   'Thermometer',
+                            //   translation(context).thermometer,
                             //   style: AppTextTheme.title2,
                             // ),
-                            SizedBox(height: SizeConfig.screenWidth * 0.05),
+                            SizedBox(height: SizeConfig.screenWidth * 0.15),
                             imagePicker(state, context,
                                 imageFile: state.viewModel.temperatureImageFile,
                                 event:
@@ -83,17 +83,15 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                 : Center(
                                     child: Column(
                                     children: [
-                                      // SizedBox(
-                                      //     height:
-                                      //         SizeConfig.screenHeight * 0.33),
                                       CommonButton(
                                         buttonColor: AppColor.greyD9,
-                                        textColor: Colors.black,
+                                        textColor: Colors.white,
                                         height: SizeConfig.screenWidth * 0.18,
                                         width: SizeConfig.screenWidth * 0.8,
-                                        title: 'Upload',
+                                        title: translation(context).upload,
                                         onTap: () {
-                                          // scanBloc.add(UploadBloodPressureDataEvent());
+                                          // scanBloc.add(
+                                          //     UploadBloodPressureDataEvent());
                                         },
                                       ),
                                     ],
@@ -108,14 +106,13 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           );
         }
         if (widget.task == MeasuringTask.bloodSugar) {
-          return CustomScreenForm(
-            title: 'Blood Glucose Meter',
+          return PatientCustomScreenForm(
+            title: translation(context).bloodGlucoseMeter,
             isShowAppBar: true,
             isShowLeadingButton: true,
-            appComponentColor: Colors.black,
+            appComponentColor: Colors.white,
             backgroundColor: AppColor.blueD0F7FF,
-            appBarColor: AppColor.blueD0F7FF,
-            selectedIndex: 0,
+            appBarColor: AppColor.topGradient,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
                 builder: (context, state) {
@@ -136,7 +133,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                             //   'Blood Glucose Meter',
                             //   style: AppTextTheme.title2,
                             // ),
-                            SizedBox(height: SizeConfig.screenWidth * 0.05),
+                            SizedBox(height: SizeConfig.screenWidth * 0.15),
                             imagePicker(state, context,
                                 imageFile:
                                     state.viewModel.bloodGlucoseImageFile,
@@ -155,12 +152,13 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       //         SizeConfig.screenHeight * 0.33),
                                       CommonButton(
                                         buttonColor: AppColor.greyD9,
-                                        textColor: Colors.black,
+                                        textColor: Colors.white,
                                         height: SizeConfig.screenWidth * 0.18,
                                         width: SizeConfig.screenWidth * 0.8,
-                                        title: 'Upload',
+                                        title: translation(context).upload,
                                         onTap: () {
-                                          // scanBloc.add(UploadBloodPressureDataEvent());
+                                          // scanBloc.add(
+                                          //     UploadBloodPressureDataEvent());
                                         },
                                       ),
                                     ],
@@ -176,14 +174,13 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
           );
         }
         if (widget.task == MeasuringTask.bloodPressure) {
-          return CustomScreenForm(
-            title: 'Blood Pressure Meter',
+          return PatientCustomScreenForm(
+            title: translation(context).bloodPressureMeter,
             isShowAppBar: true,
             isShowLeadingButton: true,
-            appComponentColor: Colors.black,
+            appComponentColor: Colors.white,
             backgroundColor: AppColor.blueD0F7FF,
             appBarColor: AppColor.topGradient,
-            selectedIndex: 0,
             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
                 listener: blocListener,
                 builder: (context, state) {
@@ -204,10 +201,10 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                           children: [
                             //! Blood Pressure Meter
                             // Text(
-                            //   'Blood Pressure Meter',
+                            //   translation(context).bloodPressureMeter,
                             //   style: AppTextTheme.title2,
                             // ),
-                            SizedBox(height: SizeConfig.screenWidth * 0.05),
+                            SizedBox(height: SizeConfig.screenWidth * 0.15),
                             imagePicker(state, context,
                                 imageFile:
                                     state.viewModel.bloodPressureImageFile,
@@ -226,12 +223,13 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       //         SizeConfig.screenHeight * 0.33),
                                       CommonButton(
                                         buttonColor: AppColor.greyD9,
-                                        textColor: Colors.black,
+                                        textColor: Colors.white,
                                         height: SizeConfig.screenWidth * 0.18,
                                         width: SizeConfig.screenWidth * 0.8,
-                                        title: 'Upload',
+                                        title: translation(context).upload,
                                         onTap: () {
-                                          // scanBloc.add(UploadBloodPressureDataEvent());
+                                          // scanBloc.add(
+                                          //     UploadBloodPressureDataEvent());
                                         },
                                       ),
                                     ],
@@ -325,64 +323,126 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                 child: SizedBox(
                                     width: SizeConfig.screenWidth * 0.075,
                                     height: SizeConfig.screenWidth * 0.075,
-                                    child: Image.asset(Assets.edit)))
+                                    child: Image.asset(Assets.edit)),
+                                onTap: () {
+                                  showDialog<void>(
+                                      context: context,
+                                      barrierDismissible:
+                                          false, // user must tap button!
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(translation(context)
+                                              .editIndicatore),
+                                          content: Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: SizeConfig.screenWidth *
+                                                    0.025),
+                                            padding: EdgeInsets.only(
+                                                left: SizeConfig.screenWidth *
+                                                    0.025),
+                                            height:
+                                                SizeConfig.screenWidth * 0.2,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color:
+                                                  AppColor.cardBackgroundColor,
+                                            ),
+                                            child: TextField(
+                                              controller:
+                                                  editBodyTemperatureController,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05,
+                                                color: Colors.black,
+                                              ),
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                labelText: translation(context)
+                                                    .bodyTemperature,
+                                                labelStyle: TextStyle(
+                                                    color: AppColor.gray767676,
+                                                    fontSize:
+                                                        SizeConfig.screenWidth *
+                                                            0.05),
+                                              ),
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                    translation(context).back)),
+                                            TextButton(
+                                              child: Text(
+                                                  translation(context).save),
+                                              onPressed: () {
+                                                double? editedTemperature =
+                                                    double.parse(
+                                                        editBodyTemperatureController
+                                                            .text);
+
+                                                setState(() {});
+                                                scanBloc.add(
+                                                    EditBodyTemperatureDataEvent(
+                                                        context: context,
+                                                        temperature:
+                                                            editedTemperature));
+
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                })
                           ],
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: SizeConfig.screenWidth * 0.03),
-                  Text('Thân nhiệt:',
-                      style: AppTextTheme.title3.copyWith(
-                          color: Colors.black,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.bold)),
                   Container(
-                    margin: EdgeInsets.only(
-                        top: SizeConfig.screenWidth * 0.05,
-                        left: SizeConfig.screenWidth * 0.1),
+                    margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
                     width: SizeConfig.screenWidth * 0.5,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(children: [
-                              TextSpan(
-                                  text:
-                                      "${state.viewModel.temperatureEntity?.temperature}",
-                                  style: AppTextTheme.title3.copyWith(
-                                      color: state.viewModel.temperatureEntity
-                                          ?.statusColor,
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w500)),
-                              TextSpan(
-                                  text: "°",
-                                  style: AppTextTheme.title3.copyWith(
-                                      color: const Color(0xff615A5A),
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w500)),
-                              TextSpan(
-                                  text: "C",
-                                  style: AppTextTheme.title3.copyWith(
-                                      color: const Color(0xff615A5A),
-                                      fontSize: SizeConfig.screenWidth * 0.08,
-                                      fontWeight: FontWeight.w500))
-                            ]))
-                      ],
-                    ),
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text:
+                                  "${state.viewModel.temperatureEntity?.temperature}",
+                              style: AppTextTheme.title3.copyWith(
+                                  color: state
+                                      .viewModel.temperatureEntity?.statusColor,
+                                  fontSize: SizeConfig.screenWidth * 0.15,
+                                  fontWeight: FontWeight.w500)),
+                          TextSpan(
+                              text: "°",
+                              style: AppTextTheme.title3.copyWith(
+                                  color: const Color(0xff615A5A),
+                                  fontSize: SizeConfig.screenWidth * 0.15,
+                                  fontWeight: FontWeight.w500)),
+                          TextSpan(
+                              text: "C",
+                              style: AppTextTheme.title3.copyWith(
+                                  color: const Color(0xff615A5A),
+                                  fontSize: SizeConfig.screenWidth * 0.1,
+                                  fontWeight: FontWeight.w500))
+                        ])),
                   )
                 ],
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.04),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
           Center(
               child: CommonButton(
             height: SizeConfig.screenWidth * 0.18,
             width: SizeConfig.screenWidth * 0.8,
-            title: 'Upload',
+            title: translation(context).upload,
             onTap: () {
               scanBloc.add(UploadTemperatureDataEvent());
             },
@@ -473,15 +533,20 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                         false, // user must tap button!
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: const Text('AlertDialog Title'),
+                                        title: Text(translation(context)
+                                            .editIndicatore),
                                         content: SingleChildScrollView(
                                           child: ListBody(
                                             children: <Widget>[
                                               Container(
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
+                                                margin: EdgeInsets.only(
+                                                    bottom:
+                                                        SizeConfig.screenWidth *
+                                                            0.025),
+                                                padding: EdgeInsets.only(
+                                                    left:
+                                                        SizeConfig.screenWidth *
+                                                            0.025),
                                                 height: SizeConfig.screenWidth *
                                                     0.2,
                                                 decoration: BoxDecoration(
@@ -511,10 +576,14 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                 ),
                                               ),
                                               Container(
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
+                                                margin: EdgeInsets.only(
+                                                    bottom:
+                                                        SizeConfig.screenWidth *
+                                                            0.025),
+                                                padding: EdgeInsets.only(
+                                                    left:
+                                                        SizeConfig.screenWidth *
+                                                            0.025),
                                                 height: SizeConfig.screenWidth *
                                                     0.2,
                                                 decoration: BoxDecoration(
@@ -544,10 +613,14 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                 ),
                                               ),
                                               Container(
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
+                                                margin: EdgeInsets.only(
+                                                    bottom:
+                                                        SizeConfig.screenWidth *
+                                                            0.025),
+                                                padding: EdgeInsets.only(
+                                                    left:
+                                                        SizeConfig.screenWidth *
+                                                            0.025),
                                                 height: SizeConfig.screenWidth *
                                                     0.2,
                                                 decoration: BoxDecoration(
@@ -581,6 +654,12 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                         ),
                                         actions: <Widget>[
                                           TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                  translation(context).back)),
+                                          TextButton(
                                             child:
                                                 Text(translation(context).save),
                                             onPressed: () {
@@ -590,13 +669,14 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   int.parse(editSys.text);
                                               int? editedPul =
                                                   int.parse(editPul.text);
+                                              setState(() {});
                                               scanBloc.add(
                                                   EditBloodPressureDataEvent(
                                                       context: context,
                                                       editedDia: editedDia,
                                                       editedPul: editedPul,
                                                       editedSys: editedSys));
-                                              setState(() {});
+
                                               Navigator.pop(context);
                                             },
                                           ),
@@ -614,12 +694,6 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: SizeConfig.screenWidth * 0.03),
-                  Text('Huyết áp:',
-                      style: AppTextTheme.title3.copyWith(
-                          color: Colors.black,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.bold)),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     width: SizeConfig.screenWidth * 0.8,
@@ -634,7 +708,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                             Text(
                                 "${state.viewModel.bloodPressureEntity?.sys}/${state.viewModel.bloodPressureEntity?.dia}",
                                 style: AppTextTheme.title3.copyWith(
-                                    fontSize: SizeConfig.screenWidth * 0.1,
+                                    fontSize: SizeConfig.screenWidth * 0.13,
                                     fontWeight: FontWeight.w500,
                                     color: state.viewModel.bloodPressureEntity
                                         ?.statusColor)),
@@ -649,15 +723,15 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                           width: SizeConfig.screenWidth * 0.05,
                         ),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
                                 "${state.viewModel.bloodPressureEntity?.pulse}",
                                 style: AppTextTheme.title3.copyWith(
                                     color: state.viewModel.bloodPressureEntity
                                         ?.statusColor,
-                                    fontSize: SizeConfig.screenWidth * 0.06,
+                                    fontSize: SizeConfig.screenWidth * 0.08,
                                     fontWeight: FontWeight.w500)),
                             Text("bpm",
                                 style: AppTextTheme.title3.copyWith(
@@ -678,9 +752,9 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
               child: CommonButton(
             height: SizeConfig.screenWidth * 0.18,
             width: SizeConfig.screenWidth * 0.8,
-            title: 'Upload',
+            title: translation(context).upload,
             onTap: () {
-              scanBloc.add(UploadTemperatureDataEvent());
+              scanBloc.add(UploadBloodPressureDataEvent());
             },
           ))
         ],
@@ -749,7 +823,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: Colors.black,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.045,
+                                              SizeConfig.screenWidth * 0.04,
                                           fontWeight: FontWeight.bold)),
                                   Text(
                                       DateFormat('HH:mm dd/MM/yyyy').format(
@@ -765,51 +839,113 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                 child: SizedBox(
                                     width: SizeConfig.screenWidth * 0.075,
                                     height: SizeConfig.screenWidth * 0.075,
-                                    child: Image.asset(Assets.edit)))
+                                    child: Image.asset(Assets.edit)),
+                                onTap: () {
+                                  showDialog<void>(
+                                      context: context,
+                                      barrierDismissible:
+                                          false, // user must tap button!
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(translation(context)
+                                              .editIndicatore),
+                                          content: Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: SizeConfig.screenWidth *
+                                                    0.025),
+                                            padding: EdgeInsets.only(
+                                                left: SizeConfig.screenWidth *
+                                                    0.025),
+                                            height:
+                                                SizeConfig.screenWidth * 0.2,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color:
+                                                  AppColor.cardBackgroundColor,
+                                            ),
+                                            child: TextField(
+                                              controller:
+                                                  editBloogSugarController,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05,
+                                                color: Colors.black,
+                                              ),
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                labelText: "Glucose:",
+                                                labelStyle: TextStyle(
+                                                    color: AppColor.gray767676,
+                                                    fontSize:
+                                                        SizeConfig.screenWidth *
+                                                            0.05),
+                                              ),
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                    translation(context).back)),
+                                            TextButton(
+                                              child: Text(
+                                                  translation(context).save),
+                                              onPressed: () {
+                                                double? editedBloodSugar =
+                                                    double.parse(
+                                                        editBloogSugarController
+                                                            .text);
+
+                                                setState(() {});
+                                                scanBloc.add(
+                                                    EditBloodSugarDataEvent(
+                                                  context: context,
+                                                  glucose: editedBloodSugar,
+                                                ));
+
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                })
                           ],
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: SizeConfig.screenWidth * 0.03),
-                  Text('Đường huyết:',
-                      style: AppTextTheme.title3.copyWith(
-                          color: Colors.black,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.bold)),
                   Container(
-                      margin: EdgeInsets.only(
-                          top: SizeConfig.screenWidth * 0.0,
-                          left: SizeConfig.screenWidth * 0.1),
-                      width: SizeConfig.screenWidth * 0.5,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text:
-                                          "${state.viewModel.bloodSugarEntity?.bloodSugar}",
-                                      style: AppTextTheme.title3.copyWith(
-                                          color: state.viewModel
-                                              .bloodSugarEntity?.statusColor,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.1,
-                                          fontWeight: FontWeight.w500)),
-                                  TextSpan(
-                                      text: " mg/dL",
-                                      style: AppTextTheme.title3.copyWith(
-                                          color: const Color(0xff615A5A),
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.04,
-                                          fontWeight: FontWeight.w500))
-                                ],
-                              ),
-                            )
-                          ]))
+                      margin:
+                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
+                      width: SizeConfig.screenWidth * 0.7,
+                      child: Center(
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text:
+                                      "${state.viewModel.bloodSugarEntity?.bloodSugar}",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: state.viewModel.bloodSugarEntity
+                                          ?.statusColor,
+                                      fontSize: SizeConfig.screenWidth * 0.15,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: " mg/dL",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      fontWeight: FontWeight.w500))
+                            ],
+                          ),
+                        ),
+                      ))
                 ],
               ),
             ),
@@ -819,7 +955,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
               child: CommonButton(
             height: SizeConfig.screenWidth * 0.18,
             width: SizeConfig.screenWidth * 0.8,
-            title: 'Upload',
+            title: translation(context).upload,
             onTap: () {
               scanBloc.add(UploadBloodGlucoseDataEvent());
             },

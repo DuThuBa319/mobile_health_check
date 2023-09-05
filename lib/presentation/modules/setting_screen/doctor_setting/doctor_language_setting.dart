@@ -2,15 +2,15 @@ import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 
-import '../../../classes/language.dart';
-import '../../../classes/language_constant.dart';
-import '../../../common/singletons.dart';
-import '../../../main.dart';
-import '../../common_widget/common_button.dart';
-import '../../common_widget/line_decor.dart';
-import '../../route/route_list.dart';
-import '../../theme/app_text_theme.dart';
-import '../../theme/theme_color.dart';
+import '../../../../classes/language.dart';
+import '../../../../classes/language_constant.dart';
+import '../../../../common/singletons.dart';
+import '../../../../main.dart';
+import '../../../common_widget/common_button.dart';
+import '../../../common_widget/line_decor.dart';
+import '../../../route/route_list.dart';
+import '../../../theme/app_text_theme.dart';
+import '../../../theme/theme_color.dart';
 
 class SettingLanguage extends StatefulWidget {
   const SettingLanguage({super.key});
@@ -163,6 +163,8 @@ class _SettingLanguageState extends State<SettingLanguage> {
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
+                          Navigator.pop(context);
+
                           showToast("Change language successfully");
                         }
                         if (notificationData.localeId == 2) {
@@ -171,9 +173,10 @@ class _SettingLanguageState extends State<SettingLanguage> {
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
+                          Navigator.pop(context);
+
                           showToast("Đổi ngôn ngữ thành công");
                         }
-                        Navigator.pushNamed(context, RouteList.setting);
                       },
                     ),
                   )

@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/classes/language_constant.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form_for_patient.dart';
@@ -25,41 +26,42 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
     // double screenWidth = SizeConfig.screenWidth;
     return PatientCustomScreenForm(
       appBarColor: AppColor.appBarColor,
-      title: 'Select Equipment',
+      title: translation(context).selectEquip,
       isShowAppBar: true,
-      isShowLeadingButton: true,
+      isShowLeadingButton: false,
       isShowBottomNayvigationBar: true,
       selectedIndex: 0,
       child: Padding(
-        padding: const EdgeInsets.only(left: 15.0),
+        padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 5),
+            SizedBox(height: SizeConfig.screenWidth * 0.1),
             Text(
-              'Chọn thiết bị',
+              translation(context).selectEquip,
               style: TextStyle(
-                  fontSize: SizeConfig.screenWidth * 0.06,
+                  fontSize: SizeConfig.screenWidth * 0.08,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
             const SizedBox(height: 5),
             lineDecor(),
             Container(
-              padding: const EdgeInsets.only(top: 20, right: 12),
+              padding: EdgeInsets.only(
+                  top: SizeConfig.screenWidth * 0.05,
+                  right: SizeConfig.screenWidth * 0.03),
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 20,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisSpacing: SizeConfig.screenWidth * 0.04,
+                    mainAxisSpacing: SizeConfig.screenWidth * 0.05,
                     crossAxisCount: 2,
                     childAspectRatio: 1 / 1.2),
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   if (index == 1) {
                     return equipmentCell(
-                        cellTitle: 'Blood Glucose Meter',
+                        cellTitle: translation(context).bloodPressureMeter,
                         imagePath: Assets.bloodGlucoseMeter,
                         cellColor: Colors.red[400],
                         subCellColor: Colors.red[100],
@@ -70,7 +72,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   }
                   if (index == 2) {
                     return equipmentCell(
-                        cellTitle: 'Thermometer',
+                        cellTitle: translation(context).thermometer,
                         imagePath: Assets.thermometer,
                         cellColor: Colors.blue[400],
                         subCellColor: Colors.blue[100],
@@ -79,8 +81,9 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                               arguments: MeasuringTask.temperature);
                         });
                   }
+
                   return equipmentCell(
-                      cellTitle: 'Blood Pressure Meter',
+                      cellTitle: translation(context).bloodGlucoseMeter,
                       imagePath: Assets.bloodPressureMeter,
                       cellColor: const Color.fromARGB(255, 254, 179, 110),
                       subCellColor: const Color.fromARGB(255, 255, 188, 151),
@@ -115,22 +118,27 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
       },
       child: Material(
         elevation: 5,
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        borderRadius:
+            BorderRadius.all(Radius.circular(SizeConfig.screenWidth * 0.05)),
         child: Container(
             padding: const EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: cellColor),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.screenWidth * 0.05),
+                color: cellColor),
             child: Column(
               children: [
                 Material(
                   elevation: 10,
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(SizeConfig.screenWidth * 0.05)),
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     width: SizeConfig.screenWidth * 0.35,
                     height: SizeConfig.screenWidth * 0.36,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.05),
                       color: subCellColor,
                     ),
                     child: Image.asset(
@@ -139,8 +147,8 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: SizeConfig.screenWidth * 0.04,
                 ),
                 Text(cellTitle,
                     style: AppTextTheme.title3.copyWith(color: Colors.white)),

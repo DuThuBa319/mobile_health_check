@@ -4,10 +4,7 @@ import 'package:mobile_health_check/presentation/modules/history/temperature_his
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
 import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
-import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_password_setting.dart';
-import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_phone_setting.dart';
-import 'package:mobile_health_check/presentation/modules/setting_screen/doctor_setting_menu.dart';
-import 'package:mobile_health_check/presentation/modules/setting_screen/language_setting.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +27,14 @@ import '../modules/notification_onesignal/notification_screen.dart';
 import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
-import '../modules/setting_screen/patient_setting_menu.dart';
+import '../modules/setting_screen/doctor_setting/doctor_language_setting.dart';
+import '../modules/setting_screen/doctor_setting/doctor_password_setting.dart';
+import '../modules/setting_screen/doctor_setting/doctor_phone_setting.dart';
+import '../modules/setting_screen/doctor_setting/doctor_setting_menu.dart';
+import '../modules/setting_screen/patient_setting/patient_language_setting.dart';
+import '../modules/setting_screen/patient_setting/patient_password_setting.dart';
+import '../modules/setting_screen/patient_setting/patient_phone_setting.dart';
+import '../modules/setting_screen/patient_setting/patient_setting_menu.dart';
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;
@@ -182,6 +186,18 @@ class AppRoute {
       case '/patientSetting':
         return MaterialPageRoute(builder: (context) {
           return const PatientSettingMenu();
+        });
+      case '/patientSettingPhone':
+        return MaterialPageRoute(builder: (context) {
+          return const SettingPatientPhoneNumber();
+        });
+      case '/patientSettingPass':
+        return MaterialPageRoute(builder: (context) {
+          return const SettingPatientPassword();
+        });
+      case '/patientSettingLanguage':
+        return MaterialPageRoute(builder: (context) {
+          return const SettingPatientLanguage();
         });
       case '/settingDrPhone':
         return MaterialPageRoute(

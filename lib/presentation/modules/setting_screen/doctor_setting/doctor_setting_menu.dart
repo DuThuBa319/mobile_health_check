@@ -5,12 +5,14 @@ import 'package:mobile_health_check/presentation/common_widget/screen_form/custo
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 
-import '../../../classes/language_constant.dart';
-import '../../../function.dart';
-import '../../common_widget/common_button.dart';
-import '../../route/route_list.dart';
-import '../../theme/app_text_theme.dart';
-import '../../theme/theme_color.dart';
+import '../../../../classes/language_constant.dart';
+import '../../../../function.dart';
+import '../../../common_widget/common_button.dart';
+
+import '../../../route/route_list.dart';
+import '../../../theme/app_text_theme.dart';
+import '../../../theme/theme_color.dart';
+
 
 class SettingMenu extends StatefulWidget {
   const SettingMenu({super.key});
@@ -64,8 +66,8 @@ class _SettingMenuState extends State<SettingMenu> {
                   ),
                   Text("Dr. ${userDataData.getUser()?.name}",
                       style: AppTextTheme.body0.copyWith(
-                        fontWeight: FontWeight.w500,
-                      )),
+                          fontWeight: FontWeight.w500,
+                          fontSize: SizeConfig.screenWidth * 0.07)),
                   Text(userDataData.getUser()?.phoneNumber ?? '--',
                       style: AppTextTheme.body3),
                   SizedBox(height: SizeConfig.screenWidth * 0.05),
