@@ -8,3 +8,8 @@ class LoginUserEvent extends LoginEvent {
   final String? username;
   final String? password;
 }
+
+// class GetPatientInforInPatientAppEvent extends LoginEvent {
+//   final String id;
+//  GetPatientInforInPatientAppEvent({required this.id}) : super();
+// }

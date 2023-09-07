@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:mobile_health_check/common/service/local_manager/user_data_datasource/user_data_datasource.dart';
+import 'package:mobile_health_check/common/service/local_manager/user_data_datasource/user_model.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
@@ -7,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../../common/service/onesginal/onesignal_service.dart';
+import '../../../di/di.dart';
+import '../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../main.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
@@ -29,10 +35,10 @@ class _LoginState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool showPass = true;
+  // final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -176,6 +182,7 @@ class _LoginState extends State<LoginScreen> {
                         SizedBox(
                           width: SizeConfig.screenWidth * 0.8,
                           child: TextField(
+                            // focusNode: _focusNode,
                             controller: _usernameController,
                             style: TextStyle(
                               fontSize: SizeConfig.screenWidth * 0.05,
@@ -183,7 +190,7 @@ class _LoginState extends State<LoginScreen> {
                             ),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              labelText: translation(context).phoneNumber,
+                              labelText: "Email",
                               icon: Icon(Icons.account_box_rounded,
                                   size: SizeConfig.screenWidth * 0.12),
                               labelStyle: TextStyle(
@@ -215,6 +222,7 @@ class _LoginState extends State<LoginScreen> {
                         SizedBox(
                           width: SizeConfig.screenWidth * 0.8,
                           child: TextField(
+                            // focusNode: _focusNode,
                             controller: _passwordController,
                             obscureText: showPass,
                             style: TextStyle(

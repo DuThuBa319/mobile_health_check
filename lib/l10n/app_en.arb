@@ -63,5 +63,12 @@
 "upload":"Upload",
 "exit":"Exit",
 "uploadSuccessfully":"Upload Successfully",
-"editIndicatore":"Edit value"
+"editIndicatore":"Edit value",
+"name":"Full name",
+"street":"Street",
+"ward":"ward",
+"city":"City",
+"country":"Country",
+"updateProfile":"Update profile"
+
 }

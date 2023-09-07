@@ -33,7 +33,7 @@ import '../modules/setting_screen/doctor_setting/doctor_phone_setting.dart';
 import '../modules/setting_screen/doctor_setting/doctor_setting_menu.dart';
 import '../modules/setting_screen/patient_setting/patient_language_setting.dart';
 import '../modules/setting_screen/patient_setting/patient_password_setting.dart';
-import '../modules/setting_screen/patient_setting/patient_phone_setting.dart';
+import '../modules/setting_screen/patient_setting/patient_profile_setting.dart';
 import '../modules/setting_screen/patient_setting/patient_setting_menu.dart';
 
 class AppRoute {
@@ -187,9 +187,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (context) {
           return const PatientSettingMenu();
         });
-      case '/patientSettingPhone':
+    
+         case '/patientSettingProfile':
         return MaterialPageRoute(builder: (context) {
-          return const SettingPatientPhoneNumber();
+          return const SettingPatientProfile();
         });
       case '/patientSettingPass':
         return MaterialPageRoute(builder: (context) {

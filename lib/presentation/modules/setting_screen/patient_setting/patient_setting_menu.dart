@@ -13,8 +13,6 @@ import '../../../route/route_list.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 
-
-
 class PatientSettingMenu extends StatefulWidget {
   const PatientSettingMenu({super.key});
 
@@ -51,8 +49,10 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(height: SizeConfig.screenWidth * 0.02),
-                  const Center(
+                  Center(
                     child: CustomImagePicker(
+                      gender: userDataData.getUser()!.gender,
+                      age: userDataData.getUser()!.age,
                       imagePath: null,
                       isOnTapActive: true,
                       isforAvatar: true,
@@ -78,9 +78,9 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                   ),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
-                        context, RouteList.patientSettingPhone),
+                        context, RouteList.patientSettingProfile),
                     child: settingMenuCell(
-                        translation(context).updatePhoneNumber, context),
+                        translation(context).updateProfile, context),
                   ),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
@@ -94,16 +94,25 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).logOut,
                         buttonColor: AppColor.saveSetting,
-                        onTap: () {
+                        onTap: () async {
                           OneSignalNotificationService
                               .unsubscribeFromNotifications(
                                   doctorId: userDataData.getUser()!.id!);
-                          notificationData.clearData();
-
-                          userDataData.clearData();
-                          firebaseAuthService.signOut();
-
-                          Navigator.pushNamed(context, RouteList.login);
+                          await notificationData.clearData();
+                          await userDataData.clearData();
+                          await firebaseAuthService.signOut();
+                          // ignore: use_build_context_synchronously
+                          // Navigator.pushReplacement(context, MaterialPageRoute(
+                          //   builder: (context) {
+                          //     return BlocProvider<LoginBloc>(
+                          //       create: (context) => LoginBloc(),
+                          //       child: const LoginScreen(),
+                          //     );
+                          //   },
+                          // ));
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              RouteList.login, (Route<dynamic> route) => false);
                         }),
                   )
                 ]),

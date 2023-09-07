@@ -154,6 +154,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 }
+
 //   Future<void> _onGetBloodPressureHistoryData(
 //     GetBloodPressureHistoryDataEvent event,
 //     Emitter<GetPatientState> emit,

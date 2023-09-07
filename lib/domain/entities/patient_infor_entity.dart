@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
+import '../../common/service/local_manager/user_data_datasource/user.dart';
 import '../../data/models/address_model/address_model.dart';
 import 'blood_pressure_entity.dart';
 import 'blood_sugar_entity.dart';
@@ -12,7 +12,7 @@ class PatientInforEntity {
   int? personType;
   double? weight;
   double? height;
-  int? gender;
+  bool? gender;
   String phoneNumber;
   String? avatarPath;
   AddressModel? address;
@@ -36,11 +36,21 @@ class PatientInforEntity {
     this.avatarPath,
   });
 
-
-
-
-
-
+  User convertUser({required User user}) {
+    return user.copyWith(
+      gender: gender,
+        id: id,
+        name: name,
+        phoneNumber: phoneNumber,
+        age: age,
+        city: address?.city,
+        country: address?.country,
+        district: address?.district,
+        height: height,
+        street: address?.street,
+        ward: address?.ward,
+        weight: weight);
+  }
 
   //  Color get statusColor {
   //   if (sys != null && dia != null) {
@@ -67,7 +77,6 @@ class PatientInforEntity {
 
   //   return Colors.grey;
   // }
- 
 
   //   return PatientInforModel(
   //     id: id,

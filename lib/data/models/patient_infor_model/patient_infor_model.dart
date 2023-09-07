@@ -10,7 +10,6 @@ import '../blood_pressure_model/blood_pressure_model.dart';
 import '../blood_sugar_model/blood_sugar_model.dart';
 import '../temperature_model/temperature_model.dart';
 
-
 part 'patient_infor_model.g.dart';
 
 //endpoint là các biến sẽ khai báo trong model
@@ -25,7 +24,7 @@ class PatientInforModel {
   int? personType;
   double? weight;
   double? height;
-  @JsonKey(name: "gender")
+
   int? gender;
   String phoneNumber;
   @JsonKey(name: 'avatar')
@@ -75,7 +74,6 @@ class PatientInforModel {
     }
 
     return PatientInforEntity(
-      
       id: id,
       age: age,
       name: name,
@@ -85,9 +83,24 @@ class PatientInforModel {
       bloodPressures: bloodPressureEntities,
       bloodSugars: bloodSugarEntities,
       height: height,
-      gender: gender,
+      gender: gender == 0 ? false : true, //! Nam ==0==false
       personType: personType,
       bodyTemperatures: temperatureEntities,
+      weight: weight,
+    );
+  }
+
+  PatientInforEntity getPatientInforEntityPatientApp() {
+    return PatientInforEntity(
+      id: id,
+      age: age,
+      name: name,
+      phoneNumber: phoneNumber,
+      avatarPath: avatarPath,
+      address: address,
+      height: height,
+      gender: gender == 0 ? false : true,
+      personType: personType,
       weight: weight,
     );
   }

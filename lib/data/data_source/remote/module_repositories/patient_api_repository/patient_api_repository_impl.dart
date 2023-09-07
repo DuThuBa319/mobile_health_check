@@ -1,7 +1,5 @@
-
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-
 
 import '../../../../models/patient_infor_model/patient_infor_model.dart';
 import '../../../../models/patient_list_model/patient_list_model.dart';
@@ -24,13 +22,12 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
     return restApi.getPatientListModels();
   }
 
-  // @override
-  // Future<PatientModel> registPatient(PatientModel patient) {
-  //   return restApi.registPatient(patient);
-  // }
-
   @override
   Future<PatientInforModel> getPatientInforModel(String? id) {
     return restApi.getPatientInforModel(id);
   }
+  // @override
+  // Future<PatientModel> registPatient(PatientModel patient) {
+  //   return restApi.registPatient(patient);
+  // }
 }

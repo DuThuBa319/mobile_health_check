@@ -52,6 +52,50 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
   );
 }
 
+Widget settingProfileCell(
+    String? selectSetting, BuildContext context, String? lableText) {
+  SizeConfig.init(context);
+  final phoneController = TextEditingController(text: selectSetting);
+  return Container(
+    height: SizeConfig.screenWidth * 0.2,
+    width: SizeConfig.screenWidth * 0.9,
+    margin: EdgeInsets.only(
+        top: SizeConfig.screenWidth * 0.03,
+        bottom: SizeConfig.screenWidth * 0.035),
+    decoration: BoxDecoration(
+      color: AppColor.white,
+      borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+    ),
+    child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      SizedBox(
+        width: SizeConfig.screenWidth * 0.01,
+      ),
+      SizedBox(
+        width: SizeConfig.screenWidth * 0.8,
+        child: TextField(
+          textAlign: TextAlign.start,
+          cursorColor: AppColor.black,
+          controller: phoneController,
+          style: TextStyle(
+              color: AppColor.gray767676,
+              fontSize: SizeConfig.screenWidth * 0.05),
+          decoration: InputDecoration(
+            labelText: lableText,
+            labelStyle: TextStyle(
+                color: AppColor.black,
+                fontSize: SizeConfig.screenWidth * 0.05,
+                fontWeight: FontWeight.w500),
+            border: InputBorder.none,
+            icon: Icon(Icons.account_box_rounded,
+                size: SizeConfig.screenWidth * 0.12),
+          ),
+        ),
+      ),
+      // Text(selectSetting, style: AppTextTheme.body1.copyWith()),
+    ]),
+  );
+}
+
 ///
 Widget settingPhoneCell(String? selectSetting, BuildContext context) {
   SizeConfig.init(context);
@@ -74,6 +118,7 @@ Widget settingPhoneCell(String? selectSetting, BuildContext context) {
       SizedBox(
         width: SizeConfig.screenWidth * 0.8,
         child: TextField(
+          
           textAlign: TextAlign.start,
           onChanged: (newphone) {
             phone = newphone;
@@ -182,6 +227,10 @@ class _SettingPasswordCellState extends State<SettingPasswordCell> {
       ]),
     );
   }
+
+  ///
+
+//
 }
  
 // ignore: must_be_immutable

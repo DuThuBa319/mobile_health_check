@@ -13,16 +13,23 @@ class _ViewModel {
   final bool isLogin;
   final String? errorMessage;
   final User? person;
+  // final PatientInforEntity? patientInforEntity;
 
-  const _ViewModel({this.isLogin = false, this.errorMessage, this.person});
+
+  const _ViewModel({this.isLogin = false, this.errorMessage, this.person,
+  // this.patientInforEntity
+  });
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith({
     bool? isLogin,
     String? errorMessage,
     User? person,
+    // PatientInforEntity? patientInforEntity
+
   }) {
     return _ViewModel(
+      // patientInforEntity: patientInforEntity?? this.patientInforEntity,
       isLogin: isLogin ?? this.isLogin,
       errorMessage: errorMessage ?? this.errorMessage,
       person: person ?? this.person,
@@ -50,6 +57,15 @@ abstract class LoginState {
     );
   }
 }
+
+
+// class GetPatientInforInPatientAppState extends LoginState {
+//   GetPatientInforInPatientAppState({
+//     _ViewModel viewModel = const _ViewModel(),
+//     BlocStatusState status = BlocStatusState.initial,
+//   }) : super(viewModel, status: status);
+// }
+
 
 class LoginInitialState extends LoginState {
   LoginInitialState({
@@ -89,4 +105,9 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
+  // GetPatientInforInPatientAppState: (viewModel, status) =>   GetPatientInforInPatientAppState(
+  //       viewModel: viewModel,
+  //       status: status,
+  //     ),
+
 };

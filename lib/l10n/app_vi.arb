@@ -62,6 +62,11 @@
 "upload":"Gửi đi",
 "exit":"Thoát",
 "uploadSuccessfully":"Gửi thông tin thành công",
-"editIndicatore":"Điền số liệu chính xác theo thiết bị"
-
+"editIndicatore":"Điền số liệu chính xác theo thiết bị",
+"name":"Họ và tên",
+"street":"Tên đường",
+"ward":"Phường",
+"city":"Thành phố",
+"country":"Quốc gia",
+"updateProfile":"Chỉnh sửa thông tin"
 }

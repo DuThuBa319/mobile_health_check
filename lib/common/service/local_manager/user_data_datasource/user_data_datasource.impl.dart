@@ -17,6 +17,7 @@ class UserDataDataSourceImpl extends BaseDataSource
   @override
   Future<void> clearData() async {
     await localDataManager.secureStorage.deleteAll();
+    await localDataManager.preferencesHelper.remove('user');
   }
 
   // @override

@@ -27,7 +27,7 @@ class PatientModel {
     return PatientEntity(
       id: id,
       name: name,
-      phoneNumber: phoneNumber,
+      phoneNumber: phoneNumber,    
     );
   }
 }

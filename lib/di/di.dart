@@ -25,8 +25,8 @@ abstract class DioProvider {
       BaseOptions(
         contentType: "application/json",
         followRedirects: false,
-        receiveTimeout: const Duration(seconds: 30), // 30s
-        sendTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 60), // 30s
+        sendTimeout: const Duration(seconds: 60),
       ),
     );
   }

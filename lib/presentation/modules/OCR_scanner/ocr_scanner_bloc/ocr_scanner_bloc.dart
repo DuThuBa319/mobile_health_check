@@ -36,7 +36,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     on<GetTemperatureDataEvent>(_onGetTemperatureData);
     on<UploadTemperatureDataEvent>(_onUploadTemperatureData);
     on<EditBodyTemperatureDataEvent>(_onEditBodyTemperatureData);
-
   }
 
   Future<void> _onGetBloodPressureData(
@@ -103,7 +102,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         updatedDate: DateTime.now());
     final newViewModel =
         state.viewModel.copyWith(bloodPressureEntity: bloodPressureEntity);
-  
+
     emit(
       state.copyWith(
         status: BlocStatusState.success,
@@ -112,8 +111,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
   }
 
-
- Future<void> _onEditBloodSugarData(
+  Future<void> _onEditBloodSugarData(
     EditBloodSugarDataEvent event,
     Emitter<OCRScannerState> emit,
   ) async {
@@ -124,11 +122,10 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
     final bloodSugarEntity = BloodSugarEntity(
-       bloodSugar: event.glucose,
-        updatedDate: DateTime.now());
+        bloodSugar: event.glucose, updatedDate: DateTime.now());
     final newViewModel =
-        state.viewModel.copyWith(bloodSugarEntity:bloodSugarEntity);
-  
+        state.viewModel.copyWith(bloodSugarEntity: bloodSugarEntity);
+
     emit(
       state.copyWith(
         status: BlocStatusState.success,
@@ -136,9 +133,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
   }
-
-
-
 
   Future<void> _onGetBloodGlucoseData(
     GetBloodGlucoseDataEvent event,
@@ -241,7 +235,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       final result = await FirebaseStorageService.uploadFile(
           file: state.viewModel.bloodPressureImageFile!,
           fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
-          folder: 'Nguyen Trong Khang/Huyet ap/');
+          folder: '${userDataData.getUser()!.phoneNumber!}/Huyet ap/');
+      //thay tên folder bằng getUser...
       if (result != null) {
         imageUrl = result.url;
       }
@@ -267,9 +262,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     }
   }
 
-
-
- Future<void> _onEditBodyTemperatureData(
+  Future<void> _onEditBodyTemperatureData(
     EditBodyTemperatureDataEvent event,
     Emitter<OCRScannerState> emit,
   ) async {
@@ -280,11 +273,10 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
     final bodyTemperatureEntity = TemperatureEntity(
-      temperature:event.temperature ,
-        updatedDate: DateTime.now());
+        temperature: event.temperature, updatedDate: DateTime.now());
     final newViewModel =
-        state.viewModel.copyWith(temperatureEntity:bodyTemperatureEntity );
-  
+        state.viewModel.copyWith(temperatureEntity: bodyTemperatureEntity);
+
     emit(
       state.copyWith(
         status: BlocStatusState.success,
@@ -292,11 +284,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
   }
-
-
-
-
-
 
   Future<void> _onUploadBloodGlucoseData(
     UploadBloodGlucoseDataEvent event,
@@ -314,7 +301,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       final result = await FirebaseStorageService.uploadFile(
           file: state.viewModel.bloodGlucoseImageFile!,
           fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
-          folder: 'Nguyen Trong Khang/Duong huyet/');
+          folder: '${userDataData.getUser()!.phoneNumber!}/Duong huyet/');
       if (result != null) {
         imageUrl = result.url;
       }
@@ -356,7 +343,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       final result = await FirebaseStorageService.uploadFile(
           file: state.viewModel.temperatureImageFile!,
           fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
-          folder: 'Nguyen Trong Khang/Nhiet Do/');
+          folder: '${userDataData.getUser()!.phoneNumber!}/Nhiet Do/');
       if (result != null) {
         imageUrl = result.url;
       }

@@ -330,6 +330,8 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       barrierDismissible:
                                           false, // user must tap button!
                                       builder: (BuildContext context) {
+                                        editBodyTemperatureController.text =
+                                            "${state.viewModel.temperatureEntity?.temperature}";
                                         return AlertDialog(
                                           title: Text(translation(context)
                                               .editIndicatore),
@@ -532,6 +534,12 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                     barrierDismissible:
                                         false, // user must tap button!
                                     builder: (BuildContext context) {
+                                      editSys.text =
+                                          "${state.viewModel.bloodPressureEntity?.sys}";
+                                      editDia.text =
+                                          "${state.viewModel.bloodPressureEntity?.dia}";
+                                      editPul.text =
+                                          "${state.viewModel.bloodPressureEntity?.pulse}";
                                       return AlertDialog(
                                         title: Text(translation(context)
                                             .editIndicatore),
@@ -669,7 +677,6 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                                   int.parse(editSys.text);
                                               int? editedPul =
                                                   int.parse(editPul.text);
-                                              setState(() {});
                                               scanBloc.add(
                                                   EditBloodPressureDataEvent(
                                                       context: context,
@@ -747,7 +754,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.04),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
           Center(
               child: CommonButton(
             height: SizeConfig.screenWidth * 0.18,
@@ -846,6 +853,9 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       barrierDismissible:
                                           false, // user must tap button!
                                       builder: (BuildContext context) {
+                                        editBloogSugarController.text =
+                                            "${state.viewModel.bloodSugarEntity?.bloodSugar}";
+
                                         return AlertDialog(
                                           title: Text(translation(context)
                                               .editIndicatore),
@@ -950,7 +960,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.04),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
           Center(
               child: CommonButton(
             height: SizeConfig.screenWidth * 0.18,

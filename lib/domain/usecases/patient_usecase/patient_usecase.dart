@@ -10,6 +10,8 @@ part 'patient_usecase.impl.dart';
 abstract class PatientUsecase {
   Future<List<PatientEntity>?> getPatientListEntity();
   Future<PatientInforEntity>?getPatientInforEntity(String? id);
+  Future<PatientInforEntity>?getPatientInforEntityInPatientApp(String? id);
+
   // Future<PatientEntity> addPatientEntity(PatientModel Patient);
 }
 

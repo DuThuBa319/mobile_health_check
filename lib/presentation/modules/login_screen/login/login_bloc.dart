@@ -2,18 +2,27 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/singletons.dart';
+import '../../../../di/di.dart';
+import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitialState()) {
+  // final PatientUsecase _patientUseCase;
+  LoginBloc(
+      // this._patientUseCase
+      )
+      : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
+    // on<GetPatientInforInPatientAppEvent>(_getPatientInforPatientApp);
   }
+
   Future<void> _onLogin(
     LoginUserEvent event,
     Emitter<LoginState> emit,
@@ -71,7 +80,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             await notificationData.saveUnreadNotificationCount(
                 documentSnapshot.get(FieldPath(const ['unreadCount'])));
             debugPrint("mmmmmmmmmmmmmm${notificationData.unreadCount}");
-          }
+          }        
         } else {
           debugPrint('Document does not exist on the database');
         }
@@ -130,6 +139,34 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
     }
   }
+
+  // Future<void> _getPatientInforPatientApp(
+  //   GetPatientInforInPatientAppEvent event,
+  //   Emitter<LoginState> emit,
+  // ) async {
+  //   emit(
+  //     GetPatientInforInPatientAppState(
+  //       status: BlocStatusState.loading,
+  //       viewModel: state.viewModel,
+  //     ),
+  //   );
+  //   try {
+  //     final response = await _patientUseCase.getPatientInforEntity(event.id);
+  //     final newViewModel =
+  //         state.viewModel.copyWith(patientInforEntity: response);
+  //     emit(GetPatientInforInPatientAppState(
+  //       status: BlocStatusState.success,
+  //       viewModel: newViewModel,
+  //     ));
+  //   } catch (e) {
+  //     emit(
+  //       state.copyWith(
+  //         status: BlocStatusState.failure,
+  //         viewModel: state.viewModel,
+  //       ),
+  //     );
+  //   }
+  // }
 }
 
 // var userList = [

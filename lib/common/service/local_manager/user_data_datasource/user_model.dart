@@ -24,31 +24,64 @@ class UserModel extends User {
   @override
   final String? role;
   @override
+  final int? age;
+  @override
+  final double? weight;
+  @override
+  final double? height;
+  @override
+  final String? street;
+  @override
+  final String? ward;
+  @override
+  final String? district;
+  @override
+  final String? city;
+  @override
+  final String? country;
+  @override
+  final bool? gender;
   // @override
   // final String? status;
   // @override
   // final DateTime? dob;
 
   const UserModel({
+    this.age,
+    this.city,
+    this.country,
+    this.district,
+    this.height,
+    this.street,
+    this.ward,
+    this.weight,
     this.unreadCount,
     this.email,
     this.id,
     this.name,
     this.phoneNumber,
     this.role,
+    this.gender
   }) : super(
-          unreadCount: unreadCount,
-          email: email,
-          id: id,
-          name: name,
-          phoneNumber: phoneNumber,
-          role: role,
-          // status: status,
-          // dob: dob,
-        );
+            unreadCount: unreadCount,
+            email: email,
+            id: id,
+            name: name,
+            phoneNumber: phoneNumber,
+            role: role,
+            age: age,
+            city: city,
+            country: country,
+            district: district,
+            height: height,
+            street: street,
+            ward: ward,
+            weight: weight,
+            gender: gender);
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+  
 }
