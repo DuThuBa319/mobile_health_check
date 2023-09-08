@@ -70,7 +70,7 @@ class _NotificationCellState extends State<NotificationCell> {
                     margin:
                         EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
                     padding: const EdgeInsets.only(top: 1, bottom: 1),
-                    height: SizeConfig.screenWidth * 0.11,
+                    height: SizeConfig.screenHeight * 0.04,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(5),
@@ -102,13 +102,15 @@ class _NotificationCellState extends State<NotificationCell> {
                           ],
                         ),
                         Text(
-                            DateFormat('HH:mm dd/MM/yyyy').format(
-                                widget.notificationEntity?.sendDate ??
-                                    widget.notificationEntity!.sendDate!),
+                            DateFormat('HH:mm dd/MM/yyyy').format(widget
+                                    .notificationEntity?.sendDate!
+                                    .add(const Duration(hours: 7)) ??
+                                widget.notificationEntity!.sendDate!
+                                    .add(const Duration(hours: 7))),
                             style: AppTextTheme.body4.copyWith(
                               color: const Color(0xff424242),
                               fontWeight: FontWeight.w400,
-                              fontSize: SizeConfig.screenWidth * 0.03,
+                              fontSize: SizeConfig.screenWidth * 0.035,
                             )),
                       ],
                     )),

@@ -50,89 +50,70 @@ class _NotificationListState extends State<NotificationScreen> {
         title: translation(context).notification,
         // ),
         selectedIndex: 1,
-        child: Center(
-          child: Container(
-            margin: EdgeInsets.only(top: SizeConfig.screenWidth * 0.1),
-            height: double.infinity,
-            width: SizeConfig.screenWidth * 0.85,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // MultiBlocProvider(
-                //     providers: [
-                //       BlocProvider(
-                //         create: (context) => NotificationBloc(),
-                //       ),
-                //     ],
-                //     child: BlocConsumer<NotificationBloc, NotificationState>(
-                //         listener: (context, state) {},
-                //         builder: (context, state) {
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              lineDecor(),
+              BlocConsumer<NotificationBloc, NotificationState>(
+                  listener: _blocListener,
+                  builder: (context, state) {
+                    if (state is NotificationInitialState) {
+                      notificationBloc.add(GetNotificationListEvent(
+                          id: widget.id ?? widget.id!));
+                    }
+                    if (state is GetNotificationListState &&
+                        state.status == BlocStatusState.loading) {
+                      return const Expanded(
+                        child: Center(
+                          child: Loading(brightness: Brightness.light),
+                        ),
+                      );
+                    }
 
-                //           return Text("${state.unreadCount}");
-                //         })),
-                lineDecor(),
-                Expanded(
-                  child: SmartRefresher(
-                      controller: _refreshController,
-                      header: const WaterDropHeader(),
-                      onRefresh: () async {
-                        await Future.delayed(
-                            const Duration(milliseconds: 1000));
-                        _refreshController.refreshCompleted();
-                        notificationBloc.add(GetNotificationListEvent(
-                            id: widget.id ?? widget.id!));
-                      },
-                      child: BlocConsumer<NotificationBloc, NotificationState>(
-                          listener: _blocListener,
-                          builder: (context, state) {
-                            if (state is NotificationInitialState) {
+                    if (state is GetNotificationListState &&
+                        state.status == BlocStatusState.success) {
+                      if (state.viewModel.notificationEntity!.isEmpty) {
+                        return Center(
+                            child: Text('Hãy chọn các mốc thời gian',
+                                style: AppTextTheme.body2
+                                    .copyWith(color: Colors.red)));
+                      } else {
+                        return Expanded(
+                          child: SmartRefresher(
+                            controller: _refreshController,
+                            header: const WaterDropHeader(),
+                            onRefresh: () async {
+                              await Future.delayed(
+                                  const Duration(milliseconds: 1000));
+                              _refreshController.refreshCompleted();
                               notificationBloc.add(GetNotificationListEvent(
                                   id: widget.id ?? widget.id!));
-                            }
-                            if (state is GetNotificationListState &&
-                                state.status == BlocStatusState.loading) {
-                              return const Expanded(
-                                child: Center(
-                                  child: Loading(brightness: Brightness.light),
-                                ),
-                              );
-                            }
-
-                            if (state is GetNotificationListState &&
-                                state.status == BlocStatusState.success) {
-                              if (state.viewModel.notificationEntity!.isEmpty) {
-                                return Center(
-                                    child: Text('Hãy chọn các mốc thời gian',
-                                        style: AppTextTheme.body2
-                                            .copyWith(color: Colors.red)));
-                              } else {
-                                return ListView.builder(
-                                  reverse: true,
-                                  physics: const BouncingScrollPhysics(),
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  itemCount: state
-                                      .viewModel.notificationEntity?.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    final notificationEntity = state
-                                        .viewModel.notificationEntity![index];
-                                    return NotificationCell(
-                                      notificationEntity: notificationEntity,
-                                      notificationBloc: notificationBloc,
-                                    );
-                                  },
+                            },
+                            child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              itemCount:
+                                  state.viewModel.notificationEntity?.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final notificationEntity =
+                                    state.viewModel.notificationEntity![index];
+                                return NotificationCell(
+                                  notificationEntity: notificationEntity,
+                                  notificationBloc: notificationBloc,
                                 );
-                              }
-                            }
-                            return Container();
-                          })),
-                ),
-
-              
-              ],
-            ),
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                    return Container();
+                  }),
+            ],
           ),
         ));
   }

@@ -100,7 +100,7 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 RichText(
                     textAlign: TextAlign.center,

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_local_variable
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
 
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -52,49 +53,50 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
   );
 }
 
-Widget settingProfileCell(
-    String? selectSetting, BuildContext context, String? lableText) {
-  SizeConfig.init(context);
-  final phoneController = TextEditingController(text: selectSetting);
-  return Container(
-    height: SizeConfig.screenWidth * 0.2,
-    width: SizeConfig.screenWidth * 0.9,
-    margin: EdgeInsets.only(
-        top: SizeConfig.screenWidth * 0.03,
-        bottom: SizeConfig.screenWidth * 0.035),
-    decoration: BoxDecoration(
-      color: AppColor.white,
-      borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-    ),
-    child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-      SizedBox(
-        width: SizeConfig.screenWidth * 0.01,
-      ),
-      SizedBox(
-        width: SizeConfig.screenWidth * 0.8,
-        child: TextField(
-          textAlign: TextAlign.start,
-          cursorColor: AppColor.black,
-          controller: phoneController,
-          style: TextStyle(
-              color: AppColor.gray767676,
-              fontSize: SizeConfig.screenWidth * 0.05),
-          decoration: InputDecoration(
-            labelText: lableText,
-            labelStyle: TextStyle(
-                color: AppColor.black,
-                fontSize: SizeConfig.screenWidth * 0.05,
-                fontWeight: FontWeight.w500),
-            border: InputBorder.none,
-            icon: Icon(Icons.account_box_rounded,
-                size: SizeConfig.screenWidth * 0.12),
-          ),
-        ),
-      ),
-      // Text(selectSetting, style: AppTextTheme.body1.copyWith()),
-    ]),
-  );
-}
+// Widget settingProfileCell(
+//     String? selectSetting, BuildContext context, String? lableText) {
+//   SizeConfig.init(context);
+// TextEditingController controller = TextEditingController(text: selectSetting);
+//   return Container(
+//     height: SizeConfig.screenWidth * 0.2,
+//     width: SizeConfig.screenWidth * 0.9,
+//     margin: EdgeInsets.only(
+//         top: SizeConfig.screenWidth * 0.03,
+//         bottom: SizeConfig.screenWidth * 0.035),
+//     decoration: BoxDecoration(
+//       color: AppColor.white,
+//       borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+//     ),
+//     child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+//       SizedBox(
+//         width: SizeConfig.screenWidth * 0.01,
+//       ),
+//       SizedBox(
+//         width: SizeConfig.screenWidth * 0.8,
+//         child: TextField(
+        
+//           textAlign: TextAlign.start,
+//           cursorColor: AppColor.black,
+//           controller: controller,
+//           style: TextStyle(
+//               color: AppColor.gray767676,
+//               fontSize: SizeConfig.screenWidth * 0.05),
+//           decoration: InputDecoration(
+//             labelText: lableText,
+//             labelStyle: TextStyle(
+//                 color: AppColor.black,
+//                 fontSize: SizeConfig.screenWidth * 0.05,
+//                 fontWeight: FontWeight.w500),
+//             border: InputBorder.none,
+//             icon: Icon(Icons.account_box_rounded,
+//                 size: SizeConfig.screenWidth * 0.12),
+//           ),
+//         ),
+//       ),
+//       // Text(selectSetting, style: AppTextTheme.body1.copyWith()),
+//     ]),
+//   );
+// }
 
 ///
 Widget settingPhoneCell(String? selectSetting, BuildContext context) {

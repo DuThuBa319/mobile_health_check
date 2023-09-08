@@ -12,4 +12,6 @@ abstract class PatientListRepository {
   Future<List<PatientModel>?> getPatientListModels();
   // Future<PatientModel> addPatientModel(PatientModel patient);
   Future<PatientInforModel> getPatientInforModel(String? id);
+  Future<void> updatePatientInforModel(String? id,
+     PatientInforModel? patientInforModel);
 }

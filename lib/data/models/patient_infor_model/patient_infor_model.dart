@@ -24,7 +24,6 @@ class PatientInforModel {
   int? personType;
   double? weight;
   double? height;
-
   int? gender;
   String phoneNumber;
   @JsonKey(name: 'avatar')

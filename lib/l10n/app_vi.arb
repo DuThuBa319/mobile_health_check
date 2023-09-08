@@ -68,5 +68,7 @@
 "ward":"Phường",
 "city":"Thành phố",
 "country":"Quốc gia",
-"updateProfile":"Chỉnh sửa thông tin"
+"updateProfile":"Chỉnh sửa thông tin",
+"district":"Quận",
+"updateProfileSuccessfully":"Chỉnh sửa thông tin thành công"
 }
