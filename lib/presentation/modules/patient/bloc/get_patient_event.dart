@@ -24,6 +24,12 @@ class GetPatientInforEvent extends PatientEvent {
   GetPatientInforEvent({required this.id}) : super();
 }
 
+class UpdatePatientInforEvent extends PatientEvent {
+  final String? id;
+  final PatientInforModel model;
+  UpdatePatientInforEvent({required this.model,required this.id}) : super();
+}
+
 // class GetBloodPressureHistoryDataEvent extends PatientEvent {
 //   final DateTime startDate;
 //   final DateTime endDate;

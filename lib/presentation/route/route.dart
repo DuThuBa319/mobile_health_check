@@ -189,9 +189,14 @@ class AppRoute {
         });
 
       case '/patientSettingProfile':
-        return MaterialPageRoute(builder: (context) {
-          return const SettingPatientProfile();
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: const SettingPatientProfile(),
+            );
+          },
+        );
       case '/patientSettingPass':
         return MaterialPageRoute(builder: (context) {
           return const SettingPatientPassword();

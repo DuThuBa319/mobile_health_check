@@ -8,7 +8,6 @@ import '../../models/patient_infor_model/patient_infor_model.dart';
 import '../../models/patient_list_model/patient_list_model.dart';
 import '../../models/temperature_model/temperature_model.dart';
 
-
 part 'rest_api_repository.g.dart';
 
 @RestApi()
@@ -23,22 +22,23 @@ abstract class RestApiRepository {
     @Path('id') String? id,
   );
 
- @GET('/Persons/DoctorInfo/{id}') //để hiện detail
+  @GET('/Persons/DoctorInfo/{id}') //để hiện detail
   Future<DoctorInforModel> getDoctorInforModel(
     @Path('id') String? id,
   );
 
-@GET('/api/Notification/{id}') //để hiện detail
+  @GET('/api/Notification/{id}') //để hiện detail
   Future<List<NotificationModel>> getNotificationListModels(
     @Path('id') String? id,
   );
 
-  
-@PUT("/api/Notification/{notificationId}/seen") //update
-  Future<void> setReadedNotificationModel(@Path("notificationId") String? notificationId);
+  @PUT("/Persons/{personId}") //update
+  Future<void> updatePatientInforModel(@Path("personId") String? id,
+      @Body() PatientInforModel? patientInforModel);
 
-
-
+  @PUT("/api/Notification/{notificationId}") //update
+  Future<void> setReadedNotificationModel(
+      @Path("notificationId") String? notificationId);
 
   @PUT("/{id}") //update
   Future<void> updatePatient(@Path("id") int id, @Body() PatientModel patient);

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:mobile_health_check/domain/entities/patient_entity.dart';
@@ -21,6 +22,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       : super(GetPatientInitialState()) {
     on<GetPatientListEvent>(_onGetPatientList);
     on<FilterPatientEvent>(_onSearchPatient);
+    on<UpdatePatientInforEvent>(_onUpdatePatientInfor);
+
     // on<RegistPatientEvent>(_registPatient);
     on<GetPatientInforEvent>(_getPatientInfor);
     // on<GetBloodPressureHistoryDataEvent>(_onGetBloodPressureHistoryData);
@@ -46,7 +49,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       // final response = await _patientUseCase.getPatientListEntity();
       // final newViewModel = state.viewModel.copyWith(patientEntity: response);
       final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
-      final newViewModel = state.viewModel.copyWith(doctorInforEntity: response);
+      final newViewModel =
+          state.viewModel.copyWith(doctorInforEntity: response);
       emit(GetPatientListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -153,7 +157,38 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
     }
   }
+
+  Future<void> _onUpdatePatientInfor(
+    UpdatePatientInforEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    emit(
+      UpdatePatientInforState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await _patientUseCase.updatePatientInforEntity(event.id, event.model);
+      final newViewModel = state.viewModel;
+
+      emit(UpdatePatientInforState(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
 }
+
+
+
 
 //   Future<void> _onGetBloodPressureHistoryData(
 //     GetBloodPressureHistoryDataEvent event,

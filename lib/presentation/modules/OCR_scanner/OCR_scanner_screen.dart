@@ -54,10 +54,30 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state.status == BlocStatusState.loading) {
-                    return const Center(
-                        child: Loading(
-                      brightness: Brightness.light,
-                    ));
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Loading(
+                            brightness: Brightness.light,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: Text(
+                              'Đang xử lý...',
+                              style: AppTextTheme.body3.copyWith(
+                                color: Colors.black,
+                                decoration: null,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                   return SingleChildScrollView(
                     child: Padding(
@@ -117,10 +137,30 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state.status == BlocStatusState.loading) {
-                    return const Center(
-                        child: Loading(
-                      brightness: Brightness.light,
-                    ));
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Loading(
+                            brightness: Brightness.light,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: Text(
+                              'Đang xử lý...',
+                              style: AppTextTheme.body3.copyWith(
+                                color: Colors.black,
+                                decoration: null,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                   return SingleChildScrollView(
                     child: Padding(
@@ -188,10 +228,30 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                     // scanBloc.add(GetInitialBloodPressureDataEvent());
                   }
                   if (state.status == BlocStatusState.loading) {
-                    return const Center(
-                        child: Loading(
-                      brightness: Brightness.light,
-                    ));
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Loading(
+                            brightness: Brightness.light,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: Text(
+                              'Đang xử lý...',
+                              style: AppTextTheme.body3.copyWith(
+                                color: Colors.black,
+                                decoration: null,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                   return SingleChildScrollView(
                     child: Padding(

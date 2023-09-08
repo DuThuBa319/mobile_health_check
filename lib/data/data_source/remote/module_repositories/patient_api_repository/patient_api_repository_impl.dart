@@ -26,6 +26,10 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
   Future<PatientInforModel> getPatientInforModel(String? id) {
     return restApi.getPatientInforModel(id);
   }
+  @override
+  Future<void> updatePatientInforModel(String? id,PatientInforModel? patientInforModel) {
+    return restApi.updatePatientInforModel(id, patientInforModel);
+  }
   // @override
   // Future<PatientModel> registPatient(PatientModel patient) {
   //   return restApi.registPatient(patient);

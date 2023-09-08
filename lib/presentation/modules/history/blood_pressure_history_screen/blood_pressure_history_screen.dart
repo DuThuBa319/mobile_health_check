@@ -216,7 +216,6 @@ class BloodPressureHistoryScreenState
                                   .copyWith(color: Colors.red)));
                     } else {
                       return ListView.builder(
-                        reverse: true,
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,

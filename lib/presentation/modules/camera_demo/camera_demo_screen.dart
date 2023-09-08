@@ -140,7 +140,17 @@ class CameraScreenState extends State<CameraScreen>
                               style:
                                   TextStyle(fontSize: 20, color: Colors.white)),
                         )
-                      : Container(),
+                      : Positioned(
+                          top: 80,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: const Text('Màn hình máy đo',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white)),
+                          ),
+                        ),
                   ColorFiltered(
                     colorFilter: const ColorFilter.mode(
                         Colors.black54, BlendMode.srcOut),
@@ -149,9 +159,28 @@ class CameraScreenState extends State<CameraScreen>
                         decoration: const BoxDecoration(
                           color: Colors.transparent,
                         ),
-                        child: Stack(
-                            alignment: Alignment.topCenter,
-                            children: [cropArea(context, task: widget.task)]),
+                        child: Stack(alignment: Alignment.topCenter, children: [
+                          state is GetImageState &&
+                                  state.status == BlocStatusState.loading
+                              ? const Positioned(
+                                  top: 80,
+                                  child: Text('Giữ ví trí trong vài giây',
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white)),
+                                )
+                              : Positioned(
+                                  top: 80,
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.transparent,
+                                    ),
+                                    child: const Text('Màn hình máy đo',
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.white)),
+                                  ),
+                                ),
+                          cropArea(context, task: widget.task)
+                        ]),
                       ),
                     ]),
                   ),

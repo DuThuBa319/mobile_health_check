@@ -46,8 +46,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
       backgroundColor: Colors.white,
-              unreadCount: notificationData.unreadCount,
-
+      unreadCount: notificationData.unreadCount,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -207,7 +206,6 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                                   .copyWith(color: Colors.red)));
                     } else {
                       return ListView.builder(
-                        reverse: true,
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,

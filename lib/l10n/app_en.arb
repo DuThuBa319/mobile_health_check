@@ -69,6 +69,7 @@
 "ward":"ward",
 "city":"City",
 "country":"Country",
-"updateProfile":"Update profile"
-
+"updateProfile":"Update profile",
+"district":"District",
+"updateProfileSuccessfully":"Update Profile Successfully"
 }
