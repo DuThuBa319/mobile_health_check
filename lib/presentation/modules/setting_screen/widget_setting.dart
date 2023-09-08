@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_local_variable
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
 
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -74,7 +73,7 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
 //       SizedBox(
 //         width: SizeConfig.screenWidth * 0.8,
 //         child: TextField(
-        
+
 //           textAlign: TextAlign.start,
 //           cursorColor: AppColor.black,
 //           controller: controller,
@@ -120,7 +119,6 @@ Widget settingPhoneCell(String? selectSetting, BuildContext context) {
       SizedBox(
         width: SizeConfig.screenWidth * 0.8,
         child: TextField(
-          
           textAlign: TextAlign.start,
           onChanged: (newphone) {
             phone = newphone;

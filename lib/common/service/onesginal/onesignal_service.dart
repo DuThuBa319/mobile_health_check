@@ -18,7 +18,7 @@ class OneSignalNotificationService {
   @factoryMethod
   static Future<OneSignalNotificationService> create() async {
     final instance = OneSignalNotificationService._();
-    await instance._init();
+    await instance._init();   
     return instance;
   }
 

@@ -55,7 +55,7 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<LoginBloc>(
-              create: (context) => LoginBloc(),
+              create: (context) => getIt<LoginBloc>(),
               child: const LoginScreen(),
             );
           },
@@ -187,13 +187,13 @@ class AppRoute {
         return MaterialPageRoute(builder: (context) {
           return const PatientSettingMenu();
         });
-    
-         case '/patientSettingProfile':
+
+      case '/patientSettingProfile':
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: SettingPatientProfile(),
+              child: const SettingPatientProfile(),
             );
           },
         );

@@ -70,5 +70,17 @@
 "country":"Quốc gia",
 "updateProfile":"Chỉnh sửa thông tin",
 "district":"Quận",
-"updateProfileSuccessfully":"Chỉnh sửa thông tin thành công"
+"updateProfileSuccessfully":"Chỉnh sửa thông tin thành công",
+"processing":"Đang xử lý...",
+"cameraScreen":"Màn hình máy đo",
+"error":"Đã xảy ra lỗi",
+"holdForFewSec":"Giữ vị trí trong vài giây",
+"processSuccessfully":"Xử lý thành công",
+"accept":"Đồng ý",
+"takePhotoAgain":"Chụp lại",
+"yourPhoto":"Hình bạn vừa chụp",
+"errorWhileTakingPhoto":"Xảy ra lỗi khi chụp ảnh",
+"photoLoading":"Đang lấy hình ảnh",
+"verifying":"Đang xác thực, vui lòng chờ...",
+"verifySuccessfully":"Xác thực thành công"
 }

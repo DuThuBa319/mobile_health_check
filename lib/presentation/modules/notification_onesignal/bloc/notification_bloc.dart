@@ -33,6 +33,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           await notificationUsecase.getNotificationListEntity(event.id);
       final newViewModel =
           state.viewModel.copyWith(notificationEntity: response);
+
       emit(GetNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,

@@ -76,12 +76,13 @@ import '../presentation/common_widget/image_picker/image_picker_bloc/image_picke
 import '../presentation/modules/camera_demo/camera_bloc/camera_bloc.dart'
     as _i3;
 import '../presentation/modules/history/history_bloc/history_bloc.dart' as _i38;
+import '../presentation/modules/login_screen/login/login_bloc.dart' as _i39;
 import '../presentation/modules/notification_onesignal/bloc/notification_bloc.dart'
-    as _i39;
-import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart'
     as _i40;
+import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart'
+    as _i41;
 import '../presentation/modules/patient/bloc/get_patient_bloc.dart' as _i37;
-import 'di.dart' as _i41;
+import 'di.dart' as _i42;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -154,9 +155,10 @@ _i1.GetIt $initGetIt(
         gh<_i36.BloodSugarUsecase>(),
         gh<_i26.TemperatureUsecase>(),
       ));
-  gh.factory<_i39.NotificationBloc>(
-      () => _i39.NotificationBloc(gh<_i17.NotificationUsecase>()));
-  gh.factory<_i40.OCRScannerBloc>(() => _i40.OCRScannerBloc(
+  gh.factory<_i39.LoginBloc>(() => _i39.LoginBloc(gh<_i22.PatientUsecase>()));
+  gh.factory<_i40.NotificationBloc>(
+      () => _i40.NotificationBloc(gh<_i17.NotificationUsecase>()));
+  gh.factory<_i41.OCRScannerBloc>(() => _i41.OCRScannerBloc(
         gh<_i32.BloodPressureUsecase>(),
         gh<_i36.BloodSugarUsecase>(),
         gh<_i26.TemperatureUsecase>(),
@@ -164,6 +166,6 @@ _i1.GetIt $initGetIt(
   return getIt;
 }
 
-class _$DioProvider extends _i41.DioProvider {}
+class _$DioProvider extends _i42.DioProvider {}
 
-class _$AppModule extends _i41.AppModule {}
+class _$AppModule extends _i42.AppModule {}

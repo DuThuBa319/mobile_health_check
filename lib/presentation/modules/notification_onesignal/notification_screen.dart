@@ -77,7 +77,7 @@ class _NotificationListState extends State<NotificationScreen> {
                         state.status == BlocStatusState.success) {
                       if (state.viewModel.notificationEntity!.isEmpty) {
                         return Center(
-                            child: Text('Hãy chọn các mốc thời gian',
+                            child: Text(translation(context).selectTime,
                                 style: AppTextTheme.body2
                                     .copyWith(color: Colors.red)));
                       } else {

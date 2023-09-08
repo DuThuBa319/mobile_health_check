@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/classes/language_constant.dart';
 
 Future<dynamic> showNoticeDialog({
   required BuildContext context,
@@ -28,7 +29,7 @@ Future<dynamic> showNoticeDialog({
 
       showAndroidDialog() => AlertDialog(
             title: Text(
-              title ?? 'Thông báo',
+              title ?? translation(context).notification,
               style: theme.textTheme.headlineSmall,
             ),
             content: Text(
@@ -42,7 +43,7 @@ Future<dynamic> showNoticeDialog({
                   dismissFunc.call();
                   onClose?.call();
                 },
-                child: Text(titleBtn ?? 'Đồng ý'),
+                child: Text(titleBtn ?? translation(context).accept),
               )
             ],
           );
@@ -51,7 +52,7 @@ Future<dynamic> showNoticeDialog({
         return showAndroidDialog();
       } else {
         return CupertinoAlertDialog(
-          title: Text(title ?? 'Thông báo'),
+          title: Text(title ?? translation(context).notification),
           content: Text(
             message,
             style: theme.textTheme.bodyMedium,
@@ -63,7 +64,7 @@ Future<dynamic> showNoticeDialog({
                 dismissFunc.call();
                 onClose?.call();
               },
-              child: Text(titleBtn ?? 'Đồng ý'),
+              child: Text(titleBtn ?? translation(context).accept),
             ),
           ],
         );

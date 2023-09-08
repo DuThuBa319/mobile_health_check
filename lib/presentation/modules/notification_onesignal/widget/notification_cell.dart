@@ -46,8 +46,8 @@ class _NotificationCellState extends State<NotificationCell> {
           margin: EdgeInsets.only(
               bottom: SizeConfig.screenWidth * 0.02,
               top: SizeConfig.screenWidth * 0.025),
-          height: SizeConfig.screenWidth * 0.38,
-          width: SizeConfig.screenWidth * 0.85,
+          height: SizeConfig.screenHeight * 0.15,
+          width: SizeConfig.screenWidth * 0.8,
           decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -68,8 +68,9 @@ class _NotificationCellState extends State<NotificationCell> {
               children: [
                 Container(
                     margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
-                    padding: const EdgeInsets.only(top: 1, bottom: 1),
+                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.05),
+                    padding:
+                        const EdgeInsets.only(left: 5, right: 5, bottom: 8),
                     height: SizeConfig.screenHeight * 0.04,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -102,27 +103,30 @@ class _NotificationCellState extends State<NotificationCell> {
                           ],
                         ),
                         Text(
-                            DateFormat('HH:mm dd/MM/yyyy').format(widget
-                                    .notificationEntity?.sendDate!
-                                    .add(const Duration(hours: 7)) ??
-                                widget.notificationEntity!.sendDate!
-                                    .add(const Duration(hours: 7))),
+                            DateFormat('HH:mm dd/MM/yyyy').format((widget
+                                .notificationEntity?.sendDate!
+                                .add(const Duration(hours: 7)))!),
                             style: AppTextTheme.body4.copyWith(
-                              color: const Color(0xff424242),
+                              color: Colors.black,
                               fontWeight: FontWeight.w400,
                               fontSize: SizeConfig.screenWidth * 0.035,
                             )),
                       ],
                     )),
 
-                Center(
-                  child: SizedBox(
-                    width: SizeConfig.screenWidth * 0.8,
-                    child: Text(widget.notificationEntity?.content ?? "",
-                        style: AppTextTheme.body4.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: SizeConfig.screenWidth * 0.045,
-                            color: const Color.fromARGB(255, 93, 93, 93))),
+                Container(
+                  width: SizeConfig.screenWidth * 0.92,
+                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                  child: Text(
+                    widget.notificationEntity?.content ?? "",
+                    style: AppTextTheme.body4.copyWith(
+                      wordSpacing: 1,
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeConfig.screenWidth * 0.045,
+                      color: (widget.notificationEntity?.read == false)
+                          ? Colors.black
+                          : const Color.fromARGB(255, 93, 93, 93),
+                    ),
                   ),
                 )
                 // SizedBox(

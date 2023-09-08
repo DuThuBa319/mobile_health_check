@@ -70,8 +70,8 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       // widget.notificationBloc
       //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
       debugPrint('###${notificationData.unreadCount}');
-      event.complete(event.notification);
       setState(() {});
+      event.complete(event.notification);
     });
 
     OneSignal.shared.setNotificationOpenedHandler((openedResult) async {

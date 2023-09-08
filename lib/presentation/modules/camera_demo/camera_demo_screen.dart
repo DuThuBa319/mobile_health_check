@@ -8,6 +8,7 @@ import 'package:mobile_health_check/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 
+import '../../../classes/language_constant.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import 'camera_bloc/camera_bloc.dart';
@@ -89,7 +90,7 @@ class CameraScreenState extends State<CameraScreen>
         appBarColor: Colors.blue,
         isShowLeadingButton: true,
         isShowAppBar: true,
-        title: 'Camera Screen',
+        title: translation(context).cameraScreen,
         selectedIndex: 4,
         child: BlocConsumer<CameraBloc, CameraState>(
           listener: blocListener,
@@ -102,7 +103,7 @@ class CameraScreenState extends State<CameraScreen>
               ));
             }
             if (state.status == BlocStatusState.failure) {
-              return const Center(child: Text('Đã xảy ra lỗi'));
+              return Center(child: Text(translation(context).error));
             }
             if ((state is CameraReadyState &&
                     state.status == BlocStatusState.success) ||
@@ -134,13 +135,23 @@ class CameraScreenState extends State<CameraScreen>
                       )),
                   state is GetImageState &&
                           state.status == BlocStatusState.loading
-                      ? const Positioned(
+                      ? Positioned(
                           top: 80,
-                          child: Text('Giữ ví trí trong vài giây',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
+                          child: Text(translation(context).holdForFewSec,
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white)),
                         )
-                      : Container(),
+                      : Positioned(
+                          top: 80,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: Text(translation(context).cameraScreen,
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.white)),
+                          ),
+                        ),
                   ColorFiltered(
                     colorFilter: const ColorFilter.mode(
                         Colors.black54, BlendMode.srcOut),
@@ -149,9 +160,30 @@ class CameraScreenState extends State<CameraScreen>
                         decoration: const BoxDecoration(
                           color: Colors.transparent,
                         ),
-                        child: Stack(
-                            alignment: Alignment.topCenter,
-                            children: [cropArea(context, task: widget.task)]),
+                        child: Stack(alignment: Alignment.topCenter, children: [
+                          state is GetImageState &&
+                                  state.status == BlocStatusState.loading
+                              ? Positioned(
+                                  top: 80,
+                                  child: Text(
+                                      translation(context).holdForFewSec,
+                                      style: const TextStyle(
+                                          fontSize: 20, color: Colors.white)),
+                                )
+                              : Positioned(
+                                  top: 80,
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.transparent,
+                                    ),
+                                    child: Text(
+                                        translation(context).cameraScreen,
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.white)),
+                                  ),
+                                ),
+                          cropArea(context, task: widget.task)
+                        ]),
                       ),
                     ]),
                   ),

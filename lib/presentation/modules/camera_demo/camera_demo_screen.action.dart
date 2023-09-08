@@ -6,10 +6,10 @@ part of 'camera_demo_screen.dart';
 extension CameraScreenAction on CameraScreenState {
   void blocListener(BuildContext context, CameraState state) async {
     if (state is GetImageState && state.status == BlocStatusState.loading) {
-      showToast('Đang xử lý');
+      showToast(translation(context).processing);
     }
     if (state is GetImageState && state.status == BlocStatusState.success) {
-      showToast('Xử lý thành công');
+      showToast(translation(context).processSuccessfully);
       await imageDialog(context, imageFile: state.viewModel.imageFile!);
     }
   }
@@ -95,7 +95,7 @@ extension CameraScreenAction on CameraScreenState {
         barrierDismissible: false,
         context: context,
         builder: (context) => AlertDialog(
-              title: const Text('Hình ảnh bạn vừa chụp'),
+              title: Text(translation(context).yourPhoto),
               content: Container(
                 height: 400,
                 width: 350,
@@ -116,7 +116,7 @@ extension CameraScreenAction on CameraScreenState {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Chụp lại')),
+                    child: Text(translation(context).takePhotoAgain)),
                 const SizedBox(width: 10),
                 TextButton(
                     onPressed: () {
@@ -126,7 +126,7 @@ extension CameraScreenAction on CameraScreenState {
                       Navigator.pop(context);
                       Navigator.pop(context, croppedImage);
                     },
-                    child: const Text('Đồng ý'))
+                    child: Text(translation(context).accept))
               ],
             ));
   }

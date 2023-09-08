@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_health_check/classes/language_constant.dart';
 
 import '../../theme/theme_color.dart';
 import '../dialog/show_toast.dart';

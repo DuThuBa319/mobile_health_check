@@ -54,10 +54,30 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state.status == BlocStatusState.loading) {
-                    return const Center(
-                        child: Loading(
-                      brightness: Brightness.light,
-                    ));
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Loading(
+                            brightness: Brightness.light,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: Text(
+                              translation(context).processing,
+                              style: AppTextTheme.body3.copyWith(
+                                color: Colors.black,
+                                decoration: null,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                   return SingleChildScrollView(
                     child: Padding(
@@ -117,10 +137,30 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                 listener: blocListener,
                 builder: (context, state) {
                   if (state.status == BlocStatusState.loading) {
-                    return const Center(
-                        child: Loading(
-                      brightness: Brightness.light,
-                    ));
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Loading(
+                            brightness: Brightness.light,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: Text(
+                              translation(context).processing,
+                              style: AppTextTheme.body3.copyWith(
+                                color: Colors.black,
+                                decoration: null,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                   return SingleChildScrollView(
                     child: Padding(
@@ -188,10 +228,30 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                     // scanBloc.add(GetInitialBloodPressureDataEvent());
                   }
                   if (state.status == BlocStatusState.loading) {
-                    return const Center(
-                        child: Loading(
-                      brightness: Brightness.light,
-                    ));
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Loading(
+                            brightness: Brightness.light,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: Text(
+                              translation(context).processing,
+                              style: AppTextTheme.body3.copyWith(
+                                color: Colors.black,
+                                decoration: null,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                   return SingleChildScrollView(
                     child: Padding(
@@ -307,7 +367,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: Colors.black,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.045,
+                                              SizeConfig.screenWidth * 0.035,
                                           fontWeight: FontWeight.bold)),
                                   Text(
                                       DateFormat('HH:mm dd/MM/yyyy').format(
@@ -316,7 +376,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: AppColor.gray767676,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.035,
+                                              SizeConfig.screenWidth * 0.03,
                                           fontWeight: FontWeight.bold))
                                 ]),
                             GestureDetector(
@@ -515,7 +575,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: Colors.black,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.045,
+                                              SizeConfig.screenWidth * 0.035,
                                           fontWeight: FontWeight.bold)),
                                   Text(
                                       DateFormat('HH:mm dd/MM/yyyy').format(
@@ -524,7 +584,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: AppColor.gray767676,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.035,
+                                              SizeConfig.screenWidth * 0.03,
                                           fontWeight: FontWeight.bold))
                                 ]),
                             GestureDetector(
@@ -830,7 +890,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: Colors.black,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.04,
+                                              SizeConfig.screenWidth * 0.035,
                                           fontWeight: FontWeight.bold)),
                                   Text(
                                       DateFormat('HH:mm dd/MM/yyyy').format(
@@ -839,7 +899,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: AppColor.gray767676,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.035,
+                                              SizeConfig.screenWidth * 0.03,
                                           fontWeight: FontWeight.bold))
                                 ]),
                             GestureDetector(

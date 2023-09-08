@@ -71,5 +71,17 @@
 "country":"Country",
 "updateProfile":"Update profile",
 "district":"District",
-"updateProfileSuccessfully":"Update Profile Successfully"
+"updateProfileSuccessfully":"Update Profile Successfully",
+"processing":"Processing...",
+"cameraScreen":"Camera Screen",
+"error":"Error",
+"holdForFewSec":"Hold for a few seconds",
+"processSuccessfully":"Processed Successfully",
+"accept":"Accept",
+"takePhotoAgain":"Take Photo Again",
+"yourPhoto":"Your photo",
+"errorWhileTakingPhoto":"Error occured while taking picture",
+"photoLoading":"Photo loading",
+"verifying":"Verifying, please wait...",
+"verifySuccessfully":"Verify Successfully"
 }

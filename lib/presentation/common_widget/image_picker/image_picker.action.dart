@@ -3,7 +3,7 @@ part of 'image_picker_widget.dart';
 extension ImagePickerAction on _ImagePickerGridViewState {
   void _blocListener(BuildContext context, ImagePickerState state) {
     if (state is GetImageState && state.status == BlocStatusState.loading) {
-      showToast('Đang lấy hình ảnh');
+      showToast(translation(context).photoLoading);
     }
     // if (state is GetImageState && state.status == BlocStatusState.success) {
     //   //showToast('Lấy hình ảnh thành công');
