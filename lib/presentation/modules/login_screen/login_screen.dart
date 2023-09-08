@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:mobile_health_check/common/service/local_manager/user_data_datasource/user_data_datasource.dart';
-import 'package:mobile_health_check/common/service/local_manager/user_data_datasource/user_model.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
@@ -10,14 +8,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
-import '../../../common/service/onesginal/onesignal_service.dart';
-import '../../../di/di.dart';
-import '../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../main.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../route/route_list.dart';
+import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 import 'login/login_bloc.dart';
 
@@ -77,7 +73,7 @@ class _LoginState extends State<LoginScreen> {
                               showToast("Change language successfully");
                               await notificationData
                                   .saveLocale(selectedLanguage!.id);
-                              print(notificationData.localeId);
+
                               setState(() {});
                             },
                             child: Stack(
@@ -114,7 +110,6 @@ class _LoginState extends State<LoginScreen> {
                               showToast("Đổi ngôn ngữ thành công");
                               await notificationData
                                   .saveLocale(selectedLanguage!.id);
-                              print(notificationData.localeId);
                               setState(() {});
                             },
                             child: Stack(

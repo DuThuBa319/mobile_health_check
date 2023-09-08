@@ -64,11 +64,12 @@ dependencies:
   rflutter_alert: ^2.0.7
   # lưu ý setup cho ios
   image_picker: ^1.0.2
-  page_transition: ^2.0.9
+  
   permission_handler: ^10.4.3
   camera: ^0.10.5+2
   #ui
   full_screen_image: ^2.0.0
+  page_transition: ^2.0.9
   badges: ^3.1.1
   dotted_border: ^2.0.0+3
   image: ^4.0.17

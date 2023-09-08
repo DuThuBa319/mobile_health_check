@@ -2,25 +2,22 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
+import '../../../../common/service/onesginal/onesignal_service.dart';
 import '../../../../common/singletons.dart';
-import '../../../../di/di.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../common_widget/enum_common.dart';
-
+import 'package:injectable/injectable.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  // final PatientUsecase _patientUseCase;
-  LoginBloc(
-      // this._patientUseCase
-      )
-      : super(LoginInitialState()) {
+  final PatientUsecase _patientUseCase;
+  LoginBloc(this._patientUseCase) : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
-    // on<GetPatientInforInPatientAppEvent>(_getPatientInforPatientApp);
+    on<GetUserDataEvent>(_onGetUserData);
   }
 
   Future<void> _onLogin(
@@ -28,7 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(
-      LoginInitialState(
+      LoginActionState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
@@ -37,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // final response = await _usecase.getListUserEntity();
     if (event.username == null || event.username?.trim() == '') {
       emit(
-        LoginFailState(
+        LoginActionState(
           status: BlocStatusState.failure,
           viewModel: const _ViewModel(
             isLogin: false,
@@ -49,7 +46,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
     if (event.password == null || event.password?.trim() == '') {
       emit(
-        LoginFailState(
+        LoginActionState(
           status: BlocStatusState.failure,
           viewModel: const _ViewModel(
             isLogin: false,
@@ -80,14 +77,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             await notificationData.saveUnreadNotificationCount(
                 documentSnapshot.get(FieldPath(const ['unreadCount'])));
             debugPrint("mmmmmmmmmmmmmm${notificationData.unreadCount}");
-          }        
+          }
         } else {
           debugPrint('Document does not exist on the database');
         }
       });
 
       emit(
-        LoginSuccessState(
+        LoginActionState(
           status: BlocStatusState.success,
           viewModel: state.viewModel.copyWith(
             isLogin: true,
@@ -98,7 +95,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(
-          LoginFailState(
+          LoginActionState(
             status: BlocStatusState.failure,
             viewModel: const _ViewModel(
               isLogin: false,
@@ -108,7 +105,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       } else if (e.code == 'wrong-password') {
         emit(
-          LoginFailState(
+          LoginActionState(
             status: BlocStatusState.failure,
             viewModel: const _ViewModel(
               isLogin: false,
@@ -118,7 +115,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       } else if (e.code == 'invalid-email') {
         emit(
-          LoginFailState(
+          LoginActionState(
             status: BlocStatusState.failure,
             viewModel: const _ViewModel(
               isLogin: false,
@@ -129,7 +126,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } catch (e) {
       emit(
-        LoginFailState(
+        LoginActionState(
           status: BlocStatusState.failure,
           viewModel: const _ViewModel(
             isLogin: false,
@@ -140,35 +137,46 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  // Future<void> _getPatientInforPatientApp(
-  //   GetPatientInforInPatientAppEvent event,
-  //   Emitter<LoginState> emit,
-  // ) async {
-  //   emit(
-  //     GetPatientInforInPatientAppState(
-  //       status: BlocStatusState.loading,
-  //       viewModel: state.viewModel,
-  //     ),
-  //   );
-  //   try {
-  //     final response = await _patientUseCase.getPatientInforEntity(event.id);
-  //     final newViewModel =
-  //         state.viewModel.copyWith(patientInforEntity: response);
-  //     emit(GetPatientInforInPatientAppState(
-  //       status: BlocStatusState.success,
-  //       viewModel: newViewModel,
-  //     ));
-  //   } catch (e) {
-  //     emit(
-  //       state.copyWith(
-  //         status: BlocStatusState.failure,
-  //         viewModel: state.viewModel,
-  //       ),
-  //     );
-  //   }
-  // }
-}
+  Future<void> _onGetUserData(
+    GetUserDataEvent event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(
+      GetUserDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      if (userDataData.getUser()!.role! == 'doctor') {
+        await OneSignalNotificationService.create();
 
-// var userList = [
-//   User(name: 'PDA'),
-// ];
+        OneSignalNotificationService.subscribeNotification(
+            doctorId: userDataData.getUser()!.id!);
+      }
+      if (userDataData.getUser()!.role! == 'patient') {
+        final response = await _patientUseCase
+            .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
+        await userDataData.setUser(response!
+            .convertUser(user: userDataData.getUser()!)
+            .convertToModel());
+      }
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: const _ViewModel(
+            isLogin: false,
+            errorMessage: 'Xảy ra lỗi',
+          ),
+        ),
+      );
+    }
+  }
+}

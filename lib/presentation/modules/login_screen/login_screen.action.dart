@@ -7,45 +7,88 @@ extension LoginAction on _LoginState {
     if (state is LoginInitialState && state.status == BlocStatusState.loading) {
       showToast('Đang tải dữ liệu');
     }
+    if (state is LoginActionState && state.status == BlocStatusState.loading) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) => Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(
+                height: 10,
+              ),
+              Material(
+                type: MaterialType.transparency,
+                child: Text(
+                  'Đang xác thực, vui lòng chờ...',
+                  style: AppTextTheme.body3.copyWith(
+                    color: Colors.white,
+                    decoration: null,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    if (state is GetUserDataState && state.status == BlocStatusState.loading) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) => Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(
+                height: 10,
+              ),
+              Material(
+                type: MaterialType.transparency,
+                child: Text(
+                  'Đang tải dữ liệu...',
+                  style: AppTextTheme.body3.copyWith(
+                    color: Colors.white,
+                    decoration: null,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
-    if (state is LoginSuccessState) {
+    if (state is LoginActionState && state.status == BlocStatusState.success) {
+      Navigator.pop(context);
+      showToast('Xác thực thành công');
+      bloc.add(GetUserDataEvent());
+    }
+
+    if (state is GetUserDataState && state.status == BlocStatusState.success) {
+      Navigator.pop(context);
       if (userDataData.getUser()!.role! == 'doctor') {
-        await OneSignalNotificationService.create();
-
-        OneSignalNotificationService.subscribeNotification(
-            doctorId: userDataData.getUser()!.id!);
-        // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);
       }
       if (userDataData.getUser()!.role! == 'patient') {
-        final patientUsecase = getIt<PatientUsecase>();
-        showToast("Xin hãy đợi vài giây");
-        final response = await patientUsecase
-            .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
-        await userDataData.setUser(response!
-            .convertUser(user: userDataData.getUser()!)
-            .convertToModel());
-        print(response.address?.country);
-        // await OneSignalNotificationService.create();
-        print("kkkkkk${userDataData.getUser()!.id!}");
         Navigator.pushNamed(context, RouteList.selectEquip);
       }
-
-      //get unread notification count,userInfo
-    } else if (state is LoginFailState) {
-      final message = state.viewModel.errorMessage ?? '--';
-
-      showNoticeDialog(context: context, message: message);
     }
-    // if(state is Get&& ){
-    //    //! get list Notification => length unread
-    //   bloc.add(GetUnreadCountEvent());
-    //   notificationData.saveUnreadNotificationCount(state.viewModel.count);
-    //   //notificationData.saveUnreadNotificationCount(0);
-    //   //! truyền Id cho trang này
-    //   Navigator.pushNamed(context, RouteList.patientList);
-    // }
+
+    if (state.status == BlocStatusState.failure) {
+      final message = state.viewModel.errorMessage ?? '--';
+      Navigator.pop(context);
+      showNoticeDialog(context: context, message: message);
+      if (userDataData.getUser() != null) {
+        userDataData.localDataManager.preferencesHelper.remove('user');
+      }
+    }
   }
 
   Future<void> login() async {

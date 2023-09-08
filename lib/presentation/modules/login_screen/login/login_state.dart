@@ -15,9 +15,11 @@ class _ViewModel {
   final User? person;
   // final PatientInforEntity? patientInforEntity;
 
-
-  const _ViewModel({this.isLogin = false, this.errorMessage, this.person,
-  // this.patientInforEntity
+  const _ViewModel({
+    this.isLogin = false,
+    this.errorMessage,
+    this.person,
+    // this.patientInforEntity
   });
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
@@ -26,7 +28,6 @@ class _ViewModel {
     String? errorMessage,
     User? person,
     // PatientInforEntity? patientInforEntity
-
   }) {
     return _ViewModel(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
@@ -58,14 +59,12 @@ abstract class LoginState {
   }
 }
 
-
 // class GetPatientInforInPatientAppState extends LoginState {
 //   GetPatientInforInPatientAppState({
 //     _ViewModel viewModel = const _ViewModel(),
 //     BlocStatusState status = BlocStatusState.initial,
 //   }) : super(viewModel, status: status);
 // }
-
 
 class LoginInitialState extends LoginState {
   LoginInitialState({
@@ -74,15 +73,15 @@ class LoginInitialState extends LoginState {
   }) : super(viewModel);
 }
 
-class LoginSuccessState extends LoginState {
-  LoginSuccessState({
+class LoginActionState extends LoginState {
+  LoginActionState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
 
-class LoginFailState extends LoginState {
-  LoginFailState({
+class GetUserDataState extends LoginState {
+  GetUserDataState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
@@ -97,17 +96,12 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  LoginSuccessState: (viewModel, status) => LoginSuccessState(
+  LoginActionState: (viewModel, status) => LoginActionState(
         viewModel: viewModel,
         status: status,
       ),
-  LoginFailState: (viewModel, status) => LoginFailState(
+  GetUserDataState: (viewModel, status) => GetUserDataState(
         viewModel: viewModel,
         status: status,
       ),
-  // GetPatientInforInPatientAppState: (viewModel, status) =>   GetPatientInforInPatientAppState(
-  //       viewModel: viewModel,
-  //       status: status,
-  //     ),
-
 };
