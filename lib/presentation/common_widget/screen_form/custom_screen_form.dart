@@ -67,10 +67,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       //   'Onesignal ShowInForeground ${event.notification.additionalData}',
       // );
       await notificationData.increaseUnreadNotificationCount();
-
       // widget.notificationBloc
       //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
-      print('###${notificationData.unreadCount}');
+      debugPrint('###${notificationData.unreadCount}');
       event.complete(event.notification);
       setState(() {});
     });

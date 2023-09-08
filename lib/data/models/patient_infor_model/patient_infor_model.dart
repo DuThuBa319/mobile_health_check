@@ -83,7 +83,7 @@ class PatientInforModel {
       bloodSugars: bloodSugarEntities,
       height: height,
       gender: gender == 0 ? false : true, //! Nam ==0==false
-      personType: personType,
+      personType: personType, 
       bodyTemperatures: temperatureEntities,
       weight: weight,
     );
