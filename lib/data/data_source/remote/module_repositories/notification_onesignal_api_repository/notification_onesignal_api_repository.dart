@@ -3,5 +3,7 @@ import '../../../../models/notification_onesignal_model/notification_onesignal_m
 abstract class NotificationApiRepository {
   Future<List<NotificationModel>> getNotificationListModels(String? id);
   Future<void> setReadedNotificationModel(
-      String? notificationId);
+  String? notificationId);
+  Future<int?> getUnreadCountNotification(
+      String? doctorId);
 }

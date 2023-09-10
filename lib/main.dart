@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'classes/language_constant.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
+import 'domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import 'presentation/common_widget/assets.dart';
 import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -98,13 +99,18 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // TODO: implement initState
-    Future.delayed(const Duration(seconds: 2)).then((value) {
+    Future.delayed(const Duration(seconds: 2)).then((value) async {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
 
       final isLogin = userDataData.isLogin;
       if (isLogin == true) {
         //  Navigato r.pushNamed(context, RouteList.selectEquip);
         if (userDataData.getUser()!.role == "doctor") {
+          final NotificationUsecase count = getIt<NotificationUsecase>();
+          final unreadCount = await count
+              .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
+          notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
+          // ignore: use_build_context_synchronously
           Navigator.pushNamed(context, RouteList.patientList,
               arguments: userDataData.getUser()!.id!);
         } else if (userDataData.getUser()!.role == "patient") {

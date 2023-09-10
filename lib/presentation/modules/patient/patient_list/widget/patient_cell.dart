@@ -35,8 +35,10 @@ class _PatientListCellState extends State<PatientListCell> {
               arguments: widget.patientEntity?.id,  );
         },
         child: Card(
+
             margin: const EdgeInsets.only(bottom: 10),
             shape: RoundedRectangleBorder(
+              
               borderRadius: BorderRadius.circular(
                   10), // Đặt giá trị bán kính bo góc tại đây
             ),

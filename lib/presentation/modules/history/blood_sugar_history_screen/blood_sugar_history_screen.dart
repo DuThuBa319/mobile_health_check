@@ -48,7 +48,6 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
       backgroundColor: Colors.white,
-              unreadCount: notificationData.unreadCount,
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

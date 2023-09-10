@@ -22,10 +22,13 @@ import '../modules/history/detail_screen/blood_sugar_detail.dart';
 import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/login_screen/login/login_bloc.dart';
+import '../modules/login_screen/signUp_screen.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../modules/notification_onesignal/notification_screen.dart';
 import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
+import '../modules/patient/patient_list/widget/add_patient_screen.dart';
+import '../modules/patient/patient_profile/add_relative_screen.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
 import '../modules/setting_screen/doctor_setting/doctor_language_setting.dart';
 import '../modules/setting_screen/doctor_setting/doctor_password_setting.dart';
@@ -75,6 +78,29 @@ class AppRoute {
             );
           },
         );
+
+case '/signUp':
+        // final id = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SignUpDoctorScreen();
+          },
+        );
+  case '/addRalative':
+        // final id = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return const AddRelativeScreen();
+          },
+        );
+      case '/addPatient':
+        // final id = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return const AddPatientScreen();
+          },
+        );
+
       // case '/regist_Patient':
       //   final args = routeSettings.arguments as GetPatientBloc;
       //   return MaterialPageRoute(

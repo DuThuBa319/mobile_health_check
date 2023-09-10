@@ -4,7 +4,9 @@
     "bloodSugar":"ĐO ĐƯỜNG HUYẾT",
     "bodyTemperature":"ĐO THÂN NHIỆT",
     "changeLanguageSuccess":"Đổi ngôn ngữ thành công",
-    "confirmPass":"Xác nhận lại mật khẩu mới",
+    "confirmNewPass":"Xác nhận lại mật khẩu mới",
+    "confirmPass":"Xác nhận lại mật khẩu",
+
     "dontHaveAccount":"Bạn chưa có tài khoản?",
     "forgotPass":"Quên mật khẩu?",
     "height":"Chiều cao",
@@ -40,7 +42,7 @@
 "setting":"Cài đặt",
 "settingScreen":"Cài đặt",
 "signIn":"Đăng nhập",
-"signUp":"Đăng ký!",
+"signUp":"Đăng ký",
 "stage1hypertension":"Huyết áp cấp độ 1",
 "stage2hypertension":"Huyết áp cấp độ 2",
 "stage3hypertension":"Huyết áp cấp độ 3",
@@ -82,5 +84,15 @@
 "errorWhileTakingPhoto":"Xảy ra lỗi khi chụp ảnh",
 "photoLoading":"Đang lấy hình ảnh",
 "verifying":"Đang xác thực, vui lòng chờ...",
-"verifySuccessfully":"Xác thực thành công"
+"verifySuccessfully":"Xác thực thành công",
+"addPatient":"Thêm bệnh nhân",
+"gender":"Giới tính",
+"address":"Địa chỉ",
+"addPatientSuccessfully":"Thêm bệnh nhân thành công",
+"addRelativeSuccessfully":"Thêm người thân thành công",
+"addRelative":"Thêm người thân",
+"relativeIn4":"Thông tin người thân",
+"doctorIn4":"Thông tin bác sĩ",
+"signUpSuccessfully":"Đăng ký thành công",
+"unreadNotifications":"Số thông báo chưa đọc"
 }

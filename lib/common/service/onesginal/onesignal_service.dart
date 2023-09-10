@@ -22,7 +22,7 @@ class OneSignalNotificationService {
     return instance;
   }
 
-  Future<void> _init() async {
+Future<void> _init() async {
     if (kDebugMode) {
       await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
     }

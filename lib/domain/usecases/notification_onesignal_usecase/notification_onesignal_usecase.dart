@@ -9,6 +9,7 @@ abstract class NotificationUsecase {
   Future<List<NotificationEntity>?> getNotificationListEntity(String? id);
   // Future<NotificationEntity> addNotificationEntity(NotificationModel Notification);
   Future<void> setReadedNotificationEntity(String? notificationId);
+  Future<int?> getUnreadCountNotificationEntity(String? doctorId);
 }
 
 //Reppo chứa dữ liệu là list Notificationmodel thì usecase chứa list Notificationentity

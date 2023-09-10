@@ -33,4 +33,9 @@ class NotificationUsecaseImpl extends NotificationUsecase {
   Future<void> setReadedNotificationEntity(String? notificationId) async {
     await _repository.setReadedNotificationModel(notificationId);
   }
+
+  @override
+  Future<int?> getUnreadCountNotificationEntity(String? doctorId) async {
+    return await _repository.getUnreadCountNotification(doctorId);
+  }
 }

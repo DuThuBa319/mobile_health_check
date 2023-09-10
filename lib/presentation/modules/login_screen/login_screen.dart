@@ -309,9 +309,11 @@ class _LoginState extends State<LoginScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                        onTap: null,
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteList.signUp);
+                        },
                         child: Text(
-                          translation(context).signUp,
+                          "${translation(context).signUp}!",
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontWeight: FontWeight.bold,
