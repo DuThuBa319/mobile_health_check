@@ -14,17 +14,17 @@ part 'rest_api_repository.g.dart';
 abstract class RestApiRepository {
   factory RestApiRepository(Dio dio, {String baseUrl}) = _RestApiRepository;
 
-  @GET('/Persons/AllPatients')
-  Future<List<PatientModel>> getPatientListModels();
+  // @GET('/Persons/AllPatients')
+  // Future<List<PatientModel>> getPatientListModels();
 
-  @GET('/Persons/PatientInfo/{id}') //để hiện detail
+  @GET('/Persons/PatientInfo/{patientId}') //để hiện detail
   Future<PatientInforModel> getPatientInforModel(
-    @Path('id') String? id,
+    @Path('patientId') String? id,
   );
 
-  @GET('/Persons/DoctorInfo/{id}') //để hiện detail
+  @GET('/api/Persons/DoctorInfo/{doctorId}') //để hiện detail
   Future<DoctorInforModel> getDoctorInforModel(
-    @Path('id') String? id,
+    @Path('doctorId') String? id,
   );
 
   @GET('/api/Notification/{id}') //để hiện detail

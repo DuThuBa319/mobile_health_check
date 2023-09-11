@@ -31,19 +31,19 @@ class PatientUsecaseImpl extends PatientUsecase {
   }
 
 
-  @override
-  Future<List<PatientEntity>?> getPatientListEntity() async {
-    final responses = await _repository.getPatientListModels();
-    final responseEntities = <PatientEntity>[];
-    if (responses != null) {
-      for (final response in responses) {
-        final entity = response.getPatientEntity();
-        responseEntities.add(entity);
-      }
-    }
+  // @override
+  // Future<List<PatientEntity>?> getPatientListEntity() async {
+  //   final responses = await _repository.getPatientListModels();
+  //   final responseEntities = <PatientEntity>[];
+  //   if (responses != null) {
+  //     for (final response in responses) {
+  //       final entity = response.getPatientEntity();
+  //       responseEntities.add(entity);
+  //     }
+  //   }
 
-    return responseEntities;
-  }
+  //   return responseEntities;
+  // }
   // @override
   // Future<PatientEntity> addPatientEntity(PatientModel Patient) async {
   //   try {

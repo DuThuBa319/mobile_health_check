@@ -70,20 +70,23 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     Emitter<GetPatientState> emit,
   ) async {
     emit(
-      GetPatientListState(
+      SearchPatientState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
     );
     try {
-      final patients = await _patientUseCase.getPatientListEntity();
-      final filteredPatients = patients
+      final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
+      final allPatients = response!.patients;
+      // List<PatientEntity>? searchResult = [];
+      final filteredPatients = allPatients
           ?.where((value) =>
               value.name.toLowerCase().contains(event.searchText.toLowerCase()))
           .toList();
+      // searchResult = filteredPatients;
       final newViewModel =
           state.viewModel.copyWith(patientEntity: filteredPatients);
-      emit(GetPatientListState(
+      emit(SearchPatientState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));

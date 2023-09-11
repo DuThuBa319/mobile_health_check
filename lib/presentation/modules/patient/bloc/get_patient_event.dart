@@ -10,8 +10,9 @@ class GetPatientListEvent extends PatientEvent {
 }
 
 class FilterPatientEvent extends PatientEvent {
-  FilterPatientEvent({required this.searchText});
+  FilterPatientEvent({required this.searchText,required this.id});
   final String searchText;
+  final String id;
 }
 
 class RegistPatientEvent extends PatientEvent {
@@ -27,7 +28,7 @@ class GetPatientInforEvent extends PatientEvent {
 class UpdatePatientInforEvent extends PatientEvent {
   final String? id;
   final PatientInforModel model;
-  UpdatePatientInforEvent({required this.model,required this.id}) : super();
+  UpdatePatientInforEvent({required this.model, required this.id}) : super();
 }
 
 // class GetBloodPressureHistoryDataEvent extends PatientEvent {

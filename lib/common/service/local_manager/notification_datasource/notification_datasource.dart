@@ -7,8 +7,7 @@ abstract class NotificationDataSource extends BaseDataSource {
 
   int? get unreadCount;
   int? get localeId;
-  String? get notificationIdId1;
-  String? get notificationIdId2;
+
 
   //! Id =1 => en
   //! Id =2 => vi
@@ -17,8 +16,7 @@ abstract class NotificationDataSource extends BaseDataSource {
 
   // Future<void> saveNotificationData(UserModel? user);
   Future<void> saveUnreadNotificationCount(int count);
-  Future<void> saveNotificationId1(String notificationIdId1);
-  Future<void> saveNotificationId2(String notificationIdId2);
+
 
   // Future<void> increaseUnreadNotificationCount(); //Tăng số lượng unread,
   // Future<void> decreaseUnreadNotificationCount();
