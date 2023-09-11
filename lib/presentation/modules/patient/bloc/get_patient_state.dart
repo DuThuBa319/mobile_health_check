@@ -5,7 +5,7 @@ class _ViewModel {
   // final List<BloodPressureEntity>? listBloodPressure;
   // final List<BloodSugarEntity>? listBloodSugar;
   // final List<TemperatureEntity>? listTemperature;
-  
+
   final List<PatientEntity>? patientEntity;
   final PatientInforEntity? patientInforEntity;
   final DoctorInforEntity? doctorInforEntity;
@@ -72,6 +72,13 @@ class GetPatientListState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
+class SearchPatientState extends GetPatientState {
+  SearchPatientState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 class GetPatientInforState extends GetPatientState {
   GetPatientInforState({
     _ViewModel viewModel = const _ViewModel(),
@@ -103,6 +110,10 @@ final _factories = <Type,
         status: status,
       ),
   GetPatientListState: (viewModel, status) => GetPatientListState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  SearchPatientState: (viewModel, status) => SearchPatientState(
         viewModel: viewModel,
         status: status,
       ),

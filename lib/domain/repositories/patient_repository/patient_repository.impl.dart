@@ -10,10 +10,10 @@ class PatientListRepositoryImpl extends PatientListRepository {
   PatientListRepositoryImpl(
     this._patientApi,
   );
-  @override
-  Future<List<PatientModel>?> getPatientListModels() {
-    return _patientApi.getPatientListModels();
-  }
+  // @override
+  // Future<List<PatientModel>?> getPatientListModels() {
+  //   return _patientApi.getPatientListModels();
+  // }
 
   // @override
   // Future<PatientModel> addPatientModel(PatientModel patient) {

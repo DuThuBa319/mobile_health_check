@@ -34,16 +34,14 @@ class _NotificationCellState extends State<NotificationCell> {
       onTap: () async {
         if (widget.notificationEntity?.read == false) {
           // OneSignal.shared.removeNotification();
-
           // await notificationData.decreaseUnreadNotificationCount();
           widget.notificationBloc!.add(SetReadedNotificationEvent(
             notificationId: widget.notificationEntity?.notificaitonId,
           ),
-           
-          );
-           await notificationData
-          .saveNotificationId1(widget.notificationEntity?.notificaitonId??"");
-        }
+          );}
+          //  await notificationData
+          // .saveNotificationId1(widget.notificationEntity?.notificaitonId??"");
+        
         // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, RouteList.patientInfor,
             arguments: widget.notificationEntity?.patientId);

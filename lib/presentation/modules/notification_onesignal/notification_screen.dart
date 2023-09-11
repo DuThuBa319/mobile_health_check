@@ -55,8 +55,8 @@ class _NotificationListState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     OneSignal.shared.setNotificationWillShowInForegroundHandler(
         (OSNotificationReceivedEvent event) async {
-      await notificationData
-          .saveNotificationId1(event.notification.notificationId);
+      // await notificationData
+      //     .saveNotificationId1(event.notification.notificationId);
 
       // Navigator.pushNamed(context, RouteList.OCR_screen);
       final NotificationUsecase count = getIt<NotificationUsecase>();
@@ -81,13 +81,12 @@ class _NotificationListState extends State<NotificationScreen> {
     OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
       //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
       // await notificationData.decreaseUnreadNotificationCount();
-      if (notificationData.notificationIdId1 !=
-          notificationData.notificationIdId2) {
-        final NotificationUsecase notificationUsecase =
-            getIt<NotificationUsecase>();
-        await notificationUsecase.setReadedNotificationEntity(
-            openedResult.notification.notificationId);
-      } //!PUT GIẢM SỐ UNREAD COUNT SAU KHI NHẤN VÀO POPUP (lọc theo notificationId)
+
+      final NotificationUsecase notificationUsecase =
+          getIt<NotificationUsecase>();
+      await notificationUsecase.setReadedNotificationEntity(
+          openedResult.notification.notificationId);
+      //!PUT GIẢM SỐ UNREAD COUNT SAU KHI NHẤN VÀO POPUP (lọc theo notificationId)
       // final unreadCount = await notificationUsecase
       //     .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
       // await notificationData.saveUnreadNotificationCount(unreadCount!);

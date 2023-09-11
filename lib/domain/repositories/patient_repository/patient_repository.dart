@@ -9,7 +9,7 @@ import '../../../data/models/patient_list_model/patient_list_model.dart';
 part 'patient_repository.impl.dart';
 
 abstract class PatientListRepository {
-  Future<List<PatientModel>?> getPatientListModels();
+  // Future<List<PatientModel>?> getPatientListModels();
   // Future<PatientModel> addPatientModel(PatientModel patient);
   Future<PatientInforModel> getPatientInforModel(String? id);
   Future<void> updatePatientInforModel(String? id,

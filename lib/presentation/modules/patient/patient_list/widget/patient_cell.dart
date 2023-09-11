@@ -33,6 +33,7 @@ class _PatientListCellState extends State<PatientListCell> {
         onTap: () {
           Navigator.pushNamed(context, RouteList.patientInfor,
               arguments: widget.patientEntity?.id,  );
+                 
         },
         child: Card(
 

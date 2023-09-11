@@ -47,6 +47,15 @@ class _PatientListState extends State<PatientListScreen> {
   GetPatientBloc get patientBloc => BlocProvider.of(context);
   NotificationBloc get notificationBloc => BlocProvider.of(context);
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      filterKeyword = TextEditingController(text: '');
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
@@ -72,27 +81,31 @@ class _PatientListState extends State<PatientListScreen> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 8, bottom: 20),
-                    decoration: const BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        blurRadius: 5,
-                        color: Colors.black12,
-                      )
-                    ]),
-                    child: TextField(
-                      controller: filterKeyword,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.6,
+                          child: TextField(
+                            controller: filterKeyword,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                              hintText: translation(context).searchPatient,
+                              hintStyle: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: SizeConfig.screenWidth * 0.05),
+                            ),
+                          ),
                         ),
-                        hintText: translation(context).searchPatient,
-                        hintStyle: TextStyle(
-                            color: Colors.black54,
-                            fontSize: SizeConfig.screenWidth * 0.05),
-                        suffixIcon: SizedBox(
-                          width: SizeConfig.screenWidth * 0.4,
+                        SizedBox(
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -103,7 +116,8 @@ class _PatientListState extends State<PatientListScreen> {
                                 onPressed: () {
                                   patientBloc.add(
                                     FilterPatientEvent(
-                                        searchText: filterKeyword.text),
+                                        searchText: filterKeyword.text,
+                                        id: widget.id ?? widget.id!),
                                   );
                                 },
                               ),
@@ -111,6 +125,8 @@ class _PatientListState extends State<PatientListScreen> {
                                   onPressed: () {
                                     Navigator.pushNamed(
                                         context, RouteList.addPatient);
+                                    filterKeyword =
+                                        TextEditingController(text: "");
                                   },
                                   icon: const Icon(
                                     Icons.group_add_outlined,
@@ -119,7 +135,7 @@ class _PatientListState extends State<PatientListScreen> {
                             ],
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                   BlocConsumer<GetPatientBloc, GetPatientState>(
@@ -161,6 +177,48 @@ class _PatientListState extends State<PatientListScreen> {
                                 itemBuilder: (BuildContext context, int index) {
                                   final patientEntity = state.viewModel
                                       .doctorInforEntity?.patients![index];
+                                  return PatientListCell(
+                                    patientEntity: patientEntity,
+                                    patientBloc: patientBloc,
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                        if (state is SearchPatientState &&
+                            state.status == BlocStatusState.loading) {
+                          return const Expanded(
+                            child: Center(
+                              child: Loading(brightness: Brightness.light),
+                            ),
+                          );
+                        }
+                        if (state is SearchPatientState &&
+                            state.status == BlocStatusState.success) {
+                          return Expanded(
+                            child: SmartRefresher(
+                              header: const WaterDropHeader(),
+                              controller: _refreshController,
+                              onRefresh: () async {
+                                await Future.delayed(
+                                    const Duration(milliseconds: 1000));
+                                _refreshController.refreshCompleted();
+                                patientBloc.add(
+                                  FilterPatientEvent(
+                                      searchText: filterKeyword.text,
+                                      id: widget.id ?? widget.id!),
+                                );
+                              },
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount:
+                                    state.viewModel.patientEntity!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final patientEntity =
+                                      state.viewModel.patientEntity?[index];
                                   return PatientListCell(
                                     patientEntity: patientEntity,
                                     patientBloc: patientBloc,

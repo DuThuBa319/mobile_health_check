@@ -13,7 +13,7 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
     required this.dio,
   }) : restApi = RestApiRepository(dio,
             baseUrl:
-                'https://healthcareapplicationcloud.azurewebsites.net/api');
+                'https://healthcareapplicationcloud.azurewebsites.net');
 
   @override
   Future<DoctorInforModel> getDoctorInforModel(String? id) {

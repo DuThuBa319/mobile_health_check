@@ -17,10 +17,10 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
             baseUrl:
                 'https://healthcareapplicationcloud.azurewebsites.net/api');
 
-  @override
-  Future<List<PatientModel>> getPatientListModels() {
-    return restApi.getPatientListModels();
-  }
+  // @override
+  // Future<List<PatientModel>> getPatientListModels() {
+  //   return restApi.getPatientListModels();
+  // }
 
   @override
   Future<PatientInforModel> getPatientInforModel(String? id) {
