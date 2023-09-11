@@ -58,6 +58,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     // ignore: unused_element
+    OneSignal.shared.getDeviceState();
     OneSignal.shared.setNotificationWillShowInForegroundHandler(
         (OSNotificationReceivedEvent event) async {
       // _inAppNotificationController.add(
@@ -66,6 +67,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       // LogUtils.d(
       //   'Onesignal ShowInForeground ${event.notification.additionalData}',
       // );
+
       await notificationData.increaseUnreadNotificationCount();
       // widget.notificationBloc
       //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
