@@ -23,7 +23,7 @@ extension LoginAction on _LoginState {
               Material(
                 type: MaterialType.transparency,
                 child: Text(
-                translation(context).verifying,
+                  translation(context).verifying,
                   style: AppTextTheme.body3.copyWith(
                     color: Colors.white,
                     decoration: null,
@@ -51,7 +51,7 @@ extension LoginAction on _LoginState {
               Material(
                 type: MaterialType.transparency,
                 child: Text(
-                 "${translation(context).loadingData}...",
+                  "${translation(context).loadingData}...",
                   style: AppTextTheme.body3.copyWith(
                     color: Colors.white,
                     decoration: null,
@@ -67,7 +67,9 @@ extension LoginAction on _LoginState {
     if (state is LoginActionState && state.status == BlocStatusState.success) {
       Navigator.pop(context);
       showToast(translation(context).verifySuccessfully);
-      bloc.add(GetUserDataEvent());
+      bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
+      // bloc.add(GetUnreadCountNotificationEvent(
+      //     doctorId: userDataData.getUser()!.id!));
     }
 
     if (state is GetUserDataState && state.status == BlocStatusState.success) {
@@ -76,6 +78,7 @@ extension LoginAction on _LoginState {
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);
       }
+
       if (userDataData.getUser()!.role! == 'patient') {
         Navigator.pushNamed(context, RouteList.selectEquip);
       }

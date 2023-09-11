@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/modules/patient/patient_list/widget/patient_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -47,7 +48,7 @@ class _PatientListState extends State<PatientListScreen> {
   NotificationBloc get notificationBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(  
+    return WillPopScope(
       onWillPop: _onWillPop,
       child: CustomScreenForm(
           isShowAppBar: true,
@@ -69,35 +70,53 @@ class _PatientListState extends State<PatientListScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 20),
-                    child: Container(
-                      decoration: const BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color: Colors.black12,
-                        )
-                      ]),
-                      child: TextField(
-                        controller: filterKeyword,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: translation(context).searchPatient,
-                          hintStyle: const TextStyle(color: Colors.black54),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.search),
-                            color: Colors.black,
-                            onPressed: () {
-                              patientBloc.add(
-                                FilterPatientEvent(
-                                    searchText: filterKeyword.text),
-                              );
-                            },
+                  Container(
+                    margin: const EdgeInsets.only(top: 8, bottom: 20),
+                    decoration: const BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.black12,
+                      )
+                    ]),
+                    child: TextField(
+                      controller: filterKeyword,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        hintText: translation(context).searchPatient,
+                        hintStyle: TextStyle(
+                            color: Colors.black54,
+                            fontSize: SizeConfig.screenWidth * 0.05),
+                        suffixIcon: SizedBox(
+                          width: SizeConfig.screenWidth * 0.4,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.search),
+                                color: Colors.black,
+                                onPressed: () {
+                                  patientBloc.add(
+                                    FilterPatientEvent(
+                                        searchText: filterKeyword.text),
+                                  );
+                                },
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, RouteList.addPatient);
+                                  },
+                                  icon: const Icon(
+                                    Icons.group_add_outlined,
+                                    color: Colors.black,
+                                  ))
+                            ],
                           ),
                         ),
                       ),

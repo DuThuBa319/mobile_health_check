@@ -4,7 +4,9 @@
 "bloodSugar":"BLOOD SUGAR",
 "bodyTemperature":"BODY TEMPERATURE",
 "changeLanguageSuccess":"Change language success",
-"confirmPass":"Confirm your new password",
+"confirmNewPass":"Confirm your new password",
+"confirmPass":"Xác nhận lại mật khẩu",
+
 "dontHaveAccount":"Don't have an account?",
 "forgotPass":"Forgot your password?",
 "height":"Height",
@@ -41,7 +43,7 @@
 "setting":"Setting",
 "settingScreen":"Setting",
 "signIn":"Sign in",
-"signUp":"Sign up!",
+"signUp":"Sign up",
 "stage1hypertension":"Stage 1 hypertension",
 "stage2hypertension":"Stage 2 hypertension",
 "stage3hypertension":"Stage 2 hypertension",
@@ -83,5 +85,16 @@
 "errorWhileTakingPhoto":"Error occured while taking picture",
 "photoLoading":"Photo loading",
 "verifying":"Verifying, please wait...",
-"verifySuccessfully":"Verify Successfully"
+"verifySuccessfully":"Verify Successfully",
+"addPatient":"Add patient",
+"gender":"Gender",
+"address":"Address",
+"addPatientSuccessfully":"Add patient successfully",
+"addRelativeSuccessfully":"Add relative successfully",
+"addRelative":"Add relative",
+"relativeIn4":"Relative information",
+"doctorIn4":"Doctor information",
+"signUpSuccessfully":"Sign Up successfully",
+"unreadNotifications":"Số thông báo chưa đọc"
 }
+

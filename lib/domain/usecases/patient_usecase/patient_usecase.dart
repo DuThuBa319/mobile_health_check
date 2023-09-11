@@ -15,6 +15,7 @@ abstract class PatientUsecase {
   Future<void> updatePatientInforEntity(String? id,PatientInforModel? patientInforModel);
 
 
+
   // Future<PatientEntity> addPatientEntity(PatientModel Patient);
 }
 

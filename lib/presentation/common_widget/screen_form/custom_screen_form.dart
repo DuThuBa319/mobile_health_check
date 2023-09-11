@@ -2,12 +2,9 @@ import 'package:badges/badges.dart' as badges;
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
-import '../../../di/di.dart';
-import '../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../function.dart';
 import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../route/route_list.dart';
@@ -26,7 +23,7 @@ class CustomScreenForm extends StatefulWidget {
   final bool? isScrollable;
   final bool isShowRightButon;
   final Widget? rightButton;
-  final int? unreadCount;
+  final String? unreadCount;
   final String? messageBody;
   final NotificationBloc? notificationBloc;
   const CustomScreenForm({
@@ -58,41 +55,6 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     // ignore: unused_element
-    OneSignal.shared.getDeviceState();
-    OneSignal.shared.setNotificationWillShowInForegroundHandler(
-        (OSNotificationReceivedEvent event) async {
-      // _inAppNotificationController.add(
-      //   NotificationModel.fromJson(event.notification.additionalData ?? {}),
-      // );
-      // LogUtils.d(
-      //   'Onesignal ShowInForeground ${event.notification.additionalData}',
-      // );
-
-      await notificationData.increaseUnreadNotificationCount();
-      // widget.notificationBloc
-      //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
-      debugPrint('###${notificationData.unreadCount}');
-      setState(() {});
-      event.complete(event.notification);
-    });
-
-    OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
-      //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
-      await notificationData.decreaseUnreadNotificationCount();
-      final NotificationUsecase notificationUsecase =
-          getIt<NotificationUsecase>();
-      await notificationUsecase.setReadedNotificationEntity(
-          openedResult.notification.notificationId);
-      // final data = openedResult.notification.body;
-      // print("xxxxxxxaaaa$data");
-      // widget.notificationBloc
-      //     ?.add(DecreaseNotificationEvent(count: notificationData.unreadCount));
-      print('###${notificationData.unreadCount}');
-      setState(() {
-        Navigator.pushNamed(context, RouteList.patientInfor,
-            arguments: openedResult.notification.additionalData?["patientId"]);
-      });
-    });
 
     return Scaffold(
       backgroundColor: widget.backgroundColor,
@@ -140,8 +102,8 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                           ],
                         )
                     : const SizedBox(
-                        height: 20,
-                        width: 20,
+                        height: 30,
+                        width: 30,
                       )
               ],
             )
@@ -188,16 +150,20 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                         iconIndex: 0),
 
                     badges.Badge(
-                      showBadge: true,
+                      showBadge:
+                          (notificationData.unreadCount! >= 0) ? true : false,
+                      // badgeContent: Text("${notificationData.unreadCount}"),
                       badgeStyle: const badges.BadgeStyle(
                           elevation: 0, badgeColor: Colors.redAccent),
                       position: badges.BadgePosition.topEnd(
-                          top: -3,
-                          end: (notificationData.unreadCount ?? 0) < 10
-                              ? 3
-                              : -3),
-                      badgeContent:
-                          Text('${notificationData.unreadCount ?? 0}'),
+                          top: 3,
+                          end:
+                              // (notificationData.unreadCount ?? 0) < 10
+                              // ? 3
+                              // :
+                              10),
+                      // badgeContent:
+                      //     Text('${notificationData.unreadCount ?? 0}'),
                       child: iconBottomBar(
                           label: translation(context).notification,
                           iconData: Icons.notifications_none_rounded,

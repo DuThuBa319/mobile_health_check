@@ -40,6 +40,14 @@ abstract class RestApiRepository {
   Future<void> setReadedNotificationModel(
       @Path("notificationId") String? notificationId);
 
+      
+  @GET('/api/Notification/{doctorId}/Unseen') //để hiện detail
+  Future<int?> getUnreadCountNotification(
+    @Path('doctorId') String? doctorId,
+  );
+
+     
+
   @PUT("/{id}") //update
   Future<void> updatePatient(@Path("id") int id, @Body() PatientModel patient);
 

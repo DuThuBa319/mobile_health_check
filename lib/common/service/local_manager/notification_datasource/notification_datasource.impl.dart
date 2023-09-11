@@ -36,6 +36,13 @@ class NotificationDataSourceImpl extends BaseDataSource
       localDataManager.preferencesHelper.getData("unreadCount");
   @override
   int? get localeId => localDataManager.preferencesHelper.getData("localeId");
+  @override
+  String? get notificationIdId1 =>
+      localDataManager.preferencesHelper.getData("notificationIdId1");
+  @override
+  String? get notificationIdId2 =>
+      localDataManager.preferencesHelper.getData("notificationIdId2");
+
   // @override
   // String get id => localDataManager.preferencesHelper.getData("id");
   // @override
@@ -161,16 +168,28 @@ class NotificationDataSourceImpl extends BaseDataSource
   }
 
   @override
-  Future<void> increaseUnreadNotificationCount() async {
-    int newCount =
-        (localDataManager.preferencesHelper.getData("unreadCount") ?? 0) + 1;
-    localDataManager.preferencesHelper.saveData("unreadCount", newCount);
+  Future<void> saveNotificationId1(String notificationIdId1) async {
+    localDataManager.preferencesHelper
+        .saveData("notificationIdId1", notificationIdId1);
   }
 
   @override
-  Future<void> decreaseUnreadNotificationCount() async {
-    int newCount =
-        localDataManager.preferencesHelper.getData("unreadCount") - 1;
-    localDataManager.preferencesHelper.saveData("unreadCount", newCount);
+  Future<void> saveNotificationId2(String notificationIdId2) async {
+    localDataManager.preferencesHelper
+        .saveData("notificationIdId2", notificationIdId2);
   }
+
+  // @override
+  // Future<void> increaseUnreadNotificationCount() async {
+  //   int newCount =
+  //       (localDataManager.preferencesHelper.getData("unreadCount") ?? 0) + 1;
+  //   localDataManager.preferencesHelper.saveData("unreadCount", newCount);
+  // }
+
+  // @override
+  // Future<void> decreaseUnreadNotificationCount() async {
+  //   int newCount =
+  //       localDataManager.preferencesHelper.getData("unreadCount") - 1;
+  //   localDataManager.preferencesHelper.saveData("unreadCount", newCount);
+  // }
 }

@@ -9,9 +9,12 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../common/singletons.dart';
+import '../../../../di/di.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
+import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../common_widget/assets.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -44,6 +47,19 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
       RefreshController(initialRefresh: false);
 
   @override
+  void initState() {
+    super.initState();
+    // // TODO: implement initState
+    // Future.delayed(const Duration(seconds: 1)).then((value) async {
+    //   // Navigator.pushNamed(context, RouteList.OCR_screen);
+    //   final NotificationUsecase count = getIt<NotificationUsecase>();
+    //   final unreadCount = await count
+    //       .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
+    //   notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
+    // });
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     // RefreshController refreshController =
@@ -63,10 +79,10 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         isShowLeadingButton: true,
         appBarColor: const Color(0xff7BD4FF),
         backgroundColor: const Color(0xffDBF3FF),
-        // leadingButton: IconButton(
-        //     onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
-        //         arguments: userDataData.getUser()!.id!),
-        //     icon: const Icon(Icons.arrow_back)),
+        leadingButton: IconButton(
+            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
+                arguments: userDataData.getUser()!.id!),
+            icon: const Icon(Icons.arrow_back)),
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
@@ -178,19 +194,43 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   ),
                                 ],
                               )),
-                          Padding(
+                          Container(
                             padding: EdgeInsets.only(
-                                left: 15,
-                                top: SizeConfig.screenHeight * 0.03,
-                                bottom: SizeConfig.screenWidth * 0.02),
+                              left: SizeConfig.screenWidth * 0.04,
+                              top: SizeConfig.screenHeight * 0.03,
+                              bottom: SizeConfig.screenWidth * 0.02,
+                              right: SizeConfig.screenWidth * 0.025,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  translation(context).lastUpdate,
-                                  style: AppTextTheme.body0.copyWith(
-                                      fontSize: SizeConfig.screenHeight * 0.02,
-                                      fontWeight: FontWeight.bold),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      translation(context).lastUpdate,
+                                      style: AppTextTheme.body0.copyWith(
+                                          fontSize:
+                                              SizeConfig.screenHeight * 0.02,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    GestureDetector(
+                                      child: Text(
+                                          translation(context).addRelative,
+                                          style: AppTextTheme.body5.copyWith(
+                                            color: Colors.blue,
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.05,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          )),
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, RouteList.addRelative);
+                                      },
+                                    )
+                                  ],
                                 ),
                                 const SizedBox(
                                   height: 2,

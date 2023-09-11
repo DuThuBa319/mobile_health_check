@@ -46,7 +46,6 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
       isShowLeadingButton: true,
       appBarColor: AppColor.appBarColor,
       backgroundColor: Colors.white,
-      unreadCount: notificationData.unreadCount,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

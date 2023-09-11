@@ -155,7 +155,10 @@ _i1.GetIt $initGetIt(
         gh<_i36.BloodSugarUsecase>(),
         gh<_i26.TemperatureUsecase>(),
       ));
-  gh.factory<_i39.LoginBloc>(() => _i39.LoginBloc(gh<_i22.PatientUsecase>()));
+  gh.factory<_i39.LoginBloc>(() => _i39.LoginBloc(
+        gh<_i22.PatientUsecase>(),
+        gh<_i17.NotificationUsecase>(),
+      ));
   gh.factory<_i40.NotificationBloc>(
       () => _i40.NotificationBloc(gh<_i17.NotificationUsecase>()));
   gh.factory<_i41.OCRScannerBloc>(() => _i41.OCRScannerBloc(

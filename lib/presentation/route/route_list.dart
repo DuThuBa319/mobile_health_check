@@ -29,5 +29,8 @@ class RouteList {
   static const String patientSettingProfile = '/patientSettingProfile';
   static const String patientSettingPass = '/patientSettingPass';
   static const String patientSettingLanguage = '/patientSettingLanguage';
+  static const String addPatient = '/addPatient';
+  static const String addRelative= '/addRalative';
+  static const String signUp= '/signUp';
 
 }

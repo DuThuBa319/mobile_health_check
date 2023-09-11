@@ -10,12 +10,14 @@ class User {
 
 // ViewModel is used for store all properties which want to be stored, processed and updated
 class _ViewModel {
+  final int? count;
   final bool isLogin;
   final String? errorMessage;
   final User? person;
   // final PatientInforEntity? patientInforEntity;
 
   const _ViewModel({
+    this.count,
     this.isLogin = false,
     this.errorMessage,
     this.person,
@@ -24,6 +26,7 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith({
+    int? count,
     bool? isLogin,
     String? errorMessage,
     User? person,
@@ -31,6 +34,7 @@ class _ViewModel {
   }) {
     return _ViewModel(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
+      count: count??this.count,
       isLogin: isLogin ?? this.isLogin,
       errorMessage: errorMessage ?? this.errorMessage,
       person: person ?? this.person,
@@ -87,6 +91,13 @@ class GetUserDataState extends LoginState {
   }) : super(viewModel, status: status);
 }
 
+// class GetUnreadCountNotificationState extends LoginState {
+//   GetUnreadCountNotificationState({
+//     _ViewModel viewModel = const _ViewModel(),
+//     BlocStatusState status = BlocStatusState.initial,
+//   }) : super(viewModel, status: status);
+// }
+
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -104,4 +115,9 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
+  // GetUnreadCountNotificationState: (viewModel, status) =>
+  //     GetUnreadCountNotificationState(
+  //       viewModel: viewModel,
+  //       status: status,
+  //     ),
 };
