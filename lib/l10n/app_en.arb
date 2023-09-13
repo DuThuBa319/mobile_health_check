@@ -6,7 +6,6 @@
 "changeLanguageSuccess":"Change language success",
 "confirmNewPass":"Confirm your new password",
 "confirmPass":"Xác nhận lại mật khẩu",
-
 "dontHaveAccount":"Don't have an account?",
 "forgotPass":"Forgot your password?",
 "height":"Height",
@@ -95,6 +94,8 @@
 "relativeIn4":"Relative information",
 "doctorIn4":"Doctor information",
 "signUpSuccessfully":"Sign Up successfully",
-"unreadNotifications":"Số thông báo chưa đọc"
+"unreadNotifications":"Số thông báo chưa đọc",
+"waitForSeconds":"Please wait for seconds"
+
 }
 

@@ -33,7 +33,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/Persons/PatientInfo/${id}',
+              '/api/Persons/PatientInfo/${id}',
               queryParameters: queryParameters,
               data: _data,
             )

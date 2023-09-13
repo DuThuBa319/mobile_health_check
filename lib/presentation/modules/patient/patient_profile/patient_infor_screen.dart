@@ -10,11 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../common/singletons.dart';
-import '../../../../di/di.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
-import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../common_widget/assets.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -165,7 +163,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(patient.address?.city ?? "--",
+                                  Text(patient.address ?? "--",
                                       style: AppTextTheme.body3.copyWith(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w400)),
@@ -264,6 +262,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                             RouteList.bloodPressuerDetail,
                                             arguments:
                                                 patient.bloodPressures?[0]);
+                                        showToast(translation(context)
+                                            .waitForSeconds);
                                       },
                                       child: homeCell(
                                           bloodPressureEntity:
@@ -282,6 +282,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                             RouteList.bodyTemperatureDetail,
                                             arguments:
                                                 patient.bodyTemperatures?[0]);
+                                        showToast(translation(context)
+                                            .waitForSeconds);
                                       },
                                       child: homeCell(
                                           temperatureEntity:
@@ -300,6 +302,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                         Navigator.pushNamed(
                                             context, RouteList.bloodSugarDetail,
                                             arguments: patient.bloodSugars?[0]);
+                                        showToast(translation(context)
+                                            .waitForSeconds);
                                       },
                                       child: homeCell(
                                           bloodSugarEntity:

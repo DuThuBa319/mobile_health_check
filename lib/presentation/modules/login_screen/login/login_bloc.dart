@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/service/onesginal/onesignal_service.dart';
@@ -152,7 +153,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       if (userDataData.getUser()!.role! == 'doctor') {
         await OneSignalNotificationService.create();
-
         OneSignalNotificationService.subscribeNotification(
             doctorId: userDataData.getUser()!.id!);
         final unreadCount =

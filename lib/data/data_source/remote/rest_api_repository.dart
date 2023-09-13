@@ -17,7 +17,7 @@ abstract class RestApiRepository {
   // @GET('/Persons/AllPatients')
   // Future<List<PatientModel>> getPatientListModels();
 
-  @GET('/Persons/PatientInfo/{patientId}') //để hiện detail
+  @GET('/api/Persons/PatientInfo/{patientId}') //để hiện detail
   Future<PatientInforModel> getPatientInforModel(
     @Path('patientId') String? id,
   );

@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -20,16 +19,16 @@ class BloodPressureDetailScreen extends StatefulWidget {
 }
 
 class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
-  bool _isLoading = true;
+  // bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 3000), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    // Timer(const Duration(milliseconds: 3000), () {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
   }
 
 ////////////////////////
@@ -98,19 +97,20 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
               SizedBox(
                 height: SizeConfig.screenWidth * 0.08,
               ),
-              _isLoading
-                  ? Container(
-                      margin: const EdgeInsets.only(left: 15),
-                      height: SizeConfig.screenWidth * 0.9,
-                      width: SizeConfig.screenWidth * 0.9,
-                      child: const Center(child: CircularProgressIndicator()),
-                    )
-                  : CustomImagePicker(
-                      imagePath: widget.bloodPressureEntity?.imageLink ??
-                          widget.bloodPressureEntity?.imageLink!,
-                      isOnTapActive: true,
-                      isforAvatar: false,
-                    ),
+              // _isLoading
+              //     ? Container(
+              //         margin: const EdgeInsets.only(left: 15),
+              //         height: SizeConfig.screenWidth * 0.9,
+              //         width: SizeConfig.screenWidth * 0.9,
+              //         child: const Center(child: CircularProgressIndicator()),
+              //       )
+              //     :
+              CustomImagePicker(
+                imagePath: widget.bloodPressureEntity?.imageLink ??
+                    widget.bloodPressureEntity?.imageLink!,
+                isOnTapActive: true,
+                isforAvatar: false,
+              ),
               SizedBox(
                 height: SizeConfig.screenWidth * 0.08,
               ),
@@ -219,9 +219,10 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                 title: translation(context).back,
                 buttonColor: Colors.red,
                 onTap: () {
-                  if (_isLoading == false) {
-                    Navigator.pop(context);
-                  }
+                  // if (_isLoading == false) {
+
+                  Navigator.pop(context);
+                  // }
                 },
               )
             ],

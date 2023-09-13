@@ -58,7 +58,55 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     // ignore: unused_element
-  
+    OneSignal.Notifications.addForegroundWillDisplayListener((event) async {
+      /// notification.display() to display after preventing default
+      event.preventDefault();
+
+      event.notification.display();
+
+      // Navigator.pushNamed(context, RouteList.OCR_screen);
+      final NotificationUsecase count = getIt<NotificationUsecase>();
+      final unreadCount = await count
+          .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
+      notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
+      setState(() {});
+      // _inAppNotificationController.add(
+      //   NotificationModel.fromJson(event.notification.additionalData ?? {}),
+      // );
+      // LogUtils.d(
+      //   'Onesignal ShowInForeground ${event.notification.additionalData}',
+      // );
+      // await notificationData.increaseUnreadNotificationCount();
+      // widget.notificationBloc
+      //     .add(IncreaseNotificationEvent(count: notificationData.unreadCount));
+      debugPrint('###${notificationData.unreadCount}');
+    });
+    OneSignal.Notifications.addClickListener((openedResult) async {
+      //change to OneSignal.Notifications.addClickListener(_handleNotificationOpened)
+
+      //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
+      // await notificationData.decreaseUnreadNotificationCount();
+
+      final NotificationUsecase notificationUsecase =
+          getIt<NotificationUsecase>();
+      await notificationUsecase.setReadedNotificationEntity(
+          openedResult.notification.notificationId);
+      //!PUT GIẢM SỐ UNREAD COUNT SAU KHI NHẤN VÀO POPUP (lọc theo notificationId)
+      // final unreadCount = await notificationUsecase
+      //     .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
+      // await notificationData.saveUnreadNotificationCount(unreadCount!);
+      // final data = openedResult.notification.body;
+      // print("xxxxxxxaaaa$data");
+      // widget.notificationBloc
+      //     ?.add(DecreaseNotificationEvent(count: notificationData.unreadCount));
+      Future.delayed(const Duration(milliseconds: 500));
+      print('###${notificationData.unreadCount}');
+
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, RouteList.patientInfor,
+          arguments: openedResult.notification.additionalData?["patientId"]);
+      setState(() {});
+    });
 
     return Scaffold(
       backgroundColor: widget.backgroundColor,

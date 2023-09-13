@@ -17,9 +17,7 @@ PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
       bodyTemperatures: (json['bodyTemperatures'] as List<dynamic>?)
           ?.map((e) => TemperatureModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      address: json['address'] == null
-          ? null
-          : AddressModel.fromJson(json['address'] as Map<String, dynamic>),
+      address: json['address'] as String?,
       id: json['personId'] as String,
       name: json['name'] as String,
       age: json['age'] as int?,
@@ -50,7 +48,7 @@ Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
   writeNotNull('gender', instance.gender);
   val['phoneNumber'] = instance.phoneNumber;
   writeNotNull('avatar', instance.avatarPath);
-  writeNotNull('address', instance.address?.toJson());
+  writeNotNull('address', instance.address);
   writeNotNull('bodyTemperatures',
       instance.bodyTemperatures?.map((e) => e.toJson()).toList());
   writeNotNull(

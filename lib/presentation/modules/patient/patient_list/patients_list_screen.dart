@@ -84,58 +84,60 @@ class _PatientListState extends State<PatientListScreen> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: SizeConfig.screenWidth * 0.6,
-                          child: TextField(
-                            controller: filterKeyword,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.6,
+                            child: TextField(
+                              controller: filterKeyword,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                hintText: translation(context).searchPatient,
+                                hintStyle: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: SizeConfig.screenWidth * 0.05),
                               ),
-                              hintText: translation(context).searchPatient,
-                              hintStyle: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: SizeConfig.screenWidth * 0.05),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.search),
-                                color: Colors.black,
-                                onPressed: () {
-                                  patientBloc.add(
-                                    FilterPatientEvent(
-                                        searchText: filterKeyword.text,
-                                        id: widget.id ?? widget.id!),
-                                  );
-                                },
-                              ),
-                              IconButton(
+                          SizedBox(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.search),
+                                  color: Colors.black,
                                   onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, RouteList.addPatient);
-                                    filterKeyword =
-                                        TextEditingController(text: "");
+                                    patientBloc.add(
+                                      FilterPatientEvent(
+                                          searchText: filterKeyword.text,
+                                          id: widget.id ?? widget.id!),
+                                    );
                                   },
-                                  icon: const Icon(
-                                    Icons.group_add_outlined,
-                                    color: Colors.black,
-                                  ))
-                            ],
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, RouteList.addPatient);
+                                      filterKeyword =
+                                          TextEditingController(text: "");
+                                    },
+                                    icon: const Icon(
+                                      Icons.group_add_outlined,
+                                      color: Colors.black,
+                                    ))
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   BlocConsumer<GetPatientBloc, GetPatientState>(

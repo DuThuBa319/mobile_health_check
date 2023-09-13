@@ -4,6 +4,7 @@ import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../../classes/language_constant.dart';
 import '../../../../function.dart';
@@ -100,6 +101,8 @@ class _SettingMenuState extends State<SettingMenu> {
                         await notificationData.clearData();
                         await userDataData.clearData();
                         await firebaseAuthService.signOut();
+                        await OneSignal.logout();
+
                         // ignore: use_build_context_synchronously
                         // Navigator.pushReplacement(context, MaterialPageRoute(
                         //   builder: (context) {

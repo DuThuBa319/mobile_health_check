@@ -15,7 +15,7 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
     required this.dio,
   }) : restApi = RestApiRepository(dio,
             baseUrl:
-                'https://healthcareapplicationcloud.azurewebsites.net/api');
+                'https://healthcareapplicationcloud.azurewebsites.net');
 
   // @override
   // Future<List<PatientModel>> getPatientListModels() {

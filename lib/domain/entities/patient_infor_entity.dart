@@ -15,7 +15,7 @@ class PatientInforEntity {
   bool? gender;
   String phoneNumber;
   String? avatarPath;
-  AddressModel? address;
+  String? address;
   List<TemperatureEntity>? bodyTemperatures;
   List<BloodSugarEntity>? bloodSugars;
   List<BloodPressureEntity>? bloodPressures;
@@ -43,12 +43,9 @@ class PatientInforEntity {
         name: name,
         phoneNumber: phoneNumber,
         age: age,
-        city: address?.city,
-        country: address?.country,
-        district: address?.district,
+        address: address,
         height: height,
-        street: address?.street,
-        ward: address?.ward,
+       
         weight: weight);
   }
 

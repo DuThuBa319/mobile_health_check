@@ -21,7 +21,7 @@ class DoctorInforModel {
   int? personType;
   int? gender;
   String phoneNumber;
-  AddressModel? address;
+  String? address;
   List<PatientModel>? patients;
 
   DoctorInforModel({

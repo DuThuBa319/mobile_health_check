@@ -28,7 +28,7 @@ class PatientInforModel {
   String phoneNumber;
   @JsonKey(name: 'avatar')
   String? avatarPath;
-  AddressModel? address;
+  String? address;
   List<TemperatureModel>? bodyTemperatures;
   List<BloodSugarModel>? bloodSugars;
   List<BloodPressureModel>? bloodPressures;
