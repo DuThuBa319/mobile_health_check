@@ -4,12 +4,10 @@ import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../../classes/language_constant.dart';
-import '../../../../../common/singletons.dart';
 
 import '../../../../common_widget/common_button.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
 
-import '../../../../route/route_list.dart';
 import '../../../../theme/theme_color.dart';
 
 class AddPatientScreen extends StatefulWidget {
@@ -56,7 +54,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-      
+
         // selectedIndex: 2,
         child: SingleChildScrollView(
           child: Container(
@@ -207,70 +205,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         fontSize: SizeConfig.screenWidth * 0.06),
                     decoration: InputDecoration(
                       labelText: translation(context).age,
-                      labelStyle: TextStyle(
-                          color: AppColor.gray767676,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.w400),
-                      border: InputBorder.none,
-                      // icon: Icon(Icons.account_box_rounded,
-                      //     size: SizeConfig.screenWidth * 0.12),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
-                height: SizeConfig.screenWidth * 0.2,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius:
-                      BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-                ),
-                child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
-                  child: TextField(
-                    textAlign: TextAlign.start,
-                    cursorColor: AppColor.gray767676,
-                    controller: _controllerPatientHeight,
-                    style: TextStyle(
-                        color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
-                    decoration: InputDecoration(
-                      labelText: translation(context).height,
-                      labelStyle: TextStyle(
-                          color: AppColor.gray767676,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.w400),
-                      border: InputBorder.none,
-                      // icon: Icon(Icons.account_box_rounded,
-                      //     size: SizeConfig.screenWidth * 0.12),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
-                height: SizeConfig.screenWidth * 0.2,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius:
-                      BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-                ),
-                child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
-                  child: TextField(
-                    textAlign: TextAlign.start,
-                    cursorColor: AppColor.gray767676,
-                    controller: _controllerPatientWeight,
-                    style: TextStyle(
-                        color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
-                    decoration: InputDecoration(
-                      labelText: translation(context).weight,
                       labelStyle: TextStyle(
                           color: AppColor.gray767676,
                           fontSize: SizeConfig.screenWidth * 0.05,

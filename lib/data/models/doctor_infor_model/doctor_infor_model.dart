@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mobile_health_check/domain/entities/patient_entity.dart';
 
 import '../../../domain/entities/doctor_infor_entity.dart';
-import '../address_model/address_model.dart';
 import '../patient_list_model/patient_list_model.dart';
 // import '../../domain/entities/blood_sugar_entity.dart';
 // import '../../domain/entities/Doctor_infor_entity.dart';

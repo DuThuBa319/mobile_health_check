@@ -138,6 +138,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
                                     height: SizeConfig.screenWidth * 0.025,
@@ -166,7 +167,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   Text(patient.address ?? "--",
                                       style: AppTextTheme.body3.copyWith(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w400)),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.03)),
                                   SizedBox(
                                     height: SizeConfig.screenHeight * 0.03,
                                   ),
@@ -177,14 +180,14 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                       infoText(
                                           title: translation(context).weight,
                                           content:
-                                              "${patient.weight!.toInt()}"),
+                                              "${(patient.weight)?.toInt() ?? (patient.weight!.toInt())}"),
                                       infoText(
                                           title: translation(context).age,
-                                          content: "${patient.age!.toInt()}"),
+                                          content: "${patient.age ?? "--"}"),
                                       infoText(
                                           title: translation(context).height,
                                           content:
-                                              "${patient.height!.toInt()}"),
+                                              "${(patient.height)?.toInt() ?? (patient.height!.toInt())}"),
                                     ],
                                   ),
                                   SizedBox(

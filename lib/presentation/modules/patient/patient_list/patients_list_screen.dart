@@ -57,6 +57,7 @@ class _PatientListState extends State<PatientListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return WillPopScope(
       onWillPop: _onWillPop,
       child: CustomScreenForm(
@@ -80,64 +81,66 @@ class _PatientListState extends State<PatientListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 8, bottom: 20),
+                    margin: EdgeInsets.only(
+                      top: 8,
+                      bottom: SizeConfig.screenWidth * 0.05,
+                    ),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white),
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: SizeConfig.screenWidth * 0.6,
-                            child: TextField(
-                              controller: filterKeyword,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide.none,
-                                ),
-                                hintText: translation(context).searchPatient,
-                                hintStyle: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: SizeConfig.screenWidth * 0.05),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.6,
+                          child: TextField(
+                            controller: filterKeyword,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              // filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
                               ),
+                              hintText: translation(context).searchPatient,
+                              hintStyle: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: SizeConfig.screenWidth * 0.05),
                             ),
                           ),
-                          SizedBox(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.search),
-                                  color: Colors.black,
+                        ),
+                        SizedBox(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.search),
+                                color: Colors.black,
+                                onPressed: () {
+                                  patientBloc.add(
+                                    FilterPatientEvent(
+                                        searchText: filterKeyword.text,
+                                        id: widget.id ?? widget.id!),
+                                  );
+                                },
+                              ),
+                              IconButton(
                                   onPressed: () {
-                                    patientBloc.add(
-                                      FilterPatientEvent(
-                                          searchText: filterKeyword.text,
-                                          id: widget.id ?? widget.id!),
-                                    );
+                                    Navigator.pushNamed(
+                                        context, RouteList.addPatient);
+                                    filterKeyword =
+                                        TextEditingController(text: "");
                                   },
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, RouteList.addPatient);
-                                      filterKeyword =
-                                          TextEditingController(text: "");
-                                    },
-                                    icon: const Icon(
-                                      Icons.group_add_outlined,
-                                      color: Colors.black,
-                                    ))
-                              ],
-                            ),
+                                  icon: const Icon(
+                                    Icons.group_add_outlined,
+                                    color: Colors.black,
+                                  ))
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   BlocConsumer<GetPatientBloc, GetPatientState>(

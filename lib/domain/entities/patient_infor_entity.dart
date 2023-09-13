@@ -45,7 +45,6 @@ class PatientInforEntity {
         age: age,
         address: address,
         height: height,
-       
         weight: weight);
   }
 
