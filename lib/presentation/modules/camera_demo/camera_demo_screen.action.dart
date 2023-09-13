@@ -20,7 +20,7 @@ extension CameraScreenAction on CameraScreenState {
     // Instantiating the camera controller
     final CameraController cameraController = CameraController(
       cameraDescription,
-      ResolutionPreset.max,
+      ResolutionPreset.low,
       imageFormatGroup: ImageFormatGroup.jpeg,
     );
 

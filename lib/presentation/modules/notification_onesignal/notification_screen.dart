@@ -41,44 +41,16 @@ class _NotificationListState extends State<NotificationScreen> {
   void initState() {
     super.initState();
     // TODO: implement initState
-    Future.delayed(const Duration(seconds: 1)).then((value) async {
-      // Navigator.pushNamed(context, RouteList.OCR_screen);
-      final NotificationUsecase count = getIt<NotificationUsecase>();
-      final unreadCount = await count
-          .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
-      notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
-      setState(() {});
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    OneSignal.shared.setNotificationWillShowInForegroundHandler(
-        (OSNotificationReceivedEvent event) async {
-      // await notificationData
-      //     .saveNotificationId1(event.notification.notificationId);
-
-      // Navigator.pushNamed(context, RouteList.OCR_screen);
-      final NotificationUsecase count = getIt<NotificationUsecase>();
-      final unreadCount = await count
-          .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
-      notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
-      setState(() {});
-
-      // _inAppNotificationController.add(
-      //   NotificationModel.fromJson(event.notification.additionalData ?? {}),
-      // );
-      // LogUtils.d(
-      //   'Onesignal ShowInForeground ${event.notification.additionalData}',
-      // );
-      // await notificationData.increaseUnreadNotificationCount();
-      // widget.notificationBloc
-      //     ?.add(IncreaseNotificationEvent(count: notificationData.unreadCount));
-      debugPrint('###${notificationData.unreadCount}');
-      event.complete(event.notification);
+    OneSignal.Notifications.addForegroundWillDisplayListener((event) {
+      event.preventDefault();
+      event.notification.display();
     });
 
-    OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
+    OneSignal.Notifications.addClickListener((openedResult) async {
       //Hàm phía dưới thể hiện số lượng unread còn lại sau khi nhấn pop-up
       // await notificationData.decreaseUnreadNotificationCount();
 
@@ -87,20 +59,10 @@ class _NotificationListState extends State<NotificationScreen> {
       await notificationUsecase.setReadedNotificationEntity(
           openedResult.notification.notificationId);
       //!PUT GIẢM SỐ UNREAD COUNT SAU KHI NHẤN VÀO POPUP (lọc theo notificationId)
-      // final unreadCount = await notificationUsecase
-      //     .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
-      // await notificationData.saveUnreadNotificationCount(unreadCount!);
-      // final data = openedResult.notification.body;
-      // print("xxxxxxxaaaa$data");
-      // widget.notificationBloc
-      //     ?.add(DecreaseNotificationEvent(count: notificationData.unreadCount));
-      Future.delayed(const Duration(milliseconds: 500));
-      print('###${notificationData.unreadCount}');
 
       // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, RouteList.patientInfor,
           arguments: openedResult.notification.additionalData?["patientId"]);
-      setState(() {});
     });
     SizeConfig.init(context);
     return CustomScreenForm(
