@@ -2,13 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
-import 'package:mobile_health_check/domain/entities/patient_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
-import '../../../../data/models/patient_list_model/patient_list_model.dart';
+import '../../../../data/models/relative_model/relative_infor_model.dart';
+import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_patient_event.dart';
@@ -23,9 +23,12 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<GetPatientListEvent>(_onGetPatientList);
     on<FilterPatientEvent>(_onSearchPatient);
     on<UpdatePatientInforEvent>(_onUpdatePatientInfor);
-
-    // on<RegistPatientEvent>(_registPatient);
+    on<RegistPatientEvent>(_onAddPatient);
+    on<RegistRelativeEvent>(_onAddRelative);
     on<GetPatientInforEvent>(_getPatientInfor);
+    on<DeleteRelativeEvent>(_onDeleteRelative);
+    on<DeletePatientEvent>(_onDeletePatient);
+
     // on<GetBloodPressureHistoryDataEvent>(_onGetBloodPressureHistoryData);
     // on<GetBloodSugarHistoryDataEvent>(_onGetBloodSugarHistoryData);
     // on<GetTemperatureHistoryDataEvent>(_onGetTemperatureHistoryData);
@@ -85,7 +88,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           .toList();
       // searchResult = filteredPatients;
       final newViewModel =
-          state.viewModel.copyWith(patientEntity: filteredPatients);
+          state.viewModel.copyWith(patientEntities: filteredPatients);
       emit(SearchPatientState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -100,38 +103,68 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
-  // Future<void> _registPatient(
-  //   RegistPatientEvent event,
-  //   Emitter<GetPatientState> emit,
-  // ) async {
-  //   emit(
-  //     RegistPatientState(
-  //       status: BlocStatusState.loading,
-  //       viewModel: state.viewModel,
-  //     ),
-  //   );
-  //   try {
-  //     final newPatient = await _PatientPatientCase.addPatientEntity(event.Patient);
+  Future<void> _onAddPatient(
+    RegistPatientEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    emit(
+      RegistPatientState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      // final response =
+      //     await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
+      // final newPatient =
+      await _doctorInforUsecase.addPatientEntity(
+          event.doctorId, event.patientInforModel);
+      // response?.patients!.add(newPatient!);
+      // print(response?.patients?.length);
+      // final response =
+      final response =
+          await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
 
-  //     final newViewModel = state.viewModel.copyWith(
-  //       PatientEntity: state.viewModel.PatientEntity,
-  //     );
+      final newViewModel =
+          state.viewModel.copyWith(doctorInforEntity: response);
+      emit(
+        RegistPatientState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
 
-  //     emit(
-  //       RegistPatientState(
-  //         status: BlocStatusState.success,
-  //         viewModel: newViewModel,
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     emit(
-  //       state.copyWith(
-  //         status: BlocStatusState.failure,
-  //         viewModel: state.viewModel,
-  //       ),
-  //     );
-  //   }
-  // }
+  Future<void> _onAddRelative(
+    RegistRelativeEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    emit(
+      RegistRelativeState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await _patientUseCase.addRelativeInforEntity(
+          event.patientId, event.relativeInforModel);
+      emit(RegistRelativeState(
+          status: BlocStatusState.success, viewModel: state.viewModel));
+    } catch (e) {
+      emit(RegistRelativeState(
+        status: BlocStatusState.failure,
+        viewModel: state.viewModel,
+      ));
+    }
+  }
 
   Future<void> _getPatientInfor(
     GetPatientInforEvent event,
@@ -188,10 +221,89 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
     }
   }
-}
 
+  Future<void> _onDeleteRelative(
+    DeleteRelativeEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    emit(
+      DeleteRelativeState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await _doctorInforUsecase.deleteRelationshipRelativeAndPatientEntity(
+          event.relativeId, event.patientId);
+      await _doctorInforUsecase.deleteRelativeEntity(event.relativeId);
+      emit(GetPatientInforState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ));
+      final response =
+          await _patientUseCase.getPatientInforEntity(event.patientId);
+      final newViewModel =
+          state.viewModel.copyWith(patientInforEntity: response);
+      emit(DeleteRelativeState(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ));
 
+      // emit(GetPatientInforState(
+      //   status: BlocStatusState.success,
+      //   viewModel: newViewModel,
+      // ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
 
+  Future<void> _onDeletePatient(
+    DeletePatientEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    emit(
+      DeletePatientState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await _doctorInforUsecase.deleteRelationshipDoctorAndPatientEntity(
+          event.doctorId, event.patientId);
+      await _doctorInforUsecase.deletePatientEntity(event.patientId);
+      final response =
+          await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
+      final newViewModel =
+          state.viewModel.copyWith(doctorInforEntity: response);
+      emit(DeletePatientState(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ));
+      // emit(
+      //   GetPatientListState(
+      //     status: BlocStatusState.loading,
+      //     viewModel: state.viewModel,
+      //   ),
+      // );
+      // emit(GetPatientListState(
+      //   status: BlocStatusState.success,
+      //   viewModel: newViewModel,
+      // ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
 
 //   Future<void> _onGetBloodPressureHistoryData(
 //     GetBloodPressureHistoryDataEvent event,
@@ -412,3 +524,4 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
 // }
 
 // enum ReadDataTask { temperature, bloodPressure, bloodGlucose }
+}

@@ -14,4 +14,35 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
     final entity = response?.getDoctorInforEntity();
     return entity;
   }
+
+  @override
+  Future<PatientInforEntity>? addPatientEntity(
+      String? doctorId, PatientInforModel? patientInforModel) async {
+    final respone =
+        await _repository.addPatientInforModel(doctorId, patientInforModel);
+    final entity = respone!.addPatientEntity();
+    return entity;
+// return response;
+  }
+
+  @override
+  Future<void> deleteRelationshipDoctorAndPatientEntity(
+      String? doctorId, String? patientId) async {
+    await _repository.deleteRelationshipDoctorAndPatientModel(doctorId, patientId);
+  }
+@override
+  Future<void> deleteRelationshipRelativeAndPatientEntity(
+      String? relativeId, String? patientId) async {
+    await _repository.deleteRelationshipDoctorAndPatientModel(relativeId, patientId);
+  }
+
+  @override
+  Future<void> deletePatientEntity(String? patientId) async {
+    await _repository.deletePatientModel(patientId);
+  }
+   @override
+  Future<void> deleteRelativeEntity(String? relativeId) async {
+    await _repository.deleteRelativeModel(relativeId);
+  }
 }
+

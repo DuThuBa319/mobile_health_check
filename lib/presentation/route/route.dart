@@ -45,12 +45,12 @@ class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/patientInfor':
-        final id = routeSettings.arguments as String;
-        return MaterialPageRoute(
+        final patientId = routeSettings.arguments as String;
+         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: PatientInforScreen(id: id),
+              child: PatientInforScreen(patientId:patientId),
             );
           },
         );
@@ -68,36 +68,38 @@ class AppRoute {
         final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => getIt<GetPatientBloc>(),
-                ),
-              ],
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
               child: PatientListScreen(id: id),
             );
           },
         );
 
-case '/signUp':
+      case '/signUp':
         // final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
             return const SignUpDoctorScreen();
           },
         );
-  case '/addRalative':
-        // final id = routeSettings.arguments as String;
+      case '/addRalative':
+        final patientId = routeSettings.arguments as String;
         return MaterialPageRoute(
-          builder: (context) {
-            return const AddRelativeScreen();
+           builder: (context) {
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: AddRelativeScreen(patientId: patientId),
+            );
           },
         );
       case '/addPatient':
-        // final id = routeSettings.arguments as String;
+        final bloc = routeSettings.arguments as GetPatientBloc;
         return MaterialPageRoute(
-          builder: (context) {
-            return const AddPatientScreen();
+         builder: (context) {
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: AddPatientScreen(getPatientBloc:bloc),
+            );
           },
         );
 

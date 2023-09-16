@@ -14,7 +14,6 @@ import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../route/route_list.dart';
-import '../../notification_onesignal/bloc/notification_bloc.dart';
 import '../bloc/get_patient_bloc.dart';
 
 part 'patients_list_screen.action.dart';
@@ -45,7 +44,6 @@ class _PatientListState extends State<PatientListScreen> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   GetPatientBloc get patientBloc => BlocProvider.of(context);
-  NotificationBloc get notificationBloc => BlocProvider.of(context);
   @override
   void initState() {
     // TODO: implement initState
@@ -129,7 +127,8 @@ class _PatientListState extends State<PatientListScreen> {
                               IconButton(
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                        context, RouteList.addPatient);
+                                        context, RouteList.addPatient,
+                                        arguments: patientBloc);
                                     filterKeyword =
                                         TextEditingController(text: "");
                                   },
@@ -150,8 +149,10 @@ class _PatientListState extends State<PatientListScreen> {
                           patientBloc.add(
                               GetPatientListEvent(id: widget.id ?? widget.id!));
                         }
-                        if (state is GetPatientListState &&
-                            state.status == BlocStatusState.loading) {
+                        if ((state is GetPatientListState &&
+                                state.status == BlocStatusState.loading) ||
+                            (state is DeletePatientState &&
+                                state.status == BlocStatusState.loading)) {
                           return const Expanded(
                             child: Center(
                               child: Loading(brightness: Brightness.light),
@@ -159,8 +160,12 @@ class _PatientListState extends State<PatientListScreen> {
                           );
                         }
 
-                        if (state is GetPatientListState &&
-                            state.status == BlocStatusState.success) {
+                        if ((state is GetPatientListState &&
+                                state.status == BlocStatusState.success) ||
+                            (state is DeletePatientState &&
+                                state.status == BlocStatusState.success) ||
+                            (state is RegistPatientState &&
+                                state.status == BlocStatusState.success)) {
                           return Expanded(
                             child: SmartRefresher(
                               header: const WaterDropHeader(),
@@ -180,10 +185,10 @@ class _PatientListState extends State<PatientListScreen> {
                                         ?.patients?.length ??
                                     0,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final patientEntity = state.viewModel
+                                  final patientInforEntity = state.viewModel
                                       .doctorInforEntity?.patients![index];
                                   return PatientListCell(
-                                    patientEntity: patientEntity,
+                                    patientInforEntity: patientInforEntity,
                                     patientBloc: patientBloc,
                                   );
                                 },
@@ -220,12 +225,12 @@ class _PatientListState extends State<PatientListScreen> {
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 itemCount:
-                                    state.viewModel.patientEntity!.length,
+                                    state.viewModel.patientEntities?.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final patientEntity =
-                                      state.viewModel.patientEntity?[index];
+                                  final patientInforEntity =
+                                      state.viewModel.patientEntities?[index];
                                   return PatientListCell(
-                                    patientEntity: patientEntity,
+                                    patientInforEntity: patientInforEntity,
                                     patientBloc: patientBloc,
                                   );
                                 },

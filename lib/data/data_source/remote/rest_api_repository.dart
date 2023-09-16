@@ -6,6 +6,7 @@ import '../../models/blood_sugar_model/blood_sugar_model.dart';
 import '../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../models/patient_infor_model/patient_infor_model.dart';
 import '../../models/patient_list_model/patient_list_model.dart';
+import '../../models/relative_model/relative_infor_model.dart';
 import '../../models/temperature_model/temperature_model.dart';
 
 part 'rest_api_repository.g.dart';
@@ -22,14 +23,24 @@ abstract class RestApiRepository {
     @Path('patientId') String? id,
   );
 
+  @POST('/api/Persons/{doctorId}/AddNewPatient')
+  Future<PatientInforModel> addPatientInforModel(
+      @Path('doctorId') String? doctorId,
+      @Body() PatientInforModel? patientInforModel);
+
+  @POST('/api/Persons/{patientId}/AddNewRelative')
+  Future<RelativeInforModel> addRelativeInforModel(
+      @Path('patientId') String? patientId,
+      @Body() RelativeInforModel? relativeInforModel);
+
   @GET('/api/Persons/DoctorInfo/{doctorId}') //để hiện detail
   Future<DoctorInforModel> getDoctorInforModel(
     @Path('doctorId') String? id,
   );
 
-  @GET('/api/Notification/{id}') //để hiện detail
+  @GET('/api/Notification/{{doctorId}') //để hiện detail
   Future<List<NotificationModel>> getNotificationListModels(
-    @Path('id') String? id,
+    @Path('{doctorId') String? doctorId,
   );
 
   @PUT("/Persons/{personId}") //update
@@ -40,19 +51,21 @@ abstract class RestApiRepository {
   Future<void> setReadedNotificationModel(
       @Path("notificationId") String? notificationId);
 
-      
   @GET('/api/Notification/{doctorId}/Unseen') //để hiện detail
   Future<int?> getUnreadCountNotification(
     @Path('doctorId') String? doctorId,
   );
 
-     
-
   @PUT("/{id}") //update
-  Future<void> updatePatient(@Path("id") int id, @Body() PatientModel patient);
+  Future<void> updatePatient(
+      @Path("id") int id, @Body() PatientInforModel patientInforModel);
 
-  @DELETE('/{id}') //delete
-  Future<void> deletePatient(@Path('id') int id);
+  @DELETE('/api/Persons/{personId}') //delete
+  Future<void> deletePerson(@Path('id') String? personId);
+
+  @PUT('/api/Persons/{personId}/RemoveRelationship/{patientId}') //delete
+  Future<void> deleteRelationship(
+      @Path('personId') String? personId, @Path('patientId') String? patientId);
 
 //BLOOD PRESSURE////////////////////////////
   @GET('/{id}')

@@ -1,12 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobile_health_check/data/models/doctor_infor_model/doctor_infor_model.dart';
 
 import 'package:mobile_health_check/domain/entities/blood_pressure_entity.dart';
+import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
+import 'package:mobile_health_check/domain/entities/relative_infor_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../../domain/entities/blood_sugar_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
 import '../blood_pressure_model/blood_pressure_model.dart';
 import '../blood_sugar_model/blood_sugar_model.dart';
+import '../relative_model/relative_infor_model.dart';
 import '../temperature_model/temperature_model.dart';
 
 part 'patient_infor_model.g.dart';
@@ -17,7 +21,7 @@ part 'patient_infor_model.g.dart';
 // igmnore: must_be_imutable
 class PatientInforModel {
   @JsonKey(name: "personId")
-  String id;
+  String? id;
   String name;
   int? age;
   int? personType;
@@ -28,15 +32,19 @@ class PatientInforModel {
   @JsonKey(name: 'avatar')
   String? avatarPath;
   String? address;
+  List<RelativeInforModel>? relatives;
+  DoctorInforModel? doctor;
   List<TemperatureModel>? bodyTemperatures;
   List<BloodSugarModel>? bloodSugars;
   List<BloodPressureModel>? bloodPressures;
   PatientInforModel({
+    this.doctor,
+    this.relatives,
     this.bloodPressures,
     this.bloodSugars,
     this.bodyTemperatures,
     this.address,
-    required this.id,
+    this.id,
     required this.name,
     this.age,
     this.personType,
@@ -70,9 +78,15 @@ class PatientInforModel {
         temperatureEntities.add(model.getTemperatureEntity());
       }
     }
-
+    List<RelativeInforEntity> relativeEntities = [];
+    if (relatives != null || relatives!.isEmpty) {
+      for (var model in relatives!) {
+        relativeEntities.add(model.getRelativeInforEntity());
+      }
+    }
+    DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
     return PatientInforEntity(
-      id: id,
+      id: id ?? "",
       age: age,
       name: name,
       phoneNumber: phoneNumber,
@@ -85,12 +99,29 @@ class PatientInforModel {
       personType: personType,
       bodyTemperatures: temperatureEntities,
       weight: weight,
+      doctor: doctorEntity,
+      relatives: relativeEntities,
+    );
+  }
+
+  PatientInforEntity getPatientInforEntityForList() {
+    return PatientInforEntity(
+      id: id,
+      name: name,
+      phoneNumber: phoneNumber,
     );
   }
 
   PatientInforEntity getPatientInforEntityPatientApp() {
+    List<RelativeInforEntity> relativeEntities = [];
+    if (relatives != null || relatives!.isEmpty) {
+      for (var model in relatives!) {
+        relativeEntities.add(model.getRelativeInforEntity());
+      }
+    }
+    DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
     return PatientInforEntity(
-      id: id,
+      id: id ?? "",
       age: age,
       name: name,
       phoneNumber: phoneNumber,
@@ -100,6 +131,32 @@ class PatientInforModel {
       gender: gender == 0 ? false : true,
       personType: personType,
       weight: weight,
+      doctor: doctorEntity,
+      relatives: relativeEntities,
+    );
+  }
+
+  PatientInforEntity addPatientEntity() {
+    List<RelativeInforEntity> relativeEntities = [];
+    if (relatives != null || relatives!.isEmpty) {
+      for (var model in relatives!) {
+        relativeEntities.add(model.getRelativeInforEntity());
+      }
+    }
+    DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
+    return PatientInforEntity(
+      id: id ?? "",
+      age: age,
+      name: name,
+      phoneNumber: phoneNumber,
+      avatarPath: avatarPath,
+      address: address ?? "",
+      height: height,
+      gender: gender == 0 ? false : true,
+      personType: personType,
+      weight: weight,
+      doctor: doctorEntity,
+      relatives: relativeEntities,
     );
   }
 }

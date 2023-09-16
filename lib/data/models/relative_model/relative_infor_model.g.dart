@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'doctor_infor_model.dart';
+part of 'relative_infor_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DoctorInforModel _$DoctorInforModelFromJson(Map<String, dynamic> json) =>
-    DoctorInforModel(
-      id: json['personId'] as String,
+RelativeInforModel _$RelativeInforModelFromJson(Map<String, dynamic> json) =>
+    RelativeInforModel(
+      id: json['personId'] as String?,
       name: json['name'] as String,
       age: json['age'] as int?,
       personType: json['personType'] as int?,
@@ -20,11 +20,8 @@ DoctorInforModel _$DoctorInforModelFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$DoctorInforModelToJson(DoctorInforModel instance) {
-  final val = <String, dynamic>{
-    'personId': instance.id,
-    'name': instance.name,
-  };
+Map<String, dynamic> _$RelativeInforModelToJson(RelativeInforModel instance) {
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -32,6 +29,8 @@ Map<String, dynamic> _$DoctorInforModelToJson(DoctorInforModel instance) {
     }
   }
 
+  writeNotNull('personId', instance.id);
+  val['name'] = instance.name;
   writeNotNull('age', instance.age);
   writeNotNull('personType', instance.personType);
   writeNotNull('gender', instance.gender);

@@ -4,6 +4,7 @@ import 'package:mobile_health_check/classes/language_constant.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/presentation/modules/patient/patient_profile/widget/relative_cell.dart';
 
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +29,11 @@ import '../bloc/get_patient_bloc.dart';
 part 'patient_infor_screen.action.dart';
 
 class PatientInforScreen extends StatefulWidget {
-  final String? id;
+  final String? patientId;
 
   const PatientInforScreen({
     Key? key,
-    required this.id,
+    required this.patientId,
   }) : super(key: key);
 
   @override
@@ -85,8 +86,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
             listener: _blocListener,
             builder: (context, state) {
               if (state is GetPatientInitialState) {
-                patientBloc
-                    .add(GetPatientInforEvent(id: widget.id ?? widget.id!));
+                patientBloc.add(GetPatientInforEvent(
+                    id: widget.patientId ?? widget.patientId!));
               }
               if (state is GetPatientInforState &&
                   state.status == BlocStatusState.loading) {
@@ -96,20 +97,23 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                   ),
                 );
               }
-              if (state is GetPatientInforState &&
-                  state.status == BlocStatusState.success) {
+              if ((state is GetPatientInforState &&
+                      state.status == BlocStatusState.success) ||
+                  (state is DeleteRelativeState &&
+                      state.status == BlocStatusState.success)) {
                 PatientInforEntity patient =
                     state.viewModel.patientInforEntity ??
                         state.viewModel.patientInforEntity!;
-                print(patient);
+                // DoctorInforEntity doctor = state.viewModel.doctorInforEntity ??
+                //     state.viewModel.doctorInforEntity!;
                 return SmartRefresher(
                     header: const WaterDropHeader(),
                     controller: _refreshController,
                     onRefresh: () async {
                       await Future.delayed(const Duration(milliseconds: 1000));
                       _refreshController.refreshCompleted();
-                      patientBloc.add(
-                          GetPatientInforEvent(id: widget.id ?? widget.id!));
+                      patientBloc.add(GetPatientInforEvent(
+                          id: widget.patientId ?? widget.patientId!));
                     },
                     child: SingleChildScrollView(
                       child: Column(
@@ -178,14 +182,16 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       infoText(
-                                          title: translation(context).weight,
+                                          title:
+                                              "${translation(context).weight} (Kg)",
                                           content:
                                               "${(patient.weight)?.toInt() ?? (patient.weight!.toInt())}"),
                                       infoText(
                                           title: translation(context).age,
                                           content: "${patient.age ?? "--"}"),
                                       infoText(
-                                          title: translation(context).height,
+                                          title:
+                                              "${translation(context).height} (cm)",
                                           content:
                                               "${(patient.height)?.toInt() ?? (patient.height!.toInt())}"),
                                     ],
@@ -228,7 +234,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           )),
                                       onTap: () {
                                         Navigator.pushNamed(
-                                            context, RouteList.addRelative);
+                                            context, RouteList.addRelative,
+                                            arguments: widget.patientId);
                                       },
                                     )
                                   ],
@@ -258,6 +265,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                               //               id: widget.id ?? widget.id!));
                               //         },
                               Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     GestureDetector(
                                       onTap: () {
@@ -318,6 +327,52 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           indicator:
                                               translation(context).bloodSugar,
                                           color: AppColor.bloodGlucosColor),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: SizeConfig.screenWidth * 0.02,
+                                        left: SizeConfig.screenWidth * 0.04,
+                                        bottom: SizeConfig.screenWidth * 0.02,
+                                        right: SizeConfig.screenWidth * 0.025,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            translation(context).relative,
+                                            style: AppTextTheme.body0.copyWith(
+                                                fontSize:
+                                                    SizeConfig.screenHeight *
+                                                        0.02,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            height: 2,
+                                          ),
+                                          lineDecor(),
+                                          SizedBox(
+                                            height:
+                                                SizeConfig.screenWidth * 0.02,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    ListView.builder(
+                                      physics: const BouncingScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      itemCount: patient.relatives?.length ?? 0,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final relatives =
+                                            patient.relatives?[index];
+                                        return RelativeListCell(
+                                          deleteRelativeBloc: patientBloc,
+                                          relativeInforEntity: relatives,
+                                          patientInforEntity: patient,
+                                        );
+                                      },
                                     )
                                   ],
                                 )

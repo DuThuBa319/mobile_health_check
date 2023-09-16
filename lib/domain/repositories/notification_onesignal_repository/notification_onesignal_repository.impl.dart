@@ -11,8 +11,8 @@ class NotificationListRepositoryImpl extends NotificationRepository {
     this._notificationApi, 
   );
   @override
-  Future<List<NotificationModel>> getNotificationListModels(String? id) {
-    return _notificationApi.getNotificationListModels(id);
+  Future<List<NotificationModel>> getNotificationListModels(String? doctorId) {
+    return _notificationApi.getNotificationListModels(doctorId);
   }
 
   @override

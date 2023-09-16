@@ -6,13 +6,12 @@ import 'package:intl/intl.dart';
 
 import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/temperature_entity.dart';
-import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import '../../../theme/theme_color.dart';
 
 class TemperatureDetailScreen extends StatefulWidget {
   final TemperatureEntity? temperatureEntity;
-  const TemperatureDetailScreen({super.key, this.temperatureEntity});
+  const TemperatureDetailScreen({super.key, required this.temperatureEntity});
 
   @override
   State<TemperatureDetailScreen> createState() =>
@@ -73,7 +72,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy')
-                            .format(widget.temperatureEntity!.updatedDate!),
+                            .format(widget.temperatureEntity?.updatedDate??widget.temperatureEntity!.updatedDate!),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),

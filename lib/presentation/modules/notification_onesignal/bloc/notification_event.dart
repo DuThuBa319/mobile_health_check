@@ -5,10 +5,11 @@ abstract class NotificationEvent {}
 
 class GetNotificationListEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
-  final String? id;
+  final String? doctorId;
 
-  GetNotificationListEvent({this.id});
+  GetNotificationListEvent({required this.doctorId});
 }
+
 
 class SetReadedNotificationEvent extends NotificationEvent {
   final String? notificationId;

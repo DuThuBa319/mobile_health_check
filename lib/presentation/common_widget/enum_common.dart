@@ -18,7 +18,7 @@ enum WeatherWithTimeStatus {
 
 enum Splash { loGo }
 
-enum MeasuringTask { temperature, bloodPressure, bloodSugar }
+enum MeasuringTask { temperature, bloodPressure, bloodSugar, oximeter }
 
 class CroppedImage {
   File croppedImage;

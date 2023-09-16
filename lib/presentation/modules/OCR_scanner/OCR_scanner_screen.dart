@@ -300,6 +300,97 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                 }),
           );
         }
+        //!!!!OXIMETER
+//  if (widget.task == MeasuringTask.oximeter) {
+//           return PatientCustomScreenForm(
+//             title: translation(context).oximeter,
+//             isShowAppBar: true,
+//             isShowLeadingButton: true,
+//             appComponentColor: Colors.white,
+//             backgroundColor: AppColor.blueD0F7FF,
+//             appBarColor: AppColor.topGradient,
+//             child: BlocConsumer<OCRScannerBloc, OCRScannerState>(
+//                 listener: blocListener,
+//                 builder: (context, state) {
+//                   if (state.status == BlocStatusState.loading) {
+//                     return Center(
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.center,
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           const Loading(
+//                             brightness: Brightness.light,
+//                           ),
+//                           const SizedBox(
+//                             height: 10,
+//                           ),
+//                           Material(
+//                             type: MaterialType.transparency,
+//                             child: Text(
+//                               translation(context).processing,
+//                               style: AppTextTheme.body3.copyWith(
+//                                 color: Colors.black,
+//                                 decoration: null,
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     );
+//                   }
+//                   return SingleChildScrollView(
+//                     child: Padding(
+//                       padding: EdgeInsets.all(SizeConfig.screenWidth * 0.05),
+//                       child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             //! Blood Glucose Meter
+//                             // Text(
+//                             //   'Blood Glucose Meter',
+//                             //   style: AppTextTheme.title2,
+//                             // ),
+//                             SizedBox(height: SizeConfig.screenWidth * 0.15),
+//                             imagePicker(state, context,
+//                                 imageFile:
+//                                     state.viewModel.oximeterImageFile,
+//                                 event:
+//                                     GetBloodGlucoseDataEvent(context: context)),
+//                             SizedBox(
+//                               height: SizeConfig.screenWidth * 0.08,
+//                             ),
+//                             state.viewModel.oximeterImageFile != null
+//                                 ? bloodGlucoseCell(state)
+//                                 : Center(
+//                                     child: Column(
+//                                     children: [
+//                                       // SizedBox(
+//                                       //     height:
+//                                       //         SizeConfig.screenHeight * 0.33),
+//                                       CommonButton(
+//                                         buttonColor: AppColor.greyD9,
+//                                         textColor: Colors.white,
+//                                         height: SizeConfig.screenWidth * 0.18,
+//                                         width: SizeConfig.screenWidth * 0.8,
+//                                         title: translation(context).upload,
+//                                         onTap: () {
+//                                           // scanBloc.add(
+//                                           //     UploadBloodPressureDataEvent());
+//                                         },
+//                                       ),
+//                                     ],
+//                                   )),
+
+//                             //const SizedBox(height: SizeConfig.screenWidth*0.08),
+//                             // const Center(
+//                             //     child: CommonButton(height: SizeConfig.screenWidth*0.18, title: 'Cập nhật'))
+//                           ]),
+//                     ),
+//                   );
+//                 }),
+//           );
+//         }
+        //!!!!OXIMETER
+
         return Container();
       },
     );
