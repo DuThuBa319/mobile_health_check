@@ -18,8 +18,9 @@ import 'widget/OCR_scanner_widget.dart';
 part 'read_blood_pressure_reading_screen.action.dart';
 
 class BloodPressureReadingScreen extends StatefulWidget {
-  final MeasuringTask task;
-  const BloodPressureReadingScreen({super.key, required this.task});
+  const BloodPressureReadingScreen({
+    super.key,
+  });
 
   @override
   State<BloodPressureReadingScreen> createState() =>

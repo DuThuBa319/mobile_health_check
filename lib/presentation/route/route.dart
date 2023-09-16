@@ -1,5 +1,5 @@
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
-import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
+import 'package:mobile_health_check/presentation/modules/OCR_scanner/read_blood_pressure_reading_screen.dart';
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
@@ -14,7 +14,8 @@ import '../../domain/entities/blood_sugar_entity.dart';
 import '../../domain/entities/temperature_entity.dart';
 import '../common_widget/enum_common.dart';
 import '../modules/OCR_scanner/OCR_scanner_screen.dart';
-import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
+import '../modules/OCR_scanner/blood_glucose_reading_screen.dart';
+import '../modules/OCR_scanner/temperature_reading_screen.dart';
 import '../modules/history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
 import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
 import '../modules/history/detail_screen/blood_pressure_detail.dart';
@@ -79,14 +80,14 @@ class AppRoute {
           },
         );
 
-case '/signUp':
+      case '/signUp':
         // final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
             return const SignUpDoctorScreen();
           },
         );
-  case '/addRalative':
+      case '/addRalative':
         // final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
@@ -126,20 +127,36 @@ case '/signUp':
                 ));
           },
         );
-      case '/camera':
-        //final id = routeSettings.arguments as String;
-
-        final task = routeSettings.arguments as MeasuringTask;
+      case '/bloodPressureScreen':
         return MaterialPageRoute(
           builder: (context) {
             return MultiBlocProvider(providers: [
-              BlocProvider(
-                create: (context) => CameraBloc(),
+              BlocProvider<OCRScannerBloc>(
+                create: (context) => getIt<OCRScannerBloc>(),
               )
-            ], child: CameraScreen(task: task));
+            ], child: const BloodPressureReadingScreen());
           },
         );
-
+      case '/bloodGlucoseScreen':
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider<OCRScannerBloc>(
+                create: (context) => getIt<OCRScannerBloc>(),
+              )
+            ], child: const BloodGlucoseReadingScreen());
+          },
+        );
+      case '/temperatureScreen':
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider<OCRScannerBloc>(
+                create: (context) => getIt<OCRScannerBloc>(),
+              )
+            ], child: const TemperatureReadingScreen());
+          },
+        );
       case '/bloodPressureHistory':
         final id = routeSettings.arguments as String;
 

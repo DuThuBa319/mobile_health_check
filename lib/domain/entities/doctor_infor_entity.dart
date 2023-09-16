@@ -1,4 +1,3 @@
-import '../../data/models/address_model/address_model.dart';
 import 'patient_entity.dart';
 
 class DoctorInforEntity {
@@ -19,7 +18,7 @@ class DoctorInforEntity {
     this.gender,
     required this.phoneNumber,
     this.address,
-   required this.patients,
+    required this.patients,
   });
 }
 //cái gì mà repo ko cung cấp thì mình sẽ cung cấp trong entity

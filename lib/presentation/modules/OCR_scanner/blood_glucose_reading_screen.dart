@@ -20,8 +20,7 @@ import 'widget/OCR_scanner_widget.dart';
 part 'blood_glucose_reading_screen.action.dart';
 
 class BloodGlucoseReadingScreen extends StatefulWidget {
-  final MeasuringTask task;
-  const BloodGlucoseReadingScreen({super.key, required this.task});
+  const BloodGlucoseReadingScreen({super.key});
 
   @override
   State<BloodGlucoseReadingScreen> createState() =>

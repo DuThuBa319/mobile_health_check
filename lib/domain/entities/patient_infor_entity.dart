@@ -1,7 +1,6 @@
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../common/service/local_manager/user_data_datasource/user.dart';
-import '../../data/models/address_model/address_model.dart';
 import 'blood_pressure_entity.dart';
 import 'blood_sugar_entity.dart';
 
@@ -38,7 +37,7 @@ class PatientInforEntity {
 
   User convertUser({required User user}) {
     return user.copyWith(
-      gender: gender,
+        gender: gender,
         id: id,
         name: name,
         phoneNumber: phoneNumber,

@@ -18,8 +18,7 @@ import 'widget/OCR_scanner_widget.dart';
 part 'temperature_reading_screen.action.dart';
 
 class TemperatureReadingScreen extends StatefulWidget {
-  final MeasuringTask task;
-  const TemperatureReadingScreen({super.key, required this.task});
+  const TemperatureReadingScreen({super.key});
 
   @override
   State<TemperatureReadingScreen> createState() =>

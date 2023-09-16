@@ -2,9 +2,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:injectable/injectable.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-import '../../../presentation/common_widget/dialog/show_toast.dart';
 
 // @Singleton()
 // class OneSignalNotificationService {

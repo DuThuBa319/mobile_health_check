@@ -1,5 +1,4 @@
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

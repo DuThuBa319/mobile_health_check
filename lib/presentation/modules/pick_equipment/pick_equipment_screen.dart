@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:mobile_health_check/classes/language_constant.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
-import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form_for_patient.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -69,8 +68,10 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                           cellColor: Colors.red[400],
                           subCellColor: Colors.red[100],
                           onTapFunction: () {
-                            Navigator.pushNamed(context, RouteList.scanScreen,
-                                arguments: MeasuringTask.bloodSugar);
+                            Navigator.pushNamed(
+                              context,
+                              RouteList.bloodGlucoseScreen,
+                            );
                           });
                     }
                     if (index == 2) {
@@ -80,8 +81,10 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                           cellColor: Colors.blue[400],
                           subCellColor: Colors.blue[100],
                           onTapFunction: () {
-                            Navigator.pushNamed(context, RouteList.scanScreen,
-                                arguments: MeasuringTask.temperature);
+                            Navigator.pushNamed(
+                              context,
+                              RouteList.temperatureScreen,
+                            );
                           });
                     }
 
@@ -91,8 +94,10 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                         cellColor: const Color.fromARGB(255, 254, 179, 110),
                         subCellColor: const Color.fromARGB(255, 255, 188, 151),
                         onTapFunction: () {
-                          Navigator.pushNamed(context, RouteList.scanScreen,
-                              arguments: MeasuringTask.bloodPressure);
+                          Navigator.pushNamed(
+                            context,
+                            RouteList.bloodPressureScreen,
+                          );
                         });
                   },
                 ),
