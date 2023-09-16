@@ -5,6 +5,7 @@ import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../../function.dart';
 import '../../../../common_widget/assets.dart';
+import '../../../../common_widget/dialog/show_toast.dart';
 import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
@@ -30,6 +31,8 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
         onTap: () {
           Navigator.pushNamed(context, RouteList.bloodPressuerDetail,
               arguments: widget.response);
+                  showToast(translation(context).waitForSeconds);
+
         },
         child: Container(
           decoration: BoxDecoration(

@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:injectable/injectable.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../../presentation/common_widget/dialog/show_toast.dart';
 
 // @Singleton()
 // class OneSignalNotificationService {
@@ -121,7 +124,27 @@ class OneSignalNotificationService {
     }
     OneSignal.initialize("eb1e614e-54fe-4824-9c1a-aad236ec92d3");
 
-//Hàm Phía Dưới triển khai khi có thông báo mới từ OneSignal gửi đến
+    // await  OneSignal.shared.setAppId("eb1e614e-54fe-4824-9c1a-aad236ec92d3");
+
+    //Remove this method to stop OneSignal Debugging
+// The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+    // final status = await Permission.notification.request();
+    // if (status.isDenied) {
+    //   await Permission.notification.request();
+    //   showToast("Bạn chưa bật cho phép thông báo");
+    //   //SHOW DIALOG with 2 button => setting and cancel, if user press "setting" =>  final status = await OneSignal.Notifications.requestPermission(true);
+    //   // We didn't ask for permission yet or the permission has been denied before but not permanently.
+    //   //  await openAppSettings(); ==> nằm trong Dialog làm phía trên
+    // }
+
+    // OneSignal.User.pushSubscription.addObserver((state) {
+    //   print(state.current.jsonRepresentation());
+    // });
+    // OneSignal.Notifications.addPermissionObserver((state) {
+    //   print("Has permission $state");
+    // });
+
+//Hàm Phía Dưới triển khai khi có thông báo mới từ  OneSignal gửi đến
 
     //Hàm phía dưới triển khai khi nhấn vào POP-UP
 

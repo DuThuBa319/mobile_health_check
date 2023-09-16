@@ -5,6 +5,7 @@ import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
@@ -310,6 +311,8 @@ class _LoginState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          OneSignal.User.pushSubscription.optIn();
+
                           Navigator.pushNamed(context, RouteList.signUp);
                         },
                         child: Text(

@@ -40,14 +40,27 @@ class _NotificationListState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
+    Future.delayed(const Duration(milliseconds: 500)).then((value) async {
+      // Navigator.pushNamed(context, RouteList.OCR_screen);
+      final NotificationUsecase count = getIt<NotificationUsecase>();
+      final unreadCount = await count
+          .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
+      notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    OneSignal.Notifications.addForegroundWillDisplayListener((event) {
+    OneSignal.Notifications.addForegroundWillDisplayListener((event) async {
       event.preventDefault();
       event.notification.display();
+      // Navigator.pushNamed(context, RouteList.OCR_screen);
+      final NotificationUsecase count = getIt<NotificationUsecase>();
+      final unreadCount = await count
+          .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
+      notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
+      setState(() {});
     });
 
     OneSignal.Notifications.addClickListener((openedResult) async {
@@ -59,7 +72,6 @@ class _NotificationListState extends State<NotificationScreen> {
       await notificationUsecase.setReadedNotificationEntity(
           openedResult.notification.notificationId);
       //!PUT GIẢM SỐ UNREAD COUNT SAU KHI NHẤN VÀO POPUP (lọc theo notificationId)
-
       // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, RouteList.patientInfor,
           arguments: openedResult.notification.additionalData?["patientId"]);

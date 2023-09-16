@@ -5,7 +5,6 @@ import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../../domain/entities/blood_sugar_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
-import '../address_model/address_model.dart';
 import '../blood_pressure_model/blood_pressure_model.dart';
 import '../blood_sugar_model/blood_sugar_model.dart';
 import '../temperature_model/temperature_model.dart';
@@ -28,7 +27,7 @@ class PatientInforModel {
   String phoneNumber;
   @JsonKey(name: 'avatar')
   String? avatarPath;
-  AddressModel? address;
+  String? address;
   List<TemperatureModel>? bodyTemperatures;
   List<BloodSugarModel>? bloodSugars;
   List<BloodPressureModel>? bloodPressures;
@@ -83,7 +82,7 @@ class PatientInforModel {
       bloodSugars: bloodSugarEntities,
       height: height,
       gender: gender == 0 ? false : true, //! Nam ==0==false
-      personType: personType, 
+      personType: personType,
       bodyTemperatures: temperatureEntities,
       weight: weight,
     );

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -8,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
+import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import '../../../theme/theme_color.dart';
 
@@ -20,16 +19,16 @@ class BloodSugarDetailScreen extends StatefulWidget {
 }
 
 class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
-  bool _isLoading = true;
+  // bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 3000), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    // Timer(const Duration(milliseconds: 3000), () {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
   }
 
   @override
@@ -88,19 +87,12 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
               SizedBox(
                 height: SizeConfig.screenWidth * 0.02,
               ),
-              _isLoading
-                  ? Container(
-                      margin: const EdgeInsets.only(left: 15),
-                      height: SizeConfig.screenWidth * 0.9,
-                      width: SizeConfig.screenWidth * 0.9,
-                      child: const Center(child: CircularProgressIndicator()),
-                    )
-                  : CustomImagePicker(
-                      imagePath: widget.bloodSugarEntity?.imageLink ??
-                          widget.bloodSugarEntity?.imageLink! ,
-                      isOnTapActive: true,
-                      isforAvatar: false,
-                    ),
+              CustomImagePicker(
+                imagePath: widget.bloodSugarEntity?.imageLink ??
+                    widget.bloodSugarEntity?.imageLink!,
+                isOnTapActive: true,
+                isforAvatar: false,
+              ),
               SizedBox(
                 height: SizeConfig.screenWidth * 0.02,
               ),
@@ -185,9 +177,9 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                 title: translation(context).back,
                 buttonColor: Colors.red,
                 onTap: () {
-                if (_isLoading == false) {
-                    Navigator.pop(context);
-                  }
+                  // if (_isLoading == false) {
+                  Navigator.pop(context);
+                  // }
                 },
               )
             ],

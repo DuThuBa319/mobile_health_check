@@ -5,7 +5,6 @@ import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast
 
 import '../../../../classes/language_constant.dart';
 import '../../../../common/singletons.dart';
-import '../../../../data/models/address_model/address_model.dart';
 import '../../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/screen_form/custom_screen_form_for_patient.dart';
@@ -27,11 +26,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
   final TextEditingController _controllerWeight = TextEditingController();
   final TextEditingController _controllerPhoneNumber = TextEditingController();
   final TextEditingController _controllerHeight = TextEditingController();
-  final TextEditingController _controllerWard = TextEditingController();
-  final TextEditingController _controllerStreet = TextEditingController();
-  final TextEditingController _controllerCity = TextEditingController();
-  final TextEditingController _controllerCountry = TextEditingController();
-  final TextEditingController _controllerDistrict = TextEditingController();
+  final TextEditingController _controllerAddress = TextEditingController();
 
   @override
   void initState() {
@@ -42,11 +37,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
       _controllerWeight.text = "${userDataData.getUser()!.weight!.toInt()}";
       _controllerHeight.text = "${userDataData.getUser()!.height!.toInt()}";
       _controllerPhoneNumber.text = userDataData.getUser()!.phoneNumber!;
-      _controllerWard.text = userDataData.getUser()!.ward!;
-      _controllerCity.text = userDataData.getUser()!.city!;
-      _controllerDistrict.text = userDataData.getUser()!.district!;
-      _controllerCountry.text = userDataData.getUser()!.country!;
-      _controllerStreet.text = userDataData.getUser()!.street!;
+      _controllerAddress.text = userDataData.getUser()!.address!;
     });
   }
 
@@ -252,12 +243,12 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                   child: TextField(
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
-                    controller: _controllerStreet,
+                    controller: _controllerAddress,
                     style: TextStyle(
                         color: AppColor.gray767676,
                         fontSize: SizeConfig.screenWidth * 0.06),
                     decoration: InputDecoration(
-                      labelText: translation(context).street,
+                      labelText: translation(context).address,
                       labelStyle: TextStyle(
                           color: AppColor.black,
                           fontSize: SizeConfig.screenWidth * 0.05,
@@ -269,134 +260,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
-                height: SizeConfig.screenWidth * 0.2,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius:
-                      BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-                ),
-                child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
-                  child: TextField(
-                    textAlign: TextAlign.start,
-                    cursorColor: AppColor.black,
-                    controller: _controllerWard,
-                    style: TextStyle(
-                        color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
-                    decoration: InputDecoration(
-                      labelText: translation(context).ward,
-                      labelStyle: TextStyle(
-                          color: AppColor.black,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.w500),
-                      border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
-                height: SizeConfig.screenWidth * 0.22,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius:
-                      BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-                ),
-                child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
-                  child: TextField(
-                    textAlign: TextAlign.start,
-                    cursorColor: AppColor.black,
-                    controller: _controllerDistrict,
-                    style: TextStyle(
-                        color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
-                    decoration: InputDecoration(
-                      labelText: translation(context).district,
-                      labelStyle: TextStyle(
-                          color: AppColor.black,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.w500),
-                      border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
-                height: SizeConfig.screenWidth * 0.2,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius:
-                      BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-                ),
-                child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
-                  child: TextField(
-                    textAlign: TextAlign.start,
-                    cursorColor: AppColor.black,
-                    controller: _controllerCity,
-                    style: TextStyle(
-                        color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
-                    decoration: InputDecoration(
-                      labelText: translation(context).city,
-                      labelStyle: TextStyle(
-                          color: AppColor.black,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.w500),
-                      border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
-                height: SizeConfig.screenWidth * 0.2,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius:
-                      BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-                ),
-                child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
-                  child: TextField(
-                    textAlign: TextAlign.start,
-                    cursorColor: AppColor.black,
-                    controller: _controllerCountry,
-                    style: TextStyle(
-                        color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
-                    decoration: InputDecoration(
-                      labelText: translation(context).country,
-                      labelStyle: TextStyle(
-                          color: AppColor.black,
-                          fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.w500),
-                      border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
-                    ),
-                  ),
-                ),
-              ),
+
               // settingProfileCell(userDataData.getUser()!.name, context,
               //     translation(context).name),
               // settingProfileCell(userDataData.getUser()!.phoneNumber, context,
@@ -427,12 +291,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                       var weight = double.parse(_controllerWeight.text);
 
                       int? newAge = int.parse(_controllerAge.text);
-                      AddressModel? addressModel = AddressModel(
-                          _controllerCity.text,
-                          _controllerCountry.text,
-                          _controllerStreet.text,
-                          _controllerWard.text,
-                          _controllerDistrict.text);
+
                       PatientInforModel newPatientInforModel =
                           PatientInforModel(
                         gender: userDataData.getUser()!.gender == false ? 0 : 1,
@@ -442,7 +301,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                         height: height,
                         weight: weight,
                         id: userDataData.getUser()!.id!,
-                        address: addressModel,
+                        address: _controllerAddress.text,
                       );
                       updatePatientBloc.add(UpdatePatientInforEvent(
                           model: newPatientInforModel,

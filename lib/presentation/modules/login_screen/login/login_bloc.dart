@@ -152,7 +152,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       if (userDataData.getUser()!.role! == 'doctor') {
         await OneSignalNotificationService.create();
-
         OneSignalNotificationService.subscribeNotification(
             userId: userDataData.getUser()!.id!);
         final unreadCount =

@@ -15,23 +15,15 @@ class User extends Equatable {
   final int? age;
   final double? weight;
   final double? height;
-  final String? street;
-  final String? ward;
-  final String? district;
-  final String? city;
-  final String? country;
   final bool? gender;
+  final String? address;
   //  String? status;
   //  DateTime? dob;
 
   const User(
       {this.age,
-      this.city,
-      this.country,
-      this.district,
+      this.address,
       this.height,
-      this.street,
-      this.ward,
       this.weight,
       this.unreadCount,
       this.email,
@@ -47,12 +39,7 @@ class User extends Equatable {
         // createdAt
         // ,
         age,
-        city,
-        country,
-        district,
-        height,
-        street,
-        ward,
+        address,
         weight,
         unreadCount,
         email,
@@ -69,17 +56,13 @@ class User extends Equatable {
     return UserModel(
         unreadCount: unreadCount,
         age: age,
-        city: city,
-        country: country,
-        district: district,
+        address: address,
         email: email,
         height: height,
         id: id,
         name: name,
         phoneNumber: phoneNumber,
         role: role,
-        street: street,
-        ward: ward,
         gender: gender,
         weight: weight);
   }
@@ -92,29 +75,21 @@ class User extends Equatable {
       String? phoneNumber,
       String? role,
       int? age,
+      String? address,
       double? weight,
       double? height,
-      String? street,
-      String? ward,
-      String? district,
-      String? city,
-      String? country,
       bool? gender}) {
     return User(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
       unreadCount: unreadCount ?? this.unreadCount,
       age: age ?? this.age,
-      city: city ?? this.city,
-      country: country ?? this.country,
-      district: district ?? this.district,
+      address: address ?? address,
       email: email ?? this.email,
       height: height ?? this.height,
       id: id ?? this.id,
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       role: role ?? this.role,
-      street: street ?? this.street,
-      ward: ward ?? this.ward,
       weight: weight ?? this.weight,
       gender: gender ?? this.gender,
     );

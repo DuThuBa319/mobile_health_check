@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../models/patient_infor_model/patient_infor_model.dart';
-import '../../../../models/patient_list_model/patient_list_model.dart';
 import '../../rest_api_repository.dart';
 import 'patient_api_repository.dart';
 
@@ -14,8 +13,7 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
   PatientApiRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl:
-                'https://healthcareapplicationcloud.azurewebsites.net/api');
+            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net');
 
   // @override
   // Future<List<PatientModel>> getPatientListModels() {
@@ -26,8 +24,10 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
   Future<PatientInforModel> getPatientInforModel(String? id) {
     return restApi.getPatientInforModel(id);
   }
+
   @override
-  Future<void> updatePatientInforModel(String? id,PatientInforModel? patientInforModel) {
+  Future<void> updatePatientInforModel(
+      String? id, PatientInforModel? patientInforModel) {
     return restApi.updatePatientInforModel(id, patientInforModel);
   }
   // @override

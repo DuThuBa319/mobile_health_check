@@ -30,15 +30,7 @@ class UserModel extends User {
   @override
   final double? height;
   @override
-  final String? street;
-  @override
-  final String? ward;
-  @override
-  final String? district;
-  @override
-  final String? city;
-  @override
-  final String? country;
+  final String? address;
   @override
   final bool? gender;
   // @override
@@ -48,12 +40,9 @@ class UserModel extends User {
 
   const UserModel({
     this.age,
-    this.city,
-    this.country,
-    this.district,
+
+   this.address,
     this.height,
-    this.street,
-    this.ward,
     this.weight,
     this.unreadCount,
     this.email,
@@ -70,12 +59,9 @@ class UserModel extends User {
             phoneNumber: phoneNumber,
             role: role,
             age: age,
-            city: city,
-            country: country,
-            district: district,
+            address: address,
             height: height,
-            street: street,
-            ward: ward,
+            
             weight: weight,
             gender: gender);
 

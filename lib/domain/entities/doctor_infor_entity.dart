@@ -8,7 +8,7 @@ class DoctorInforEntity {
   int? personType;
   int? gender;
   String phoneNumber;
-  AddressModel? address;
+  String? address;
   List<PatientEntity>? patients;
 
   DoctorInforEntity({

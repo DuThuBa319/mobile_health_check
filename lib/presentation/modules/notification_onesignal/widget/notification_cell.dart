@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../common/singletons.dart';
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../../function.dart';
 import '../../../route/route_list.dart';
@@ -35,13 +34,15 @@ class _NotificationCellState extends State<NotificationCell> {
         if (widget.notificationEntity?.read == false) {
           // OneSignal.shared.removeNotification();
           // await notificationData.decreaseUnreadNotificationCount();
-          widget.notificationBloc!.add(SetReadedNotificationEvent(
-            notificationId: widget.notificationEntity?.notificaitonId,
-          ),
-          );}
-          //  await notificationData
-          // .saveNotificationId1(widget.notificationEntity?.notificaitonId??"");
-        
+          widget.notificationBloc!.add(
+            SetReadedNotificationEvent(
+              notificationId: widget.notificationEntity?.notificaitonId,
+            ),
+          );
+        }
+        //  await notificationData
+        // .saveNotificationId1(widget.notificationEntity?.notificaitonId??"");
+
         // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, RouteList.patientInfor,
             arguments: widget.notificationEntity?.patientId);

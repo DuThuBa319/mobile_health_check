@@ -64,7 +64,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   itemBuilder: (context, index) {
                     if (index == 1) {
                       return equipmentCell(
-                          cellTitle: translation(context).bloodPressureMeter,
+                          cellTitle: translation(context).bloodGlucoseMeter,
                           imagePath: Assets.bloodGlucoseMeter,
                           cellColor: Colors.red[400],
                           subCellColor: Colors.red[100],
@@ -86,7 +86,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     }
 
                     return equipmentCell(
-                        cellTitle: translation(context).bloodGlucoseMeter,
+                        cellTitle: translation(context).bloodPressureMeter,
                         imagePath: Assets.bloodPressureMeter,
                         cellColor: const Color.fromARGB(255, 254, 179, 110),
                         subCellColor: const Color.fromARGB(255, 255, 188, 151),

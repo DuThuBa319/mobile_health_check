@@ -5,7 +5,6 @@ import 'package:mobile_health_check/presentation/modules/history/temperature_his
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language_constant.dart';
-import '../../../../common/singletons.dart';
 import '../../../../function.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';

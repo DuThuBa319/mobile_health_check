@@ -57,6 +57,7 @@ class _PatientListState extends State<PatientListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return WillPopScope(
       onWillPop: _onWillPop,
       child: CustomScreenForm(
@@ -80,10 +81,14 @@ class _PatientListState extends State<PatientListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 8, bottom: 20),
+                    margin: EdgeInsets.only(
+                      top: 8,
+                      bottom: SizeConfig.screenWidth * 0.05,
+                    ),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -92,8 +97,8 @@ class _PatientListState extends State<PatientListScreen> {
                           child: TextField(
                             controller: filterKeyword,
                             decoration: InputDecoration(
-                              filled: true,
                               fillColor: Colors.white,
+                              // filled: true,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none,
