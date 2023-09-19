@@ -1,9 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
-import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language_constant.dart';
 
@@ -15,30 +12,18 @@ import '../bloc/get_patient_bloc.dart';
 
 class AddRelativeScreen extends StatefulWidget {
   final String? patientId;
-  const AddRelativeScreen({Key? key, required this.patientId})
+  final GetPatientBloc? patientBloc;
+  const AddRelativeScreen(
+      {Key? key, required this.patientId, required this.patientBloc})
       : super(key: key);
   @override
   State<AddRelativeScreen> createState() => _AddRelativeScreenState();
 }
 
 class _AddRelativeScreenState extends State<AddRelativeScreen> {
-  GetPatientBloc get patientBloc => BlocProvider.of(context);
   final TextEditingController _controllerRelativeName = TextEditingController();
-  // final TextEditingController _controllerRelativeAge =
-  //     TextEditingController(text: "40");
   final TextEditingController _controllerRelativePhoneNumber =
       TextEditingController();
-  // final TextEditingController _controllerRelativeAddress =
-  //     TextEditingController(text: "");
-  // final TextEditingController _controllerRelativeGender =
-  //     TextEditingController(text: "false");
-  // final TextEditingController _controllerRelativeName = TextEditingController();
-  // final TextEditingController _controllerRelativeAge = TextEditingController();
-  // final TextEditingController _controllerRelativePhoneNumber =
-  //     TextEditingController();
-  // final TextEditingController _controllerRelativeAddress =
-  //     TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -170,14 +155,14 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                           phoneNumber: _controllerRelativePhoneNumber.text,
                         );
 
-                        patientBloc.add(RegistRelativeEvent(
+                        widget.patientBloc?.add(RegistRelativeEvent(
                             relativeInforModel: newRelativeInforModel,
                             patientId: widget.patientId));
-                            
-                    Navigator.pushNamed(context, RouteList.patientInfor,
-                            arguments: widget.patientId);
 
-                        showToast(translation(context).addRelativeSuccessfully);
+                        // Navigator.pushNamed(context, RouteList.patientInfor,
+                        //         arguments: widget.patientId);
+
+                        //     showToast(translation(context).addRelativeSuccessfully);
                       } else {
                         showDialog(
                           context: context,

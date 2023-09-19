@@ -8,6 +8,7 @@ import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../../domain/entities/blood_sugar_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
+import '../account_model/account_model.dart';
 import '../blood_pressure_model/blood_pressure_model.dart';
 import '../blood_sugar_model/blood_sugar_model.dart';
 import '../relative_model/relative_infor_model.dart';
@@ -134,6 +135,11 @@ class PatientInforModel {
       doctor: doctorEntity,
       relatives: relativeEntities,
     );
+  }
+
+  AccountModel convertAccountModel() {
+    final accountModel = AccountModel(name, phoneNumber);
+    return accountModel;
   }
 
   PatientInforEntity addPatientEntity() {

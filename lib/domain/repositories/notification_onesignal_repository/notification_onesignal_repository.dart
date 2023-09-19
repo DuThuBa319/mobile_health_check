@@ -8,7 +8,7 @@ import '../../../data/models/notification_onesignal_model/notification_onesignal
 part 'notification_onesignal_repository.impl.dart';
 
 abstract class NotificationRepository {
-  Future<List<NotificationModel>> getNotificationListModels(String? doctorId);
+  Future<List<NotificationModel>> getNotificationListModels(String? doctorId,int? startIndex, int? lastIndex);
   Future<void> setReadedNotificationModel(String? notificationId);
   Future<int?> getUnreadCountNotification(String? doctorId);
 }

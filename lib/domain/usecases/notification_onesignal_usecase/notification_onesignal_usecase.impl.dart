@@ -10,8 +10,8 @@ class NotificationUsecaseImpl extends NotificationUsecase {
 
   @override
   Future<List<NotificationEntity>?> getNotificationListEntity(
-      String? doctorId) async {
-    final responses = await _repository.getNotificationListModels(doctorId);
+      String? doctorId,int? startIndex, int? lastIndex) async {
+    final responses = await _repository.getNotificationListModels(doctorId,startIndex,lastIndex);
     final responseEntities = <NotificationEntity>[];
     for (final response in responses) {
       final entity = NotificationEntity(

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:mobile_health_check/data/models/account_model/account_model.dart';
 import 'package:mobile_health_check/data/models/notification_onesignal_model/notification_onesignal_model.dart';
 import 'package:retrofit/http.dart';
 import '../../models/blood_pressure_model/blood_pressure_model.dart';
@@ -7,6 +8,7 @@ import '../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../models/patient_infor_model/patient_infor_model.dart';
 import '../../models/patient_list_model/patient_list_model.dart';
 import '../../models/relative_model/relative_infor_model.dart';
+import '../../models/spo2_model/spo2_model.dart';
 import '../../models/temperature_model/temperature_model.dart';
 
 part 'rest_api_repository.g.dart';
@@ -24,12 +26,11 @@ abstract class RestApiRepository {
   );
 
   @POST('/api/Persons/{doctorId}/AddNewPatient')
-  Future<PatientInforModel> addPatientInforModel(
-      @Path('doctorId') String? doctorId,
+  Future<AccountModel> addPatientInforModel(@Path('doctorId') String? doctorId,
       @Body() PatientInforModel? patientInforModel);
 
   @POST('/api/Persons/{patientId}/AddNewRelative')
-  Future<RelativeInforModel> addRelativeInforModel(
+  Future<AccountModel> addRelativeInforModel(
       @Path('patientId') String? patientId,
       @Body() RelativeInforModel? relativeInforModel);
 
@@ -38,9 +39,12 @@ abstract class RestApiRepository {
     @Path('doctorId') String? id,
   );
 
-  @GET('/api/Notification/{{doctorId}') //để hiện detail
+  @GET(
+      '/api/Notification/{doctorId}/startIndex={startIndex}/lastIndex={lastIndex}') //để hiện detail
   Future<List<NotificationModel>> getNotificationListModels(
-    @Path('{doctorId') String? doctorId,
+    @Path('doctorId') String? doctorId,
+    @Path('startIndex') int? startIndex,
+    @Path('lastIndex') int? lastIndex,
   );
 
   @PUT("/Persons/{personId}") //update
@@ -68,16 +72,16 @@ abstract class RestApiRepository {
       @Path('personId') String? personId, @Path('patientId') String? patientId);
 
 //BLOOD PRESSURE////////////////////////////
-  @GET('/{id}')
+  @GET('/{patientId}')
   Future<List<BloodPressureModel>> getListBloodPressureModels({
-    @Path('id') required String? id,
+    @Path('patientId') required String? id,
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
 
-  @GET('/{id}')
+  @GET('/{patientId}')
   Future<BloodPressureModel> getBloodPressureModel({
-    @Path('id') required int id,
+    @Path('patientId') required int id,
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
@@ -89,16 +93,16 @@ abstract class RestApiRepository {
 
 //BLOOD SUGAR//////////////////////////////
 
-  @GET('/{id}')
+  @GET('/{patientId}')
   Future<List<BloodSugarModel>> getListBloodSugarModels({
-    @Path('id') required String? id,
+    @Path('patientId') required String? id,
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
 
-  @GET('/{id}')
+  @GET('/{patientId}')
   Future<BloodSugarModel> getBloodSugarModel({
-    @Path('id') required int id,
+    @Path('patientId') required int id,
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
@@ -108,15 +112,15 @@ abstract class RestApiRepository {
       @Body() required BloodSugarModel bloodSugarModel});
 // BODYTEMERPATURE/////////////////////
 
-  @GET('/{id}')
+  @GET('/{patientId}')
   Future<List<TemperatureModel>> getListTemperatureModels({
-    @Path('id') required String? id,
+    @Path('patientId') required String? id,
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
-  @GET('/{id}')
+  @GET('/{patientId}')
   Future<TemperatureModel> getTemperatureModel({
-    @Path('id') required int id,
+    @Path('patientId') required int id,
     @Query('StartTime') DateTime? startTime,
     @Query('EndTime') DateTime? endTime,
   });
@@ -124,4 +128,22 @@ abstract class RestApiRepository {
   Future<bool> createTemperatureModel(
       {@Path('id') required String id,
       @Body() required TemperatureModel temperatureModel});
+
+  @GET('/{patientId}')
+  Future<List<Spo2Model>> getListSpo2Models({
+    @Path('patientId') required String? id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
+
+  @GET('/{patientId}')
+  Future<Spo2Model> getSpo2Model({
+    @Path('patientId') required int id,
+    @Query('StartTime') DateTime? startTime,
+    @Query('EndTime') DateTime? endTime,
+  });
+  @POST('/{id}')
+  Future<bool> createSpo2Model(
+      {@Path('id') required String id, @Body() required Spo2Model spo2Model});
+// BODYTEMERPATURE/////////////////////
 }

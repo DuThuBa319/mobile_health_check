@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../classes/language_constant.dart';
 
+import '../../../../common/singletons.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
@@ -152,6 +153,8 @@ class _PatientListState extends State<PatientListScreen> {
                         if ((state is GetPatientListState &&
                                 state.status == BlocStatusState.loading) ||
                             (state is DeletePatientState &&
+                                state.status == BlocStatusState.loading) ||
+                            (state is RegistPatientState &&
                                 state.status == BlocStatusState.loading)) {
                           return const Expanded(
                             child: Center(
@@ -165,7 +168,7 @@ class _PatientListState extends State<PatientListScreen> {
                             (state is DeletePatientState &&
                                 state.status == BlocStatusState.success) ||
                             (state is RegistPatientState &&
-                                state.status == BlocStatusState.success)) {
+                                state.status == BlocStatusState.loading)) {
                           return Expanded(
                             child: SmartRefresher(
                               header: const WaterDropHeader(),

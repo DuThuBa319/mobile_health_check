@@ -83,12 +83,12 @@ class AppRoute {
           },
         );
       case '/addRalative':
-        final patientId = routeSettings.arguments as String;
+        final map = routeSettings.arguments as Map;
         return MaterialPageRoute(
            builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: AddRelativeScreen(patientId: patientId),
+              child: AddRelativeScreen(patientId: map["patientId"],patientBloc: map["patientBloc"]),
             );
           },
         );
@@ -178,19 +178,19 @@ class AppRoute {
         );
 
       case '/bloodPressuerDetail':
-        final response = routeSettings.arguments as BloodPressureEntity?;
+        final response = routeSettings.arguments as BloodPressureEntity;
         return MaterialPageRoute(
             builder: (context) => BloodPressureDetailScreen(
                   bloodPressureEntity: response,
                 ));
       case '/bloodSugarDetail':
-        final response = routeSettings.arguments as BloodSugarEntity?;
+        final response = routeSettings.arguments as BloodSugarEntity;
         return MaterialPageRoute(
             builder: (context) => BloodSugarDetailScreen(
                   bloodSugarEntity: response,
                 ));
       case '/bodyTemperatureDetail':
-        final response = routeSettings.arguments as TemperatureEntity?;
+        final response = routeSettings.arguments as TemperatureEntity;
         return MaterialPageRoute(
             builder: (context) => TemperatureDetailScreen(
                   temperatureEntity: response,

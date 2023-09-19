@@ -1,10 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobile_health_check/data/models/blood_pressure_model/blood_pressure_model.dart';
+import 'package:mobile_health_check/data/models/blood_sugar_model/blood_sugar_model.dart';
+import 'package:mobile_health_check/data/models/temperature_model/temperature_model.dart';
+
+import '../spo2_model/spo2_model.dart';
 
 part 'notification_onesignal_model.g.dart';
 
 @JsonSerializable()
 class NotificationModel {
-  @JsonKey(name: "notificaitonId")
   String? notificationId;
   String? heading;
   String? content;
@@ -13,8 +17,17 @@ class NotificationModel {
   @JsonKey(name: "seen")
   bool? read;
   @JsonKey(name: "sendAt")
+  int? type;
   DateTime? sendDate;
-  //NotificationMetadata? data;
+  @JsonKey(name: "bloodPressure")
+  BloodPressureModel? bloodPressureModel;
+  @JsonKey(name: "bloodSugar")
+  BloodSugarModel? bloodSugarModel;
+  @JsonKey(name: "bodyTemperature")
+  TemperatureModel? bodyTemperatureModel;
+  @JsonKey(name: "spO2")
+  Spo2Model? spo2Model;
+  // //NotificationMetadata? data;
   //LocalizationModel? contents;
 
   // @JsonKey(name: 'subject_type')
@@ -25,6 +38,11 @@ class NotificationModel {
   // DateTime? sendAfter;
 
   NotificationModel({
+    this.spo2Model,
+    this.bloodPressureModel,
+    this.bloodSugarModel,
+    this.bodyTemperatureModel,
+    this.type,
     this.notificationId,
     this.heading,
     this.content,

@@ -47,7 +47,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<PatientInforModel> addPatientInforModel(
+  Future<AccountModel> addPatientInforModel(
     String? doctorId,
     PatientInforModel? patientInforModel,
   ) async {
@@ -58,7 +58,7 @@ class _RestApiRepository implements RestApiRepository {
     final _data = <String, dynamic>{};
     _data.addAll(patientInforModel?.toJson() ?? <String, dynamic>{});
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<PatientInforModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<AccountModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -74,12 +74,12 @@ class _RestApiRepository implements RestApiRepository {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = PatientInforModel.fromJson(_result.data!);
+    final value = AccountModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<RelativeInforModel> addRelativeInforModel(
+  Future<AccountModel> addRelativeInforModel(
     String? patientId,
     RelativeInforModel? relativeInforModel,
   ) async {
@@ -90,7 +90,7 @@ class _RestApiRepository implements RestApiRepository {
     final _data = <String, dynamic>{};
     _data.addAll(relativeInforModel?.toJson() ?? <String, dynamic>{});
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<RelativeInforModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<AccountModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -106,7 +106,7 @@ class _RestApiRepository implements RestApiRepository {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = RelativeInforModel.fromJson(_result.data!);
+    final value = AccountModel.fromJson(_result.data!);
     return value;
   }
 
@@ -140,7 +140,10 @@ class _RestApiRepository implements RestApiRepository {
 
   @override
   Future<List<NotificationModel>> getNotificationListModels(
-      String? doctorId) async {
+    String? doctorId,
+    int? startIndex,
+    int? lastIndex,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -154,7 +157,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/api/Notification/${doctorId}',
+              '/api/Notification/${doctorId}/startIndex=${startIndex}/lastIndex=${lastIndex}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -620,6 +623,108 @@ class _RestApiRepository implements RestApiRepository {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(temperatureModel.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<List<Spo2Model>> getListSpo2Models({
+    String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Spo2Model>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => Spo2Model.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<Spo2Model> getSpo2Model({
+    required int id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'StartTime': startTime?.toIso8601String(),
+      r'EndTime': endTime?.toIso8601String(),
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<Spo2Model>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = Spo2Model.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<bool> createSpo2Model({
+    required String id,
+    required Spo2Model spo2Model,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(spo2Model.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(Options(
       method: 'POST',
       headers: _headers,

@@ -1,3 +1,9 @@
+import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
+import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
+
+import 'blood_pressure_entity.dart';
+import 'blood_sugar_entity.dart';
+
 class NotificationEntity {
   String? notificaitonId;
   String? heading;
@@ -6,8 +12,18 @@ class NotificationEntity {
   String? patientName;
   bool? read;
   DateTime? sendDate;
+  BloodPressureEntity? bloodPressureEntity;
+  BloodSugarEntity? bloodSugarEntity;
+  TemperatureEntity? bodyTemperatureEntity;
+  Spo2Entity? spo2entity;
+  int? type;
 
   NotificationEntity({
+    this.spo2entity,
+    this.bloodPressureEntity,
+    this.bloodSugarEntity,
+    this.bodyTemperatureEntity,
+    this.type,
     this.patientName,
     this.notificaitonId,
     this.heading,

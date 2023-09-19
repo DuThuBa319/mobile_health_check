@@ -687,8 +687,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                     builder: (BuildContext context) {
                                       editSys.text =
                                           "${state.viewModel.bloodPressureEntity?.sys}";
-                                      editDia.text =
-                                          "${state.viewModel.bloodPressureEntity?.dia}";
+
                                       editPul.text =
                                           "${state.viewModel.bloodPressureEntity?.pulse}";
                                       return AlertDialog(
@@ -863,8 +862,7 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
-                                "${state.viewModel.bloodPressureEntity?.sys}/${state.viewModel.bloodPressureEntity?.dia}",
+                            Text("${state.viewModel.bloodPressureEntity?.sys}",
                                 style: AppTextTheme.title3.copyWith(
                                     fontSize: SizeConfig.screenWidth * 0.13,
                                     fontWeight: FontWeight.w500,

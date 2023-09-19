@@ -16,33 +16,39 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
   }
 
   @override
-  Future<PatientInforEntity>? addPatientEntity(
+  Future<AccountEntity>? addPatientEntity(
       String? doctorId, PatientInforModel? patientInforModel) async {
-    final respone =
-        await _repository.addPatientInforModel(doctorId, patientInforModel);
-    final entity = respone!.addPatientEntity();
-    return entity;
+    await _repository.addPatientInforModel(doctorId, patientInforModel);
+    final accountModel =
+        AccountModel(patientInforModel?.name, patientInforModel?.phoneNumber);
+    final accountEntity = accountModel.convertAccountEntity();
+    return accountEntity;
+
+    // return accountEntity;
 // return response;
   }
 
   @override
   Future<void> deleteRelationshipDoctorAndPatientEntity(
       String? doctorId, String? patientId) async {
-    await _repository.deleteRelationshipDoctorAndPatientModel(doctorId, patientId);
+    await _repository.deleteRelationshipDoctorAndPatientModel(
+        doctorId, patientId);
   }
-@override
+
+  @override
   Future<void> deleteRelationshipRelativeAndPatientEntity(
       String? relativeId, String? patientId) async {
-    await _repository.deleteRelationshipDoctorAndPatientModel(relativeId, patientId);
+    await _repository.deleteRelationshipDoctorAndPatientModel(
+        relativeId, patientId);
   }
 
   @override
   Future<void> deletePatientEntity(String? patientId) async {
     await _repository.deletePatientModel(patientId);
   }
-   @override
+
+  @override
   Future<void> deleteRelativeEntity(String? relativeId) async {
     await _repository.deleteRelativeModel(relativeId);
   }
 }
-

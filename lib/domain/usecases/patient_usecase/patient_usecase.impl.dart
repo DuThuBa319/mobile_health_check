@@ -32,12 +32,13 @@ class PatientUsecaseImpl extends PatientUsecase {
   }
 
   @override
-  Future<RelativeInforEntity>? addRelativeInforEntity(
+  Future<AccountEntity>? addRelativeInforEntity(
       String? patientId, RelativeInforModel? relativeInforModel) async {
-    final response =
-        await _repository.addRelativeInforModel(patientId, relativeInforModel);
-    final entity = response!.getRelativeInforEntity();
-    return entity;
+    await _repository.addRelativeInforModel(patientId, relativeInforModel);
+    final accountModel =
+        AccountModel(relativeInforModel?.name, relativeInforModel?.phoneNumber);
+    final accountEntity = accountModel.convertAccountEntity();
+    return accountEntity;
   }
 
   // @override

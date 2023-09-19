@@ -1,7 +1,5 @@
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 
-import 'patient_entity.dart';
-
 class DoctorInforEntity {
   String id;
   String name;

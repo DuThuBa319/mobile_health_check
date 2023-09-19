@@ -73,14 +73,16 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
-                        DateFormat('dd/MM/yyyy')
-                            .format(widget.bloodPressureEntity!.updatedDate!),
+                        DateFormat('dd/MM/yyyy').format(
+                            widget.bloodPressureEntity?.updatedDate ??
+                                DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
-                        DateFormat('HH:mm')
-                            .format(widget.bloodPressureEntity!.updatedDate!),
+                        DateFormat('HH:mm').format(
+                            widget.bloodPressureEntity?.updatedDate ??
+                                DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       )
@@ -146,26 +148,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                       fontSize: SizeConfig.screenWidth * 0.1)),
                             ],
                           ),
-                          Column(
-                            children: [
-                              Text('DIA',
-                                  style: AppTextTheme.title2.copyWith(
-                                      fontSize: 24, color: Colors.black)),
-                              const SizedBox(height: 5),
-                              Text(
-                                'mmHg',
-                                style:
-                                    AppTextTheme.title5.copyWith(fontSize: 15),
-                              ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.04),
-                              Text(widget.bloodPressureEntity!.dia.toString(),
-                                  style: AppTextTheme.title1.copyWith(
-                                      color: widget
-                                          .bloodPressureEntity!.statusColor,
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: SizeConfig.screenWidth * 0.1)),
-                            ],
-                          ),
+                         
                           Column(
                             children: [
                               Text('PUL',

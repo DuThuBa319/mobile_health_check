@@ -5,39 +5,32 @@ import '../../data/models/blood_pressure_model/blood_pressure_model.dart';
 
 class BloodPressureEntity {
   int? sys;
-  int? dia;
   int? pulse;
   String? imageLink;
   DateTime? updatedDate;
 
   BloodPressureEntity({
     this.sys,
-    this.dia,
     this.pulse,
     this.imageLink,
     this.updatedDate,
   });
   BloodPressureEntity copywith({
     int? sys,
-    int? dia,
     int? pulse,
     String? imageLink,
     DateTime? updatedDate,
   }) {
     return BloodPressureEntity(
         sys: sys ?? this.sys,
-        dia: dia ?? this.dia,
         pulse: pulse ?? this.pulse,
         imageLink: imageLink ?? this.imageLink,
         updatedDate: updatedDate ?? this.updatedDate);
   }
 
   Color get statusColor {
-    if (sys != null && dia != null) {
-      if (sys! <= 90) {
-        //|| dia! <= 60
-        return Colors.blue;
-      } else if (sys! <= 120) {
+    if (sys != null ) {
+     if (sys! <= 120) {
         //|| dia! <= 80
         return const Color.fromARGB(255, 64, 247, 70);
       } else if (sys! >= 120 && sys! <= 139) {
@@ -59,7 +52,7 @@ class BloodPressureEntity {
   }
 
   String statusComment(BuildContext context) {
-    if (sys != null && dia != null) {
+    if (sys != null ) {
       if (sys! <= 90) {
         //|| dia! <= 60
         return translation(context).hypotension;
@@ -90,7 +83,6 @@ class BloodPressureEntity {
 
   BloodPressureModel getBloodPressureModel() {
     return BloodPressureModel(
-        dia: dia,
         sys: sys,
         pulse: pulse,
         imageLinkBloodPressure: imageLink,

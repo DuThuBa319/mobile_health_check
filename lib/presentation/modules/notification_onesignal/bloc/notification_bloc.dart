@@ -30,7 +30,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     try {
       final response =
-          await notificationUsecase.getNotificationListEntity(event.doctorId);
+          await notificationUsecase.getNotificationListEntity(event.doctorId,event.startIndex,event.lastIndex);
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
       final newViewModel = state.viewModel

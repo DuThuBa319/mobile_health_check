@@ -235,7 +235,10 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                       onTap: () {
                                         Navigator.pushNamed(
                                             context, RouteList.addRelative,
-                                            arguments: widget.patientId);
+                                            arguments: {
+                                              "patientBloc": patientBloc,
+                                              "patientId": widget.patientId
+                                            });
                                       },
                                     )
                                   ],

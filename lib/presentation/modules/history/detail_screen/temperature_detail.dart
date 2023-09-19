@@ -71,14 +71,16 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
-                        DateFormat('dd/MM/yyyy')
-                            .format(widget.temperatureEntity?.updatedDate??widget.temperatureEntity!.updatedDate!),
+                        DateFormat('dd/MM/yyyy').format(
+                            widget.temperatureEntity?.updatedDate ??
+                                DateTime(2023, 9, 16, 12,00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
-                        DateFormat('HH:mm')
-                            .format(widget.temperatureEntity!.updatedDate!),
+                        DateFormat('HH:mm').format(
+                            widget.temperatureEntity?.updatedDate ??
+                                DateTime(2023, 9, 16, 12,00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       )

@@ -1,7 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
@@ -9,6 +9,7 @@ import '../../../../../classes/language_constant.dart';
 
 import '../../../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../../common_widget/common_button.dart';
+import '../../../../common_widget/enum_common.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../../theme/theme_color.dart';
@@ -24,21 +25,8 @@ class AddPatientScreen extends StatefulWidget {
 class _AddPatientScreenState extends State<AddPatientScreen> {
   final TextEditingController _controllerPatientName =
       TextEditingController(text: "");
-  // final TextEditingController _controllerPatientAge =
-  //     TextEditingController(text: "40");
   final TextEditingController _controllerPatientPhoneNumber =
       TextEditingController(text: "");
-  // final TextEditingController _controllerPatientAddress =
-  //     TextEditingController(text: "");
-  // final TextEditingController _controllerPatientGender =
-  //     TextEditingController(text: "false");
-  // final TextEditingController _controllerRelativeName = TextEditingController();
-  // final TextEditingController _controllerRelativeAge = TextEditingController();
-  // final TextEditingController _controllerRelativePhoneNumber =
-  //     TextEditingController();
-  // final TextEditingController _controllerRelativeAddress =
-  //     TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -47,7 +35,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-
     return CustomScreenForm(
         title: translation(context).addPatient,
         isShowRightButon: false,
@@ -56,8 +43,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-
-        // selectedIndex: 2,
+        leadingButton: IconButton(
+            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
+                arguments: userDataData.getUser()!.id!),
+            icon: const Icon(Icons.arrow_back)),
         child: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.only(
@@ -156,53 +145,50 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.02),
               Center(
-                child: CommonButton(
-                    width: SizeConfig.screenWidth * 0.9,
-                    height: SizeConfig.screenHeight * 0.07,
-                    title: translation(context).save,
-                    buttonColor: AppColor.saveSetting,
-                    onTap: () {
-                      int phoneNumberCount =
-                          _controllerPatientPhoneNumber.text.length;
-                      if (phoneNumberCount == 10 || phoneNumberCount == 11) {
-                        PatientInforModel newPatientInforModel =
-                            PatientInforModel(
-                          name: _controllerPatientName.text,
-                          phoneNumber: _controllerPatientPhoneNumber.text,
-                        );
-
-                        widget.getPatientBloc?.add(RegistPatientEvent(
-                            patientInforModel: newPatientInforModel,
-                            doctorId: userDataData.getUser()!.id));
-                        Navigator.pushNamed(context, RouteList.patientList,
-                            arguments: userDataData.getUser()!.id);
-
-                        showToast(translation(context).addPatientSuccessfully);
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => Center(
-                            child: AlertDialog(
-                              title: Text(translation(context).notification),
-                              content: Text(
-                                "Số điện thoại không chính xác, phải từ 10-11 ký tự",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: Text(translation(context).exit),
-                                  onPressed: () {
-                                    //Navigator.pop(context);
-                                    Navigator.pop(context);
-                                  },
+                  child: CommonButton(
+                      width: SizeConfig.screenWidth * 0.9,
+                      height: SizeConfig.screenHeight * 0.07,
+                      title: translation(context).save,
+                      buttonColor: AppColor.saveSetting,
+                      onTap: () {
+                        int phoneNumberCount =
+                            _controllerPatientPhoneNumber.text.length;
+                        if (phoneNumberCount == 10 || phoneNumberCount == 11) {
+                          PatientInforModel? newPatientInforModel =
+                              PatientInforModel(
+                            name: _controllerPatientName.text,
+                            phoneNumber: _controllerPatientPhoneNumber.text,
+                          );
+                          widget.getPatientBloc?.add(
+                            RegistPatientEvent(
+                              patientInforModel: newPatientInforModel,
+                              doctorId: userDataData.getUser()!.id)
+                              );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => Center(
+                              child: AlertDialog(
+                                title: Text(translation(context).notification),
+                                content: Text(
+                                  "Số điện thoại không chính xác, phải từ 10-11 ký tự",
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
-                              ],
+                                actions: [
+                                  TextButton(
+                                    child: Text(translation(context).exit),
+                                    onPressed: () {
+                                      //Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                    }),
-              )
+                          );
+                        }
+                      })),
+             
             ]),
           ),
         ));

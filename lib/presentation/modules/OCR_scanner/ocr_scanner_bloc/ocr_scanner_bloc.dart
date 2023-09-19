@@ -60,10 +60,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
             flashOn: selectedImage.flashOn);
         //  dataList = await sendImageToAzureFunction(selectedImage);
         final bloodPressureEntity = BloodPressureEntity(
-            dia: dataList[1],
-            sys: dataList[0],
-            pulse: dataList[2],
-            updatedDate: DateTime.now());
+            sys: dataList[0], pulse: dataList[2], updatedDate: DateTime.now());
 
         newViewModel = state.viewModel.copyWith(
             bloodPressureImageFile: selectedImage.croppedImage,
@@ -96,7 +93,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       ),
     );
     final bloodPressureEntity = BloodPressureEntity(
-        dia: event.editedDia,
         sys: event.editedSys,
         pulse: event.editedPul,
         updatedDate: DateTime.now());

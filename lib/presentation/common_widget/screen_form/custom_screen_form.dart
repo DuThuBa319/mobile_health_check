@@ -149,27 +149,17 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                         isSelected: widget.selectedIndex == 0 ? true : false,
                         iconIndex: 0),
 
-                    badges.Badge(
-                      showBadge:
-                          (notificationData.unreadCount! >= 0) ? true : false,
-                      // badgeContent: Text("${notificationData.unreadCount}"),
-                      badgeStyle: const badges.BadgeStyle(
-                          elevation: 0, badgeColor: Colors.redAccent),
-                      position: badges.BadgePosition.topEnd(
-                          top: 3,
-                          end:
-                              // (notificationData.unreadCount ?? 0) < 10
-                              // ? 3
-                              // :
-                              10),
-                      // badgeContent:
-                      //     Text('${notificationData.unreadCount ?? 0}'),
-                      child: iconBottomBar(
-                          label: translation(context).notification,
-                          iconData: Icons.notifications_none_rounded,
-                          isSelected: widget.selectedIndex == 1 ? true : false,
-                          iconIndex: 1),
-                    ),
+                    // (notificationData.unreadCount ?? 0) < 10
+                    // ? 3
+                    // :
+
+                    // badgeContent:
+                    //     Text('${notificationData.unreadCount ?? 0}'),
+                    iconBottomBar(
+                        label: translation(context).notification,
+                        iconData: Icons.notifications_none_rounded,
+                        isSelected: widget.selectedIndex == 1 ? true : false,
+                        iconIndex: 1),
 
                     iconBottomBar(
                         label: translation(context).settingScreen,

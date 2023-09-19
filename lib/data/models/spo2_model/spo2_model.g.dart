@@ -1,22 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'blood_pressure_model.dart';
+part of 'spo2_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BloodPressureModel _$BloodPressureModelFromJson(Map<String, dynamic> json) =>
-    BloodPressureModel(
-      sys: json['systolic'] as int?,
-      pulse: json['pulseRate'] as int?,
-      imageLinkBloodPressure: json['imageLink'] as String?,
+Spo2Model _$Spo2ModelFromJson(Map<String, dynamic> json) => Spo2Model(
+      spo2: (json['value'] as num?)?.toDouble(),
       updatedDate: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
+      imageLinkSpo2: json['imageLink'] as String?,
     );
 
-Map<String, dynamic> _$BloodPressureModelToJson(BloodPressureModel instance) {
+Map<String, dynamic> _$Spo2ModelToJson(Spo2Model instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -25,9 +23,8 @@ Map<String, dynamic> _$BloodPressureModelToJson(BloodPressureModel instance) {
     }
   }
 
-  writeNotNull('systolic', instance.sys);
-  writeNotNull('pulseRate', instance.pulse);
-  writeNotNull('imageLink', instance.imageLinkBloodPressure);
+  writeNotNull('value', instance.spo2);
   writeNotNull('timestamp', instance.updatedDate?.toIso8601String());
+  writeNotNull('imageLink', instance.imageLinkSpo2);
   return val;
 }

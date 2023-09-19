@@ -20,18 +20,18 @@ import '../common/service/local_manager/notification_datasource/notification_dat
 import '../common/service/local_manager/notification_datasource/notification_datasource.impl.dart'
     as _i15;
 import '../common/service/local_manager/user_data_datasource/user_data_datasource.dart'
-    as _i27;
+    as _i30;
 import '../common/service/local_manager/user_data_datasource/user_data_datasource.impl.dart'
-    as _i28;
+    as _i31;
 import '../common/service/onesginal/onesignal_service.dart' as _i18;
 import '../data/data_source/remote/module_repositories/blood_pressure_api_repository/blood_pressure_api_repository.dart'
-    as _i29;
+    as _i32;
 import '../data/data_source/remote/module_repositories/blood_pressure_api_repository/blood_pressure_api_repository_impl.dart'
-    as _i30;
-import '../data/data_source/remote/module_repositories/blood_sugar_api_repositoy/blood_sugar_api_repository.dart'
     as _i33;
+import '../data/data_source/remote/module_repositories/blood_sugar_api_repositoy/blood_sugar_api_repository.dart'
+    as _i36;
 import '../data/data_source/remote/module_repositories/blood_sugar_api_repositoy/blood_sugar_api_repository_impl.dart'
-    as _i34;
+    as _i37;
 import '../data/data_source/remote/module_repositories/doctor_infor_api_repository/doctor_api_repository.dart'
     as _i5;
 import '../data/data_source/remote/module_repositories/doctor_infor_api_repository/doctor_api_repository_impl.dart'
@@ -44,45 +44,50 @@ import '../data/data_source/remote/module_repositories/patient_api_repository/pa
     as _i19;
 import '../data/data_source/remote/module_repositories/patient_api_repository/patient_api_repository_impl.dart'
     as _i20;
-import '../data/data_source/remote/module_repositories/temperature_api_repository/temperature_api_repository.dart'
+import '../data/data_source/remote/module_repositories/spo2_api_repositoy/spo2_api_repository.dart'
     as _i23;
-import '../data/data_source/remote/module_repositories/temperature_api_repository/temperature_api_repository_impl.dart'
+import '../data/data_source/remote/module_repositories/spo2_api_repositoy/spo2_api_repository_impl.dart'
     as _i24;
+import '../data/data_source/remote/module_repositories/temperature_api_repository/temperature_api_repository.dart'
+    as _i26;
+import '../data/data_source/remote/module_repositories/temperature_api_repository/temperature_api_repository_impl.dart'
+    as _i27;
 import '../domain/repositories/blood_pressure_repository/blood_pressure_repository.dart'
-    as _i31;
+    as _i34;
 import '../domain/repositories/blood_sugar_repository/blood_sugar_repository.dart'
-    as _i35;
+    as _i38;
 import '../domain/repositories/doctor_infor_repository/doctor_infor_repository.dart'
     as _i7;
 import '../domain/repositories/notification_onesignal_repository/notification_onesignal_repository.dart'
     as _i16;
 import '../domain/repositories/patient_repository/patient_repository.dart'
     as _i21;
+import '../domain/repositories/spo2_repository/spo2_repository.dart' as _i25;
 import '../domain/repositories/temperature_repository/temperature_repository.dart'
-    as _i25;
+    as _i28;
 import '../domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart'
-    as _i32;
+    as _i35;
 import '../domain/usecases/blood_sugar_usecase/blood_sugar_usecase.dart'
-    as _i36;
+    as _i39;
 import '../domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart'
     as _i8;
 import '../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart'
     as _i17;
 import '../domain/usecases/patient_usecase/patient_usecase.dart' as _i22;
 import '../domain/usecases/temperature_usecase/temperature_usecase.dart'
-    as _i26;
+    as _i29;
 import '../presentation/common_widget/image_picker/image_picker_bloc/image_picker_bloc.dart'
     as _i10;
 import '../presentation/modules/camera_demo/camera_bloc/camera_bloc.dart'
     as _i3;
-import '../presentation/modules/history/history_bloc/history_bloc.dart' as _i38;
-import '../presentation/modules/login_screen/login/login_bloc.dart' as _i39;
+import '../presentation/modules/history/history_bloc/history_bloc.dart' as _i41;
+import '../presentation/modules/login_screen/login/login_bloc.dart' as _i42;
 import '../presentation/modules/notification_onesignal/bloc/notification_bloc.dart'
-    as _i40;
+    as _i43;
 import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart'
-    as _i41;
-import '../presentation/modules/patient/bloc/get_patient_bloc.dart' as _i37;
-import 'di.dart' as _i42;
+    as _i44;
+import '../presentation/modules/patient/bloc/get_patient_bloc.dart' as _i40;
+import 'di.dart' as _i45;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -127,48 +132,52 @@ _i1.GetIt $initGetIt(
       () => _i21.PatientListRepositoryImpl(gh<_i19.PatientApiRepository>()));
   gh.factory<_i22.PatientUsecase>(
       () => _i22.PatientUsecaseImpl(gh<_i21.PatientListRepository>()));
-  gh.factory<_i23.TemperatureApiRepository>(
-      () => _i24.TemperatureApiRepositoryImpl(dio: gh<_i4.Dio>()));
-  gh.factory<_i25.TemperatureRepository>(() =>
-      _i25.TemperatureRepositoryImpl(gh<_i23.TemperatureApiRepository>()));
-  gh.factory<_i26.TemperatureUsecase>(
-      () => _i26.TemperatureUsecaseImpl(gh<_i25.TemperatureRepository>()));
-  gh.factory<_i27.UserDataDataSource>(() => _i28.UserDataDataSourceImpl());
-  gh.factory<_i29.BloodPressureApiRepository>(
-      () => _i30.BloodPressureApiRepositoryImpl(dio: gh<_i4.Dio>()));
-  gh.factory<_i31.BloodPressureRepository>(() =>
-      _i31.BloodPressureRepositoryImpl(gh<_i29.BloodPressureApiRepository>()));
-  gh.factory<_i32.BloodPressureUsecase>(
-      () => _i32.BloodPressureUsecaseImpl(gh<_i31.BloodPressureRepository>()));
-  gh.factory<_i33.BloodSugarApiRepository>(
-      () => _i34.BloodSugarApiRepositoryImpl(dio: gh<_i4.Dio>()));
-  gh.factory<_i35.BloodSugarRepository>(
-      () => _i35.BloodSugarRepositoryImpl(gh<_i33.BloodSugarApiRepository>()));
-  gh.factory<_i36.BloodSugarUsecase>(
-      () => _i36.BloodSugarUsecaseImpl(gh<_i35.BloodSugarRepository>()));
-  gh.factory<_i37.GetPatientBloc>(() => _i37.GetPatientBloc(
+  gh.factory<_i23.Spo2ApiRepository>(
+      () => _i24.Spo2ApiRepositoryImpl(dio: gh<_i4.Dio>()));
+  gh.factory<_i25.Spo2Repository>(
+      () => _i25.Spo2RepositoryImpl(gh<_i23.Spo2ApiRepository>()));
+  gh.factory<_i26.TemperatureApiRepository>(
+      () => _i27.TemperatureApiRepositoryImpl(dio: gh<_i4.Dio>()));
+  gh.factory<_i28.TemperatureRepository>(() =>
+      _i28.TemperatureRepositoryImpl(gh<_i26.TemperatureApiRepository>()));
+  gh.factory<_i29.TemperatureUsecase>(
+      () => _i29.TemperatureUsecaseImpl(gh<_i28.TemperatureRepository>()));
+  gh.factory<_i30.UserDataDataSource>(() => _i31.UserDataDataSourceImpl());
+  gh.factory<_i32.BloodPressureApiRepository>(
+      () => _i33.BloodPressureApiRepositoryImpl(dio: gh<_i4.Dio>()));
+  gh.factory<_i34.BloodPressureRepository>(() =>
+      _i34.BloodPressureRepositoryImpl(gh<_i32.BloodPressureApiRepository>()));
+  gh.factory<_i35.BloodPressureUsecase>(
+      () => _i35.BloodPressureUsecaseImpl(gh<_i34.BloodPressureRepository>()));
+  gh.factory<_i36.BloodSugarApiRepository>(
+      () => _i37.BloodSugarApiRepositoryImpl(dio: gh<_i4.Dio>()));
+  gh.factory<_i38.BloodSugarRepository>(
+      () => _i38.BloodSugarRepositoryImpl(gh<_i36.BloodSugarApiRepository>()));
+  gh.factory<_i39.BloodSugarUsecase>(
+      () => _i39.BloodSugarUsecaseImpl(gh<_i38.BloodSugarRepository>()));
+  gh.factory<_i40.GetPatientBloc>(() => _i40.GetPatientBloc(
         gh<_i22.PatientUsecase>(),
         gh<_i8.DoctorInforUsecase>(),
       ));
-  gh.factory<_i38.HistoryBloc>(() => _i38.HistoryBloc(
-        gh<_i32.BloodPressureUsecase>(),
-        gh<_i36.BloodSugarUsecase>(),
-        gh<_i26.TemperatureUsecase>(),
+  gh.factory<_i41.HistoryBloc>(() => _i41.HistoryBloc(
+        gh<_i35.BloodPressureUsecase>(),
+        gh<_i39.BloodSugarUsecase>(),
+        gh<_i29.TemperatureUsecase>(),
       ));
-  gh.factory<_i39.LoginBloc>(() => _i39.LoginBloc(
+  gh.factory<_i42.LoginBloc>(() => _i42.LoginBloc(
         gh<_i22.PatientUsecase>(),
         gh<_i17.NotificationUsecase>(),
       ));
-  gh.factory<_i40.NotificationBloc>(
-      () => _i40.NotificationBloc(gh<_i17.NotificationUsecase>()));
-  gh.factory<_i41.OCRScannerBloc>(() => _i41.OCRScannerBloc(
-        gh<_i32.BloodPressureUsecase>(),
-        gh<_i36.BloodSugarUsecase>(),
-        gh<_i26.TemperatureUsecase>(),
+  gh.factory<_i43.NotificationBloc>(
+      () => _i43.NotificationBloc(gh<_i17.NotificationUsecase>()));
+  gh.factory<_i44.OCRScannerBloc>(() => _i44.OCRScannerBloc(
+        gh<_i35.BloodPressureUsecase>(),
+        gh<_i39.BloodSugarUsecase>(),
+        gh<_i29.TemperatureUsecase>(),
       ));
   return getIt;
 }
 
-class _$DioProvider extends _i42.DioProvider {}
+class _$DioProvider extends _i45.DioProvider {}
 
-class _$AppModule extends _i42.AppModule {}
+class _$AppModule extends _i45.AppModule {}

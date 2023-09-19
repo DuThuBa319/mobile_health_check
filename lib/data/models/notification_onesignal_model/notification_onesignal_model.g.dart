@@ -8,15 +8,31 @@ part of 'notification_onesignal_model.dart';
 
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
     NotificationModel(
-      notificationId: json['notificaitonId'] as String?,
+      spo2Model: json['spO2'] == null
+          ? null
+          : Spo2Model.fromJson(json['spO2'] as Map<String, dynamic>),
+      bloodPressureModel: json['bloodPressure'] == null
+          ? null
+          : BloodPressureModel.fromJson(
+              json['bloodPressure'] as Map<String, dynamic>),
+      bloodSugarModel: json['bloodSugar'] == null
+          ? null
+          : BloodSugarModel.fromJson(
+              json['bloodSugar'] as Map<String, dynamic>),
+      bodyTemperatureModel: json['bodyTemperature'] == null
+          ? null
+          : TemperatureModel.fromJson(
+              json['bodyTemperature'] as Map<String, dynamic>),
+      type: json['sendAt'] as int?,
+      notificationId: json['notificationId'] as String?,
       heading: json['heading'] as String?,
       content: json['content'] as String?,
       patientId: json['patientId'] as String?,
       patientName: json['patientName'] as String?,
       read: json['seen'] as bool?,
-      sendDate: json['sendAt'] == null
+      sendDate: json['sendDate'] == null
           ? null
-          : DateTime.parse(json['sendAt'] as String),
+          : DateTime.parse(json['sendDate'] as String),
     );
 
 Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
@@ -28,13 +44,18 @@ Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
     }
   }
 
-  writeNotNull('notificaitonId', instance.notificationId);
+  writeNotNull('notificationId', instance.notificationId);
   writeNotNull('heading', instance.heading);
   writeNotNull('content', instance.content);
   writeNotNull('patientId', instance.patientId);
   writeNotNull('patientName', instance.patientName);
   writeNotNull('seen', instance.read);
-  writeNotNull('sendAt', instance.sendDate?.toIso8601String());
+  writeNotNull('sendAt', instance.type);
+  writeNotNull('sendDate', instance.sendDate?.toIso8601String());
+  writeNotNull('bloodPressure', instance.bloodPressureModel?.toJson());
+  writeNotNull('bloodSugar', instance.bloodSugarModel?.toJson());
+  writeNotNull('bodyTemperature', instance.bodyTemperatureModel?.toJson());
+  writeNotNull('spO2', instance.spo2Model?.toJson());
   return val;
 }
 

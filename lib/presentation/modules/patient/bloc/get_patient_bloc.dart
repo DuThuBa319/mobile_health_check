@@ -8,6 +8,7 @@ import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../data/models/relative_model/relative_infor_model.dart';
+import '../../../../domain/entities/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../common_widget/enum_common.dart';
@@ -114,19 +115,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       ),
     );
     try {
-      // final response =
-      //     await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
-      // final newPatient =
-      await _doctorInforUsecase.addPatientEntity(
+      final accountEntity = await _doctorInforUsecase.addPatientEntity(
           event.doctorId, event.patientInforModel);
-      // response?.patients!.add(newPatient!);
-      // print(response?.patients?.length);
-      // final response =
-      final response =
-          await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
-
       final newViewModel =
-          state.viewModel.copyWith(doctorInforEntity: response);
+          state.viewModel.copyWith(accountEntity: accountEntity);
       emit(
         RegistPatientState(
           status: BlocStatusState.success,
@@ -154,10 +146,12 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       ),
     );
     try {
-      await _patientUseCase.addRelativeInforEntity(
+      final accountEntity = await _patientUseCase.addRelativeInforEntity(
           event.patientId, event.relativeInforModel);
+      final newViewModel =
+          state.viewModel.copyWith(accountEntity: accountEntity);
       emit(RegistRelativeState(
-          status: BlocStatusState.success, viewModel: state.viewModel));
+          status: BlocStatusState.success, viewModel: newViewModel));
     } catch (e) {
       emit(RegistRelativeState(
         status: BlocStatusState.failure,
