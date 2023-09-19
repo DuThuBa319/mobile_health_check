@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/classes/language_constant.dart';
 
+import '../../../classes/language.dart';
+
 Future<dynamic> showNoticeDialog({
   required BuildContext context,
   required String message,

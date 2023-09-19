@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../../domain/entities/blood_pressure_entity.dart';
 import '../../../domain/entities/temperature_entity.dart';
@@ -162,8 +163,9 @@ class _NotificationListState extends State<NotificationScreen> {
               builder: (context, state) {
                 if (state is NotificationInitialState) {
                   notificationBloc.add(GetNotificationListEvent(
-                      doctorId: widget.id ?? widget.id!, startIndex: 0,
-                                    lastIndex: 25));
+                      doctorId: widget.id ?? widget.id!,
+                      startIndex: 0,
+                      lastIndex: 25));
                 }
                 if (state is GetNotificationListState &&
                     state.status == BlocStatusState.loading) {
@@ -224,7 +226,7 @@ class _NotificationListState extends State<NotificationScreen> {
                                 physics: const BouncingScrollPhysics(),
                                 padding: EdgeInsets.zero,
                                 itemCount: 20,
-                                    // state.viewModel.notificationEntity?.length,
+                                // state.viewModel.notificationEntity?.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   final notificationEntity = state
                                       .viewModel.notificationEntity![index];

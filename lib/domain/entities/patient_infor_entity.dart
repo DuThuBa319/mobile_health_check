@@ -1,5 +1,6 @@
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 import 'package:mobile_health_check/domain/entities/relative_infor_entity.dart';
+import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../common/service/local_manager/user_data_datasource/user.dart';
@@ -22,6 +23,7 @@ class PatientInforEntity {
   List<TemperatureEntity>? bodyTemperatures;
   List<BloodSugarEntity>? bloodSugars;
   List<BloodPressureEntity>? bloodPressures;
+  List<Spo2Entity>? spo2s;
 
   PatientInforEntity({
     this.doctor,
@@ -30,6 +32,7 @@ class PatientInforEntity {
     this.bloodPressures,
     this.bloodSugars,
     this.bodyTemperatures,
+    this.spo2s,
     this.address,
     this.id,
     required this.name,

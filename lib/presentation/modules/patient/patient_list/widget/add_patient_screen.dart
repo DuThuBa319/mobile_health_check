@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
+import '../../../../../classes/language.dart';
 import '../../../../../classes/language_constant.dart';
 
 import '../../../../../data/models/patient_infor_model/patient_infor_model.dart';
@@ -159,11 +160,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             name: _controllerPatientName.text,
                             phoneNumber: _controllerPatientPhoneNumber.text,
                           );
-                          widget.getPatientBloc?.add(
-                            RegistPatientEvent(
+                          widget.getPatientBloc?.add(RegistPatientEvent(
                               patientInforModel: newPatientInforModel,
-                              doctorId: userDataData.getUser()!.id)
-                              );
+                              doctorId: userDataData.getUser()!.id));
                         } else {
                           showDialog(
                             context: context,
@@ -188,7 +187,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           );
                         }
                       })),
-             
             ]),
           ),
         ));

@@ -4,6 +4,7 @@ import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../../classes/language_constant.dart';
 
+import '../../../../classes/language.dart';
 import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/presentation/modules/history/blood_sugar_history_screen/widget/blood_sugar_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

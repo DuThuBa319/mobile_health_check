@@ -8,6 +8,7 @@ import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_health_check/classes/language_constant.dart';
 
+import '../../../classes/language.dart';
 import '../../theme/theme_color.dart';
 import '../dialog/show_toast.dart';
 import '../enum_common.dart';

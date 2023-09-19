@@ -20,7 +20,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
       showToast(translation(context).loadingError);
     }
     if (state is RegistRelativeState &&
-        state.status == BlocStatusState.loading ) {
+        state.status == BlocStatusState.loading) {
       showToast(translation(context).waitForSeconds);
     }
     if (state is RegistRelativeState &&
@@ -122,6 +122,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
   }
 
   Widget homeCell({
+    Spo2Entity? spo2Entity,
     BloodPressureEntity? bloodPressureEntity,
     BloodSugarEntity? bloodSugarEntity,
     TemperatureEntity? temperatureEntity,
@@ -213,6 +214,11 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                           Navigator.pushNamed(
                               context, RouteList.bloodSugarHistory,
                               arguments: widget.patientId ?? widget.patientId!);
+                        }
+                        if (naviagte == "oximeterHistory") {
+                          // Navigator.pushNamed(
+                          //     context, RouteList.spo2History,
+                          //     arguments: widget.patientId ?? widget.patientId!);
                         } else if (naviagte == "bodyTemperatureColor") {
                           Navigator.pushNamed(
                               context, RouteList.temperatureHistory,
@@ -313,44 +319,86 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                   ),
                                 )
                               ]))
-                      : Container(
-                          margin: EdgeInsets.only(
-                              top: SizeConfig.screenWidth * 0.0,
-                              left: SizeConfig.screenWidth * 0.1),
-                          width: SizeConfig.screenWidth * 0.5,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                  textAlign: TextAlign.center,
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                        text:
-                                            "${temperatureEntity?.temperature}",
-                                        style: AppTextTheme.title3.copyWith(
-                                            color:
-                                                temperatureEntity?.statusColor,
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.1,
-                                            fontWeight: FontWeight.w500)),
-                                    TextSpan(
-                                        text: "°",
-                                        style: AppTextTheme.title3.copyWith(
-                                            color: const Color(0xff615A5A),
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.1,
-                                            fontWeight: FontWeight.w500)),
-                                    TextSpan(
-                                        text: "C",
-                                        style: AppTextTheme.title3.copyWith(
-                                            color: const Color(0xff615A5A),
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500))
+                      : naviagte == "oximeterHistory"
+                          ? Container(
+                              margin: EdgeInsets.only(
+                                  top: SizeConfig.screenWidth * 0.0,
+                                  left: SizeConfig.screenWidth * 0.1),
+                              width: SizeConfig.screenWidth * 0.5,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                              text: "${spo2Entity?.spo2}",
+                                              style: AppTextTheme.title3
+                                                  .copyWith(
+                                                      // color:
+                                                      //     spo2Entity?.statusColor,
+                                                      fontSize: SizeConfig
+                                                              .screenWidth *
+                                                          0.1,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                          TextSpan(
+                                              text: " %",
+                                              style: AppTextTheme.title3
+                                                  .copyWith(
+                                                      color: const Color(
+                                                          0xff615A5A),
+                                                      fontSize: SizeConfig
+                                                              .screenWidth *
+                                                          0.04,
+                                                      fontWeight:
+                                                          FontWeight.w500))
+                                        ],
+                                      ),
+                                    )
                                   ]))
-                            ],
-                          ),
-                        )
+                          : Container(
+                              margin: EdgeInsets.only(
+                                  top: SizeConfig.screenWidth * 0.0,
+                                  left: SizeConfig.screenWidth * 0.1),
+                              width: SizeConfig.screenWidth * 0.5,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                            text:
+                                                "${temperatureEntity?.temperature}",
+                                            style: AppTextTheme.title3.copyWith(
+                                                color: temperatureEntity
+                                                    ?.statusColor,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.1,
+                                                fontWeight: FontWeight.w500)),
+                                        TextSpan(
+                                            text: "°",
+                                            style: AppTextTheme.title3.copyWith(
+                                                color: const Color(0xff615A5A),
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.1,
+                                                fontWeight: FontWeight.w500)),
+                                        TextSpan(
+                                            text: "C",
+                                            style: AppTextTheme.title3.copyWith(
+                                                color: const Color(0xff615A5A),
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500))
+                                      ]))
+                                ],
+                              ),
+                            )
             ],
           ),
           const SizedBox(height: 2)

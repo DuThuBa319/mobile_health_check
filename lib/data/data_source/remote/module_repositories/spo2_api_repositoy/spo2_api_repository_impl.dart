@@ -2,7 +2,6 @@ import 'package:mobile_health_check/data/data_source/remote/rest_api_repository.
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../models/blood_sugar_model/blood_sugar_model.dart';
 import '../../../../models/spo2_model/spo2_model.dart';
 import 'spo2_api_repository.dart';
 
@@ -21,26 +20,25 @@ class Spo2ApiRepositoryImpl implements Spo2ApiRepository {
 
   @override
   Future<List<Spo2Model>> getListSpo2Models({
-  required String? id,
-  DateTime? startTime,
-  DateTime? endTime,
-   }) {
-   return restApi.getListSpo2Models(
-     id: id,
-     endTime: endTime ?? endTime!,
-     startTime: startTime ?? startTime!,
-   );
-   }
+    required String? id,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return restApi.getListSpo2Models(
+      id: id,
+      endTime: endTime ?? endTime!,
+      startTime: startTime ?? startTime!,
+    );
+  }
 
-   @override
-   Future<Spo2Model> getSpo2Model({required int id}) {
-   return restApi.getSpo2Model(id: id);
-   }
+  @override
+  Future<Spo2Model> getSpo2Model({required int id}) {
+    return restApi.getSpo2Model(id: id);
+  }
 
-   @override
-   Future<bool> createSpo2Model(
-   {required Spo2Model spo2Model, required String id}) {
-   return restApi.createSpo2Model(
-   id: id, spo2Model: spo2Model);
+  @override
+  Future<bool> createSpo2Model(
+      {required Spo2Model spo2Model, required String id}) {
+    return restApi.createSpo2Model(id: id, spo2Model: spo2Model);
   }
 }

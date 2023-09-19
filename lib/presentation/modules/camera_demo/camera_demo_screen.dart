@@ -8,6 +8,7 @@ import 'package:mobile_health_check/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 
+import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';

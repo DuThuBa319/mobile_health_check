@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../classes/language.dart';
 import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/temperature_entity.dart';
 import '../../../../../function.dart';

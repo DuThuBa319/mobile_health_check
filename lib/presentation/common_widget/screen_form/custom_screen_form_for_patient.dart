@@ -3,6 +3,7 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
+import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
 import '../../../function.dart';

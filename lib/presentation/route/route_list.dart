@@ -30,7 +30,11 @@ class RouteList {
   static const String patientSettingPass = '/patientSettingPass';
   static const String patientSettingLanguage = '/patientSettingLanguage';
   static const String addPatient = '/addPatient';
-  static const String addRelative= '/addRalative';
-  static const String signUp= '/signUp';
+  static const String addRelative = '/addRalative';
+  static const String signUp = '/signUp';
 
+  static const String bloodPressureScreen = '/bloodPressureScreen';
+  static const String bloodGlucoseScreen = '/bloodGlucoseScreen';
+  static const String temperatureScreen = '/temperatureScreen';
+  static const String pushOxiScreen = '/pushOxiHistory';
 }

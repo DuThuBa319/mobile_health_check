@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
+import '../../../../classes/language.dart';
 import '../../../../classes/language_constant.dart';
 import '../../../../function.dart';
 import '../../../common_widget/common_button.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:injectable/injectable.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-
 // @Singleton()
 // class OneSignalNotificationService {
 //   OneSignalNotificationService._();

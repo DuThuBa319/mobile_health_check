@@ -3,6 +3,7 @@
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../classes/language.dart';
 import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/patient_infor_entity.dart';
 import '../../../../../function.dart';

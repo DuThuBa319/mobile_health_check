@@ -8,6 +8,7 @@ import 'package:full_screen_image/full_screen_image.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../../function.dart';
 import '../../common_widget/assets.dart';

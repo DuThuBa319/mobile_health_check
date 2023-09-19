@@ -8,10 +8,12 @@ import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../../domain/entities/blood_sugar_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
+import '../../../domain/entities/spo2_entity.dart';
 import '../account_model/account_model.dart';
 import '../blood_pressure_model/blood_pressure_model.dart';
 import '../blood_sugar_model/blood_sugar_model.dart';
 import '../relative_model/relative_infor_model.dart';
+import '../spo2_model/spo2_model.dart';
 import '../temperature_model/temperature_model.dart';
 
 part 'patient_infor_model.g.dart';
@@ -38,12 +40,14 @@ class PatientInforModel {
   List<TemperatureModel>? bodyTemperatures;
   List<BloodSugarModel>? bloodSugars;
   List<BloodPressureModel>? bloodPressures;
+  List<Spo2Model>? spO2s;
   PatientInforModel({
     this.doctor,
     this.relatives,
     this.bloodPressures,
     this.bloodSugars,
     this.bodyTemperatures,
+    this.spO2s,
     this.address,
     this.id,
     required this.name,
@@ -79,6 +83,13 @@ class PatientInforModel {
         temperatureEntities.add(model.getTemperatureEntity());
       }
     }
+    List<Spo2Entity> spo2Entities = [];
+    if (spO2s != null) {
+      for (var model in spO2s!) {
+        spo2Entities.add(model.getSpo2Entity());
+      }
+    }
+
     List<RelativeInforEntity> relativeEntities = [];
     if (relatives != null || relatives!.isEmpty) {
       for (var model in relatives!) {
@@ -99,6 +110,7 @@ class PatientInforModel {
       gender: gender == 0 ? false : true, //! Nam ==0==false
       personType: personType,
       bodyTemperatures: temperatureEntities,
+      spo2s: spo2Entities,
       weight: weight,
       doctor: doctorEntity,
       relatives: relativeEntities,

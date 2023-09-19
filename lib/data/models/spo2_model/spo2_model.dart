@@ -7,7 +7,7 @@ part 'spo2_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Spo2Model {
   @JsonKey(name: 'value')
-  double? spo2;
+  int? spo2;
   @JsonKey(name: 'timestamp')
   DateTime? updatedDate;
   @JsonKey(name: 'imageLink')

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_health_check/classes/language_constant.dart';
+import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
@@ -10,6 +10,7 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
@@ -255,7 +256,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                           ),
                           patient.bloodPressures!.isNotEmpty ||
                                   patient.bodyTemperatures!.isNotEmpty ||
-                                  patient.bloodSugars!.isNotEmpty
+                                  patient.bloodSugars!.isNotEmpty ||
+                                  patient.spo2s!.isNotEmpty
                               ?
                               // Expanded(
                               //     child: SmartRefresher(
@@ -330,6 +332,24 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           indicator:
                                               translation(context).bloodSugar,
                                           color: AppColor.bloodGlucosColor),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        // Navigator.pushNamed(
+                                        //     context, RouteList.bloodSugarDetail,
+                                        //     arguments: patient.spo2s?[0]);
+                                        showToast(translation(context)
+                                            .waitForSeconds);
+                                      },
+                                      child: homeCell(
+                                          spo2Entity: patient.spo2s?[0],
+                                          dateTime:
+                                              patient.spo2s?[0].updatedDate,
+                                          naviagte: "oximeterHistory",
+                                          imagePath: Assets.oximeter,
+                                          indicator:
+                                              translation(context).oximeter,
+                                          color: AppColor.oximeterCell),
                                     ),
                                     Container(
                                       padding: EdgeInsets.only(

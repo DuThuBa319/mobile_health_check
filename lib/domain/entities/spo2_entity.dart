@@ -1,13 +1,14 @@
+
 import '../../data/models/spo2_model/spo2_model.dart';
 
 class Spo2Entity {
-  double? spo2;
+  int? spo2;
   String? imageLink;
   DateTime? updatedDate;
 
   Spo2Entity({this.imageLink, this.updatedDate, this.spo2});
   Spo2Entity copywith({
-    double? spo2,
+    int? spo2,
     String? imageLink,
     DateTime? updatedDate,
   }) {

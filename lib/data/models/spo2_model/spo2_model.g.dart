@@ -7,7 +7,7 @@ part of 'spo2_model.dart';
 // **************************************************************************
 
 Spo2Model _$Spo2ModelFromJson(Map<String, dynamic> json) => Spo2Model(
-      spo2: (json['value'] as num?)?.toDouble(),
+      spo2: json['value'] as int?,
       updatedDate: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),

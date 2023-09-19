@@ -89,8 +89,6 @@ import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.da
 import '../presentation/modules/patient/bloc/get_patient_bloc.dart' as _i40;
 import 'di.dart' as _i45;
 
-// ignore_for_file: unnecessary_lambdas
-// ignore_for_file: lines_longer_than_80_chars
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
   _i1.GetIt getIt, {

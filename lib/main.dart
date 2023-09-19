@@ -1,8 +1,8 @@
+import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'classes/language_constant.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
 import 'domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';

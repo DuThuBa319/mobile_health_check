@@ -23,6 +23,9 @@ PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
       bodyTemperatures: (json['bodyTemperatures'] as List<dynamic>?)
           ?.map((e) => TemperatureModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      spO2s: (json['spO2s'] as List<dynamic>?)
+          ?.map((e) => Spo2Model.fromJson(e as Map<String, dynamic>))
+          .toList(),
       address: json['address'] as String?,
       id: json['personId'] as String?,
       name: json['name'] as String,
@@ -63,5 +66,6 @@ Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
       'bloodSugars', instance.bloodSugars?.map((e) => e.toJson()).toList());
   writeNotNull('bloodPressures',
       instance.bloodPressures?.map((e) => e.toJson()).toList());
+  writeNotNull('spO2s', instance.spO2s?.map((e) => e.toJson()).toList());
   return val;
 }

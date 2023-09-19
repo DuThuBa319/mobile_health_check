@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/widget/temperature_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../classes/language.dart';
 import '../../../../classes/language_constant.dart';
 import '../../../../function.dart';
 import '../../../common_widget/dialog/show_toast.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../classes/language.dart';
 import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../../function.dart';

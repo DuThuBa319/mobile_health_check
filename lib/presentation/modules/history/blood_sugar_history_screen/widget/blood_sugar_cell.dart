@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/function.dart';
 
+import '../../../../../classes/language.dart';
 import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../common_widget/assets.dart';
