@@ -70,7 +70,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
             child: ListView(children: [
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
                 height: SizeConfig.screenWidth * 0.2,
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -86,7 +86,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                     controller: _controllerName,
                     style: TextStyle(
                         color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
+                        fontSize: SizeConfig.screenWidth * 0.05),
                     decoration: InputDecoration(
                       labelText: translation(context).name,
                       labelStyle: TextStyle(
@@ -94,15 +94,13 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                           fontSize: SizeConfig.screenWidth * 0.05,
                           fontWeight: FontWeight.w500),
                       border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
                     ),
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
                 height: SizeConfig.screenWidth * 0.2,
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -118,7 +116,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                     controller: _controllerPhoneNumber,
                     style: TextStyle(
                         color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
+                        fontSize: SizeConfig.screenWidth * 0.05),
                     decoration: InputDecoration(
                       labelText: translation(context).phoneNumber,
                       labelStyle: TextStyle(
@@ -126,15 +124,13 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                           fontSize: SizeConfig.screenWidth * 0.05,
                           fontWeight: FontWeight.w500),
                       border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
                     ),
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
                 height: SizeConfig.screenWidth * 0.2,
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -150,7 +146,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                     controller: _controllerAge,
                     style: TextStyle(
                         color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
+                        fontSize: SizeConfig.screenWidth * 0.05),
                     decoration: InputDecoration(
                       labelText: translation(context).age,
                       labelStyle: TextStyle(
@@ -158,15 +154,13 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                           fontSize: SizeConfig.screenWidth * 0.05,
                           fontWeight: FontWeight.w500),
                       border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
                     ),
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
                 height: SizeConfig.screenWidth * 0.2,
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -182,23 +176,21 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                     controller: _controllerHeight,
                     style: TextStyle(
                         color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
+                        fontSize: SizeConfig.screenWidth * 0.05),
                     decoration: InputDecoration(
-                      labelText: translation(context).height,
+                      labelText: "${translation(context).height} (cm)",
                       labelStyle: TextStyle(
                           color: AppColor.black,
                           fontSize: SizeConfig.screenWidth * 0.05,
                           fontWeight: FontWeight.w500),
                       border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
                     ),
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
                 height: SizeConfig.screenWidth * 0.2,
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -214,23 +206,21 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                     controller: _controllerWeight,
                     style: TextStyle(
                         color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
+                        fontSize: SizeConfig.screenWidth * 0.05),
                     decoration: InputDecoration(
-                      labelText: translation(context).weight,
+                      labelText: "${translation(context).weight} (Kg)",
                       labelStyle: TextStyle(
                           color: AppColor.black,
                           fontSize: SizeConfig.screenWidth * 0.05,
                           fontWeight: FontWeight.w500),
                       border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
                     ),
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.01),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
                 height: SizeConfig.screenWidth * 0.2,
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -246,7 +236,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                     controller: _controllerAddress,
                     style: TextStyle(
                         color: AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.06),
+                        fontSize: SizeConfig.screenWidth * 0.05),
                     decoration: InputDecoration(
                       labelText: translation(context).address,
                       labelStyle: TextStyle(
@@ -254,8 +244,6 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
                           fontSize: SizeConfig.screenWidth * 0.05,
                           fontWeight: FontWeight.w500),
                       border: InputBorder.none,
-                      icon: Icon(Icons.account_box_rounded,
-                          size: SizeConfig.screenWidth * 0.12),
                     ),
                   ),
                 ),
@@ -279,7 +267,7 @@ class _SettingPatientProfileState extends State<SettingPatientProfile> {
               //     translation(context).city),
               // settingProfileCell(userDataData.getUser()!.country, context,
               //     translation(context).country),
-              SizedBox(height: SizeConfig.screenHeight * 0.01),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
               Center(
                 child: CommonButton(
                     width: SizeConfig.screenWidth * 0.9,

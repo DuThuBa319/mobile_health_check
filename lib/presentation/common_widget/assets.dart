@@ -40,4 +40,7 @@ class Assets {
   static const String vnFlag = 'lib/assets/images/vietnam.png';
   static const String enFlag = 'lib/assets/images/usa.png';
   static const String edit = 'lib/assets/images/edit.png';
+  static const String relative = 'lib/assets/images/relative.png';
+  static const String oximeter = 'lib/assets/images/oximeter.png';
+
 }

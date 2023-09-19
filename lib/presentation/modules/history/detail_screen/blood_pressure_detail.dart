@@ -10,7 +10,8 @@ import '../../../common_widget/screen_form/image_picker_widget/custom_image_pick
 
 class BloodPressureDetailScreen extends StatefulWidget {
   final BloodPressureEntity? bloodPressureEntity;
-  const BloodPressureDetailScreen({super.key, this.bloodPressureEntity});
+  const BloodPressureDetailScreen(
+      {super.key, required this.bloodPressureEntity});
 
   @override
   State<BloodPressureDetailScreen> createState() =>

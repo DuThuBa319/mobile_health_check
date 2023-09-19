@@ -20,8 +20,8 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
                 'https://healthcareapplicationcloud.azurewebsites.net');
 
   @override
-  Future<List<NotificationModel>> getNotificationListModels(String? id) {
-    return restApi.getNotificationListModels(id);
+  Future<List<NotificationModel>> getNotificationListModels(String? doctorId) {
+    return restApi.getNotificationListModels(doctorId);
   }
 @override
   Future<void> setReadedNotificationModel(String? notificationId) {

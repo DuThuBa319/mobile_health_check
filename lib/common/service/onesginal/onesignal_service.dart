@@ -150,8 +150,8 @@ class OneSignalNotificationService {
     //     OneSignal.Notifications.requestPermission(true);
     //   }
     // });
-
-    OneSignal.Notifications.requestPermission(true);
+    
+    OneSignal.Notifications.requestPermission(true); //!Hàm này yêu cầu người dùng cho phép ứng dụng gửi thông báo đẩy. 
   }
 
   static Future<void> setUserId(String userId) async {
@@ -172,7 +172,6 @@ class OneSignalNotificationService {
     if (kIsWeb) {
       return;
     }
-    await OneSignal.User.removeAlias('doctor');
   }
 
   // static Future<Map<String, dynamic>> setTags(Map<String, dynamic> tags) {

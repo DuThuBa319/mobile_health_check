@@ -8,7 +8,7 @@ part of 'notification_onesignal_model.dart';
 
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
     NotificationModel(
-      notificaitonId: json['notificaitonId'] as String?,
+      notificationId: json['notificaitonId'] as String?,
       heading: json['heading'] as String?,
       content: json['content'] as String?,
       patientId: json['patientId'] as String?,
@@ -28,7 +28,7 @@ Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
     }
   }
 
-  writeNotNull('notificaitonId', instance.notificaitonId);
+  writeNotNull('notificaitonId', instance.notificationId);
   writeNotNull('heading', instance.heading);
   writeNotNull('content', instance.content);
   writeNotNull('patientId', instance.patientId);

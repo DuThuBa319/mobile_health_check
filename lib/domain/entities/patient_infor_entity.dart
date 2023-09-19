@@ -1,3 +1,5 @@
+import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
+import 'package:mobile_health_check/domain/entities/relative_infor_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../common/service/local_manager/user_data_datasource/user.dart';
@@ -5,7 +7,7 @@ import 'blood_pressure_entity.dart';
 import 'blood_sugar_entity.dart';
 
 class PatientInforEntity {
-  String id;
+  String? id;
   String name;
   int? age;
   int? personType;
@@ -15,17 +17,21 @@ class PatientInforEntity {
   String phoneNumber;
   String? avatarPath;
   String? address;
+  List<RelativeInforEntity>? relatives;
+  DoctorInforEntity? doctor;
   List<TemperatureEntity>? bodyTemperatures;
   List<BloodSugarEntity>? bloodSugars;
   List<BloodPressureEntity>? bloodPressures;
 
   PatientInforEntity({
+    this.doctor,
+    this.relatives,
     this.gender,
     this.bloodPressures,
     this.bloodSugars,
     this.bodyTemperatures,
     this.address,
-    required this.id,
+    this.id,
     required this.name,
     this.age,
     this.personType,

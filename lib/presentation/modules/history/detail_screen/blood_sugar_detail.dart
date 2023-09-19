@@ -11,7 +11,7 @@ import '../../../theme/theme_color.dart';
 
 class BloodSugarDetailScreen extends StatefulWidget {
   final BloodSugarEntity? bloodSugarEntity;
-  const BloodSugarDetailScreen({super.key, this.bloodSugarEntity});
+  const BloodSugarDetailScreen({super.key, required this.bloodSugarEntity});
 
   @override
   State<BloodSugarDetailScreen> createState() => _BloodSugarDetailScreenState();

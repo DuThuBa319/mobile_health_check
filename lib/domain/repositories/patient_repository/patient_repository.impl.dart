@@ -28,6 +28,11 @@ class PatientListRepositoryImpl extends PatientListRepository {
   Future<void> updatePatientInforModel(String? id,PatientInforModel? patientInforModel) {
     return _patientApi.updatePatientInforModel(id,patientInforModel);
   }
+    @override
+  Future<RelativeInforModel>? addRelativeInforModel(String? patientId,RelativeInforModel? relativeInforModel) {
+    return _patientApi.addRelativeInforModel(patientId,relativeInforModel);
+  }
+ 
 }
 
 //repo này chứa một cái list<PatientModel>

@@ -59,7 +59,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                       crossAxisCount: 2,
                       childAspectRatio: 1 / 1.2),
                   shrinkWrap: true,
-                  itemCount: 3,
+                  itemCount: 4,
                   itemBuilder: (context, index) {
                     if (index == 1) {
                       return equipmentCell(
@@ -84,6 +84,19 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                             Navigator.pushNamed(
                               context,
                               RouteList.temperatureScreen,
+                            );
+                          });
+                    }
+                    if (index == 3) {
+                      return equipmentCell(
+                          cellTitle: translation(context).oximeter,
+                          imagePath: Assets.oximeter,
+                          cellColor: AppColor.oximeter,
+                          subCellColor: AppColor.oximeterCell,
+                          onTapFunction: () {
+                            Navigator.pushNamed(
+                              context,
+                              RouteList.pushOxiScreen,
                             );
                           });
                     }

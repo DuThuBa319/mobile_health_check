@@ -15,6 +15,7 @@ import '../../domain/entities/temperature_entity.dart';
 import '../common_widget/enum_common.dart';
 import '../modules/OCR_scanner/OCR_scanner_screen.dart';
 import '../modules/OCR_scanner/blood_glucose_reading_screen.dart';
+import '../modules/OCR_scanner/push_oxi_reading_screen.dart';
 import '../modules/OCR_scanner/temperature_reading_screen.dart';
 import '../modules/history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
 import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
@@ -46,12 +47,12 @@ class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/patientInfor':
-        final id = routeSettings.arguments as String;
+        final patientId = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: PatientInforScreen(id: id),
+              child: PatientInforScreen(patientId: patientId),
             );
           },
         );
@@ -69,12 +70,8 @@ class AppRoute {
         final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => getIt<GetPatientBloc>(),
-                ),
-              ],
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
               child: PatientListScreen(id: id),
             );
           },
@@ -88,17 +85,23 @@ class AppRoute {
           },
         );
       case '/addRalative':
-        // final id = routeSettings.arguments as String;
+        final patientId = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
-            return const AddRelativeScreen();
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: AddRelativeScreen(patientId: patientId),
+            );
           },
         );
       case '/addPatient':
-        // final id = routeSettings.arguments as String;
+        final bloc = routeSettings.arguments as GetPatientBloc;
         return MaterialPageRoute(
           builder: (context) {
-            return const AddPatientScreen();
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: AddPatientScreen(getPatientBloc: bloc),
+            );
           },
         );
 
@@ -155,6 +158,16 @@ class AppRoute {
                 create: (context) => getIt<OCRScannerBloc>(),
               )
             ], child: const TemperatureReadingScreen());
+          },
+        );
+      case '/pushOxiScreen':
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(providers: [
+              BlocProvider<OCRScannerBloc>(
+                create: (context) => getIt<OCRScannerBloc>(),
+              )
+            ], child: const PushOxiReadingScreen());
           },
         );
       case '/bloodPressureHistory':

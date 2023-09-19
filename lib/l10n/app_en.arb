@@ -95,7 +95,8 @@
 "doctorIn4":"Doctor information",
 "signUpSuccessfully":"Sign Up successfully",
 "unreadNotifications":"Số thông báo chưa đọc",
-"waitForSeconds":"Please wait for seconds"
-
+"waitForSeconds":"Please wait for seconds",
+"relative":"PATIENT RELATIVES",
+"oximeter":"PULSE OXIMETRY"
 }
 

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class AppColor {
   static const Color lineDecor = Color(0xfffb7b7b);
   static const Color saveSetting = Color(0xFFFF6B6B);
-
+  static const Color oximeterCell = Color(0xffD0BAFF);
+  static const Color oximeter = Color(0xffA681F9);
   static const Color bloodPressureColor = Color(0xffFFDE83);
   static const Color bodyTemperatureColor = Color(0xff80E5FB);
   static const Color bloodGlucosColor = Color(0xffFA9898);

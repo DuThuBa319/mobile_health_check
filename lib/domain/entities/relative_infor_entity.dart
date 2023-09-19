@@ -1,7 +1,7 @@
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 
-class DoctorInforEntity {
-  String id;
+class RelativeInforEntity {
+  String? id;
   String name;
   int? age;
   int? personType;
@@ -10,8 +10,8 @@ class DoctorInforEntity {
   String? address;
   List<PatientInforEntity>? patients;
 
-  DoctorInforEntity({
-    required this.id,
+  RelativeInforEntity({
+    this.id,
     required this.name,
     this.age,
     this.personType,
@@ -20,5 +20,7 @@ class DoctorInforEntity {
     this.address,
     required this.patients,
   });
+
+  
 }
 //cái gì mà repo ko cung cấp thì mình sẽ cung cấp trong entity

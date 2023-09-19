@@ -15,6 +15,26 @@ class DoctorInforRepositoryImpl extends DoctorInforRepository {
     return _doctorInforApi.getDoctorInforModel(id);
   }
 
-  
-}
+  @override
+  Future<PatientInforModel>? addPatientInforModel(
+      String? doctorId, PatientInforModel? patientInforModel) {
+    return _doctorInforApi.addPatientInforModel(doctorId, patientInforModel);
+  }
 
+  @override
+  Future<void> deleteRelationshipDoctorAndPatientModel(String? doctorId, String? patientId) {
+    return _doctorInforApi.deleteRelationshipDoctorAndPatientModel(doctorId, patientId);
+  }
+  @override
+  Future<void> deleteRelationshipRelativeAndPatientModel(String? relativeId, String? patientId) {
+    return _doctorInforApi.deleteRelationshipDoctorAndPatientModel( relativeId, patientId);
+  }
+   @override
+  Future<void> deletePatientModel( String? patientId) {
+    return _doctorInforApi.deletePatientModel( patientId);
+  }
+ @override
+  Future<void> deleteRelativeModel( String? relativeId) {
+    return _doctorInforApi.deleteRelativeModel( relativeId);
+  }
+}

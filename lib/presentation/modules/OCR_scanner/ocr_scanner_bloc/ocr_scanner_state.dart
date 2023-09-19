@@ -3,12 +3,14 @@ part of 'ocr_scanner_bloc.dart';
 class _ViewModel {
   final File? bloodPressureImageFile;
   final File? bloodGlucoseImageFile;
+  final File? oximeterImageFile;
   final File? temperatureImageFile;
   final BloodPressureEntity? bloodPressureEntity;
   final BloodSugarEntity? bloodSugarEntity;
   final TemperatureEntity? temperatureEntity;
 
   const _ViewModel({
+    this.oximeterImageFile,
     this.bloodGlucoseImageFile,
     this.bloodPressureImageFile,
     this.bloodPressureEntity,
@@ -18,6 +20,7 @@ class _ViewModel {
   });
 
   _ViewModel copyWith({
+    File? oximeterImageFile,
     File? bloodPressureImageFile,
     File? bloodGlucoseImageFile,
     File? temperatureImageFile,
@@ -26,6 +29,7 @@ class _ViewModel {
     TemperatureEntity? temperatureEntity,
   }) {
     return _ViewModel(
+      oximeterImageFile: oximeterImageFile?? this.oximeterImageFile,
       bloodPressureImageFile:
           bloodPressureImageFile ?? this.bloodPressureImageFile,
       bloodGlucoseImageFile:

@@ -8,6 +8,12 @@ part of 'patient_infor_model.dart';
 
 PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
     PatientInforModel(
+      doctor: json['doctor'] == null
+          ? null
+          : DoctorInforModel.fromJson(json['doctor'] as Map<String, dynamic>),
+      relatives: (json['relatives'] as List<dynamic>?)
+          ?.map((e) => RelativeInforModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       bloodPressures: (json['bloodPressures'] as List<dynamic>?)
           ?.map((e) => BloodPressureModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -18,7 +24,7 @@ PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => TemperatureModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       address: json['address'] as String?,
-      id: json['personId'] as String,
+      id: json['personId'] as String?,
       name: json['name'] as String,
       age: json['age'] as int?,
       personType: json['personType'] as int?,
@@ -30,10 +36,7 @@ PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
-  final val = <String, dynamic>{
-    'personId': instance.id,
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -41,6 +44,8 @@ Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
     }
   }
 
+  writeNotNull('personId', instance.id);
+  val['name'] = instance.name;
   writeNotNull('age', instance.age);
   writeNotNull('personType', instance.personType);
   writeNotNull('weight', instance.weight);
@@ -49,6 +54,9 @@ Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
   val['phoneNumber'] = instance.phoneNumber;
   writeNotNull('avatar', instance.avatarPath);
   writeNotNull('address', instance.address);
+  writeNotNull(
+      'relatives', instance.relatives?.map((e) => e.toJson()).toList());
+  writeNotNull('doctor', instance.doctor?.toJson());
   writeNotNull('bodyTemperatures',
       instance.bodyTemperatures?.map((e) => e.toJson()).toList());
   writeNotNull(

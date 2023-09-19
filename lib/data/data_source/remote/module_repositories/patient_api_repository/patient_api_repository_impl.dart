@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../models/patient_infor_model/patient_infor_model.dart';
+import '../../../../models/relative_model/relative_infor_model.dart';
 import '../../rest_api_repository.dart';
 import 'patient_api_repository.dart';
 
@@ -30,6 +31,15 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
       String? id, PatientInforModel? patientInforModel) {
     return restApi.updatePatientInforModel(id, patientInforModel);
   }
+
+  @override
+  Future<RelativeInforModel>? addRelativeInforModel(
+      String? patientId, RelativeInforModel? relativeInforModel) {
+    return restApi.addRelativeInforModel(patientId, relativeInforModel);
+  }
+
+  
+   
   // @override
   // Future<PatientModel> registPatient(PatientModel patient) {
   //   return restApi.registPatient(patient);

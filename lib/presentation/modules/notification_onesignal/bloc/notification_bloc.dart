@@ -30,9 +30,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     try {
       final response =
-          await notificationUsecase.getNotificationListEntity(event.id);
-      final newViewModel =
-          state.viewModel.copyWith(notificationEntity: response);
+          await notificationUsecase.getNotificationListEntity(event.doctorId);
+      final unreadCount = await notificationUsecase
+          .getUnreadCountNotificationEntity(event.doctorId);
+      final newViewModel = state.viewModel
+          .copyWith(notificationEntity: response, unreadCount: unreadCount);
 
       emit(GetNotificationListState(
         status: BlocStatusState.success,
@@ -61,7 +63,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       await notificationUsecase
           .setReadedNotificationEntity(event.notificationId);
-
+    
       final newViewModel = state.viewModel;
       emit(SetReadedNotificationState(
         status: BlocStatusState.success,

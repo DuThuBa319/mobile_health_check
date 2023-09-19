@@ -124,17 +124,17 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                         if (naviagte == "bloodPressureHistory") {
                           Navigator.pushNamed(
                               context, RouteList.bloodPressureHistory,
-                              arguments: widget.id ?? widget.id!);
+                              arguments: widget.patientId ?? widget.patientId!);
                         }
 
                         if (naviagte == "bloodSugarHistory") {
                           Navigator.pushNamed(
                               context, RouteList.bloodSugarHistory,
-                              arguments: widget.id ?? widget.id!);
+                              arguments: widget.patientId ?? widget.patientId!);
                         } else if (naviagte == "bodyTemperatureColor") {
                           Navigator.pushNamed(
                               context, RouteList.temperatureHistory,
-                              arguments: widget.id ?? widget.id!);
+                              arguments: widget.patientId ?? widget.patientId!);
                         }
                       },
                     ),
