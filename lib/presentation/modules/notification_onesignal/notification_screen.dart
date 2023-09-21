@@ -37,23 +37,32 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationListState extends State<NotificationScreen> {
+  final expandingController = ScrollController();
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   // final controller = ScrollController();
   NotificationBloc get notificationBloc => BlocProvider.of(context);
-  final int lastIndex = 50;
-  final int startIndex = 0;
+  int lastIndex = -1;
+  int startIndex = -50;
+  int quantity = 50;
   @override
   void initState() {
     super.initState();
+    expandingController.addListener(() {
+      if (expandingController.position.maxScrollExtent ==
+          expandingController.offset) {
+        lastIndex += quantity;
+        startIndex += quantity;
+        notificationBloc.add(GetNotificationListEvent(
+            doctorId: userDataData.getUser()!.id,
+            startIndex: startIndex,
+            lastIndex: lastIndex));
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // controller.addListener(() {
-
-    // });
-
     OneSignal.Notifications.addForegroundWillDisplayListener((event) {
       event.preventDefault();
       event.notification.display();
@@ -61,101 +70,7 @@ class _NotificationListState extends State<NotificationScreen> {
     });
 
     OneSignal.Notifications.addClickListener((openedResult) {
-      if (openedResult.notification.additionalData?["Indicator"] ==
-          "BloodPressure") {
-        int? sys =
-            int.parse(openedResult.notification.additionalData?["Systolic"]);
-        int? pulse =
-            int.parse(openedResult.notification.additionalData?["PlusRate"]);
-        String dateString =
-            openedResult.notification.additionalData?["UpdatedDate"];
-        DateTime updatedDate =
-            DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
-        notificationBloc.add(
-          SetReadedNotificationEvent(
-            notificationId: openedResult.notification.notificationId,
-          ),
-        );
-        final BloodPressureEntity bloodPressureEntity = BloodPressureEntity(
-          imageLink: openedResult.notification.additionalData?["ImageLink"],
-          updatedDate: updatedDate,
-          sys: sys,
-          pulse: pulse,
-        );
-        showToast(translation(context).waitForSeconds);
-        Navigator.pushNamed(context, RouteList.bloodPressuerDetail,
-            arguments: bloodPressureEntity);
-      }
-      if (openedResult.notification.additionalData?["Indicator"] ==
-          "BodyTemperature") {
-        String dateString =
-            openedResult.notification.additionalData?["UpdatedDate"];
-        DateTime updatedDate =
-            DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
-        double? value = double.parse(
-            openedResult.notification.additionalData?["BodyTemperature"]);
-        debugPrint("$value");
-        notificationBloc.add(
-          SetReadedNotificationEvent(
-            notificationId: openedResult.notification.notificationId,
-          ),
-        );
-
-        final TemperatureEntity temperatureEntity = TemperatureEntity(
-          imageLink: openedResult.notification.additionalData?["ImageLink"],
-          temperature: value,
-          updatedDate: updatedDate,
-        );
-        showToast(translation(context).waitForSeconds);
-
-        Navigator.pushNamed(context, RouteList.bodyTemperatureDetail,
-            arguments: temperatureEntity);
-      }
-      if (openedResult.notification.additionalData?["Indicator"] ==
-          "BloodSugar") {
-        String dateString =
-            openedResult.notification.additionalData?["UpdatedDate"];
-        DateTime updatedDate =
-            DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
-        notificationBloc.add(
-          SetReadedNotificationEvent(
-            notificationId: openedResult.notification.notificationId,
-          ),
-        );
-        double? value = double.parse(
-            openedResult.notification.additionalData?["BloodSugar"]);
-        debugPrint("$value");
-        final BloodSugarEntity bloodSugarEntity = BloodSugarEntity(
-          imageLink: openedResult.notification.additionalData?["ImageLink"],
-          bloodSugar: value,
-          updatedDate: updatedDate,
-        );
-        showToast(translation(context).waitForSeconds);
-        Navigator.pushNamed(context, RouteList.bloodSugarDetail,
-            arguments: bloodSugarEntity);
-      }
-      if (openedResult.notification.additionalData?["Indicator"] == "SpO2") {
-        String dateString =
-            openedResult.notification.additionalData?["UpdatedDate"];
-        DateTime updatedDate =
-            DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
-        int? value =
-            int.parse(openedResult.notification.additionalData?["SpO2"]);
-        notificationBloc.add(
-          SetReadedNotificationEvent(
-            notificationId: openedResult.notification.notificationId,
-          ),
-        );
-        debugPrint("$value");
-        final Spo2Entity spo2Entity = Spo2Entity(
-          imageLink: openedResult.notification.additionalData?["ImageLink"],
-          spo2: value,
-          updatedDate: updatedDate,
-        );
-        showToast(translation(context).waitForSeconds);
-        Navigator.pushNamed(context, RouteList.spo2Detail,
-            arguments: spo2Entity);
-      }
+      notificationAction(openedResult, context);
 
       //!PUT GIẢM SỐ UNREAD COUNT SAU KHI NHẤN VÀO POPUP (lọc theo notificationId)
       // ignore: use_build_context_synchronously
@@ -178,8 +93,17 @@ class _NotificationListState extends State<NotificationScreen> {
           child: BlocConsumer<NotificationBloc, NotificationState>(
               listener: _blocListener,
               builder: (context, state) {
-                if (state is NotificationInitialState ||
-                    (state is SetReadedNotificationState &&
+                if (state is NotificationInitialState
+                    //! tạo refreshEvent => refresh notification screen()
+                    ) {
+                  lastIndex = 49;
+                  startIndex = 0;
+                  notificationBloc.add(GetNotificationListEvent(
+                      doctorId: userDataData.getUser()!.id,
+                      startIndex: startIndex,
+                      lastIndex: lastIndex));
+                }
+                if ((state is SetReadedNotificationState &&
                         state.status == BlocStatusState.success) ||
                     (state is DeleteNotificationState &&
                         state.status == BlocStatusState.success)) {
@@ -189,10 +113,10 @@ class _NotificationListState extends State<NotificationScreen> {
                       lastIndex: lastIndex));
                 }
                 if ((state is GetNotificationListState &&
-                        state.status == BlocStatusState.loading) ||
+                        state.status == BlocStatusState.loading &&
+                        state.viewModel.notificationEntity == null) ||
                     (state is DeleteNotificationState &&
-                        state.status == BlocStatusState.loading) 
-                   ) {
+                        state.status == BlocStatusState.loading)) {
                   return const Expanded(
                     child: Center(
                       child: Loading(brightness: Brightness.light),
@@ -201,7 +125,10 @@ class _NotificationListState extends State<NotificationScreen> {
                 }
 
                 if ((state is GetNotificationListState &&
-                    state.status == BlocStatusState.success)) {
+                        state.status == BlocStatusState.loading &&
+                        state.viewModel.notificationEntity != null) ||
+                    (state is GetNotificationListState &&
+                        state.status == BlocStatusState.success)) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
                     return Center(
                         child: Text(translation(context).selectTime,
@@ -247,33 +174,32 @@ class _NotificationListState extends State<NotificationScreen> {
                                     lastIndex: lastIndex));
                               },
                               child: ListView.builder(
-                                // controller: controller,
-                                physics: const BouncingScrollPhysics(),
-                                padding: EdgeInsets.zero,
-                                itemCount:
-                                    state.viewModel.notificationEntity!.length 
-                               ,
-                                itemBuilder: (BuildContext context, int index) {
-                                  // if (index <
-                                  //     state.viewModel.notificationEntity!
-                                  //         .length)
-
-                                  final notificationEntity = state
-                                      .viewModel.notificationEntity![index];
-                                  return NotificationCell(
-                                    notificationEntity: notificationEntity,
-                                    notificationBloc: notificationBloc,
-                                  );
-                                  // } else {
-                                  //   return const Padding(
-                                  //     padding:
-                                  //         EdgeInsets.symmetric(vertical: 32),
-                                  //     child: Center(
-                                  //       child: CircularProgressIndicator(),
-                                  //     ),
-                                  //   );
-                                },
-                              )),
+                                  controller: expandingController,
+                                  physics: const BouncingScrollPhysics(),
+                                  padding: EdgeInsets.zero,
+                                  itemCount: state.viewModel.notificationEntity!
+                                          .length +
+                                      1,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    if (index <
+                                        state.viewModel.notificationEntity!
+                                            .length) {
+                                      return NotificationCell(
+                                        notificationEntity: state.viewModel
+                                            .notificationEntity![index],
+                                        notificationBloc: notificationBloc,
+                                      );
+                                    } else {
+                                      return const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 32),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
+                                    }
+                                  })),
                         ),
                       ],
                     );
