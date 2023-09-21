@@ -11,6 +11,8 @@ class RouteList {
   static const String registPatient = '/regist_patient';
   static const String bloodPressuerDetail = '/bloodPressuerDetail';
   static const String bloodSugarDetail = '/bloodSugarDetail';
+  static const String spo2Detail = '/spo2Detail';
+
   static const String bodyTemperatureDetail = '/bodyTemperatureDetail';
   static const String notification = '/notification';
 
@@ -19,6 +21,8 @@ class RouteList {
   static const String bloodPressureHistory = '/bloodPressureHistory';
   static const String bloodSugarHistory = '/bloodSugarHistory';
   static const String temperatureHistory = '/temperatureHistory';
+  static const String spo2History = '/spo2History';
+
   static const String settingDrPhone = '/settingDrPhone';
   static const String settingDrPassword = '/settingDrPass';
   static const String settingLanguage = '/settingLanguage';

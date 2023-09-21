@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
-import '../../../../../classes/language_constant.dart';
-import '../../../../../domain/entities/blood_sugar_entity.dart';
+import '../../../../../domain/entities/spo2_entity.dart';
 import '../../../../common_widget/assets.dart';
 import '../../../../common_widget/dialog/show_toast.dart';
-import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
-import '../../detail_screen/blood_sugar_detail.dart';
 import '../../history_bloc/history_bloc.dart';
 
-class BloodSugarCellWidget extends StatefulWidget {
+class Spo2CellWidget extends StatefulWidget {
   final HistoryBloc? historyBloc;
-  final BloodSugarEntity? response;
-  const BloodSugarCellWidget({super.key, this.historyBloc, this.response});
+  final Spo2Entity? response;
+  const Spo2CellWidget({super.key, this.historyBloc, this.response});
 
   @override
-  State<BloodSugarCellWidget> createState() => _BloodSugarCellWidgetState();
+  State<Spo2CellWidget> createState() => _Spo2CellWidgetState();
 }
 
-class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
+class _Spo2CellWidgetState extends State<Spo2CellWidget> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return GestureDetector(
         onTap: () {
-           Navigator.pushNamed(context, RouteList.bloodSugarDetail,
+          Navigator.pushNamed(context, RouteList.spo2Detail,
               arguments: widget.response);
-                  showToast(translation(context).waitForSeconds);
-
+          showToast(translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -56,10 +53,10 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                     height: SizeConfig.screenWidth * 0.1,
                     width: SizeConfig.screenWidth * 0.1,
                     decoration: const BoxDecoration(
-                        color: AppColor.bodyTemperatureColor,
+                        color: AppColor.bloodPressureColor,
                         shape: BoxShape.circle),
                     child: Image.asset(
-                      Assets.bloodSugar,
+                      Assets.oxi,
                       fit: BoxFit.cover,
                     )),
                 SizedBox(
@@ -69,7 +66,7 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(translation(context).bloodSugar,
+                    Text(translation(context).oximeter,
                         style: AppTextTheme.title4.copyWith(
                             color: Colors.black,
                             fontSize: SizeConfig.screenWidth * 0.045)),
@@ -85,24 +82,25 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
               ],
             ),
             SizedBox(
-              height: SizeConfig.screenWidth * 0.06,
+              height: SizeConfig.screenWidth * 0.03,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 RichText(
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.end,
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          text: '${widget.response!.bloodSugar}',
+                          text: '${widget.response!.spo2}',
                           style: AppTextTheme.title3.copyWith(
-                              color: widget.response?.statusColor,
-                              fontSize: SizeConfig.screenWidth * 0.1,
+                              // color: widget.response?.statusColor,
+                              color: AppColor.oximeter,
+                              fontSize: SizeConfig.screenWidth * 0.12,
                               fontWeight: FontWeight.w500)),
                       TextSpan(
-                          text: " mg/dL",
+                          text: " %",
                           style: AppTextTheme.title3.copyWith(
                               color: const Color(0xff615A5A),
                               fontSize: SizeConfig.screenWidth * 0.05,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+import 'package:mobile_health_check/presentation/route/route_list.dart';
 
+import '../../../../classes/language.dart';
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../../function.dart';
-import '../../../route/route_list.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/notification_bloc.dart';
@@ -12,10 +14,12 @@ class NotificationCell extends StatefulWidget {
   final NotificationEntity? notificationEntity;
   final NotificationBloc? notificationBloc;
 
+  final String? doctorId;
   // final DoctorInforEntity? doctorInforEntity;
   const NotificationCell({
     Key? key,
     // this.doctorInforEntity,
+    this.doctorId,
 
     this.notificationBloc,
     this.notificationEntity,
@@ -30,22 +34,37 @@ class _NotificationCellState extends State<NotificationCell> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return GestureDetector(
-      onTap: () async {
-        if (widget.notificationEntity?.read == false) {
-          // OneSignal.shared.removeNotification();
-          // await notificationData.decreaseUnreadNotificationCount();
+      onTap: () {
+        if (
+          widget.notificationEntity?.read == false) {
           widget.notificationBloc!.add(
             SetReadedNotificationEvent(
               notificationId: widget.notificationEntity?.notificaitonId,
             ),
           );
         }
-        //  await notificationData
-        // .saveNotificationId1(widget.notificationEntity?.notificaitonId??"");
+       
+        if (widget.notificationEntity?.bloodPressureEntity != null) {
+          showToast(translation(context).waitForSeconds);
+          Navigator.pushNamed(context, RouteList.bloodPressuerDetail,
+              arguments: widget.notificationEntity?.bloodPressureEntity);
+        }
+        if (widget.notificationEntity?.bloodSugarEntity != null) {
+          showToast(translation(context).waitForSeconds);
 
-        // ignore: use_build_context_synchronously
-        Navigator.pushNamed(context, RouteList.patientInfor,
-            arguments: widget.notificationEntity?.patientId);
+          Navigator.pushNamed(context, RouteList.bloodSugarDetail,
+              arguments: widget.notificationEntity?.bloodSugarEntity);
+        }
+        if (widget.notificationEntity?.bodyTemperatureEntity != null) {
+          showToast(translation(context).waitForSeconds);
+          Navigator.pushNamed(context, RouteList.bodyTemperatureDetail,
+              arguments: widget.notificationEntity?.bodyTemperatureEntity);
+        } 
+         if (widget.notificationEntity?.spo2Entity != null) {
+          showToast(translation(context).waitForSeconds);
+          Navigator.pushNamed(context, RouteList.spo2Detail,
+              arguments: widget.notificationEntity?.spo2Entity);
+        }
       },
       child: Container(
           margin: EdgeInsets.only(
@@ -94,28 +113,78 @@ class _NotificationCellState extends State<NotificationCell> {
                             SizedBox(
                               width: SizeConfig.screenWidth * 0.01,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    "${widget.notificationEntity?.patientName}",
-                                    style: AppTextTheme.body3.copyWith(
-                                        fontSize: SizeConfig.screenWidth * 0.04,
-                                        fontWeight: FontWeight.bold)),
-                              ],
-                            )
+                            Text("${widget.notificationEntity?.patientName}",
+                                style: AppTextTheme.body3.copyWith(
+                                    fontSize: SizeConfig.screenWidth * 0.04,
+                                    fontWeight: FontWeight.bold))
                           ],
                         ),
-                        Text(
-                            DateFormat('HH:mm dd/MM/yyyy').format((widget
-                                .notificationEntity?.sendDate!
-                                .add(const Duration(hours: 7)))!),
-                            style: AppTextTheme.body4.copyWith(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                              fontSize: SizeConfig.screenWidth * 0.035,
-                            )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                                DateFormat('HH:mm dd/MM/yyyy').format((widget
+                                    .notificationEntity?.sendDate!
+                                    .add(const Duration(hours: 7)))!),
+                                style: AppTextTheme.body4.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: SizeConfig.screenWidth * 0.035,
+                                )),
+                            (widget.notificationEntity?.read == true)
+                                ? GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            Center(
+                                          child: AlertDialog(
+                                            title: Text(translation(context)
+                                                .notification),
+                                            content: Text(
+                                              "Delete this notification?",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                child: Text(
+                                                    translation(context).exit),
+                                                onPressed: () {
+                                                  //Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text(translation(context)
+                                                    .accept),
+                                                onPressed: () {
+                                                  widget.notificationBloc?.add(
+                                                      DeleteNotificationEvent(
+                                                          notificationId: widget
+                                                              .notificationEntity
+                                                              ?.notificaitonId));
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.delete_outlined,
+                                      size: SizeConfig.screenWidth * 0.06,
+                                      color: AppColor.black,
+                                    ))
+                                : const SizedBox(
+                                    height: 1,
+                                    width: 1,
+                                  )
+                          ],
+                        ),
                       ],
                     )),
 
@@ -133,7 +202,8 @@ class _NotificationCellState extends State<NotificationCell> {
                           : const Color.fromARGB(255, 93, 93, 93),
                     ),
                   ),
-                )
+                ),
+
                 // SizedBox(
                 //     width: SizeConfig.screenWidth * 0.7,
                 //     height: SizeConfig.screenWidth * 0.3,

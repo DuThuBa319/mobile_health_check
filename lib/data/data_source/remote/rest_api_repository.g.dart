@@ -139,13 +139,16 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<List<NotificationModel>> getNotificationListModels(
+  Future<List<NotificationModel>> getNotificationListModels({
     String? doctorId,
     int? startIndex,
     int? lastIndex,
-  ) async {
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'startIndex': startIndex,
+      r'lastIndex': lastIndex,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
@@ -157,7 +160,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/api/Notification/${doctorId}/startIndex=${startIndex}/lastIndex=${lastIndex}',
+              '/api/Notification/${doctorId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -252,6 +255,31 @@ class _RestApiRepository implements RestApiRepository {
         ))));
     final value = _result.data;
     return value;
+  }
+
+  @override
+  Future<void> deleteNotificationModel(String? notificationId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/api/Notification/${notificationId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
   }
 
   @override

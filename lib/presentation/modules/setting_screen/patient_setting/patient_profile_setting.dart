@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../classes/language_constant.dart';
 import '../../../../common/singletons.dart';
 import '../../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../common_widget/common_button.dart';

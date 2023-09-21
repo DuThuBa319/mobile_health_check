@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/blood_pressure_entity.dart';
 import '../../domain/entities/blood_sugar_entity.dart';
+import '../../domain/entities/spo2_entity.dart';
 import '../../domain/entities/temperature_entity.dart';
 import '../common_widget/enum_common.dart';
 import '../modules/OCR_scanner/OCR_scanner_screen.dart';
@@ -21,8 +22,10 @@ import '../modules/history/blood_pressure_history_screen/blood_pressure_history_
 import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
 import '../modules/history/detail_screen/blood_pressure_detail.dart';
 import '../modules/history/detail_screen/blood_sugar_detail.dart';
+import '../modules/history/detail_screen/spo2_detail.dart';
 import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
+import '../modules/history/spo2_history_screen/spo2_history_screen.dart';
 import '../modules/login_screen/login/login_bloc.dart';
 import '../modules/login_screen/signUp_screen.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
@@ -198,14 +201,23 @@ class AppRoute {
         final id = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
+            return BlocProvider<HistoryBloc>(
+              create: (context) => getIt<HistoryBloc>(),
+              child: TemperatureHistoryScreen(id: id),
+            );
+          },
+        );
+      case '/spo2History':
+        final id = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
             return MultiBlocProvider(providers: [
               BlocProvider(
                 create: (context) => getIt<HistoryBloc>(),
               )
-            ], child: TemperatureHistoryScreen(id: id));
+            ], child: Spo2HistoryScreen(id: id));
           },
         );
-
       case '/bloodPressuerDetail':
         final response = routeSettings.arguments as BloodPressureEntity;
         return MaterialPageRoute(
@@ -224,7 +236,12 @@ class AppRoute {
             builder: (context) => TemperatureDetailScreen(
                   temperatureEntity: response,
                 ));
-
+      case '/spo2Detail':
+        final response = routeSettings.arguments as Spo2Entity;
+        return MaterialPageRoute(
+            builder: (context) => Spo2DetailScreen(
+                  spo2Entity: response,
+                ));
       case '/notification':
         final id = routeSettings.arguments as String?;
         return MaterialPageRoute(

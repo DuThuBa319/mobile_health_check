@@ -6,7 +6,6 @@ import 'package:mobile_health_check/presentation/modules/setting_screen/widget_s
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../classes/language_constant.dart';
 import '../../../../function.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/line_decor.dart';
@@ -103,7 +102,7 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                           await notificationData.clearData();
                           await userDataData.clearData();
                           await firebaseAuthService.signOut();
-                                       await           OneSignal.logout();
+                          await OneSignal.logout();
 
                           // ignore: use_build_context_synchronously
                           // Navigator.pushReplacement(context, MaterialPageRoute(

@@ -242,11 +242,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
-
-      // emit(GetPatientInforState(
-      //   status: BlocStatusState.success,
-      //   viewModel: newViewModel,
-      // ));
     } catch (e) {
       emit(
         state.copyWith(

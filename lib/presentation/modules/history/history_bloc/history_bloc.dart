@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
+import '../../../../domain/entities/spo2_entity.dart';
 import '../../../../domain/entities/temperature_entity.dart';
 import '../../../../domain/usecases/blood_sugar_usecase/blood_sugar_usecase.dart';
+import '../../../../domain/usecases/spo2_usecase/spo2_usecase.dart';
 import '../../../../domain/usecases/temperature_usecase/temperature_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 part 'history_event.dart';
@@ -16,16 +18,21 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final BloodPressureUsecase bloodPressureUseCase;
   final BloodSugarUsecase bloodSugarUseCase;
   final TemperatureUsecase temperatureUsecase;
+  final Spo2Usecase spo2Usecase;
+
   HistoryBloc(this.bloodPressureUseCase, this.bloodSugarUseCase,
-      this.temperatureUsecase)
+      this.temperatureUsecase, this.spo2Usecase)
       : super(HistoryInitialState()) {
     on<GetBloodPressureHistoryDataEvent>(_onGetBloodPressureHistoryData);
     on<GetBloodSugarHistoryDataEvent>(_onGetBloodSugarHistoryData);
     on<GetTemperatureHistoryDataEvent>(_onGetTemperatureHistoryData);
+    on<GetSpo2HistoryDataEvent>(_onGetSpo2HistoryData);
+
     on<GetBloodPressureHistoryInitDataEvent>(
         _onGetBloodPressureHistoryInitData);
     on<GetBloodSugarHistoryInitDataEvent>(_onGetBloodSugarHistoryInitData);
     on<GetTemperatureHistoryInitDataEvent>(_onGetTemperatureHistoryInitData);
+    on<GetSpo2HistoryInitDataEvent>(_onGetSpo2HistoryInitData);
   }
 
   ///
@@ -249,6 +256,77 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
     }
   }
+
+  Future<void> _onGetSpo2HistoryInitData(
+    GetSpo2HistoryInitDataEvent event,
+    Emitter<HistoryState> emit,
+  ) async {
+    emit(
+      GetHistoryDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final responses = await spo2Usecase.getListSpo2Entities(
+          id: event.id, endTime: event.endTime, startTime: event.startTime);
+
+      final newViewModel = state.viewModel.copyWith(listSpo2: responses);
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+/////
+
+  Future<void> _onGetSpo2HistoryData(
+    GetSpo2HistoryDataEvent event,
+    Emitter<HistoryState> emit,
+  ) async {
+    emit(
+      GetHistoryDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final responses = await spo2Usecase.getListSpo2Entities(
+          id: event.id, endTime: event.endTime, startTime: event.startTime);
+      List<Spo2Entity>? listSpo2 = [];
+      for (var response in responses) {
+        if (response.updatedDate!.isAfter(event.startTime) &&
+            response.updatedDate!.isBefore(event.endTime)) {
+          listSpo2.add(response);
+        }
+      }
+      final newViewModel = state.viewModel.copyWith(
+        listSpo2: listSpo2,
+      );
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
 }
 
-enum ReadDataTask { temperature, bloodPressure, bloodGlucose }
+enum ReadDataTask { temperature, bloodPressure, bloodGlucose, spo2 }

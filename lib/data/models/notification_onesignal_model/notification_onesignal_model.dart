@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mobile_health_check/data/models/blood_pressure_model/blood_pressure_model.dart';
 import 'package:mobile_health_check/data/models/blood_sugar_model/blood_sugar_model.dart';
 import 'package:mobile_health_check/data/models/temperature_model/temperature_model.dart';
+import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
 
 import '../spo2_model/spo2_model.dart';
 
@@ -16,8 +17,8 @@ class NotificationModel {
   String? patientName;
   @JsonKey(name: "seen")
   bool? read;
-  @JsonKey(name: "sendAt")
   int? type;
+  @JsonKey(name: "sendAt")
   DateTime? sendDate;
   @JsonKey(name: "bloodPressure")
   BloodPressureModel? bloodPressureModel;
@@ -27,6 +28,7 @@ class NotificationModel {
   TemperatureModel? bodyTemperatureModel;
   @JsonKey(name: "spO2")
   Spo2Model? spo2Model;
+
   // //NotificationMetadata? data;
   //LocalizationModel? contents;
 
@@ -56,6 +58,23 @@ class NotificationModel {
       _$NotificationModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$NotificationModelToJson(this);
+
+  NotificationEntity convertNotificationEntity() {
+    final notificationEntity = NotificationEntity(
+        bloodPressureEntity: bloodPressureModel?.getBloodPressureEntity(),
+        bloodSugarEntity: bloodSugarModel?.getBloodSugarEntity(),
+        bodyTemperatureEntity: bodyTemperatureModel?.getTemperatureEntity(),
+        content: content,
+        heading: heading,
+        notificaitonId: notificationId,
+        patientId: patientId,
+        patientName: patientName,
+        read: read,
+        sendDate: sendDate,
+        spo2Entity: spo2Model?.getSpo2Entity(),
+        type: type);
+    return notificationEntity;
+  }
 }
 
 @JsonSerializable()

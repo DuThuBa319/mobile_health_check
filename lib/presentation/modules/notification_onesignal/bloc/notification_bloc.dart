@@ -16,6 +16,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       : super(NotificationInitialState()) {
     on<GetNotificationListEvent>(_onGetNotificationList);
     on<SetReadedNotificationEvent>(_setReadedNotification);
+    on<DeleteNotificationEvent>(_deleteNotification);
   }
 
   Future<void> _onGetNotificationList(
@@ -29,13 +30,14 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       ),
     );
     try {
-      final response =
-          await notificationUsecase.getNotificationListEntity(event.doctorId,event.startIndex,event.lastIndex);
+      final response = await notificationUsecase.getNotificationListEntity(
+          doctorId: event.doctorId,
+          startIndex: event.startIndex,
+          lastIndex: event.lastIndex);
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
       final newViewModel = state.viewModel
           .copyWith(notificationEntity: response, unreadCount: unreadCount);
-
       emit(GetNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -63,12 +65,34 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       await notificationUsecase
           .setReadedNotificationEntity(event.notificationId);
-    
-      final newViewModel = state.viewModel;
       emit(SetReadedNotificationState(
         status: BlocStatusState.success,
-        viewModel: newViewModel,
+        viewModel:state.viewModel,
       ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _deleteNotification(
+    DeleteNotificationEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    emit(
+      DeleteNotificationState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await notificationUsecase.deleteNotificationEntity(event.notificationId);
+      emit(DeleteNotificationState(
+          status: BlocStatusState.success, viewModel: state.viewModel));
     } catch (e) {
       emit(
         state.copyWith(

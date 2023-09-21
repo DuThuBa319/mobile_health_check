@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 import '../../../../../classes/language_constant.dart';
@@ -27,14 +28,9 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
     SizeConfig.init(context);
     return GestureDetector(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    TemperatureDetailScreen(temperatureEntity: widget.response),
-              ));
-                  showToast(translation(context).waitForSeconds);
-
+          Navigator.pushNamed(context, RouteList.bodyTemperatureDetail,
+              arguments: widget.response);
+          showToast(translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(

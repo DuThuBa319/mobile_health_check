@@ -1,8 +1,5 @@
-
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-
-
 
 import '../../../../models/notification_onesignal_model/notification_onesignal_model.dart';
 import '../../rest_api_repository.dart';
@@ -16,25 +13,31 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
   NotificationApiRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl:
-                'https://healthcareapplicationcloud.azurewebsites.net');
+            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net');
 
   @override
-  Future<List<NotificationModel>> getNotificationListModels(String? doctorId,int? startIndex, int? lastIndex) {
-    return restApi.getNotificationListModels(doctorId,startIndex,lastIndex);
+  Future<List<NotificationModel>> getNotificationListModels(
+      {required String? doctorId, int? startIndex, int? lastIndex}) {
+    return restApi.getNotificationListModels(
+        doctorId: doctorId, startIndex: startIndex, lastIndex: lastIndex);
   }
-@override
+
+  @override
   Future<void> setReadedNotificationModel(String? notificationId) {
     return restApi.setReadedNotificationModel(notificationId);
   }
+
   @override
   Future<int?> getUnreadCountNotification(String? doctorId) {
     return restApi.getUnreadCountNotification(doctorId);
   }
+   @override
+  Future<void> deleteNotificationModel(String? notificationId) {
+    return restApi.deleteNotificationModel(notificationId);
+  }
+
   // @override
   // Future<NotificationModel> registNotification(NotificationModel Notification) {
   //   return restApi.registNotification(Notification);
   // }
-
- 
 }

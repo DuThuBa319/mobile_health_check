@@ -216,9 +216,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                               arguments: widget.patientId ?? widget.patientId!);
                         }
                         if (naviagte == "oximeterHistory") {
-                          // Navigator.pushNamed(
-                          //     context, RouteList.spo2History,
-                          //     arguments: widget.patientId ?? widget.patientId!);
+                          Navigator.pushNamed(context, RouteList.spo2History,
+                              arguments: widget.patientId ?? widget.patientId!);
                         } else if (naviagte == "bodyTemperatureColor") {
                           Navigator.pushNamed(
                               context, RouteList.temperatureHistory,
@@ -327,21 +326,21 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                               width: SizeConfig.screenWidth * 0.5,
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     RichText(
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.end,
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
                                               text: "${spo2Entity?.spo2}",
                                               style: AppTextTheme.title3
                                                   .copyWith(
-                                                      // color:
+                                                      color: AppColor.oximeter,
                                                       //     spo2Entity?.statusColor,
                                                       fontSize: SizeConfig
                                                               .screenWidth *
-                                                          0.1,
+                                                          0.12,
                                                       fontWeight:
                                                           FontWeight.w500)),
                                           TextSpan(

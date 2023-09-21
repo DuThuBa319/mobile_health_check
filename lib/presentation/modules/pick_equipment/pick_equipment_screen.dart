@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:mobile_health_check/classes/language_constant.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form_for_patient.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';

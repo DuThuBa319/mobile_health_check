@@ -15,11 +15,11 @@ class NotificationEntity {
   BloodPressureEntity? bloodPressureEntity;
   BloodSugarEntity? bloodSugarEntity;
   TemperatureEntity? bodyTemperatureEntity;
-  Spo2Entity? spo2entity;
+  Spo2Entity? spo2Entity;
   int? type;
 
   NotificationEntity({
-    this.spo2entity,
+    this.spo2Entity,
     this.bloodPressureEntity,
     this.bloodSugarEntity,
     this.bodyTemperatureEntity,

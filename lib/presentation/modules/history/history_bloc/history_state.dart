@@ -4,14 +4,20 @@ class _ViewModel {
   final List<BloodPressureEntity>? listBloodPressure;
   final List<BloodSugarEntity>? listBloodSugar;
   final List<TemperatureEntity>? listTemperature;
+  final List<Spo2Entity>? listSpo2;
+
   const _ViewModel(
-      {this.listTemperature, this.listBloodSugar, this.listBloodPressure});
+      {this.listTemperature, this.listBloodSugar, this.listBloodPressure,this.listSpo2});
 
   _ViewModel copyWith(
       {List<BloodPressureEntity>? listBloodPressure,
       List<BloodSugarEntity>? listBloodSugar,
-      List<TemperatureEntity>? listTemperature}) {
+      List<TemperatureEntity>? listTemperature,
+      List<Spo2Entity>? listSpo2,
+
+      }) {
     return _ViewModel(
+      listSpo2: listSpo2??this.listSpo2,
       listTemperature: listTemperature ?? this.listTemperature,
       listBloodSugar: listBloodSugar ?? this.listBloodSugar,
       listBloodPressure: listBloodPressure ?? this.listBloodPressure,

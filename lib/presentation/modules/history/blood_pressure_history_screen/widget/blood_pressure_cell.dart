@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../classes/language.dart';
-import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../../function.dart';
 import '../../../../common_widget/assets.dart';
@@ -99,6 +98,24 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('${widget.response?.sys}',
+                        style: AppTextTheme.body1.copyWith(
+                          color: widget.response?.statusColor,
+
+                          fontSize: SizeConfig.screenWidth *
+                              0.1, // 0,1 xấp xỉ 38 39 40
+                        )),
+                    Text(
+                      'mmHg',
+                      style: AppTextTheme.title5.copyWith(
+                          fontSize: SizeConfig.screenWidth *
+                              0.03), // 0.03 xấp xỉ 12 13
+                    ),
+                  ],
+                ),
                 SizedBox(width: SizeConfig.screenWidth * 0.05),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,

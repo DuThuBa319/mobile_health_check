@@ -9,7 +9,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
-import '../../../classes/language_constant.dart';
 import '../../../function.dart';
 import '../../common_widget/assets.dart';
 import '../../common_widget/dialog/show_toast.dart';

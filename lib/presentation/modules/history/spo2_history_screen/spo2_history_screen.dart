@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/classes/language.dart';
+import 'package:mobile_health_check/presentation/modules/history/spo2_history_screen/widget/spo2_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../classes/language.dart';
+import '../../../../function.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -13,41 +13,32 @@ import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
-
 import '../history_bloc/history_bloc.dart';
-import 'widget/blood_pressure_cell.dart';
 
-part 'blood_pressure_history_screen_action.dart';
+part 'spo2_history_screen_action.dart';
 
-class BloodPressureHistoryScreen extends StatefulWidget {
+class Spo2HistoryScreen extends StatefulWidget {
   final String? id;
-  // final HistoryBloc historyBloc;
 
-  const BloodPressureHistoryScreen({
-    Key? key,
-    required this.id,
-    // required this.historyBloc,
-  }) : super(key: key);
+  const Spo2HistoryScreen({super.key, this.id});
 
   @override
-  State<BloodPressureHistoryScreen> createState() =>
-      BloodPressureHistoryScreenState();
+  State<Spo2HistoryScreen> createState() => Spo2HistoryScreenState();
 }
 
-class BloodPressureHistoryScreenState
-    extends State<BloodPressureHistoryScreen> {
+class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
-  DateTime timeFrom =
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
-  DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
-  String strTimeFrom = DateFormat('dd/MM/yyyy').format(
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00)));
-  String strTimeTo = DateFormat('dd/MM/yyyy')
-      .format(DateTime.now().add(const Duration(hours: 23, minutes: 59)));
+  DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
+  DateTime dateTo = DateTime.now();
+  String strDateFrom = DateFormat('dd/MM/yyyy')
+      .format(DateTime.now().add(const Duration(days: -1)));
+  String strDateTo = DateFormat('dd/MM/yyyy').format(DateTime.now());
   HistoryBloc get historyBloc => BlocProvider.of(context);
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
+
     return CustomScreenForm(
       title: translation(context).history,
       isShowAppBar: true,
@@ -69,8 +60,8 @@ class BloodPressureHistoryScreenState
                 const SizedBox(height: 5),
                 Text(
                   translation(context).selectTime,
-                  style: TextStyle(
-                      fontSize: SizeConfig.screenWidth * 0.06,
+                  style: const TextStyle(
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -80,7 +71,7 @@ class BloodPressureHistoryScreenState
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,10 +91,9 @@ class BloodPressureHistoryScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5,
-                            size: SizeConfig.screenWidth * 0.08),
-                        Text(strTimeFrom,
+                        const Icon(Icons.calendar_month,
+                            color: AppColor.color43C8F5, size: 30),
+                        Text(strDateFrom,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5,
                                 fontSize: SizeConfig.screenWidth * 0.05))
@@ -118,7 +108,7 @@ class BloodPressureHistoryScreenState
                   selectedDate(isSelectedDateFrom: false);
                 },
                 child: Container(
-                    width: SizeConfig.screenWidth * 0.41,
+                    width: SizeConfig.screenWidth * 0.40,
                     height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
                         border:
@@ -128,10 +118,9 @@ class BloodPressureHistoryScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5,
-                            size: SizeConfig.screenWidth * 0.08),
-                        Text(strTimeTo,
+                        const Icon(Icons.calendar_month,
+                            color: AppColor.color43C8F5, size: 30),
+                        Text(strDateTo,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5,
                                 fontSize: SizeConfig.screenWidth * 0.05))
@@ -146,10 +135,10 @@ class BloodPressureHistoryScreenState
           Center(
             child: InkWell(
               onTap: () {
-                if (timeFrom.isAfter(timeTo)) {
+                if (dateFrom.isAfter(dateTo)) {
                   showAlertDialog(context);
                 } else {
-                  onGetBloodPressureData();
+                  onGetSpo2Data();
                 }
               },
               child: Container(
@@ -171,7 +160,7 @@ class BloodPressureHistoryScreenState
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
-              onRefresh: _onRefresh,
+              onRefresh: _onSpo2Refresh,
               header: const WaterDropHeader(),
               child: BlocConsumer<HistoryBloc, HistoryState>(
                 listener: blocListener,
@@ -181,8 +170,9 @@ class BloodPressureHistoryScreenState
                         child: Text('Hãy chọn các mốc thời gian',
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
-                    // onGetBloodPressureInitData();
                     //onGetHistoryData();
+                    // onGetSpo2InitData();
+
                     // return Center(
                     //     child: Text('Vui lòng chọn thông tin',
                     //         style: AppTextTheme.body2
@@ -195,7 +185,7 @@ class BloodPressureHistoryScreenState
                       ),
                     );
                   }
-                  if ((state.viewModel.listBloodPressure == null &&
+                  if ((state.viewModel.listSpo2 == null &&
                           state is GetHistoryDataState &&
                           state.status == BlocStatusState.success) ||
                       state.status == BlocStatusState.failure) {
@@ -206,7 +196,7 @@ class BloodPressureHistoryScreenState
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
-                    if (state.viewModel.listBloodPressure!.isEmpty) {
+                    if (state.viewModel.listSpo2!.isEmpty) {
                       return Center(
                           child: Text('Hãy chọn các mốc thời gian',
                               style: AppTextTheme.body2
@@ -216,11 +206,11 @@ class BloodPressureHistoryScreenState
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
-                        itemCount: state.viewModel.listBloodPressure?.length,
+                        itemCount: state.viewModel.listSpo2?.length,
                         itemBuilder: (context, index) {
-                          return BloodPressureCellWidget(
+                          return Spo2CellWidget(
                             historyBloc: historyBloc,
-                            response: state.viewModel.listBloodPressure?[index],
+                            response: state.viewModel.listSpo2?[index],
                           );
                         },
                       );

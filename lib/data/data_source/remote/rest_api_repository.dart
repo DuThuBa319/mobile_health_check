@@ -38,13 +38,12 @@ abstract class RestApiRepository {
     @Path('doctorId') String? id,
   );
 
-  @GET(
-      '/api/Notification/{doctorId}/startIndex={startIndex}/lastIndex={lastIndex}') //để hiện detail
-  Future<List<NotificationModel>> getNotificationListModels(
-    @Path('doctorId') String? doctorId,
-    @Path('startIndex') int? startIndex,
-    @Path('lastIndex') int? lastIndex,
-  );
+  @GET('/api/Notification/{doctorId}') //để hiện detail
+  Future<List<NotificationModel>> getNotificationListModels({
+    @Path('doctorId') required String? doctorId,
+    @Query('startIndex') required int? startIndex,
+    @Query('lastIndex') required int? lastIndex,
+  });
 
   @PUT("/Persons/{personId}") //update
   Future<void> updatePatientInforModel(@Path("personId") String? id,
@@ -58,6 +57,8 @@ abstract class RestApiRepository {
   Future<int?> getUnreadCountNotification(
     @Path('doctorId') String? doctorId,
   );
+ @DELETE('/api/Notification/{notificationId}') //delete
+  Future<void> deleteNotificationModel(@Path('notificationId') String? notificationId);
 
   @PUT("/{id}") //update
   Future<void> updatePatient(

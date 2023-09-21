@@ -335,9 +335,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        // Navigator.pushNamed(
-                                        //     context, RouteList.bloodSugarDetail,
-                                        //     arguments: patient.spo2s?[0]);
+                                        Navigator.pushNamed(
+                                            context, RouteList.spo2Detail,
+                                            arguments: patient.spo2s?[0]);
                                         showToast(translation(context)
                                             .waitForSeconds);
                                       },

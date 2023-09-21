@@ -6,10 +6,13 @@ import '../../repositories/notification_onesignal_repository/notification_onesig
 part 'notification_onesignal_usecase.impl.dart';
 
 abstract class NotificationUsecase {
-  Future<List<NotificationEntity>?> getNotificationListEntity(String? doctorId,int? startIndex,int? lastIndex);
+  Future<List<NotificationEntity>?> getNotificationListEntity(
+      {required String? doctorId, int? startIndex, int? lastIndex});
   // Future<NotificationEntity> addNotificationEntity(NotificationModel Notification);
   Future<void> setReadedNotificationEntity(String? notificationId);
   Future<int?> getUnreadCountNotificationEntity(String? doctorId);
+  Future<void> deleteNotificationEntity(String? notificationId);
+
 }
 
 //Reppo chứa dữ liệu là list Notificationmodel thì usecase chứa list Notificationentity

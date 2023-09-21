@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import '../../../../../classes/language.dart';
-import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/patient_infor_entity.dart';
 import '../../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../../function.dart';

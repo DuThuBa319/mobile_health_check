@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../function.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
@@ -149,7 +148,6 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                       fontSize: SizeConfig.screenWidth * 0.1)),
                             ],
                           ),
-                         
                           Column(
                             children: [
                               Text('PUL',

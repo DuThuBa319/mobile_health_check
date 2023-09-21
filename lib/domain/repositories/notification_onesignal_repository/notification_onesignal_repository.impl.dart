@@ -8,18 +8,23 @@ class NotificationListRepositoryImpl extends NotificationRepository {
   final NotificationApiRepository _notificationApi;
 
   NotificationListRepositoryImpl(
-    this._notificationApi, 
+    this._notificationApi,
   );
   @override
-  Future<List<NotificationModel>> getNotificationListModels(String? doctorId,int? startIndex, int? lastIndex) {
-    return _notificationApi.getNotificationListModels(doctorId,startIndex,lastIndex);
+  Future<List<NotificationModel>> getNotificationListModels(
+      {required String? doctorId, int? startIndex, int? lastIndex}) {
+    return _notificationApi
+        .getNotificationListModels(doctorId:doctorId, startIndex:startIndex, lastIndex:lastIndex);
   }
 
   @override
   Future<void> setReadedNotificationModel(String? notificationId) {
     return _notificationApi.setReadedNotificationModel(notificationId);
   }
-
+  @override
+  Future<void> deleteNotificationModel(String? notificationId) {
+    return _notificationApi.deleteNotificationModel(notificationId);
+  }
   @override
   Future<int?> getUnreadCountNotification(String? doctorId) {
     return _notificationApi.getUnreadCountNotification(doctorId);

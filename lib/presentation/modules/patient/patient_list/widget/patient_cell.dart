@@ -4,7 +4,6 @@ import 'package:mobile_health_check/common/singletons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../classes/language.dart';
-import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/patient_infor_entity.dart';
 import '../../../../../function.dart';
 import '../../../../route/route_list.dart';
@@ -90,13 +89,13 @@ class _PatientListCellState extends State<PatientListCell> {
                             ),
                             TextButton(
                               child: Text(translation(context).accept),
-                              onPressed: (){
+                              onPressed: () {
                                 widget.patientBloc.add(DeletePatientEvent(
                                   doctorId: userDataData.getUser()!.id,
                                   patientId: widget.patientInforEntity?.id,
                                 ));
                                 //Navigator.pop(context);
-                            
+
                                 Navigator.pop(context);
                               },
                             ),

@@ -48,3 +48,19 @@ class GetTemperatureHistoryInitDataEvent extends HistoryEvent {
   final DateTime endTime;
   GetTemperatureHistoryInitDataEvent({required this.endTime, required this.startTime, required this.id});
 }
+
+
+class GetSpo2HistoryDataEvent extends HistoryEvent {
+  final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
+  GetSpo2HistoryDataEvent(
+      {required this.endTime, required this.startTime, required this.id});
+}
+
+class GetSpo2HistoryInitDataEvent extends HistoryEvent {
+  final String? id;
+  final DateTime startTime;
+  final DateTime endTime;
+  GetSpo2HistoryInitDataEvent({required this.endTime, required this.startTime, required this.id});
+}

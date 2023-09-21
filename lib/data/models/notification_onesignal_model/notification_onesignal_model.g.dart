@@ -23,16 +23,16 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
           ? null
           : TemperatureModel.fromJson(
               json['bodyTemperature'] as Map<String, dynamic>),
-      type: json['sendAt'] as int?,
+      type: json['type'] as int?,
       notificationId: json['notificationId'] as String?,
       heading: json['heading'] as String?,
       content: json['content'] as String?,
       patientId: json['patientId'] as String?,
       patientName: json['patientName'] as String?,
       read: json['seen'] as bool?,
-      sendDate: json['sendDate'] == null
+      sendDate: json['sendAt'] == null
           ? null
-          : DateTime.parse(json['sendDate'] as String),
+          : DateTime.parse(json['sendAt'] as String),
     );
 
 Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
@@ -50,8 +50,8 @@ Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
   writeNotNull('patientId', instance.patientId);
   writeNotNull('patientName', instance.patientName);
   writeNotNull('seen', instance.read);
-  writeNotNull('sendAt', instance.type);
-  writeNotNull('sendDate', instance.sendDate?.toIso8601String());
+  writeNotNull('type', instance.type);
+  writeNotNull('sendAt', instance.sendDate?.toIso8601String());
   writeNotNull('bloodPressure', instance.bloodPressureModel?.toJson());
   writeNotNull('bloodSugar', instance.bloodSugarModel?.toJson());
   writeNotNull('bodyTemperature', instance.bodyTemperatureModel?.toJson());

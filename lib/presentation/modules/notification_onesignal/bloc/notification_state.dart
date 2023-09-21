@@ -68,7 +68,12 @@ class SetReadedNotificationState extends NotificationState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
-
+class DeleteNotificationState extends NotificationState {
+  DeleteNotificationState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -83,6 +88,10 @@ final _factories = <Type,
         status: status,
       ),
   SetReadedNotificationState: (viewModel, status) => SetReadedNotificationState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  DeleteNotificationState: (viewModel, status) => DeleteNotificationState(
         viewModel: viewModel,
         status: status,
       ),

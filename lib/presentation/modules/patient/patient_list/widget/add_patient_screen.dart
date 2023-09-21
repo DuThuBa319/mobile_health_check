@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +5,9 @@ import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
-import '../../../../../classes/language_constant.dart';
 
 import '../../../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../../common_widget/common_button.dart';
-import '../../../../common_widget/enum_common.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../../theme/theme_color.dart';

@@ -8,11 +8,26 @@ class GetNotificationListEvent extends NotificationEvent {
   final String? doctorId;
   final int? startIndex;
   final int? lastIndex;
-  GetNotificationListEvent({required this.doctorId,required this.startIndex,required this.lastIndex});
+  GetNotificationListEvent(
+      {required this.doctorId,
+      required this.startIndex,
+      required this.lastIndex});
 }
 
 class SetReadedNotificationEvent extends NotificationEvent {
   final String? notificationId;
+//  final String? doctorId;
+//   final int? startIndex;
+//   final int? lastIndex;
+  SetReadedNotificationEvent({required this.notificationId
+  // ,required this.doctorId,
+  //     required this.startIndex,
+  //     required this.lastIndex
+      }) : super();
+}
 
-  SetReadedNotificationEvent({required this.notificationId}) : super();
+class DeleteNotificationEvent extends NotificationEvent {
+  final String? notificationId;
+
+  DeleteNotificationEvent({required this.notificationId}) : super();
 }

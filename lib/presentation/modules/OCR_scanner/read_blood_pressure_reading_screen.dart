@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
-import '../../../classes/language_constant.dart';
 import '../../../function.dart';
 import '../../common_widget/assets.dart';
 import '../../common_widget/dialog/show_toast.dart';
@@ -200,7 +199,7 @@ class _BloodPressureReadingScreenState
                                     builder: (BuildContext context) {
                                       editSys.text =
                                           "${state.viewModel.bloodPressureEntity?.sys}";
-                               
+
                                       editPul.text =
                                           "${state.viewModel.bloodPressureEntity?.pulse}";
                                       return AlertDialog(
@@ -375,8 +374,7 @@ class _BloodPressureReadingScreenState
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
-                                "${state.viewModel.bloodPressureEntity?.sys}",
+                            Text("${state.viewModel.bloodPressureEntity?.sys}",
                                 style: AppTextTheme.title3.copyWith(
                                     fontSize: SizeConfig.screenWidth * 0.13,
                                     fontWeight: FontWeight.w500,

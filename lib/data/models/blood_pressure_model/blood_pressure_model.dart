@@ -8,7 +8,6 @@ part 'blood_pressure_model.g.dart';
 class BloodPressureModel {
   @JsonKey(name: 'systolic')
   int? sys;
-  
   @JsonKey(name: 'pulseRate')
   int? pulse;
   @JsonKey(name: 'imageLink')
@@ -17,7 +16,6 @@ class BloodPressureModel {
   DateTime? updatedDate;
 
   BloodPressureModel({
-    
     this.sys,
     this.pulse,
     this.imageLinkBloodPressure,
@@ -31,7 +29,6 @@ class BloodPressureModel {
 
   BloodPressureEntity getBloodPressureEntity() {
     return BloodPressureEntity(
-        
         sys: sys,
         pulse: pulse,
         imageLink: imageLinkBloodPressure == "" ? null : imageLinkBloodPressure,
