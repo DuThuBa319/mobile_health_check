@@ -5,29 +5,29 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../domain/entities/spo2_entity.dart';
+import '../../../../common/singletons.dart';
+import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 
-class Spo2DetailScreen extends StatefulWidget {
-  final Spo2Entity? spo2Entity;
-  const Spo2DetailScreen({super.key, required this.spo2Entity});
+class Spo2NotificationReadingScreen extends StatefulWidget {
+  final NotificationEntity? notificationEntity;
+  const Spo2NotificationReadingScreen(
+      {super.key, required this.notificationEntity});
 
   @override
-  State<Spo2DetailScreen> createState() => _Spo2DetailScreenState();
+  State<Spo2NotificationReadingScreen> createState() =>
+      _Spo2NotificationReadingScreenState();
 }
 
-class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
+class _Spo2NotificationReadingScreenState
+    extends State<Spo2NotificationReadingScreen> {
   // bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    // Timer(const Duration(milliseconds: 3000), () {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
   }
 
   @override
@@ -57,43 +57,37 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
               ),
               Container(
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.07,
+                  height: SizeConfig.screenHeight * 0.08,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        translation(context).time,
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        "${widget.notificationEntity?.patientName}",
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenWidth * 0.07,
+                            fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        DateFormat('dd/MM/yyyy')
-                            .format(widget.spo2Entity!.updatedDate!),
+                        " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
                         style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
                       ),
-                      Text(
-                        DateFormat('HH:mm')
-                            .format(widget.spo2Entity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
-                      )
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.04,
+                height: SizeConfig.screenWidth * 0.08,
               ),
               CustomImagePicker(
-                imagePath: widget.spo2Entity?.imageLink ??
-                    widget.spo2Entity?.imageLink!,
+                imagePath: widget.notificationEntity!.spo2Entity?.imageLink ??
+                    widget.notificationEntity!.spo2Entity?.imageLink!,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.04,
+                height: SizeConfig.screenWidth * 0.08,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10),
@@ -121,17 +115,17 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.spo2Entity!.spo2 ?? widget.spo2Entity!.spo2!}",
+                                      "${widget.notificationEntity!.spo2Entity!.spo2 ?? widget.notificationEntity!.spo2Entity!.spo2!}",
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
                                       fontSize: SizeConfig.screenWidth * 0.25,
-                                      // color: widget.spo2Entity!.statusColor,
+                                      // color: widget.notificationEntity!.spo2Entity!.statusColor,
                                       color: AppColor.oximeter)),
                               TextSpan(
                                   text: ' %',
                                   style: AppTextTheme.body0.copyWith(
                                       fontSize: SizeConfig.screenWidth * 0.08,
-                                      // color: widget.spo2Entity!.statusColor,
+                                      // color: widget.notificationEntity!.spo2Entity!.statusColor,
                                       color: Colors.black)),
                             ],
                           ),
@@ -141,15 +135,43 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                     ],
                   )),
               SizedBox(height: SizeConfig.screenWidth * 0.05),
-              CommonButton(
-                height: SizeConfig.screenHeight * 0.07,
-                title: translation(context).back,
-                buttonColor: Colors.red,
-                onTap: () {
-                  // if (_isLoading == false) {
-                  Navigator.pop(context);
-                  // }
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  CommonButton(
+                    editSizeText: true,
+                    sizeText: SizeConfig.screenWidth * 0.04,
+                    height: SizeConfig.screenHeight * 0.07,
+                    width: SizeConfig.screenWidth * 0.45,
+                    title: translation(context).goToPatientIn4Screen,
+                    buttonColor: Colors.red,
+                    onTap: () {
+                      // if (_isLoading == false) {
+
+                      Navigator.pushNamed(context, RouteList.patientInfor,
+                          arguments: widget.notificationEntity?.patientId);
+                      // }
+                    },
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  CommonButton(
+                    editSizeText: true,
+                    sizeText: SizeConfig.screenWidth * 0.04,
+                    height: SizeConfig.screenHeight * 0.07,
+                    width: SizeConfig.screenWidth * 0.45,
+                    title: translation(context).goToNotificationScreen,
+                    buttonColor: Colors.red,
+                    onTap: () {
+                      // if (_isLoading == false) {
+
+                      Navigator.pushNamed(context, RouteList.notification,arguments: userDataData.getUser()?.id);
+                      // }
+                    },
+                  ),
+                ],
               )
             ],
           ),

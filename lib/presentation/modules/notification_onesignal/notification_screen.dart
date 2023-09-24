@@ -12,6 +12,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../classes/language.dart';
 import '../../../domain/entities/blood_pressure_entity.dart';
+import '../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../domain/entities/spo2_entity.dart';
 import '../../../domain/entities/temperature_entity.dart';
 import '../../../presentation/common_widget/screen_form/custom_screen_form.dart';
@@ -45,6 +46,7 @@ class _NotificationListState extends State<NotificationScreen> {
   int lastIndex = -1;
   int startIndex = -50;
   int quantity = 50;
+
   @override
   void initState() {
     super.initState();
@@ -71,11 +73,6 @@ class _NotificationListState extends State<NotificationScreen> {
 
     OneSignal.Notifications.addClickListener((openedResult) {
       notificationAction(openedResult, context);
-
-      //!PUT GIẢM SỐ UNREAD COUNT SAU KHI NHẤN VÀO POPUP (lọc theo notificationId)
-      // ignore: use_build_context_synchronously
-
-      // ignore: use_build_context_synchronously
     });
     SizeConfig.init(context);
     return CustomScreenForm(
@@ -83,7 +80,6 @@ class _NotificationListState extends State<NotificationScreen> {
         isShowLeadingButton: true,
         isShowBottomNayvigationBar: true,
         isShowRightButon: false,
-        isScrollable: false,
         backgroundColor: AppColor.white,
         appBarColor: AppColor.topGradient,
         title: translation(context).notification,
@@ -93,9 +89,7 @@ class _NotificationListState extends State<NotificationScreen> {
           child: BlocConsumer<NotificationBloc, NotificationState>(
               listener: _blocListener,
               builder: (context, state) {
-                if (state is NotificationInitialState
-                    //! tạo refreshEvent => refresh notification screen()
-                    ) {
+                if (state is NotificationInitialState) {
                   lastIndex = 49;
                   startIndex = 0;
                   notificationBloc.add(GetNotificationListEvent(
@@ -107,20 +101,24 @@ class _NotificationListState extends State<NotificationScreen> {
                         state.status == BlocStatusState.success) ||
                     (state is DeleteNotificationState &&
                         state.status == BlocStatusState.success)) {
-                  notificationBloc.add(GetNotificationListEvent(
-                      doctorId: widget.id ?? widget.id!,
-                      startIndex: startIndex,
-                      lastIndex: lastIndex));
+                  notificationBloc.add(RefreshNotificationListEvent(
+                    doctorId: widget.id ?? widget.id!,
+                  ));
+
+                  // notificationBloc.add(GetNotificationListEvent(
+                  //     doctorId: widget.id ?? widget.id!,
+                  //     startIndex: startIndex,
+                  //     lastIndex: lastIndex));
                 }
                 if ((state is GetNotificationListState &&
                         state.status == BlocStatusState.loading &&
                         state.viewModel.notificationEntity == null) ||
                     (state is DeleteNotificationState &&
+                        state.status == BlocStatusState.loading) ||
+                    (state is RefreshNotificationListState &&
                         state.status == BlocStatusState.loading)) {
-                  return const Expanded(
-                    child: Center(
-                      child: Loading(brightness: Brightness.light),
-                    ),
+                  return const Center(
+                    child: Loading(brightness: Brightness.light),
                   );
                 }
 
@@ -128,6 +126,8 @@ class _NotificationListState extends State<NotificationScreen> {
                         state.status == BlocStatusState.loading &&
                         state.viewModel.notificationEntity != null) ||
                     (state is GetNotificationListState &&
+                        state.status == BlocStatusState.success) ||
+                    (state is RefreshNotificationListState &&
                         state.status == BlocStatusState.success)) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
                     return Center(
@@ -137,6 +137,7 @@ class _NotificationListState extends State<NotificationScreen> {
                   } else {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         RichText(
                             textAlign: TextAlign.start,
@@ -168,10 +169,10 @@ class _NotificationListState extends State<NotificationScreen> {
                                 await Future.delayed(
                                     const Duration(milliseconds: 1000));
                                 _refreshController.refreshCompleted();
-                                notificationBloc.add(GetNotificationListEvent(
-                                    doctorId: widget.id ?? widget.id!,
-                                    startIndex: startIndex,
-                                    lastIndex: lastIndex));
+                                notificationBloc
+                                    .add(RefreshNotificationListEvent(
+                                  doctorId: widget.id ?? widget.id!,
+                                ));
                               },
                               child: ListView.builder(
                                   controller: expandingController,

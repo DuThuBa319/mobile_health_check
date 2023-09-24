@@ -77,7 +77,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     if (index == 2) {
                       return equipmentCell(
                           cellTitle: translation(context).thermometer,
-                          imagePath: Assets.thermometer,
+                          imagePath: Assets.bodyTemperatureMeter,
                           cellColor: Colors.blue[400],
                           subCellColor: Colors.blue[100],
                           onTapFunction: () {

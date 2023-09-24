@@ -97,5 +97,16 @@
 "unreadNotifications":"Số thông báo chưa đọc",
 "relative":"NGƯỜI THÂN BỆNH NHÂN",
 "oximeter":"ĐO NỒNG ĐỘ OXY",
-"account":"Tài khoản"
+"account":"Tài khoản",
+"deleteNotification":"Bạn muốn xóa thông báo này?",
+"hasJustUpdated":"vừa cập nhật",
+"bloodSugarIndex":"chỉ số đường huyết",
+"bloodPressureIndex":"chỉ số huyết áp",
+"spo2Index":"chỉ số Spo2",
+"bodyTemperatureIndex":"chỉ số thân nhiệt",
+"patient":"Bệnh nhân",
+"his":"",
+"her":"",
+"goToPatientIn4Screen":"Thông tin bệnh nhân",
+"goToNotificationScreen":"Đến trang thông báo"
 }

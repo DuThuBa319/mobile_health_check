@@ -6,9 +6,13 @@ class CommonButton extends StatelessWidget {
   final Color? buttonColor;
   final String title;
   final Color? textColor;
+  final double? sizeText;
+  final bool? editSizeText;
   final void Function()? onTap;
   const CommonButton(
       {super.key,
+      this.editSizeText,
+      this.sizeText,
       this.width,
       this.buttonColor = Colors.blue,
       required this.height,
@@ -27,13 +31,20 @@ class CommonButton extends StatelessWidget {
             top: height / 4, bottom: height / 4, right: 10, left: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8), color: buttonColor),
-        child: Text(
-          title,
-          style: TextStyle(
-              fontSize: height / 2.5,
-              fontWeight: FontWeight.bold,
-              color: textColor),
-          textAlign: TextAlign.center,
+        child: Center(
+          child: Text(
+            title,
+            style: editSizeText == true
+                ? TextStyle(
+                    fontSize: sizeText,
+                    fontWeight: FontWeight.bold,
+                    color: textColor)
+                : TextStyle(
+                    fontSize: height / 2.5,
+                    fontWeight: FontWeight.bold,
+                    color: textColor),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -5,19 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../domain/entities/blood_sugar_entity.dart';
+import '../../../../common/singletons.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 
-class BloodSugarDetailScreen extends StatefulWidget {
-  final BloodSugarEntity? bloodSugarEntity;
-  const BloodSugarDetailScreen({super.key, required this.bloodSugarEntity});
+class BloodSugarNotificationReadingScreen extends StatefulWidget {
+  final NotificationEntity? notificationEntity;
+  const BloodSugarNotificationReadingScreen(
+      {super.key, required this.notificationEntity});
 
   @override
-  State<BloodSugarDetailScreen> createState() => _BloodSugarDetailScreenState();
+  State<BloodSugarNotificationReadingScreen> createState() =>
+      _BloodSugarNotificationReadingScreenState();
 }
 
-class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
+class _BloodSugarNotificationReadingScreenState
+    extends State<BloodSugarNotificationReadingScreen> {
   // bool _isLoading = true;
 
   @override
@@ -57,43 +62,38 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
               ),
               Container(
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.07,
+                  height: SizeConfig.screenHeight * 0.08,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        translation(context).time,
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        "${widget.notificationEntity?.patientName}",
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenWidth * 0.07,
+                            fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        DateFormat('dd/MM/yyyy')
-                            .format(widget.bloodSugarEntity!.updatedDate!),
+                        " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
                         style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
                       ),
-                      Text(
-                        DateFormat('HH:mm')
-                            .format(widget.bloodSugarEntity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
-                      )
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.035,
+                height: SizeConfig.screenWidth * 0.02,
               ),
               CustomImagePicker(
-                imagePath: widget.bloodSugarEntity?.imageLink ??
-                    widget.bloodSugarEntity?.imageLink!,
+                imagePath:
+                    widget.notificationEntity!.bloodSugarEntity?.imageLink ??
+                        widget.notificationEntity!.bloodSugarEntity?.imageLink!,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.035,
+                height: SizeConfig.screenWidth * 0.02,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
@@ -121,65 +121,75 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.bloodSugarEntity!.bloodSugar ?? widget.bloodSugarEntity!.bloodSugar!}",
+                                      "${widget.notificationEntity!.bloodSugarEntity!.bloodSugar ?? widget.notificationEntity!.bloodSugarEntity!.bloodSugar!}",
                                   style: AppTextTheme.body0.copyWith(
                                     letterSpacing: -4,
                                     fontSize: SizeConfig.screenWidth * 0.2,
-                                    color: widget.bloodSugarEntity!.statusColor,
+                                    color: widget.notificationEntity!
+                                        .bloodSugarEntity!.statusColor,
                                   )),
                               TextSpan(
                                   text: ' mg/dL',
                                   style: AppTextTheme.body0.copyWith(
                                     fontSize: SizeConfig.screenWidth * 0.08,
-                                    color: widget.bloodSugarEntity!.statusColor,
+                                    color: widget.notificationEntity!
+                                        .bloodSugarEntity!.statusColor,
                                   )),
                             ],
                           ),
                         ),
                       ),
-                      // Row(
-
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   crossAxisAlignment: CrossAxisAlignment.end,
-                      //   children: [
-                      //     Text(
-                      //         "${widget.bloodSugarEntity!.bloodSugar ?? widget.bloodSugarEntity!.bloodSugar!}",
-                      //         style: AppTextTheme.body0.copyWith(
-                      //           letterSpacing: -4,
-                      //           fontSize: SizeConfig.screenWidth* 0.2,
-                      //           color: widget.bloodSugarEntity!.statusColor,
-                      //         )),
-                      //     const SizedBox(
-                      //       width: 2,
-                      //     ),
-                      //     Text('mg/dL',
-                      //         style: AppTextTheme.body0.copyWith(
-                      //           fontSize: SizeConfig.screenWidth* 0.08,
-                      //           color: widget.bloodSugarEntity!.statusColor,
-                      //         )),
-                      //   ],
-                      // ),
                       SizedBox(height: SizeConfig.screenWidth * 0.05),
                       Center(
                         child: Text(
-                            widget.bloodSugarEntity!.statusComment(context),
+                            widget.notificationEntity!.bloodSugarEntity!
+                                .statusComment(context),
                             style: AppTextTheme.body2.copyWith(
-                                color: widget.bloodSugarEntity!.statusColor,
+                                color: widget.notificationEntity!
+                                    .bloodSugarEntity!.statusColor,
                                 fontWeight: FontWeight.w700,
                                 fontSize: SizeConfig.screenWidth * 0.06)),
                       ),
                     ],
                   )),
               SizedBox(height: SizeConfig.screenWidth * 0.05),
-              CommonButton(
-                height: SizeConfig.screenHeight * 0.07,
-                title: translation(context).back,
-                buttonColor: Colors.red,
-                onTap: () {
-                  // if (_isLoading == false) {
-                  Navigator.pop(context);
-                  // }
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  CommonButton(
+                    editSizeText: true,
+                    sizeText: SizeConfig.screenWidth * 0.04,
+                    height: SizeConfig.screenHeight * 0.07,
+                    width: SizeConfig.screenWidth * 0.45,
+                    title: translation(context).goToPatientIn4Screen,
+                    buttonColor: Colors.red,
+                    onTap: () {
+                      // if (_isLoading == false) {
+
+                      Navigator.pushNamed(context, RouteList.patientInfor,
+                          arguments: widget.notificationEntity?.patientId);
+                      // }
+                    },
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  CommonButton(
+                    editSizeText: true,
+                    sizeText: SizeConfig.screenWidth * 0.04,
+                    height: SizeConfig.screenHeight * 0.07,
+                    width: SizeConfig.screenWidth * 0.45,
+                    title: translation(context).goToNotificationScreen,
+                    buttonColor: Colors.red,
+                    onTap: () {
+                      // if (_isLoading == false) {
+
+                      Navigator.pushNamed(context, RouteList.notification,arguments: userDataData.getUser()?.id);
+                      // }
+                    },
+                  ),
+                ],
               )
             ],
           ),

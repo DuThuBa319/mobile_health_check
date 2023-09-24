@@ -49,28 +49,11 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
   @override
   void initState() {
     super.initState();
-    // // TODO: implement initState
-    // Future.delayed(const Duration(seconds: 1)).then((value) async {
-    //   // Navigator.pushNamed(context, RouteList.OCR_screen);
-    //   final NotificationUsecase count = getIt<NotificationUsecase>();
-    //   final unreadCount = await count
-    //       .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
-    //   notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
-    // });
   }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    // RefreshController refreshController =
-    //     RefreshController(initialRefresh: true);
-    // Future<void> onRefresh() async {
-    //   // monitor network fetch
-    //   await Future.delayed(const Duration(milliseconds: SizeConfig.screenWidth*0.0200));
-    //   // if failed,use refreshFailed()
-    //   refreshController.refreshCompleted();
-    // }
-
     return CustomScreenForm(
         title: translation(context).patientIn4,
         isShowRightButon: false,
@@ -86,12 +69,16 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
-              if (state is GetPatientInitialState) {
+              if ((state is GetPatientInitialState) ||
+                  (state is DeleteRelativeState &&
+                      state.status == BlocStatusState.success)) {
                 patientBloc.add(GetPatientInforEvent(
                     id: widget.patientId ?? widget.patientId!));
               }
-              if (state is GetPatientInforState &&
-                  state.status == BlocStatusState.loading) {
+              if ((state is GetPatientInforState &&
+                      state.status == BlocStatusState.loading) ||
+                  (state is DeleteRelativeState &&
+                      state.status == BlocStatusState.loading)) {
                 return const Center(
                   child: Loading(
                     brightness: Brightness.light,
@@ -99,9 +86,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                 );
               }
               if ((state is GetPatientInforState &&
-                      state.status == BlocStatusState.success) ||
-                  (state is DeleteRelativeState &&
-                      state.status == BlocStatusState.success)) {
+                  state.status == BlocStatusState.success)) {
                 PatientInforEntity patient =
                     state.viewModel.patientInforEntity ??
                         state.viewModel.patientInforEntity!;
@@ -160,46 +145,28 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   SizedBox(
                                     height: SizeConfig.screenHeight * 0.025,
                                   ),
-                                  Text(
-                                    patient.name,
-                                    style: AppTextTheme.body1.copyWith(
+                                  TextButton(
+                                    child: Text(
+                                      patient.name,
+                                      style: AppTextTheme.body1.copyWith(
                                         color: Colors.black,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.w500,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      showInfor(patient);
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(patient.address ?? "--",
+                                  Text("+84 ${patient.phoneNumber}",
                                       style: AppTextTheme.body3.copyWith(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.03)),
-                                  SizedBox(
-                                    height: SizeConfig.screenHeight * 0.03,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      infoText(
-                                          title:
-                                              "${translation(context).weight} (Kg)",
-                                          content:
-                                              "${(patient.weight)?.toInt() ?? (patient.weight!.toInt())}"),
-                                      infoText(
-                                          title: translation(context).age,
-                                          content: "${patient.age ?? "--"}"),
-                                      infoText(
-                                          title:
-                                              "${translation(context).height} (cm)",
-                                          content:
-                                              "${(patient.height)?.toInt() ?? (patient.height!.toInt())}"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: SizeConfig.screenHeight * 0.01,
-                                  ),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: SizeConfig.screenWidth * 0.05,
+                                      ))
                                 ],
                               )),
                           Container(
@@ -258,18 +225,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   patient.bodyTemperatures!.isNotEmpty ||
                                   patient.bloodSugars!.isNotEmpty ||
                                   patient.spo2s!.isNotEmpty
-                              ?
-                              // Expanded(
-                              //     child: SmartRefresher(
-                              //         controller: _refreshController,
-                              //         onRefresh: () async {
-                              //           await Future.delayed(
-                              //               const Duration(milliseconds: 1000));
-                              //           _refreshController.refreshCompleted();
-                              //           patientBloc.add(GetPatientInforEvent(
-                              //               id: widget.id ?? widget.id!));
-                              //         },
-                              Column(
+                              ? Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

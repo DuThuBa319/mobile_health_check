@@ -98,6 +98,18 @@
 "waitForSeconds":"Please wait for seconds",
 "relative":"PATIENT RELATIVES",
 "oximeter":"PULSE OXIMETRY",
-"account":"Account"
+"account":"Account",
+"unreadNotifications":"Unread Notifications",
+"deleteNotification":"Delete this notification?",
+"hasJustUpdated":"has just updated",
+"bloodSugarIndex":"blood sugar readings",
+"bloodPressureIndex":"blood pressure readings",
+"spo2Index":"Spo2 readings",
+"bodyTemperatureIndex":"body temperature readings",
+"patient":"Patient",
+"his":"his",
+"her":"her",
+"goToPatientIn4Screen":"Patient infor screen",
+"goToNotificationScreen":"Notification screen"
 }
 

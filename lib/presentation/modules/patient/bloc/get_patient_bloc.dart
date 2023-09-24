@@ -201,7 +201,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     try {
       await _patientUseCase.updatePatientInforEntity(event.id, event.model);
       final newViewModel = state.viewModel;
-
       emit(UpdatePatientInforState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -230,14 +229,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       await _doctorInforUsecase.deleteRelationshipRelativeAndPatientEntity(
           event.relativeId, event.patientId);
       await _doctorInforUsecase.deleteRelativeEntity(event.relativeId);
-      emit(GetPatientInforState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ));
-      final response =
-          await _patientUseCase.getPatientInforEntity(event.patientId);
-      final newViewModel =
-          state.viewModel.copyWith(patientInforEntity: response);
+      final newViewModel = state.viewModel;
       emit(DeleteRelativeState(
         status: BlocStatusState.success,
         viewModel: newViewModel,

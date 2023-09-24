@@ -61,7 +61,18 @@ class GetNotificationListState extends NotificationState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
-
+class RefreshNotificationListState extends NotificationState {
+  RefreshNotificationListState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+class RenewPageAfterActionState extends NotificationState {
+  RenewPageAfterActionState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
 class SetReadedNotificationState extends NotificationState {
   SetReadedNotificationState({
     _ViewModel viewModel = const _ViewModel(),
@@ -84,6 +95,14 @@ final _factories = <Type,
         status: status,
       ),
   GetNotificationListState: (viewModel, status) => GetNotificationListState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  RefreshNotificationListState: (viewModel, status) => RefreshNotificationListState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  RenewPageAfterActionState: (viewModel, status) => RenewPageAfterActionState(
         viewModel: viewModel,
         status: status,
       ),

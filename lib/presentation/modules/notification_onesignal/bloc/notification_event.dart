@@ -13,6 +13,26 @@ class GetNotificationListEvent extends NotificationEvent {
       required this.startIndex,
       required this.lastIndex});
 }
+class RenewPageAfterActionEvent extends NotificationEvent {
+  // final List<NotificationEntity>? notificationEntiry;
+  final String? doctorId;
+  final int? startIndex;
+  final int? lastIndex;
+ RenewPageAfterActionEvent(
+      {required this.doctorId,
+      required this.startIndex,
+      required this.lastIndex});
+}
+
+
+class RefreshNotificationListEvent extends NotificationEvent {
+  // final List<NotificationEntity>? notificationEntiry;
+  final String? doctorId;
+
+  RefreshNotificationListEvent(
+      {required this.doctorId,
+    });
+}
 
 class SetReadedNotificationEvent extends NotificationEvent {
   final String? notificationId;

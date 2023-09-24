@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/blood_pressure_entity.dart';
 import '../../domain/entities/blood_sugar_entity.dart';
+import '../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../domain/entities/spo2_entity.dart';
 import '../../domain/entities/temperature_entity.dart';
 import '../common_widget/enum_common.dart';
@@ -29,6 +30,11 @@ import '../modules/history/spo2_history_screen/spo2_history_screen.dart';
 import '../modules/login_screen/login/login_bloc.dart';
 import '../modules/login_screen/signUp_screen.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
+import '../modules/notification_onesignal/detail_screen/blood_pressure_reading.dart';
+import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart';
+import '../modules/notification_onesignal/detail_screen/spo2_reading.dart';
+import '../modules/notification_onesignal/detail_screen/temperature_reading.dart';
+
 import '../modules/notification_onesignal/notification_screen.dart';
 import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
@@ -242,6 +248,33 @@ class AppRoute {
             builder: (context) => Spo2DetailScreen(
                   spo2Entity: response,
                 ));
+
+ case '/bloodPressuerNotificationReading':
+        final response = routeSettings.arguments as NotificationEntity;
+        return MaterialPageRoute(
+            builder: (context) => BloodPressureNotificationReadingScreen(
+                  notificationEntity: response,
+                ));
+      case '/bloodSugarNotificationReading':
+        final response = routeSettings.arguments as  NotificationEntity;
+        return MaterialPageRoute(
+            builder: (context) => BloodSugarNotificationReadingScreen(
+            notificationEntity: response,
+                ));
+      case '/bodyTemperatureNotificationReading':
+        final response = routeSettings.arguments as  NotificationEntity;
+        return MaterialPageRoute(
+            builder: (context) => TemperatureNotificationReadingScreen(
+            notificationEntity: response,
+                ));
+      case '/spo2NotificationReading':
+        final response = routeSettings.arguments as  NotificationEntity;
+        return MaterialPageRoute(
+            builder: (context) => Spo2NotificationReadingScreen(
+            notificationEntity: response,
+                ));
+
+
       case '/notification':
         final id = routeSettings.arguments as String?;
         return MaterialPageRoute(

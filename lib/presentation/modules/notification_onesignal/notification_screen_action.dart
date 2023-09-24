@@ -19,12 +19,16 @@ extension NotificationScreenAction on _NotificationListState {
 
   void notificationAction(
       OSNotificationClickEvent openedResult, BuildContext context) {
-    if (openedResult.notification.additionalData?["Indicator"] ==
-        "BloodPressure") {
+    if (openedResult.notification.additionalData?["Indicator"] =="BloodPressure") {
+      String? patientId =
+          openedResult.notification.additionalData?["patientId"];
+
+      String? patientName =
+          openedResult.notification.additionalData?["PatientName"];
       int? sys =
           int.parse(openedResult.notification.additionalData?["Systolic"]);
       int? pulse =
-          int.parse(openedResult.notification.additionalData?["PlusRate"]);
+          int.parse(openedResult.notification.additionalData?["PulseRate"]);
       String dateString =
           openedResult.notification.additionalData?["UpdatedDate"];
       DateTime updatedDate = DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
@@ -39,12 +43,20 @@ extension NotificationScreenAction on _NotificationListState {
         sys: sys,
         pulse: pulse,
       );
+      final NotificationEntity notificationEntity = NotificationEntity(
+          bloodPressureEntity: bloodPressureEntity,
+          patientName: patientName,
+          patientId: patientId,
+          sendDate: updatedDate);
       showToast(translation(context).waitForSeconds);
-      Navigator.pushNamed(context, RouteList.bloodPressuerDetail,
-          arguments: bloodPressureEntity);
+      Navigator.pushNamed(context, RouteList.bloodPressuerNotificationReading,
+          arguments: notificationEntity);
     }
-    if (openedResult.notification.additionalData?["Indicator"] ==
-        "BodyTemperature") {
+    if (openedResult.notification.additionalData?["Indicator"] == "BodyTemperature") {
+      String? patientId =
+          openedResult.notification.additionalData?["patientId"];
+      String? patientName =
+          openedResult.notification.additionalData?["PatientName"];
       String dateString =
           openedResult.notification.additionalData?["UpdatedDate"];
       DateTime updatedDate = DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
@@ -62,13 +74,21 @@ extension NotificationScreenAction on _NotificationListState {
         temperature: value,
         updatedDate: updatedDate,
       );
+      final NotificationEntity notificationEntity = NotificationEntity(
+          bodyTemperatureEntity: temperatureEntity,
+          patientName: patientName,
+          patientId: patientId,
+          sendDate: updatedDate);
       showToast(translation(context).waitForSeconds);
 
-      Navigator.pushNamed(context, RouteList.bodyTemperatureDetail,
-          arguments: temperatureEntity);
+      Navigator.pushNamed(context, RouteList.bodyTemperatureNotificationReading,
+          arguments: notificationEntity);
     }
-    if (openedResult.notification.additionalData?["Indicator"] ==
-        "BloodSugar") {
+    if (openedResult.notification.additionalData?["Indicator"] == "BloodSugar") {
+      String? patientId =
+          openedResult.notification.additionalData?["patientId"];
+      String? patientName =
+          openedResult.notification.additionalData?["PatientName"];
       String dateString =
           openedResult.notification.additionalData?["UpdatedDate"];
       DateTime updatedDate = DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
@@ -85,11 +105,20 @@ extension NotificationScreenAction on _NotificationListState {
         bloodSugar: value,
         updatedDate: updatedDate,
       );
+      final NotificationEntity notificationEntity = NotificationEntity(
+          bloodSugarEntity: bloodSugarEntity,
+          patientName: patientName,
+          patientId: patientId,
+          sendDate: updatedDate);
       showToast(translation(context).waitForSeconds);
-      Navigator.pushNamed(context, RouteList.bloodSugarDetail,
-          arguments: bloodSugarEntity);
-    }
+      Navigator.pushNamed(context, RouteList.bloodSugarNotificationReading,
+          arguments: notificationEntity);
+ }
     if (openedResult.notification.additionalData?["Indicator"] == "SpO2") {
+      String? patientId =
+          openedResult.notification.additionalData?["patientId"];
+      String? patientName =
+          openedResult.notification.additionalData?["PatientName"];
       String dateString =
           openedResult.notification.additionalData?["UpdatedDate"];
       DateTime updatedDate = DateFormat('M/d/yyyy h:mm:ss a').parse(dateString);
@@ -105,8 +134,15 @@ extension NotificationScreenAction on _NotificationListState {
         spo2: value,
         updatedDate: updatedDate,
       );
+
+      final NotificationEntity notificationEntity = NotificationEntity(
+          spo2Entity: spo2Entity,
+          patientName: patientName,
+          patientId: patientId,
+          sendDate: updatedDate);
       showToast(translation(context).waitForSeconds);
-      Navigator.pushNamed(context, RouteList.spo2Detail, arguments: spo2Entity);
+      Navigator.pushNamed(context, RouteList.spo2NotificationReading,
+          arguments: notificationEntity);
     }
   }
 }

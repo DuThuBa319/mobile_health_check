@@ -12,8 +12,12 @@ class RouteList {
   static const String bloodPressuerDetail = '/bloodPressuerDetail';
   static const String bloodSugarDetail = '/bloodSugarDetail';
   static const String spo2Detail = '/spo2Detail';
-
   static const String bodyTemperatureDetail = '/bodyTemperatureDetail';
+
+  static const String bloodPressuerNotificationReading = '/bloodPressuerNotificationReading';
+  static const String bloodSugarNotificationReading = '/bloodSugarNotificationReading';
+  static const String spo2NotificationReading = '/spo2NotificationReading';
+  static const String bodyTemperatureNotificationReading = '/bodyTemperatureNotificationReading';
   static const String notification = '/notification';
 
   static const String scanScreen = '/ocr_screen';

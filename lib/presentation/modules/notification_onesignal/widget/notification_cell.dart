@@ -20,7 +20,6 @@ class NotificationCell extends StatefulWidget {
     Key? key,
     // this.doctorInforEntity,
     this.doctorId,
-
     this.notificationBloc,
     this.notificationEntity,
   }) : super(key: key);
@@ -35,35 +34,36 @@ class _NotificationCellState extends State<NotificationCell> {
     SizeConfig.init(context);
     return GestureDetector(
       onTap: () {
-        if (
-          widget.notificationEntity?.read == false) {
+        if (widget.notificationEntity?.read == false) {
           widget.notificationBloc!.add(
             SetReadedNotificationEvent(
               notificationId: widget.notificationEntity?.notificaitonId,
             ),
           );
         }
-       
+
         if (widget.notificationEntity?.bloodPressureEntity != null) {
           showToast(translation(context).waitForSeconds);
-          Navigator.pushNamed(context, RouteList.bloodPressuerDetail,
-              arguments: widget.notificationEntity?.bloodPressureEntity);
+          Navigator.pushNamed(
+              context, RouteList.bloodPressuerNotificationReading,
+              arguments: widget.notificationEntity);
         }
         if (widget.notificationEntity?.bloodSugarEntity != null) {
           showToast(translation(context).waitForSeconds);
 
-          Navigator.pushNamed(context, RouteList.bloodSugarDetail,
-              arguments: widget.notificationEntity?.bloodSugarEntity);
+          Navigator.pushNamed(context, RouteList.bloodSugarNotificationReading,
+              arguments: widget.notificationEntity);
         }
         if (widget.notificationEntity?.bodyTemperatureEntity != null) {
           showToast(translation(context).waitForSeconds);
-          Navigator.pushNamed(context, RouteList.bodyTemperatureDetail,
-              arguments: widget.notificationEntity?.bodyTemperatureEntity);
-        } 
-         if (widget.notificationEntity?.spo2Entity != null) {
+          Navigator.pushNamed(
+              context, RouteList.bodyTemperatureNotificationReading,
+              arguments: widget.notificationEntity);
+        }
+        if (widget.notificationEntity?.spo2Entity != null) {
           showToast(translation(context).waitForSeconds);
-          Navigator.pushNamed(context, RouteList.spo2Detail,
-              arguments: widget.notificationEntity?.spo2Entity);
+          Navigator.pushNamed(context, RouteList.spo2NotificationReading,
+              arguments: widget.notificationEntity);
         }
       },
       child: Container(
@@ -143,11 +143,15 @@ class _NotificationCellState extends State<NotificationCell> {
                                             title: Text(translation(context)
                                                 .notification),
                                             content: Text(
-                                              "Delete this notification?",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall,
-                                            ),
+                                                translation(context)
+                                                    .deleteNotification,
+                                                style:
+                                                    AppTextTheme.body4.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize:
+                                                      SizeConfig.screenWidth *
+                                                          0.05,
+                                                )),
                                             actions: [
                                               TextButton(
                                                 child: Text(
@@ -187,107 +191,94 @@ class _NotificationCellState extends State<NotificationCell> {
                         ),
                       ],
                     )),
-
-                Container(
-                  width: SizeConfig.screenWidth * 0.92,
-                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  child: Text(
-                    widget.notificationEntity?.content ?? "",
-                    style: AppTextTheme.body4.copyWith(
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w400,
-                      fontSize: SizeConfig.screenWidth * 0.045,
-                      color: (widget.notificationEntity?.read == false)
-                          ? Colors.black
-                          : const Color.fromARGB(255, 93, 93, 93),
-                    ),
-                  ),
-                ),
-
-                // SizedBox(
-                //     width: SizeConfig.screenWidth * 0.7,
-                //     height: SizeConfig.screenWidth * 0.3,
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       crossAxisAlignment: CrossAxisAlignment.end,
-                //       children: [
-                //         Column(
-                //           mainAxisAlignment: MainAxisAlignment.end,
-                //           children: [
-                //             Text("SYS",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.05,
-                //                     fontWeight: FontWeight.w500)),
-                //             Text("120",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.085,
-                //                     fontWeight: FontWeight.bold,
-                //                     color: const Color(0xff424242))),
-                //             Text("mmHg",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.03,
-                //                     fontWeight: FontWeight.bold,
-                //                     color: const Color(0xff888282)))
-                //           ],
-                //         ),
-                //         Column(
-                //           mainAxisAlignment: MainAxisAlignment.end,
-                //           children: [
-                //             Container(
-                //               margin: EdgeInsets.only(
-                //                   top: SizeConfig.screenWidth * 0.025,
-                //                   bottom: SizeConfig.screenWidth * 0.025),
-                //               width: SizeConfig.screenWidth * 0.2,
-                //               height: SizeConfig.screenWidth * 0.05,
-                //               decoration: BoxDecoration(
-                //                 borderRadius: BorderRadius.circular(3),
-                //                 color: const Color.fromARGB(255, 255, 210, 186),
-                //               ),
-                //               child: Center(
-                //                 child: Text(indicator,
-                //                     style: AppTextTheme.body3.copyWith(
-                //                         fontSize: SizeConfig.screenWidth * 0.03,
-                //                         fontWeight: FontWeight.bold)),
-                //               ),
-                //             ),
-                //             Text("DIA",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.05,
-                //                     fontWeight: FontWeight.w500)),
-                //             Text("78",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.085,
-                //                     fontWeight: FontWeight.bold,
-                //                     color: const Color(0xff424242))),
-                //             Text("mmHg",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.03,
-                //                     fontWeight: FontWeight.bold,
-                //                     color: const Color(0xff888282)))
-                //           ],
-                //         ),
-                //         Column(
-                //           mainAxisAlignment: MainAxisAlignment.end,
-                //           children: [
-                //             Text("PUL",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.05,
-                //                     fontWeight: FontWeight.w500)),
-                //             Text("80",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.085,
-                //                     fontWeight: FontWeight.bold,
-                //                     color: const Color(0xff424242))),
-                //             Text("bpm",
-                //                 style: AppTextTheme.body3.copyWith(
-                //                     fontSize: SizeConfig.screenWidth * 0.03,
-                //                     fontWeight: FontWeight.bold,
-                //                     color: const Color(0xff888282)))
-                //           ],
-                //         )
-                //       ],
-                //     ))
+                contentCell(widget.notificationEntity!, context)
               ])),
     );
+  }
+}
+
+Widget contentCell(
+    NotificationEntity notificationEntity, BuildContext context) {
+  switch (notificationEntity.type) {
+    case 0:
+      return Container(
+        width: SizeConfig.screenWidth * 0.92,
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Text(
+          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bloodPressureIndex}",
+          style: AppTextTheme.body4.copyWith(
+            wordSpacing: 1,
+            fontWeight: FontWeight.w400,
+            fontSize: SizeConfig.screenWidth * 0.045,
+            color: (notificationEntity.read == false)
+                ? Colors.black
+                : const Color.fromARGB(255, 93, 93, 93),
+          ),
+        ),
+      );
+    case 1:
+      return Container(
+        width: SizeConfig.screenWidth * 0.92,
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Text(
+          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bloodSugarIndex}",
+          style: AppTextTheme.body4.copyWith(
+            wordSpacing: 1,
+            fontWeight: FontWeight.w400,
+            fontSize: SizeConfig.screenWidth * 0.045,
+            color: (notificationEntity.read == false)
+                ? Colors.black
+                : const Color.fromARGB(255, 93, 93, 93),
+          ),
+        ),
+      );
+    case 2:
+      return Container(
+        width: SizeConfig.screenWidth * 0.92,
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Text(
+          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bodyTemperatureIndex}",
+          style: AppTextTheme.body4.copyWith(
+            wordSpacing: 1,
+            fontWeight: FontWeight.w400,
+            fontSize: SizeConfig.screenWidth * 0.045,
+            color: (notificationEntity.read == false)
+                ? Colors.black
+                : const Color.fromARGB(255, 93, 93, 93),
+          ),
+        ),
+      );
+    case 3:
+      return Container(
+        width: SizeConfig.screenWidth * 0.92,
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Text(
+          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).spo2Index}",
+          style: AppTextTheme.body4.copyWith(
+            wordSpacing: 1,
+            fontWeight: FontWeight.w400,
+            fontSize: SizeConfig.screenWidth * 0.045,
+            color: (notificationEntity.read == false)
+                ? Colors.black
+                : const Color.fromARGB(255, 93, 93, 93),
+          ),
+        ),
+      );
+    default:
+      return Container(
+        width: SizeConfig.screenWidth * 0.92,
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Text(
+          "",
+          style: AppTextTheme.body4.copyWith(
+            wordSpacing: 1,
+            fontWeight: FontWeight.w400,
+            fontSize: SizeConfig.screenWidth * 0.045,
+            color: (notificationEntity.read == false)
+                ? Colors.black
+                : const Color.fromARGB(255, 93, 93, 93),
+          ),
+        ),
+      );
   }
 }

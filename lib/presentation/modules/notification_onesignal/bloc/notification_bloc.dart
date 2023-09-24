@@ -17,6 +17,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<GetNotificationListEvent>(_onGetNotificationList);
     on<SetReadedNotificationEvent>(_setReadedNotification);
     on<DeleteNotificationEvent>(_deleteNotification);
+    on<RefreshNotificationListEvent>(_onRefreshNotificationList);
+    on<RenewPageAfterActionEvent>(_onRenewPageAfterAction);
+
   }
 
   Future<void> _onGetNotificationList(
@@ -34,6 +37,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           doctorId: event.doctorId,
           startIndex: event.startIndex,
           lastIndex: event.lastIndex);
+  
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
       List<NotificationEntity> newNotificationList =
@@ -42,6 +46,74 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       final newViewModel = state.viewModel.copyWith(
           notificationEntity: newNotificationList, unreadCount: unreadCount);
       emit(GetNotificationListState(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+
+
+ Future<void> _onRenewPageAfterAction(
+    RenewPageAfterActionEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    emit(
+      RenewPageAfterActionState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final response = await notificationUsecase.getNotificationListEntity(
+          doctorId: event.doctorId,
+          startIndex: event.startIndex,
+          lastIndex: event.lastIndex);
+  
+      final unreadCount = await notificationUsecase
+          .getUnreadCountNotificationEntity(event.doctorId);
+  
+      final newViewModel = state.viewModel.copyWith(
+          notificationEntity: response, unreadCount: unreadCount);
+      emit(RenewPageAfterActionState(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onRefreshNotificationList(
+    RefreshNotificationListEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    emit(
+      RefreshNotificationListState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final response = await notificationUsecase.getNotificationListEntity(
+          doctorId: event.doctorId, startIndex: 0, lastIndex: 49);
+      final unreadCount = await notificationUsecase
+          .getUnreadCountNotificationEntity(event.doctorId);
+      final newViewModel = state.viewModel
+          .copyWith(notificationEntity: response, unreadCount: unreadCount);
+      emit(RefreshNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
