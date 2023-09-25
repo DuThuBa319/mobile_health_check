@@ -3,41 +3,44 @@ part of 'ocr_scanner_bloc.dart';
 class _ViewModel {
   final File? bloodPressureImageFile;
   final File? bloodGlucoseImageFile;
-  final File? oximeterImageFile;
+  final File? spo2ImageFile;
   final File? temperatureImageFile;
   final BloodPressureEntity? bloodPressureEntity;
   final BloodSugarEntity? bloodSugarEntity;
   final TemperatureEntity? temperatureEntity;
+  final Spo2Entity? spo2Entity;
 
-  const _ViewModel({
-    this.oximeterImageFile,
-    this.bloodGlucoseImageFile,
-    this.bloodPressureImageFile,
-    this.bloodPressureEntity,
-    this.bloodSugarEntity,
-    this.temperatureEntity,
-    this.temperatureImageFile,
-  });
+  const _ViewModel(
+      {this.spo2ImageFile,
+      this.bloodGlucoseImageFile,
+      this.bloodPressureImageFile,
+      this.bloodPressureEntity,
+      this.bloodSugarEntity,
+      this.temperatureEntity,
+      this.temperatureImageFile,
+      this.spo2Entity});
 
   _ViewModel copyWith({
-    File? oximeterImageFile,
+    File? spo2ImageFile,
     File? bloodPressureImageFile,
     File? bloodGlucoseImageFile,
     File? temperatureImageFile,
     BloodPressureEntity? bloodPressureEntity,
     BloodSugarEntity? bloodSugarEntity,
     TemperatureEntity? temperatureEntity,
+    Spo2Entity? spo2Entity,
   }) {
     return _ViewModel(
-      oximeterImageFile: oximeterImageFile?? this.oximeterImageFile,
+      spo2ImageFile: spo2ImageFile ?? this.spo2ImageFile,
       bloodPressureImageFile:
           bloodPressureImageFile ?? this.bloodPressureImageFile,
       bloodGlucoseImageFile:
           bloodGlucoseImageFile ?? this.bloodGlucoseImageFile,
       temperatureImageFile: temperatureImageFile ?? this.temperatureImageFile,
-      bloodPressureEntity: bloodPressureEntity ?? bloodPressureEntity,
-      bloodSugarEntity: bloodSugarEntity ?? bloodSugarEntity,
-      temperatureEntity: temperatureEntity ?? temperatureEntity,
+      bloodPressureEntity: bloodPressureEntity ?? this.bloodPressureEntity,
+      bloodSugarEntity: bloodSugarEntity ?? this.bloodSugarEntity,
+      temperatureEntity: temperatureEntity ?? this.temperatureEntity,
+      spo2Entity: spo2Entity ?? this.spo2Entity,
     );
   }
 }
@@ -122,6 +125,22 @@ class UploadTemperatureDataState extends OCRScannerState {
   }) : super(viewModel, status: status);
 }
 
+class GetSpo2DataState extends OCRScannerState {
+  GetSpo2DataState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class UploadSpo2DataState extends OCRScannerState {
+  UploadSpo2DataState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -154,6 +173,14 @@ final _factories = <Type,
         status: status,
       ),
   UploadTemperatureDataState: (viewModel, status) => UploadTemperatureDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  GetSpo2DataState: (viewModel, status) => GetSpo2DataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  UploadSpo2DataState: (viewModel, status) => UploadSpo2DataState(
         viewModel: viewModel,
         status: status,
       ),

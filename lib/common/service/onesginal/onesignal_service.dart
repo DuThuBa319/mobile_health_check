@@ -3,6 +3,10 @@ import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:injectable/injectable.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
+import '../../../di/di.dart';
+import '../../../presentation/route/route_list.dart';
+import '../navigation/navigation_service.dart';
+
 // @Singleton()
 // class OneSignalNotificationService {
 //   OneSignalNotificationService._();
@@ -20,7 +24,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 //     return instance;
 //   }
 
-// Future<void> _init() async {
+//   Future<void> _init() async {
 //     if (kDebugMode) {
 //       await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 //     }
@@ -43,6 +47,16 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 //     await OneSignal.shared
 //         .promptUserForPushNotificationPermission()
 //         .then((accepted) {});
+//     OneSignal.shared.setNotificationWillShowInForegroundHandler((event) {
+//       // setState(() {});
+//       event.complete(event.notification);
+//     });
+//     OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
+//       await Future.delayed(const Duration(milliseconds: 3000));
+//       injector<NavigationService>().navigateTo(RouteList.patientInfor,
+//           argument: openedResult.notification.additionalData?["patientId"]);
+
+//     });
 //   }
 
 //   static Future<void> setUserId(String userId) async {
@@ -74,18 +88,18 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 //     return OneSignal.shared.deleteTags(keys);
 //   }
 
-//   static void subscribeNotification({required String doctorId}) {
+//   static void subscribeNotification({required String userId}) {
 //     // if (user.id == null) {
 //     //   return;
 //     // }
 
-//     OneSignal.shared.setExternalUserId(doctorId);
+//     OneSignal.shared.setExternalUserId(userId);
 //     // OneSignal.shared.sendTag('email', user.email);
 //     // OneSignal.shared.sendTag('userId', user.id);
 //     // OneSignal.shared.setExternalUserId("240914");
 
 //     OneSignal.shared.sendTag("role", "doctor");
-//     OneSignal.shared.sendTag("doctorId", doctorId);
+//     OneSignal.shared.sendTag("doctorId", userId);
 //   }
 
 //   static void unsubscribeFromNotifications({required String doctorId}) {
@@ -95,7 +109,6 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 //     // Unsubscribe the user from notifications
 //   }
-
 // }
 
 @Singleton()
@@ -121,37 +134,18 @@ class OneSignalNotificationService {
     }
     OneSignal.initialize("eb1e614e-54fe-4824-9c1a-aad236ec92d3");
 
-    // await  OneSignal.shared.setAppId("eb1e614e-54fe-4824-9c1a-aad236ec92d3");
-
-    //Remove this method to stop OneSignal Debugging
-// The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-    // final status = await Permission.notification.request();
-    // if (status.isDenied) {
-    //   await Permission.notification.request();
-    //   showToast("Bạn chưa bật cho phép thông báo");
-    //   //SHOW DIALOG with 2 button => setting and cancel, if user press "setting" =>  final status = await OneSignal.Notifications.requestPermission(true);
-    //   // We didn't ask for permission yet or the permission has been denied before but not permanently.
-    //   //  await openAppSettings(); ==> nằm trong Dialog làm phía trên
-    // }
-
-    // OneSignal.User.pushSubscription.addObserver((state) {
-    //   print(state.current.jsonRepresentation());
-    // });
-    // OneSignal.Notifications.addPermissionObserver((state) {
-    //   print("Has permission $state");
-    // });
-
-//Hàm Phía Dưới triển khai khi có thông báo mới từ  OneSignal gửi đến
-
-    //Hàm phía dưới triển khai khi nhấn vào POP-UP
-
-    // OneSignal.Notifications.addPermissionObserver((state) async {
-    //   if (state == false) {
-    //     OneSignal.Notifications.requestPermission(true);
-    //   }
-    // });
-    
-    OneSignal.Notifications.requestPermission(true); //!Hàm này yêu cầu người dùng cho phép ứng dụng gửi thông báo đẩy. 
+    OneSignal.Notifications.requestPermission(
+        true); //!Hàm này yêu cầu người dùng cho phép ứng dụng gửi thông báo đẩy.
+    OneSignal.Notifications.addForegroundWillDisplayListener((event) {
+      // setState(() {});
+      event.preventDefault();
+      event.notification.display();
+    });
+    OneSignal.Notifications.addClickListener((openedResult) async {
+      await Future.delayed(const Duration(milliseconds: 2000));
+      injector<NavigationService>().navigateTo(RouteList.patientInfor,
+          argument: openedResult.notification.additionalData?["patientId"]);
+    });
   }
 
   static Future<void> setUserId(String userId) async {
@@ -173,14 +167,6 @@ class OneSignalNotificationService {
       return;
     }
   }
-
-  // static Future<Map<String, dynamic>> setTags(Map<String, dynamic> tags) {
-  //   return OneSignal.shared.sendTags(tags);
-  // }
-
-  // static Future<Map<String, dynamic>> deleteTags(List<String> keys) {
-  //   return OneSignal.shared.deleteTags(keys);
-  // }
 
   static void subscribeNotification({required String userId}) {
     // if (user.id == null) {

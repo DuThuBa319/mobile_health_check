@@ -8,7 +8,6 @@ import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equ
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../domain/entities/blood_pressure_entity.dart';
 import '../../domain/entities/blood_sugar_entity.dart';
 import '../../domain/entities/notificaion_onesignal_entity.dart';
@@ -17,7 +16,7 @@ import '../../domain/entities/temperature_entity.dart';
 import '../common_widget/enum_common.dart';
 import '../modules/OCR_scanner/OCR_scanner_screen.dart';
 import '../modules/OCR_scanner/blood_glucose_reading_screen.dart';
-import '../modules/OCR_scanner/push_oxi_reading_screen.dart';
+import '../modules/OCR_scanner/spo2_reading_screen.dart';
 import '../modules/OCR_scanner/temperature_reading_screen.dart';
 import '../modules/history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
 import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
@@ -34,7 +33,6 @@ import '../modules/notification_onesignal/detail_screen/blood_pressure_reading.d
 import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart';
 import '../modules/notification_onesignal/detail_screen/spo2_reading.dart';
 import '../modules/notification_onesignal/detail_screen/temperature_reading.dart';
-
 import '../modules/notification_onesignal/notification_screen.dart';
 import '../modules/patient/bloc/get_patient_bloc.dart';
 import '../modules/patient/patient_list/patients_list_screen.dart';
@@ -170,14 +168,14 @@ class AppRoute {
             ], child: const TemperatureReadingScreen());
           },
         );
-      case '/pushOxiScreen':
+      case '/spo2Screen':
         return MaterialPageRoute(
           builder: (context) {
             return MultiBlocProvider(providers: [
               BlocProvider<OCRScannerBloc>(
                 create: (context) => getIt<OCRScannerBloc>(),
               )
-            ], child: const PushOxiReadingScreen());
+            ], child: const Spo2ReadingScreen());
           },
         );
       case '/bloodPressureHistory':
@@ -249,31 +247,30 @@ class AppRoute {
                   spo2Entity: response,
                 ));
 
- case '/bloodPressuerNotificationReading':
+      case '/bloodPressuerNotificationReading':
         final response = routeSettings.arguments as NotificationEntity;
         return MaterialPageRoute(
             builder: (context) => BloodPressureNotificationReadingScreen(
                   notificationEntity: response,
                 ));
       case '/bloodSugarNotificationReading':
-        final response = routeSettings.arguments as  NotificationEntity;
+        final response = routeSettings.arguments as NotificationEntity;
         return MaterialPageRoute(
             builder: (context) => BloodSugarNotificationReadingScreen(
-            notificationEntity: response,
+                  notificationEntity: response,
                 ));
       case '/bodyTemperatureNotificationReading':
-        final response = routeSettings.arguments as  NotificationEntity;
+        final response = routeSettings.arguments as NotificationEntity;
         return MaterialPageRoute(
             builder: (context) => TemperatureNotificationReadingScreen(
-            notificationEntity: response,
+                  notificationEntity: response,
                 ));
       case '/spo2NotificationReading':
-        final response = routeSettings.arguments as  NotificationEntity;
+        final response = routeSettings.arguments as NotificationEntity;
         return MaterialPageRoute(
             builder: (context) => Spo2NotificationReadingScreen(
-            notificationEntity: response,
+                  notificationEntity: response,
                 ));
-
 
       case '/notification':
         final id = routeSettings.arguments as String?;

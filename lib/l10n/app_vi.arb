@@ -3,6 +3,7 @@
     "bloodPressure":"ĐO HUYẾT ÁP",
     "bloodSugar":"ĐO ĐƯỜNG HUYẾT",
     "bodyTemperature":"ĐO THÂN NHIỆT",
+    "spo2": "ĐO NỒNG ĐỘ OXI",
     "changeLanguageSuccess":"Đổi ngôn ngữ thành công",
     "confirmNewPass":"Xác nhận lại mật khẩu mới",
     "confirmPass":"Xác nhận lại mật khẩu",
@@ -109,4 +110,5 @@
 "her":"",
 "goToPatientIn4Screen":"Thông tin bệnh nhân",
 "goToNotificationScreen":"Đến trang thông báo"
+
 }

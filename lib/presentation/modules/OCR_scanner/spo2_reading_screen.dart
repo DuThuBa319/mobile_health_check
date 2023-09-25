@@ -15,24 +15,24 @@ import '../../common_widget/enum_common.dart';
 import '../../theme/app_text_theme.dart';
 import 'ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'widget/OCR_scanner_widget.dart';
-part 'push_oxi_reading_screen.action.dart';
+part 'spo2_reading_screen.action.dart';
 
-class PushOxiReadingScreen extends StatefulWidget {
-  const PushOxiReadingScreen({super.key});
+class Spo2ReadingScreen extends StatefulWidget {
+  const Spo2ReadingScreen({super.key});
 
   @override
-  State<PushOxiReadingScreen> createState() => _PushOxiReadingScreenState();
+  State<Spo2ReadingScreen> createState() => _Spo2ReadingScreenState();
 }
 
-class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
+class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
   String? message = "";
   OCRScannerBloc get scanBloc => BlocProvider.of(context);
-  TextEditingController editBodyTemperatureController = TextEditingController();
+  TextEditingController editSpo2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return PatientCustomScreenForm(
-      title: translation(context).thermometer,
+      title: translation(context).spo2,
       isShowAppBar: true,
       isShowLeadingButton: true,
       appComponentColor: Colors.white,
@@ -73,22 +73,22 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //! Thermometer
+                      //! Spo2spo2
                       // Text(
-                      //   translation(context).thermometer,
+                      //   translation(context).spo2,
                       //   style: AppTextTheme.title2,
                       // ),
                       SizedBox(height: SizeConfig.screenWidth * 0.15),
                       imagePickerCell(context,
                           scanBloc: scanBloc,
                           state: scanState,
-                          imageFile: scanState.viewModel.temperatureImageFile,
-                          event: GetTemperatureDataEvent(context: context)),
+                          imageFile: scanState.viewModel.spo2ImageFile,
+                          event: GetSpo2DataEvent(context: context)),
                       SizedBox(
                         height: SizeConfig.screenWidth * 0.08,
                       ),
-                      scanState.viewModel.temperatureImageFile != null
-                          ? temperatureCell(scanState)
+                      scanState.viewModel.spo2ImageFile != null
+                          ? spo2Cell(scanState)
                           : Center(
                               child: Column(
                               children: [
@@ -115,7 +115,7 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
     );
   }
 
-  Widget temperatureCell(OCRScannerState state) {
+  Widget spo2Cell(OCRScannerState state) {
     return Center(
       child: Column(
         children: [
@@ -151,10 +151,10 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                               SizeConfig.screenWidth * 0.05),
-                          color: AppColor.bodyTemperatureColor,
+                          color: AppColor.oximeterCell,
                         ),
                         child: Image.asset(
-                          Assets.temperature,
+                          Assets.oximeter,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
@@ -173,7 +173,7 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(translation(context).bodyTemperature,
+                                  Text(translation(context).spo2,
                                       style: AppTextTheme.title3.copyWith(
                                           color: Colors.black,
                                           fontSize:
@@ -181,7 +181,7 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                                           fontWeight: FontWeight.bold)),
                                   Text(
                                       DateFormat('HH:mm dd/MM/yyyy').format(
-                                          state.viewModel.temperatureEntity!
+                                          state.viewModel.spo2Entity!
                                               .updatedDate!),
                                       style: AppTextTheme.title3.copyWith(
                                           color: AppColor.gray767676,
@@ -200,8 +200,8 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                                       barrierDismissible:
                                           false, // user must tap button!
                                       builder: (BuildContext context) {
-                                        editBodyTemperatureController.text =
-                                            "${state.viewModel.temperatureEntity?.temperature}";
+                                        editSpo2Controller.text =
+                                            "${state.viewModel.spo2Entity?.spo2}";
                                         return AlertDialog(
                                           title: Text(translation(context)
                                               .editIndicatore),
@@ -221,8 +221,7 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                                                   AppColor.cardBackgroundColor,
                                             ),
                                             child: TextField(
-                                              controller:
-                                                  editBodyTemperatureController,
+                                              controller: editSpo2Controller,
                                               style: TextStyle(
                                                 fontSize:
                                                     SizeConfig.screenWidth *
@@ -231,8 +230,8 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                                               ),
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
-                                                labelText: translation(context)
-                                                    .bodyTemperature,
+                                                labelText:
+                                                    translation(context).spo2,
                                                 labelStyle: TextStyle(
                                                     color: AppColor.gray767676,
                                                     fontSize:
@@ -252,17 +251,13 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                                               child: Text(
                                                   translation(context).save),
                                               onPressed: () {
-                                                double? editedTemperature =
-                                                    double.parse(
-                                                        editBodyTemperatureController
-                                                            .text);
+                                                int? editedSpo2 = int.parse(
+                                                    editSpo2Controller.text);
 
                                                 setState(() {});
-                                                scanBloc.add(
-                                                    EditBodyTemperatureDataEvent(
-                                                        context: context,
-                                                        temperature:
-                                                            editedTemperature));
+                                                scanBloc.add(EditSpo2DataEvent(
+                                                    context: context,
+                                                    spo2: editedSpo2));
 
                                                 Navigator.pop(context);
                                               },
@@ -284,11 +279,10 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                              text:
-                                  "${state.viewModel.temperatureEntity?.temperature}",
+                              text: "${state.viewModel.spo2Entity?.spo2}",
                               style: AppTextTheme.title3.copyWith(
-                                  color: state
-                                      .viewModel.temperatureEntity?.statusColor,
+                                  color:
+                                      state.viewModel.spo2Entity?.statusColor,
                                   fontSize: SizeConfig.screenWidth * 0.15,
                                   fontWeight: FontWeight.w500)),
                           TextSpan(
@@ -316,7 +310,7 @@ class _PushOxiReadingScreenState extends State<PushOxiReadingScreen> {
             width: SizeConfig.screenWidth * 0.8,
             title: translation(context).upload,
             onTap: () {
-              scanBloc.add(UploadTemperatureDataEvent());
+              scanBloc.add(UploadSpo2DataEvent());
             },
           ))
         ],

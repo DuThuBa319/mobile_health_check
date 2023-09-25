@@ -14,10 +14,13 @@ class RouteList {
   static const String spo2Detail = '/spo2Detail';
   static const String bodyTemperatureDetail = '/bodyTemperatureDetail';
 
-  static const String bloodPressuerNotificationReading = '/bloodPressuerNotificationReading';
-  static const String bloodSugarNotificationReading = '/bloodSugarNotificationReading';
+  static const String bloodPressuerNotificationReading =
+      '/bloodPressuerNotificationReading';
+  static const String bloodSugarNotificationReading =
+      '/bloodSugarNotificationReading';
   static const String spo2NotificationReading = '/spo2NotificationReading';
-  static const String bodyTemperatureNotificationReading = '/bodyTemperatureNotificationReading';
+  static const String bodyTemperatureNotificationReading =
+      '/bodyTemperatureNotificationReading';
   static const String notification = '/notification';
 
   static const String scanScreen = '/ocr_screen';
@@ -44,5 +47,5 @@ class RouteList {
   static const String bloodPressureScreen = '/bloodPressureScreen';
   static const String bloodGlucoseScreen = '/bloodGlucoseScreen';
   static const String temperatureScreen = '/temperatureScreen';
-  static const String pushOxiScreen = '/pushOxiHistory';
+  static const String spo2Screen = '/spo2Screen';
 }

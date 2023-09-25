@@ -4,7 +4,6 @@ import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../function.dart';
@@ -67,7 +66,7 @@ class _SettingMenuState extends State<SettingMenu> {
                   Text("Dr. ${userDataData.getUser()?.name}",
                       style: AppTextTheme.body0.copyWith(
                           fontWeight: FontWeight.w500,
-                          fontSize: SizeConfig.screenWidth * 0.07)),
+                          fontSize: SizeConfig.screenWidth * 0.05)),
                   Text(userDataData.getUser()?.phoneNumber ?? '--',
                       style: AppTextTheme.body3),
                   SizedBox(height: SizeConfig.screenWidth * 0.05),
@@ -101,7 +100,7 @@ class _SettingMenuState extends State<SettingMenu> {
                         await notificationData.clearData();
                         await userDataData.clearData();
                         await firebaseAuthService.signOut();
-                        await OneSignal.logout();
+                        // await OneSignal.logout();
 
                         // ignore: use_build_context_synchronously
                         // Navigator.pushReplacement(context, MaterialPageRoute(
