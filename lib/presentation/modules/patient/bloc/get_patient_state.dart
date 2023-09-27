@@ -9,6 +9,7 @@ class _ViewModel {
   final List<PatientInforEntity>? patientEntities;
   final PatientInforEntity? patientInforEntity;
   final DoctorInforEntity? doctorInforEntity;
+  final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
   final AccountEntity? accountEntity;
 
@@ -16,6 +17,7 @@ class _ViewModel {
     // this.listBloodPressure,
     // this.listBloodSugar,
     // this.listTemperature,
+    this.relativeInforEntity,
     this.accountEntity,
     this.relativeEntities,
     this.doctorInforEntity,
@@ -25,6 +27,7 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith({
+    final RelativeInforEntity? relativeInforEntity,
     final AccountEntity? accountEntity,
     final DoctorInforEntity? doctorInforEntity,
     final List<PatientInforEntity>? patientEntities,
@@ -33,6 +36,7 @@ class _ViewModel {
   }) {
     // ignore: unnecessary_this
     return _ViewModel(
+      relativeInforEntity: relativeInforEntity??this.relativeInforEntity,
       accountEntity: accountEntity ?? this.accountEntity,
       relativeEntities: relativeEntities ?? this.relativeEntities,
       patientInforEntity: patientInforEntity ?? this.patientInforEntity,
@@ -81,6 +85,12 @@ class GetPatientListState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
+class GetPatientListOfRelativeState extends GetPatientState {
+ GetPatientListOfRelativeState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
 class SearchPatientState extends GetPatientState {
   SearchPatientState({
     _ViewModel viewModel = const _ViewModel(),
@@ -115,6 +125,12 @@ class UpdatePatientInforState extends GetPatientState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+class UpdateRelativeInforState extends GetPatientState {
+  UpdateRelativeInforState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
 
 class DeleteRelativeState extends GetPatientState {
   DeleteRelativeState({
@@ -143,6 +159,10 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
+  GetPatientListOfRelativeState: (viewModel, status) => GetPatientListOfRelativeState(
+        viewModel: viewModel,
+        status: status,
+      ),
   SearchPatientState: (viewModel, status) => SearchPatientState(
         viewModel: viewModel,
         status: status,
@@ -160,6 +180,10 @@ final _factories = <Type,
         status: status,
       ),
   UpdatePatientInforState: (viewModel, status) => UpdatePatientInforState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  UpdateRelativeInforState: (viewModel, status) => UpdateRelativeInforState(
         viewModel: viewModel,
         status: status,
       ),

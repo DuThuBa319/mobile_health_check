@@ -6,8 +6,10 @@ class _ViewModel {
   // final List<BloodSugarEntity>? listBloodSugar;
   // final List<TemperatureEntity>? listTemperature;
   final List<NotificationEntity>? notificationEntity;
+  final NumberOfNotificationsEntity? numberOfNotificationsEntity;
   final int? unreadCount;
-  const _ViewModel({this.unreadCount, this.notificationEntity
+  const _ViewModel(
+      {this.unreadCount, this.notificationEntity, this.numberOfNotificationsEntity
       // this.listBloodPressure,
       // this.listBloodSugar,
       // this.listTemperature,
@@ -17,12 +19,15 @@ class _ViewModel {
   _ViewModel copyWith({
     List<NotificationEntity>? notificationEntity,
     int? unreadCount,
+   NumberOfNotificationsEntity? numberOfNotificationsEntity,
   }) {
     // ignore: unneces
     // sary_this
     return _ViewModel(
         notificationEntity: notificationEntity ?? this.notificationEntity,
-        unreadCount: unreadCount ?? this.unreadCount);
+        unreadCount: unreadCount ?? this.unreadCount,
+        numberOfNotificationsEntity:
+            numberOfNotificationsEntity ?? this.numberOfNotificationsEntity);
   }
 }
 
@@ -61,30 +66,42 @@ class GetNotificationListState extends NotificationState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 class RefreshNotificationListState extends NotificationState {
   RefreshNotificationListState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 class RenewPageAfterActionState extends NotificationState {
   RenewPageAfterActionState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 class SetReadedNotificationState extends NotificationState {
   SetReadedNotificationState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+class SetReadedNotificationFromCellState extends NotificationState {
+  SetReadedNotificationFromCellState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 class DeleteNotificationState extends NotificationState {
   DeleteNotificationState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -98,7 +115,8 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  RefreshNotificationListState: (viewModel, status) => RefreshNotificationListState(
+  RefreshNotificationListState: (viewModel, status) =>
+      RefreshNotificationListState(
         viewModel: viewModel,
         status: status,
       ),
@@ -107,6 +125,11 @@ final _factories = <Type,
         status: status,
       ),
   SetReadedNotificationState: (viewModel, status) => SetReadedNotificationState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  SetReadedNotificationFromCellState: (viewModel, status) =>
+      SetReadedNotificationFromCellState(
         viewModel: viewModel,
         status: status,
       ),

@@ -3,6 +3,7 @@
 "bloodPressure":"BLOOD PRESSURE",
 "bloodSugar":"BLOOD SUGAR",
 "bodyTemperature":"BODY TEMPERATURE",
+"spo2":"Pulse Oximeter",
 "changeLanguageSuccess":"Change language success",
 "confirmNewPass":"Confirm your new password",
 "confirmPass":"Xác nhận lại mật khẩu",
@@ -94,10 +95,10 @@
 "relativeIn4":"Relative information",
 "doctorIn4":"Doctor information",
 "signUpSuccessfully":"Sign Up successfully",
-"unreadNotifications":"Số thông báo chưa đọc",
+
 "waitForSeconds":"Please wait for seconds",
 "relative":"PATIENT RELATIVES",
-"oximeter":"PULSE OXIMETRY",
+"oximeter":"PULSE OXIMETER",
 "account":"Account",
 "unreadNotifications":"Unread Notifications",
 "deleteNotification":"Delete this notification?",
@@ -110,6 +111,8 @@
 "his":"his",
 "her":"her",
 "goToPatientIn4Screen":"Patient infor screen",
-"goToNotificationScreen":"Notification screen"
+"goToNotificationScreen":"Notification screen",
+"endOfList":"No more data to load",
+"noData":"Not update"
 }
 

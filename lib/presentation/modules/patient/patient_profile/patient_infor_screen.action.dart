@@ -135,7 +135,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
             ]),
             actions: [
               TextButton(
-                child: Text(translation(context).accept),
+                child: Text(translation(context).back),
                 onPressed: () {
                   Navigator.pop(context);
                 },

@@ -5,6 +5,7 @@ import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/presentation/modules/history/blood_sugar_history_screen/widget/blood_sugar_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../common/singletons.dart';
 import '../../../../function.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -41,6 +42,8 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
     SizeConfig.init(context);
 
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,

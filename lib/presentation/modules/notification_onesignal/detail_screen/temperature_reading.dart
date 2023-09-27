@@ -13,8 +13,12 @@ import '../../../theme/theme_color.dart';
 
 class TemperatureNotificationReadingScreen extends StatefulWidget {
   final NotificationEntity? notificationEntity;
+  final bool? navigateFromCell;
+
   const TemperatureNotificationReadingScreen(
-      {super.key, required this.notificationEntity});
+      {super.key,
+      required this.notificationEntity,
+      required this.navigateFromCell});
 
   @override
   State<TemperatureNotificationReadingScreen> createState() =>
@@ -182,9 +186,10 @@ class _TemperatureNotificationReadingScreenState
                     buttonColor: Colors.red,
                     onTap: () {
                       // if (_isLoading == false) {
-
-                      Navigator.pushNamed(context, RouteList.notification,
-                          arguments: userDataData.getUser()?.id);
+                      (widget.navigateFromCell == true)
+                          ? Navigator.pop(context)
+                          : Navigator.pushNamed(context, RouteList.notification,
+                              arguments: userDataData.getUser()?.id);
                       // }
                     },
                   ),

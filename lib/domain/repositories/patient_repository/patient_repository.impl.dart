@@ -10,16 +10,6 @@ class PatientListRepositoryImpl extends PatientListRepository {
   PatientListRepositoryImpl(
     this._patientApi,
   );
-  // @override
-  // Future<List<PatientModel>?> getPatientListModels() {
-  //   return _patientApi.getPatientListModels();
-  // }
-
-  // @override
-  // Future<PatientModel> addPatientModel(PatientModel patient) {
-  //   return _patientApi.registPatient(patient);
-  // }
-
   @override
   Future<PatientInforModel> getPatientInforModel(String? id) {
     return _patientApi.getPatientInforModel(id);
@@ -29,7 +19,7 @@ class PatientListRepositoryImpl extends PatientListRepository {
     return _patientApi.updatePatientInforModel(id,patientInforModel);
   }
     @override
-  Future<AccountModel>? addRelativeInforModel(String? patientId,RelativeInforModel? relativeInforModel) {
+  Future<void>? addRelativeInforModel(String? patientId,RelativeInforModel? relativeInforModel) {
     return _patientApi.addRelativeInforModel(patientId,relativeInforModel);
   }
  

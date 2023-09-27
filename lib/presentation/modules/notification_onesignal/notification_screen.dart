@@ -1,25 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/domain/entities/blood_sugar_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/modules/notification_onesignal/widget/notification_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../classes/language.dart';
-import '../../../domain/entities/blood_pressure_entity.dart';
-import '../../../domain/entities/notificaion_onesignal_entity.dart';
-import '../../../domain/entities/spo2_entity.dart';
-import '../../../domain/entities/temperature_entity.dart';
 import '../../../presentation/common_widget/screen_form/custom_screen_form.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/loading_widget.dart';
-import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import 'bloc/notification_bloc.dart';
 part 'notification_screen_action.dart';
@@ -46,13 +38,14 @@ class _NotificationListState extends State<NotificationScreen> {
   int lastIndex = -1;
   int startIndex = -50;
   int quantity = 50;
-
+  bool loadMore = true;
   @override
   void initState() {
     super.initState();
     expandingController.addListener(() {
-      if (expandingController.position.maxScrollExtent ==
-          expandingController.offset) {
+      if ((expandingController.position.maxScrollExtent ==
+              expandingController.offset) &&
+          (loadMore == true)) {
         lastIndex += quantity;
         startIndex += quantity;
         notificationBloc.add(GetNotificationListEvent(
@@ -65,17 +58,34 @@ class _NotificationListState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    OneSignal.Notifications.addForegroundWillDisplayListener((event) {
-      event.preventDefault();
-      event.notification.display();
-      // notificationBloc.add(GetNotificationListEvent(doctorId: widget.id));
-    });
-
-    OneSignal.Notifications.addClickListener((openedResult) {
-      notificationAction(openedResult, context);
-    });
+    // OneSignal.Notifications.addForegroundWillDisplayListener((event) {
+    //   event.preventDefault();
+    //   setState(() {});
+    //   event.notification.display();
+    //   // notificationBloc.add(GetNotificationListEvent(doctorId: widget.id));
+    // });
+    // OneSignal.shared.setNotificationWillShowInForegroundHandler((event) {
+    //   setState(() {});
+    //   event.complete(event.notification);
+    // });
+    // OneSignal.shared.setNotificationOpenedHandler((openedResult) {
+    //   Future.delayed(const Duration(milliseconds: 3000));
+    //   Navigator.pushNamed(context, RouteList.patientInfor,
+    //       arguments: openedResult.notification.additionalData?["patientId"]);
+    //   setState(() {});
+    // });
+    // OneSignal.Notifications.addClickListener((openedResult) async {
+    //   final NotificationUsecase count = getIt<NotificationUsecase>();
+    //   // notificationAction(openedResult, context);
+    //   Future.delayed(const Duration(milliseconds: 3000));
+    //   Navigator.pushNamed(context, RouteList.patientInfor,
+    //       arguments: openedResult.notification.additionalData?["patientId"]);
+    //   setState(() {});
+    // });
     SizeConfig.init(context);
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         isShowAppBar: true,
         isShowLeadingButton: true,
         isShowBottomNayvigationBar: true,
@@ -97,24 +107,10 @@ class _NotificationListState extends State<NotificationScreen> {
                       startIndex: startIndex,
                       lastIndex: lastIndex));
                 }
-                if ((state is SetReadedNotificationState &&
-                        state.status == BlocStatusState.success) ||
-                    (state is DeleteNotificationState &&
-                        state.status == BlocStatusState.success)) {
-                  notificationBloc.add(RefreshNotificationListEvent(
-                    doctorId: widget.id ?? widget.id!,
-                  ));
 
-                  // notificationBloc.add(GetNotificationListEvent(
-                  //     doctorId: widget.id ?? widget.id!,
-                  //     startIndex: startIndex,
-                  //     lastIndex: lastIndex));
-                }
                 if ((state is GetNotificationListState &&
                         state.status == BlocStatusState.loading &&
                         state.viewModel.notificationEntity == null) ||
-                    (state is DeleteNotificationState &&
-                        state.status == BlocStatusState.loading) ||
                     (state is RefreshNotificationListState &&
                         state.status == BlocStatusState.loading)) {
                   return const Center(
@@ -122,12 +118,20 @@ class _NotificationListState extends State<NotificationScreen> {
                   );
                 }
 
-                if ((state is GetNotificationListState &&
-                        state.status == BlocStatusState.loading &&
-                        state.viewModel.notificationEntity != null) ||
+                if (((state is GetNotificationListState &&
+                            state.status == BlocStatusState.loading) ||
+                        (state is DeleteNotificationState &&
+                            state.status == BlocStatusState.loading) ||
+                        (state is SetReadedNotificationFromCellState &&
+                                state.status == BlocStatusState.loading) &&
+                            state.viewModel.notificationEntity != null) ||
                     (state is GetNotificationListState &&
                         state.status == BlocStatusState.success) ||
                     (state is RefreshNotificationListState &&
+                        state.status == BlocStatusState.success) ||
+                    (state is DeleteNotificationState &&
+                        state.status == BlocStatusState.success) ||
+                    (state is SetReadedNotificationFromCellState &&
                         state.status == BlocStatusState.success)) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
                     return Center(
@@ -187,9 +191,31 @@ class _NotificationListState extends State<NotificationScreen> {
                                         state.viewModel.notificationEntity!
                                             .length) {
                                       return NotificationCell(
+                                        cellIndex: index,
                                         notificationEntity: state.viewModel
                                             .notificationEntity![index],
                                         notificationBloc: notificationBloc,
+                                      );
+                                    }
+                                    if (state.viewModel.notificationEntity!
+                                            .length >=
+                                        state
+                                            .viewModel
+                                            .numberOfNotificationsEntity!
+                                            .numberOfNotifications!) {
+                                      loadMore = false;
+
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 32),
+                                        child: Center(
+                                            child: Text(
+                                          translation(context).endOfList,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.05),
+                                        )),
                                       );
                                     } else {
                                       return const Padding(

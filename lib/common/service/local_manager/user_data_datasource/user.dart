@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
+import '../../../../data/models/doctor_infor_model/doctor_infor_model.dart';
+import '../../../../data/models/patient_infor_model/patient_infor_model.dart';
+import '../../../../data/models/relative_model/relative_infor_model.dart';
 import 'user_model.dart';
 
 class User extends Equatable {
-  //  String? avatar;
-  //  DateTime? createdAt;
   final int? unreadCount;
   final String? email;
   final String? id;
@@ -17,21 +18,27 @@ class User extends Equatable {
   final double? height;
   final bool? gender;
   final String? address;
-  //  String? status;
-  //  DateTime? dob;
-
-  const User(
-      {this.age,
-      this.address,
-      this.height,
-      this.weight,
-      this.unreadCount,
-      this.email,
-      this.id,
-      this.name,
-      this.phoneNumber,
-      this.role,
-      this.gender});
+  List<PatientInforModel>? patients;
+  @override
+  final List<RelativeInforModel>? relatives;
+  @override
+  final DoctorInforModel? doctor;
+  User({
+    this.age,
+    this.address,
+    this.height,
+    this.weight,
+    this.unreadCount,
+    this.email,
+    this.id,
+    this.name,
+    this.phoneNumber,
+    this.role,
+    this.gender,
+    this.patients,
+    this.relatives,
+    this.doctor,
+  });
 
   @override
   List<Object?> get props => [
@@ -47,9 +54,10 @@ class User extends Equatable {
         name,
         phoneNumber,
         role,
-        gender
-        // status,
-        // dob,
+        gender,
+        patients,
+        relatives,
+        doctor,
       ];
 
   UserModel convertToModel() {
@@ -64,7 +72,10 @@ class User extends Equatable {
         phoneNumber: phoneNumber,
         role: role,
         gender: gender,
-        weight: weight);
+        weight: weight,
+        patients: patients,
+        relatives: relatives,
+        doctor: doctor);
   }
 
   User copyWith(
@@ -78,7 +89,10 @@ class User extends Equatable {
       String? address,
       double? weight,
       double? height,
-      bool? gender}) {
+      bool? gender,
+      List<PatientInforModel>? patients,
+      List<RelativeInforModel>? relatives,
+      DoctorInforModel? doctor}) {
     return User(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
       unreadCount: unreadCount ?? this.unreadCount,
@@ -92,6 +106,9 @@ class User extends Equatable {
       role: role ?? this.role,
       weight: weight ?? this.weight,
       gender: gender ?? this.gender,
+      patients: patients ?? this.patients,
+      relatives: relatives ?? this.relatives,
+      doctor: doctor ?? this.doctor,
     );
   }
 }

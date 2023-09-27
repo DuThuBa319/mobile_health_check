@@ -75,11 +75,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                   documentSnapshot.get(FieldPath(const ['phoneNumber'])),
               id: documentSnapshot.get(FieldPath(const ['id'])),
               name: documentSnapshot.get(FieldPath(const ['name']))));
-          if (userDataData.getUser()!.role == 'doctor') {
-            // await notificationData.saveUnreadNotificationCount(
-            //     documentSnapshot.get(FieldPath(const ['unreadCount'])));
-            // debugPrint("mmmmmmmmmmmmmm${notificationData.unreadCount}");
-          }
+        
         } else {
           debugPrint('Document does not exist on the database');
         }
@@ -150,20 +146,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       ),
     );
     try {
-      if (userDataData.getUser()!.role! == 'doctor') {
+      if (userDataData.getUser()!.role! == 'doctor'
+      ||userDataData.getUser()!.role! == 'relative'
+      ) {
         await OneSignalNotificationService.create();
         OneSignalNotificationService.subscribeNotification(
             userId: userDataData.getUser()!.id!);
-        final unreadCount =
-            await count.getUnreadCountNotificationEntity(event.doctorId);
-        notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
       }
       if (userDataData.getUser()!.role! == 'patient') {
-        final response = await _patientUseCase
+        await _patientUseCase
             .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
-        await userDataData.setUser(response!
-            .convertUser(user: userDataData.getUser()!)
-            .convertToModel());
       }
       emit(
         state.copyWith(

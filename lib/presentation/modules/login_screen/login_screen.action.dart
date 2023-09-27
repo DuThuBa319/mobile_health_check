@@ -64,7 +64,9 @@ extension LoginAction on _LoginState {
       );
     }
 
-    if (state is LoginActionState && state.status == BlocStatusState.success) {
+    if (state is LoginActionState &&
+        state.status == BlocStatusState.success 
+      ) {
       Navigator.pop(context);
       showToast(translation(context).verifySuccessfully);
       bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
@@ -74,7 +76,9 @@ extension LoginAction on _LoginState {
 
     if (state is GetUserDataState && state.status == BlocStatusState.success) {
       Navigator.pop(context);
-      if (userDataData.getUser()!.role! == 'doctor') {
+      if (userDataData.getUser()!.role! == 'doctor' ||
+          userDataData.getUser()!.role! == 'relative') {
+        notificationData.saveDelayTime(0);
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);
       }

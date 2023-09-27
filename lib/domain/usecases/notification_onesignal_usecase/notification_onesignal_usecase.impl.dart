@@ -12,7 +12,7 @@ class NotificationUsecaseImpl extends NotificationUsecase {
   Future<List<NotificationEntity>?> getNotificationListEntity(
       {required String? doctorId, int? startIndex, int? lastIndex}) async {
     final responses = await _repository.getNotificationListModels(
-        doctorId:doctorId, startIndex:startIndex, lastIndex:lastIndex);
+        doctorId: doctorId, startIndex: startIndex, lastIndex: lastIndex);
     final responseEntities = <NotificationEntity>[];
     for (final response in responses) {
       final entity = response.convertNotificationEntity();
@@ -25,6 +25,7 @@ class NotificationUsecaseImpl extends NotificationUsecase {
   Future<void> setReadedNotificationEntity(String? notificationId) async {
     await _repository.setReadedNotificationModel(notificationId);
   }
+
   @override
   Future<void> deleteNotificationEntity(String? notificationId) async {
     await _repository.deleteNotificationModel(notificationId);
@@ -33,5 +34,13 @@ class NotificationUsecaseImpl extends NotificationUsecase {
   @override
   Future<int?> getUnreadCountNotificationEntity(String? doctorId) async {
     return await _repository.getUnreadCountNotification(doctorId);
+  }
+
+  @override
+  Future<NumberOfNotificationsEntity?> getNumberOfNotificationEntity(
+      String? doctorId) async {
+    final respones = await _repository.getNumberOfNotifications(doctorId);
+    final entity = respones?.convertNumberOfNotificationsEntity();
+    return entity;
   }
 }

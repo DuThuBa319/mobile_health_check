@@ -11,6 +11,7 @@ class PatientUsecaseImpl extends PatientUsecase {
   @override
   Future<PatientInforEntity>? getPatientInforEntity(String? id) async {
     final response = await _repository.getPatientInforModel(id);
+
     final entity = response.getPatientInforEntity();
     return entity;
   }
@@ -21,24 +22,31 @@ class PatientUsecaseImpl extends PatientUsecase {
     await _repository.updatePatientInforModel(id, patientInforModel);
   }
 
-
-
   @override
   Future<PatientInforEntity>? getPatientInforEntityInPatientApp(
       String? id) async {
     final response = await _repository.getPatientInforModel(id);
+    await userDataData.setUser(UserModel(
+        height: response.height,
+        weight: response.weight,
+        address: response?.address ?? "chưa có thông tin",
+        age: response?.age ?? 0,
+        gender: response?.gender == 0 ? false : true,
+        id: userDataData.getUser()!.id,
+        role: userDataData.getUser()!.role,
+        name: userDataData.getUser()!.name,
+        phoneNumber: response?.phoneNumber,
+        email: userDataData.getUser()!.email,
+        doctor: response.doctor,
+        relatives: response.relatives));
     final entity = response.getPatientInforEntityPatientApp();
     return entity;
   }
 
   @override
-  Future<AccountEntity>? addRelativeInforEntity(
+  Future<void>? addRelativeInforEntity(
       String? patientId, RelativeInforModel? relativeInforModel) async {
     await _repository.addRelativeInforModel(patientId, relativeInforModel);
-    final accountModel =
-        AccountModel(relativeInforModel?.name, relativeInforModel?.phoneNumber);
-    final accountEntity = accountModel.convertAccountEntity();
-    return accountEntity;
   }
 
   // @override

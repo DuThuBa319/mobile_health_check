@@ -89,14 +89,14 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     }
                     if (index == 3) {
                       return equipmentCell(
-                          cellTitle: translation(context).oximeter,
+                          cellTitle: translation(context).spo2,
                           imagePath: Assets.oximeter,
                           cellColor: AppColor.oximeter,
                           subCellColor: AppColor.oximeterCell,
                           onTapFunction: () {
                             Navigator.pushNamed(
                               context,
-                              RouteList.pushOxiScreen,
+                              RouteList.spo2Screen,
                             );
                           });
                     }

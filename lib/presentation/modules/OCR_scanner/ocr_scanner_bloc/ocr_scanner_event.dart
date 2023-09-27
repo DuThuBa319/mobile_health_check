@@ -22,6 +22,11 @@ class GetTemperatureDataEvent extends OCRScannerEvent {
   GetTemperatureDataEvent({required this.context});
 }
 
+class GetSpo2DataEvent extends OCRScannerEvent {
+  final BuildContext context;
+  GetSpo2DataEvent({required this.context});
+}
+
 class UploadBloodPressureDataEvent extends OCRScannerEvent {
   UploadBloodPressureDataEvent();
 }
@@ -32,6 +37,10 @@ class UploadBloodGlucoseDataEvent extends OCRScannerEvent {
 
 class UploadTemperatureDataEvent extends OCRScannerEvent {
   UploadTemperatureDataEvent();
+}
+
+class UploadSpo2DataEvent extends OCRScannerEvent {
+  UploadSpo2DataEvent();
 }
 
 class EditBloodPressureDataEvent extends OCRScannerEvent {
@@ -62,5 +71,15 @@ class EditBodyTemperatureDataEvent extends OCRScannerEvent {
   EditBodyTemperatureDataEvent({
     required this.context,
     required this.temperature,
+  });
+}
+
+class EditSpo2DataEvent extends OCRScannerEvent {
+  final int? spo2;
+
+  final BuildContext context;
+  EditSpo2DataEvent({
+    required this.context,
+    required this.spo2,
   });
 }

@@ -5,28 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 
 import '../../../../classes/language.dart';
+import '../../../../common/singletons.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 
-class SettingDrPassword extends StatefulWidget {
-  const SettingDrPassword({super.key});
+class SettingDrOrRePhone extends StatefulWidget {
+  const SettingDrOrRePhone({super.key});
 
   @override
-  State<SettingDrPassword> createState() => _SettingDrPasswordState();
+  State<SettingDrOrRePhone> createState() => _SettingDrOrRePhoneState();
 }
 
-class _SettingDrPasswordState extends State<SettingDrPassword> {
-  bool showPass = true;
-  final passController = TextEditingController();
-  String pass = "";
-
+class _SettingDrOrRePhoneState extends State<SettingDrOrRePhone> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -40,31 +39,34 @@ class _SettingDrPasswordState extends State<SettingDrPassword> {
         selectedIndex: 2,
         child: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.only(left: 25, right: 25),
+            margin: EdgeInsets.only(
+              top: SizeConfig.screenWidth * 0.2,
+              left: SizeConfig.screenWidth * 0.05,
+              right: SizeConfig.screenWidth * 0.05,
+            ),
+            height: SizeConfig.screenHeight * 0.8,
+            width: SizeConfig.screenWidth * 0.9,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: SizeConfig.screenHeight * 0.08),
                   lineDecor(),
-                  SettingPasswordCell(
-                      selectSetting: translation(context).oldPassword,
-                      showPass: showPass),
-                  SettingPasswordCell(
-                      selectSetting: translation(context).newPassword,
-                      showPass: showPass),
-                  SettingPasswordCell(
-                      selectSetting: translation(context).confirmPass,
-                      showPass: showPass),
+                  settingPhoneCell(
+                      translation(context).oldPhoneNumber, context),
+                  settingPhoneCell(
+                    translation(context).newPhoneNumber,
+                    context,
+                  ),
                   SizedBox(height: SizeConfig.screenHeight * 0.01),
                   Center(
                     child: CommonButton(
+                        width: SizeConfig.screenWidth * 0.9,
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          showToast(
-                              translation(context).updatePasswordSuccessfullly);
+                          showToast(translation(context)
+                              .updatePhoneNumberSuccessfullly);
                         }),
                   )
                 ]),

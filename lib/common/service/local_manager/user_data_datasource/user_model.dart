@@ -1,16 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mobile_health_check/common/service/local_manager/user_data_datasource/user.dart';
+import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
+import 'package:mobile_health_check/data/models/relative_model/relative_infor_model.dart';
+
+import '../../../../data/models/doctor_infor_model/doctor_infor_model.dart';
 
 part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserModel extends User {
-  // @override
-  // final String? avatar;
-  // @override
-  // final DateTime? createdAt;
-
   @override
   final int? unreadCount;
   @override
@@ -33,25 +32,29 @@ class UserModel extends User {
   final String? address;
   @override
   final bool? gender;
-  // @override
-  // final String? status;
-  // @override
-  // final DateTime? dob;
-
-  const UserModel({
-    this.age,
-
-   this.address,
-    this.height,
-    this.weight,
-    this.unreadCount,
-    this.email,
-    this.id,
-    this.name,
-    this.phoneNumber,
-    this.role,
-    this.gender
-  }) : super(
+  @override
+  final List<PatientInforModel>? patients;
+  @override
+  final List<RelativeInforModel>? relatives;
+   @override
+  final DoctorInforModel? doctor;
+  UserModel(
+      {this.age,
+      this.address,
+      this.height,
+      this.weight,
+      this.unreadCount,
+      this.email,
+      this.id,
+      this.name,
+      this.phoneNumber,
+      this.role,
+      this.gender,
+      this.patients,
+      this.doctor,
+      this.relatives
+      })
+      : super(
             unreadCount: unreadCount,
             email: email,
             id: id,
@@ -61,13 +64,15 @@ class UserModel extends User {
             age: age,
             address: address,
             height: height,
-            
             weight: weight,
-            gender: gender);
+            gender: gender,
+            patients: patients,
+            doctor:doctor,
+            relatives:relatives
+            );
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
-  
 }

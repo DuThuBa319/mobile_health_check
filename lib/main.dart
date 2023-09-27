@@ -3,9 +3,10 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'classes/language.dart';
+import 'common/service/navigation/navigation_observer.dart';
+import 'common/service/navigation/navigation_service.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
-import 'domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import 'presentation/common_widget/assets.dart';
 import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,7 +18,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // await initOneSignal();
+  await notificationData.saveDelayTime(2000);
   try {
     cameras = await availableCameras();
   } on CameraException catch (e) {
@@ -74,6 +75,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      navigatorKey: injector<NavigationService>().navigatorKey,
+      navigatorObservers: [myNavigatorObserver],
       locale: _locale,
       debugShowCheckedModeBanner: false,
       title: 'Health Check App',
@@ -104,12 +107,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
       final isLogin = userDataData.isLogin;
       if (isLogin == true) {
-        //  Navigato r.pushNamed(context, RouteList.selectEquip);
-        if (userDataData.getUser()!.role == "doctor") {
-          final NotificationUsecase count = getIt<NotificationUsecase>();
-          final unreadCount = await count
-              .getUnreadCountNotificationEntity(userDataData.getUser()!.id);
-          notificationData.saveUnreadNotificationCount(unreadCount ?? 0);
+        if (userDataData.getUser()!.role == "doctor" ||
+            userDataData.getUser()!.role == "relative") {
           // ignore: use_build_context_synchronously
           Navigator.pushNamed(context, RouteList.patientList,
               arguments: userDataData.getUser()!.id!);

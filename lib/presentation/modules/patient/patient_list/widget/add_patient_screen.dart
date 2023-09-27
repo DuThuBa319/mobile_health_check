@@ -34,6 +34,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         title: translation(context).addPatient,
         isShowRightButon: false,
         isShowAppBar: true,

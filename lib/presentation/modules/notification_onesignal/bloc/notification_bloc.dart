@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
+import '../../../../domain/entities/number_of_notifications_entity.dart';
 import '../../../../presentation/common_widget/enum_common.dart';
 part 'notification_event.dart';
 part 'notification_state.dart';
@@ -16,10 +17,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       : super(NotificationInitialState()) {
     on<GetNotificationListEvent>(_onGetNotificationList);
     on<SetReadedNotificationEvent>(_setReadedNotification);
+    on<SetReadedNotificationFromCellEvent>(_setReadedNotificationFromCell);
+
     on<DeleteNotificationEvent>(_deleteNotification);
     on<RefreshNotificationListEvent>(_onRefreshNotificationList);
     on<RenewPageAfterActionEvent>(_onRenewPageAfterAction);
-
   }
 
   Future<void> _onGetNotificationList(
@@ -37,14 +39,16 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           doctorId: event.doctorId,
           startIndex: event.startIndex,
           lastIndex: event.lastIndex);
-  
+
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
+      final numberOfNotificationEntity = await notificationUsecase
+          .getNumberOfNotificationEntity(event.doctorId);
       List<NotificationEntity> newNotificationList =
           state.viewModel.notificationEntity ?? [];
       newNotificationList.addAll(response!);
       final newViewModel = state.viewModel.copyWith(
-          notificationEntity: newNotificationList, unreadCount: unreadCount);
+          notificationEntity: newNotificationList, unreadCount: unreadCount,numberOfNotificationsEntity: numberOfNotificationEntity);
       emit(GetNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -59,9 +63,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     }
   }
 
-
-
- Future<void> _onRenewPageAfterAction(
+  Future<void> _onRenewPageAfterAction(
     RenewPageAfterActionEvent event,
     Emitter<NotificationState> emit,
   ) async {
@@ -76,12 +78,15 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           doctorId: event.doctorId,
           startIndex: event.startIndex,
           lastIndex: event.lastIndex);
-  
+
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
-  
+      final numberOfNotificationsEntity = await notificationUsecase
+          .getNumberOfNotificationEntity(event.doctorId);
       final newViewModel = state.viewModel.copyWith(
-          notificationEntity: response, unreadCount: unreadCount);
+          notificationEntity: response,
+          unreadCount: unreadCount,
+        numberOfNotificationsEntity:numberOfNotificationsEntity );
       emit(RenewPageAfterActionState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -140,7 +145,36 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       await notificationUsecase
           .setReadedNotificationEntity(event.notificationId);
+
       emit(SetReadedNotificationState(
+        status: BlocStatusState.success,
+        viewModel: state.viewModel,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _setReadedNotificationFromCell(
+    SetReadedNotificationFromCellEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    emit(
+      SetReadedNotificationFromCellState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await notificationUsecase
+          .setReadedNotificationEntity(event.notificationId);
+      state.viewModel.notificationEntity?.elementAt(event.index!).read = true;
+      emit(SetReadedNotificationFromCellState(
         status: BlocStatusState.success,
         viewModel: state.viewModel,
       ));
@@ -166,6 +200,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     try {
       await notificationUsecase.deleteNotificationEntity(event.notificationId);
+      state.viewModel.notificationEntity?.removeAt(event.index!);
       emit(DeleteNotificationState(
           status: BlocStatusState.success, viewModel: state.viewModel));
     } catch (e) {

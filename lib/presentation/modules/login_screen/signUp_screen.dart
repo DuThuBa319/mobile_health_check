@@ -4,6 +4,7 @@ import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../../classes/language_constant.dart';
 import '../../../classes/language.dart';
+import '../../../common/singletons.dart';
 import '../../common_widget/common_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
@@ -48,6 +49,8 @@ class _SignUpDoctorScreenState extends State<SignUpDoctorScreen> {
     String pass = "";
     String confirmPass = "";
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         title: translation(context).signUp,
         isShowRightButon: false,
         isShowAppBar: true,

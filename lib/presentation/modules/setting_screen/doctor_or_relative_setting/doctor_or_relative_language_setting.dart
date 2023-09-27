@@ -26,6 +26,8 @@ class _SettingLanguageState extends State<SettingLanguage> {
     final sreenWidth = MediaQuery.of(context).size.width;
     Language? selectedLanguage;
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,

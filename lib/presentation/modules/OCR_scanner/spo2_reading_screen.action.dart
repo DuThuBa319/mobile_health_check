@@ -1,7 +1,7 @@
-part of 'push_oxi_reading_screen.dart';
+part of 'spo2_reading_screen.dart';
 
 // ignore: library_private_types_in_public_api
-extension PushOxiReadingScreenAction on _PushOxiReadingScreenState {
+extension Spo2ReadingScreenAction on _Spo2ReadingScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
     if (state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);

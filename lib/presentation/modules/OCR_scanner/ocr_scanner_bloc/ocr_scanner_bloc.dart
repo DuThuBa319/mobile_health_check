@@ -11,7 +11,9 @@ import 'package:mobile_health_check/domain/usecases/blood_pressure_usecase/blood
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/usecases/temperature_usecase/temperature_usecase.dart';
+import '../../../../domain/entities/spo2_entity.dart';
 import '../../../../domain/usecases/blood_sugar_usecase/blood_sugar_usecase.dart';
+import '../../../../domain/usecases/spo2_usecase/spo2_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../route/route_list.dart';
 import 'package:http/http.dart' as http;
@@ -23,8 +25,9 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
   BloodPressureUsecase bloodPressureUseCase;
   BloodSugarUsecase bloodSugarUseCase;
   TemperatureUsecase temperatureUseCase;
+  Spo2Usecase spo2UseCase;
   OCRScannerBloc(this.bloodPressureUseCase, this.bloodSugarUseCase,
-      this.temperatureUseCase)
+      this.temperatureUseCase, this.spo2UseCase)
       : super(OCRScannerInitialState()) {
     // on<GetInitialBloodPressureDataEvent>(_onGetInitialBloodPressureData);
     on<GetBloodPressureDataEvent>(_onGetBloodPressureData);
@@ -36,8 +39,11 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     on<GetTemperatureDataEvent>(_onGetTemperatureData);
     on<UploadTemperatureDataEvent>(_onUploadTemperatureData);
     on<EditBodyTemperatureDataEvent>(_onEditBodyTemperatureData);
+    on<GetSpo2DataEvent>(_onGetSpo2Data);
+    on<UploadSpo2DataEvent>(_onUploadSpo2Data);
+    on<EditSpo2DataEvent>(_onEditSpo2Data);
   }
-
+  //!---Blood Pressure------------------!//
   Future<void> _onGetBloodPressureData(
     GetBloodPressureDataEvent event,
     Emitter<OCRScannerState> emit,
@@ -66,139 +72,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
             bloodPressureImageFile: selectedImage.croppedImage,
             bloodPressureEntity: bloodPressureEntity);
       }
-      emit(
-        state.copyWith(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
-
-  Future<void> _onEditBloodPressureData(
-    EditBloodPressureDataEvent event,
-    Emitter<OCRScannerState> emit,
-  ) async {
-    emit(
-      GetBloodPressureDataState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    final bloodPressureEntity = BloodPressureEntity(
-        sys: event.editedSys,
-        pulse: event.editedPul,
-        updatedDate: DateTime.now());
-    final newViewModel =
-        state.viewModel.copyWith(bloodPressureEntity: bloodPressureEntity);
-
-    emit(
-      state.copyWith(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ),
-    );
-  }
-
-  Future<void> _onEditBloodSugarData(
-    EditBloodSugarDataEvent event,
-    Emitter<OCRScannerState> emit,
-  ) async {
-    emit(
-      GetBloodGlucoseDataState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    final bloodSugarEntity = BloodSugarEntity(
-        bloodSugar: event.glucose, updatedDate: DateTime.now());
-    final newViewModel =
-        state.viewModel.copyWith(bloodSugarEntity: bloodSugarEntity);
-
-    emit(
-      state.copyWith(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ),
-    );
-  }
-
-  Future<void> _onGetBloodGlucoseData(
-    GetBloodGlucoseDataEvent event,
-    Emitter<OCRScannerState> emit,
-  ) async {
-    emit(
-      GetBloodGlucoseDataState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      double? glucose;
-      var newViewModel = state.viewModel;
-      final selectedImage = await Navigator.pushNamed(
-          event.context, RouteList.camera,
-          arguments: MeasuringTask.bloodSugar) as CroppedImage?;
-      if (selectedImage != null) {
-        glucose = await uploadBloodGlucoseImage(
-            croppedImage: selectedImage.croppedImage,
-            flashOn: selectedImage.flashOn);
-
-        newViewModel = state.viewModel.copyWith(
-            bloodGlucoseImageFile: selectedImage.croppedImage,
-            bloodSugarEntity: BloodSugarEntity(
-                bloodSugar: glucose, updatedDate: DateTime.now()));
-      }
-
-      emit(
-        state.copyWith(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
-
-  Future<void> _onGetTemperatureData(
-    GetTemperatureDataEvent event,
-    Emitter<OCRScannerState> emit,
-  ) async {
-    emit(
-      GetTemperatureDataState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      double? temperature;
-      var newViewModel = state.viewModel;
-      final selectedImage = await Navigator.pushNamed(
-          event.context, RouteList.camera,
-          arguments: MeasuringTask.temperature) as CroppedImage?;
-      if (selectedImage != null) {
-        temperature = await uploadTemperatureImage(
-            croppedImage: selectedImage.croppedImage,
-            flashOn: selectedImage.flashOn);
-        newViewModel = state.viewModel.copyWith(
-            temperatureImageFile: selectedImage.croppedImage,
-            temperatureEntity: TemperatureEntity(
-                temperature: temperature, updatedDate: DateTime.now()));
-      }
-
       emit(
         state.copyWith(
           status: BlocStatusState.success,
@@ -258,20 +131,22 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     }
   }
 
-  Future<void> _onEditBodyTemperatureData(
-    EditBodyTemperatureDataEvent event,
+  Future<void> _onEditBloodPressureData(
+    EditBloodPressureDataEvent event,
     Emitter<OCRScannerState> emit,
   ) async {
     emit(
-      GetTemperatureDataState(
+      GetBloodPressureDataState(
         status: BlocStatusState.loading,
         viewModel: state.viewModel,
       ),
     );
-    final bodyTemperatureEntity = TemperatureEntity(
-        temperature: event.temperature, updatedDate: DateTime.now());
+    final bloodPressureEntity = BloodPressureEntity(
+        sys: event.editedSys,
+        pulse: event.editedPul,
+        updatedDate: DateTime.now());
     final newViewModel =
-        state.viewModel.copyWith(temperatureEntity: bodyTemperatureEntity);
+        state.viewModel.copyWith(bloodPressureEntity: bloodPressureEntity);
 
     emit(
       state.copyWith(
@@ -279,6 +154,51 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         viewModel: newViewModel,
       ),
     );
+  }
+
+  //!------Blood Glucose----------------!//
+
+  Future<void> _onGetBloodGlucoseData(
+    GetBloodGlucoseDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetBloodGlucoseDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      double? glucose;
+      var newViewModel = state.viewModel;
+      final selectedImage = await Navigator.pushNamed(
+          event.context, RouteList.camera,
+          arguments: MeasuringTask.bloodSugar) as CroppedImage?;
+      if (selectedImage != null) {
+        glucose = await uploadBloodGlucoseImage(
+            croppedImage: selectedImage.croppedImage,
+            flashOn: selectedImage.flashOn);
+
+        newViewModel = state.viewModel.copyWith(
+            bloodGlucoseImageFile: selectedImage.croppedImage,
+            bloodSugarEntity: BloodSugarEntity(
+                bloodSugar: glucose, updatedDate: DateTime.now()));
+      }
+
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
   }
 
   Future<void> _onUploadBloodGlucoseData(
@@ -323,6 +243,95 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     }
   }
 
+  Future<void> _onEditBloodSugarData(
+    EditBloodSugarDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetBloodGlucoseDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    final bloodSugarEntity = BloodSugarEntity(
+        bloodSugar: event.glucose, updatedDate: DateTime.now());
+    final newViewModel =
+        state.viewModel.copyWith(bloodSugarEntity: bloodSugarEntity);
+
+    emit(
+      state.copyWith(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ),
+    );
+  }
+
+  //!------Body Temperature----------------!//
+  Future<void> _onGetTemperatureData(
+    GetTemperatureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetTemperatureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      double? temperature;
+      var newViewModel = state.viewModel;
+      final selectedImage = await Navigator.pushNamed(
+          event.context, RouteList.camera,
+          arguments: MeasuringTask.temperature) as CroppedImage?;
+      if (selectedImage != null) {
+        temperature = await uploadTemperatureImage(
+            croppedImage: selectedImage.croppedImage,
+            flashOn: selectedImage.flashOn);
+        newViewModel = state.viewModel.copyWith(
+            temperatureImageFile: selectedImage.croppedImage,
+            temperatureEntity: TemperatureEntity(
+                temperature: temperature, updatedDate: DateTime.now()));
+      }
+
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onEditBodyTemperatureData(
+    EditBodyTemperatureDataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetTemperatureDataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    final bodyTemperatureEntity = TemperatureEntity(
+        temperature: event.temperature, updatedDate: DateTime.now());
+    final newViewModel =
+        state.viewModel.copyWith(temperatureEntity: bodyTemperatureEntity);
+
+    emit(
+      state.copyWith(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ),
+    );
+  }
+
   Future<void> _onUploadTemperatureData(
     UploadTemperatureDataEvent event,
     Emitter<OCRScannerState> emit,
@@ -363,6 +372,111 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         ),
       );
     }
+  }
+
+  //!------Spo2------------------------!//
+
+  Future<void> _onGetSpo2Data(
+    GetSpo2DataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetSpo2DataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      int? spo2;
+      var newViewModel = state.viewModel;
+      final selectedImage = await Navigator.pushNamed(
+          event.context, RouteList.camera,
+          arguments: MeasuringTask.oximeter) as CroppedImage?;
+      if (selectedImage != null) {
+        spo2 = await uploadSpo2Image(
+            croppedImage: selectedImage.croppedImage,
+            flashOn: selectedImage.flashOn);
+        newViewModel = state.viewModel.copyWith(
+            spo2ImageFile: selectedImage.croppedImage,
+            spo2Entity: Spo2Entity(spo2: spo2, updatedDate: DateTime.now()));
+      }
+
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onUploadSpo2Data(
+    UploadSpo2DataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      UploadSpo2DataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      String? imageUrl = " ";
+
+      final result = await FirebaseStorageService.uploadFile(
+          file: state.viewModel.spo2ImageFile!,
+          fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
+          folder: '${userDataData.getUser()!.phoneNumber!}/Nhiet Do/');
+      if (result != null) {
+        imageUrl = result.url;
+      }
+
+      final entity = state.viewModel.spo2Entity?.copywith(imageLink: imageUrl);
+
+      await spo2UseCase.createSpo2Entity(
+          id: userDataData.getUser()!.id!, spo2Entity: entity ?? Spo2Entity());
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onEditSpo2Data(
+    EditSpo2DataEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(
+      GetSpo2DataState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    final spo2Entity =
+        Spo2Entity(spo2: event.spo2, updatedDate: DateTime.now());
+    final newViewModel = state.viewModel.copyWith(spo2Entity: spo2Entity);
+
+    emit(
+      state.copyWith(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ),
+    );
   }
 }
 
@@ -449,4 +563,32 @@ Future<double?> uploadTemperatureImage(
   return temperature;
 }
 
-enum ReadDataTask { temperature, bloodPressure, bloodGlucose }
+Future<int?> uploadSpo2Image(
+    {required File croppedImage, required bool flashOn}) async {
+  int? spo2;
+  final request = http.MultipartRequest(
+      "POST",
+      Uri.parse(
+          "https://flask-server.azurewebsites.net/api/oxygen?code=dbUecZAtJzt_snPDrNohMJr27Tj5u0y5LvDodmFlnFxtAzFukHuD_w%3D%3D"));
+  final headers = {"Content-type": "multipart/form-data"};
+  request.files.add(http.MultipartFile(
+      'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
+      filename: croppedImage.path.split("/").last));
+  request.fields['flashOn'] = flashOn.toString();
+  request.headers.addAll(headers);
+  final response = await request.send();
+  http.Response res = await http.Response.fromStream(response);
+
+  try {
+    final resJson = jsonDecode(res.body);
+    // String message = resJson['message'];
+
+    // debugPrint(message);
+    spo2 = int.parse(resJson['spo2']);
+  } catch (e) {
+    debugPrint('$e');
+  }
+  return spo2;
+}
+
+enum ReadDataTask { temperature, bloodPressure, bloodGlucose, spo2 }

@@ -4,7 +4,6 @@ import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
-import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
 import '../../../function.dart';
 import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
@@ -12,6 +11,7 @@ import '../../route/route_list.dart';
 
 class CustomScreenForm extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
+  final bool? isRelativeApp;
   final bool isShowAppBar;
   final Color? appBarColor;
   final Color? backgroundColor;
@@ -29,6 +29,7 @@ class CustomScreenForm extends StatefulWidget {
   final NotificationBloc? notificationBloc;
   const CustomScreenForm({
     super.key,
+    this.isRelativeApp = false,
     this.notificationBloc,
     this.messageBody,
     this.unreadCount,
@@ -88,16 +89,16 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               actions: [
                 widget.isShowRightButon
                     ? widget.rightButton ??
-                        Row(
+                        const Row(
                           children: [
                             badges.Badge(
-                              badgeContent: Text(
-                                  "${notificationData.unreadCount}",
-                                  style: const TextStyle(
-                                      fontSize: 10, color: Colors.white)),
-                              child: const Icon(Icons.notifications),
+                              // badgeContent: Text(
+                              //     "${notificationData.unreadCount}",
+                              //     style: const TextStyle(
+                              //         fontSize: 10, color: Colors.white)),
+                              child: Icon(Icons.notifications),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 30,
                             ),
                           ],
@@ -156,6 +157,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 
                     // badgeContent:
                     //     Text('${notificationData.unreadCount ?? 0}'),
+
                     iconBottomBar(
                         label: translation(context).notification,
                         iconData: Icons.notifications_none_rounded,

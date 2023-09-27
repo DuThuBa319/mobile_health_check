@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../models/notification_onesignal_model/notification_onesignal_model.dart';
+import '../../../../models/number_of_notifications/number_of_notifications_model.dart';
 import '../../rest_api_repository.dart';
 import 'notification_onesignal_api_repository.dart';
 
@@ -30,6 +31,10 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
   @override
   Future<int?> getUnreadCountNotification(String? doctorId) {
     return restApi.getUnreadCountNotification(doctorId);
+  }
+    @override
+  Future<NumberOfNotificationsModel?> getNumberOfNotifications(String? doctorId) {
+    return restApi.getNumberOfNotifications(doctorId);
   }
    @override
   Future<void> deleteNotificationModel(String? notificationId) {

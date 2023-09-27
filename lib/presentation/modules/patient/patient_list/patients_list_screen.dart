@@ -60,16 +60,14 @@ class _PatientListState extends State<PatientListScreen> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: CustomScreenForm(
+          isRelativeApp:
+              (userDataData.getUser()?.role == "relative") ? true : false,
           isShowAppBar: true,
           isShowLeadingButton: false,
           isShowBottomNayvigationBar: true,
           isShowRightButon: false,
           backgroundColor: AppColor.backgroundColor,
           appBarColor: AppColor.topGradient,
-          // unreadCount: notificationData.unreadCount,
-          // rightButton: IconButton(
-          //   onPressed: gotoRegistPatientScreen,
-          //   icon: const Icon(Icons.add),
           title: translation(context).patientList,
           // ),
           selectedIndex: 0,
@@ -88,69 +86,108 @@ class _PatientListState extends State<PatientListScreen> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: SizeConfig.screenWidth * 0.6,
-                          child: TextField(
-                            controller: filterKeyword,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              // filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
+                    child: userDataData.getUser()?.role == "doctor"
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: SizeConfig.screenWidth * 0.6,
+                                child: TextField(
+                                  controller: filterKeyword,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    // filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    hintText:
+                                        translation(context).searchPatient,
+                                    hintStyle: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize:
+                                            SizeConfig.screenWidth * 0.05),
+                                  ),
+                                ),
                               ),
-                              hintText: translation(context).searchPatient,
-                              hintStyle: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: SizeConfig.screenWidth * 0.05),
+                              SizedBox(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.search),
+                                      color: Colors.black,
+                                      onPressed: () {
+                                        patientBloc.add(
+                                          FilterPatientEvent(
+                                              searchText: filterKeyword.text,
+                                              id: widget.id ?? widget.id!),
+                                        );
+                                      },
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, RouteList.addPatient,
+                                              arguments: patientBloc);
+                                          filterKeyword =
+                                              TextEditingController(text: "");
+                                        },
+                                        icon: const Icon(
+                                          Icons.group_add_outlined,
+                                          color: Colors.black,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        : SizedBox(
+                            child: TextField(
+                              controller: filterKeyword,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                // filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                hintText: translation(context).searchPatient,
+                                hintStyle: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: SizeConfig.screenWidth * 0.05),
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.search),
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    patientBloc.add(
+                                      FilterPatientEvent(
+                                          searchText: filterKeyword.text,
+                                          id: widget.id ?? widget.id!),
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.search),
-                                color: Colors.black,
-                                onPressed: () {
-                                  patientBloc.add(
-                                    FilterPatientEvent(
-                                        searchText: filterKeyword.text,
-                                        id: widget.id ?? widget.id!),
-                                  );
-                                },
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, RouteList.addPatient,
-                                        arguments: patientBloc);
-                                    filterKeyword =
-                                        TextEditingController(text: "");
-                                  },
-                                  icon: const Icon(
-                                    Icons.group_add_outlined,
-                                    color: Colors.black,
-                                  ))
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                   BlocConsumer<GetPatientBloc, GetPatientState>(
                       listener: _blocListener,
                       builder: (context, state) {
                         if (state is GetPatientInitialState) {
-                          patientBloc.add(
-                              GetPatientListEvent(id: widget.id ?? widget.id!));
+                          if (userDataData.getUser()!.role! == 'doctor') {
+                            patientBloc.add(GetPatientListEvent(
+                                id: widget.id ?? widget.id!));
+                          } else if (userDataData.getUser()!.role! ==
+                              'relative') {
+                            patientBloc.add(GetPatientListOfRelativeEvent(
+                                relativeId: widget.id ?? widget.id!));
+                          }
                         }
                         if ((state is GetPatientListState &&
+                                state.status == BlocStatusState.loading) ||
+                            (state is GetPatientListOfRelativeState &&
                                 state.status == BlocStatusState.loading) ||
                             (state is DeletePatientState &&
                                 state.status == BlocStatusState.loading) ||
@@ -190,6 +227,38 @@ class _PatientListState extends State<PatientListScreen> {
                                 itemBuilder: (BuildContext context, int index) {
                                   final patientInforEntity = state.viewModel
                                       .doctorInforEntity?.patients![index];
+                                  return PatientListCell(
+                                    patientInforEntity: patientInforEntity,
+                                    patientBloc: patientBloc,
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                        if ((state is GetPatientListOfRelativeState &&
+                            state.status == BlocStatusState.success)) {
+                          return Expanded(
+                            child: SmartRefresher(
+                              header: const WaterDropHeader(),
+                              controller: _refreshController,
+                              onRefresh: () async {
+                                await Future.delayed(
+                                    const Duration(milliseconds: 1000));
+                                _refreshController.refreshCompleted();
+                                patientBloc.add(GetPatientListOfRelativeEvent(
+                                    relativeId: widget.id ?? widget.id!));
+                              },
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: state.viewModel.relativeInforEntity
+                                        ?.patients?.length ??
+                                    0,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final patientInforEntity = state.viewModel
+                                      .relativeInforEntity?.patients![index];
                                   return PatientListCell(
                                     patientInforEntity: patientInforEntity,
                                     patientBloc: patientBloc,
@@ -241,8 +310,10 @@ class _PatientListState extends State<PatientListScreen> {
                             ),
                           );
                         }
-                        if (state is GetPatientListState &&
-                            state.status == BlocStatusState.failure) {
+                        if ((mounted is GetPatientListState &&
+                                state.status == BlocStatusState.failure) ||
+                            state is GetPatientListOfRelativeState &&
+                                state.status == BlocStatusState.failure) {
                           return const Center(
                             child: Text("error"),
                           );

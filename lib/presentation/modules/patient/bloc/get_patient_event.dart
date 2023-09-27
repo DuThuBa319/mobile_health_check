@@ -8,6 +8,11 @@ class GetPatientListEvent extends PatientEvent {
   final String id;
   GetPatientListEvent({required this.id}) : super();
 }
+class GetPatientListOfRelativeEvent extends PatientEvent {
+  // GetPatientListEvent();
+  final String relativeId;
+  GetPatientListOfRelativeEvent({required this.relativeId}) : super();
+}
 
 class FilterPatientEvent extends PatientEvent {
   FilterPatientEvent({required this.searchText, required this.id});
@@ -48,46 +53,12 @@ class UpdatePatientInforEvent extends PatientEvent {
   final PatientInforModel model;
   UpdatePatientInforEvent({required this.model, required this.id}) : super();
 }
+class UpdateRelativeInforEvent extends PatientEvent {
+  final String? id;
+  final RelativeInforModel model;
+  UpdateRelativeInforEvent({required this.model, required this.id}) : super();
+}
 
-// class GetBloodPressureHistoryDataEvent extends PatientEvent {
-//   final DateTime startDate;
-//   final DateTime endDate;
-//   GetBloodPressureHistoryDataEvent(
-//       {required this.endDate, required this.startDate});
-// }
-
-// class GetBloodPressureHistoryInitDataEvent extends PatientEvent {
-//   GetBloodPressureHistoryInitDataEvent();
-// }
-
-// class GetBloodSugarHistoryDataEvent extends PatientEvent {
-//   final DateTime startDate;
-//   final DateTime endDate;
-//   GetBloodSugarHistoryDataEvent(
-//       {required this.endDate, required this.startDate});
-// }
-
-// class GetBloodSugarHistoryInitDataEvent extends PatientEvent {
-//   GetBloodSugarHistoryInitDataEvent();
-// }
-
-// class GetTemperatureHistoryDataEvent extends PatientEvent {
-//   final DateTime startDate;
-//   final DateTime endDate;
-//   GetTemperatureHistoryDataEvent(
-//       {required this.endDate, required this.startDate});
-// }
-
-// class GetTemperatureHistoryInitDataEvent extends PatientEvent {
-//   GetTemperatureHistoryInitDataEvent();
-// }
-
-// class FilterPatientEvent extends PatientEvent {
-//   FilterPatientEvent({required this.searchText});
-//   String searchText;
-//   @override
-//   List<Object> get props => [];
-// }
 
 
 

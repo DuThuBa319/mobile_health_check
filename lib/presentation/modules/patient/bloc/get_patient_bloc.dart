@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
@@ -7,10 +8,12 @@ import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
+import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../../domain/entities/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
+import '../../../../domain/usecases/relative_infor_usecase/relative_infor_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_patient_event.dart';
 part 'get_patient_state.dart';
@@ -19,24 +22,21 @@ part 'get_patient_state.dart';
 class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final PatientUsecase _patientUseCase;
   final DoctorInforUsecase _doctorInforUsecase;
-  GetPatientBloc(this._patientUseCase, this._doctorInforUsecase)
+  final RelativeInforUsecase _relativeInforUsecase;
+
+  GetPatientBloc(this._patientUseCase, this._doctorInforUsecase,
+      this._relativeInforUsecase)
       : super(GetPatientInitialState()) {
     on<GetPatientListEvent>(_onGetPatientList);
+    on<GetPatientListOfRelativeEvent>(_onGetPatientListOfRelative);
     on<FilterPatientEvent>(_onSearchPatient);
     on<UpdatePatientInforEvent>(_onUpdatePatientInfor);
+    on<UpdateRelativeInforEvent>(_onUpdateRelativeInfor);
     on<RegistPatientEvent>(_onAddPatient);
     on<RegistRelativeEvent>(_onAddRelative);
     on<GetPatientInforEvent>(_getPatientInfor);
     on<DeleteRelativeEvent>(_onDeleteRelative);
     on<DeletePatientEvent>(_onDeletePatient);
-
-    // on<GetBloodPressureHistoryDataEvent>(_onGetBloodPressureHistoryData);
-    // on<GetBloodSugarHistoryDataEvent>(_onGetBloodSugarHistoryData);
-    // on<GetTemperatureHistoryDataEvent>(_onGetTemperatureHistoryData);
-    // on<GetBloodPressureHistoryInitDataEvent>(
-    //     _onGetBloodPressureHistoryInitData);
-    // on<GetBloodSugarHistoryInitDataEvent>(_onGetBloodSugarHistoryInitData);
-    // on<GetTemperatureHistoryInitDataEvent>(_onGetTemperatureHistoryInitData);
   }
 
   Future<void> _onGetPatientList(
@@ -50,12 +50,40 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       ),
     );
     try {
-      // final response = await _patientUseCase.getPatientListEntity();
-      // final newViewModel = state.viewModel.copyWith(patientEntity: response);
       final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
       final newViewModel =
           state.viewModel.copyWith(doctorInforEntity: response);
       emit(GetPatientListState(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onGetPatientListOfRelative(
+    GetPatientListOfRelativeEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    emit(
+      GetPatientListOfRelativeState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      final response =
+          await _relativeInforUsecase.getRelativeInforEntity(event.relativeId);
+        
+      final newViewModel =
+          state.viewModel.copyWith(relativeInforEntity: response);
+      emit(GetPatientListOfRelativeState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));
@@ -80,20 +108,42 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       ),
     );
     try {
-      final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
-      final allPatients = response!.patients;
-      // List<PatientEntity>? searchResult = [];
-      final filteredPatients = allPatients
-          ?.where((value) =>
-              value.name.toLowerCase().contains(event.searchText.toLowerCase()))
-          .toList();
-      // searchResult = filteredPatients;
-      final newViewModel =
-          state.viewModel.copyWith(patientEntities: filteredPatients);
-      emit(SearchPatientState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
+      if (userDataData.getUser()!.role! == 'doctor') {
+        final response =
+            await _doctorInforUsecase.getDoctorInforEntity(event.id);
+        final allPatients = response!.patients;
+        // List<PatientEntity>? searchResult = [];
+        final filteredPatients = allPatients
+            ?.where((value) => value.name
+                .toLowerCase()
+                .contains(event.searchText.toLowerCase()))
+            .toList();
+        // searchResult = filteredPatients;
+        final newViewModel =
+            state.viewModel.copyWith(patientEntities: filteredPatients);
+        emit(SearchPatientState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      }
+      if (userDataData.getUser()!.role! == 'relative') {
+        final response =
+            await _relativeInforUsecase.getRelativeInforEntity(event.id);
+        final allPatients = response!.patients;
+        // List<PatientEntity>? searchResult = [];
+        final filteredPatients = allPatients
+            ?.where((value) => value.name
+                .toLowerCase()
+                .contains(event.searchText.toLowerCase()))
+            .toList();
+        // searchResult = filteredPatients;
+        final newViewModel =
+            state.viewModel.copyWith(patientEntities: filteredPatients);
+        emit(SearchPatientState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      }
     } catch (e) {
       emit(
         state.copyWith(
@@ -146,8 +196,11 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       ),
     );
     try {
-      final accountEntity = await _patientUseCase.addRelativeInforEntity(
+      await _patientUseCase.addRelativeInforEntity(
           event.patientId, event.relativeInforModel);
+      final accountEntity = AccountEntity(
+          userName: event.relativeInforModel?.name,
+          password: event.relativeInforModel?.phoneNumber);
       final newViewModel =
           state.viewModel.copyWith(accountEntity: accountEntity);
       emit(RegistRelativeState(
@@ -202,6 +255,34 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       await _patientUseCase.updatePatientInforEntity(event.id, event.model);
       final newViewModel = state.viewModel;
       emit(UpdatePatientInforState(
+        status: BlocStatusState.success,
+        viewModel: newViewModel,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onUpdateRelativeInfor(
+    UpdateRelativeInforEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    emit(
+      UpdateRelativeInforState(
+        status: BlocStatusState.loading,
+        viewModel: state.viewModel,
+      ),
+    );
+    try {
+      await _relativeInforUsecase.updateRelativeInforEntity(
+          event.id, event.model);
+      final newViewModel = state.viewModel;
+      emit(UpdateRelativeInforState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
       ));

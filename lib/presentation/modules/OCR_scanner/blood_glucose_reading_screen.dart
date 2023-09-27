@@ -38,6 +38,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
   @override
   Widget build(BuildContext context) {
     return PatientCustomScreenForm(
+      
       title: translation(context).bloodGlucoseMeter,
       isShowAppBar: true,
       isShowLeadingButton: true,

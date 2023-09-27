@@ -84,17 +84,17 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
               actions: [
                 widget.isShowRightButon
                     ? widget.rightButton ??
-                        Row(
+                        const Row(
                           children: [
                             badges.Badge(
-                              badgeContent: Text(
-                                  "${notificationData.unreadCount}",
-                                  style: TextStyle(
-                                      fontSize: SizeConfig.screenWidth * 0.02,
-                                      color: Colors.white)),
-                              child: const Icon(Icons.notifications),
+                              // badgeContent: Text(
+                              //     "${notificationData.unreadCount}",
+                              //     style: TextStyle(
+                              //         fontSize: SizeConfig.screenWidth * 0.02,
+                              //         color: Colors.white)),
+                              child: Icon(Icons.notifications),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 30,
                             ),
                           ],

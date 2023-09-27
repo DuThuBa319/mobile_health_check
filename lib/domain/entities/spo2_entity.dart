@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 
 import '../../data/models/spo2_model/spo2_model.dart';
 
@@ -21,5 +22,24 @@ class Spo2Entity {
   Spo2Model getSpo2Model() {
     return Spo2Model(
         imageLinkSpo2: imageLink, spo2: spo2, updatedDate: updatedDate);
+  }
+
+  Color? get statusColor {
+    if (spo2 != null) {
+      if (spo2! < 35.9) {
+        //|| dia! <= 60
+        return Colors.blue;
+      } else if (36 <= spo2! && spo2! <= 36.9) {
+        //|| dia! <= 80
+        return const Color.fromARGB(255, 64, 247, 70);
+      } else if (spo2! >= 37 && spo2! <= 38) {
+        //|| dia! >= 80 && dia! <= 89
+        return Colors.orange;
+      } else if (spo2! >= 38.1) {
+        //|| dia! >= 90 && dia! <= 99
+        return Colors.red;
+      }
+    }
+    return null;
   }
 }

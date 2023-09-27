@@ -13,7 +13,7 @@ abstract class PatientListRepository {
   Future<PatientInforModel> getPatientInforModel(String? id);
   Future<void> updatePatientInforModel(
       String? id, PatientInforModel? patientInforModel);
-  Future<AccountModel>? addRelativeInforModel(
+  Future<void>? addRelativeInforModel(
       String? patientId, RelativeInforModel? relativeInforModel);
  
 }
