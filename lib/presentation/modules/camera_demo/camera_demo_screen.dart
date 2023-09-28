@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 
 import '../../../classes/language.dart';
-import '../../../classes/language_constant.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import 'camera_bloc/camera_bloc.dart';
@@ -54,35 +53,38 @@ class CameraScreenState extends State<CameraScreen>
     if (widget.task == MeasuringTask.temperature) {
       currentZoomLevel = 2;
     }
+    if (widget.task == MeasuringTask.oximeter) {
+      currentZoomLevel = 2.7;
+    }
     WidgetsBinding.instance.addObserver(this);
     onNewCameraSelected(cameras[0]);
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   controller?.dispose();
-  //   WidgetsBinding.instance.removeObserver(this);
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    controller?.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   // App state changed before we got the chance to initialize.
-  //   if (controller == null || !controller!.value.isInitialized) {
-  //     return;
-  //   }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // App state changed before we got the chance to initialize.
+    if (controller == null || !controller!.value.isInitialized) {
+      return;
+    }
 
-  //   if (state == AppLifecycleState.inactive) {
-  //     // Free up memory when camera not active
+    if (state == AppLifecycleState.inactive) {
+      // Free up memory when camera not active
 
-  //     cameraBloc.add(CameraStoppedEvent(
-  //         controller: controller!, context: context, task: widget.task));
-  //   } else if (state == AppLifecycleState.resumed) {
-  //     // Reinitialize the camera with same properties
-  //     onNewCameraSelected(controller!.description);
-  //   }
-  // }
+      cameraBloc.add(CameraStoppedEvent(
+          controller: controller!, context: context, task: widget.task));
+    } else if (state == AppLifecycleState.resumed) {
+      // Reinitialize the camera with same properties
+      onNewCameraSelected(controller!.description);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -396,6 +398,19 @@ class CameraScreenState extends State<CameraScreen>
         ),
       );
     }
+    if (task == MeasuringTask.oximeter) {
+      return Positioned(
+        top: 150,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.54,
+          height: MediaQuery.of(context).size.height * 0.15,
+          decoration: const ShapeDecoration(
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(width: 2, color: Colors.white))),
+        ),
+      );
+    }
     return Positioned(
       top: 200,
       child: Container(
@@ -427,6 +442,17 @@ class CameraScreenState extends State<CameraScreen>
         child: Container(
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.23,
+            decoration: const BoxDecoration(
+              color: Colors.black,
+            )),
+      );
+    }
+    if (task == MeasuringTask.oximeter) {
+      return Positioned(
+        top: 150,
+        child: Container(
+            width: MediaQuery.of(context).size.width * 0.54,
+            height: MediaQuery.of(context).size.height * 0.15,
             decoration: const BoxDecoration(
               color: Colors.black,
             )),

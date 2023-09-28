@@ -26,16 +26,9 @@ class Spo2Entity {
 
   Color? get statusColor {
     if (spo2 != null) {
-      if (spo2! < 35.9) {
-        //|| dia! <= 60
-        return Colors.blue;
-      } else if (36 <= spo2! && spo2! <= 36.9) {
-        //|| dia! <= 80
+      if (spo2! >= 95) {
         return const Color.fromARGB(255, 64, 247, 70);
-      } else if (spo2! >= 37 && spo2! <= 38) {
-        //|| dia! >= 80 && dia! <= 89
-        return Colors.orange;
-      } else if (spo2! >= 38.1) {
+      } else if (spo2! < 95) {
         //|| dia! >= 90 && dia! <= 99
         return Colors.red;
       }

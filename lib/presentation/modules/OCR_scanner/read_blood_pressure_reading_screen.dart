@@ -33,7 +33,7 @@ class _BloodPressureReadingScreenState
 
   OCRScannerBloc get scanBloc => BlocProvider.of(context);
   TextEditingController editSys = TextEditingController();
-  TextEditingController editDia = TextEditingController();
+  
   TextEditingController editPul = TextEditingController();
 
   @override
@@ -245,43 +245,7 @@ class _BloodPressureReadingScreenState
                                                   ),
                                                 ),
                                               ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    bottom:
-                                                        SizeConfig.screenWidth *
-                                                            0.025),
-                                                padding: EdgeInsets.only(
-                                                    left:
-                                                        SizeConfig.screenWidth *
-                                                            0.025),
-                                                height: SizeConfig.screenWidth *
-                                                    0.2,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: AppColor
-                                                      .cardBackgroundColor,
-                                                ),
-                                                child: TextField(
-                                                  controller: editDia,
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        SizeConfig.screenWidth *
-                                                            0.05,
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    labelText: "DIA:",
-                                                    labelStyle: TextStyle(
-                                                        color:
-                                                            AppColor.gray767676,
-                                                        fontSize: SizeConfig
-                                                                .screenWidth *
-                                                            0.05),
-                                                  ),
-                                                ),
-                                              ),
+                                            
                                               Container(
                                                 margin: EdgeInsets.only(
                                                     bottom:
@@ -333,8 +297,7 @@ class _BloodPressureReadingScreenState
                                             child:
                                                 Text(translation(context).save),
                                             onPressed: () {
-                                              int? editedDia =
-                                                  int.parse(editDia.text);
+                                            
                                               int? editedSys =
                                                   int.parse(editSys.text);
                                               int? editedPul =
@@ -342,7 +305,7 @@ class _BloodPressureReadingScreenState
                                               scanBloc.add(
                                                   EditBloodPressureDataEvent(
                                                       context: context,
-                                                      editedDia: editedDia,
+                                                      
                                                       editedPul: editedPul,
                                                       editedSys: editedSys));
 

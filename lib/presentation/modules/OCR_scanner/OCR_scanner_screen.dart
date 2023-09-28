@@ -821,8 +821,6 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                             child:
                                                 Text(translation(context).save),
                                             onPressed: () {
-                                              int? editedDia =
-                                                  int.parse(editDia.text);
                                               int? editedSys =
                                                   int.parse(editSys.text);
                                               int? editedPul =
@@ -830,7 +828,6 @@ class _OCRScannerScreenState extends State<OCRScannerScreen> {
                                               scanBloc.add(
                                                   EditBloodPressureDataEvent(
                                                       context: context,
-                                                      editedDia: editedDia,
                                                       editedPul: editedPul,
                                                       editedSys: editedSys));
 

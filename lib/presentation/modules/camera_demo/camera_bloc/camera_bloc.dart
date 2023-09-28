@@ -77,6 +77,9 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       final controller = event.controller;
       await controller.initialize();
       await controller.setZoomLevel(event.zoomValue);
+      await controller.setFlashMode(
+        FlashMode.off,
+      );
       final newViewModel =
           state.viewModel.copyWith(cameraController: controller);
       emit(
@@ -182,6 +185,13 @@ Future<File> cropImage(
       desiredWidth =
           screenWidth * 0.87; // Set the width of the desired area (in pixels)
       desiredHeight = screenHeight * 0.41;
+      break;
+    case MeasuringTask.oximeter:
+      desiredLeft = 80; // Set the left position of the desired area (in pixels)
+      desiredTop = 200; // Set the top position of the desired area (in pixels)
+      desiredWidth =
+          screenWidth * 0.7; // Set the width of the desired area (in pixels)
+      desiredHeight = screenHeight * 0.35;
       break;
     case MeasuringTask.temperature:
       desiredLeft = 60; // Set the left position of the desired area (in pixels)

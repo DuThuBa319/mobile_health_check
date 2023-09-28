@@ -433,7 +433,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       final result = await FirebaseStorageService.uploadFile(
           file: state.viewModel.spo2ImageFile!,
           fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
-          folder: '${userDataData.getUser()!.phoneNumber!}/Nhiet Do/');
+          folder: '${userDataData.getUser()!.phoneNumber!}/SPO2/');
       if (result != null) {
         imageUrl = result.url;
       }
@@ -499,7 +499,6 @@ Future<List<int?>> uploadBloodPressureImage(
   try {
     final resJson = jsonDecode(res.body);
     dataList.add(resJson['sys']);
-    dataList.add(resJson['dia']);
     dataList.add(resJson['pulse']);
   } catch (e) {
     debugPrint('$e');
@@ -584,7 +583,7 @@ Future<int?> uploadSpo2Image(
     // String message = resJson['message'];
 
     // debugPrint(message);
-    spo2 = int.parse(resJson['spo2']);
+    spo2 = resJson['spo2'];
   } catch (e) {
     debugPrint('$e');
   }

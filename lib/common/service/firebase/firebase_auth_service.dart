@@ -19,16 +19,21 @@ class FirebaseAuthService {
         email: email, password: password);
   }
 
-  Future<void> createUserWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> createUserWithEmailAndPassword(
+      {required String email,
+      required String password,
+      required String id,
+      required String role,
+      required String name,
+      required String phoneNumber}) async {
     final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     final user = <String, dynamic>{
-      "first": "Ada",
-      "last": "Lovelace",
-      "born": 1815
+      "id": id,
+      "email": email,
+      "phoneNumber": phoneNumber,
+      "role": role,
+      "name": name
     };
 
     await FirebaseFirestore.instance

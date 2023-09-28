@@ -310,8 +310,6 @@ class _LoginState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          //    OneSignal.User.pushSubscription.optIn();
-
                           Navigator.pushNamed(context, RouteList.signUp);
                         },
                         child: Text(

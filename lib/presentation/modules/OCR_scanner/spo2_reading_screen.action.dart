@@ -7,7 +7,7 @@ extension Spo2ReadingScreenAction on _Spo2ReadingScreenState {
       showToast(translation(context).loadingData);
     }
     if (state.status == BlocStatusState.success) {
-      if (state is UploadTemperatureDataState) {
+      if (state is UploadSpo2DataState) {
         successAlert(
           context,
           alertText: translation(context).uploadSuccessfully,
