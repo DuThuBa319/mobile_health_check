@@ -13,25 +13,25 @@ class GetNotificationListEvent extends NotificationEvent {
       required this.startIndex,
       required this.lastIndex});
 }
+
 class RenewPageAfterActionEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
   final String? doctorId;
   final int? startIndex;
   final int? lastIndex;
- RenewPageAfterActionEvent(
+  RenewPageAfterActionEvent(
       {required this.doctorId,
       required this.startIndex,
       required this.lastIndex});
 }
 
-
 class RefreshNotificationListEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
   final String? doctorId;
 
-  RefreshNotificationListEvent(
-      {required this.doctorId,
-    });
+  RefreshNotificationListEvent({
+    required this.doctorId,
+  });
 }
 
 class SetReadedNotificationEvent extends NotificationEvent {
@@ -39,15 +39,34 @@ class SetReadedNotificationEvent extends NotificationEvent {
 //  final String? doctorId;
 //   final int? startIndex;
 //   final int? lastIndex;
-  SetReadedNotificationEvent({required this.notificationId
-  // ,required this.doctorId,
-  //     required this.startIndex,
-  //     required this.lastIndex
-      }) : super();
+  SetReadedNotificationEvent({ 
+    required this.notificationId
+ 
+      // ,required this.doctorId,
+      //     required this.startIndex,
+      //     required this.lastIndex
+      })
+      : super();
+}
+class SetReadedNotificationFromCellEvent extends NotificationEvent {
+  final int? index;
+  final String? notificationId;
+//  final String? doctorId;
+//   final int? startIndex;
+//   final int? lastIndex;
+ SetReadedNotificationFromCellEvent({ required this.index,
+    required this.notificationId
+ 
+      // ,required this.doctorId,
+      //     required this.startIndex,
+      //     required this.lastIndex
+      })
+      : super();
 }
 
 class DeleteNotificationEvent extends NotificationEvent {
   final String? notificationId;
-
-  DeleteNotificationEvent({required this.notificationId}) : super();
+  final int? index;
+  DeleteNotificationEvent({required this.notificationId, required this.index})
+      : super();
 }

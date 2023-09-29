@@ -13,8 +13,10 @@ import '../../../theme/theme_color.dart';
 
 class Spo2NotificationReadingScreen extends StatefulWidget {
   final NotificationEntity? notificationEntity;
+    final bool? navigateFromCell;
+
   const Spo2NotificationReadingScreen(
-      {super.key, required this.notificationEntity});
+      {super.key, required this.notificationEntity, required this.navigateFromCell});
 
   @override
   State<Spo2NotificationReadingScreen> createState() =>
@@ -166,7 +168,7 @@ class _Spo2NotificationReadingScreenState
                     buttonColor: Colors.red,
                     onTap: () {
                       // if (_isLoading == false) {
-
+(widget.navigateFromCell == true)? Navigator.pop(context):
                       Navigator.pushNamed(context, RouteList.notification,arguments: userDataData.getUser()?.id);
                       // }
                     },

@@ -84,63 +84,36 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                       color: Colors.white,
                     ),
                     child: ClipOval(
-                        child: Image.asset(
-                      fit: BoxFit.fill,
-                      // gender =0 => nam
-                      // gender =1 => nu
-                      (widget.gender == false &&
-                              widget.age! <= 25 &&
-                              widget.age! > 0)
-                          ? Assets.boy
-                          : (widget.gender == false &&
-                                  26 <= widget.age! &&
-                                  widget.age! <= 50)
-                              ? Assets.man
-                              : (widget.gender == false &&
-                                      50 < widget.age! &&
-                                      widget.age! < 150)
-                                  ? Assets.oldMan
-                                  : (widget.gender == true &&
-                                          widget.age! <= 25 &&
-                                          widget.age! > 0)
-                                      ? Assets.girl
-                                      : (widget.gender == true &&
-                                              26 <= widget.age! &&
-                                              widget.age! <= 50)
-                                          ? Assets.women
-                                          : Assets.oldWoman,
-                    ))
-
-                    // : Container(
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(width: 2, color: AppColor.white),
-                    //     shape: BoxShape.circle,
-                    //   ),
-                    //   child: SizedBox(
-                    //     height: SizeConfig.screenWidth * 0.3,
-                    //     width: SizeConfig.screenWidth * 0.3,
-                    //     child: ClipRRect(
-                    //         borderRadius: BorderRadius.circular(80),
-                    //         child: widget.imagePath != null &&
-                    //                 widget.imagePath != ""
-                    //             ?
-
-                    //             FullScreenWidget(
-                    //                 disposeLevel: DisposeLevel.Medium,
-                    //                 child: Image.network(
-                    //                   widget.imagePath!,
-                    //                   fit: BoxFit.fill,
-                    //                 ),
-                    //               )
-                    //             : FullScreenWidget(
-                    //                 disposeLevel: DisposeLevel.High,
-                    //                 child: Image.network(
-                    //                   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtf5HimrPTRa-LtN6UAlm2-YJD8vtj7C3Kg&usqp=CAU",
-                    //                   fit: BoxFit.fill,
-                    //                 ),
-                    //               )),
-                    //   ),
-                    // )
-                    )));
+                        child: widget.gender == null || widget.age == null
+                            ? Image.asset(
+                                Assets.family,
+                                fit: BoxFit.fill,
+                              )
+                            : Image.asset(
+                                fit: BoxFit.fill,
+                                // gender =0 => nam
+                                // gender =1 => nu
+                                (widget.gender == false &&
+                                        widget.age! <= 25 &&
+                                        widget.age! > 0)
+                                    ? Assets.boy
+                                    : (widget.gender == false &&
+                                            26 <= widget.age! &&
+                                            widget.age! <= 50)
+                                        ? Assets.man
+                                        : (widget.gender == false &&
+                                                50 < widget.age! &&
+                                                widget.age! < 150)
+                                            ? Assets.oldMan
+                                            : (widget.gender == true &&
+                                                    widget.age! <= 25 &&
+                                                    widget.age! > 0)
+                                                ? Assets.girl
+                                                : (widget.gender == true &&
+                                                        26 <= widget.age! &&
+                                                        widget.age! <= 50)
+                                                    ? Assets.women
+                                                    : Assets.oldWoman,
+                              )))));
   }
 }

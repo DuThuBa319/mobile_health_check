@@ -111,6 +111,8 @@
 "his":"his",
 "her":"her",
 "goToPatientIn4Screen":"Patient infor screen",
-"goToNotificationScreen":"Notification screen"
+"goToNotificationScreen":"Notification screen",
+"endOfList":"No more data to load",
+"noData":"Not update"
 }
 

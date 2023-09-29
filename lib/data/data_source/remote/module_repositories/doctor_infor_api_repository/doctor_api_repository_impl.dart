@@ -32,7 +32,7 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
 
   @override
   Future<void> deletePatientModel(String? patientId) {
-    return restApi.deletePerson(patientId);
+    return restApi.deletePatient(patientId);
   }
 
   @override

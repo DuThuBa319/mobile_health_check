@@ -13,8 +13,12 @@ import '../../../theme/theme_color.dart';
 
 class BloodSugarNotificationReadingScreen extends StatefulWidget {
   final NotificationEntity? notificationEntity;
+  final bool? navigateFromCell;
+
   const BloodSugarNotificationReadingScreen(
-      {super.key, required this.notificationEntity});
+      {super.key,
+      required this.navigateFromCell,
+      required this.notificationEntity});
 
   @override
   State<BloodSugarNotificationReadingScreen> createState() =>
@@ -184,8 +188,10 @@ class _BloodSugarNotificationReadingScreenState
                     buttonColor: Colors.red,
                     onTap: () {
                       // if (_isLoading == false) {
-
-                      Navigator.pushNamed(context, RouteList.notification,arguments: userDataData.getUser()?.id);
+                      (widget.navigateFromCell == true)
+                          ? Navigator.pop(context)
+                          : Navigator.pushNamed(context, RouteList.notification,
+                              arguments: userDataData.getUser()?.id);
                       // }
                     },
                   ),

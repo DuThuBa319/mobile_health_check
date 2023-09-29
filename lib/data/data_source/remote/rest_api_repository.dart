@@ -5,6 +5,7 @@ import 'package:retrofit/http.dart';
 import '../../models/blood_pressure_model/blood_pressure_model.dart';
 import '../../models/blood_sugar_model/blood_sugar_model.dart';
 import '../../models/doctor_infor_model/doctor_infor_model.dart';
+import '../../models/number_of_notifications/number_of_notifications_model.dart';
 import '../../models/patient_infor_model/patient_infor_model.dart';
 import '../../models/relative_model/relative_infor_model.dart';
 import '../../models/spo2_model/spo2_model.dart';
@@ -29,13 +30,17 @@ abstract class RestApiRepository {
       @Body() PatientInforModel? patientInforModel);
 
   @POST('/api/Persons/{patientId}/AddNewRelative')
-  Future<AccountModel> addRelativeInforModel(
+  Future<void> addRelativeInforModel(
       @Path('patientId') String? patientId,
       @Body() RelativeInforModel? relativeInforModel);
 
   @GET('/api/Persons/DoctorInfo/{doctorId}') //để hiện detail
   Future<DoctorInforModel> getDoctorInforModel(
     @Path('doctorId') String? id,
+  );
+  @GET('/api/Persons/RelativeInfo/{relativeId}') //để hiện detail
+  Future<RelativeInforModel> getRelativeInforModel(
+    @Path('relativeId') String? relativeId,
   );
 
   @GET('/api/Notification/{doctorId}') //để hiện detail
@@ -45,9 +50,12 @@ abstract class RestApiRepository {
     @Query('lastIndex') required int? lastIndex,
   });
 
-  @PUT("/Persons/{personId}") //update
+  @PUT("/api/Persons/{personId}") //update
   Future<void> updatePatientInforModel(@Path("personId") String? id,
       @Body() PatientInforModel? patientInforModel);
+  @PUT("/api/Persons/{personId}") //update
+  Future<void> updateRelativeInforModel(@Path("personId") String? id,
+      @Body() RelativeInforModel? relativeInforModel);
 
   @PUT("/api/Notification/{notificationId}") //update
   Future<void> setReadedNotificationModel(
@@ -55,6 +63,11 @@ abstract class RestApiRepository {
 
   @GET('/api/Notification/{doctorId}/Unseen') //để hiện detail
   Future<int?> getUnreadCountNotification(
+    @Path('doctorId') String? doctorId,
+  );
+
+   @GET('/api/Notification/{doctorId}/Count') //để hiện detail
+  Future<NumberOfNotificationsModel> getNumberOfNotifications(
     @Path('doctorId') String? doctorId,
   );
  @DELETE('/api/Notification/{notificationId}') //delete
@@ -66,6 +79,9 @@ abstract class RestApiRepository {
 
   @DELETE('/api/Persons/{personId}') //delete
   Future<void> deletePerson(@Path('id') String? personId);
+
+  @DELETE('/api/Persons/DeletePatient/{patientId}') //delete
+  Future<void> deletePatient(@Path('patientId') String? patientId);
 
   @PUT('/api/Persons/{personId}/RemoveRelationship/{patientId}') //delete
   Future<void> deleteRelationship(

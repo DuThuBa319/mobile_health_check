@@ -11,7 +11,6 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/blood_pressure_entity.dart';
 import '../../domain/entities/blood_sugar_entity.dart';
-import '../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../domain/entities/spo2_entity.dart';
 import '../../domain/entities/temperature_entity.dart';
 import '../common_widget/enum_common.dart';
@@ -41,13 +40,13 @@ import '../modules/patient/patient_list/patients_list_screen.dart';
 import '../modules/patient/patient_list/widget/add_patient_screen.dart';
 import '../modules/patient/patient_profile/add_relative_screen.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
-import '../modules/setting_screen/doctor_setting/doctor_language_setting.dart';
-import '../modules/setting_screen/doctor_setting/doctor_password_setting.dart';
-import '../modules/setting_screen/doctor_setting/doctor_phone_setting.dart';
-import '../modules/setting_screen/doctor_setting/doctor_setting_menu.dart';
+import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_language_setting.dart';
+import '../modules/setting_screen/doctor_or_relative_setting/doctor_relative_password_setting.dart';
+import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_phone_setting.dart';
+import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_setting_menu.dart';
 import '../modules/setting_screen/patient_setting/patient_language_setting.dart';
 import '../modules/setting_screen/patient_setting/patient_password_setting.dart';
-import '../modules/setting_screen/patient_setting/patient_profile_setting.dart';
+import '../modules/setting_screen/profile_setting.dart';
 import '../modules/setting_screen/patient_setting/patient_setting_menu.dart';
 
 class AppRoute {
@@ -103,7 +102,7 @@ class AppRoute {
             return const SignUpDoctorScreen();
           },
         );
-      case '/addRalative':
+      case '/addRelative':
         final map = routeSettings.arguments as Map;
         return MaterialPageRoute(
           builder: (context) {
@@ -260,28 +259,32 @@ class AppRoute {
                 ));
 
       case '/bloodPressuerNotificationReading':
-        final response = routeSettings.arguments as NotificationEntity;
+        final response = routeSettings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => BloodPressureNotificationReadingScreen(
-                  notificationEntity: response,
+                  notificationEntity: response["notificationEntity"],
+                  navigateFromCell: response["navigateFromCell"],
                 ));
       case '/bloodSugarNotificationReading':
-        final response = routeSettings.arguments as NotificationEntity;
+        final response = routeSettings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => BloodSugarNotificationReadingScreen(
-                  notificationEntity: response,
+                  notificationEntity: response["notificationEntity"],
+                  navigateFromCell: response["navigateFromCell"],
                 ));
       case '/bodyTemperatureNotificationReading':
-        final response = routeSettings.arguments as NotificationEntity;
+        final response = routeSettings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => TemperatureNotificationReadingScreen(
-                  notificationEntity: response,
+                  notificationEntity: response["notificationEntity"],
+                  navigateFromCell: response["navigateFromCell"],
                 ));
       case '/spo2NotificationReading':
-        final response = routeSettings.arguments as NotificationEntity;
+        final response = routeSettings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => Spo2NotificationReadingScreen(
-                  notificationEntity: response,
+                  notificationEntity: response["notificationEntity"],
+                  navigateFromCell: response["navigateFromCell"],
                 ));
 
       case '/notification':
@@ -304,12 +307,12 @@ class AppRoute {
           return const PatientSettingMenu();
         });
 
-      case '/patientSettingProfile':
+      case '/settingProfile':
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: const SettingPatientProfile(),
+              child: const SettingProfile(),
             );
           },
         );
@@ -324,7 +327,7 @@ class AppRoute {
       case '/settingDrPhone':
         return MaterialPageRoute(
           builder: (context) {
-            return const SettingDrPhone();
+            return const SettingDrOrRePhone();
           },
         );
       case '/settingLanguage':
@@ -336,7 +339,7 @@ class AppRoute {
       case '/settingDrPass':
         return MaterialPageRoute(
           builder: (context) {
-            return const SettingDrPassword();
+            return const SettingDrOrRePassword();
           },
         );
 

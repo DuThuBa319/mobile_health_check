@@ -12,7 +12,7 @@
     "forgotPass":"Quên mật khẩu?",
     "height":"Chiều cao",
     "history":"Lịch sử",
-    "homeScreen":"Danh sách",
+    "homeScreen":"Hồ sơ",
     "hyperglycemia":"Đường huyết cao",
     "hyperthermia":"Nhiệt độ cao",
     "hypoglycemia":"Đường huyết thấp",
@@ -31,7 +31,7 @@
 "oldPhoneNumber":"Số điện thoại cũ của bạn",
 "password":"Mật khẩu",
 "patientIn4":"Thông tin bệnh nhân",
-"patientList":"Danh sách bệnh nhân",
+"patientList":"Hồ sơ bệnh nhân",
 "phoneNumber":"Số điện thoại",
 "prediabetes":"Tiền tiểu đường",
 "prehypertension":"Tiền huyết áp cao",
@@ -108,7 +108,8 @@
 "patient":"Bệnh nhân",
 "his":"",
 "her":"",
-"goToPatientIn4Screen":"Thông tin bệnh nhân",
-"goToNotificationScreen":"Đến trang thông báo"
-
+"goToPatientIn4Screen":"Trang bệnh nhân",
+"goToNotificationScreen":"Trang thông báo",
+"endOfList":"Không còn thông báo",
+"noData":"Chưa có thông tin"
 }

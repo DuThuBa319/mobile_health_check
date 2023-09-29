@@ -13,12 +13,14 @@ import '../bloc/notification_bloc.dart';
 class NotificationCell extends StatefulWidget {
   final NotificationEntity? notificationEntity;
   final NotificationBloc? notificationBloc;
-
+  final int? cellIndex;
   final String? doctorId;
   // final DoctorInforEntity? doctorInforEntity;
   const NotificationCell({
     Key? key,
     // this.doctorInforEntity,
+
+    this.cellIndex,
     this.doctorId,
     this.notificationBloc,
     this.notificationEntity,
@@ -36,7 +38,8 @@ class _NotificationCellState extends State<NotificationCell> {
       onTap: () {
         if (widget.notificationEntity?.read == false) {
           widget.notificationBloc!.add(
-            SetReadedNotificationEvent(
+            SetReadedNotificationFromCellEvent(
+              index: widget.cellIndex,
               notificationId: widget.notificationEntity?.notificaitonId,
             ),
           );
@@ -45,25 +48,36 @@ class _NotificationCellState extends State<NotificationCell> {
         if (widget.notificationEntity?.bloodPressureEntity != null) {
           showToast(translation(context).waitForSeconds);
           Navigator.pushNamed(
-              context, RouteList.bloodPressuerNotificationReading,
-              arguments: widget.notificationEntity);
+              context, RouteList.bloodPressuerNotificationReading, arguments: {
+            "notificationEntity": widget.notificationEntity,
+            "navigateFromCell": true
+          });
         }
         if (widget.notificationEntity?.bloodSugarEntity != null) {
           showToast(translation(context).waitForSeconds);
 
           Navigator.pushNamed(context, RouteList.bloodSugarNotificationReading,
-              arguments: widget.notificationEntity);
+          arguments: {
+            "notificationEntity": widget.notificationEntity,
+            "navigateFromCell": true
+          });
         }
         if (widget.notificationEntity?.bodyTemperatureEntity != null) {
           showToast(translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bodyTemperatureNotificationReading,
-              arguments: widget.notificationEntity);
+             arguments: {
+            "notificationEntity": widget.notificationEntity,
+            "navigateFromCell": true
+          });
         }
         if (widget.notificationEntity?.spo2Entity != null) {
           showToast(translation(context).waitForSeconds);
           Navigator.pushNamed(context, RouteList.spo2NotificationReading,
-              arguments: widget.notificationEntity);
+            arguments: {
+            "notificationEntity": widget.notificationEntity,
+            "navigateFromCell": true
+          });
         }
       },
       child: Container(
@@ -167,6 +181,8 @@ class _NotificationCellState extends State<NotificationCell> {
                                                 onPressed: () {
                                                   widget.notificationBloc?.add(
                                                       DeleteNotificationEvent(
+                                                          index:
+                                                              widget.cellIndex,
                                                           notificationId: widget
                                                               .notificationEntity
                                                               ?.notificaitonId));

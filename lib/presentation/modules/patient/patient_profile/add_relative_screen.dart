@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../classes/language.dart';
+import '../../../../common/singletons.dart';
 import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
@@ -32,6 +33,8 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         title: translation(context).addRelative,
         isShowRightButon: false,
         isShowAppBar: true,

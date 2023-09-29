@@ -56,6 +56,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
     SizeConfig.init(context);
     return CustomScreenForm(
         title: translation(context).patientIn4,
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: true,
@@ -190,25 +192,33 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               SizeConfig.screenHeight * 0.02,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    GestureDetector(
-                                      child: Text(
-                                          translation(context).addRelative,
-                                          style: AppTextTheme.body5.copyWith(
-                                            color: Colors.blue,
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.05,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          )),
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, RouteList.addRelative,
-                                            arguments: {
-                                              "patientBloc": patientBloc,
-                                              "patientId": widget.patientId
-                                            });
-                                      },
-                                    )
+                                    (userDataData.getUser()?.role == "doctor")
+                                        ? GestureDetector(
+                                            child: Text(
+                                                translation(context)
+                                                    .addRelative,
+                                                style:
+                                                    AppTextTheme.body5.copyWith(
+                                                  color: Colors.blue,
+                                                  fontSize:
+                                                      SizeConfig.screenWidth *
+                                                          0.05,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                )),
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  RouteList.addRelative,
+                                                  arguments: {
+                                                    "patientBloc": patientBloc,
+                                                    "patientId":
+                                                        widget.patientId
+                                                  });
+                                            },
+                                          )
+                                        : const SizedBox(
+                                            width: 0.5,
+                                          )
                                   ],
                                 ),
                                 const SizedBox(
@@ -357,8 +367,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 )
                               : Center(
                                   child: Container(
+                                    height: SizeConfig.screenHeight * 0.2,
                                     margin: EdgeInsets.only(
-                                        top: SizeConfig.screenHeight * 0.2),
+                                        top: SizeConfig.screenHeight * 0.05),
                                     child: Text("Chưa có dữ liệu",
                                         style: AppTextTheme.body0.copyWith(
                                             color: Colors.red,

@@ -18,6 +18,15 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       phoneNumber: json['phoneNumber'] as String?,
       role: json['role'] as String?,
       gender: json['gender'] as bool?,
+      patients: (json['patients'] as List<dynamic>?)
+          ?.map((e) => PatientInforModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      doctor: json['doctor'] == null
+          ? null
+          : DoctorInforModel.fromJson(json['doctor'] as Map<String, dynamic>),
+      relatives: (json['relatives'] as List<dynamic>?)
+          ?.map((e) => RelativeInforModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) {
@@ -40,5 +49,9 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   writeNotNull('height', instance.height);
   writeNotNull('address', instance.address);
   writeNotNull('gender', instance.gender);
+  writeNotNull('patients', instance.patients?.map((e) => e.toJson()).toList());
+  writeNotNull(
+      'relatives', instance.relatives?.map((e) => e.toJson()).toList());
+  writeNotNull('doctor', instance.doctor?.toJson());
   return val;
 }

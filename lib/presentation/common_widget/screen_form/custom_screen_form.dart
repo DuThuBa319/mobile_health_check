@@ -1,10 +1,8 @@
-import 'package:badges/badges.dart' as badges;
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
-import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
 import '../../../function.dart';
 import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
@@ -12,6 +10,7 @@ import '../../route/route_list.dart';
 
 class CustomScreenForm extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
+  final bool? isRelativeApp;
   final bool isShowAppBar;
   final Color? appBarColor;
   final Color? backgroundColor;
@@ -27,25 +26,27 @@ class CustomScreenForm extends StatefulWidget {
   final String? unreadCount;
   final String? messageBody;
   final NotificationBloc? notificationBloc;
-  const CustomScreenForm({
-    super.key,
-    this.notificationBloc,
-    this.messageBody,
-    this.unreadCount,
-    this.appBarColor = Colors.black,
-    this.backgroundColor = Colors.white,
-    this.appComponentColor = Colors.white,
-    this.isShowBottomNayvigationBar,
-    this.isShowAppBar = true,
-    required this.child,
-    this.isShowLeadingButton = false,
-    this.leadingButton,
-    this.selectedIndex,
-    this.isScrollable = false,
-    this.title,
-    this.isShowRightButon = false,
-    this.rightButton,
-  });
+  final Widget? floatActionButton;
+  const CustomScreenForm(
+      {super.key,
+      this.isRelativeApp = false,
+      this.notificationBloc,
+      this.messageBody,
+      this.unreadCount,
+      this.appBarColor = Colors.black,
+      this.backgroundColor = Colors.white,
+      this.appComponentColor = Colors.white,
+      this.isShowBottomNayvigationBar,
+      this.isShowAppBar = true,
+      required this.child,
+      this.isShowLeadingButton = false,
+      this.leadingButton,
+      this.selectedIndex = -1,
+      this.isScrollable = false,
+      this.title,
+      this.isShowRightButon = false,
+      this.rightButton,
+      this.floatActionButton});
 
   @override
   State<CustomScreenForm> createState() => _CustomScreenFormState();
@@ -88,19 +89,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               actions: [
                 widget.isShowRightButon
                     ? widget.rightButton ??
-                        Row(
-                          children: [
-                            badges.Badge(
-                              badgeContent: Text(
-                                  "${notificationData.unreadCount}",
-                                  style: const TextStyle(
-                                      fontSize: 10, color: Colors.white)),
-                              child: const Icon(Icons.notifications),
-                            ),
-                            const SizedBox(
-                              width: 30,
-                            ),
-                          ],
+                        const SizedBox(
+                          height: 30,
+                          width: 30,
                         )
                     : const SizedBox(
                         height: 30,
@@ -129,49 +120,23 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    //      InkWell(
-                    //   onTap: () {
-                    //     Navigator.pushNamed(context, RouteList.selectEquip);
-                    //   },
-                    //   child: Container(
-                    //       height: 47,
-                    //       width: 47,
-                    //       decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(30),
-                    //         color: const Color.fromARGB(255, 123, 211, 255),
-                    //       ),
-                    //       child: const Icon(Icons.add,
-                    //
-                    //        size: 30, color: Colors.white)),
-                    // ),
                     iconBottomBar(
                         label: translation(context).homeScreen,
                         iconData: Icons.list,
                         isSelected: widget.selectedIndex == 0 ? true : false,
                         iconIndex: 0),
-
-                    // (notificationData.unreadCount ?? 0) < 10
-                    // ? 3
-                    // :
-
-                    // badgeContent:
-                    //     Text('${notificationData.unreadCount ?? 0}'),
-                    iconBottomBar(
-                        label: translation(context).notification,
-                        iconData: Icons.notifications_none_rounded,
-                        isSelected: widget.selectedIndex == 1 ? true : false,
-                        iconIndex: 1),
-
                     iconBottomBar(
                         label: translation(context).settingScreen,
                         iconData: Icons.settings_sharp,
-                        isSelected: widget.selectedIndex == 2 ? true : false,
-                        iconIndex: 2),
+                        isSelected: widget.selectedIndex == 1 ? true : false,
+                        iconIndex: 1),
                   ],
                 ),
               ),
             )
           : null,
+
+      floatingActionButton: widget.floatActionButton,
     );
   }
 
@@ -185,10 +150,12 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
         _onItemTapped(iconIndex);
       },
       child: Container(
+        color: Colors.white,
         padding: EdgeInsets.only(
           top: SizeConfig.screenHeight * 0.005,
         ),
         height: SizeConfig.screenHeight / 15,
+        width: SizeConfig.screenWidth / 2,
         child: Column(
           children: [
             Icon(
@@ -221,19 +188,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       Navigator.pushNamed(context, RouteList.patientList,
           arguments: userDataData.getUser()!.id!);
     }
-    if (index == 2 && index != widget.selectedIndex) {
+    if (index == 1 && index != widget.selectedIndex) {
       Navigator.pushNamed(context, RouteList.setting);
     }
-    if (index == 1 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.notification,
-          arguments: userDataData.getUser()!.id!);
-    }
+    
   }
-
-  // if (index == 1 && index != widget.selectedIndex) {
-  //   Navigator.pushReplacementNamed(context, RouteList.history);
-  // }
-  // if (index == 2 && index != widget.selectedIndex) {
-  //   Navigator.pushReplacementNamed(context, RouteList.trend);
-  // }
 }

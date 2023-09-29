@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../classes/language.dart';
-import '../../classes/language_constant.dart';
 import '../../data/models/blood_pressure_model/blood_pressure_model.dart';
 
 class BloodPressureEntity {
@@ -30,8 +29,8 @@ class BloodPressureEntity {
   }
 
   Color get statusColor {
-    if (sys != null ) {
-     if (sys! <= 120) {
+    if (sys != null) {
+      if (sys! <= 120) {
         //|| dia! <= 80
         return const Color.fromARGB(255, 64, 247, 70);
       } else if (sys! >= 120 && sys! <= 139) {
@@ -53,7 +52,7 @@ class BloodPressureEntity {
   }
 
   String statusComment(BuildContext context) {
-    if (sys != null ) {
+    if (sys != null) {
       if (sys! <= 90) {
         //|| dia! <= 60
         return translation(context).hypotension;

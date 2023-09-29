@@ -89,6 +89,7 @@ class CameraScreenState extends State<CameraScreen>
   @override
   Widget build(BuildContext context) {
     return CustomScreenForm(
+      
         backgroundColor: backgroundColor,
         appBarColor: Colors.blue,
         isShowLeadingButton: true,

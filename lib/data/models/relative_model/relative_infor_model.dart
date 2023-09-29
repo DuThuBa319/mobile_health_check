@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 
 import '../../../domain/entities/patient_infor_entity.dart';
 import '../../../domain/entities/relative_infor_entity.dart';
@@ -41,9 +42,10 @@ class RelativeInforModel {
     List<PatientInforEntity> patientEntities = [];
     if (patients != null) {
       for (var model in patients!) {
-        patientEntities.add(model.getPatientInforEntity());
+        patientEntities.add(model.getPatientInforEntityForList());
       }
     }
+   
     return RelativeInforEntity(
       id: id,
       name: name,

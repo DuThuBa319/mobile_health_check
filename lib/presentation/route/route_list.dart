@@ -1,4 +1,4 @@
-class RouteList {
+class  RouteList {
   static const String initial = '/';
   static const String mainPageRoute = '/mainRoute';
 
@@ -37,11 +37,11 @@ class RouteList {
   static const String setting = '/setting';
   static const String patientSetting = '/patientSetting';
   static const String selectEquip = '/select';
-  static const String patientSettingProfile = '/patientSettingProfile';
+  static const String settingProfile = '/settingProfile';
   static const String patientSettingPass = '/patientSettingPass';
   static const String patientSettingLanguage = '/patientSettingLanguage';
   static const String addPatient = '/addPatient';
-  static const String addRelative = '/addRalative';
+  static const String addRelative = '/addRelative';
   static const String signUp = '/signUp';
 
   static const String bloodPressureScreen = '/bloodPressureScreen';

@@ -68,46 +68,51 @@ class _PatientListCellState extends State<PatientListCell> {
                         ? "chưa cập nhật"
                         : widget.patientInforEntity!.phoneNumber,
                     style: AppTextTheme.body4),
-                trailing: IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => Center(
-                        child: AlertDialog(
-                          title: Text(translation(context).notification),
-                          content: Text(
-                            "Delete this Patient?",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          actions: [
-                            TextButton(
-                              child: Text(translation(context).exit),
-                              onPressed: () {
-                                //Navigator.pop(context);
-                                Navigator.pop(context);
-                              },
-                            ),
-                            TextButton(
-                              child: Text(translation(context).accept),
-                              onPressed: () {
-                                widget.patientBloc.add(DeletePatientEvent(
-                                  doctorId: userDataData.getUser()!.id,
-                                  patientId: widget.patientInforEntity?.id,
-                                ));
-                                //Navigator.pop(context);
+                trailing: (userDataData.getUser()?.role == "relative")
+                    ? const SizedBox(
+                        width: 0.5,
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => Center(
+                              child: AlertDialog(
+                                title: Text(translation(context).notification),
+                                content: Text(
+                                  "Delete this Patient?",
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(translation(context).exit),
+                                    onPressed: () {
+                                      //Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text(translation(context).accept),
+                                    onPressed: () {
+                                      widget.patientBloc.add(DeletePatientEvent(
+                                        doctorId: userDataData.getUser()!.id,
+                                        patientId:
+                                            widget.patientInforEntity?.id,
+                                      ));
+                                      //Navigator.pop(context);
 
-                                Navigator.pop(context);
-                              },
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
+                          );
+                        },
+                        icon: Icon(Icons.delete_outline_outlined,
+                            size: SizeConfig.screenWidth * 0.1,
+                            color: AppColor.lineDecor),
                       ),
-                    );
-                  },
-                  icon: Icon(Icons.delete_outline_outlined,
-                      size: SizeConfig.screenWidth * 0.1,
-                      color: AppColor.lineDecor),
-                ),
               ),
             )));
   }

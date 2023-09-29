@@ -38,13 +38,14 @@ class _NotificationListState extends State<NotificationScreen> {
   int lastIndex = -1;
   int startIndex = -50;
   int quantity = 50;
-
+  bool loadMore = true;
   @override
   void initState() {
     super.initState();
     expandingController.addListener(() {
-      if (expandingController.position.maxScrollExtent ==
-          expandingController.offset) {
+      if ((expandingController.position.maxScrollExtent ==
+              expandingController.offset) &&
+          (loadMore == true)) {
         lastIndex += quantity;
         startIndex += quantity;
         notificationBloc.add(GetNotificationListEvent(
@@ -83,6 +84,8 @@ class _NotificationListState extends State<NotificationScreen> {
     // });
     SizeConfig.init(context);
     return CustomScreenForm(
+        isRelativeApp:
+            (userDataData.getUser()?.role == "relative") ? true : false,
         isShowAppBar: true,
         isShowLeadingButton: true,
         isShowBottomNayvigationBar: true,
@@ -104,24 +107,10 @@ class _NotificationListState extends State<NotificationScreen> {
                       startIndex: startIndex,
                       lastIndex: lastIndex));
                 }
-                if ((state is SetReadedNotificationState &&
-                        state.status == BlocStatusState.success) ||
-                    (state is DeleteNotificationState &&
-                        state.status == BlocStatusState.success)) {
-                  notificationBloc.add(RefreshNotificationListEvent(
-                    doctorId: widget.id ?? widget.id!,
-                  ));
 
-                  // notificationBloc.add(GetNotificationListEvent(
-                  //     doctorId: widget.id ?? widget.id!,
-                  //     startIndex: startIndex,
-                  //     lastIndex: lastIndex));
-                }
                 if ((state is GetNotificationListState &&
                         state.status == BlocStatusState.loading &&
                         state.viewModel.notificationEntity == null) ||
-                    (state is DeleteNotificationState &&
-                        state.status == BlocStatusState.loading) ||
                     (state is RefreshNotificationListState &&
                         state.status == BlocStatusState.loading)) {
                   return const Center(
@@ -129,12 +118,20 @@ class _NotificationListState extends State<NotificationScreen> {
                   );
                 }
 
-                if ((state is GetNotificationListState &&
-                        state.status == BlocStatusState.loading &&
-                        state.viewModel.notificationEntity != null) ||
+                if (((state is GetNotificationListState &&
+                            state.status == BlocStatusState.loading) ||
+                        (state is DeleteNotificationState &&
+                            state.status == BlocStatusState.loading) ||
+                        (state is SetReadedNotificationFromCellState &&
+                                state.status == BlocStatusState.loading) &&
+                            state.viewModel.notificationEntity != null) ||
                     (state is GetNotificationListState &&
                         state.status == BlocStatusState.success) ||
                     (state is RefreshNotificationListState &&
+                        state.status == BlocStatusState.success) ||
+                    (state is DeleteNotificationState &&
+                        state.status == BlocStatusState.success) ||
+                    (state is SetReadedNotificationFromCellState &&
                         state.status == BlocStatusState.success)) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
                     return Center(
@@ -194,9 +191,31 @@ class _NotificationListState extends State<NotificationScreen> {
                                         state.viewModel.notificationEntity!
                                             .length) {
                                       return NotificationCell(
+                                        cellIndex: index,
                                         notificationEntity: state.viewModel
                                             .notificationEntity![index],
                                         notificationBloc: notificationBloc,
+                                      );
+                                    }
+                                    if (state.viewModel.notificationEntity!
+                                            .length >=
+                                        state
+                                            .viewModel
+                                            .numberOfNotificationsEntity!
+                                            .numberOfNotifications!) {
+                                      loadMore = false;
+
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 32),
+                                        child: Center(
+                                            child: Text(
+                                          translation(context).endOfList,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.05),
+                                        )),
                                       );
                                     } else {
                                       return const Padding(

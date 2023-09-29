@@ -43,5 +43,6 @@ class Assets {
   static const String relative = 'lib/assets/images/relative.png';
   static const String oximeter = 'lib/assets/images/oximeter.png';
   static const String oxi = 'lib/assets/images/oxi.png';
+  static const String family = 'lib/assets/images/family.png';
 
 }

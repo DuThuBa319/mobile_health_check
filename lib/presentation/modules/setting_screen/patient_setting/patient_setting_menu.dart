@@ -22,6 +22,7 @@ class PatientSettingMenu extends StatefulWidget {
 class _PatientSettingMenuState extends State<PatientSettingMenu> {
   @override
   Widget build(BuildContext context) {
+    
     SizeConfig.init(context);
     return PatientCustomScreenForm(
         title: translation(context).setting,
@@ -76,8 +77,8 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                         translation(context).updatePassword, context),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                        context, RouteList.patientSettingProfile),
+                    onTap: () =>
+                        Navigator.pushNamed(context, RouteList.settingProfile),
                     child: settingMenuCell(
                         translation(context).updateProfile, context),
                   ),

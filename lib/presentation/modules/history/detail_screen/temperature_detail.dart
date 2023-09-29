@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/temperature_entity.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import '../../../theme/theme_color.dart';
@@ -74,14 +73,14 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       Text(
                         DateFormat('dd/MM/yyyy').format(
                             widget.temperatureEntity?.updatedDate ??
-                                DateTime(2023, 9, 16, 12,00)),
+                                DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
                         DateFormat('HH:mm').format(
                             widget.temperatureEntity?.updatedDate ??
-                                DateTime(2023, 9, 16, 12,00)),
+                                DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       )

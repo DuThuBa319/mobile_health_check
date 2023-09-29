@@ -12,8 +12,11 @@ import '../../../common_widget/screen_form/image_picker_widget/custom_image_pick
 
 class BloodPressureNotificationReadingScreen extends StatefulWidget {
   final NotificationEntity? notificationEntity;
+  final bool? navigateFromCell;
   const BloodPressureNotificationReadingScreen(
-      {super.key, required this.notificationEntity});
+      {super.key,
+      required this.navigateFromCell,
+      required this.notificationEntity});
 
   @override
   State<BloodPressureNotificationReadingScreen> createState() =>
@@ -211,7 +214,10 @@ class _BloodPressureNotificationReadingScreenState
                     title: translation(context).goToNotificationScreen,
                     buttonColor: Colors.red,
                     onTap: () {
-                      Navigator.pushNamed(context, RouteList.notification,arguments: userDataData.getUser()?.id);
+                      (widget.navigateFromCell == true)
+                          ? Navigator.pop(context)
+                          : Navigator.pushNamed(context, RouteList.notification,
+                              arguments: userDataData.getUser()?.id);
                     },
                   ),
                 ],
