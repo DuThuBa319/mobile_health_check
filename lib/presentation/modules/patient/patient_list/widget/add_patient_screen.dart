@@ -8,6 +8,7 @@ import '../../../../../classes/language.dart';
 
 import '../../../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../../common_widget/common_button.dart';
+import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../../theme/theme_color.dart';
@@ -163,27 +164,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               patientInforModel: newPatientInforModel,
                               doctorId: userDataData.getUser()!.id));
                         } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => Center(
-                              child: AlertDialog(
-                                title: Text(translation(context).notification),
-                                content: Text(
+                          showNoticeDialog(
+                              context: context,
+                              message:
                                   "Số điện thoại không chính xác, phải từ 10-11 ký tự",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: Text(translation(context).exit),
-                                    onPressed: () {
-                                      //Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                              title: translation(context).notification,
+                              titleBtn: translation(context).exit);
                         }
                       })),
             ]),

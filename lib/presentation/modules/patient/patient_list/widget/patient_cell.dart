@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../../classes/language.dart';
 import '../../../../../domain/entities/patient_infor_entity.dart';
 import '../../../../../function.dart';
+import '../../../../common_widget/dialog/dialog_two_button.dart';
 import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
@@ -74,40 +75,18 @@ class _PatientListCellState extends State<PatientListCell> {
                       )
                     : IconButton(
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => Center(
-                              child: AlertDialog(
-                                title: Text(translation(context).notification),
-                                content: Text(
-                                  "Delete this Patient?",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: Text(translation(context).exit),
-                                    onPressed: () {
-                                      //Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text(translation(context).accept),
-                                    onPressed: () {
-                                      widget.patientBloc.add(DeletePatientEvent(
-                                        doctorId: userDataData.getUser()!.id,
-                                        patientId:
-                                            widget.patientInforEntity?.id,
-                                      ));
-                                      //Navigator.pop(context);
-
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          showNoticeDialogTwoButton(
+                              context: context,
+                              title: translation(context).notification,
+                              message: "Delete this Patient?",
+                              titleBtn1: translation(context).exit,
+                              titleBtn2: translation(context).accept,
+                              onClose2: () {
+                                widget.patientBloc.add(DeletePatientEvent(
+                                  doctorId: userDataData.getUser()!.id,
+                                  patientId: widget.patientInforEntity?.id,
+                                ));
+                              });
                         },
                         icon: Icon(Icons.delete_outline_outlined,
                             size: SizeConfig.screenWidth * 0.1,

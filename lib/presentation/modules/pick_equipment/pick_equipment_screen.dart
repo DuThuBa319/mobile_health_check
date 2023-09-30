@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
 import '../../../function.dart';
+import '../../common_widget/dialog/dialog_two_button.dart';
 import '../../common_widget/line_decor.dart';
 import '../../route/route_list.dart';
 part 'pick_equipment_screen.action.dart';
@@ -181,28 +182,16 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
   }
 
   Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            title: const Text('Are you sure?'),
-            content: const Text('Do you want to exit an App'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () =>
-                    Navigator.of(context).pop(false), //<-- SEE HERE
-                child: const Text('No'),
-              ),
-              TextButton(
-                onPressed: () {
-                  SystemNavigator.pop();
-                },
-                // <-- SEE HERE
-                child: const Text('Yes'),
-              ),
-            ],
-          ),
-        )) ??
+    return (await showNoticeDialogTwoButton(
+            context: context,
+            message: 'Do you want to exit an App',
+            title: 'Are you sure?',
+            titleBtn1: 'No',
+            titleBtn2: 'Yes',
+            onClose1: () {},
+            onClose2: () {
+              SystemNavigator.pop();
+            })) ??
         false;
   }
 }

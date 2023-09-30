@@ -7,6 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
+import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -50,8 +51,8 @@ class BloodPressureHistoryScreenState
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+      isRelativeApp:
+          (userDataData.getUser()?.role == "relative") ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -150,7 +151,16 @@ class BloodPressureHistoryScreenState
             child: InkWell(
               onTap: () {
                 if (timeFrom.isAfter(timeTo)) {
-                  showAlertDialog(context);
+                  showNoticeDialog(
+                      context: context,
+                      message: 'Start Date must be before End Date',
+                      onClose: () {
+                        timeFrom = timeTo;
+                        strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
+                      },
+                      title: 'Attention!!!',
+                      titleBtn: 'Close');
+                  
                 } else {
                   onGetBloodPressureData();
                 }

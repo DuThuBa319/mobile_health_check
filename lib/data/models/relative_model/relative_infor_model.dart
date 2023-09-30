@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mobile_health_check/common/singletons.dart';
 
 import '../../../domain/entities/patient_infor_entity.dart';
 import '../../../domain/entities/relative_infor_entity.dart';
@@ -45,7 +44,7 @@ class RelativeInforModel {
         patientEntities.add(model.getPatientInforEntityForList());
       }
     }
-   
+
     return RelativeInforEntity(
       id: id,
       name: name,

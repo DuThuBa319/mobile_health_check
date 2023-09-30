@@ -7,6 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../common/singletons.dart';
 import '../../../../function.dart';
+import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -139,7 +140,15 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
             child: InkWell(
               onTap: () {
                 if (dateFrom.isAfter(dateTo)) {
-                  showAlertDialog(context);
+                  showNoticeDialog(
+                      context: context,
+                      message: 'Start Date must be before End Date',
+                      onClose: () {
+                        dateFrom = dateTo;
+                        strDateFrom = DateFormat('dd/MM/yyyy').format(dateFrom);
+                      },
+                      title: 'Attention!!!',
+                      titleBtn: 'Close');
                 } else {
                   onGetSpo2Data();
                 }

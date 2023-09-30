@@ -9,7 +9,7 @@ class PatientUsecaseImpl extends PatientUsecase {
   PatientUsecaseImpl(this._repository);
 
   @override
-  Future<PatientInforEntity>? getPatientInforEntity(String? id) async {
+  Future<PatientInforEntity?> getPatientInforEntity(String? id) async {
     final response = await _repository.getPatientInforModel(id);
 
     final entity = response.getPatientInforEntity();
@@ -23,7 +23,7 @@ class PatientUsecaseImpl extends PatientUsecase {
   }
 
   @override
-  Future<PatientInforEntity>? getPatientInforEntityInPatientApp(
+  Future<PatientInforEntity?> getPatientInforEntityInPatientApp(
       String? id) async {
     final response = await _repository.getPatientInforModel(id);
     await userDataData.setUser(UserModel(
@@ -44,9 +44,11 @@ class PatientUsecaseImpl extends PatientUsecase {
   }
 
   @override
-  Future<void>? addRelativeInforEntity(
+  Future<AccountEntity?> addRelativeInforEntity(
       String? patientId, RelativeInforModel? relativeInforModel) async {
-    await _repository.addRelativeInforModel(patientId, relativeInforModel);
+    final accountModel =
+        await _repository.addRelativeInforModel(patientId, relativeInforModel);
+    return accountModel?.convertAccountEntity();
   }
 
   // @override

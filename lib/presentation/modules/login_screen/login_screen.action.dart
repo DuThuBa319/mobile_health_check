@@ -64,9 +64,7 @@ extension LoginAction on _LoginState {
       );
     }
 
-    if (state is LoginActionState &&
-        state.status == BlocStatusState.success 
-      ) {
+    if (state is LoginActionState && state.status == BlocStatusState.success) {
       Navigator.pop(context);
       showToast(translation(context).verifySuccessfully);
       bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
@@ -91,7 +89,11 @@ extension LoginAction on _LoginState {
     if (state.status == BlocStatusState.failure) {
       final message = state.viewModel.errorMessage ?? '--';
       Navigator.pop(context);
-      showNoticeDialog(context: context, message: message);
+      showNoticeDialog(
+          context: context,
+          message: message,
+          title: translation(context).notification,
+          titleBtn: translation(context).exit);
       if (userDataData.getUser() != null) {
         userDataData.localDataManager.preferencesHelper.remove('user');
       }

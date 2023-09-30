@@ -12,6 +12,32 @@ extension CameraScreenAction on CameraScreenState {
       showToast(translation(context).processSuccessfully);
       await imageDialog(context, imageFile: state.viewModel.imageFile!);
     }
+    if (state is CameraReadyState && state.status == BlocStatusState.loading) {
+      showToast(translation(context).processing);
+    }
+    if (state is CameraReadyState && state.status == BlocStatusState.success) {
+      showToast(translation(context).processSuccessfully);
+    }
+    if (state is CameraReadyState && state.status == BlocStatusState.failure) {
+      showNoticeDialog(
+          context: context,
+          message: 'Đã xảy ra lỗi. Vui lòng thử lại!',
+          title: translation(context).notification,
+          titleBtn: translation(context).exit,
+          onClose: () {
+            Navigator.pop(context);
+          });
+    }
+    if (state is GetImageState && state.status == BlocStatusState.failure) {
+      showNoticeDialog(
+          context: context,
+          message: 'Đã xảy ra lỗi',
+          title: translation(context).notification,
+          titleBtn: translation(context).exit,
+          onClose: () {
+            Navigator.pop(context);
+          });
+    }
   }
 
   void onNewCameraSelected(CameraDescription cameraDescription) async {
@@ -123,7 +149,12 @@ extension CameraScreenAction on CameraScreenState {
                       final CroppedImage croppedImage = CroppedImage(imageFile,
                           currentFlashMode == FlashMode.off ? false : true);
                       controller!.dispose();
+                      cameraBloc.add(CameraStoppedEvent(
+                          controller: controller!,
+                          context: context,
+                          task: MeasuringTask.oximeter));
                       Navigator.pop(context);
+
                       Navigator.pop(context, croppedImage);
                     },
                     child: Text(translation(context).accept))

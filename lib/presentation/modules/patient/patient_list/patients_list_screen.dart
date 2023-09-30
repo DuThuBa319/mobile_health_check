@@ -11,6 +11,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../classes/language.dart';
 
 import '../../../../common/singletons.dart';
+import '../../../common_widget/dialog/dialog_one_button.dart';
+import '../../../common_widget/dialog/dialog_two_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';

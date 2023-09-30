@@ -28,6 +28,7 @@ class FirebaseAuthService {
       required String phoneNumber}) async {
     final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
+
     final user = <String, dynamic>{
       "id": id,
       "email": email,
@@ -46,5 +47,25 @@ class FirebaseAuthService {
   Future<void> signOut() {
     // userDataData.setToken('');
     return _firebaseAuth.signOut();
+  }
+
+  Future<bool> changePassword(
+      String currentPassword, String newPassword) async {
+    bool success = false;
+
+    //Create an instance of the current user.
+    var user = FirebaseAuth.instance.currentUser!;
+    //Must re-authenticate user before updating the password. Otherwise it may fail or user get signed out.
+
+    final cred = EmailAuthProvider.credential(
+        email: user.email!, password: currentPassword);
+    await user.reauthenticateWithCredential(cred).then((value) async {
+      await user.updatePassword(newPassword).then((_) {
+        success = true;
+        //user.doc(userCredential.user?.uid).update({"password": newPassword});
+      }).catchError((error) {});
+    }).catchError((err) {});
+
+    return success;
   }
 }

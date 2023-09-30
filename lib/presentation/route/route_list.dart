@@ -1,4 +1,4 @@
-class  RouteList {
+class RouteList {
   static const String initial = '/';
   static const String mainPageRoute = '/mainRoute';
 
@@ -23,7 +23,6 @@ class  RouteList {
       '/bodyTemperatureNotificationReading';
   static const String notification = '/notification';
 
-  static const String scanScreen = '/ocr_screen';
   static const String camera = '/camera';
   static const String bloodPressureHistory = '/bloodPressureHistory';
   static const String bloodSugarHistory = '/bloodSugarHistory';

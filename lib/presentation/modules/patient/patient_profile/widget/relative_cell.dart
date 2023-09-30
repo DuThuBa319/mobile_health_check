@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_two_button.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import '../../../../../classes/language.dart';
 import '../../../../../common/singletons.dart';
@@ -56,40 +57,17 @@ class _RelativeListCellState extends State<RelativeListCell> {
             trailing: (userDataData.getUser()?.role == "doctor")
                 ? IconButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => Center(
-                          child: AlertDialog(
-                            title: Text(translation(context).notification),
-                            content: Text(
-                              "Delete this Relative?",
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(translation(context).exit),
-                                onPressed: () {
-                                  //Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              TextButton(
-                                child: Text(translation(context).accept),
-                                onPressed: () {
-                                  widget.deleteRelativeBloc?.add(
-                                      DeleteRelativeEvent(
-                                          patientId:
-                                              widget.patientInforEntity?.id,
-                                          relativeId:
-                                              widget.relativeInforEntity?.id));
-                                  //Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      showNoticeDialogTwoButton(
+                          context: context,
+                          title: translation(context).notification,
+                          message: "Delete this Relative?",
+                          titleBtn1: translation(context).exit,
+                          titleBtn2: translation(context).accept,
+                          onClose2: () {
+                            widget.deleteRelativeBloc?.add(DeleteRelativeEvent(
+                                patientId: widget.patientInforEntity?.id,
+                                relativeId: widget.relativeInforEntity?.id));
+                          });
                     },
                     icon: Icon(Icons.delete_outline_outlined,
                         size: SizeConfig.screenWidth * 0.1,

@@ -21,85 +21,11 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     }
     if (state is RegistRelativeState &&
         state.status == BlocStatusState.success) {
-      showDialog(
+      showNoticeDialog(
           context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(
-                translation(context).notification,
-                style: TextStyle(
-                    color: AppColor.lineDecor,
-                    fontSize: SizeConfig.screenWidth * 0.08,
-                    fontWeight: FontWeight.bold),
-              ),
-              content: SizedBox(
-                height: SizeConfig.screenHeight * 0.15,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${translation(context).addRelativeSuccessfully}!",
-                      style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: SizeConfig.screenWidth * 0.04,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(height: SizeConfig.screenWidth * 0.05),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                              text: '${translation(context).account}: ',
-                              style: TextStyle(
-                                  color: AppColor.black,
-                                  fontSize: SizeConfig.screenWidth * 0.05,
-                                  fontWeight: FontWeight.bold)),
-                          TextSpan(
-                            text:
-                                state.viewModel.accountEntity?.userName ?? "--",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: SizeConfig.screenWidth * 0.05),
-                          )
-                        ],
-                      ),
-                    ),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                              text: '${translation(context).password}: ',
-                              style: TextStyle(
-                                  color: AppColor.black,
-                                  fontSize: SizeConfig.screenWidth * 0.05,
-                                  fontWeight: FontWeight.bold)),
-                          TextSpan(
-                            text:
-                                state.viewModel.accountEntity?.password ?? "--",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: SizeConfig.screenWidth * 0.05),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                TextButton(
-                  child: Text(translation(context).accept),
-                  onPressed: () {
-                    //Navigator.pop(context);
-                    Navigator.pushNamed(context, RouteList.patientInfor,
-                        arguments: state.viewModel.patientInforEntity?.id);
-                  },
-                ),
-              ],
-            );
-          });
+          message: 'Đăng ký thành công',
+          title: translation(context).notification,
+          titleBtn: translation(context).exit);
     }
   }
 
@@ -303,35 +229,30 @@ extension PatientInforScreenAction on _PatientInforScreenState {
               naviagte == "bloodPressureHistory"
                   ? SizedBox(
                       width: SizeConfig.screenWidth * 0.6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
+                          Row(
                             children: [
-                              Text("SYS: ",
-                                  style: AppTextTheme.title3.copyWith(
-                                      fontSize: SizeConfig.screenWidth * 0.065,
-                                      fontWeight: FontWeight.w500,
-                                      color: bloodPressureEntity?.statusColor)),
-                              Text("PUL: ",
-                                  style: AppTextTheme.title3.copyWith(
-                                      fontSize: SizeConfig.screenWidth * 0.065,
-                                      fontWeight: FontWeight.w500,
-                                      color: bloodPressureEntity?.statusColor)),
-                            ],
-                          ),
-                          Column(
-                            children: [
+                              SizedBox(width: SizeConfig.screenWidth * 0.20),
                               RichText(
                                 textAlign: TextAlign.end,
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
+                                        text: "SYS: ",
+                                        style: AppTextTheme.title3.copyWith(
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.05,
+                                            fontWeight: FontWeight.w500,
+                                            color: bloodPressureEntity
+                                                ?.statusColor)),
+                                    TextSpan(
                                         text: "${bloodPressureEntity?.sys}",
                                         style: AppTextTheme.title3.copyWith(
                                             fontSize:
-                                                SizeConfig.screenWidth * 0.065,
+                                                SizeConfig.screenWidth * 0.075,
                                             fontWeight: FontWeight.w600,
                                             color: bloodPressureEntity
                                                 ?.statusColor)),
@@ -345,15 +266,28 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                   ],
                                 ),
                               ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(width: SizeConfig.screenWidth * 0.20),
                               RichText(
                                 textAlign: TextAlign.end,
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
+                                        text: "PUL: ",
+                                        style: AppTextTheme.title3.copyWith(
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.05,
+                                            fontWeight: FontWeight.w500,
+                                            color: bloodPressureEntity
+                                                ?.statusColor)),
+                                    TextSpan(
                                         text: "${bloodPressureEntity?.pulse}",
                                         style: AppTextTheme.title3.copyWith(
                                             fontSize:
-                                                SizeConfig.screenWidth * 0.065,
+                                                SizeConfig.screenWidth * 0.075,
                                             fontWeight: FontWeight.w600,
                                             color: bloodPressureEntity
                                                 ?.statusColor)),

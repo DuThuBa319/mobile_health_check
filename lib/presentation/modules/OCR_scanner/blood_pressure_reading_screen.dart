@@ -15,7 +15,7 @@ import '../../common_widget/enum_common.dart';
 import '../../theme/app_text_theme.dart';
 import 'ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'widget/OCR_scanner_widget.dart';
-part 'read_blood_pressure_reading_screen.action.dart';
+part 'blood_pressure_reading_screen.action.dart';
 
 class BloodPressureReadingScreen extends StatefulWidget {
   const BloodPressureReadingScreen({

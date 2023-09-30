@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
 
-Future<dynamic> showNoticeDialog({
+Future<dynamic> showNoticeDialogTwoButton({
   required BuildContext context,
   required String message,
   required String? title,
-  required String? titleBtn,
+  required String? titleBtn1,
+  required String? titleBtn2,
   bool barrierDismissible = false,
-  Function()? onClose,
+  Function()? onClose1,
+  Function()? onClose2,
   bool useRootNavigator = false,
   bool dismissWhenAction = true,
 }) {
@@ -42,9 +44,16 @@ Future<dynamic> showNoticeDialog({
               TextButton(
                 onPressed: () {
                   dismissFunc.call();
-                  onClose?.call();
+                  onClose1?.call();
                 },
-                child: Text(titleBtn ?? translation(context).accept),
+                child: Text(titleBtn1 ?? translation(context).accept),
+              ),
+              TextButton(
+                onPressed: () {
+                  dismissFunc.call();
+                  onClose2?.call();
+                },
+                child: Text(titleBtn2 ?? translation(context).exit),
               )
             ],
           );
@@ -63,9 +72,16 @@ Future<dynamic> showNoticeDialog({
             CupertinoDialogAction(
               onPressed: () {
                 dismissFunc.call();
-                onClose?.call();
+                onClose1?.call();
               },
-              child: Text(titleBtn ?? translation(context).accept),
+              child: Text(titleBtn1 ?? translation(context).accept),
+            ),
+            CupertinoDialogAction(
+              onPressed: () {
+                dismissFunc.call();
+                onClose2?.call();
+              },
+              child: Text(titleBtn2 ?? translation(context).accept),
             ),
           ],
         );

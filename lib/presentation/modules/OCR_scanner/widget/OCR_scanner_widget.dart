@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../function.dart';
@@ -82,27 +83,13 @@ Future<dynamic> successAlert(
   BuildContext context, {
   required String alertText,
 }) {
-  return showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (BuildContext context) => Center(
-      child: AlertDialog(
-        title: Text(translation(context).notification),
-        content: Text(
-          alertText,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-        actions: [
-          TextButton(
-            child: Text(translation(context).exit),
-            onPressed: () {
-              //Navigator.pop(context);
-              Navigator.pushNamedAndRemoveUntil(context, RouteList.selectEquip,
-                  (Route<dynamic> route) => false);
-            },
-          ),
-        ],
-      ),
-    ),
-  );
+  return showNoticeDialog(
+      context: context,
+      message: alertText,
+      title: translation(context).notification,
+      titleBtn: translation(context).exit,
+      onClose: () {
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouteList.selectEquip, (Route<dynamic> route) => false);
+      });
 }

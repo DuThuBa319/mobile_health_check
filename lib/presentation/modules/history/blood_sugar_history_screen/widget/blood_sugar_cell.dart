@@ -3,14 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:mobile_health_check/function.dart';
 
 import '../../../../../classes/language.dart';
-import '../../../../../classes/language_constant.dart';
 import '../../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../common_widget/assets.dart';
 import '../../../../common_widget/dialog/show_toast.dart';
 import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
-import '../../detail_screen/blood_sugar_detail.dart';
 import '../../history_bloc/history_bloc.dart';
 
 class BloodSugarCellWidget extends StatefulWidget {
@@ -28,10 +26,9 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
     SizeConfig.init(context);
     return GestureDetector(
         onTap: () {
-           Navigator.pushNamed(context, RouteList.bloodSugarDetail,
+          Navigator.pushNamed(context, RouteList.bloodSugarDetail,
               arguments: widget.response);
-                  showToast(translation(context).waitForSeconds);
-
+          showToast(translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(

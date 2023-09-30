@@ -1,4 +1,4 @@
-part of 'read_blood_pressure_reading_screen.dart';
+part of 'blood_pressure_reading_screen.dart';
 
 // ignore: library_private_types_in_public_api
 extension BloodPressureReadingScreenAction on _BloodPressureReadingScreenState {

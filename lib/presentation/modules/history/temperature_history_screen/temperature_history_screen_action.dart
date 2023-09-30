@@ -64,25 +64,5 @@ extension TemperatureHistoryScreenAction on TemperatureHistoryScreenState {
     await onGetTemperatureData();
   }
 
-  void showAlertDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('Attention!!!'),
-          content: const Text('Start Date must be before End Date'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                dateFrom = dateTo;
-                strDateFrom = DateFormat('dd/MM/yyyy').format(dateFrom);
-                Navigator.of(dialogContext).pop();
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+ 
 }

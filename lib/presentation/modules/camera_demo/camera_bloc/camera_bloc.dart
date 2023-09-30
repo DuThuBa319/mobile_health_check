@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import '../../../common_widget/enum_common.dart';
@@ -74,6 +74,16 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       ),
     );
     try {
+      Future.delayed(const Duration(seconds: 4), () {
+        if (state is CameraReadyState &&
+            state.status == BlocStatusState.loading) {
+          emit(
+            state.copyWith(
+              status: BlocStatusState.failure,
+            ),
+          );
+        }
+      });
       final controller = event.controller;
       await controller.initialize();
       await controller.setZoomLevel(event.zoomValue);
@@ -188,10 +198,10 @@ Future<File> cropImage(
       break;
     case MeasuringTask.oximeter:
       desiredLeft = 80; // Set the left position of the desired area (in pixels)
-      desiredTop = 200; // Set the top position of the desired area (in pixels)
+      desiredTop = 210; // Set the top position of the desired area (in pixels)
       desiredWidth =
-          screenWidth * 0.7; // Set the width of the desired area (in pixels)
-      desiredHeight = screenHeight * 0.35;
+          screenWidth * 0.6; // Set the width of the desired area (in pixels)
+      desiredHeight = screenHeight * 0.28;
       break;
     case MeasuringTask.temperature:
       desiredLeft = 60; // Set the left position of the desired area (in pixels)

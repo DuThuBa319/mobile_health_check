@@ -1,5 +1,6 @@
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../classes/language.dart';
@@ -166,26 +167,12 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
 
                         //     showToast(translation(context).addRelativeSuccessfully);
                       } else {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => Center(
-                            child: AlertDialog(
-                              title: Text(translation(context).notification),
-                              content: Text(
+                        showNoticeDialog(
+                            context: context,
+                            message:
                                 "Số điện thoại không chính xác, phải từ 10-11 ký tự",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              actions: [
-                                TextButton(
-                                    child: Text(translation(context).exit),
-                                    onPressed: () {
-                                      //Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    }),
-                              ],
-                            ),
-                          ),
-                        );
+                            title: translation(context).notification,
+                            titleBtn: translation(context).exit);
                       }
                     }),
               )

@@ -15,8 +15,8 @@ class DeleteImageEvent extends ImagePickerEvent {
 
 class ReplaceImageEvent extends ImagePickerEvent {
   ReplaceImageEvent({this.source, this.index});
-  ImageSource? source;
-  int? index;
+  final ImageSource? source;
+  final int? index;
 }
 
 class LoadImageEvent extends ImagePickerEvent {

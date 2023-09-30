@@ -74,26 +74,4 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
     _refreshController.refreshCompleted();
     await onGetBloodPressureData();
   }
-
-  void showAlertDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('Attention!!!'),
-          content: const Text('Start Date must be before End Date'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                timeFrom = timeTo;
-                strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
-                Navigator.of(dialogContext).pop();
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }

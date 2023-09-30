@@ -30,7 +30,7 @@ abstract class RestApiRepository {
       @Body() PatientInforModel? patientInforModel);
 
   @POST('/api/Persons/{patientId}/AddNewRelative')
-  Future<void> addRelativeInforModel(
+  Future<AccountModel> addRelativeInforModel(
       @Path('patientId') String? patientId,
       @Body() RelativeInforModel? relativeInforModel);
 
@@ -66,12 +66,13 @@ abstract class RestApiRepository {
     @Path('doctorId') String? doctorId,
   );
 
-   @GET('/api/Notification/{doctorId}/Count') //để hiện detail
+  @GET('/api/Notification/{doctorId}/Count') //để hiện detail
   Future<NumberOfNotificationsModel> getNumberOfNotifications(
     @Path('doctorId') String? doctorId,
   );
- @DELETE('/api/Notification/{notificationId}') //delete
-  Future<void> deleteNotificationModel(@Path('notificationId') String? notificationId);
+  @DELETE('/api/Notification/{notificationId}') //delete
+  Future<void> deleteNotificationModel(
+      @Path('notificationId') String? notificationId);
 
   @PUT("/{id}") //update
   Future<void> updatePatient(

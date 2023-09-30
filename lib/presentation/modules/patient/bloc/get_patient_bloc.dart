@@ -8,7 +8,6 @@ import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
-import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../../domain/entities/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
@@ -80,7 +79,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     try {
       final response =
           await _relativeInforUsecase.getRelativeInforEntity(event.relativeId);
-        
+
       final newViewModel =
           state.viewModel.copyWith(relativeInforEntity: response);
       emit(GetPatientListOfRelativeState(
@@ -167,6 +166,13 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     try {
       final accountEntity = await _doctorInforUsecase.addPatientEntity(
           event.doctorId, event.patientInforModel);
+      firebaseAuthService.createUserWithEmailAndPassword(
+          email: '${event.patientInforModel!.phoneNumber}@gmail.com',
+          password: event.patientInforModel!.phoneNumber,
+          id: accountEntity?.id ?? '--',
+          role: 'patient',
+          name: event.patientInforModel!.name,
+          phoneNumber: event.patientInforModel!.phoneNumber);
       final newViewModel =
           state.viewModel.copyWith(accountEntity: accountEntity);
       emit(
@@ -196,11 +202,15 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       ),
     );
     try {
-      await _patientUseCase.addRelativeInforEntity(
+      final accountEntity =await _patientUseCase.addRelativeInforEntity(
           event.patientId, event.relativeInforModel);
-      final accountEntity = AccountEntity(
-          userName: event.relativeInforModel?.name,
-          password: event.relativeInforModel?.phoneNumber);
+      firebaseAuthService.createUserWithEmailAndPassword(
+          email: '${event.relativeInforModel!.phoneNumber}@gmail.com',
+          password: event.relativeInforModel!.phoneNumber,
+          id: accountEntity?.id ?? '--',
+          role: 'patient',
+          name: event.relativeInforModel!.name,
+          phoneNumber: event.relativeInforModel!.phoneNumber);
       final newViewModel =
           state.viewModel.copyWith(accountEntity: accountEntity);
       emit(RegistRelativeState(

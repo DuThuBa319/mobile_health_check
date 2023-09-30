@@ -7,12 +7,10 @@ part 'account_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 // ignore: must_be_immutable
 class AccountModel {
-  String? userName;
-  String? password;
+  String? id;
 
   AccountModel(
-    this.userName,
-    this.password,
+    this.id,
   );
   factory AccountModel.fromJson(Map<String, dynamic> json) =>
       _$AccountModelFromJson(json);
@@ -20,6 +18,8 @@ class AccountModel {
   Map<String, dynamic> toJson() => _$AccountModelToJson(this);
 
   AccountEntity convertAccountEntity() {
-    return AccountEntity(userName: userName, password: password);
+    return AccountEntity(
+      id: id,
+    );
   }
 }
