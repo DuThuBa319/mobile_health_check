@@ -20,6 +20,36 @@ extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
       // Navigator.of(context, rootNavigator: true).pop();
+    }  if (state is WifiDisconnectState &&
+        state.status == BlocStatusState.success) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                translation(context).notification,
+                style: TextStyle(
+                    color: AppColor.lineDecor,
+                    fontSize: SizeConfig.screenWidth * 0.08,
+                    fontWeight: FontWeight.bold),
+              ),
+              content: Text(
+                translation(context).wifiDisconnect,
+                style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: SizeConfig.screenWidth * 0.05,
+                    fontWeight: FontWeight.w400),
+              ),
+              actions: [
+                TextButton(
+                  child: Text(translation(context).accept),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
     }
   }
 

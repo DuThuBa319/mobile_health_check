@@ -83,7 +83,12 @@ class LoginActionState extends LoginState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
-
+class WifiDisconnectState extends LoginState {
+  WifiDisconnectState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
 class GetUserDataState extends LoginState {
   GetUserDataState({
     _ViewModel viewModel = const _ViewModel(),
@@ -112,6 +117,10 @@ final _factories = <Type,
         status: status,
       ),
   GetUserDataState: (viewModel, status) => GetUserDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  WifiDisconnectState: (viewModel, status) =>WifiDisconnectState(
         viewModel: viewModel,
         status: status,
       ),

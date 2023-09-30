@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -7,8 +8,11 @@ import '../common/service/navigation/navigation_service.dart';
 import 'di.config.dart'; //'filename.conconfig.dart
 
 // đây là file mà khi inject và run "flutter packages pub run build_runner build" thì sẽ cho ra file di.config.dart
+
 GetIt injector = GetIt.instance;
+
 final getIt = GetIt.instance;
+
 @InjectableInit(
   initializerName: r'$initGetIt',
   preferRelativeImports: true,
@@ -16,6 +20,9 @@ final getIt = GetIt.instance;
 )
 void configureDependencies() {
   $initGetIt(injector);
+
+  // Register the Connectivity instance
+  injector.registerLazySingleton<Connectivity>(() => Connectivity());
 }
 
 @module
@@ -26,7 +33,7 @@ abstract class DioProvider {
       BaseOptions(
         contentType: "application/json",
         followRedirects: false,
-        receiveTimeout: const Duration(seconds: 60), // 30s
+        receiveTimeout: const Duration(seconds: 60),
         sendTimeout: const Duration(seconds: 60),
       ),
     );
@@ -38,6 +45,7 @@ abstract class AppModule {
   @singleton
   Future<LocalDataManager> get localDataManager async =>
       LocalDataManager()..init();
+
   @singleton
   NavigationService get navigationService => NavigationService();
 }

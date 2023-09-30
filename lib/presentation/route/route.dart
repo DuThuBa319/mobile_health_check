@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/read_blood_pressure_reading_screen.dart';
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
@@ -49,6 +50,7 @@ import '../modules/setting_screen/patient_setting/patient_setting_menu.dart';
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;
+  static Connectivity connectivity = getIt<Connectivity>();
 
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {

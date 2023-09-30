@@ -36,7 +36,7 @@ class _ViewModel {
   }) {
     // ignore: unnecessary_this
     return _ViewModel(
-      relativeInforEntity: relativeInforEntity??this.relativeInforEntity,
+      relativeInforEntity: relativeInforEntity ?? this.relativeInforEntity,
       accountEntity: accountEntity ?? this.accountEntity,
       relativeEntities: relativeEntities ?? this.relativeEntities,
       patientInforEntity: patientInforEntity ?? this.patientInforEntity,
@@ -85,18 +85,31 @@ class GetPatientListState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-class GetPatientListOfRelativeState extends GetPatientState {
- GetPatientListOfRelativeState({
+class WifiDisconnectState extends GetPatientState {
+  WifiDisconnectState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+
+class GetPatientListOfRelativeState extends GetPatientState {
+  GetPatientListOfRelativeState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+
+
 class SearchPatientState extends GetPatientState {
   SearchPatientState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+
 
 class GetPatientInforState extends GetPatientState {
   GetPatientInforState({
@@ -105,12 +118,16 @@ class GetPatientInforState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
+
+
 class RegistRelativeState extends GetPatientState {
   RegistRelativeState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+
 
 class RegistPatientState extends GetPatientState {
   RegistPatientState({
@@ -119,18 +136,23 @@ class RegistPatientState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
+
 class UpdatePatientInforState extends GetPatientState {
   UpdatePatientInforState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+
+
 class UpdateRelativeInforState extends GetPatientState {
   UpdateRelativeInforState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 
 class DeleteRelativeState extends GetPatientState {
   DeleteRelativeState({
@@ -139,12 +161,16 @@ class DeleteRelativeState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
+
+
 class DeletePatientState extends GetPatientState {
   DeletePatientState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+
 
 final _factories = <Type,
     Function(
@@ -159,14 +185,18 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  GetPatientListOfRelativeState: (viewModel, status) => GetPatientListOfRelativeState(
+ 
+  GetPatientListOfRelativeState: (viewModel, status) =>
+      GetPatientListOfRelativeState(
         viewModel: viewModel,
         status: status,
       ),
+ 
   SearchPatientState: (viewModel, status) => SearchPatientState(
         viewModel: viewModel,
         status: status,
       ),
+ 
   RegistPatientState: (viewModel, status) => RegistPatientState(
         viewModel: viewModel,
         status: status,
@@ -192,6 +222,10 @@ final _factories = <Type,
         status: status,
       ),
   DeletePatientState: (viewModel, status) => DeletePatientState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
         viewModel: viewModel,
         status: status,
       ),

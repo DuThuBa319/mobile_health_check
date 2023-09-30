@@ -165,7 +165,7 @@ class _RestApiRepository implements RestApiRepository {
 
   @override
   Future<List<NotificationModel>> getNotificationListModels({
-    String? doctorId,
+    String? personId,
     int? startIndex,
     int? lastIndex,
   }) async {
@@ -185,7 +185,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/api/Notification/${doctorId}',
+              '/api/Notification/${personId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -285,35 +285,37 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<int?> getUnreadCountNotification(String? doctorId) async {
+  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(
+      String? personId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<NumberOfUnreadCountNotificationsModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/api/Notification/${doctorId}/Unseen',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-    final value = _result.data;
+            .compose(
+              _dio.options,
+              '/api/Notification/${personId}/Unseen',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = NumberOfUnreadCountNotificationsModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<NumberOfNotificationsModel> getNumberOfNotifications(
-      String? doctorId) async {
+      String? personId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -327,7 +329,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/api/Notification/${doctorId}/Count',
+              '/api/Notification/${personId}/Count',
               queryParameters: queryParameters,
               data: _data,
             )

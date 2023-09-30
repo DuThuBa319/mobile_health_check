@@ -9,6 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:connectivity_plus/connectivity_plus.dart' as _i47;
 import 'package:dio/dio.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
@@ -90,14 +91,14 @@ import '../presentation/common_widget/image_picker/image_picker_bloc/image_picke
     as _i10;
 import '../presentation/modules/camera_demo/camera_bloc/camera_bloc.dart'
     as _i3;
-import '../presentation/modules/history/history_bloc/history_bloc.dart' as _i47;
-import '../presentation/modules/login_screen/login/login_bloc.dart' as _i48;
+import '../presentation/modules/history/history_bloc/history_bloc.dart' as _i48;
+import '../presentation/modules/login_screen/login/login_bloc.dart' as _i49;
 import '../presentation/modules/notification_onesignal/bloc/notification_bloc.dart'
-    as _i49;
-import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart'
     as _i50;
+import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart'
+    as _i51;
 import '../presentation/modules/patient/bloc/get_patient_bloc.dart' as _i46;
-import 'di.dart' as _i51;
+import 'di.dart' as _i52;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
@@ -176,20 +177,23 @@ _i1.GetIt $initGetIt(
         gh<_i23.PatientUsecase>(),
         gh<_i8.DoctorInforUsecase>(),
         gh<_i27.RelativeInforUsecase>(),
+        gh<_i47.Connectivity>(),
       ));
-  gh.factory<_i47.HistoryBloc>(() => _i47.HistoryBloc(
+  gh.factory<_i48.HistoryBloc>(() => _i48.HistoryBloc(
         gh<_i41.BloodPressureUsecase>(),
         gh<_i45.BloodSugarUsecase>(),
         gh<_i35.TemperatureUsecase>(),
         gh<_i31.Spo2Usecase>(),
+        gh<_i47.Connectivity>(),
       ));
-  gh.factory<_i48.LoginBloc>(() => _i48.LoginBloc(
+  gh.factory<_i49.LoginBloc>(() => _i49.LoginBloc(
         gh<_i23.PatientUsecase>(),
         gh<_i18.NotificationUsecase>(),
+        gh<_i47.Connectivity>(),
       ));
-  gh.factory<_i49.NotificationBloc>(
-      () => _i49.NotificationBloc(gh<_i18.NotificationUsecase>()));
-  gh.factory<_i50.OCRScannerBloc>(() => _i50.OCRScannerBloc(
+  gh.factory<_i50.NotificationBloc>(
+      () => _i50.NotificationBloc(gh<_i18.NotificationUsecase>()));
+  gh.factory<_i51.OCRScannerBloc>(() => _i51.OCRScannerBloc(
         gh<_i41.BloodPressureUsecase>(),
         gh<_i45.BloodSugarUsecase>(),
         gh<_i35.TemperatureUsecase>(),
@@ -198,6 +202,6 @@ _i1.GetIt $initGetIt(
   return getIt;
 }
 
-class _$DioProvider extends _i51.DioProvider {}
+class _$DioProvider extends _i52.DioProvider {}
 
-class _$AppModule extends _i51.AppModule {}
+class _$AppModule extends _i52.AppModule {}

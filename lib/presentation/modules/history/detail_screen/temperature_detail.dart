@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -5,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../classes/language_constant.dart';
 import '../../../../domain/entities/temperature_entity.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import '../../../theme/theme_color.dart';
@@ -20,16 +20,21 @@ class TemperatureDetailScreen extends StatefulWidget {
 }
 
 class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
-  // final bool _isLoading = true;
-
+  bool isWifiAvailable = false;
+  bool is4GAvailable = false;
   @override
   void initState() {
     super.initState();
-    // Timer(const Duration(milliseconds: 3000), () {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
+    checkWifiAvailability();
+  }
+
+  void checkWifiAvailability() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      // ignore: unrelated_type_equality_checks
+      isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
+      is4GAvailable = connectivityResult == ConnectivityResult.mobile;
+    });
   }
 
   @override
@@ -74,14 +79,14 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       Text(
                         DateFormat('dd/MM/yyyy').format(
                             widget.temperatureEntity?.updatedDate ??
-                                DateTime(2023, 9, 16, 12,00)),
+                                DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       ),
                       Text(
                         DateFormat('HH:mm').format(
                             widget.temperatureEntity?.updatedDate ??
-                                DateTime(2023, 9, 16, 12,00)),
+                                DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1
                             .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
                       )
@@ -99,8 +104,9 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
               //       )
               //     :
               CustomImagePicker(
-                imagePath: widget.temperatureEntity?.imageLink ??
-                    widget.temperatureEntity?.imageLink!,
+                imagePath: (isWifiAvailable || is4GAvailable)
+                    ? widget.temperatureEntity?.imageLink ?? ''
+                    : null, // Set imagePath to null if Wi-Fi is not available
                 isOnTapActive: true,
                 isforAvatar: false,
               ),

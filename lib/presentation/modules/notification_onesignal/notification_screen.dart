@@ -155,7 +155,8 @@ class _NotificationListState extends State<NotificationScreen> {
                                     fontSize: SizeConfig.screenWidth * 0.06),
                               ),
                               TextSpan(
-                                  text: " ${state.viewModel.unreadCount}",
+                                  text:
+                                      " ${state.viewModel.unreadCount?.numberOfUnreadCountNotifications ?? 0}",
                                   style: AppTextTheme.body1.copyWith(
                                       color: AppColor.redFB4B53,
                                       fontSize: SizeConfig.screenWidth * 0.08,

@@ -113,6 +113,7 @@
 "goToPatientIn4Screen":"Patient infor screen",
 "goToNotificationScreen":"Notification screen",
 "endOfList":"No more data to load",
-"noData":"Not update"
+"noData":"Not update",
+"wifiDisconnect":"No Wi-Fi connectivity"
 }
 
