@@ -4,7 +4,6 @@ import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../common/service/local_manager/user_data_datasource/user.dart';
-import '../../data/models/relative_model/relative_infor_model.dart';
 import 'blood_pressure_entity.dart';
 import 'blood_sugar_entity.dart';
 
@@ -47,16 +46,15 @@ class PatientInforEntity {
 
   User convertUser({required User user}) {
     return user.copyWith(
-        gender: gender,
-        id: id,
-        name: name,
-        phoneNumber: phoneNumber,
-        age: age,
-        address: address,
-        height: height,
-        weight: weight,
-       
-        );
+      gender: gender,
+      id: id,
+      name: name,
+      phoneNumber: phoneNumber,
+      age: age,
+      address: address,
+      height: height,
+      weight: weight,
+    );
   }
 }
 //cái gì mà repo ko cung cấp thì mình sẽ cung cấp trong entity

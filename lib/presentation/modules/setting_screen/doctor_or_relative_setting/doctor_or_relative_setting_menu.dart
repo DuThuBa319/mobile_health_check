@@ -39,7 +39,7 @@ class _SettingMenuState extends State<SettingMenu> {
             onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
                 arguments: userDataData.getUser()!.id!),
             icon: const Icon(Icons.arrow_back)),
-        selectedIndex: 2,
+        selectedIndex: 1,
         child: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(

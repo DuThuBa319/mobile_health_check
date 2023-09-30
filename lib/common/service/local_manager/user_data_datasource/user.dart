@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:equatable/equatable.dart';
 
 import '../../../../data/models/doctor_infor_model/doctor_infor_model.dart';
@@ -19,9 +19,7 @@ class User extends Equatable {
   final bool? gender;
   final String? address;
   List<PatientInforModel>? patients;
-  @override
   final List<RelativeInforModel>? relatives;
-  @override
   final DoctorInforModel? doctor;
   User({
     this.age,

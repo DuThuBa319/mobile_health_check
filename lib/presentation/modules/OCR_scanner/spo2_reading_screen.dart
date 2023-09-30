@@ -286,16 +286,10 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                                   fontSize: SizeConfig.screenWidth * 0.15,
                                   fontWeight: FontWeight.w500)),
                           TextSpan(
-                              text: "°",
+                              text: "%",
                               style: AppTextTheme.title3.copyWith(
                                   color: const Color(0xff615A5A),
                                   fontSize: SizeConfig.screenWidth * 0.15,
-                                  fontWeight: FontWeight.w500)),
-                          TextSpan(
-                              text: "C",
-                              style: AppTextTheme.title3.copyWith(
-                                  color: const Color(0xff615A5A),
-                                  fontSize: SizeConfig.screenWidth * 0.1,
                                   fontWeight: FontWeight.w500))
                         ])),
                   )

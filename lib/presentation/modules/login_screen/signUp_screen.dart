@@ -2,7 +2,6 @@ import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
-import '../../../../../classes/language_constant.dart';
 import '../../../classes/language.dart';
 import '../../../common/singletons.dart';
 import '../../common_widget/common_button.dart';

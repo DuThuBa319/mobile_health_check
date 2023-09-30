@@ -367,8 +367,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 )
                               : Center(
                                   child: Container(
+                                    height: SizeConfig.screenHeight * 0.2,
                                     margin: EdgeInsets.only(
-                                        top: SizeConfig.screenHeight * 0.2),
+                                        top: SizeConfig.screenHeight * 0.05),
                                     child: Text("Chưa có dữ liệu",
                                         style: AppTextTheme.body0.copyWith(
                                             color: Colors.red,

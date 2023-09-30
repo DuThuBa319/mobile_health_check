@@ -29,13 +29,13 @@ class PatientUsecaseImpl extends PatientUsecase {
     await userDataData.setUser(UserModel(
         height: response.height,
         weight: response.weight,
-        address: response?.address ?? "chưa có thông tin",
-        age: response?.age ?? 0,
-        gender: response?.gender == 0 ? false : true,
+        address: response.address ?? "chưa có thông tin",
+        age: response.age ?? 0,
+        gender: response.gender == 0 ? false : true,
         id: userDataData.getUser()!.id,
         role: userDataData.getUser()!.role,
         name: userDataData.getUser()!.name,
-        phoneNumber: response?.phoneNumber,
+        phoneNumber: response.phoneNumber,
         email: userDataData.getUser()!.email,
         doctor: response.doctor,
         relatives: response.relatives));

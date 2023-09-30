@@ -1,4 +1,3 @@
-import 'package:mobile_health_check/data/models/relative_model/relative_infor_model.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 
 import '../../common/service/local_manager/user_data_datasource/user.dart';

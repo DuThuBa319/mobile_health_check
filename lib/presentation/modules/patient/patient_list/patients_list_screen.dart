@@ -1,11 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
+import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/modules/patient/patient_list/widget/patient_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:badges/badges.dart' as badges;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../classes/language.dart';
 
@@ -62,21 +63,73 @@ class _PatientListState extends State<PatientListScreen> {
       child: CustomScreenForm(
           isRelativeApp:
               (userDataData.getUser()?.role == "relative") ? true : false,
-          isShowAppBar: true,
+          isShowAppBar: false,
           isShowLeadingButton: false,
           isShowBottomNayvigationBar: true,
           isShowRightButon: false,
           backgroundColor: AppColor.backgroundColor,
-          appBarColor: AppColor.topGradient,
-          title: translation(context).patientList,
+          appBarColor: AppColor.backgroundColor,
+          title: "",
           // ),
           selectedIndex: 0,
+          floatActionButton: Container(
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 244, 51, 51),
+                borderRadius: BorderRadius.circular(30)),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteList.addPatient,
+                      arguments: patientBloc);
+                  filterKeyword = TextEditingController(text: "");
+                },
+                icon: const Icon(
+                  Icons.group_add_outlined,
+                  color: Colors.white,
+                )),
+          ),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          translation(context).patientList,
+                          style: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.07,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.09,
+                          height: SizeConfig.screenWidth * 0.09,
+                          margin: const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(100, 22, 44, 33),
+                              borderRadius: BorderRadius.circular(100)),
+                          child: Center(
+                            child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, RouteList.notification,
+                                      arguments: userDataData.getUser()!.id!);
+                                },
+                                child: badges.Badge(
+                                  position: badges.BadgePosition.topEnd(
+                                      top: -8, end: -15),
+                                  badgeContent: const Text("${99}+",
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.white)),
+                                  child: const Icon(
+                                      Icons.notifications_none_rounded,
+                                      color: Colors.white),
+                                )),
+                          ),
+                        )
+                      ]),
+                  lineDecor(spaceBottom: 10, spaceTop: 5),
                   Container(
                     margin: EdgeInsets.only(
                       top: 8,
@@ -126,18 +179,6 @@ class _PatientListState extends State<PatientListScreen> {
                                         );
                                       },
                                     ),
-                                    IconButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, RouteList.addPatient,
-                                              arguments: patientBloc);
-                                          filterKeyword =
-                                              TextEditingController(text: "");
-                                        },
-                                        icon: const Icon(
-                                          Icons.group_add_outlined,
-                                          color: Colors.black,
-                                        ))
                                   ],
                                 ),
                               ),

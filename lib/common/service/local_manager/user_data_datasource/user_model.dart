@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable, overridden_fields
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mobile_health_check/common/service/local_manager/user_data_datasource/user.dart';
 import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';

@@ -98,17 +98,6 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                           await notificationData.clearData();
                           await userDataData.clearData();
 
-                          //  await OneSignal.logout();
-
-                          // ignore: use_build_context_synchronously
-                          // Navigator.pushReplacement(context, MaterialPageRoute(
-                          //   builder: (context) {
-                          //     return BlocProvider<LoginBloc>(
-                          //       create: (context) => LoginBloc(),
-                          //       child: const LoginScreen(),
-                          //     );
-                          //   },
-                          // ));
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamedAndRemoveUntil(context,
                               RouteList.login, (Route<dynamic> route) => false);
