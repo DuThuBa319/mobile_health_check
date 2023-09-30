@@ -46,16 +46,25 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   "${translation(context).name}: ", patientInforEntity.name),
               in4Cell("${translation(context).phoneNumber}: ",
                   patientInforEntity.phoneNumber),
-              in4Cell("${translation(context).age}: ",
-                  patientInforEntity.age.toString()),
+              in4Cell(
+                  "${translation(context).age}: ",
+                  (patientInforEntity.age == 0)
+                      ? translation(context).notUpdate
+                      : "${patientInforEntity.age}"),
               in4Cell(
                 "${translation(context).gender}: ",
                 patientInforEntity.gender == false ? "Nam" : "nữ",
               ),
-              in4Cell("${translation(context).height}: ",
-                  "${patientInforEntity.height?.toInt()} (cm)"),
-              in4Cell("${translation(context).weight}: ",
-                  "${patientInforEntity.weight?.toInt()} (kg)"),
+              in4Cell(
+                  "${translation(context).height}: ",
+                  (patientInforEntity.height?.toInt() == 0)
+                      ? "${translation(context).notUpdate} (cm)"
+                      : "${patientInforEntity.height?.toInt()} (cm)"),
+              in4Cell(
+                  "${translation(context).weight}: ",
+                  (patientInforEntity.weight?.toInt() == 0)
+                      ? "${translation(context).notUpdate} (kg)"
+                      : "${patientInforEntity.weight?.toInt()} (kg)"),
               in4Cell("${translation(context).address}: ",
                   "${patientInforEntity.address}"),
             ]),
@@ -175,23 +184,44 @@ extension PatientInforScreenAction on _PatientInforScreenState {
               SizedBox(
                 width: SizeConfig.screenWidth * 0.6,
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(indicator,
-                        style: AppTextTheme.title3.copyWith(
-                          color: Colors.black,
-                          fontSize: SizeConfig.screenWidth * 0.032,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    GestureDetector(
-                      child: SizedBox(
-                        height: SizeConfig.screenWidth * 0.05,
-                        child: Text(translation(context).watchHistory,
-                            style: AppTextTheme.body5.copyWith(
-                              color: Colors.blue,
-                              fontSize: SizeConfig.screenWidth * 0.03,
-                              decoration: TextDecoration.underline,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(indicator,
+                            style: AppTextTheme.title3.copyWith(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenWidth * 0.032,
+                              fontWeight: FontWeight.bold,
                             )),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          DateFormat('HH:mm dd/MM/yyyy')
+                              .format(dateTime ?? dateTime!),
+                          style: AppTextTheme.title5.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.025),
+                        ),
+                      ],
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        height: SizeConfig.screenHeight * 0.025,
+                        width: SizeConfig.screenWidth * 0.2,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 205, 87),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Center(
+                          child: Text(translation(context).watchHistory,
+                              style: AppTextTheme.body5.copyWith(
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.screenWidth * 0.03,
+                                  fontWeight: FontWeight.w600)),
+                        ),
                       ),
                       onTap: () {
                         if (naviagte == "bloodPressureHistory") {
@@ -218,16 +248,9 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   ],
                 ),
               ),
-              Text(
-                DateFormat('HH:mm dd/MM/yyyy').format(dateTime ?? dateTime!),
-                style: AppTextTheme.title5
-                    .copyWith(fontSize: SizeConfig.screenWidth * 0.025),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
               naviagte == "bloodPressureHistory"
-                  ? SizedBox(
+                  ? Container(
+                      margin: const EdgeInsets.only(top: 10),
                       width: SizeConfig.screenWidth * 0.6,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -309,9 +332,9 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   : naviagte == "bloodSugarHistory"
                       ? Container(
                           margin: EdgeInsets.only(
-                              top: SizeConfig.screenWidth * 0.0,
-                              left: SizeConfig.screenWidth * 0.1),
-                          width: SizeConfig.screenWidth * 0.5,
+                            top: SizeConfig.screenHeight * 0.025,
+                          ),
+                          width: SizeConfig.screenWidth * 0.6,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,9 +366,9 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                       : naviagte == "oximeterHistory"
                           ? Container(
                               margin: EdgeInsets.only(
-                                  top: SizeConfig.screenWidth * 0.0,
-                                  left: SizeConfig.screenWidth * 0.1),
-                              width: SizeConfig.screenWidth * 0.5,
+                                top: SizeConfig.screenHeight * 0.02,
+                              ),
+                              width: SizeConfig.screenWidth * 0.6,
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -373,7 +396,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                                           0xff615A5A),
                                                       fontSize: SizeConfig
                                                               .screenWidth *
-                                                          0.04,
+                                                          0.06,
                                                       fontWeight:
                                                           FontWeight.w500))
                                         ],
@@ -382,9 +405,9 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                   ]))
                           : Container(
                               margin: EdgeInsets.only(
-                                  top: SizeConfig.screenWidth * 0.0,
-                                  left: SizeConfig.screenWidth * 0.1),
-                              width: SizeConfig.screenWidth * 0.5,
+                                top: SizeConfig.screenHeight * 0.025,
+                              ),
+                              width: SizeConfig.screenWidth * 0.6,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -414,7 +437,9 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                             text: "C",
                                             style: AppTextTheme.title3.copyWith(
                                                 color: const Color(0xff615A5A),
-                                                fontSize: 30,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.08,
                                                 fontWeight: FontWeight.w500))
                                       ]))
                                 ],

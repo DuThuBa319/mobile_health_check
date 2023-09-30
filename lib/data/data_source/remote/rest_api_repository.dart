@@ -6,6 +6,7 @@ import '../../models/blood_pressure_model/blood_pressure_model.dart';
 import '../../models/blood_sugar_model/blood_sugar_model.dart';
 import '../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../models/number_of_notifications/number_of_notifications_model.dart';
+import '../../models/number_of_unread_count_notification/number_of_unread_count_notifications_model.dart';
 import '../../models/patient_infor_model/patient_infor_model.dart';
 import '../../models/relative_model/relative_infor_model.dart';
 import '../../models/spo2_model/spo2_model.dart';
@@ -43,9 +44,9 @@ abstract class RestApiRepository {
     @Path('relativeId') String? relativeId,
   );
 
-  @GET('/api/Notification/{doctorId}') //để hiện detail
+  @GET('/api/Notification/{personId}') //để hiện detail
   Future<List<NotificationModel>> getNotificationListModels({
-    @Path('doctorId') required String? doctorId,
+    @Path('personId') required String? personId,
     @Query('startIndex') required int? startIndex,
     @Query('lastIndex') required int? lastIndex,
   });
@@ -61,14 +62,14 @@ abstract class RestApiRepository {
   Future<void> setReadedNotificationModel(
       @Path("notificationId") String? notificationId);
 
-  @GET('/api/Notification/{doctorId}/Unseen') //để hiện detail
-  Future<int?> getUnreadCountNotification(
-    @Path('doctorId') String? doctorId,
-  );
+  @GET('/api/Notification/{personId}/Unseen') //để hiện detail
+  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(
+    @Path('personId') String? personId,
+  );  
 
-  @GET('/api/Notification/{doctorId}/Count') //để hiện detail
+  @GET('/api/Notification/{personId}/Count') //để hiện detail
   Future<NumberOfNotificationsModel> getNumberOfNotifications(
-    @Path('doctorId') String? doctorId,
+    @Path('personId') String? personId,
   );
   @DELETE('/api/Notification/{notificationId}') //delete
   Future<void> deleteNotificationModel(

@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
@@ -5,12 +6,14 @@ import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mobile_health_check/domain/entities/number_of_notifications_entity.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../../domain/entities/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
+import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../../domain/usecases/relative_infor_usecase/relative_infor_usecase.dart';
 import '../../../common_widget/enum_common.dart';
@@ -22,9 +25,11 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final PatientUsecase _patientUseCase;
   final DoctorInforUsecase _doctorInforUsecase;
   final RelativeInforUsecase _relativeInforUsecase;
+  final NotificationUsecase notificationUsecase;
 
+  final Connectivity _connectivity;
   GetPatientBloc(this._patientUseCase, this._doctorInforUsecase,
-      this._relativeInforUsecase)
+      this._relativeInforUsecase, this._connectivity, this.notificationUsecase)
       : super(GetPatientInitialState()) {
     on<GetPatientListEvent>(_onGetPatientList);
     on<GetPatientListOfRelativeEvent>(_onGetPatientListOfRelative);
@@ -42,24 +47,41 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     GetPatientListEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      GetPatientListState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      final response = await _doctorInforUsecase.getDoctorInforEntity(event.id);
-      final newViewModel =
-          state.viewModel.copyWith(doctorInforEntity: response);
-      emit(GetPatientListState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        GetPatientListState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+
+      try {
+        final numberOfNotificationsEntity =
+            await notificationUsecase.getNumberOfNotificationEntity(event.id);
+        final response =
+            await _doctorInforUsecase.getDoctorInforEntity(event.id);
+        final newViewModel = state.viewModel.copyWith(
+            doctorInforEntity: response,
+            numberOfNotificationsEntity: numberOfNotificationsEntity);
+        emit(GetPatientListState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -70,26 +92,40 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     GetPatientListOfRelativeEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      GetPatientListOfRelativeState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      final response =
-          await _relativeInforUsecase.getRelativeInforEntity(event.relativeId);
-
-      final newViewModel =
-          state.viewModel.copyWith(relativeInforEntity: response);
-      emit(GetPatientListOfRelativeState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        GetPatientListOfRelativeState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        final numberOfNotificationsEntity = await notificationUsecase
+            .getNumberOfNotificationEntity(event.relativeId);
+        final response = await _relativeInforUsecase
+            .getRelativeInforEntity(event.relativeId);
+
+        final newViewModel = state.viewModel.copyWith(
+            relativeInforEntity: response,
+            numberOfNotificationsEntity: numberOfNotificationsEntity);
+        emit(GetPatientListOfRelativeState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -100,53 +136,64 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     FilterPatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      SearchPatientState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      if (userDataData.getUser()!.role! == 'doctor') {
-        final response =
-            await _doctorInforUsecase.getDoctorInforEntity(event.id);
-        final allPatients = response!.patients;
-        // List<PatientEntity>? searchResult = [];
-        final filteredPatients = allPatients
-            ?.where((value) => value.name
-                .toLowerCase()
-                .contains(event.searchText.toLowerCase()))
-            .toList();
-        // searchResult = filteredPatients;
-        final newViewModel =
-            state.viewModel.copyWith(patientEntities: filteredPatients);
-        emit(SearchPatientState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      }
-      if (userDataData.getUser()!.role! == 'relative') {
-        final response =
-            await _relativeInforUsecase.getRelativeInforEntity(event.id);
-        final allPatients = response!.patients;
-        // List<PatientEntity>? searchResult = [];
-        final filteredPatients = allPatients
-            ?.where((value) => value.name
-                .toLowerCase()
-                .contains(event.searchText.toLowerCase()))
-            .toList();
-        // searchResult = filteredPatients;
-        final newViewModel =
-            state.viewModel.copyWith(patientEntities: filteredPatients);
-        emit(SearchPatientState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      }
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        SearchPatientState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        if (userDataData.getUser()!.role! == 'doctor') {
+          final response =
+              await _doctorInforUsecase.getDoctorInforEntity(event.id);
+          final allPatients = response!.patients;
+          // List<PatientEntity>? searchResult = [];
+          final filteredPatients = allPatients
+              ?.where((value) => value.name
+                  .toLowerCase()
+                  .contains(event.searchText.toLowerCase()))
+              .toList();
+          // searchResult = filteredPatients;
+          final newViewModel =
+              state.viewModel.copyWith(patientEntities: filteredPatients);
+          emit(SearchPatientState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ));
+        }
+        if (userDataData.getUser()!.role! == 'relative') {
+          final response =
+              await _relativeInforUsecase.getRelativeInforEntity(event.id);
+          final allPatients = response!.patients;
+          // List<PatientEntity>? searchResult = [];
+          final filteredPatients = allPatients
+              ?.where((value) => value.name
+                  .toLowerCase()
+                  .contains(event.searchText.toLowerCase()))
+              .toList();
+          // searchResult = filteredPatients;
+          final newViewModel =
+              state.viewModel.copyWith(patientEntities: filteredPatients);
+          emit(SearchPatientState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ));
+        }
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -157,34 +204,45 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistPatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      RegistPatientState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      final accountEntity = await _doctorInforUsecase.addPatientEntity(
-          event.doctorId, event.patientInforModel);
-      firebaseAuthService.createUserWithEmailAndPassword(
-          email: '${event.patientInforModel!.phoneNumber}@gmail.com',
-          password: event.patientInforModel!.phoneNumber,
-          id: accountEntity?.id ?? '--',
-          role: 'patient',
-          name: event.patientInforModel!.name,
-          phoneNumber: event.patientInforModel!.phoneNumber);
-      final newViewModel =
-          state.viewModel.copyWith(accountEntity: accountEntity);
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
         RegistPatientState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
         ),
       );
-    } catch (e) {
+      try {
+        final accountEntity = await _doctorInforUsecase.addPatientEntity(
+            event.doctorId, event.patientInforModel);
+        firebaseAuthService.createUserWithEmailAndPassword(
+            email: '${event.patientInforModel!.phoneNumber}@gmail.com',
+            password: event.patientInforModel!.phoneNumber,
+            id: accountEntity?.id ?? '--',
+            role: 'patient',
+            name: event.patientInforModel!.name,
+            phoneNumber: event.patientInforModel!.phoneNumber);
+        final newViewModel =
+            state.viewModel.copyWith(accountEntity: accountEntity);
+        emit(
+          RegistPatientState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ),
+        );
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -195,31 +253,42 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistRelativeEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      RegistRelativeState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      final accountEntity =await _patientUseCase.addRelativeInforEntity(
-          event.patientId, event.relativeInforModel);
-      firebaseAuthService.createUserWithEmailAndPassword(
-          email: '${event.relativeInforModel!.phoneNumber}@gmail.com',
-          password: event.relativeInforModel!.phoneNumber,
-          id: accountEntity?.id ?? '--',
-          role: 'patient',
-          name: event.relativeInforModel!.name,
-          phoneNumber: event.relativeInforModel!.phoneNumber);
-      final newViewModel =
-          state.viewModel.copyWith(accountEntity: accountEntity);
-      emit(RegistRelativeState(
-          status: BlocStatusState.success, viewModel: newViewModel));
-    } catch (e) {
-      emit(RegistRelativeState(
-        status: BlocStatusState.failure,
-        viewModel: state.viewModel,
-      ));
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
+      emit(
+        RegistRelativeState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        final accountEntity = await _patientUseCase.addRelativeInforEntity(
+            event.patientId, event.relativeInforModel);
+        firebaseAuthService.createUserWithEmailAndPassword(
+            email: '${event.relativeInforModel!.phoneNumber}@gmail.com',
+            password: event.relativeInforModel!.phoneNumber,
+            id: accountEntity?.id ?? '--',
+            role: 'patient',
+            name: event.relativeInforModel!.name,
+            phoneNumber: event.relativeInforModel!.phoneNumber);
+        final newViewModel =
+            state.viewModel.copyWith(accountEntity: accountEntity);
+        emit(RegistRelativeState(
+            status: BlocStatusState.success, viewModel: newViewModel));
+      } catch (e) {
+        emit(RegistRelativeState(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel,
+        ));
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
+        ),
+      );
     }
   }
 
@@ -227,24 +296,35 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     GetPatientInforEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      GetPatientInforState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      final response = await _patientUseCase.getPatientInforEntity(event.id);
-      final newViewModel =
-          state.viewModel.copyWith(patientInforEntity: response);
-      emit(GetPatientInforState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        GetPatientInforState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        final response = await _patientUseCase.getPatientInforEntity(event.id);
+        final newViewModel =
+            state.viewModel.copyWith(patientInforEntity: response);
+        emit(GetPatientInforState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -255,23 +335,34 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     UpdatePatientInforEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      UpdatePatientInforState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      await _patientUseCase.updatePatientInforEntity(event.id, event.model);
-      final newViewModel = state.viewModel;
-      emit(UpdatePatientInforState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        UpdatePatientInforState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        await _patientUseCase.updatePatientInforEntity(event.id, event.model);
+        final newViewModel = state.viewModel;
+        emit(UpdatePatientInforState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -282,24 +373,35 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     UpdateRelativeInforEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      UpdateRelativeInforState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      await _relativeInforUsecase.updateRelativeInforEntity(
-          event.id, event.model);
-      final newViewModel = state.viewModel;
-      emit(UpdateRelativeInforState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        UpdateRelativeInforState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        await _relativeInforUsecase.updateRelativeInforEntity(
+            event.id, event.model);
+        final newViewModel = state.viewModel;
+        emit(UpdateRelativeInforState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -310,25 +412,36 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     DeleteRelativeEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      DeleteRelativeState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      await _doctorInforUsecase.deleteRelationshipRelativeAndPatientEntity(
-          event.relativeId, event.patientId);
-      await _doctorInforUsecase.deleteRelativeEntity(event.relativeId);
-      final newViewModel = state.viewModel;
-      emit(DeleteRelativeState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        DeleteRelativeState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        await _doctorInforUsecase.deleteRelationshipRelativeAndPatientEntity(
+            event.relativeId, event.patientId);
+        await _doctorInforUsecase.deleteRelativeEntity(event.relativeId);
+        final newViewModel = state.viewModel;
+        emit(DeleteRelativeState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );
@@ -339,38 +452,49 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     DeletePatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    emit(
-      DeletePatientState(
-        status: BlocStatusState.loading,
-        viewModel: state.viewModel,
-      ),
-    );
-    try {
-      await _doctorInforUsecase.deleteRelationshipDoctorAndPatientEntity(
-          event.doctorId, event.patientId);
-      await _doctorInforUsecase.deletePatientEntity(event.patientId);
-      final response =
-          await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
-      final newViewModel =
-          state.viewModel.copyWith(doctorInforEntity: response);
-      emit(DeletePatientState(
-        status: BlocStatusState.success,
-        viewModel: newViewModel,
-      ));
-      // emit(
-      //   GetPatientListState(
-      //     status: BlocStatusState.loading,
-      //     viewModel: state.viewModel,
-      //   ),
-      // );
-      // emit(GetPatientListState(
-      //   status: BlocStatusState.success,
-      //   viewModel: newViewModel,
-      // ));
-    } catch (e) {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
       emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
+        DeletePatientState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        await _doctorInforUsecase.deleteRelationshipDoctorAndPatientEntity(
+            event.doctorId, event.patientId);
+        await _doctorInforUsecase.deletePatientEntity(event.patientId);
+        final response =
+            await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
+        final newViewModel =
+            state.viewModel.copyWith(doctorInforEntity: response);
+        emit(DeletePatientState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+        // emit(
+        //   GetPatientListState(
+        //     status: BlocStatusState.loading,
+        //     viewModel: state.viewModel,
+        //   ),
+        // );
+        // emit(GetPatientListState(
+        //   status: BlocStatusState.success,
+        //   viewModel: newViewModel,
+        // ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
           viewModel: state.viewModel,
         ),
       );

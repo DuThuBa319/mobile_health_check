@@ -161,11 +161,6 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         widget.patientBloc?.add(RegistRelativeEvent(
                             relativeInforModel: newRelativeInforModel,
                             patientId: widget.patientId));
-
-                        // Navigator.pushNamed(context, RouteList.patientInfor,
-                        //         arguments: widget.patientId);
-
-                        //     showToast(translation(context).addRelativeSuccessfully);
                       } else {
                         showNoticeDialog(
                             context: context,

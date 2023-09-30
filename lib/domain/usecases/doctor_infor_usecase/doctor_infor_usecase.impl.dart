@@ -22,9 +22,6 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
     
     final accountEntity = accountModel?.convertAccountEntity();
     return accountEntity;
-
-    // return accountEntity;
-// return response;
   }
 
   @override

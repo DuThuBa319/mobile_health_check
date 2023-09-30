@@ -64,6 +64,14 @@ class GetHistoryDataState extends HistoryState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+class WifiDisconnectState extends HistoryState {
+  WifiDisconnectState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 
 final _factories = <Type,
     Function(
@@ -75,6 +83,10 @@ final _factories = <Type,
         status: status,
       ),
   GetHistoryDataState: (viewModel, status) => GetHistoryDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
         viewModel: viewModel,
         status: status,
       ),

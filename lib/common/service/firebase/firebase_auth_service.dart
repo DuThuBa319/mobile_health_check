@@ -50,7 +50,7 @@ class FirebaseAuthService {
   }
 
   Future<bool> changePassword(
-      String currentPassword, String newPassword) async {
+      {required String currentPassword, required String newPassword}) async {
     bool success = false;
 
     //Create an instance of the current user.

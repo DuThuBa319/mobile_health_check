@@ -4,8 +4,7 @@ import '../../../domain/entities/account_entity.dart';
 
 part 'account_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-// ignore: must_be_immutable
+@JsonSerializable()
 class AccountModel {
   String? id;
 
@@ -18,8 +17,6 @@ class AccountModel {
   Map<String, dynamic> toJson() => _$AccountModelToJson(this);
 
   AccountEntity convertAccountEntity() {
-    return AccountEntity(
-      id: id,
-    );
+    return AccountEntity(id: id);
   }
 }

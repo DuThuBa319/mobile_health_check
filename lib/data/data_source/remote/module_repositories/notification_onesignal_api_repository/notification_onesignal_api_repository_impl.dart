@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../models/notification_onesignal_model/notification_onesignal_model.dart';
 import '../../../../models/number_of_notifications/number_of_notifications_model.dart';
+import '../../../../models/number_of_unread_count_notification/number_of_unread_count_notifications_model.dart';
 import '../../rest_api_repository.dart';
 import 'notification_onesignal_api_repository.dart';
 
@@ -20,7 +21,7 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
   Future<List<NotificationModel>> getNotificationListModels(
       {required String? doctorId, int? startIndex, int? lastIndex}) {
     return restApi.getNotificationListModels(
-        doctorId: doctorId, startIndex: startIndex, lastIndex: lastIndex);
+        personId: doctorId, startIndex: startIndex, lastIndex: lastIndex);
   }
 
   @override
@@ -29,14 +30,18 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
   }
 
   @override
-  Future<int?> getUnreadCountNotification(String? doctorId) {
+  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(
+      String? doctorId) {
     return restApi.getUnreadCountNotification(doctorId);
   }
-    @override
-  Future<NumberOfNotificationsModel?> getNumberOfNotifications(String? doctorId) {
-    return restApi.getNumberOfNotifications(doctorId);
+
+  @override
+  Future<NumberOfNotificationsModel?> getNumberOfNotifications(
+      String? personId) {
+    return restApi.getNumberOfNotifications(personId);
   }
-   @override
+
+  @override
   Future<void> deleteNotificationModel(String? notificationId) {
     return restApi.deleteNotificationModel(notificationId);
   }

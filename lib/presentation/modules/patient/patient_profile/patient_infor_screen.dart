@@ -16,6 +16,7 @@ import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
+import '../../../common_widget/common_button.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -78,18 +79,19 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                 patientBloc.add(GetPatientInforEvent(
                     id: widget.patientId ?? widget.patientId!));
               }
-              if ((state is GetPatientInforState &&
-                      state.status == BlocStatusState.loading) ||
-                  (state is DeleteRelativeState &&
-                      state.status == BlocStatusState.loading)) {
+              if (state is GetPatientInforState &&
+                  state.status == BlocStatusState.loading) {
                 return const Center(
                   child: Loading(
                     brightness: Brightness.light,
                   ),
                 );
               }
+
               if ((state is GetPatientInforState &&
-                  state.status == BlocStatusState.success)) {
+                      state.status == BlocStatusState.success) ||
+                  (state is DeleteRelativeState &&
+                      state.status == BlocStatusState.loading)) {
                 PatientInforEntity patient =
                     state.viewModel.patientInforEntity ??
                         state.viewModel.patientInforEntity!;
@@ -146,20 +148,31 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: SizeConfig.screenHeight * 0.025,
+                                    height: SizeConfig.screenHeight * 0.01,
                                   ),
-                                  TextButton(
-                                    child: Text(
-                                      patient.name,
-                                      style: AppTextTheme.body1.copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        decoration: TextDecoration.underline,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        patient.name,
+                                        style: AppTextTheme.body1.copyWith(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () {
-                                      showInfor(patient);
-                                    },
+                                      GestureDetector(
+                                          onTap: () {
+                                            showInfor(patient);
+                                          },
+                                          child: SizedBox(
+                                              width:
+                                                  SizeConfig.screenWidth * 0.12,
+                                              child: Image.asset(
+                                                Assets.detail,
+                                                fit: BoxFit.cover,
+                                              ))),
+                                    ],
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -193,33 +206,6 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               SizeConfig.screenHeight * 0.02,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    (userDataData.getUser()?.role == "doctor")
-                                        ? GestureDetector(
-                                            child: Text(
-                                                translation(context)
-                                                    .addRelative,
-                                                style:
-                                                    AppTextTheme.body5.copyWith(
-                                                  color: Colors.blue,
-                                                  fontSize:
-                                                      SizeConfig.screenWidth *
-                                                          0.05,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                )),
-                                            onTap: () {
-                                              Navigator.pushNamed(context,
-                                                  RouteList.addRelative,
-                                                  arguments: {
-                                                    "patientBloc": patientBloc,
-                                                    "patientId":
-                                                        widget.patientId
-                                                  });
-                                            },
-                                          )
-                                        : const SizedBox(
-                                            width: 0.5,
-                                          )
                                   ],
                                 ),
                                 const SizedBox(
@@ -363,30 +349,138 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           patientInforEntity: patient,
                                         );
                                       },
-                                    )
+                                    ),
+                                    (userDataData.getUser()?.role == "doctor" &&
+                                            patient.relatives!.length <= 2)
+                                        ? Center(
+                                            child: CommonButton(
+                                                width: SizeConfig.screenWidth *
+                                                    0.91,
+                                                height:
+                                                    SizeConfig.screenHeight *
+                                                        0.06,
+                                                title: translation(context)
+                                                    .addRelative,
+                                                buttonColor: AppColor.lineDecor,
+                                                onTap: () {
+                                                  Navigator.pushNamed(context,
+                                                      RouteList.addRelative,
+                                                      arguments: {
+                                                        "patientBloc":
+                                                            patientBloc,
+                                                        "patientId":
+                                                            widget.patientId
+                                                      });
+                                                }),
+                                          )
+                                        : const SizedBox(
+                                            width: 0.5,
+                                          ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
                                   ],
                                 )
-                              : Center(
-                                  child: Container(
-                                    height: SizeConfig.screenHeight * 0.2,
-                                    margin: EdgeInsets.only(
-                                        top: SizeConfig.screenHeight * 0.05),
-                                    child: Text("Chưa có dữ liệu",
-                                        style: AppTextTheme.body0.copyWith(
-                                            color: Colors.red,
-                                            fontSize:
-                                                SizeConfig.screenHeight * 0.02,
-                                            fontWeight: FontWeight.w500)),
-                                  ),
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: SizeConfig.screenHeight * 0.2,
+                                      child: Center(
+                                        child: Text("Chưa có dữ liệu",
+                                            style: AppTextTheme.body0.copyWith(
+                                                color: Colors.red,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05,
+                                                fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: SizeConfig.screenWidth * 0.02,
+                                        left: SizeConfig.screenWidth * 0.04,
+                                        bottom: SizeConfig.screenWidth * 0.02,
+                                        right: SizeConfig.screenWidth * 0.025,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            translation(context).relative,
+                                            style: AppTextTheme.body0.copyWith(
+                                                fontSize:
+                                                    SizeConfig.screenHeight *
+                                                        0.02,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            height: 2,
+                                          ),
+                                          lineDecor(),
+                                          SizedBox(
+                                            height:
+                                                SizeConfig.screenWidth * 0.02,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    ListView.builder(
+                                      physics: const BouncingScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      itemCount: patient.relatives?.length ?? 0,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final relatives =
+                                            patient.relatives?[index];
+                                        return RelativeListCell(
+                                          deleteRelativeBloc: patientBloc,
+                                          relativeInforEntity: relatives,
+                                          patientInforEntity: patient,
+                                        );
+                                      },
+                                    ),
+                                    (userDataData.getUser()?.role == "doctor" &&
+                                            patient.relatives!.length <= 2)
+                                        ? Center(
+                                            child: CommonButton(
+                                                width: SizeConfig.screenWidth *
+                                                    0.91,
+                                                height:
+                                                    SizeConfig.screenHeight *
+                                                        0.06,
+                                                title: translation(context)
+                                                    .addRelative,
+                                                buttonColor: AppColor.lineDecor,
+                                                onTap: () {
+                                                  Navigator.pushNamed(context,
+                                                      RouteList.addRelative,
+                                                      arguments: {
+                                                        "patientBloc":
+                                                            patientBloc,
+                                                        "patientId":
+                                                            widget.patientId
+                                                      });
+                                                }),
+                                          )
+                                        : const SizedBox(
+                                            width: 0.5,
+                                          ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 )
                         ],
                       ),
                     ));
               }
-              if (state.status == BlocStatusState.failure) {
-                return const Center(
-                  child: Text("error"),
-                );
+              if (state.status == BlocStatusState.failure ||
+                  state is WifiDisconnectState) {
+                return const Center(child: Text("error"));
               }
               return Container();
             }));

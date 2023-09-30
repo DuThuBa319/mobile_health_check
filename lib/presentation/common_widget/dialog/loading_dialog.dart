@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<dynamic> showNoticeDialog({
+Future<dynamic> showLoadingDialog({
   required BuildContext context,
 }) {
   return showDialog(

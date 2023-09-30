@@ -36,7 +36,7 @@ class UserModel extends User {
   final List<PatientInforModel>? patients;
   @override
   final List<RelativeInforModel>? relatives;
-   @override
+  @override
   final DoctorInforModel? doctor;
   UserModel(
       {this.age,
@@ -52,8 +52,7 @@ class UserModel extends User {
       this.gender,
       this.patients,
       this.doctor,
-      this.relatives
-      })
+      this.relatives})
       : super(
             unreadCount: unreadCount,
             email: email,
@@ -67,9 +66,8 @@ class UserModel extends User {
             weight: weight,
             gender: gender,
             patients: patients,
-            doctor:doctor,
-            relatives:relatives
-            );
+            doctor: doctor,
+            relatives: relatives);
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

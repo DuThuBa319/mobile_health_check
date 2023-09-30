@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +21,21 @@ class BloodPressureDetailScreen extends StatefulWidget {
 
 class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
   // bool _isLoading = true;
-
+  bool isWifiAvailable = false;
+  bool is4GAvailable = false;
   @override
   void initState() {
     super.initState();
-    // Timer(const Duration(milliseconds: 3000), () {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
+    checkWifiAvailability();
+  }
+
+  void checkWifiAvailability() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      // ignore: unrelated_type_equality_checks
+      isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
+      is4GAvailable = connectivityResult == ConnectivityResult.mobile;
+    });
   }
 
 ////////////////////////
@@ -88,28 +95,13 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                       )
                     ],
                   )),
-
-              // Container(
-              //     decoration: BoxDecoration(
-              //         color: Colors.white,
-              //         borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.08)),
-              //     screenWidth: SizeConfig.screenHeight * 0.SizeConfig.screenWidth * 0.1,
-              //     screenHeight: SizeConfig.screenHeight * 0.SizeConfig.screenWidth * 0.1,
-              //     child: ),
               SizedBox(
                 height: SizeConfig.screenWidth * 0.08,
               ),
-              // _isLoading
-              //     ? Container(
-              //         margin: const EdgeInsets.only(left: 15),
-              //         height: SizeConfig.screenWidth * 0.9,
-              //         width: SizeConfig.screenWidth * 0.9,
-              //         child: const Center(child: CircularProgressIndicator()),
-              //       )
-              //     :
               CustomImagePicker(
-                imagePath: widget.bloodPressureEntity?.imageLink ??
-                    widget.bloodPressureEntity?.imageLink!,
+                imagePath: (isWifiAvailable ||is4GAvailable)
+                    ? widget.bloodPressureEntity?.imageLink ?? ''
+                    : null, // Set imagePath to null if Wi-Fi is not available
                 isOnTapActive: true,
                 isforAvatar: false,
               ),

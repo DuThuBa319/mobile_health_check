@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,21 @@ class _SettingProfileState extends State<SettingProfile> {
   final TextEditingController _controllerPhoneNumber = TextEditingController();
   final TextEditingController _controllerHeight = TextEditingController();
   final TextEditingController _controllerAddress = TextEditingController();
+  bool isWifiAvailable = false;
+  bool is4GAvailable = false;
+
+  void checkWifiAvailability() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      // ignore: unrelated_type_equality_checks
+      isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
+      is4GAvailable = connectivityResult == ConnectivityResult.mobile;
+    });
+  }
 
   @override
   void initState() {
+    checkWifiAvailability();
     super.initState();
     setState(() {
       if (userDataData.getUser()!.role == "relative") {
@@ -271,65 +284,97 @@ class _SettingProfileState extends State<SettingProfile> {
                     title: translation(context).save,
                     buttonColor: AppColor.saveSetting,
                     onTap: () async {
-                      int? newAge = int.parse(_controllerAge.text);
-                      if (userDataData.getUser()!.role == "relative") {
-                        RelativeInforModel newRelativeInforModel =
-                            RelativeInforModel(
-                                gender: userDataData.getUser()!.gender == false
-                                    ? 0
-                                    : 1,
-                                name: _controllerName.text,
-                                phoneNumber: _controllerPhoneNumber.text,
-                                age: newAge,
-                                id: userDataData.getUser()!.id!,
-                                address: _controllerAddress.text,
-                                personType: 2,
-                                patients: userDataData.getUser()!.patients);
-                        updatePatientBloc.add(UpdateRelativeInforEvent(
-                            model: newRelativeInforModel,
-                            id: userDataData.getUser()!.id));
-                        await userDataData.setUser(newRelativeInforModel
-                            .getRelativeInforEntity()
-                            .convertUser(user: userDataData.getUser()!)
-                            .convertToModel());
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushNamed(context, RouteList.setting);
-                        // ignore: use_build_context_synchronously
-                      } else {
-                        var height = double.parse(_controllerHeight.text);
-                        var weight = double.parse(_controllerWeight.text);
-                        PatientInforModel newPatientInforModel =
-                            PatientInforModel(
-                          personType: 0,
-                          gender:
-                              userDataData.getUser()?.gender == false ? 0 : 1,
-                          name: _controllerName.text,
-                          phoneNumber: _controllerPhoneNumber.text,
-                          age: newAge,
-                          height: height,
-                          weight: weight,
-                          id: userDataData.getUser()?.id!,
-                          address: _controllerAddress.text,
-                          doctor: userDataData.getUser()?.doctor,
-                          relatives: userDataData.getUser()?.relatives,
-                        );
-                        updatePatientBloc.add(UpdatePatientInforEvent(
-                            model: newPatientInforModel,
-                            id: userDataData.getUser()?.id));
-                        await userDataData.setUser(
-                          newPatientInforModel
-                            .getPatientInforEntityPatientApp()
-                            .convertUser(user: userDataData.getUser()!)
-                            .convertToModel());
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushNamed(context, RouteList.patientSetting);
-                        // ignore: use_build_context_synchronously;
-                      }
-                      // ignore: use_build_context_synchronously
-
-                      showToast(
+                      if (isWifiAvailable || is4GAvailable) {
+                        int? newAge = int.parse(_controllerAge.text);
+                        if (userDataData.getUser()!.role == "relative") {
+                          RelativeInforModel newRelativeInforModel =
+                              RelativeInforModel(
+                                  gender:
+                                      userDataData.getUser()!.gender == false
+                                          ? 0
+                                          : 1,
+                                  name: _controllerName.text,
+                                  phoneNumber: _controllerPhoneNumber.text,
+                                  age: newAge,
+                                  id: userDataData.getUser()!.id!,
+                                  address: _controllerAddress.text,
+                                  personType: 2,
+                                  patients: userDataData.getUser()!.patients);
+                          updatePatientBloc.add(UpdateRelativeInforEvent(
+                              model: newRelativeInforModel,
+                              id: userDataData.getUser()!.id));
+                          await userDataData.setUser(newRelativeInforModel
+                              .getRelativeInforEntity()
+                              .convertUser(user: userDataData.getUser()!)
+                              .convertToModel());
                           // ignore: use_build_context_synchronously
-                          translation(context).updateProfileSuccessfully);
+                          Navigator.pushNamed(context, RouteList.setting);
+                          // ignore: use_build_context_synchronously
+                        } else {
+                          var height = double.parse(_controllerHeight.text);
+                          var weight = double.parse(_controllerWeight.text);
+                          PatientInforModel newPatientInforModel =
+                              PatientInforModel(
+                            personType: 0,
+                            gender:
+                                userDataData.getUser()?.gender == false ? 0 : 1,
+                            name: _controllerName.text,
+                            phoneNumber: _controllerPhoneNumber.text,
+                            age: newAge,
+                            height: height,
+                            weight: weight,
+                            id: userDataData.getUser()?.id!,
+                            address: _controllerAddress.text,
+                            doctor: userDataData.getUser()?.doctor,
+                            relatives: userDataData.getUser()?.relatives,
+                          );
+                          updatePatientBloc.add(UpdatePatientInforEvent(
+                              model: newPatientInforModel,
+                              id: userDataData.getUser()?.id));
+                          await userDataData.setUser(newPatientInforModel
+                              .getPatientInforEntityPatientApp()
+                              .convertUser(user: userDataData.getUser()!)
+                              .convertToModel());
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushNamed(
+                              context, RouteList.patientSetting);
+                          // ignore: use_build_context_synchronously;
+                        }
+                        // ignore: use_build_context_synchronously
+
+                        showToast(
+                            // ignore: use_build_context_synchronously
+                            translation(context).updateProfileSuccessfully);
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                  translation(context).notification,
+                                  style: TextStyle(
+                                      color: AppColor.lineDecor,
+                                      fontSize: SizeConfig.screenWidth * 0.08,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                content: Text(
+                                  translation(context).wifiDisconnect,
+                                  style: TextStyle(
+                                      color: AppColor.black,
+                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(translation(context).accept),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      }
                     }),
               )
             ]),

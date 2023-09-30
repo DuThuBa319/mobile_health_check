@@ -45,9 +45,12 @@ final TextEditingController emailController = TextEditingController();
 final TextEditingController phoneNumberController = TextEditingController();
 
 class _PatientListState extends State<PatientListScreen> {
+  int? numberOfNotification = 0;
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   GetPatientBloc get patientBloc => BlocProvider.of(context);
+
   @override
   void initState() {
     // TODO: implement initState
@@ -121,8 +124,8 @@ class _PatientListState extends State<PatientListScreen> {
                                 child: badges.Badge(
                                   position: badges.BadgePosition.topEnd(
                                       top: -8, end: -15),
-                                  badgeContent: const Text("${99}+",
-                                      style: TextStyle(
+                                  badgeContent: Text("$numberOfNotification",
+                                      style: const TextStyle(
                                           fontSize: 10, color: Colors.white)),
                                   child: const Icon(
                                       Icons.notifications_none_rounded,
@@ -222,7 +225,8 @@ class _PatientListState extends State<PatientListScreen> {
                           if (userDataData.getUser()!.role! == 'doctor') {
                             patientBloc.add(GetPatientListEvent(
                                 id: widget.id ?? widget.id!));
-                          } else if (userDataData.getUser()!.role! ==
+                          } 
+                          else if (userDataData.getUser()!.role! ==
                               'relative') {
                             patientBloc.add(GetPatientListOfRelativeEvent(
                                 relativeId: widget.id ?? widget.id!));
@@ -231,10 +235,6 @@ class _PatientListState extends State<PatientListScreen> {
                         if ((state is GetPatientListState &&
                                 state.status == BlocStatusState.loading) ||
                             (state is GetPatientListOfRelativeState &&
-                                state.status == BlocStatusState.loading) ||
-                            (state is DeletePatientState &&
-                                state.status == BlocStatusState.loading) ||
-                            (state is RegistPatientState &&
                                 state.status == BlocStatusState.loading)) {
                           return const Expanded(
                             child: Center(
@@ -243,7 +243,9 @@ class _PatientListState extends State<PatientListScreen> {
                           );
                         }
 
-                        if ((state is GetPatientListState &&
+                        if ((state is DeletePatientState &&
+                                state.status == BlocStatusState.loading) ||
+                            (state is GetPatientListState &&
                                 state.status == BlocStatusState.success) ||
                             (state is DeletePatientState &&
                                 state.status == BlocStatusState.success) ||

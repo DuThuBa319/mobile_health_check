@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_health_check/classes/language.dart';
 
 import '../../../../function.dart';
 import '../../assets.dart';
@@ -41,16 +42,21 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     return Container(
         child: widget.isforAvatar == false
             ? widget.imagePath == null
-                ? Container(
-                    margin: const EdgeInsets.only(left: 15),
-                    height: SizeConfig.screenWidth * 0.8,
-                    width: SizeConfig.screenWidth * 0.8,
-                    decoration: const BoxDecoration(shape: BoxShape.circle),
-                    child: Image.asset(
-                      fit: BoxFit.cover,
-                      Assets.photo,
-                      color: Colors.white,
-                    ),
+                ? Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 15),
+                        height: SizeConfig.screenWidth * 0.8,
+                        width: SizeConfig.screenWidth * 0.8,
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
+                        child: Image.asset(
+                          fit: BoxFit.cover,
+                          Assets.photo,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(translation(context).wifiDisconnect)
+                    ],
                   )
                 : Container(
                     margin: const EdgeInsets.only(left: 15),
@@ -91,8 +97,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                               )
                             : Image.asset(
                                 fit: BoxFit.fill,
-                                // gender =0 => nam
-                                // gender =1 => nu
+                                // gender =0 => nam. False
+                                // gender =1 => nu. True
                                 (widget.gender == false &&
                                         widget.age! <= 25 &&
                                         widget.age! > 0)
@@ -113,7 +119,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                                                         26 <= widget.age! &&
                                                         widget.age! <= 50)
                                                     ? Assets.women
-                                                    : Assets.oldWoman,
-                              )))));
+                                                    : (widget.gender == true)
+                                                        ? Assets.oldWoman
+                                                        : Assets.oldMan)))));
   }
 }

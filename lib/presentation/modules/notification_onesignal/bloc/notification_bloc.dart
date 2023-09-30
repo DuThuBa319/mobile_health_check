@@ -6,6 +6,7 @@ import 'package:mobile_health_check/domain/usecases/notification_onesignal_useca
 
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../../domain/entities/number_of_notifications_entity.dart';
+import '../../../../domain/entities/number_of_unread_count_notifications_entity.dart';
 import '../../../../presentation/common_widget/enum_common.dart';
 part 'notification_event.dart';
 part 'notification_state.dart';
@@ -18,7 +19,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<GetNotificationListEvent>(_onGetNotificationList);
     on<SetReadedNotificationEvent>(_setReadedNotification);
     on<SetReadedNotificationFromCellEvent>(_setReadedNotificationFromCell);
-
     on<DeleteNotificationEvent>(_deleteNotification);
     on<RefreshNotificationListEvent>(_onRefreshNotificationList);
     on<RenewPageAfterActionEvent>(_onRenewPageAfterAction);
@@ -48,7 +48,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           state.viewModel.notificationEntity ?? [];
       newNotificationList.addAll(response!);
       final newViewModel = state.viewModel.copyWith(
-          notificationEntity: newNotificationList, unreadCount: unreadCount,numberOfNotificationsEntity: numberOfNotificationEntity);
+          notificationEntity: newNotificationList,
+          unreadCount: unreadCount,
+          numberOfNotificationsEntity: numberOfNotificationEntity);
       emit(GetNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -86,7 +88,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       final newViewModel = state.viewModel.copyWith(
           notificationEntity: response,
           unreadCount: unreadCount,
-        numberOfNotificationsEntity:numberOfNotificationsEntity );
+          numberOfNotificationsEntity: numberOfNotificationsEntity);
       emit(RenewPageAfterActionState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -145,7 +147,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       await notificationUsecase
           .setReadedNotificationEntity(event.notificationId);
-
       emit(SetReadedNotificationState(
         status: BlocStatusState.success,
         viewModel: state.viewModel,

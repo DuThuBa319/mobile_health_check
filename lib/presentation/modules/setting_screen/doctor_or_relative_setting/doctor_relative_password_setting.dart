@@ -66,6 +66,7 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
+                          firebaseAuthService.changePassword(currentPassword:"123456" ,newPassword: "123456789");
                           showToast(
                               translation(context).updatePasswordSuccessfullly);
                         }),

@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -20,14 +21,21 @@ class BloodSugarDetailScreen extends StatefulWidget {
 class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
   // bool _isLoading = true;
 
+  bool isWifiAvailable = false;
+  bool is4GAvailable = false;
   @override
   void initState() {
     super.initState();
-    // Timer(const Duration(milliseconds: 3000), () {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
+    checkWifiAvailability();
+  }
+
+  void checkWifiAvailability() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      // ignore: unrelated_type_equality_checks
+      isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
+      is4GAvailable = connectivityResult == ConnectivityResult.mobile;
+    });
   }
 
   @override
@@ -87,8 +95,9 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                 height: SizeConfig.screenHeight * 0.035,
               ),
               CustomImagePicker(
-                imagePath: widget.bloodSugarEntity?.imageLink ??
-                    widget.bloodSugarEntity?.imageLink!,
+                imagePath: (isWifiAvailable || is4GAvailable)
+                    ? widget.bloodSugarEntity?.imageLink ?? ''
+                    : null, // Set imagePath to null if Wi-Fi is not available
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
