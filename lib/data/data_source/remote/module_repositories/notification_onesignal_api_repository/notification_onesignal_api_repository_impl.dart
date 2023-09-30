@@ -30,14 +30,15 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
   }
 
   @override
-  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(String? doctorId) {
+  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(
+      String? doctorId) {
     return restApi.getUnreadCountNotification(doctorId);
   }
 
   @override
   Future<NumberOfNotificationsModel?> getNumberOfNotifications(
-      String? doctorId) {
-    return restApi.getNumberOfNotifications(doctorId);
+      String? personId) {
+    return restApi.getNumberOfNotifications(personId);
   }
 
   @override

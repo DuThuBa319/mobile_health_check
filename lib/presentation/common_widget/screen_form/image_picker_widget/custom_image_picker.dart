@@ -97,8 +97,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                               )
                             : Image.asset(
                                 fit: BoxFit.fill,
-                                // gender =0 => nam
-                                // gender =1 => nu
+                                // gender =0 => nam. False
+                                // gender =1 => nu. True
                                 (widget.gender == false &&
                                         widget.age! <= 25 &&
                                         widget.age! > 0)
@@ -119,7 +119,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                                                         26 <= widget.age! &&
                                                         widget.age! <= 50)
                                                     ? Assets.women
-                                                    : Assets.oldWoman,
-                              )))));
+                                                    : (widget.gender == true)
+                                                        ? Assets.oldWoman
+                                                        : Assets.oldMan)))));
   }
 }

@@ -112,5 +112,6 @@
 "goToNotificationScreen":"Trang thông báo",
 "endOfList":"Không còn thông báo",
 "noData":"Chưa có thông tin",
-"wifiDisconnect":"Không có kết nối wifi"
+"wifiDisconnect":"Không có kết nối wifi",
+"notUpdate":"Chưa cập nhật"
 }

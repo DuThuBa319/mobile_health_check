@@ -6,7 +6,9 @@ abstract class NotificationApiRepository {
   Future<List<NotificationModel>> getNotificationListModels(
       {required String? doctorId, int? startIndex, int? lastIndex});
   Future<void> setReadedNotificationModel(String? notificationId);
-  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(String? doctorId);
-  Future<NumberOfNotificationsModel?> getNumberOfNotifications(String? doctorId);
+  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(
+      String? doctorId);
+  Future<NumberOfNotificationsModel?> getNumberOfNotifications(
+      String? personId);
   Future<void> deleteNotificationModel(String? notificationId);
 }

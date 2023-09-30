@@ -4,13 +4,13 @@ import '../../../domain/entities/account_entity.dart';
 
 part 'account_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-// ignore: must_be_immutable
+@JsonSerializable()
 class AccountModel {
+  String? id;
   String? userName;
   String? password;
-
   AccountModel(
+    this.id,
     this.userName,
     this.password,
   );
@@ -20,6 +20,6 @@ class AccountModel {
   Map<String, dynamic> toJson() => _$AccountModelToJson(this);
 
   AccountEntity convertAccountEntity() {
-    return AccountEntity(userName: userName, password: password);
+    return AccountEntity(userName: userName, password: password, id: id);
   }
 }

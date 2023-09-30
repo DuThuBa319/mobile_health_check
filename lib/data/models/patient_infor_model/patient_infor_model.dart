@@ -105,7 +105,7 @@ class PatientInforModel {
       avatarPath: avatarPath,
       address: address,
       bloodPressures: bloodPressureEntities,
-      bloodSugars: bloodSugarEntities,
+      bloodSugars: bloodSugarEntities, 
       height: height,
       gender: gender == 0 ? false : true, //! Nam ==0==false
       personType: personType,
@@ -150,7 +150,7 @@ class PatientInforModel {
   }
 
   AccountModel convertAccountModel() {
-    final accountModel = AccountModel(name, phoneNumber);
+    final accountModel = AccountModel(name, phoneNumber,id);
     return accountModel;
   }
 

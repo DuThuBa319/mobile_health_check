@@ -99,7 +99,7 @@
 "waitForSeconds":"Please wait for seconds",
 "relative":"PATIENT RELATIVES",
 "oximeter":"PULSE OXIMETER",
-"account":"Account",
+"account":"UserName",
 "unreadNotifications":"Unread Notifications",
 "deleteNotification":"Delete this notification?",
 "hasJustUpdated":"has just updated",
@@ -114,6 +114,7 @@
 "goToNotificationScreen":"Notification screen",
 "endOfList":"No more data to load",
 "noData":"Not update",
-"wifiDisconnect":"No Wi-Fi connectivity"
+"wifiDisconnect":"No Wi-Fi connectivity",
+"notUpdate":"Unknown"
 }
 

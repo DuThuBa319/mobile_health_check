@@ -30,8 +30,8 @@ class NotificationListRepositoryImpl extends NotificationRepository {
     return _notificationApi.getUnreadCountNotification(doctorId);
   }
    @override
-  Future<NumberOfNotificationsModel?> getNumberOfNotifications(String? doctorId) {
-    return _notificationApi.getNumberOfNotifications(doctorId);
+  Future<NumberOfNotificationsModel?> getNumberOfNotifications(String? personId) {
+    return _notificationApi.getNumberOfNotifications(personId);
   }
 
 }

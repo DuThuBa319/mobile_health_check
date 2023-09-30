@@ -178,6 +178,7 @@ _i1.GetIt $initGetIt(
         gh<_i8.DoctorInforUsecase>(),
         gh<_i27.RelativeInforUsecase>(),
         gh<_i47.Connectivity>(),
+        gh<_i18.NotificationUsecase>(),
       ));
   gh.factory<_i48.HistoryBloc>(() => _i48.HistoryBloc(
         gh<_i41.BloodPressureUsecase>(),

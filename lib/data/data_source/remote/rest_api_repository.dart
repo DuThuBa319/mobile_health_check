@@ -30,8 +30,8 @@ abstract class RestApiRepository {
   Future<AccountModel> addPatientInforModel(@Path('doctorId') String? doctorId,
       @Body() PatientInforModel? patientInforModel);
 
-  @POST('/api/Persons/{patientId}/AddNewRelative')
-  Future<void> addRelativeInforModel(@Path('patientId') String? patientId,
+  @POST('/api/Persons/{patientId}/AddRelative')
+  Future<AccountModel> addRelativeInforModel(@Path('patientId') String? patientId,
       @Body() RelativeInforModel? relativeInforModel);
 
   @GET('/api/Persons/DoctorInfo/{doctorId}') //để hiện detail

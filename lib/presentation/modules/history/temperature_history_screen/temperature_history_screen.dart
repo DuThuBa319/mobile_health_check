@@ -5,7 +5,6 @@ import 'package:mobile_health_check/presentation/modules/history/temperature_his
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../classes/language_constant.dart';
 import '../../../../common/singletons.dart';
 import '../../../../function.dart';
 import '../../../common_widget/dialog/show_toast.dart';
@@ -41,8 +40,8 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
     SizeConfig.init(context);
 
     return CustomScreenForm(
-        isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+      isRelativeApp:
+          (userDataData.getUser()?.role == "relative") ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,

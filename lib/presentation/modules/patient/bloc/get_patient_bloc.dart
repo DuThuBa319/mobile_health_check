@@ -6,12 +6,14 @@ import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mobile_health_check/domain/entities/number_of_notifications_entity.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../../domain/entities/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
+import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../../domain/usecases/relative_infor_usecase/relative_infor_usecase.dart';
 import '../../../common_widget/enum_common.dart';
@@ -23,9 +25,11 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final PatientUsecase _patientUseCase;
   final DoctorInforUsecase _doctorInforUsecase;
   final RelativeInforUsecase _relativeInforUsecase;
+  final NotificationUsecase notificationUsecase;
+
   final Connectivity _connectivity;
   GetPatientBloc(this._patientUseCase, this._doctorInforUsecase,
-      this._relativeInforUsecase, this._connectivity)
+      this._relativeInforUsecase, this._connectivity, this.notificationUsecase)
       : super(GetPatientInitialState()) {
     on<GetPatientListEvent>(_onGetPatientList);
     on<GetPatientListOfRelativeEvent>(_onGetPatientListOfRelative);
@@ -44,6 +48,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     Emitter<GetPatientState> emit,
   ) async {
     final connectivityResult = await _connectivity.checkConnectivity();
+
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
       emit(
@@ -54,10 +59,13 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
 
       try {
+        final numberOfNotificationsEntity =
+            await notificationUsecase.getNumberOfNotificationEntity(event.id);
         final response =
             await _doctorInforUsecase.getDoctorInforEntity(event.id);
-        final newViewModel =
-            state.viewModel.copyWith(doctorInforEntity: response);
+        final newViewModel = state.viewModel.copyWith(
+            doctorInforEntity: response,
+            numberOfNotificationsEntity: numberOfNotificationsEntity);
         emit(GetPatientListState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -94,11 +102,14 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
+        final numberOfNotificationsEntity = await notificationUsecase
+            .getNumberOfNotificationEntity(event.relativeId);
         final response = await _relativeInforUsecase
             .getRelativeInforEntity(event.relativeId);
 
-        final newViewModel =
-            state.viewModel.copyWith(relativeInforEntity: response);
+        final newViewModel = state.viewModel.copyWith(
+            relativeInforEntity: response,
+            numberOfNotificationsEntity: numberOfNotificationsEntity);
         emit(GetPatientListOfRelativeState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -203,10 +214,15 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
+        final password = event.patientInforModel?.phoneNumber;
+        final userName = event.patientInforModel?.name;
+
         final accountEntity = await _doctorInforUsecase.addPatientEntity(
             event.doctorId, event.patientInforModel);
-        final newViewModel =
-            state.viewModel.copyWith(accountEntity: accountEntity);
+        final newViewModel = state.viewModel.copyWith(
+            accountEntity: accountEntity,
+            userName: userName,
+            password: password);
         emit(
           RegistPatientState(
             status: BlocStatusState.success,
@@ -245,13 +261,17 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
+        final userName = event.relativeInforModel?.name;
+        final password = event.relativeInforModel?.phoneNumber;
         await _patientUseCase.addRelativeInforEntity(
             event.patientId, event.relativeInforModel);
         final accountEntity = AccountEntity(
             userName: event.relativeInforModel?.name,
             password: event.relativeInforModel?.phoneNumber);
-        final newViewModel =
-            state.viewModel.copyWith(accountEntity: accountEntity);
+        final newViewModel = state.viewModel.copyWith(
+            accountEntity: accountEntity,
+            password: password,
+            userName: userName);
         emit(RegistRelativeState(
             status: BlocStatusState.success, viewModel: newViewModel));
       } catch (e) {

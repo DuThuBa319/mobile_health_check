@@ -19,7 +19,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<GetNotificationListEvent>(_onGetNotificationList);
     on<SetReadedNotificationEvent>(_setReadedNotification);
     on<SetReadedNotificationFromCellEvent>(_setReadedNotificationFromCell);
-
     on<DeleteNotificationEvent>(_deleteNotification);
     on<RefreshNotificationListEvent>(_onRefreshNotificationList);
     on<RenewPageAfterActionEvent>(_onRenewPageAfterAction);
@@ -148,7 +147,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       await notificationUsecase
           .setReadedNotificationEntity(event.notificationId);
-
       emit(SetReadedNotificationState(
         status: BlocStatusState.success,
         viewModel: state.viewModel,

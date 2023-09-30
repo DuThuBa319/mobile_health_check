@@ -10,8 +10,16 @@ extension PatientListScreenAction on _PatientListState {
         state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);
     }
-    if (state is GetPatientListState &&
-        state.status == BlocStatusState.success) {
+    if ((state is GetPatientListState &&
+            state.status == BlocStatusState.success) ||
+        (state is GetPatientListOfRelativeState &&
+            state.status == BlocStatusState.success)) {
+      // ignore: invalid_use_of_protected_member
+      setState(() {
+        numberOfNotification =
+            state.viewModel.numberOfNotificationsEntity!.numberOfNotifications!;
+      });
+
       showToast(translation(context).dataLoaded);
     }
     if (state is GetPatientListState &&
@@ -91,8 +99,7 @@ extension PatientListScreenAction on _PatientListState {
                                   fontSize: SizeConfig.screenWidth * 0.05,
                                   fontWeight: FontWeight.bold)),
                           TextSpan(
-                            text:
-                                state.viewModel.accountEntity?.userName ?? "--",
+                            text: state.viewModel.userName ?? "--",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: SizeConfig.screenWidth * 0.05),
@@ -111,8 +118,7 @@ extension PatientListScreenAction on _PatientListState {
                                   fontSize: SizeConfig.screenWidth * 0.05,
                                   fontWeight: FontWeight.bold)),
                           TextSpan(
-                            text:
-                                state.viewModel.accountEntity?.password ?? "--",
+                            text: state.viewModel.password ?? "--",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: SizeConfig.screenWidth * 0.05),

@@ -12,6 +12,7 @@ import '../../../presentation/common_widget/screen_form/custom_screen_form.dart'
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/loading_widget.dart';
+import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import 'bloc/notification_bloc.dart';
 part 'notification_screen_action.dart';
@@ -36,8 +37,8 @@ class _NotificationListState extends State<NotificationScreen> {
   // final controller = ScrollController();
   NotificationBloc get notificationBloc => BlocProvider.of(context);
   int lastIndex = -1;
-  int startIndex = -50;
-  int quantity = 50;
+  int startIndex = -25;
+  int quantity = 25;
   bool loadMore = true;
   @override
   void initState() {
@@ -93,6 +94,10 @@ class _NotificationListState extends State<NotificationScreen> {
         backgroundColor: AppColor.white,
         appBarColor: AppColor.topGradient,
         title: translation(context).notification,
+        leadingButton: IconButton(
+            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
+                arguments: userDataData.getUser()!.id!),
+            icon: const Icon(Icons.arrow_back)),
         selectedIndex: 1,
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -100,7 +105,7 @@ class _NotificationListState extends State<NotificationScreen> {
               listener: _blocListener,
               builder: (context, state) {
                 if (state is NotificationInitialState) {
-                  lastIndex = 49;
+                  lastIndex = 24;
                   startIndex = 0;
                   notificationBloc.add(GetNotificationListEvent(
                       doctorId: userDataData.getUser()!.id,
@@ -118,13 +123,13 @@ class _NotificationListState extends State<NotificationScreen> {
                   );
                 }
 
-                if (((state is GetNotificationListState &&
-                            state.status == BlocStatusState.loading) ||
-                        (state is DeleteNotificationState &&
-                            state.status == BlocStatusState.loading) ||
-                        (state is SetReadedNotificationFromCellState &&
-                                state.status == BlocStatusState.loading) &&
-                            state.viewModel.notificationEntity != null) ||
+                if (((state is SetReadedNotificationFromCellState &&
+                            state.status == BlocStatusState.loading) &&
+                        state.viewModel.notificationEntity != null) ||
+                    (state is GetNotificationListState &&
+                        state.status == BlocStatusState.loading) ||
+                    (state is DeleteNotificationState &&
+                        state.status == BlocStatusState.loading) ||
                     (state is GetNotificationListState &&
                         state.status == BlocStatusState.success) ||
                     (state is RefreshNotificationListState &&
@@ -132,6 +137,8 @@ class _NotificationListState extends State<NotificationScreen> {
                     (state is DeleteNotificationState &&
                         state.status == BlocStatusState.success) ||
                     (state is SetReadedNotificationFromCellState &&
+                        state.status == BlocStatusState.success) ||
+                    (state is SetReadedNotificationState &&
                         state.status == BlocStatusState.success)) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
                     return Center(
@@ -205,7 +212,6 @@ class _NotificationListState extends State<NotificationScreen> {
                                             .numberOfNotificationsEntity!
                                             .numberOfNotifications!) {
                                       loadMore = false;
-
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 32),

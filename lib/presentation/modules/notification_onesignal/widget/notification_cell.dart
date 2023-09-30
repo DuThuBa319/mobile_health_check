@@ -19,7 +19,6 @@ class NotificationCell extends StatefulWidget {
   const NotificationCell({
     Key? key,
     // this.doctorInforEntity,
-
     this.cellIndex,
     this.doctorId,
     this.notificationBloc,

@@ -18,14 +18,10 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
   @override
   Future<AccountEntity>? addPatientEntity(
       String? doctorId, PatientInforModel? patientInforModel) async {
+    final account= 
     await _repository.addPatientInforModel(doctorId, patientInforModel);
-    final accountModel =
-        AccountModel(patientInforModel?.name, patientInforModel?.phoneNumber);
-    final accountEntity = accountModel.convertAccountEntity();
+    final accountEntity = account!.convertAccountEntity();
     return accountEntity;
-
-    // return accountEntity;
-// return response;
   }
 
   @override

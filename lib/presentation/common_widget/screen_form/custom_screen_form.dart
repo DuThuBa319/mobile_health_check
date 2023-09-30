@@ -136,7 +136,8 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
             )
           : null,
 
-      floatingActionButton: widget.floatActionButton,
+      floatingActionButton:
+          widget.isRelativeApp == false ? widget.floatActionButton : null,
     );
   }
 
@@ -191,6 +192,5 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     if (index == 1 && index != widget.selectedIndex) {
       Navigator.pushNamed(context, RouteList.setting);
     }
-    
   }
 }
