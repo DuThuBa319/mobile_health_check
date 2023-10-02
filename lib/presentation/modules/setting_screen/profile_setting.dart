@@ -61,7 +61,7 @@ class _SettingProfileState extends State<SettingProfile> {
         _controllerHeight.text =
             "${userDataData.getUser()?.height?.toInt() ?? 0}";
         _controllerAddress.text =
-            userDataData.getUser()?.address ?? "chưa có thông tin";
+            userDataData.getUser()?.address ?? translation(context).doNotHaveInformation;
       }
     });
   }

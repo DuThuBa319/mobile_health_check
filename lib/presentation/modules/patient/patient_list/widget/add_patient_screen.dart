@@ -165,9 +165,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               doctorId: userDataData.getUser()!.id));
                         } else {
                           showNoticeDialog(
-                              context: context,
-                              message:
-                                  "Số điện thoại không chính xác, phải từ 10-11 ký tự",
+                              context: context, 
+                              message:translation(context).phoneNumberCountError
+                                  ,
                               title: translation(context).notification,
                               titleBtn: translation(context).exit);
                         }

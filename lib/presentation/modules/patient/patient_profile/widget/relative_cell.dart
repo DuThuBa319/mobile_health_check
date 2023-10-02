@@ -51,7 +51,7 @@ class _RelativeListCellState extends State<RelativeListCell> {
             ),
             subtitle: Text(
                 widget.relativeInforEntity?.phoneNumber == ""
-                    ? "chưa cập nhật"
+                    ? translation(context).notUpdate
                     : widget.relativeInforEntity!.phoneNumber,
                 style: AppTextTheme.body4),
             trailing: (userDataData.getUser()?.role == "doctor")
@@ -60,7 +60,7 @@ class _RelativeListCellState extends State<RelativeListCell> {
                       showNoticeDialogTwoButton(
                           context: context,
                           title: translation(context).notification,
-                          message: "Delete this Relative?",
+                          message: translation(context).deleteRelative,
                           titleBtn1: translation(context).exit,
                           titleBtn2: translation(context).accept,
                           onClose2: () {

@@ -185,7 +185,7 @@ class _LoginState extends State<LoginScreen> {
                             ),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              labelText: "Email",
+                              labelText: translation(context).userName,
                               icon: Icon(Icons.account_box_rounded,
                                   size: SizeConfig.screenWidth * 0.12),
                               labelStyle: TextStyle(

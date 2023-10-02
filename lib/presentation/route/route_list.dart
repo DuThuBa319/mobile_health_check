@@ -47,4 +47,5 @@ class RouteList {
   static const String bloodGlucoseScreen = '/bloodGlucoseScreen';
   static const String temperatureScreen = '/temperatureScreen';
   static const String spo2Screen = '/spo2Screen';
+  static const String patientInforCell = '/patientInforCell';
 }

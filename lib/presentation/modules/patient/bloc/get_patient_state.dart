@@ -12,7 +12,7 @@ class _ViewModel {
   final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
   final AccountEntity? accountEntity;
-  final NumberOfNotificationsEntity? numberOfNotificationsEntity;
+  final int? totalCount;
   final String? userName;
   final String? password;
 
@@ -22,7 +22,7 @@ class _ViewModel {
     // this.listTemperature,
     this.password,
     this.userName,
-    this.numberOfNotificationsEntity,
+    this.totalCount,
     this.relativeInforEntity,
     this.accountEntity,
     this.relativeEntities,
@@ -39,13 +39,12 @@ class _ViewModel {
       final List<PatientInforEntity>? patientEntities,
       final PatientInforEntity? patientInforEntity,
       final List<RelativeInforEntity>? relativeEntities,
-      final NumberOfNotificationsEntity? numberOfNotificationsEntity,
+      final int? totalCount,
       final String? userName,
       final String? password}) {
     // ignore: unnecessary_this
     return _ViewModel(
-        numberOfNotificationsEntity:
-            numberOfNotificationsEntity ?? this.numberOfNotificationsEntity,
+        totalCount: totalCount ?? this.totalCount,
         relativeInforEntity: relativeInforEntity ?? this.relativeInforEntity,
         accountEntity: accountEntity ?? this.accountEntity,
         relativeEntities: relativeEntities ?? this.relativeEntities,

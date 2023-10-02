@@ -63,7 +63,7 @@ extension PatientListScreenAction on _PatientListState {
         state.status == BlocStatusState.success) {
       showNoticeDialog(
           context: context,
-          message: 'Đăng ký thành công',
+          message: translation(context).addPatientSuccessfully,
           title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
@@ -77,10 +77,10 @@ extension PatientListScreenAction on _PatientListState {
   Future<bool> _onWillPop() async {
     return (await showNoticeDialogTwoButton(
             context: context,
-            message: 'Do you want to exit an App',
-            title: 'Are you sure?',
-            titleBtn1: 'No',
-            titleBtn2: 'Yes',
+            message: translation(context).exitApp,
+            title: translation(context).areYouSure,
+            titleBtn1: translation(context).no,
+            titleBtn2: translation(context).yes,
             onClose1: () {},
             onClose2: () {
               SystemNavigator.pop();

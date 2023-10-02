@@ -153,13 +153,13 @@ class BloodPressureHistoryScreenState
                 if (timeFrom.isAfter(timeTo)) {
                   showNoticeDialog(
                       context: context,
-                      message: 'Start Date must be before End Date',
+                      message: translation(context).selectError,
                       onClose: () {
                         timeFrom = timeTo;
                         strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
                       },
-                      title: 'Attention!!!',
-                      titleBtn: 'Close');
+                      title: translation(context).notification ,
+                      titleBtn: translation(context).exit);
                   
                 } else {
                   onGetBloodPressureData();
@@ -191,7 +191,7 @@ class BloodPressureHistoryScreenState
                 builder: (context, state) {
                   if (state is HistoryInitialState) {
                     return Center(
-                        child: Text('Hãy chọn các mốc thời gian',
+                        child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                     // onGetBloodPressureInitData();
@@ -213,7 +213,7 @@ class BloodPressureHistoryScreenState
                           state.status == BlocStatusState.success) ||
                       state.status == BlocStatusState.failure) {
                     return Center(
-                        child: Text('Đã xảy ra lỗi',
+                        child: Text(translation(context).error,
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                   }
@@ -221,7 +221,7 @@ class BloodPressureHistoryScreenState
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodPressure!.isEmpty) {
                       return Center(
-                          child: Text('Hãy chọn các mốc thời gian',
+                          child: Text(translation(context).selectTime,
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
