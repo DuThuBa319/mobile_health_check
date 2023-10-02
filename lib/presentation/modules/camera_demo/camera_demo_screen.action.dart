@@ -19,9 +19,10 @@ extension CameraScreenAction on CameraScreenState {
       showToast(translation(context).processSuccessfully);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.failure) {
+      // ignore: use_build_context_synchronously
       showNoticeDialog(
           context: context,
-          message: 'Đã xảy ra lỗi. Vui lòng thử lại!',
+          message: translation(context).errorTryAgain,
           title: translation(context).notification,
           titleBtn: translation(context).exit,
           onClose: () {
@@ -29,9 +30,10 @@ extension CameraScreenAction on CameraScreenState {
           });
     }
     if (state is GetImageState && state.status == BlocStatusState.failure) {
+      // ignore: use_build_context_synchronously
       showNoticeDialog(
           context: context,
-          message: 'Đã xảy ra lỗi',
+          message: translation(context).error,
           title: translation(context).notification,
           titleBtn: translation(context).exit,
           onClose: () {

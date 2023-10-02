@@ -115,6 +115,18 @@
 "endOfList":"No more data to load",
 "noData":"Not update",
 "wifiDisconnect":"No Wi-Fi connectivity",
-"notUpdate":"Unknown"
+"notUpdate":"Unknown",
+"userName":"UserName",
+"errorTryAgain":"Error. Please try again!",
+"selectError":"Start Date must be before End Date",
+"exitApp":"Do you want to exit the App?",
+"areYouSure":"Are you sure?",
+"no":"No",
+"yes":"Yes",
+"phoneNumberCountError":"Incorrect phone number, must be 10-11 characters",
+"deleteRelative":"Delete this relative?",
+"deletePatient":"Delete this patient?",
+"doNotHaveInformation":"Don't have information"
 }
+
 

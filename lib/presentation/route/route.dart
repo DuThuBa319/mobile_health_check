@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/blood_pressure_reading_screen.dart';
 import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
+import 'package:mobile_health_check/presentation/modules/patient/patient_profile/widget/patient_infor_cell.dart';
 import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -66,6 +68,12 @@ class AppRoute {
             );
           },
         );
+      case '/patientInforCell':
+        final response = routeSettings.arguments as PatientInforEntity;
+        return MaterialPageRoute(
+            builder: (context) => PatientInforCell(
+                  patientInforEntity: response,
+                ));
       case '/camera':
         final measuringTask = routeSettings.arguments as MeasuringTask;
         return MaterialPageRoute(
@@ -314,7 +322,7 @@ class AppRoute {
       case '/settingDrPhone':
         return MaterialPageRoute(
           builder: (context) {
-            return const SettingDrOrRePhone();
+            return const SettingDrOrRePhoneNumber();
           },
         );
       case '/settingLanguage':

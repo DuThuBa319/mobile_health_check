@@ -184,10 +184,10 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
   Future<bool> _onWillPop() async {
     return (await showNoticeDialogTwoButton(
             context: context,
-            message: 'Do you want to exit an App',
-            title: 'Are you sure?',
-            titleBtn1: 'No',
-            titleBtn2: 'Yes',
+            message: translation(context).exitApp,
+            title: translation(context).areYouSure,
+            titleBtn1: translation(context).no,
+            titleBtn2:translation(context).yes,
             onClose1: () {},
             onClose2: () {
               SystemNavigator.pop();

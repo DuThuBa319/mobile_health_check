@@ -225,8 +225,7 @@ class _PatientListState extends State<PatientListScreen> {
                           if (userDataData.getUser()!.role! == 'doctor') {
                             patientBloc.add(GetPatientListEvent(
                                 id: widget.id ?? widget.id!));
-                          } 
-                          else if (userDataData.getUser()!.role! ==
+                          } else if (userDataData.getUser()!.role! ==
                               'relative') {
                             patientBloc.add(GetPatientListOfRelativeEvent(
                                 relativeId: widget.id ?? widget.id!));
@@ -359,8 +358,8 @@ class _PatientListState extends State<PatientListScreen> {
                                 state.status == BlocStatusState.failure) ||
                             state is GetPatientListOfRelativeState &&
                                 state.status == BlocStatusState.failure) {
-                          return const Center(
-                            child: Text("error"),
+                          return  Center(
+                            child: Text(translation(context).error),
                           );
                         }
                         return Container();

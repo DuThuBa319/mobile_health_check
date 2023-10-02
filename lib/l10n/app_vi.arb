@@ -113,5 +113,16 @@
 "endOfList":"Không còn thông báo",
 "noData":"Chưa có thông tin",
 "wifiDisconnect":"Không có kết nối wifi",
-"notUpdate":"Chưa cập nhật"
+"notUpdate":"Chưa cập nhật",
+"userName":"Tài khoản",
+"errorTryAgain":"Đã xảy ra lỗi. Vui lòng thử lại!",
+"selectError":"Ngày bắt đầu phải trước ngày kết thúc",
+"exitApp":"Bạn muốn thoát khỏi ứng dụng?",
+"areYouSure":"Bạn chắc chứ?",
+"no":"Không",
+"yes":"đúng vậy",
+"phoneNumberCountError":"Số điện thoại không chính xác, phải từ 10-11 ký tự",
+"deleteRelative":"Bạn muốn xóa người thân này?",
+"deletePatient":"Bạn muốn xóa bệnh nhân này?",
+"doNotHaveInformation":"chưa có thông tin"
 }

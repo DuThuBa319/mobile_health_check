@@ -163,7 +163,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                       ),
                                       GestureDetector(
                                           onTap: () {
-                                            showInfor(patient);
+                                            Navigator.pushNamed(context,
+                                                RouteList.patientInforCell,
+                                                arguments: patient);
                                           },
                                           child: SizedBox(
                                               width:
@@ -480,7 +482,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
               }
               if (state.status == BlocStatusState.failure ||
                   state is WifiDisconnectState) {
-                return const Center(child: Text("error"));
+                return  Center(child: Text(translation(context).error));
               }
               return Container();
             }));

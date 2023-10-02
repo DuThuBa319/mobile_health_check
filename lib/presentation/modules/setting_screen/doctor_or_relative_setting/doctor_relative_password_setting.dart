@@ -2,7 +2,6 @@ import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
@@ -19,7 +18,12 @@ class SettingDrOrRePassword extends StatefulWidget {
 }
 
 class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
-  bool showPass = true;
+  final TextEditingController _controllerOldPassword = TextEditingController();
+  final TextEditingController _controllerNewPassword = TextEditingController();
+
+  bool showPass1 = true;
+  bool showPass2 = true;
+
   final passController = TextEditingController();
   String pass = "";
 
@@ -30,7 +34,7 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
     return CustomScreenForm(
         isRelativeApp:
             (userDataData.getUser()?.role == "relative") ? true : false,
-        title: translation(context).setting,
+        title: translation(context).updatePassword,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: false,
@@ -43,32 +47,129 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
         selectedIndex: 2,
         child: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.only(left: 25, right: 25),
+            margin: EdgeInsets.only(
+                left: SizeConfig.screenWidth * 0.06,
+                right: SizeConfig.screenWidth * 0.06),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: SizeConfig.screenHeight * 0.08),
+                  SizedBox(height: SizeConfig.screenHeight * 0.05),
                   lineDecor(),
-                  SettingPasswordCell(
-                      selectSetting: translation(context).oldPassword,
-                      showPass: showPass),
-                  SettingPasswordCell(
-                      selectSetting: translation(context).newPassword,
-                      showPass: showPass),
-                  SettingPasswordCell(
-                      selectSetting: translation(context).confirmPass,
-                      showPass: showPass),
-                  SizedBox(height: SizeConfig.screenHeight * 0.01),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  Container(
+                    height: SizeConfig.screenWidth * 0.2,
+                    width: SizeConfig.screenWidth * 0.9,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColor.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.02,
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.85,
+                          child: TextField(
+                            // focusNode: _focusNode,
+                            controller: _controllerOldPassword,
+                            obscureText: showPass1,
+                            style: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.05,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                    showPass1
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    size: SizeConfig.screenWidth * 0.05),
+                                onPressed: () {
+                                  setState(() {
+                                    showPass1 = !showPass1;
+                                  });
+                                },
+                              ),
+                              icon: Icon(Icons.lock,
+                                  size: SizeConfig.screenWidth * 0.1),
+                              border: InputBorder.none,
+                              labelText: translation(context).oldPassword,
+                              labelStyle: TextStyle(
+                                  color: AppColor.gray767676,
+                                  fontSize: SizeConfig.screenWidth * 0.05),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  Container(
+                    height: SizeConfig.screenWidth * 0.2,
+                    width: SizeConfig.screenWidth * 0.9,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColor.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.02,
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.85,
+                          child: TextField(
+                            // focusNode: _focusNode,
+                            controller: _controllerNewPassword,
+                            obscureText: showPass2,
+                            style: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.05,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                    showPass2
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    size: SizeConfig.screenWidth * 0.05),
+                                onPressed: () {
+                                  setState(() {
+                                    showPass2 = !showPass2;
+                                  });
+                                },
+                              ),
+                              icon: Icon(Icons.lock,
+                                  size: SizeConfig.screenWidth * 0.1),
+                              border: InputBorder.none,
+                              labelText: translation(context).newPassword,
+                              labelStyle: TextStyle(
+                                  color: AppColor.gray767676,
+                                  fontSize: SizeConfig.screenWidth * 0.05),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Center(
                     child: CommonButton(
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          firebaseAuthService.changePassword(currentPassword:"123456" ,newPassword: "123456789");
+                          firebaseAuthService.changePassword(
+                              currentPassword: _controllerOldPassword.text,
+                              newPassword: _controllerNewPassword.text);
                           showToast(
                               translation(context).updatePasswordSuccessfullly);
+                          Navigator.pushNamed(context, RouteList.setting);
                         }),
                   )
                 ]),

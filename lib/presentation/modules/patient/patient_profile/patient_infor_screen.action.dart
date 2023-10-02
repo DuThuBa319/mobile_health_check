@@ -29,89 +29,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     }
   }
 
-  void showInfor(PatientInforEntity patientInforEntity) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              translation(context).patientIn4,
-              style: TextStyle(
-                  color: AppColor.lineDecor,
-                  fontSize: SizeConfig.screenWidth * 0.06,
-                  fontWeight: FontWeight.bold),
-            ),
-            content: ListView(children: [
-              in4Cell(
-                  "${translation(context).name}: ", patientInforEntity.name),
-              in4Cell("${translation(context).phoneNumber}: ",
-                  patientInforEntity.phoneNumber),
-              in4Cell(
-                  "${translation(context).age}: ",
-                  (patientInforEntity.age == 0)
-                      ? translation(context).notUpdate
-                      : "${patientInforEntity.age}"),
-              in4Cell(
-                "${translation(context).gender}: ",
-                patientInforEntity.gender == false ? "Nam" : "nữ",
-              ),
-              in4Cell(
-                  "${translation(context).height}: ",
-                  (patientInforEntity.height?.toInt() == 0)
-                      ? "${translation(context).notUpdate} (cm)"
-                      : "${patientInforEntity.height?.toInt()} (cm)"),
-              in4Cell(
-                  "${translation(context).weight}: ",
-                  (patientInforEntity.weight?.toInt() == 0)
-                      ? "${translation(context).notUpdate} (kg)"
-                      : "${patientInforEntity.weight?.toInt()} (kg)"),
-              in4Cell("${translation(context).address}: ",
-                  "${patientInforEntity.address}"),
-            ]),
-            actions: [
-              TextButton(
-                child: Text(translation(context).back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
-  }
-
-  Widget in4Cell(String titile, String text) {
-    return Container(
-        margin: EdgeInsets.only(top: SizeConfig.screenWidth * 0.03),
-        padding: EdgeInsets.only(
-            top: SizeConfig.screenWidth * 0.03,
-            left: SizeConfig.screenWidth * 0.02),
-        height: SizeConfig.screenHeight * 0.13,
-        decoration: BoxDecoration(
-          color: AppColor.cardBackground,
-          borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
-        ),
-        child: RichText(
-          textAlign: TextAlign.start,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                  text: titile,
-                  style: TextStyle(
-                      color: AppColor.black,
-                      fontSize: SizeConfig.screenWidth * 0.06,
-                      fontWeight: FontWeight.w500)),
-              TextSpan(
-                text: text,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: SizeConfig.screenWidth * 0.05),
-              )
-            ],
-          ),
-        ));
-  }
-
+ 
   Widget infoText({required String? title, required String? content}) {
     return Column(
       children: [
@@ -125,6 +43,33 @@ extension PatientInforScreenAction on _PatientInforScreenState {
       ],
     );
   }
+ void showInfor(PatientInforEntity patientInforEntity) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              translation(context).patientIn4,
+              style: TextStyle(
+                  color: AppColor.lineDecor,
+                  fontSize: SizeConfig.screenWidth * 0.06,
+                  fontWeight: FontWeight.bold),
+            ),
+            content: ListView(children: [
+             
+            ]),
+            actions: [
+              TextButton(
+                child: Text(translation(context).back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
 
   Widget homeCell({
     Spo2Entity? spo2Entity,
