@@ -2,6 +2,7 @@ import 'package:mobile_health_check/data/data_source/remote/rest_api_repository.
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/spo2_model/spo2_model.dart';
 import 'spo2_api_repository.dart';
 
@@ -14,8 +15,7 @@ class Spo2ApiRepositoryImpl implements Spo2ApiRepository {
     required this.dio,
   }) : restApi = RestApiRepository(
           dio,
-          baseUrl:
-              'https://healthcareapplicationcloud.azurewebsites.net/api/SpO2s',
+          baseUrl: baseUrl,
         );
 
   @override
@@ -31,10 +31,7 @@ class Spo2ApiRepositoryImpl implements Spo2ApiRepository {
     );
   }
 
-  @override
-  Future<Spo2Model> getSpo2Model({required int id}) {
-    return restApi.getSpo2Model(id: id);
-  }
+ 
 
   @override
   Future<bool> createSpo2Model(

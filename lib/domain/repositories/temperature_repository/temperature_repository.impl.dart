@@ -23,11 +23,6 @@ class TemperatureRepositoryImpl extends TemperatureRepository {
   }
 
   @override
-  Future<TemperatureModel> getTemperatureModel({required int id}) {
-    return temperatureApi.getTemperatureModel(id: id);
-  }
-
-  @override
   Future<bool> createTemperatureModel(
       {required TemperatureModel temperatureModel, required String id}) {
     return temperatureApi.createTemperatureModel(

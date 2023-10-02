@@ -12,7 +12,7 @@ abstract class Spo2Repository {
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<Spo2Model> getSpo2Model({required int id});
+ 
   Future<bool> createSpo2Model(
       {required String id, required Spo2Model spo2Model});
 }

@@ -23,11 +23,6 @@ class BloodSugarRepositoryImpl extends BloodSugarRepository {
   }
 
   @override
-  Future<BloodSugarModel> getBloodSugarModel({required int id}) {
-    return bloodSugarApi.getBloodSugarModel(id: id);
-  }
-
-  @override
   Future<bool> createBloodSugarModel(
       {required BloodSugarModel bloodSugarModel, required String id}) {
     return bloodSugarApi.createBloodSugarModel(

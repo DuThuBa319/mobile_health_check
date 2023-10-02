@@ -9,8 +9,6 @@ import '../../../function.dart';
 import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../route/route_list.dart';
 
-
-
 class CustomScreenFormForRelativeApp extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
   final bool isShowAppBar;
@@ -49,10 +47,12 @@ class CustomScreenFormForRelativeApp extends StatefulWidget {
   });
 
   @override
-  State<CustomScreenFormForRelativeApp> createState() => _CustomScreenFormForRelativeAppState();
+  State<CustomScreenFormForRelativeApp> createState() =>
+      _CustomScreenFormForRelativeAppState();
 }
 
-class _CustomScreenFormForRelativeAppState extends State<CustomScreenFormForRelativeApp> {
+class _CustomScreenFormForRelativeAppState
+    extends State<CustomScreenFormForRelativeApp> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -154,8 +154,8 @@ class _CustomScreenFormForRelativeAppState extends State<CustomScreenFormForRela
                     iconBottomBar(
                         label: translation(context).settingScreen,
                         iconData: Icons.settings_sharp,
-                        isSelected: widget.selectedIndex == 2 ? true : false,
-                        iconIndex: 2),
+                        isSelected: widget.selectedIndex == 1 ? true : false,
+                        iconIndex: 1),
                   ],
                 ),
               ),
@@ -210,7 +210,7 @@ class _CustomScreenFormForRelativeAppState extends State<CustomScreenFormForRela
       Navigator.pushNamed(context, RouteList.patientList,
           arguments: userDataData.getUser()!.id!);
     }
-    if (index == 2 && index != widget.selectedIndex) {
+    if (index == 1 && index != widget.selectedIndex) {
       Navigator.pushNamed(context, RouteList.setting);
     }
   }

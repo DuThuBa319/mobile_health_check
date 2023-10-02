@@ -29,13 +29,6 @@ class BloodSugarUsecaseImpl extends BloodSugarUsecase {
   }
 
   @override
-  Future<BloodSugarEntity> getBloodSugarEntity({required int id}) async {
-    final response = await _repository.getBloodSugarModel(id: id);
-
-    return response.getBloodSugarEntity();
-  }
-
-  @override
   Future<bool> createBloodSugarEntity(
       {required String id, required BloodSugarEntity bloodSugarEntity}) async {
     final bloodSugarmodel = bloodSugarEntity.getBloodSugarModel();

@@ -29,13 +29,6 @@ class TemperatureUsecaseImpl extends TemperatureUsecase {
   }
 
   @override
-  Future<TemperatureEntity> getTemperatureEntity({required int id}) async {
-    final response = await _repository.getTemperatureModel(id: id);
-
-    return response.getTemperatureEntity();
-  }
-
-  @override
   Future<bool> createTemperatureEntity(
       {required String id,
       required TemperatureEntity temperatureEntity}) async {

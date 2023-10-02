@@ -12,7 +12,6 @@ abstract class BloodSugarRepository {
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<BloodSugarModel> getBloodSugarModel({required int id});
   Future<bool> createBloodSugarModel(
       {required String id, required BloodSugarModel bloodSugarModel});
 }

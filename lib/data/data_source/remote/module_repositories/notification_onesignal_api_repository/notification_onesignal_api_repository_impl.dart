@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/notification_onesignal_model/notification_onesignal_model.dart';
-import '../../../../models/number_of_notifications/number_of_notifications_model.dart';
-import '../../../../models/number_of_unread_count_notification/number_of_unread_count_notifications_model.dart';
 import '../../rest_api_repository.dart';
 import 'notification_onesignal_api_repository.dart';
 
@@ -14,8 +13,7 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
 
   NotificationApiRepositoryImpl({
     required this.dio,
-  }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net');
+  }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
   @override
   Future<List<NotificationModel>> getNotificationListModels(
@@ -30,14 +28,12 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
   }
 
   @override
-  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(
-      String? doctorId) {
+  Future<int> getUnreadCountNotification(String? doctorId) {
     return restApi.getUnreadCountNotification(doctorId);
   }
 
   @override
-  Future<NumberOfNotificationsModel?> getNumberOfNotifications(
-      String? personId) {
+  Future<int?> getNumberOfNotifications(String? personId) {
     return restApi.getNumberOfNotifications(personId);
   }
 

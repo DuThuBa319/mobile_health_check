@@ -15,10 +15,7 @@ extension PatientListScreenAction on _PatientListState {
         (state is GetPatientListOfRelativeState &&
             state.status == BlocStatusState.success)) {
       // ignore: invalid_use_of_protected_member
-      setState(() {
-        numberOfNotification =
-            state.viewModel.numberOfNotificationsEntity!.numberOfNotifications!;
-      });
+     
 
       showToast(translation(context).dataLoaded);
     }

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/account_model/account_model.dart';
 import '../../../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../rest_api_repository.dart';
@@ -13,8 +14,7 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
 
   DoctorInforApiRepositoryImpl({
     required this.dio,
-  }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net');
+  }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
   @override
   Future<DoctorInforModel> getDoctorInforModel(String? id) {

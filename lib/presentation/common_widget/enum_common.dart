@@ -25,3 +25,4 @@ class CroppedImage {
   bool flashOn;
   CroppedImage(this.croppedImage, this.flashOn);
 }
+const baseUrl = 'https://healthcareapplicationcloud.azurewebsites.net';

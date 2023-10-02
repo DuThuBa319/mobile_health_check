@@ -11,7 +11,7 @@ abstract class BloodSugarUsecase {
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<BloodSugarEntity> getBloodSugarEntity({required int id});
+
   Future<bool> createBloodSugarEntity(
       {required String id, required BloodSugarEntity bloodSugarEntity});
 }
