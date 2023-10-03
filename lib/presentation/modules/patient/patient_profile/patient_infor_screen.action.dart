@@ -55,7 +55,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   fontSize: SizeConfig.screenWidth * 0.06,
                   fontWeight: FontWeight.bold),
             ),
-            content: ListView(children: [
+            content: ListView(children: const [
              
             ]),
             actions: [

@@ -9,13 +9,13 @@ class RelativeInforUsecaseImpl extends RelativeInforUsecase {
   RelativeInforUsecaseImpl(this._repository);
 
   @override
-  Future<RelativeInforEntity?>? getRelativeInforEntity(
+  Future<RelativeInforEntity?> getRelativeInforEntity(
       String? relativeId) async {
     final response = await _repository.getRelativeInforModel(relativeId);
     await userDataData.setUser(UserModel(
         patients: response?.patients,
         address: response?.address ?? "chưa có thông tin",
-        age: response?.age??0,
+        age: response?.age ?? 0,
         gender: response?.gender == 0 ? false : true,
         id: userDataData.getUser()!.id,
         role: userDataData.getUser()!.role,
@@ -28,7 +28,8 @@ class RelativeInforUsecaseImpl extends RelativeInforUsecase {
 
   @override
   Future<void> updateRelativeInforEntity(
-      String? id, RelativeInforModel? patientInforModel) async {
-    await _repository.updateRelativeInforModel(id, patientInforModel);
+      String? id, RelativeInforEntity? relativeInforEntity) async {
+    final relativeInforModel = relativeInforEntity?.convertToRelativeModel;
+    await _repository.updateRelativeInforModel(id, relativeInforModel );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 
 import '../../common/service/local_manager/user_data_datasource/user.dart';
+import '../../data/models/relative_model/relative_infor_model.dart';
 
 class RelativeInforEntity {
   String? id;
@@ -20,7 +21,7 @@ class RelativeInforEntity {
     this.gender,
     required this.phoneNumber,
     this.address,
-    required this.patients,
+     this.patients,
   });
   User convertUser({required User user}) {
     return user.copyWith(
@@ -33,17 +34,16 @@ class RelativeInforEntity {
     );
   }
 
-  // RelativeInforModel convertToRelativeModel() {
-  //   final model = RelativeInforModel(
-  //       name: name,
-  //       phoneNumber: phoneNumber,
-  //       address: address,
-  //       age: age,
-  //       gender: gender,
-  //       id: id,
-  //       patients: patients,
-  //       personType: 2);
-  //   return model;
-  // }
+  RelativeInforModel get convertToRelativeModel {
+    final model = RelativeInforModel(
+        name: name,
+        phoneNumber: phoneNumber,
+        address: address,
+        age: age,
+        gender: gender,
+        id: id,
+        personType: 2);
+    return model;
+  }
 }
 //cái gì mà repo ko cung cấp thì mình sẽ cung cấp trong entity

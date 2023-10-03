@@ -110,6 +110,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          //! Infor
                           Container(
                               width: SizeConfig.screenWidth,
                               decoration: const BoxDecoration(
@@ -187,6 +188,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                       ))
                                 ],
                               )),
+                          //! Data
                           Container(
                             padding: EdgeInsets.only(
                               left: SizeConfig.screenWidth * 0.04,
@@ -306,183 +308,92 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               translation(context).oximeter,
                                           color: AppColor.oximeterCell),
                                     ),
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                        top: SizeConfig.screenWidth * 0.02,
-                                        left: SizeConfig.screenWidth * 0.04,
-                                        bottom: SizeConfig.screenWidth * 0.02,
-                                        right: SizeConfig.screenWidth * 0.025,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            translation(context).relative,
-                                            style: AppTextTheme.body0.copyWith(
-                                                fontSize:
-                                                    SizeConfig.screenHeight *
-                                                        0.02,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            height: 2,
-                                          ),
-                                          lineDecor(),
-                                          SizedBox(
-                                            height:
-                                                SizeConfig.screenWidth * 0.02,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    ListView.builder(
-                                      physics: const BouncingScrollPhysics(),
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      itemCount: patient.relatives?.length ?? 0,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        final relatives =
-                                            patient.relatives?[index];
-                                        return RelativeListCell(
-                                          deleteRelativeBloc: patientBloc,
-                                          relativeInforEntity: relatives,
-                                          patientInforEntity: patient,
-                                        );
-                                      },
-                                    ),
-                                    (userDataData.getUser()?.role == "doctor" &&
-                                            patient.relatives!.length <= 2)
-                                        ? Center(
-                                            child: CommonButton(
-                                                width: SizeConfig.screenWidth *
-                                                    0.91,
-                                                height:
-                                                    SizeConfig.screenHeight *
-                                                        0.06,
-                                                title: translation(context)
-                                                    .addRelative,
-                                                buttonColor: AppColor.lineDecor,
-                                                onTap: () {
-                                                  Navigator.pushNamed(context,
-                                                      RouteList.addRelative,
-                                                      arguments: {
-                                                        "patientBloc":
-                                                            patientBloc,
-                                                        "patientId":
-                                                            widget.patientId
-                                                      });
-                                                }),
-                                          )
-                                        : const SizedBox(
-                                            width: 0.5,
-                                          ),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                   ],
                                 )
-                              : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: SizeConfig.screenHeight * 0.2,
-                                      child: Center(
-                                        child: Text("Chưa có dữ liệu",
-                                            style: AppTextTheme.body0.copyWith(
-                                                color: Colors.red,
-                                                fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.05,
-                                                fontWeight: FontWeight.w500)),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                        top: SizeConfig.screenWidth * 0.02,
-                                        left: SizeConfig.screenWidth * 0.04,
-                                        bottom: SizeConfig.screenWidth * 0.02,
-                                        right: SizeConfig.screenWidth * 0.025,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            translation(context).relative,
-                                            style: AppTextTheme.body0.copyWith(
-                                                fontSize:
-                                                    SizeConfig.screenHeight *
-                                                        0.02,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            height: 2,
-                                          ),
-                                          lineDecor(),
-                                          SizedBox(
-                                            height:
-                                                SizeConfig.screenWidth * 0.02,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    ListView.builder(
-                                      physics: const BouncingScrollPhysics(),
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      itemCount: patient.relatives?.length ?? 0,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        final relatives =
-                                            patient.relatives?[index];
-                                        return RelativeListCell(
-                                          deleteRelativeBloc: patientBloc,
-                                          relativeInforEntity: relatives,
-                                          patientInforEntity: patient,
-                                        );
-                                      },
-                                    ),
-                                    (userDataData.getUser()?.role == "doctor" &&
-                                            patient.relatives!.length <= 2)
-                                        ? Center(
-                                            child: CommonButton(
-                                                width: SizeConfig.screenWidth *
-                                                    0.91,
-                                                height:
-                                                    SizeConfig.screenHeight *
-                                                        0.06,
-                                                title: translation(context)
-                                                    .addRelative,
-                                                buttonColor: AppColor.lineDecor,
-                                                onTap: () {
-                                                  Navigator.pushNamed(context,
-                                                      RouteList.addRelative,
-                                                      arguments: {
-                                                        "patientBloc":
-                                                            patientBloc,
-                                                        "patientId":
-                                                            widget.patientId
-                                                      });
-                                                }),
-                                          )
-                                        : const SizedBox(
-                                            width: 0.5,
-                                          ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
+                              : SizedBox(
+                                  height: SizeConfig.screenHeight * 0.2,
+                                  child: Center(
+                                    child: Text("Chưa có dữ liệu",
+                                        style: AppTextTheme.body0.copyWith(
+                                            color: Colors.red,
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.05,
+                                            fontWeight: FontWeight.w500)),
+                                  ),
+                                ),
+                          Container(
+                            padding: EdgeInsets.only(
+                              top: SizeConfig.screenWidth * 0.02,
+                              left: SizeConfig.screenWidth * 0.04,
+                              bottom: SizeConfig.screenWidth * 0.02,
+                              right: SizeConfig.screenWidth * 0.025,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  translation(context).relative,
+                                  style: AppTextTheme.body0.copyWith(
+                                      fontSize: SizeConfig.screenHeight * 0.02,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                lineDecor(),
+                                SizedBox(
+                                  height: SizeConfig.screenWidth * 0.02,
+                                ),
+                              ],
+                            ),
+                          ),
+                          ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount: patient.relatives?.length ?? 0,
+                            itemBuilder: (BuildContext context, int index) {
+                              final relatives = patient.relatives?[index];
+                              return RelativeListCell(
+                                deleteRelativeBloc: patientBloc,
+                                relativeInforEntity: relatives,
+                                patientInforEntity: patient,
+                              );
+                            },
+                          ),
+                          (userDataData.getUser()?.role == "doctor" &&
+                                  patient.relatives!.length <= 2)
+                              ? Padding(
+                                  padding: EdgeInsets.only(
+                                    left: SizeConfig.screenWidth * 0.04,
+                                  ),
+                                  child: CommonButton(
+                                      width: SizeConfig.screenWidth * 0.4,
+                                      height: SizeConfig.screenHeight * 0.045,
+                                      title: translation(context).addRelative,
+                                      buttonColor: AppColor.lineDecor,
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, RouteList.addRelative,
+                                            arguments: {
+                                              "patientBloc": patientBloc,
+                                              "patientId": widget.patientId
+                                            });
+                                      }),
                                 )
+                              : const SizedBox(
+                                  width: 0.5,
+                                ),
                         ],
                       ),
                     ));
               }
               if (state.status == BlocStatusState.failure ||
                   state is WifiDisconnectState) {
-                return  Center(child: Text(translation(context).error));
+                return Center(child: Text(translation(context).error));
               }
               return Container();
             }));

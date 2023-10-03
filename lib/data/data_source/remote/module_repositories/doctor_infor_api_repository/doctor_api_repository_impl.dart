@@ -25,9 +25,7 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
   Future<AccountModel>? addPatientInforModel(
       String? doctorId, PatientInforModel? patientInforModel) {
     return restApi.addPatientInforModel(doctorId, patientInforModel);
-    // final accountModel =
-    //     AccountModel(patientInforModel?.name, patientInforModel?.phoneNumber);
-    // return accountModel;
+   
   }
 
   @override

@@ -36,6 +36,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<FilterPatientEvent>(_onSearchPatient);
     on<UpdatePatientInforEvent>(_onUpdatePatientInfor);
     on<UpdateRelativeInforEvent>(_onUpdateRelativeInfor);
+    // on<UpdateDoctorInforEvent>(_onUpdateDoctorInfor);
     on<RegistPatientEvent>(_onAddPatient);
     on<RegistRelativeEvent>(_onAddRelative);
     on<GetPatientInforEvent>(_getPatientInfor);
@@ -345,7 +346,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        await _patientUseCase.updatePatientInforEntity(event.id, event.model);
+        await _patientUseCase.updatePatientInforEntity(
+            event.id, event.patientInforEntity);
         final newViewModel = state.viewModel;
         emit(UpdatePatientInforState(
           status: BlocStatusState.success,
@@ -384,7 +386,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
       try {
         await _relativeInforUsecase.updateRelativeInforEntity(
-            event.id, event.model);
+            event.id, event.relativeInforEntity);
         final newViewModel = state.viewModel;
         emit(UpdateRelativeInforState(
           status: BlocStatusState.success,
@@ -407,6 +409,45 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
     }
   }
+
+// Future<void> _onUpdateDoctorInfor(
+//     UpdateDoctorInforEvent event,
+//     Emitter<GetPatientState> emit,
+//   ) async {
+//     final connectivityResult = await _connectivity.checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.wifi ||
+//         connectivityResult == ConnectivityResult.mobile) {
+//       emit(
+//         UpdateDoctorInforState(
+//           status: BlocStatusState.loading,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//       try {
+//         await _doctorInforUsecase.updateDoctorInforEntity(
+//             event.id, event.dcotorInforEntity);
+//         final newViewModel = state.viewModel;
+//         emit(UpdateDoctorInforState(
+//           status: BlocStatusState.success,
+//           viewModel: newViewModel,
+//         ));
+//       } catch (e) {
+//         emit(
+//           state.copyWith(
+//             status: BlocStatusState.failure,
+//             viewModel: state.viewModel,
+//           ),
+//         );
+//       }
+//     } else {
+//       emit(
+//         WifiDisconnectState(
+//           status: BlocStatusState.success,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//     }
+//   }
 
   Future<void> _onDeleteRelative(
     DeleteRelativeEvent event,

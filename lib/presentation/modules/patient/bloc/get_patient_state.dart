@@ -152,6 +152,12 @@ class UpdateRelativeInforState extends GetPatientState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+class UpdateDoctorInforState extends GetPatientState {
+  UpdateDoctorInforState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
 
 class DeleteRelativeState extends GetPatientState {
   DeleteRelativeState({
@@ -206,6 +212,10 @@ final _factories = <Type,
         status: status,
       ),
   UpdateRelativeInforState: (viewModel, status) => UpdateRelativeInforState(
+        viewModel: viewModel,
+        status: status,
+      ),
+      UpdateDoctorInforState: (viewModel, status) => UpdateDoctorInforState(
         viewModel: viewModel,
         status: status,
       ),

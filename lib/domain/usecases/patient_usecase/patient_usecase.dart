@@ -14,7 +14,7 @@ abstract class PatientUsecase {
   Future<PatientInforEntity?> getPatientInforEntity(String? id);
   Future<PatientInforEntity?> getPatientInforEntityInPatientApp(String? id);
   Future<void> updatePatientInforEntity(
-      String? id, PatientInforModel? patientInforModel);
+      String? id, PatientInforEntity? patientInforEntity);
   Future<AccountEntity?> addRelativeInforEntity(
       String? patientId, RelativeInforModel? relativeInforModel);
 

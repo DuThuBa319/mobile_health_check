@@ -4,6 +4,7 @@ import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 
 import '../../common/service/local_manager/user_data_datasource/user.dart';
+import '../../data/models/patient_infor_model/patient_infor_model.dart';
 import 'blood_pressure_entity.dart';
 import 'blood_sugar_entity.dart';
 
@@ -43,6 +44,19 @@ class PatientInforEntity {
     required this.phoneNumber,
     this.avatarPath,
   });
+
+  PatientInforModel get convertToPatientInforModel {
+    return PatientInforModel(
+      gender: gender == false ? 0 : 1,
+      id: id,
+      name: name,
+      phoneNumber: phoneNumber,
+      age: age,
+      address: address,
+      height: height,
+      weight: weight,
+    );
+  }
 
   User convertUser({required User user}) {
     return user.copyWith(

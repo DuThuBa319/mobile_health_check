@@ -55,9 +55,7 @@ class _PatientListState extends State<PatientListScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    setState(() {
-      filterKeyword = TextEditingController(text: '');
-    });
+    filterKeyword = TextEditingController(text: '');
   }
 
   @override
@@ -358,7 +356,7 @@ class _PatientListState extends State<PatientListScreen> {
                                 state.status == BlocStatusState.failure) ||
                             state is GetPatientListOfRelativeState &&
                                 state.status == BlocStatusState.failure) {
-                          return  Center(
+                          return Center(
                             child: Text(translation(context).error),
                           );
                         }

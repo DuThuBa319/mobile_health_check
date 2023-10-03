@@ -9,9 +9,9 @@ import '../../repositories/relative_infor_repository/relative_infor_repository.d
 part 'relative_infor_usecase.impl.dart';
 
 abstract class RelativeInforUsecase {
-  Future<RelativeInforEntity?>? getRelativeInforEntity(String? relativeId);
+  Future<RelativeInforEntity?> getRelativeInforEntity(String? relativeId);
   Future<void> updateRelativeInforEntity(
-      String? id, RelativeInforModel? patientInforModel);
+      String? id, RelativeInforEntity? relativeInforEntity);
 }
 
 //Reppo chứa dữ liệu là list RelativeInformodel thì usecase chứa list RelativeInforentity
