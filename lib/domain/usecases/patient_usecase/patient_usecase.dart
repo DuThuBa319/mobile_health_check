@@ -3,7 +3,6 @@ import 'package:mobile_health_check/domain/entities/account_entity.dart';
 
 import '../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../common/singletons.dart';
-import '../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../data/models/relative_model/relative_infor_model.dart';
 import '../../entities/patient_infor_entity.dart';
 import '../../repositories/patient_repository/patient_repository.dart';
@@ -11,10 +10,10 @@ part 'patient_usecase.impl.dart';
 
 abstract class PatientUsecase {
   // Future<List<PatientEntity>?> getPatientListEntity();
-  Future<PatientInforEntity?> getPatientInforEntity(String? id);
-  Future<PatientInforEntity?> getPatientInforEntityInPatientApp(String? id);
+  Future<PatientInforEntity?> getPatientInforEntity(String? patientId);
+  Future<PatientInforEntity?> getPatientInforEntityInPatientApp(String? patientId);
   Future<void> updatePatientInforEntity(
-      String? id, PatientInforEntity? patientInforEntity);
+      String? userId, PatientInforEntity? patientInforEntity);
   Future<AccountEntity?> addRelativeInforEntity(
       String? patientId, RelativeInforModel? relativeInforModel);
 

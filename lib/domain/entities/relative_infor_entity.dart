@@ -21,11 +21,11 @@ class RelativeInforEntity {
     this.gender,
     required this.phoneNumber,
     this.address,
-     this.patients,
+    this.patients,
   });
   User convertUser({required User user}) {
     return user.copyWith(
-      gender: (gender == 0) ? false : true,
+      gender: gender,
       id: id,
       name: name,
       phoneNumber: phoneNumber,

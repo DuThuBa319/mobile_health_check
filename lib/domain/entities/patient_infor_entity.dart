@@ -15,9 +15,8 @@ class PatientInforEntity {
   int? personType;
   double? weight;
   double? height;
-  bool? gender;
+  int? gender;
   String phoneNumber;
-  String? avatarPath;
   String? address;
   List<RelativeInforEntity>? relatives;
   DoctorInforEntity? doctor;
@@ -42,7 +41,6 @@ class PatientInforEntity {
     this.weight,
     this.height,
     required this.phoneNumber,
-    this.avatarPath,
   });
 
   PatientInforModel get convertToPatientInforModel {

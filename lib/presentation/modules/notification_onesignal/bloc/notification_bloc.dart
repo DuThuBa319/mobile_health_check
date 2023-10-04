@@ -5,8 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
-import '../../../../domain/entities/number_of_notifications_entity.dart';
-import '../../../../domain/entities/number_of_unread_count_notifications_entity.dart';
+
 import '../../../../presentation/common_widget/enum_common.dart';
 part 'notification_event.dart';
 part 'notification_state.dart';
@@ -36,7 +35,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     try {
       final response = await notificationUsecase.getNotificationListEntity(
-          doctorId: event.doctorId,
+         userId: event.doctorId,
           startIndex: event.startIndex,
           lastIndex: event.lastIndex);
 
@@ -50,7 +49,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       final newViewModel = state.viewModel.copyWith(
           notificationEntity: newNotificationList,
           unreadCount: unreadCount,
-          numberOfNotificationsEntity: numberOfNotificationEntity);
+         totalCount: numberOfNotificationEntity);
       emit(GetNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -77,18 +76,18 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     try {
       final response = await notificationUsecase.getNotificationListEntity(
-          doctorId: event.doctorId,
+          userId: event.doctorId,
           startIndex: event.startIndex,
           lastIndex: event.lastIndex);
 
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
-      final numberOfNotificationsEntity = await notificationUsecase
+      final totalCount = await notificationUsecase
           .getNumberOfNotificationEntity(event.doctorId);
       final newViewModel = state.viewModel.copyWith(
           notificationEntity: response,
           unreadCount: unreadCount,
-          numberOfNotificationsEntity: numberOfNotificationsEntity);
+          totalCount: totalCount);
       emit(RenewPageAfterActionState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -115,7 +114,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     try {
       final response = await notificationUsecase.getNotificationListEntity(
-          doctorId: event.doctorId, startIndex: 0, lastIndex: 49);
+          userId: event.doctorId, startIndex: 0, lastIndex: 49);
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
       final newViewModel = state.viewModel

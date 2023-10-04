@@ -8,7 +8,7 @@ part of 'doctor_infor_model.dart';
 
 DoctorInforModel _$DoctorInforModelFromJson(Map<String, dynamic> json) =>
     DoctorInforModel(
-      id: json['personId'] as String,
+      id: json['id'] as String,
       name: json['name'] as String,
       age: json['age'] as int?,
       personType: json['personType'] as int?,
@@ -22,7 +22,7 @@ DoctorInforModel _$DoctorInforModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$DoctorInforModelToJson(DoctorInforModel instance) {
   final val = <String, dynamic>{
-    'personId': instance.id,
+    'id': instance.id,
     'name': instance.name,
   };
 

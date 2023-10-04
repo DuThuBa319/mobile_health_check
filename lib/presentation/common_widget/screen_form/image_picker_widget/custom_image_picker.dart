@@ -12,7 +12,7 @@ part 'custom_image_picker_action.dart';
 
 // ignore: must_be_immutable
 class CustomImagePicker extends StatefulWidget {
-  final bool? gender;
+  final int? gender;
   final int? age;
   final String? imagePath;
   final bool? isOnTapActive;
@@ -99,27 +99,27 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                                 fit: BoxFit.fill,
                                 // gender =0 => nam. False
                                 // gender =1 => nu. True
-                                (widget.gender == false &&
+                                (widget.gender == 0 &&
                                         widget.age! <= 25 &&
                                         widget.age! > 0)
                                     ? Assets.boy
-                                    : (widget.gender == false &&
+                                    : (widget.gender == 0 &&
                                             26 <= widget.age! &&
                                             widget.age! <= 50)
                                         ? Assets.man
-                                        : (widget.gender == false &&
+                                        : (widget.gender == 0 &&
                                                 50 < widget.age! &&
                                                 widget.age! < 150)
                                             ? Assets.oldMan
-                                            : (widget.gender == true &&
+                                            : (widget.gender == 1 &&
                                                     widget.age! <= 25 &&
                                                     widget.age! > 0)
                                                 ? Assets.girl
-                                                : (widget.gender == true &&
+                                                : (widget.gender == 1 &&
                                                         26 <= widget.age! &&
                                                         widget.age! <= 50)
                                                     ? Assets.women
-                                                    : (widget.gender == true)
+                                                    : (widget.gender == 1)
                                                         ? Assets.oldWoman
                                                         : Assets.oldMan)))));
   }

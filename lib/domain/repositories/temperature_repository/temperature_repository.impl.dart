@@ -11,27 +11,22 @@ class TemperatureRepositoryImpl extends TemperatureRepository {
   );
   @override
   Future<List<TemperatureModel>> getListTemperatureModels({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) {
     return temperatureApi.getListTemperatureModels(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
   }
 
   @override
-  Future<TemperatureModel> getTemperatureModel({required int id}) {
-    return temperatureApi.getTemperatureModel(id: id);
-  }
-
-  @override
   Future<bool> createTemperatureModel(
-      {required TemperatureModel temperatureModel, required String id}) {
+      {required TemperatureModel temperatureModel, required String patientId}) {
     return temperatureApi.createTemperatureModel(
-        id: id, temperatureModel: temperatureModel);
+        patientId: patientId, temperatureModel: temperatureModel);
   }
 }
 

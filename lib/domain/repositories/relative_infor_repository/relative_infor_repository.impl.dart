@@ -15,7 +15,7 @@ class RelativeInforRepositoryImpl extends RelativeInforRepository {
     return _relativeInforApi.getRelativeInforModel(relativeId);
   }
   @override
-  Future<void> updateRelativeInforModel(String? id,RelativeInforModel? relativeInforModel) {
-    return _relativeInforApi.updateRelativeInforModel(id,relativeInforModel);
+  Future<void> updateRelativeInforModel(String? relativeId,RelativeInforModel? relativeInforModel) {
+    return _relativeInforApi.updateRelativeInforModel(relativeId,relativeInforModel);
   }
 }

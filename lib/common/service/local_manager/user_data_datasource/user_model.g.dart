@@ -17,7 +17,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       name: json['name'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
       role: json['role'] as String?,
-      gender: json['gender'] as bool?,
+      gender: json['gender'] as int?,
       patients: (json['patients'] as List<dynamic>?)
           ?.map((e) => PatientInforModel.fromJson(e as Map<String, dynamic>))
           .toList(),

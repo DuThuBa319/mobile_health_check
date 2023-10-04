@@ -6,10 +6,9 @@ class _ViewModel {
   // final List<BloodSugarEntity>? listBloodSugar;
   // final List<TemperatureEntity>? listTemperature;
   final List<NotificationEntity>? notificationEntity;
-  final NumberOfNotificationsEntity? numberOfNotificationsEntity;
-  final NumberOfUnreadCountNotificationsEntity? unreadCount;
-  const _ViewModel(
-      {this.unreadCount, this.notificationEntity, this.numberOfNotificationsEntity
+  final int? totalCount;
+  final int? unreadCount;
+  const _ViewModel({this.unreadCount, this.notificationEntity, this.totalCount
       // this.listBloodPressure,
       // this.listBloodSugar,
       // this.listTemperature,
@@ -18,16 +17,15 @@ class _ViewModel {
   // Using copyWith function to retains the before data and just "Get some specific props" instead of "Get all props"
   _ViewModel copyWith({
     List<NotificationEntity>? notificationEntity,
-    NumberOfUnreadCountNotificationsEntity? unreadCount,
-   NumberOfNotificationsEntity? numberOfNotificationsEntity,
+    int? unreadCount,
+    int? totalCount,
   }) {
     // ignore: unneces
     // sary_this
     return _ViewModel(
         notificationEntity: notificationEntity ?? this.notificationEntity,
         unreadCount: unreadCount ?? this.unreadCount,
-        numberOfNotificationsEntity:
-            numberOfNotificationsEntity ?? this.numberOfNotificationsEntity);
+        totalCount: totalCount ?? this.totalCount);
   }
 }
 

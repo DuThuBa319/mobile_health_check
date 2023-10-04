@@ -180,7 +180,8 @@ class _SettingProfileState extends State<SettingProfile> {
                   ),
                 ),
               ),
-              (userDataData.getUser()!.role == "relative")
+              (userDataData.getUser()!.role == "relative" ||
+                      userDataData.getUser()!.role == "doctor")
                   ? (const SizedBox())
                   : Container(
                       margin: EdgeInsets.only(
@@ -214,7 +215,8 @@ class _SettingProfileState extends State<SettingProfile> {
                         ),
                       ),
                     ),
-              (userDataData.getUser()!.role == "relative")
+              (userDataData.getUser()!.role == "relative" ||
+                      userDataData.getUser()!.role == "doctor")
                   ? (const SizedBox())
                   : Container(
                       margin: EdgeInsets.only(
@@ -291,8 +293,7 @@ class _SettingProfileState extends State<SettingProfile> {
                         if (userDataData.getUser()!.role == "relative") {
                           RelativeInforEntity newRelativeInforEntity =
                               RelativeInforEntity(
-                            gender:
-                                userDataData.getUser()!.gender == false ? 0 : 1,
+                            gender: userDataData.getUser()!.gender,
                             name: _controllerName.text,
                             phoneNumber: _controllerPhoneNumber.text,
                             age: newAge,
@@ -314,8 +315,7 @@ class _SettingProfileState extends State<SettingProfile> {
                         if (userDataData.getUser()!.role == "doctor") {
                           DoctorInforEntity newDoctorInforEntity =
                               DoctorInforEntity(
-                            gender:
-                                userDataData.getUser()!.gender == false ? 0 : 1,
+                            gender: userDataData.getUser()!.gender,
                             name: _controllerName.text,
                             phoneNumber: _controllerPhoneNumber.text,
                             age: newAge,
@@ -325,18 +325,12 @@ class _SettingProfileState extends State<SettingProfile> {
                           );
 
                           updatePatientBloc.add(UpdateDoctorInforEvent(
-                              relativeInforEntity: newDoctorInforEntity,
+                              doctorInforEntity: newDoctorInforEntity,
                               id: userDataData.getUser()!.id));
                           await userDataData.setUser(newDoctorInforEntity
                               .convertUser(user: userDataData.getUser()!)
                               .convertToModel());
-                        }
-                        //   // ignore: use_build_context_synchronously
-                        //   Navigator.pushNamed(context, RouteList.setting);
-                        //   // ignore: use_build_context_synchronously
-                        // }
-
-                        else {
+                        } else {
                           var height = double.parse(_controllerHeight.text);
                           var weight = double.parse(_controllerWeight.text);
                           PatientInforEntity newPatientInforEntity =

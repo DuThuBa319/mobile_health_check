@@ -163,7 +163,7 @@ class _NotificationListState extends State<NotificationScreen> {
                               ),
                               TextSpan(
                                   text:
-                                      " ${state.viewModel.unreadCount?.numberOfUnreadCountNotifications ?? 0}",
+                                      " ${state.viewModel.unreadCount ?? 0}",
                                   style: AppTextTheme.body1.copyWith(
                                       color: AppColor.redFB4B53,
                                       fontSize: SizeConfig.screenWidth * 0.08,
@@ -209,8 +209,7 @@ class _NotificationListState extends State<NotificationScreen> {
                                             .length >=
                                         state
                                             .viewModel
-                                            .numberOfNotificationsEntity!
-                                            .numberOfNotifications!) {
+                                            .totalCount!) {
                                       loadMore = false;
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(

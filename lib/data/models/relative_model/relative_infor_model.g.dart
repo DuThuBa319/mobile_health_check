@@ -8,7 +8,7 @@ part of 'relative_infor_model.dart';
 
 RelativeInforModel _$RelativeInforModelFromJson(Map<String, dynamic> json) =>
     RelativeInforModel(
-      id: json['personId'] as String?,
+      id: json['id'] as String?,
       name: json['name'] as String,
       age: json['age'] as int?,
       personType: json['personType'] as int?,
@@ -29,7 +29,7 @@ Map<String, dynamic> _$RelativeInforModelToJson(RelativeInforModel instance) {
     }
   }
 
-  writeNotNull('personId', instance.id);
+  writeNotNull('id', instance.id);
   val['name'] = instance.name;
   writeNotNull('age', instance.age);
   writeNotNull('personType', instance.personType);

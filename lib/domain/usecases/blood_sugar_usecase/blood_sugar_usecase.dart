@@ -7,11 +7,11 @@ part 'blood_sugar_usecase.impl.dart';
 
 abstract class BloodSugarUsecase {
   Future<List<BloodSugarEntity>> getListBloodSugarEntities({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<BloodSugarEntity> getBloodSugarEntity({required int id});
+
   Future<bool> createBloodSugarEntity(
-      {required String id, required BloodSugarEntity bloodSugarEntity});
+      {required String patientId, required BloodSugarEntity bloodSugarEntity});
 }

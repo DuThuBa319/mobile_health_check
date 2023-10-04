@@ -10,9 +10,7 @@ import 'di.config.dart'; //'filename.conconfig.dart
 // đây là file mà khi inject và run "flutter packages pub run build_runner build" thì sẽ cho ra file di.config.dart
 
 GetIt injector = GetIt.instance;
-
 final getIt = GetIt.instance;
-
 @InjectableInit(
   initializerName: r'$initGetIt',
   preferRelativeImports: true,

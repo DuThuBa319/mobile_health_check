@@ -5,8 +5,8 @@ abstract class PatientEvent {}
 
 class GetPatientListEvent extends PatientEvent {
   // GetPatientListEvent();
-  final String id;
-  GetPatientListEvent({required this.id}) : super();
+  final String userId;
+  GetPatientListEvent({required this.userId}) : super();
 }
 
 class GetPatientListOfRelativeEvent extends PatientEvent {
@@ -49,8 +49,8 @@ class RegistRelativeEvent extends PatientEvent {
 }
 
 class GetPatientInforEvent extends PatientEvent {
-  final String id;
-  GetPatientInforEvent({required this.id}) : super();
+  final String patientId;
+  GetPatientInforEvent({required this.patientId}) : super();
 }
 
 class UpdatePatientInforEvent extends PatientEvent {
@@ -69,8 +69,8 @@ class UpdateRelativeInforEvent extends PatientEvent {
 }
 class UpdateDoctorInforEvent extends PatientEvent {
   final String? id;
-  final DoctorInforEntity relativeInforEntity;
+  final DoctorInforEntity doctorInforEntity;
   UpdateDoctorInforEvent(
-      {required this.relativeInforEntity, required this.id})
+      {required this.doctorInforEntity, required this.id})
       : super();
 }

@@ -92,19 +92,12 @@ class _SettingMenuState extends State<SettingMenu> {
                     child: settingMenuCell(
                         translation(context).updatePassword, context),
                   ),
-                  (userDataData.getUser()?.role == "doctor")
-                      ? GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, RouteList.settingDrPhone),
-                          child: settingMenuCell(
-                              translation(context).updatePhoneNumber, context),
-                        )
-                      : GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, RouteList.settingProfile),
-                          child: settingMenuCell(
-                              translation(context).updateProfile, context),
-                        ),
+                  GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, RouteList.settingProfile),
+                    child: settingMenuCell(
+                        translation(context).updateProfile, context),
+                  ),
                   GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, RouteList.settingLanguage),

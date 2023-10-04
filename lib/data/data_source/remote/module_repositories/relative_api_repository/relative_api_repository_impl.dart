@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/relative_model/relative_infor_model.dart';
 import '../../rest_api_repository.dart';
 import 'relative_api_repository.dart';
@@ -12,15 +13,16 @@ class RelativeInforApiRepositoryImpl implements RelativeInforApiRepository {
   RelativeInforApiRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net');
+            baseUrl: baseUrl);
 
   @override
   Future<RelativeInforModel> getRelativeInforModel(String? relativeId) {
     return restApi.getRelativeInforModel(relativeId);
   }
-    @override
+
+  @override
   Future<void> updateRelativeInforModel(
-      String? id, RelativeInforModel? relativeInforModel) {
-    return restApi.updateRelativeInforModel(id, relativeInforModel);
+      String? relativeId, RelativeInforModel? relativeInforModel) {
+    return restApi.updateRelativeInforModel(relativeId, relativeInforModel);
   }
 }

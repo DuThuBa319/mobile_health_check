@@ -18,7 +18,6 @@ class RelativeListCell extends StatefulWidget {
   // final DoctorInforEntity? doctorInforEntity;
   const RelativeListCell({
     Key? key,
-    // this.doctorInforEntity,'
     this.patientInforEntity,
     this.deleteRelativeBloc,
     this.relativeInforEntity,

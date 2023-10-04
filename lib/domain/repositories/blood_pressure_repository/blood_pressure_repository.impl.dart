@@ -11,35 +11,23 @@ class BloodPressureRepositoryImpl extends BloodPressureRepository {
   );
   @override
   Future<List<BloodPressureModel>> getListBloodPressureModels({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) {
     return bloodPressureApi.getListBloodPressureModels(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
   }
 
-  @override
-  Future<BloodPressureModel> getBloodPressureModel({
-    required int id,
-    DateTime? startTime,
-    DateTime? endTime,
-  }) {
-    return bloodPressureApi.getBloodPressureModel(
-      id: id,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
-    );
-  }
 
   @override
   Future<bool> createBloodPressureModel(
-      {required BloodPressureModel bloodPressureModel, required String id}) {
+      {required BloodPressureModel bloodPressureModel, required String patientId}) {
     return bloodPressureApi.createBloodPressureModel(
-        id: id, bloodPressureModel: bloodPressureModel);
+        patientId: patientId, bloodPressureModel: bloodPressureModel);
   }
 }
 

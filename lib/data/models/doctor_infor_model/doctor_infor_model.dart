@@ -13,7 +13,6 @@ part 'doctor_infor_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 // igmnore: must_be_imutable
 class DoctorInforModel {
-  @JsonKey(name: "personId")
   String id;
   String name;
   int? age;

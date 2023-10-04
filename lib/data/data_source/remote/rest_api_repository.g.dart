@@ -19,21 +19,21 @@ class _RestApiRepository implements RestApiRepository {
   String? baseUrl;
 
   @override
-  Future<PatientInforModel> getPatientInforModel(String? id) async {
+  Future<DoctorInforModel> getDoctorInforModel(String? doctorId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<PatientInforModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<DoctorInforModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/api/Persons/PatientInfo/${id}',
+              '/Users/DoctorProfile/${doctorId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -42,8 +42,37 @@ class _RestApiRepository implements RestApiRepository {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = PatientInforModel.fromJson(_result.data!);
+    final value = DoctorInforModel.fromJson(_result.data!);
     return value;
+  }
+
+  @override
+  Future<void> updateDoctorInforModel(
+    String? doctorId,
+    DoctorInforModel? doctorInforModel,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(doctorInforModel?.toJson() ?? <String, dynamic>{});
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/UpdateProfile/${doctorId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
   }
 
   @override
@@ -65,7 +94,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/api/Persons/${doctorId}/AddNewPatient',
+              '/Users/${doctorId}/CreatePatientAccount',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -76,6 +105,173 @@ class _RestApiRepository implements RestApiRepository {
             ))));
     final value = AccountModel.fromJson(_result.data!);
     return value;
+  }
+
+  @override
+  Future<void> deletePatient(String? patientId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/DeletePatient/${patientId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
+  Future<void> deleteRelative({
+    String? patientId,
+    String? relativeId,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/${patientId}/DeleteRelativeAccount/${relativeId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
+  Future<RelativeInforModel> getRelativeInforModel(String? relativeId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<RelativeInforModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/Users/RelativeProfile/${relativeId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = RelativeInforModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<void> updateRelativeInforModel(
+    String? relativeId,
+    RelativeInforModel? relativeInforModel,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(relativeInforModel?.toJson() ?? <String, dynamic>{});
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/UpdateProfile/${relativeId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
+  Future<PatientInforModel> getPatientInforModel(String? patientId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<PatientInforModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/Users/PatientProfile/${patientId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = PatientInforModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<void> updatePatientInforModel(
+    String? patientId,
+    PatientInforModel? patientInforModel,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(patientInforModel?.toJson() ?? <String, dynamic>{});
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/UpdateProfile/${patientId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
   }
 
   @override
@@ -97,7 +293,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/api/Persons/${patientId}/AddNewRelative',
+              '/Users/${patientId}/CreateRelativeAccount',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -107,62 +303,6 @@ class _RestApiRepository implements RestApiRepository {
               baseUrl,
             ))));
     final value = AccountModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<DoctorInforModel> getDoctorInforModel(String? id) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<DoctorInforModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/Persons/DoctorInfo/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = DoctorInforModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<RelativeInforModel> getRelativeInforModel(String? relativeId) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<RelativeInforModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/Persons/RelativeInfo/${relativeId}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = RelativeInforModel.fromJson(_result.data!);
     return value;
   }
 
@@ -188,7 +328,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/api/Notification/${personId}',
+              '/Notifications/${personId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -205,64 +345,6 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> updatePatientInforModel(
-    String? id,
-    PatientInforModel? patientInforModel,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(patientInforModel?.toJson() ?? <String, dynamic>{});
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/Persons/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
-  Future<void> updateRelativeInforModel(
-    String? id,
-    RelativeInforModel? relativeInforModel,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(relativeInforModel?.toJson() ?? <String, dynamic>{});
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/Persons/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
   Future<void> setReadedNotificationModel(String? notificationId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -270,13 +352,13 @@ class _RestApiRepository implements RestApiRepository {
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'PUT',
+      method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/Notification/${notificationId}',
+          '/Notifications/${notificationId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -288,60 +370,56 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(
-      String? personId) async {
+  Future<int> getUnreadCountNotification(String? personId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<NumberOfUnreadCountNotificationsModel>(Options(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/api/Notification/${personId}/Unseen',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = NumberOfUnreadCountNotificationsModel.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/Notifications/${personId}/Unseen',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
     return value;
   }
 
   @override
-  Future<NumberOfNotificationsModel> getNumberOfNotifications(
-      String? personId) async {
+  Future<int> getNumberOfNotifications(String? userId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<NumberOfNotificationsModel>(Options(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/api/Notification/${personId}/Count',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = NumberOfNotificationsModel.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/Notifications/${userId}/Count',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
     return value;
   }
 
@@ -359,113 +437,7 @@ class _RestApiRepository implements RestApiRepository {
     )
         .compose(
           _dio.options,
-          '/api/Notification/${notificationId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
-  Future<void> updatePatient(
-    int id,
-    PatientInforModel patientInforModel,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(patientInforModel.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
-  Future<void> deletePerson(String? personId) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'DELETE',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/Persons/{personId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
-  Future<void> deletePatient(String? patientId) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'DELETE',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/Persons/DeletePatient/${patientId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
-  Future<void> deleteRelationship(
-    String? personId,
-    String? patientId,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/Persons/${personId}/RemoveRelationship/${patientId}',
+          '/Notifications/${notificationId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -478,7 +450,7 @@ class _RestApiRepository implements RestApiRepository {
 
   @override
   Future<List<BloodPressureModel>> getListBloodPressureModels({
-    String? id,
+    String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
@@ -498,7 +470,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/BloodPressures/${patientId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -515,43 +487,8 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<BloodPressureModel> getBloodPressureModel({
-    required int id,
-    DateTime? startTime,
-    DateTime? endTime,
-  }) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'StartTime': startTime?.toIso8601String(),
-      r'EndTime': endTime?.toIso8601String(),
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BloodPressureModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BloodPressureModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<bool> createBloodPressureModel({
-    required String id,
+    required String patientId,
     required BloodPressureModel bloodPressureModel,
   }) async {
     const _extra = <String, dynamic>{};
@@ -566,7 +503,7 @@ class _RestApiRepository implements RestApiRepository {
     )
         .compose(
           _dio.options,
-          '/${id}',
+          '/BloodPressures/${patientId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -581,7 +518,7 @@ class _RestApiRepository implements RestApiRepository {
 
   @override
   Future<List<BloodSugarModel>> getListBloodSugarModels({
-    String? id,
+    String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
@@ -601,7 +538,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/BloodSugars/${patientId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -617,43 +554,8 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<BloodSugarModel> getBloodSugarModel({
-    required int id,
-    DateTime? startTime,
-    DateTime? endTime,
-  }) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'StartTime': startTime?.toIso8601String(),
-      r'EndTime': endTime?.toIso8601String(),
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BloodSugarModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BloodSugarModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<bool> createBloodSugarModel({
-    required String id,
+    required String patientId,
     required BloodSugarModel bloodSugarModel,
   }) async {
     const _extra = <String, dynamic>{};
@@ -668,7 +570,7 @@ class _RestApiRepository implements RestApiRepository {
     )
         .compose(
           _dio.options,
-          '/${id}',
+          '/BloodSugars/${patientId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -683,7 +585,7 @@ class _RestApiRepository implements RestApiRepository {
 
   @override
   Future<List<TemperatureModel>> getListTemperatureModels({
-    String? id,
+    String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
@@ -703,7 +605,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/BodyTemperatures/${patientId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -720,43 +622,8 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<TemperatureModel> getTemperatureModel({
-    required int id,
-    DateTime? startTime,
-    DateTime? endTime,
-  }) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'StartTime': startTime?.toIso8601String(),
-      r'EndTime': endTime?.toIso8601String(),
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TemperatureModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = TemperatureModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<bool> createTemperatureModel({
-    required String id,
+    required String patientId,
     required TemperatureModel temperatureModel,
   }) async {
     const _extra = <String, dynamic>{};
@@ -771,7 +638,7 @@ class _RestApiRepository implements RestApiRepository {
     )
         .compose(
           _dio.options,
-          '/${id}',
+          '/BodyTemperatures/${patientId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -786,7 +653,7 @@ class _RestApiRepository implements RestApiRepository {
 
   @override
   Future<List<Spo2Model>> getListSpo2Models({
-    String? id,
+    String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
@@ -806,7 +673,7 @@ class _RestApiRepository implements RestApiRepository {
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/SpO2s/${patientId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -822,43 +689,8 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<Spo2Model> getSpo2Model({
-    required int id,
-    DateTime? startTime,
-    DateTime? endTime,
-  }) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'StartTime': startTime?.toIso8601String(),
-      r'EndTime': endTime?.toIso8601String(),
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<Spo2Model>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = Spo2Model.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<bool> createSpo2Model({
-    required String id,
+    required String patientId,
     required Spo2Model spo2Model,
   }) async {
     const _extra = <String, dynamic>{};
@@ -873,7 +705,7 @@ class _RestApiRepository implements RestApiRepository {
     )
         .compose(
           _dio.options,
-          '/${id}',
+          '/SpO2s/${patientId}',
           queryParameters: queryParameters,
           data: _data,
         )

@@ -10,12 +10,12 @@ class Spo2UsecaseImpl extends Spo2Usecase {
 
   @override
   Future<List<Spo2Entity>> getListSpo2Entities({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
     final responses = await _repository.getListSpo2Models(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
@@ -28,20 +28,14 @@ class Spo2UsecaseImpl extends Spo2Usecase {
     return responseEntities;
   }
 
-  @override
-  Future<Spo2Entity> getSpo2Entity({required int id}) async {
-    final response = await _repository.getSpo2Model(id: id);
-
-    return response.getSpo2Entity();
-  }
 
   @override
   Future<bool> createSpo2Entity(
-      {required String id, required Spo2Entity spo2Entity}) async {
+      {required String patientId, required Spo2Entity spo2Entity}) 
+      async {
     final spo2model = spo2Entity.getSpo2Model();
     final response = await _repository.createSpo2Model(
-        id: id, spo2Model: spo2model);
-
+        patientId: patientId, spo2Model: spo2model);
     return response;
   }
 }

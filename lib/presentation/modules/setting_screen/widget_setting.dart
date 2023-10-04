@@ -32,13 +32,14 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
             width: 10,
           ),
           selectSetting == translation(context).updatePassword
-              ? const Icon(
+              ? Icon(
                   Icons.lock_outline_rounded,
-                  size: 38,
+                  size: SizeConfig.screenWidth * 0.1,
                 )
-              : selectSetting == translation(context).updatePhoneNumber
-                  ? const Icon(Icons.account_box_rounded, size: 38)
-                  : const Icon(Icons.language, size: 38),
+              : selectSetting == translation(context).updateProfile
+                  ? Icon(Icons.account_box_rounded,
+                      size: SizeConfig.screenWidth * 0.1)
+                  : Icon(Icons.language, size: SizeConfig.screenWidth * 0.1),
           const SizedBox(
             width: 10,
           ),
@@ -51,7 +52,6 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
     ),
   );
 }
-
 
 Widget settingPhoneCell(String? selectSetting, BuildContext context) {
   SizeConfig.init(context);

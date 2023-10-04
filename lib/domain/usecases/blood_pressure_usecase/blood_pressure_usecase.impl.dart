@@ -10,12 +10,12 @@ class BloodPressureUsecaseImpl extends BloodPressureUsecase {
 
   @override
   Future<List<BloodPressureEntity>> getListBloodPressureEntities({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
     final responses = await _repository.getListBloodPressureModels(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
@@ -29,27 +29,12 @@ class BloodPressureUsecaseImpl extends BloodPressureUsecase {
   }
 
   @override
-  Future<BloodPressureEntity> getBloodPressureEntity({
-    required int id,
-    DateTime? startTime,
-    DateTime? endTime,
-  }) async {
-    final response = await _repository.getBloodPressureModel(
-      id: id,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
-    );
-
-    return response.getBloodPressureEntity();
-  }
-
-  @override
   Future<bool> createBloodPressureEntity(
-      {required String id,
+      {required String patientId,
       required BloodPressureEntity bloodPressureEntity}) async {
-    final bloodPressuremodel = bloodPressureEntity.getBloodPressureModel();
+    final bloodPressuremodel = bloodPressureEntity.convertToModel;
     final response = await _repository.createBloodPressureModel(
-        id: id, bloodPressureModel: bloodPressuremodel);
+        patientId: patientId, bloodPressureModel: bloodPressuremodel);
 
     return response;
   }

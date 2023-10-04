@@ -6,7 +6,6 @@ import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mobile_health_check/domain/entities/number_of_notifications_entity.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
@@ -36,7 +35,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<FilterPatientEvent>(_onSearchPatient);
     on<UpdatePatientInforEvent>(_onUpdatePatientInfor);
     on<UpdateRelativeInforEvent>(_onUpdateRelativeInfor);
-    // on<UpdateDoctorInforEvent>(_onUpdateDoctorInfor);
+    on<UpdateDoctorInforEvent>(_onUpdateDoctorInfor);
     on<RegistPatientEvent>(_onAddPatient);
     on<RegistRelativeEvent>(_onAddRelative);
     on<GetPatientInforEvent>(_getPatientInfor);
@@ -60,13 +59,13 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
 
       try {
-        final numberOfNotificationsEntity =
-            await notificationUsecase.getNumberOfNotificationEntity(event.id);
+        final numberOfNotificationsEntity = await notificationUsecase
+            .getNumberOfNotificationEntity(event.userId);
         final response =
-            await _doctorInforUsecase.getDoctorInforEntity(event.id);
+            await _doctorInforUsecase.getDoctorInforEntity(event.userId);
         final newViewModel = state.viewModel.copyWith(
             doctorInforEntity: response,
-            numberOfNotificationsEntity: numberOfNotificationsEntity);
+            totalCount: numberOfNotificationsEntity);
         emit(GetPatientListState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -110,7 +109,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
 
         final newViewModel = state.viewModel.copyWith(
             relativeInforEntity: response,
-            numberOfNotificationsEntity: numberOfNotificationsEntity);
+            totalCount: numberOfNotificationsEntity);
         emit(GetPatientListOfRelativeState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -307,7 +306,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        final response = await _patientUseCase.getPatientInforEntity(event.id);
+        final response = await _patientUseCase.getPatientInforEntity(event.patientId);
         final newViewModel =
             state.viewModel.copyWith(patientInforEntity: response);
         emit(GetPatientInforState(
@@ -410,44 +409,44 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
-// Future<void> _onUpdateDoctorInfor(
-//     UpdateDoctorInforEvent event,
-//     Emitter<GetPatientState> emit,
-//   ) async {
-//     final connectivityResult = await _connectivity.checkConnectivity();
-//     if (connectivityResult == ConnectivityResult.wifi ||
-//         connectivityResult == ConnectivityResult.mobile) {
-//       emit(
-//         UpdateDoctorInforState(
-//           status: BlocStatusState.loading,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//       try {
-//         await _doctorInforUsecase.updateDoctorInforEntity(
-//             event.id, event.dcotorInforEntity);
-//         final newViewModel = state.viewModel;
-//         emit(UpdateDoctorInforState(
-//           status: BlocStatusState.success,
-//           viewModel: newViewModel,
-//         ));
-//       } catch (e) {
-//         emit(
-//           state.copyWith(
-//             status: BlocStatusState.failure,
-//             viewModel: state.viewModel,
-//           ),
-//         );
-//       }
-//     } else {
-//       emit(
-//         WifiDisconnectState(
-//           status: BlocStatusState.success,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
+  Future<void> _onUpdateDoctorInfor(
+    UpdateDoctorInforEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
+      emit(
+        UpdateDoctorInforState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        await _doctorInforUsecase.updateDoctorInforEntity(
+            event.id, event.doctorInforEntity);
+        final newViewModel = state.viewModel;
+        emit(UpdateDoctorInforState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
 
   Future<void> _onDeleteRelative(
     DeleteRelativeEvent event,
@@ -463,9 +462,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        await _doctorInforUsecase.deleteRelationshipRelativeAndPatientEntity(
+        await _doctorInforUsecase.deleteRelativeEntity(
             event.relativeId, event.patientId);
-        await _doctorInforUsecase.deleteRelativeEntity(event.relativeId);
         final newViewModel = state.viewModel;
         emit(DeleteRelativeState(
           status: BlocStatusState.success,
@@ -503,8 +501,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        await _doctorInforUsecase.deleteRelationshipDoctorAndPatientEntity(
-            event.doctorId, event.patientId);
+        // await _doctorInforUsecase.deleteRelationshipDoctorAndPatientEntity(
+        //     event.doctorId, event.patientId);
         await _doctorInforUsecase.deletePatientEntity(event.patientId);
         final response =
             await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);

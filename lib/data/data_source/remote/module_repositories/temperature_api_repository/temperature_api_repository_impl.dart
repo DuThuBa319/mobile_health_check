@@ -2,6 +2,7 @@ import 'package:mobile_health_check/data/data_source/remote/rest_api_repository.
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/temperature_model/temperature_model.dart';
 import 'temperature_api_repository.dart';
 
@@ -13,31 +14,25 @@ class TemperatureApiRepositoryImpl implements TemperatureApiRepository {
   TemperatureApiRepositoryImpl({
     required this.dio,
   }) : restApi = RestApiRepository(dio,
-            baseUrl:
-                'https://healthcareapplicationcloud.azurewebsites.net/api/BodyTemperatures');
+            baseUrl: baseUrl);
 
   @override
   Future<List<TemperatureModel>> getListTemperatureModels({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) {
     return restApi.getListTemperatureModels(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
   }
 
   @override
-  Future<TemperatureModel> getTemperatureModel({required int id}) {
-    return restApi.getTemperatureModel(id: id);
-  }
-
-  @override
   Future<bool> createTemperatureModel(
-      {required TemperatureModel temperatureModel, required String id}) {
+      {required TemperatureModel temperatureModel, required String patientId}) {
     return restApi.createTemperatureModel(
-        id: id, temperatureModel: temperatureModel);
+        patientId: patientId, temperatureModel: temperatureModel);
   }
 }

@@ -77,7 +77,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                   (state is DeleteRelativeState &&
                       state.status == BlocStatusState.success)) {
                 patientBloc.add(GetPatientInforEvent(
-                    id: widget.patientId ?? widget.patientId!));
+                   patientId: widget.patientId ?? widget.patientId!));
               }
               if (state is GetPatientInforState &&
                   state.status == BlocStatusState.loading) {
@@ -104,7 +104,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                       await Future.delayed(const Duration(milliseconds: 1000));
                       _refreshController.refreshCompleted();
                       patientBloc.add(GetPatientInforEvent(
-                          id: widget.patientId ?? widget.patientId!));
+                         patientId: widget.patientId ?? widget.patientId!));
                     },
                     child: SingleChildScrollView(
                       child: Column(
@@ -143,7 +143,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     child: CustomImagePicker(
                                       age: patient.age,
                                       gender: patient.gender,
-                                      imagePath: patient.avatarPath,
+                                      imagePath: null,
                                       isOnTapActive: true,
                                       isforAvatar: true,
                                     ),

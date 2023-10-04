@@ -54,7 +54,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       try {
         final responses =
             await bloodPressureUseCase.getListBloodPressureEntities(
-                id: event.id,
+                patientId: event.id,
                 endTime: event.endTime,
                 startTime: event.startTime);
 
@@ -109,7 +109,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       try {
         final responses =
             await bloodPressureUseCase.getListBloodPressureEntities(
-                id: event.id,
+               patientId: event.id,
                 endTime: event.endTime,
                 startTime: event.startTime);
         List<BloodPressureEntity>? listBloodPressure = [];
@@ -160,7 +160,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await bloodSugarUseCase.getListBloodSugarEntities(
-            id: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
 
         final newViewModel =
             state.viewModel.copyWith(listBloodSugar: responses);
@@ -204,7 +204,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await bloodSugarUseCase.getListBloodSugarEntities(
-            id: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
         List<BloodSugarEntity>? listBloodSugar = [];
         for (var response in responses) {
           if (response.updatedDate!.isAfter(event.startTime) &&
@@ -255,7 +255,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await temperatureUsecase.getListTemperatureEntities(
-            id: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
 
         final newViewModel =
             state.viewModel.copyWith(listTemperature: responses);
@@ -299,7 +299,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await temperatureUsecase.getListTemperatureEntities(
-            id: event.id, endTime: event.endTime, startTime: event.startTime);
+           patientId: event.id, endTime: event.endTime, startTime: event.startTime);
         List<TemperatureEntity>? listTemperature = [];
         for (var response in responses) {
           if (response.updatedDate!.isAfter(event.startTime) &&
@@ -348,7 +348,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await spo2Usecase.getListSpo2Entities(
-            id: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
 
         final newViewModel = state.viewModel.copyWith(listSpo2: responses);
         emit(
@@ -391,7 +391,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await spo2Usecase.getListSpo2Entities(
-            id: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
         List<Spo2Entity>? listSpo2 = [];
         for (var response in responses) {
           if (response.updatedDate!.isAfter(event.startTime) &&

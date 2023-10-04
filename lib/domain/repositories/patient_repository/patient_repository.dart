@@ -10,9 +10,9 @@ part 'patient_repository.impl.dart';
 abstract class PatientListRepository {
   // Future<List<PatientModel>?> getPatientListModels();
   // Future<PatientModel> addPatientModel(PatientModel patient);
-  Future<PatientInforModel> getPatientInforModel(String? id);
+  Future<PatientInforModel> getPatientInforModel(String? patientId);
   Future<void> updatePatientInforModel(
-      String? id, PatientInforModel? patientInforModel);
+      String? userId, PatientInforModel? patientInforModel);
   Future<AccountModel>? addRelativeInforModel(
       String? patientId, RelativeInforModel? relativeInforModel);
 }

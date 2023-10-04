@@ -13,7 +13,6 @@ part 'relative_infor_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 // igmnore: must_be_imutable
 class RelativeInforModel {
-  @JsonKey(name: "personId")
   String? id;
   String name;
   int? age;

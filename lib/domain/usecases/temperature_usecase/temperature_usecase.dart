@@ -7,11 +7,11 @@ part 'temperature_usecase.impl.dart';
 
 abstract class TemperatureUsecase {
   Future<List<TemperatureEntity>> getListTemperatureEntities({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<TemperatureEntity> getTemperatureEntity({required int id});
+
   Future<bool> createTemperatureEntity(
-      {required String id, required TemperatureEntity temperatureEntity});
+      {required String patientId, required TemperatureEntity temperatureEntity});
 }

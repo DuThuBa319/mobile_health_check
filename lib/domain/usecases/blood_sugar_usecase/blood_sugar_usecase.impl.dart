@@ -10,16 +10,15 @@ class BloodSugarUsecaseImpl extends BloodSugarUsecase {
 
   @override
   Future<List<BloodSugarEntity>> getListBloodSugarEntities({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
     final responses = await _repository.getListBloodSugarModels(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
-
     var responseEntities = <BloodSugarEntity>[];
     for (final response in responses) {
       responseEntities.add(response.getBloodSugarEntity());
@@ -29,18 +28,11 @@ class BloodSugarUsecaseImpl extends BloodSugarUsecase {
   }
 
   @override
-  Future<BloodSugarEntity> getBloodSugarEntity({required int id}) async {
-    final response = await _repository.getBloodSugarModel(id: id);
-
-    return response.getBloodSugarEntity();
-  }
-
-  @override
   Future<bool> createBloodSugarEntity(
-      {required String id, required BloodSugarEntity bloodSugarEntity}) async {
+      {required String patientId, required BloodSugarEntity bloodSugarEntity}) async {
     final bloodSugarmodel = bloodSugarEntity.getBloodSugarModel();
     final response = await _repository.createBloodSugarModel(
-        id: id, bloodSugarModel: bloodSugarmodel);
+        patientId: patientId, bloodSugarModel: bloodSugarmodel);
 
     return response;
   }

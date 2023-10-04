@@ -36,7 +36,7 @@ class DoctorInforEntity {
   }
     User convertUser({required User user}) {
     return user.copyWith(
-      gender: (gender == 0) ? false : true,
+      gender: gender ,
       id: id,
       name: name,
       phoneNumber: phoneNumber,

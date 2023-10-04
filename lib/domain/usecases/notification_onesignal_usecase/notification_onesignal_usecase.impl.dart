@@ -10,9 +10,9 @@ class NotificationUsecaseImpl extends NotificationUsecase {
 
   @override
   Future<List<NotificationEntity>?> getNotificationListEntity(
-      {required String? doctorId, int? startIndex, int? lastIndex}) async {
+      {required String? userId, int? startIndex, int? lastIndex}) async {
     final responses = await _repository.getNotificationListModels(
-        doctorId: doctorId, startIndex: startIndex, lastIndex: lastIndex);
+        userId: userId, startIndex: startIndex, lastIndex: lastIndex);
     final responseEntities = <NotificationEntity>[];
     for (final response in responses) {
       final entity = response.convertNotificationEntity();
@@ -32,17 +32,15 @@ class NotificationUsecaseImpl extends NotificationUsecase {
   }
 
   @override
-  Future<NumberOfUnreadCountNotificationsEntity?> getUnreadCountNotificationEntity(String? doctorId) async {
-    final respones = await _repository.getUnreadCountNotification(doctorId);
-    final entity = respones.convertNumberOfUnreadCountNotificationEntity();
-    return entity;
+  Future<int?> getUnreadCountNotificationEntity(String? userId) async {
+    final respone = await _repository.getUnreadCountNotification(userId);
+
+    return respone;
   }
 
   @override
-  Future<NumberOfNotificationsEntity?> getNumberOfNotificationEntity(
-      String? personId) async {
-    final respones = await _repository.getNumberOfNotifications(personId);
-    final entity = respones?.convertNumberOfNotificationsEntity();
-    return entity;
+  Future<int?> getNumberOfNotificationEntity(String? userId) async {
+    final respone = await _repository.getNumberOfNotifications(userId);
+    return respone;
   }
 }

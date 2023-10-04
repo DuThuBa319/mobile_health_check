@@ -16,7 +16,7 @@ class User extends Equatable {
   final int? age;
   final double? weight;
   final double? height;
-  final bool? gender;
+  final int? gender;
   final String? address;
   List<PatientInforModel>? patients;
   final List<RelativeInforModel>? relatives;
@@ -87,7 +87,7 @@ class User extends Equatable {
       String? address,
       double? weight,
       double? height,
-      bool? gender,
+      int? gender,
       List<PatientInforModel>? patients,
       List<RelativeInforModel>? relatives,
       DoctorInforModel? doctor}) {

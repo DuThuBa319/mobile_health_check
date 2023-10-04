@@ -12,28 +12,30 @@ class NotificationListRepositoryImpl extends NotificationRepository {
   );
   @override
   Future<List<NotificationModel>> getNotificationListModels(
-      {required String? doctorId, int? startIndex, int? lastIndex}) {
-    return _notificationApi
-        .getNotificationListModels(doctorId:doctorId, startIndex:startIndex, lastIndex:lastIndex);
+      {required String? userId, int? startIndex, int? lastIndex}) {
+    return _notificationApi.getNotificationListModels(
+        userId: userId, startIndex: startIndex, lastIndex: lastIndex);
   }
 
   @override
   Future<void> setReadedNotificationModel(String? notificationId) {
     return _notificationApi.setReadedNotificationModel(notificationId);
   }
+
   @override
   Future<void> deleteNotificationModel(String? notificationId) {
     return _notificationApi.deleteNotificationModel(notificationId);
   }
+
   @override
-  Future<NumberOfUnreadCountNotificationsModel> getUnreadCountNotification(String? doctorId) {
-    return _notificationApi.getUnreadCountNotification(doctorId);
-  }
-   @override
-  Future<NumberOfNotificationsModel?> getNumberOfNotifications(String? personId) {
-    return _notificationApi.getNumberOfNotifications(personId);
+  Future<int?> getUnreadCountNotification(String? userId) {
+    return _notificationApi.getUnreadCountNotification(userId);
   }
 
+  @override
+  Future<int?> getNumberOfNotifications(String? userId) {
+    return _notificationApi.getNumberOfNotifications(userId);
+  }
 }
 
 //repo này chứa một cái list<NotificationModel>

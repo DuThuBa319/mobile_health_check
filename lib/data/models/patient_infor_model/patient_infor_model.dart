@@ -22,7 +22,6 @@ part 'patient_infor_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 // igmnore: must_be_imutable
 class PatientInforModel {
-  @JsonKey(name: "personId")
   String? id;
   String name;
   int? age;
@@ -31,8 +30,6 @@ class PatientInforModel {
   double? height;
   int? gender;
   String phoneNumber;
-  @JsonKey(name: 'avatar')
-  String? avatarPath;
   String? address;
   List<RelativeInforModel>? relatives;
   DoctorInforModel? doctor;
@@ -55,7 +52,6 @@ class PatientInforModel {
     this.weight,
     this.height,
     required this.phoneNumber,
-    this.avatarPath,
     this.gender,
   });
 
@@ -101,12 +97,11 @@ class PatientInforModel {
       age: age,
       name: name,
       phoneNumber: phoneNumber,
-      avatarPath: avatarPath,
       address: address,
       bloodPressures: bloodPressureEntities,
       bloodSugars: bloodSugarEntities, 
       height: height,
-      gender: gender == 0 ? false : true, //! Nam ==0==false
+      gender: gender, //! Nam ==0==false
       personType: personType,
       bodyTemperatures: temperatureEntities,
       spo2s: spo2Entities,
@@ -137,10 +132,9 @@ class PatientInforModel {
       age: age,
       name: name,
       phoneNumber: phoneNumber,
-      avatarPath: avatarPath,
       address: address,
       height: height,
-      gender: gender == 0 ? false : true,
+      gender: gender,
       personType: personType,
       weight: weight,
       doctor: doctorEntity,
@@ -161,10 +155,9 @@ class PatientInforModel {
       age: age,
       name: name,
       phoneNumber: phoneNumber,
-      avatarPath: avatarPath,
       address: address ?? "",
       height: height,
-      gender: gender == 0 ? false : true,
+      gender: gender,
       personType: personType,
       weight: weight,
       doctor: doctorEntity,

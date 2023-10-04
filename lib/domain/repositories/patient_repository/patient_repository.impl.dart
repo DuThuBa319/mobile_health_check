@@ -11,12 +11,12 @@ class PatientListRepositoryImpl extends PatientListRepository {
     this._patientApi,
   );
   @override
-  Future<PatientInforModel> getPatientInforModel(String? id) {
-    return _patientApi.getPatientInforModel(id);
+  Future<PatientInforModel> getPatientInforModel(String? patientId) {
+    return _patientApi.getPatientInforModel(patientId);
   }
    @override
-  Future<void> updatePatientInforModel(String? id,PatientInforModel? patientInforModel) {
-    return _patientApi.updatePatientInforModel(id,patientInforModel);
+  Future<void> updatePatientInforModel(String? userId,PatientInforModel? patientInforModel) {
+    return _patientApi.updatePatientInforModel(userId,patientInforModel);
   }
     @override
   Future<AccountModel>? addRelativeInforModel(String? patientId,RelativeInforModel? relativeInforModel) {

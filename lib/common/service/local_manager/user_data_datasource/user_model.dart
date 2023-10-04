@@ -31,7 +31,7 @@ class UserModel extends User {
   @override
   final String? address;
   @override
-  final bool? gender;
+  final int? gender;
   @override
   final List<PatientInforModel>? patients;
   @override

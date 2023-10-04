@@ -2,6 +2,7 @@ import 'package:mobile_health_check/data/data_source/remote/rest_api_repository.
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/blood_sugar_model/blood_sugar_model.dart';
 import 'blood_sugar_api_repository.dart';
 
@@ -14,32 +15,28 @@ class BloodSugarApiRepositoryImpl implements BloodSugarApiRepository {
     required this.dio,
   }) : restApi = RestApiRepository(
           dio,
-          baseUrl:
-              'https://healthcareapplicationcloud.azurewebsites.net/api/BloodSugars',
+          baseUrl: baseUrl,
         );
 
   @override
   Future<List<BloodSugarModel>> getListBloodSugarModels({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) {
     return restApi.getListBloodSugarModels(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
   }
 
-  @override
-  Future<BloodSugarModel> getBloodSugarModel({required int id}) {
-    return restApi.getBloodSugarModel(id: id);
-  }
+  
 
   @override
   Future<bool> createBloodSugarModel(
-      {required BloodSugarModel bloodSugarModel, required String id}) {
+      {required BloodSugarModel bloodSugarModel, required String patientId}) {
     return restApi.createBloodSugarModel(
-        id: id, bloodSugarModel: bloodSugarModel);
+        patientId: patientId, bloodSugarModel: bloodSugarModel);
   }
 }

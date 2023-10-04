@@ -9,5 +9,5 @@ part 'relative_infor_repository.impl.dart';
 abstract class RelativeInforRepository {
   Future<RelativeInforModel>? getRelativeInforModel(String? relativeId);
   Future<void> updateRelativeInforModel(
-      String? id, RelativeInforModel? relativeInforModel);
+      String? relativeId, RelativeInforModel? relativeInforModel);
 }

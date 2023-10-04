@@ -55,6 +55,7 @@ class _PatientListState extends State<PatientListScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     filterKeyword = TextEditingController(text: '');
   }
 
@@ -222,7 +223,7 @@ class _PatientListState extends State<PatientListScreen> {
                         if (state is GetPatientInitialState) {
                           if (userDataData.getUser()!.role! == 'doctor') {
                             patientBloc.add(GetPatientListEvent(
-                                id: widget.id ?? widget.id!));
+                                userId: widget.id ?? widget.id!));
                           } else if (userDataData.getUser()!.role! ==
                               'relative') {
                             patientBloc.add(GetPatientListOfRelativeEvent(
@@ -257,7 +258,7 @@ class _PatientListState extends State<PatientListScreen> {
                                     const Duration(milliseconds: 1000));
                                 _refreshController.refreshCompleted();
                                 patientBloc.add(GetPatientListEvent(
-                                    id: widget.id ?? widget.id!));
+                                    userId: widget.id ?? widget.id!));
                               },
                               child: ListView.builder(
                                 physics: const BouncingScrollPhysics(),
@@ -356,8 +357,8 @@ class _PatientListState extends State<PatientListScreen> {
                                 state.status == BlocStatusState.failure) ||
                             state is GetPatientListOfRelativeState &&
                                 state.status == BlocStatusState.failure) {
-                          return Center(
-                            child: Text(translation(context).error),
+                          return const Center(
+                            child: Text("error"),
                           );
                         }
                         return Container();

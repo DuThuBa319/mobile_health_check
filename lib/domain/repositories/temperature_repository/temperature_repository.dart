@@ -8,11 +8,11 @@ part 'temperature_repository.impl.dart';
 //repo này gọi đến rôp rest_api trên kia
 abstract class TemperatureRepository {
   Future<List<TemperatureModel>> getListTemperatureModels({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<TemperatureModel> getTemperatureModel({required int id});
+
   Future<bool> createTemperatureModel(
-      {required String id, required TemperatureModel temperatureModel});
+      {required String patientId, required TemperatureModel temperatureModel});
 }

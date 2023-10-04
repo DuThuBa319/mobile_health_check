@@ -9,30 +9,29 @@ class PatientUsecaseImpl extends PatientUsecase {
   PatientUsecaseImpl(this._repository);
 
   @override
-  Future<PatientInforEntity?> getPatientInforEntity(String? id) async {
-    final response = await _repository.getPatientInforModel(id);
-
+  Future<PatientInforEntity?> getPatientInforEntity(String? patientId) async {
+    final response = await _repository.getPatientInforModel(patientId);
     final entity = response.getPatientInforEntity();
     return entity;
   }
 
   @override
   Future<void> updatePatientInforEntity(
-      String? id, PatientInforEntity? patientInforEntity) async {
+      String? userId, PatientInforEntity? patientInforEntity) async {
     final patientInforModel = patientInforEntity?.convertToPatientInforModel;
-    await _repository.updatePatientInforModel(id, patientInforModel);
+    await _repository.updatePatientInforModel(userId, patientInforModel);
   }
 
   @override
   Future<PatientInforEntity?> getPatientInforEntityInPatientApp(
-      String? id) async {
-    final response = await _repository.getPatientInforModel(id);
+      String? patientId) async {
+    final response = await _repository.getPatientInforModel(patientId);
     await userDataData.setUser(UserModel(
         height: response.height,
         weight: response.weight,
         address: response.address ?? "chưa có thông tin",
         age: response.age ?? 0,
-        gender: response.gender == 0 ? false : true,
+        gender: response.gender ,
         id: userDataData.getUser()!.id,
         role: userDataData.getUser()!.role,
         name: userDataData.getUser()!.name,
@@ -52,36 +51,5 @@ class PatientUsecaseImpl extends PatientUsecase {
     return accountModel?.convertAccountEntity();
   }
 
-  // @override
-  // Future<List<PatientEntity>?> getPatientListEntity() async {
-  //   final responses = await _repository.getPatientListModels();
-  //   final responseEntities = <PatientEntity>[];
-  //   if (responses != null) {
-  //     for (final response in responses) {
-  //       final entity = response.getPatientEntity();
-  //       responseEntities.add(entity);
-  //     }
-  //   }
 
-  //   return responseEntities;
-  // }
-  // @override
-  // Future<PatientEntity> addPatientEntity(PatientModel Patient) async {
-  //   try {
-  //     final response = await _repository.RegistPatient(Patient);
-  //     final newPatient = PatientEntity(
-  //         id: response.id,
-  //         age: response.age,
-  //         name: response.name,
-  //         phoneNumber: response.phoneNumber,
-  //         avatarPath: response.avatarPath,
-  //         height: response.height,
-  //         personType: response.personType,
-  //         weight: response.weight);
-
-  //     return newPatient;
-  //   } catch (e) {
-  //     throw Exception('Failed to add Patient');
-  //   }
-  // }
 }

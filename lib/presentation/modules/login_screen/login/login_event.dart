@@ -16,7 +16,3 @@ class GetUserDataEvent extends LoginEvent {
   GetUserDataEvent({this.doctorId});
 }
 
-// class GetUnreadCountNotificationEvent extends LoginEvent {
-//   GetUnreadCountNotificationEvent({this.doctorId});
-//   final String? doctorId;
-// }

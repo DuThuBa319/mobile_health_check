@@ -8,11 +8,10 @@ part 'blood_sugar_repository.impl.dart';
 //repo này gọi đến rôp rest_api trên kia
 abstract class BloodSugarRepository {
   Future<List<BloodSugarModel>> getListBloodSugarModels({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   });
-  Future<BloodSugarModel> getBloodSugarModel({required int id});
   Future<bool> createBloodSugarModel(
-      {required String id, required BloodSugarModel bloodSugarModel});
+      {required String patientId, required BloodSugarModel bloodSugarModel});
 }

@@ -10,12 +10,12 @@ class TemperatureUsecaseImpl extends TemperatureUsecase {
 
   @override
   Future<List<TemperatureEntity>> getListTemperatureEntities({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) async {
     final responses = await _repository.getListTemperatureModels(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
@@ -29,19 +29,12 @@ class TemperatureUsecaseImpl extends TemperatureUsecase {
   }
 
   @override
-  Future<TemperatureEntity> getTemperatureEntity({required int id}) async {
-    final response = await _repository.getTemperatureModel(id: id);
-
-    return response.getTemperatureEntity();
-  }
-
-  @override
   Future<bool> createTemperatureEntity(
-      {required String id,
+      {required String patientId,
       required TemperatureEntity temperatureEntity}) async {
     final temperaturemodel = temperatureEntity.getTemperatureModel();
     final response = await _repository.createTemperatureModel(
-        id: id, temperatureModel: temperaturemodel);
+        patientId: patientId, temperatureModel: temperaturemodel);
 
     return response;
   }

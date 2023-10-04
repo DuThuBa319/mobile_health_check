@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/account_model/account_model.dart';
 import '../../../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../rest_api_repository.dart';
@@ -13,19 +14,24 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
 
   DoctorInforApiRepositoryImpl({
     required this.dio,
-  }) : restApi = RestApiRepository(dio,
-            baseUrl: 'https://healthcareapplicationcloud.azurewebsites.net');
+  }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
   @override
-  Future<DoctorInforModel> getDoctorInforModel(String? id) {
-    return restApi.getDoctorInforModel(id);
+  Future<DoctorInforModel> getDoctorInforModel(String? doctorId) {
+    return restApi.getDoctorInforModel(doctorId);
   }
+
+ @override
+  Future<void> updateDoctorInforModel(
+      String? doctorId, DoctorInforModel? doctorInforModel) {
+    return restApi.updateDoctorInforModel(doctorId, doctorInforModel);
+  }
+
 
   @override
   Future<AccountModel>? addPatientInforModel(
       String? doctorId, PatientInforModel? patientInforModel) {
     return restApi.addPatientInforModel(doctorId, patientInforModel);
-   
   }
 
   @override
@@ -34,19 +40,9 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
   }
 
   @override
-  Future<void> deleteRelativeModel(String? relativeId) {
-    return restApi.deletePerson(relativeId);
+  Future<void> deleteRelativeModel({String? relativeId, String? patientId}) {
+    return restApi.deleteRelative(patientId: patientId, relativeId: relativeId);
   }
 
-  @override
-  Future<void> deleteRelationshipDoctorAndPatientModel(
-      String? doctorId, String? patientId) {
-    return restApi.deleteRelationship(doctorId, patientId);
-  }
-
-  @override
-  Future<void> deleteRelationshipRelativeAndPatientModel(
-      String? relativeId, String? patientId) {
-    return restApi.deleteRelationship(relativeId, patientId);
-  }
+  
 }

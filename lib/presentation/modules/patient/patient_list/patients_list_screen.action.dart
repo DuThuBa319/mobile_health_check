@@ -1,5 +1,6 @@
 part of 'patients_list_screen.dart';
 
+// ignore: library_private_types_in_public_api
 extension PatientListScreenAction on _PatientListState {
   void _blocListener(BuildContext context, GetPatientState state) {
     // logger.d('change state', state);
@@ -15,10 +16,7 @@ extension PatientListScreenAction on _PatientListState {
         (state is GetPatientListOfRelativeState &&
             state.status == BlocStatusState.success)) {
       // ignore: invalid_use_of_protected_member
-      setState(() {
-        numberOfNotification =
-            state.viewModel.numberOfNotificationsEntity!.numberOfNotifications!;
-      });
+     
 
       showToast(translation(context).dataLoaded);
     }

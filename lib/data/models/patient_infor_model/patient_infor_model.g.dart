@@ -27,14 +27,13 @@ PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => Spo2Model.fromJson(e as Map<String, dynamic>))
           .toList(),
       address: json['address'] as String?,
-      id: json['personId'] as String?,
+      id: json['id'] as String?,
       name: json['name'] as String,
       age: json['age'] as int?,
       personType: json['personType'] as int?,
       weight: (json['weight'] as num?)?.toDouble(),
       height: (json['height'] as num?)?.toDouble(),
       phoneNumber: json['phoneNumber'] as String,
-      avatarPath: json['avatar'] as String?,
       gender: json['gender'] as int?,
     );
 
@@ -47,7 +46,7 @@ Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
     }
   }
 
-  writeNotNull('personId', instance.id);
+  writeNotNull('id', instance.id);
   val['name'] = instance.name;
   writeNotNull('age', instance.age);
   writeNotNull('personType', instance.personType);
@@ -55,7 +54,6 @@ Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
   writeNotNull('height', instance.height);
   writeNotNull('gender', instance.gender);
   val['phoneNumber'] = instance.phoneNumber;
-  writeNotNull('avatar', instance.avatarPath);
   writeNotNull('address', instance.address);
   writeNotNull(
       'relatives', instance.relatives?.map((e) => e.toJson()).toList());

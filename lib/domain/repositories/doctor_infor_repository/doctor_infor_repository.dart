@@ -9,15 +9,14 @@ import '../../../data/models/doctor_infor_model/doctor_infor_model.dart';
 part 'doctor_infor_repository.impl.dart';
 
 abstract class DoctorInforRepository {
-  Future<DoctorInforModel>? getDoctorInforModel(String? id);
+  Future<DoctorInforModel>? getDoctorInforModel(String? doctorId);
   Future<AccountModel>? addPatientInforModel(
       String? doctorId, PatientInforModel? patientInforModel);
-  Future<void> deleteRelationshipDoctorAndPatientModel(
-    String? doctorId,   String? patientId);
+    Future<void> updateDoctorInforModel(
+      String? doctorId, DoctorInforModel? doctorInforModel);
   Future<void> deletePatientModel(
       String? patientId);
   Future<void> deleteRelativeModel(
-      String? relativeId);
-      Future<void> deleteRelationshipRelativeAndPatientModel(
-    String? relativeId,   String? patientId);
+      {String? relativeId,String? patientId});
+    
 }

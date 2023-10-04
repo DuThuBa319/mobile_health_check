@@ -2,6 +2,7 @@ import 'package:mobile_health_check/data/data_source/remote/rest_api_repository.
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/blood_pressure_model/blood_pressure_model.dart';
 import 'blood_pressure_api_repository.dart';
 
@@ -12,31 +13,15 @@ class BloodPressureApiRepositoryImpl implements BloodPressureApiRepository {
 
   BloodPressureApiRepositoryImpl({
     required this.dio,
-  }) : restApi = RestApiRepository(dio,
-            baseUrl:
-                'https://healthcareapplicationcloud.azurewebsites.net/api/BloodPressures');
-//'https://retoolapi.dev/M5VJBr/bloodsugar
+  }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
   @override
   Future<List<BloodPressureModel>> getListBloodPressureModels({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) {
     return restApi.getListBloodPressureModels(
-      id: id,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
-    );
-  }
-
-  @override
-  Future<BloodPressureModel> getBloodPressureModel({
-    required int id,
-    DateTime? startTime,
-    DateTime? endTime,
-  }) {
-    return restApi.getBloodPressureModel(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
@@ -44,8 +29,8 @@ class BloodPressureApiRepositoryImpl implements BloodPressureApiRepository {
 
   @override
   Future<bool> createBloodPressureModel(
-      {required BloodPressureModel bloodPressureModel, required String id}) {
+      {required BloodPressureModel bloodPressureModel, required String patientId}) {
     return restApi.createBloodPressureModel(
-        id: id, bloodPressureModel: bloodPressureModel);
+        patientId: patientId, bloodPressureModel: bloodPressureModel);
   }
 }

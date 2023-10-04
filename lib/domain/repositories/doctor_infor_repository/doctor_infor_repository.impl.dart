@@ -11,8 +11,8 @@ class DoctorInforRepositoryImpl extends DoctorInforRepository {
     this._doctorInforApi,
   );
   @override
-  Future<DoctorInforModel>? getDoctorInforModel(String? id) {
-    return _doctorInforApi.getDoctorInforModel(id);
+  Future<DoctorInforModel>? getDoctorInforModel(String? doctorId) {
+    return _doctorInforApi.getDoctorInforModel(doctorId);
   }
 
   @override
@@ -22,19 +22,16 @@ class DoctorInforRepositoryImpl extends DoctorInforRepository {
   }
 
   @override
-  Future<void> deleteRelationshipDoctorAndPatientModel(String? doctorId, String? patientId) {
-    return _doctorInforApi.deleteRelationshipDoctorAndPatientModel(doctorId, patientId);
+  Future<void> updateDoctorInforModel(String? doctorId,DoctorInforModel? doctorInforModel) {
+    return _doctorInforApi.updateDoctorInforModel(doctorId,doctorInforModel);
   }
-  @override
-  Future<void> deleteRelationshipRelativeAndPatientModel(String? relativeId, String? patientId) {
-    return _doctorInforApi.deleteRelationshipDoctorAndPatientModel( relativeId, patientId);
-  }
+
    @override
   Future<void> deletePatientModel( String? patientId) {
     return _doctorInforApi.deletePatientModel( patientId);
   }
  @override
-  Future<void> deleteRelativeModel( String? relativeId) {
-    return _doctorInforApi.deleteRelativeModel( relativeId);
+  Future<void> deleteRelativeModel({String? relativeId,String? patientId}) {
+    return _doctorInforApi.deleteRelativeModel(patientId:patientId ,relativeId:relativeId);
   }
 }

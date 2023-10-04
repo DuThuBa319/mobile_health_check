@@ -11,27 +11,21 @@ class Spo2RepositoryImpl extends Spo2Repository {
   );
   @override
   Future<List<Spo2Model>> getListSpo2Models({
-    required String? id,
+    required String? patientId,
     DateTime? startTime,
     DateTime? endTime,
   }) {
     return spo2Api.getListSpo2Models(
-      id: id,
+      patientId: patientId,
       endTime: endTime ?? endTime!,
       startTime: startTime ?? startTime!,
     );
   }
 
   @override
-  Future<Spo2Model> getSpo2Model({required int id}) {
-    return spo2Api.getSpo2Model(id: id);
-  }
-
-  @override
   Future<bool> createSpo2Model(
-      {required Spo2Model spo2Model, required String id}) {
-    return spo2Api.createSpo2Model(
-        id: id, spo2Model: spo2Model);
+      {required Spo2Model spo2Model, required String patientId}) {
+    return spo2Api.createSpo2Model(patientId: patientId, spo2Model: spo2Model);
   }
 }
 

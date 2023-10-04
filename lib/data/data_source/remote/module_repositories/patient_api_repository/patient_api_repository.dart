@@ -5,9 +5,9 @@ import '../../../../models/patient_infor_model/patient_infor_model.dart';
 
 abstract class PatientApiRepository {
   // Future<List<PatientModel>> getPatientListModels();
-  Future<PatientInforModel> getPatientInforModel(String? id);
+  Future<PatientInforModel> getPatientInforModel(String? patientId);
   Future<void> updatePatientInforModel(
-      String? id, PatientInforModel? patientInforModel);
+      String? userId, PatientInforModel? patientInforModel);
   Future<AccountModel>? addRelativeInforModel(
       String? patientId, RelativeInforModel? relativeInforModel);
   // Future<PatientModel> registPatient(PatientModel patient);

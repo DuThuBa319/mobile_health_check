@@ -81,7 +81,7 @@ class BloodPressureEntity {
     return '--';
   }
 
-  BloodPressureModel getBloodPressureModel() {
+  BloodPressureModel get convertToModel {
     return BloodPressureModel(
         sys: sys,
         pulse: pulse,
