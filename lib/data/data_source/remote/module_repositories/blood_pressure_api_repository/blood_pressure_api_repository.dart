@@ -8,5 +8,6 @@ abstract class BloodPressureApiRepository {
   });
 
   Future<bool> createBloodPressureModel(
-      {required String patientId, required BloodPressureModel bloodPressureModel});
+      {required String patientId,
+      required BloodPressureModel bloodPressureModel});
 }
