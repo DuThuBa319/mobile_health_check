@@ -103,9 +103,7 @@ class OneSignalNotificationService {
     // }
 
     OneSignal.shared.setExternalUserId(userId);
-    // OneSignal.shared.sendTag('email', user.email);
-    // OneSignal.shared.sendTag('userId', user.id);
-    // OneSignal.shared.setExternalUserId("240914");
+    
 if(userDataData.getUser()!.role! == 'doctor'){
   OneSignal.shared.sendTag("role", "doctor");
     OneSignal.shared.sendTag("doctorId", userId);

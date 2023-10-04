@@ -5,9 +5,11 @@ import '../../../domain/entities/account_entity.dart';
 part 'account_model.g.dart';
 
 @JsonSerializable()
-class AccountModel {
-  String? id;
 
+class AccountModel {
+  //model hứng token
+  String? id;
+ //List<UserRole?> 
   AccountModel(
     this.id,
   );
