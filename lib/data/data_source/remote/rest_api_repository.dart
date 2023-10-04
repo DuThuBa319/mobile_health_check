@@ -19,6 +19,9 @@ abstract class RestApiRepository {
   factory RestApiRepository(Dio dio, {String baseUrl}) = _RestApiRepository;
   // @GET('/Users/AllPatients')
   // Future<List<PatientModel>> getPatientListModels();
+//! Authentication
+//? sign In
+//? change password
 
 //! Doctor ------------------------------
   //? GET DOCTOR INFOR
