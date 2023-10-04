@@ -2,21 +2,18 @@
 
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
+import 'package:mobile_health_check/data/models/sign_in_model/sign_in_model.dart';
 
 import '../../../data/data_source/remote/module_repositories/doctor_infor_api_repository/doctor_api_repository.dart';
-import '../../../data/models/account_model/account_model.dart';
 import '../../../data/models/doctor_infor_model/doctor_infor_model.dart';
 part 'doctor_infor_repository.impl.dart';
 
 abstract class DoctorInforRepository {
   Future<DoctorInforModel>? getDoctorInforModel(String? doctorId);
-  Future<AccountModel>? addPatientInforModel(
+  Future<void> addPatientInforModel(
       String? doctorId, PatientInforModel? patientInforModel);
-    Future<void> updateDoctorInforModel(
+  Future<void> updateDoctorInforModel(
       String? doctorId, DoctorInforModel? doctorInforModel);
-  Future<void> deletePatientModel(
-      String? patientId);
-  Future<void> deleteRelativeModel(
-      {String? relativeId,String? patientId});
-    
+  Future<void> deletePatientModel(String? patientId);
+  Future<void> deleteRelativeModel({String? relativeId, String? patientId});
 }

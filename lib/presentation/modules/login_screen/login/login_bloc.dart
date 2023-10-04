@@ -1,9 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/data/models/authentication_model/authentication_model.dart';
 
+import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/service/onesginal/onesignal_service.dart';
 import '../../../../common/singletons.dart';
+import '../../../../domain/entities/login_entity_group/authentication_entity.dart';
+import '../../../../domain/entities/login_entity_group/sign_in_entity.dart';
+import '../../../../domain/usecases/authentication_usecase/authentication_usecase.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
 import '../../../common_widget/enum_common.dart';
@@ -14,9 +19,12 @@ part 'login_state.dart';
 @injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final PatientUsecase _patientUseCase;
+  final AuthenUsecase _authenUsecase;
+
   final Connectivity _connectivity;
   final NotificationUsecase count;
-  LoginBloc(this._patientUseCase, this.count, this._connectivity)
+  LoginBloc(
+      this._patientUseCase, this.count, this._connectivity, this._authenUsecase)
       : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
     on<GetUserDataEvent>(_onGetUserData);
@@ -62,15 +70,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         return;
       }
       try {
+        final AuthenEntity authenInforEntity =
+            AuthenModel(username: event.username, password: event.password)
+                .converToAuthenInforEntity();
+        final response =
+            await _authenUsecase.signInAuthenEntity(authenInforEntity);
         //! post => dữ liêu => lưu vào local
-        // await userDataData.setUser(UserModel(
-        //         email: userCredential.user?.email,
-        //         role: documentSnapshot.get(FieldPath(const ['role'])),
-        //         phoneNumber:
-        //             documentSnapshot.get(FieldPath(const ['phoneNumber'])),
-        //         id: documentSnapshot.get(FieldPath(const ['id'])),
-        //         name: documentSnapshot.get(FieldPath(const ['name']))));
-
+        await userDataData.setUser(UserModel(
+            role: (response.roles?[0] == "Doctor")
+                ? "doctor"
+                : (response.roles?[0] == "Relative")
+                    ? "relative"
+                    : "patient",
+            phoneNumber: response.accountInfor?.phoneNumber,
+            id: response.token?.id,
+            name: response.accountInfor?.name));
         emit(
           LoginActionState(
             status: BlocStatusState.success,
@@ -153,5 +167,4 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
     }
   }
-
 }

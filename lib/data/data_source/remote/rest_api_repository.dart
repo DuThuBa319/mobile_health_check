@@ -1,14 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
-import 'package:mobile_health_check/data/models/account_model/account_model.dart';
 import 'package:mobile_health_check/data/models/notification_onesignal_model/notification_onesignal_model.dart';
 
+import '../../models/authentication_model/authentication_model.dart';
 import '../../models/blood_pressure_model/blood_pressure_model.dart';
 import '../../models/blood_sugar_model/blood_sugar_model.dart';
+import '../../models/change_password_model/change_password_model.dart';
 import '../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../models/patient_infor_model/patient_infor_model.dart';
 import '../../models/relative_model/relative_infor_model.dart';
+import '../../models/sign_in_model/sign_in_model.dart';
 import '../../models/spo2_model/spo2_model.dart';
 import '../../models/temperature_model/temperature_model.dart';
 
@@ -21,7 +23,15 @@ abstract class RestApiRepository {
   // Future<List<PatientModel>> getPatientListModels();
 //! Authentication
 //? sign In
+  @POST('/Auth/SignIn')
+  Future<SignInModel> signIn(@Body() AuthenModel? authenModel);
+
 //? change password
+
+  @PATCH("/Users/ChangePassword/{userId}") //update
+  Future<void> changePassModel(
+      {@Path("userId") String? userId,
+      @Body() ChangePassModel? changePassModel});
 
 //! Doctor ------------------------------
   //? GET DOCTOR INFOR
@@ -37,7 +47,7 @@ abstract class RestApiRepository {
 
   //? ADD NEW PATIENT
   @POST('/Users/{doctorId}/CreatePatientAccount')
-  Future<AccountModel> addPatientInforModel(@Path('doctorId') String? doctorId,
+  Future<void> addPatientInforModel(@Path('doctorId') String? doctorId,
       @Body() PatientInforModel? patientInforModel);
 
   //? DELETE PATIENT
@@ -77,8 +87,7 @@ abstract class RestApiRepository {
 
   //? ADD NEW RELATIVE
   @POST('/Users/{patientId}/CreateRelativeAccount')
-  Future<AccountModel> addRelativeInforModel(
-      @Path('patientId') String? patientId,
+  Future<void> addRelativeInforModel(@Path('patientId') String? patientId,
       @Body() RelativeInforModel? relativeInforModel);
 
 //! Notification --------------------------------

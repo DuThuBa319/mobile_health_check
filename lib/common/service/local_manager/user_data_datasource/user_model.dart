@@ -20,6 +20,9 @@ class UserModel extends User {
   final String? name;
   @override
   final String? phoneNumber;
+
+
+
   @override
   final String? role;
   @override
@@ -39,7 +42,9 @@ class UserModel extends User {
   @override
   final DoctorInforModel? doctor;
   UserModel(
-      {this.age,
+      {
+        
+        this.age,
       this.address,
       this.height,
       this.weight,

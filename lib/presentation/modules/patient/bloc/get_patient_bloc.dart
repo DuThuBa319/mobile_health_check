@@ -7,10 +7,12 @@ import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
+import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_pass_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../data/models/relative_model/relative_infor_model.dart';
-import '../../../../domain/entities/account_entity.dart';
+import '../../../../domain/entities/change_password_entity.dart';
+import '../../../../domain/entities/login_entity_group/sign_in_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
@@ -25,10 +27,15 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final DoctorInforUsecase _doctorInforUsecase;
   final RelativeInforUsecase _relativeInforUsecase;
   final NotificationUsecase notificationUsecase;
-
+  final ChangePassUsecase changePassUsecase;
   final Connectivity _connectivity;
-  GetPatientBloc(this._patientUseCase, this._doctorInforUsecase,
-      this._relativeInforUsecase, this._connectivity, this.notificationUsecase)
+  GetPatientBloc(
+      this._patientUseCase,
+      this._doctorInforUsecase,
+      this._relativeInforUsecase,
+      this._connectivity,
+      this.notificationUsecase,
+      this.changePassUsecase)
       : super(GetPatientInitialState()) {
     on<GetPatientListEvent>(_onGetPatientList);
     on<GetPatientListOfRelativeEvent>(_onGetPatientListOfRelative);
@@ -41,6 +48,46 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<GetPatientInforEvent>(_getPatientInfor);
     on<DeleteRelativeEvent>(_onDeleteRelative);
     on<DeletePatientEvent>(_onDeletePatient);
+    on<ChangePassEvent>(_onChangePass);
+  }
+
+  Future<void> _onChangePass(
+    ChangePassEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
+      emit(
+        ChangePassState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+      try {
+        await changePassUsecase.changePassEntity(
+            event.changePassEntity, event.userId);
+        final newViewModel = state.viewModel;
+        emit(ChangePassState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
   }
 
   Future<void> _onGetPatientList(
@@ -214,17 +261,17 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        final accountEntity = await _doctorInforUsecase.addPatientEntity(
+        // final accountEntity =
+        await _doctorInforUsecase.addPatientEntity(
             event.doctorId, event.patientInforModel);
-        firebaseAuthService.createUserWithEmailAndPassword(
-            email: '${event.patientInforModel!.phoneNumber}@gmail.com',
-            password: event.patientInforModel!.phoneNumber,
-            id: accountEntity?.id ?? '--',
-            role: 'patient',
-            name: event.patientInforModel!.name,
-            phoneNumber: event.patientInforModel!.phoneNumber);
-        final newViewModel =
-            state.viewModel.copyWith(accountEntity: accountEntity);
+        // firebaseAuthService.createUserWithEmailAndPassword(
+        //     email: '${event.patientInforModel!.phoneNumber}@gmail.com',
+        //     password: event.patientInforModel!.phoneNumber,
+        //     id: accountEntity?.id ?? '--',
+        //     role: 'patient',
+        //     name: event.patientInforModel!.name,
+        //     phoneNumber: event.patientInforModel!.phoneNumber);
+        final newViewModel = state.viewModel;
         emit(
           RegistPatientState(
             status: BlocStatusState.success,
@@ -263,17 +310,17 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        final accountEntity = await _patientUseCase.addRelativeInforEntity(
+        // final accountEntity =
+        await _patientUseCase.addRelativeInforEntity(
             event.patientId, event.relativeInforModel);
-        firebaseAuthService.createUserWithEmailAndPassword(
-            email: '${event.relativeInforModel!.phoneNumber}@gmail.com',
-            password: event.relativeInforModel!.phoneNumber,
-            id: accountEntity?.id ?? '--',
-            role: 'patient',
-            name: event.relativeInforModel!.name,
-            phoneNumber: event.relativeInforModel!.phoneNumber);
-        final newViewModel =
-            state.viewModel.copyWith(accountEntity: accountEntity);
+        // firebaseAuthService.createUserWithEmailAndPassword(
+        //     email: '${event.relativeInforModel!.phoneNumber}@gmail.com',
+        //     password: event.relativeInforModel!.phoneNumber,
+        //     id: accountEntity?.id ?? '--',
+        //     role: 'patient',
+        //     name: event.relativeInforModel!.name,
+        //     phoneNumber: event.relativeInforModel!.phoneNumber);
+        final newViewModel = state.viewModel;
         emit(RegistRelativeState(
             status: BlocStatusState.success, viewModel: newViewModel));
       } catch (e) {
@@ -306,7 +353,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        final response = await _patientUseCase.getPatientInforEntity(event.patientId);
+        final response =
+            await _patientUseCase.getPatientInforEntity(event.patientId);
         final newViewModel =
             state.viewModel.copyWith(patientInforEntity: response);
         emit(GetPatientInforState(

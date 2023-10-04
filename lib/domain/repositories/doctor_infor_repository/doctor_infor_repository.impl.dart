@@ -16,7 +16,7 @@ class DoctorInforRepositoryImpl extends DoctorInforRepository {
   }
 
   @override
-  Future<AccountModel>? addPatientInforModel(
+  Future<void> addPatientInforModel(
       String? doctorId, PatientInforModel? patientInforModel) {
     return _doctorInforApi.addPatientInforModel(doctorId, patientInforModel);
   }

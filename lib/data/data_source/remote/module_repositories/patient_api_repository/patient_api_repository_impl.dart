@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../presentation/common_widget/enum_common.dart';
-import '../../../../models/account_model/account_model.dart';
 import '../../../../models/patient_infor_model/patient_infor_model.dart';
 import '../../../../models/relative_model/relative_infor_model.dart';
 import '../../rest_api_repository.dart';
@@ -30,7 +29,7 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
   }
 
   @override
-  Future<AccountModel>? addRelativeInforModel(
+  Future<void>? addRelativeInforModel(
       String? patientId, RelativeInforModel? relativeInforModel) {
     return restApi.addRelativeInforModel(patientId, relativeInforModel);
   }

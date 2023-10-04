@@ -126,7 +126,9 @@
 "phoneNumberCountError":"Incorrect phone number, must be 10-11 characters",
 "deleteRelative":"Delete this relative?",
 "deletePatient":"Delete this patient?",
-"doNotHaveInformation":"Don't have information"
+"doNotHaveInformation":"Don't have information",
+"male":"male",
+"female":"female"
 }
 
 

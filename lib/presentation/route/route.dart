@@ -45,7 +45,6 @@ import '../modules/patient/patient_profile/add_relative_screen.dart';
 import '../modules/patient/patient_profile/patient_infor_screen.dart';
 import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_language_setting.dart';
 import '../modules/setting_screen/doctor_or_relative_setting/doctor_relative_password_setting.dart';
-import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_phone_setting.dart';
 import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_setting_menu.dart';
 import '../modules/setting_screen/patient_setting/patient_language_setting.dart';
 import '../modules/setting_screen/patient_setting/patient_password_setting.dart';
@@ -312,19 +311,19 @@ class AppRoute {
           },
         );
       case '/patientSettingPass':
-        return MaterialPageRoute(builder: (context) {
-          return const SettingPatientPassword();
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: const SettingPatientPassword(),
+            );
+          },
+        );
       case '/patientSettingLanguage':
         return MaterialPageRoute(builder: (context) {
           return const SettingPatientLanguage();
         });
-      case '/settingDrPhone':
-        return MaterialPageRoute(
-          builder: (context) {
-            return const SettingDrOrRePhoneNumber();
-          },
-        );
+
       case '/settingLanguage':
         return MaterialPageRoute(
           builder: (context) {
@@ -334,7 +333,10 @@ class AppRoute {
       case '/settingDrPass':
         return MaterialPageRoute(
           builder: (context) {
-            return const SettingDrOrRePassword();
+            return BlocProvider<GetPatientBloc>(
+              create: (context) => getIt<GetPatientBloc>(),
+              child: SettingDrOrRePassword(),
+            );
           },
         );
 

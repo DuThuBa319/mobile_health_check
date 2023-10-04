@@ -11,7 +11,7 @@ class _ViewModel {
   final DoctorInforEntity? doctorInforEntity;
   final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
-  final AccountEntity? accountEntity;
+  final SignInEntity? signInEntity;
   final int? totalCount;
   final String? userName;
   final String? password;
@@ -24,7 +24,7 @@ class _ViewModel {
     this.userName,
     this.totalCount,
     this.relativeInforEntity,
-    this.accountEntity,
+    this.signInEntity,
     this.relativeEntities,
     this.doctorInforEntity,
     this.patientInforEntity,
@@ -34,7 +34,7 @@ class _ViewModel {
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
       {final RelativeInforEntity? relativeInforEntity,
-      final AccountEntity? accountEntity,
+      final SignInEntity? signInEntity,
       final DoctorInforEntity? doctorInforEntity,
       final List<PatientInforEntity>? patientEntities,
       final PatientInforEntity? patientInforEntity,
@@ -46,7 +46,7 @@ class _ViewModel {
     return _ViewModel(
         totalCount: totalCount ?? this.totalCount,
         relativeInforEntity: relativeInforEntity ?? this.relativeInforEntity,
-        accountEntity: accountEntity ?? this.accountEntity,
+        signInEntity: signInEntity ?? this.signInEntity,
         relativeEntities: relativeEntities ?? this.relativeEntities,
         patientInforEntity: patientInforEntity ?? this.patientInforEntity,
         patientEntities: patientEntities ?? this.patientEntities,
@@ -79,6 +79,14 @@ abstract class GetPatientState {
       status,
     );
   }
+}
+
+class ChangePassState extends GetPatientState {
+  ChangePassState({
+    _ViewModel viewModel =
+        const _ViewModel(), //ViewModel là dữ liệu trong state
+    BlocStatusState status = BlocStatusState.initial, //status của state
+  }) : super(viewModel);
 }
 
 class GetPatientInitialState extends GetPatientState {
@@ -151,6 +159,7 @@ class UpdateRelativeInforState extends GetPatientState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 class UpdateDoctorInforState extends GetPatientState {
   UpdateDoctorInforState({
     _ViewModel viewModel = const _ViewModel(),
@@ -214,7 +223,7 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-      UpdateDoctorInforState: (viewModel, status) => UpdateDoctorInforState(
+  UpdateDoctorInforState: (viewModel, status) => UpdateDoctorInforState(
         viewModel: viewModel,
         status: status,
       ),
@@ -227,6 +236,10 @@ final _factories = <Type,
         status: status,
       ),
   WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  ChangePassState: (viewModel, status) => ChangePassState(
         viewModel: viewModel,
         status: status,
       ),

@@ -60,6 +60,13 @@ class UpdatePatientInforEvent extends PatientEvent {
       : super();
 }
 
+class ChangePassEvent extends PatientEvent {
+  final String? userId;
+  final ChangePassEntity changePassEntity;
+  ChangePassEvent({required this.changePassEntity, required this.userId})
+      : super();
+}
+
 class UpdateRelativeInforEvent extends PatientEvent {
   final String? id;
   final RelativeInforEntity relativeInforEntity;
@@ -67,10 +74,10 @@ class UpdateRelativeInforEvent extends PatientEvent {
       {required this.relativeInforEntity, required this.id})
       : super();
 }
+
 class UpdateDoctorInforEvent extends PatientEvent {
   final String? id;
   final DoctorInforEntity doctorInforEntity;
-  UpdateDoctorInforEvent(
-      {required this.doctorInforEntity, required this.id})
+  UpdateDoctorInforEvent({required this.doctorInforEntity, required this.id})
       : super();
 }

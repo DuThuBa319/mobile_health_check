@@ -7,7 +7,8 @@ part of 'account_model.dart';
 // **************************************************************************
 
 AccountModel _$AccountModelFromJson(Map<String, dynamic> json) => AccountModel(
-      json['id'] as String?,
+      name: json['name'] as String?,
+      phoneNumber: json['phoneNumber'] as String?,
     );
 
 Map<String, dynamic> _$AccountModelToJson(AccountModel instance) {
@@ -19,6 +20,7 @@ Map<String, dynamic> _$AccountModelToJson(AccountModel instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
+  writeNotNull('name', instance.name);
+  writeNotNull('phoneNumber', instance.phoneNumber);
   return val;
 }

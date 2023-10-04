@@ -45,7 +45,7 @@ class PatientInforEntity {
 
   PatientInforModel get convertToPatientInforModel {
     return PatientInforModel(
-      gender: gender == false ? 0 : 1,
+      gender: gender,
       id: id,
       name: name,
       phoneNumber: phoneNumber,

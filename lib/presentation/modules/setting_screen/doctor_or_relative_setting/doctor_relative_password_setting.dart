@@ -1,7 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/domain/entities/change_password_entity.dart';
+
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:flutter/material.dart';
+import 'package:mobile_health_check/presentation/modules/patient/bloc/get_patient_bloc.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
@@ -10,22 +15,26 @@ import '../../../common_widget/line_decor.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 
+// ignore: must_be_immutable
 class SettingDrOrRePassword extends StatefulWidget {
-  const SettingDrOrRePassword({super.key});
+  SettingDrOrRePassword({
+    Key? key,
+
+  }) : super(key: key);
 
   @override
   State<SettingDrOrRePassword> createState() => _SettingDrOrRePasswordState();
 }
 
 class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
-  final TextEditingController _controllerOldPassword = TextEditingController();
+    GetPatientBloc get bloc => BlocProvider.of(context);
+
+  final TextEditingController _controllerCurrentPassword =
+      TextEditingController();
   final TextEditingController _controllerNewPassword = TextEditingController();
 
   bool showPass1 = true;
   bool showPass2 = true;
-
-  final passController = TextEditingController();
-  String pass = "";
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +84,7 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                           width: SizeConfig.screenWidth * 0.85,
                           child: TextField(
                             // focusNode: _focusNode,
-                            controller: _controllerOldPassword,
+                            controller: _controllerCurrentPassword,
                             obscureText: showPass1,
                             style: TextStyle(
                               fontSize: SizeConfig.screenWidth * 0.05,
@@ -164,9 +173,12 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          firebaseAuthService.changePassword(
-                              currentPassword: _controllerOldPassword.text,
+                          final changePassEntity = ChangePassEntity(
+                              currentPassword: _controllerCurrentPassword.text,
                               newPassword: _controllerNewPassword.text);
+                         bloc.add(ChangePassEvent(
+                              changePassEntity: changePassEntity,
+                              userId: userDataData.getUser()!.id));
                           showToast(
                               translation(context).updatePasswordSuccessfullly);
                           Navigator.pushNamed(context, RouteList.setting);

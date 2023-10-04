@@ -26,13 +26,16 @@ class _SettingProfileState extends State<SettingProfile> {
   GetPatientBloc get updatePatientBloc => BlocProvider.of(context);
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerAge = TextEditingController();
+  final TextEditingController _controllerGender = TextEditingController();
+
   final TextEditingController _controllerWeight = TextEditingController();
   final TextEditingController _controllerPhoneNumber = TextEditingController();
   final TextEditingController _controllerHeight = TextEditingController();
   final TextEditingController _controllerAddress = TextEditingController();
   bool isWifiAvailable = false;
   bool is4GAvailable = false;
-
+  double widthCell = SizeConfig.screenWidth * 0.9;
+  double heightCell = SizeConfig.screenHeight * 0.11;
   void checkWifiAvailability() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     setState(() {
@@ -54,10 +57,14 @@ class _SettingProfileState extends State<SettingProfile> {
         _controllerAge.text = "${userDataData.getUser()?.age ?? 0}";
         _controllerAddress.text =
             userDataData.getUser()?.address ?? "chưa có thông tin";
+        _controllerGender.text =
+            userDataData.getUser()?.gender == 0 ? "Nam" : "Nữ";
       } else {
         _controllerName.text = userDataData.getUser()!.name!;
         _controllerPhoneNumber.text = userDataData.getUser()!.phoneNumber!;
         _controllerAge.text = "${userDataData.getUser()?.age ?? 0}";
+        _controllerGender.text =
+            userDataData.getUser()?.gender == 0 ? "Nam" : "Nữ";
         _controllerWeight.text =
             "${userDataData.getUser()?.weight?.toInt() ?? 0}";
         _controllerHeight.text =
@@ -88,20 +95,20 @@ class _SettingProfileState extends State<SettingProfile> {
               right: SizeConfig.screenWidth * 0.05,
             ),
             height: SizeConfig.screenHeight * 0.8,
-            width: SizeConfig.screenWidth * 0.9,
+            width: widthCell,
             child: ListView(children: [
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
                 padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
-                height: SizeConfig.screenWidth * 0.2,
+                height: heightCell,
                 decoration: BoxDecoration(
                   color: AppColor.white,
                   borderRadius:
                       BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                 ),
                 child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
+                  height: heightCell,
+                  width: widthCell,
                   child: TextField(
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
@@ -123,15 +130,15 @@ class _SettingProfileState extends State<SettingProfile> {
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
                 padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
-                height: SizeConfig.screenWidth * 0.2,
+                height: heightCell,
                 decoration: BoxDecoration(
                   color: AppColor.white,
                   borderRadius:
                       BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                 ),
                 child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
+                  height: heightCell,
+                  width: widthCell,
                   child: TextField(
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
@@ -153,15 +160,15 @@ class _SettingProfileState extends State<SettingProfile> {
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
                 padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
-                height: SizeConfig.screenWidth * 0.2,
+                height: heightCell,
                 decoration: BoxDecoration(
                   color: AppColor.white,
                   borderRadius:
                       BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                 ),
                 child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
+                  height: heightCell,
+                  width: widthCell,
                   child: TextField(
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
@@ -180,6 +187,36 @@ class _SettingProfileState extends State<SettingProfile> {
                   ),
                 ),
               ),
+              Container(
+                margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
+                height: heightCell,
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  borderRadius:
+                      BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+                ),
+                child: SizedBox(
+                  height: heightCell,
+                  width: widthCell,
+                  child: TextField(
+                    textAlign: TextAlign.start,
+                    cursorColor: AppColor.black,
+                    controller: _controllerGender,
+                    style: TextStyle(
+                        color: AppColor.gray767676,
+                        fontSize: SizeConfig.screenWidth * 0.05),
+                    decoration: InputDecoration(
+                      labelText: translation(context).gender,
+                      labelStyle: TextStyle(
+                          color: AppColor.black,
+                          fontSize: SizeConfig.screenWidth * 0.05,
+                          fontWeight: FontWeight.w500),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ),
               (userDataData.getUser()!.role == "relative" ||
                       userDataData.getUser()!.role == "doctor")
                   ? (const SizedBox())
@@ -188,15 +225,15 @@ class _SettingProfileState extends State<SettingProfile> {
                           bottom: SizeConfig.screenWidth * 0.03),
                       padding:
                           EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
-                      height: SizeConfig.screenWidth * 0.2,
+                      height: heightCell,
                       decoration: BoxDecoration(
                         color: AppColor.white,
                         borderRadius: BorderRadius.circular(
                             SizeConfig.screenWidth * 0.035),
                       ),
                       child: SizedBox(
-                        height: SizeConfig.screenWidth * 0.2,
-                        width: SizeConfig.screenWidth * 0.9,
+                        height: heightCell,
+                        width: widthCell,
                         child: TextField(
                           textAlign: TextAlign.start,
                           cursorColor: AppColor.black,
@@ -223,15 +260,15 @@ class _SettingProfileState extends State<SettingProfile> {
                           bottom: SizeConfig.screenWidth * 0.03),
                       padding:
                           EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
-                      height: SizeConfig.screenWidth * 0.2,
+                      height: heightCell,
                       decoration: BoxDecoration(
                         color: AppColor.white,
                         borderRadius: BorderRadius.circular(
                             SizeConfig.screenWidth * 0.035),
                       ),
                       child: SizedBox(
-                        height: SizeConfig.screenWidth * 0.2,
-                        width: SizeConfig.screenWidth * 0.9,
+                        height: heightCell,
+                        width: widthCell,
                         child: TextField(
                           textAlign: TextAlign.start,
                           cursorColor: AppColor.black,
@@ -253,15 +290,15 @@ class _SettingProfileState extends State<SettingProfile> {
               Container(
                 margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
                 padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.03),
-                height: SizeConfig.screenWidth * 0.2,
+                height: SizeConfig.screenHeight * 0.11,
                 decoration: BoxDecoration(
                   color: AppColor.white,
                   borderRadius:
                       BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                 ),
                 child: SizedBox(
-                  height: SizeConfig.screenWidth * 0.2,
-                  width: SizeConfig.screenWidth * 0.9,
+                  height: heightCell,
+                  width: widthCell,
                   child: TextField(
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
@@ -283,17 +320,27 @@ class _SettingProfileState extends State<SettingProfile> {
               SizedBox(height: SizeConfig.screenHeight * 0.03),
               Center(
                 child: CommonButton(
-                    width: SizeConfig.screenWidth * 0.9,
+                    width: widthCell,
                     height: SizeConfig.screenHeight * 0.07,
                     title: translation(context).save,
                     buttonColor: AppColor.saveSetting,
                     onTap: () async {
                       if (isWifiAvailable || is4GAvailable) {
+                        final int gender;
                         int? newAge = int.parse(_controllerAge.text);
+                        if (_controllerGender.text == "Nam" ||
+                            _controllerGender.text == "nam" ||
+                            _controllerGender.text == "male" ||
+                            _controllerGender.text == "Male") {
+                          gender = 0;
+                        } else {
+                          gender = 1;
+                        }
+
                         if (userDataData.getUser()!.role == "relative") {
                           RelativeInforEntity newRelativeInforEntity =
                               RelativeInforEntity(
-                            gender: userDataData.getUser()!.gender,
+                            gender: gender,
                             name: _controllerName.text,
                             phoneNumber: _controllerPhoneNumber.text,
                             age: newAge,
@@ -315,7 +362,7 @@ class _SettingProfileState extends State<SettingProfile> {
                         if (userDataData.getUser()!.role == "doctor") {
                           DoctorInforEntity newDoctorInforEntity =
                               DoctorInforEntity(
-                            gender: userDataData.getUser()!.gender,
+                            gender: gender,
                             name: _controllerName.text,
                             phoneNumber: _controllerPhoneNumber.text,
                             age: newAge,
@@ -335,6 +382,7 @@ class _SettingProfileState extends State<SettingProfile> {
                           var weight = double.parse(_controllerWeight.text);
                           PatientInforEntity newPatientInforEntity =
                               PatientInforEntity(
+                            gender: gender,
                             personType: 0,
                             // gender:
                             //     userDataData.getUser()?.gender == 0? : 1,

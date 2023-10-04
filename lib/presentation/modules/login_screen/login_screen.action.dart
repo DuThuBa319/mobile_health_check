@@ -2,6 +2,7 @@
 
 part of 'login_screen.dart';
 
+// ignore: library_private_types_in_public_api
 extension LoginAction on _LoginState {
   Future<void> _blocListener(BuildContext context, LoginState state) async {
     if (state is LoginInitialState && state.status == BlocStatusState.loading) {

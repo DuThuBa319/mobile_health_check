@@ -77,7 +77,8 @@ class User extends Equatable {
   }
 
   User copyWith(
-      {int? unreadCount,
+      {String? currentPassword,
+      int? unreadCount,
       String? email,
       String? id,
       String? name,

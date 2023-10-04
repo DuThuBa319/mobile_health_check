@@ -2,21 +2,22 @@ part of 'login_bloc.dart';
 
 class User {
   String? uuid;
-
-  User({
-    this.uuid,
-  });
+  SignInEntity? signInEntity;
+  User({this.uuid, this.signInEntity});
 }
 
 // ViewModel is used for store all properties which want to be stored, processed and updated
 class _ViewModel {
+  final SignInEntity? signInEntity;
   final int? count;
   final bool isLogin;
   final String? errorMessage;
   final User? person;
+
   // final PatientInforEntity? patientInforEntity;
 
   const _ViewModel({
+    this.signInEntity,
     this.count,
     this.isLogin = false,
     this.errorMessage,
@@ -26,6 +27,7 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith({
+    SignInEntity? signInEntity,
     int? count,
     bool? isLogin,
     String? errorMessage,
@@ -34,7 +36,8 @@ class _ViewModel {
   }) {
     return _ViewModel(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
-      count: count??this.count,
+      signInEntity: signInEntity ?? this.signInEntity,
+      count: count ?? this.count,
       isLogin: isLogin ?? this.isLogin,
       errorMessage: errorMessage ?? this.errorMessage,
       person: person ?? this.person,
@@ -83,12 +86,14 @@ class LoginActionState extends LoginState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 class WifiDisconnectState extends LoginState {
   WifiDisconnectState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
 class GetUserDataState extends LoginState {
   GetUserDataState({
     _ViewModel viewModel = const _ViewModel(),
@@ -120,7 +125,7 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  WifiDisconnectState: (viewModel, status) =>WifiDisconnectState(
+  WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
         viewModel: viewModel,
         status: status,
       ),

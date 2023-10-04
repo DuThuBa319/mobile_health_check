@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:mobile_health_check/domain/entities/account_entity.dart';
 
 import '../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../common/singletons.dart';
@@ -14,7 +13,7 @@ abstract class PatientUsecase {
   Future<PatientInforEntity?> getPatientInforEntityInPatientApp(String? patientId);
   Future<void> updatePatientInforEntity(
       String? userId, PatientInforEntity? patientInforEntity);
-  Future<AccountEntity?> addRelativeInforEntity(
+  Future<void> addRelativeInforEntity(
       String? patientId, RelativeInforModel? relativeInforModel);
 
   // Future<PatientEntity> addPatientEntity(PatientModel Patient);

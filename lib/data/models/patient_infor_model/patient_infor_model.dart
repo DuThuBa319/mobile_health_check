@@ -99,7 +99,7 @@ class PatientInforModel {
       phoneNumber: phoneNumber,
       address: address,
       bloodPressures: bloodPressureEntities,
-      bloodSugars: bloodSugarEntities, 
+      bloodSugars: bloodSugarEntities,
       height: height,
       gender: gender, //! Nam ==0==false
       personType: personType,
