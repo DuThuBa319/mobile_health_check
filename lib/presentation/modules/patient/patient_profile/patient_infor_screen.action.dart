@@ -22,14 +22,17 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     if (state is RegistRelativeState &&
         state.status == BlocStatusState.success) {
       showNoticeDialog(
+          onClose: () {
+            Navigator.pushNamed(context, RouteList.patientInfor,
+                arguments: widget.patientId);
+          },
           context: context,
-          message: 'Đăng ký thành công',
+          message: translation(context).addRelativeSuccessfully,
           title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
   }
 
- 
   Widget infoText({required String? title, required String? content}) {
     return Column(
       children: [
@@ -43,7 +46,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
       ],
     );
   }
- void showInfor(PatientInforEntity patientInforEntity) {
+
+  void showInfor(PatientInforEntity patientInforEntity) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -55,9 +59,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   fontSize: SizeConfig.screenWidth * 0.06,
                   fontWeight: FontWeight.bold),
             ),
-            content: ListView(children: const [
-             
-            ]),
+            content: ListView(children: const []),
             actions: [
               TextButton(
                 child: Text(translation(context).back),
@@ -69,7 +71,6 @@ extension PatientInforScreenAction on _PatientInforScreenState {
           );
         });
   }
-
 
   Widget homeCell({
     Spo2Entity? spo2Entity,
@@ -399,9 +400,4 @@ extension PatientInforScreenAction on _PatientInforScreenState {
   }
 }
 
-
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
-
-

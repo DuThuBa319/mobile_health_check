@@ -3,6 +3,7 @@ import 'package:retrofit/http.dart';
 
 import 'package:mobile_health_check/data/models/notification_onesignal_model/notification_onesignal_model.dart';
 
+import '../../models/account_model/account_model.dart';
 import '../../models/authentication_model/authentication_model.dart';
 import '../../models/blood_pressure_model/blood_pressure_model.dart';
 import '../../models/blood_sugar_model/blood_sugar_model.dart';
@@ -48,7 +49,7 @@ abstract class RestApiRepository {
   //? ADD NEW PATIENT
   @POST('/Users/{doctorId}/CreatePatientAccount')
   Future<void> addPatientInforModel(@Path('doctorId') String? doctorId,
-      @Body() PatientInforModel? patientInforModel);
+      @Body() AccountModel? accountModel);
 
   //? DELETE PATIENT
   @DELETE('/Users/DeletePatient/{patientId}') //delete
@@ -88,29 +89,35 @@ abstract class RestApiRepository {
   //? ADD NEW RELATIVE
   @POST('/Users/{patientId}/CreateRelativeAccount')
   Future<void> addRelativeInforModel(@Path('patientId') String? patientId,
-      @Body() RelativeInforModel? relativeInforModel);
+      @Body() AccountModel? accountModel);
 
 //! Notification --------------------------------
-
+  //? GET NOTIFICATIONS LIST
   @GET('/Notifications/{personId}') //để hiện detail
   Future<List<NotificationModel>> getNotificationListModels({
     @Path('personId') required String? personId,
     @Query('startIndex') required int? startIndex,
     @Query('lastIndex') required int? lastIndex,
   });
+
+  //? SET UNREAD NOTIFICATION
   @PATCH("/Notifications/{notificationId}") //update
   Future<void> setReadedNotificationModel(
       @Path("notificationId") String? notificationId);
 
+  //? GET UNREAD NOTIFICATION COUNT
   @GET('/Notifications/{personId}/Unseen') //để hiện detail
   Future<int> getUnreadCountNotification(
     @Path('personId') String? personId,
   );
-
+  
+  //? GET NOTIFICATION COUNT
   @GET('/Notifications/{personId}/Count') //để hiện detail
   Future<int> getNumberOfNotifications(
     @Path('personId') String? userId,
   );
+
+  //? DELETE NOTIFICATION
   @DELETE('/Notifications/{notificationId}') //delete
   Future<void> deleteNotificationModel(
       @Path('notificationId') String? notificationId);

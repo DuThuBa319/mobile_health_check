@@ -126,5 +126,6 @@
 "deletePatient":"Bạn muốn xóa bệnh nhân này?",
 "doNotHaveInformation":"chưa có thông tin",
 "male":"nam",
-"female":"nữ"
+"female":"nữ",
+"currentPassWrong":"Mật khẩu cũ không đúng!"
 }

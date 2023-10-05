@@ -19,8 +19,8 @@ class PatientListRepositoryImpl extends PatientListRepository {
     return _patientApi.updatePatientInforModel(userId,patientInforModel);
   }
     @override
-  Future<void>? addRelativeInforModel(String? patientId,RelativeInforModel? relativeInforModel) {
-    return _patientApi.addRelativeInforModel(patientId,relativeInforModel);
+  Future<void> addRelativeInforModel(String? patientId,AccountModel? accountModel) {
+    return _patientApi.addRelativeInforModel(patientId,accountModel);
   }
  
 }

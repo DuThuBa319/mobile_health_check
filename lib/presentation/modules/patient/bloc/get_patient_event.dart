@@ -34,17 +34,17 @@ class DeletePatientEvent extends PatientEvent {
 }
 
 class RegistPatientEvent extends PatientEvent {
-  RegistPatientEvent({required this.patientInforModel, this.doctorId});
-  final PatientInforModel? patientInforModel;
+  RegistPatientEvent({required this.accountEntity, this.doctorId});
+  final AccountEntity? accountEntity;
   final String? doctorId;
 }
 
 class RegistRelativeEvent extends PatientEvent {
   RegistRelativeEvent({
-    required this.relativeInforModel,
+    required this.accountEntity,
     this.patientId,
   });
-  final RelativeInforModel? relativeInforModel;
+  final AccountEntity? accountEntity;
   final String? patientId;
 }
 

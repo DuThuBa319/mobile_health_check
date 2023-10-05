@@ -1,4 +1,5 @@
 import 'package:mobile_health_check/common/singletons.dart';
+import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
@@ -6,7 +7,6 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 
-import '../../../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../../common_widget/common_button.dart';
 import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
@@ -155,19 +155,19 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         int phoneNumberCount =
                             _controllerPatientPhoneNumber.text.length;
                         if (phoneNumberCount == 10 || phoneNumberCount == 11) {
-                          PatientInforModel? newPatientInforModel =
-                              PatientInforModel(
+                          AccountEntity? newPatientAccountEntity =
+                              AccountEntity(
                             name: _controllerPatientName.text,
                             phoneNumber: _controllerPatientPhoneNumber.text,
                           );
                           widget.getPatientBloc?.add(RegistPatientEvent(
-                              patientInforModel: newPatientInforModel,
+                              accountEntity: newPatientAccountEntity,
                               doctorId: userDataData.getUser()!.id));
                         } else {
                           showNoticeDialog(
-                              context: context, 
-                              message:translation(context).phoneNumberCountError
-                                  ,
+                              context: context,
+                              message:
+                                  translation(context).phoneNumberCountError,
                               title: translation(context).notification,
                               titleBtn: translation(context).exit);
                         }

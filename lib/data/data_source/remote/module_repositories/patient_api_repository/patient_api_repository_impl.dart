@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mobile_health_check/data/models/account_model/account_model.dart';
 
 import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/patient_infor_model/patient_infor_model.dart';
-import '../../../../models/relative_model/relative_infor_model.dart';
 import '../../rest_api_repository.dart';
 import 'patient_api_repository.dart';
 
@@ -14,8 +14,7 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
 
   PatientApiRepositoryImpl({
     required this.dio,
-  }) : restApi = RestApiRepository(dio,
-            baseUrl:baseUrl);
+  }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
   @override
   Future<PatientInforModel> getPatientInforModel(String? patientId) {
@@ -29,8 +28,8 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
   }
 
   @override
-  Future<void>? addRelativeInforModel(
-      String? patientId, RelativeInforModel? relativeInforModel) {
-    return restApi.addRelativeInforModel(patientId, relativeInforModel);
+  Future<void> addRelativeInforModel(
+      String? patientId, AccountModel? accountModel) {
+    return restApi.addRelativeInforModel(patientId, accountModel);
   }
 }

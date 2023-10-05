@@ -128,7 +128,8 @@
 "deletePatient":"Delete this patient?",
 "doNotHaveInformation":"Don't have information",
 "male":"male",
-"female":"female"
+"female":"female",
+"currentPassWrong":"Wrong current password!"
 }
 
 

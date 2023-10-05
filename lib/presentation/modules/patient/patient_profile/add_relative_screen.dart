@@ -1,3 +1,4 @@
+import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
@@ -5,7 +6,6 @@ import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
-import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
 import '../../../theme/theme_color.dart';
@@ -152,15 +152,15 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                       int phoneNumberCount =
                           _controllerRelativePhoneNumber.text.length;
                       if (phoneNumberCount == 10 || phoneNumberCount == 11) {
-                        RelativeInforModel? newRelativeInforModel =
-                            RelativeInforModel(
+                        AccountEntity? accountEntity = AccountEntity(
                           name: _controllerRelativeName.text,
                           phoneNumber: _controllerRelativePhoneNumber.text,
                         );
 
                         widget.patientBloc?.add(RegistRelativeEvent(
-                            relativeInforModel: newRelativeInforModel,
+                            accountEntity: accountEntity,
                             patientId: widget.patientId));
+                            
                       } else {
                         showNoticeDialog(
                             context: context,

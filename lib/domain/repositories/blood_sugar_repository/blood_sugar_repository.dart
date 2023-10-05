@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:mobile_health_check/data/data_source/remote/module_repositories/blood_pressure_api_repository/blood_pressure_api_repository.dart';
 
 import '../../../data/data_source/remote/module_repositories/blood_sugar_api_repositoy/blood_sugar_api_repository.dart';
 import '../../../data/models/blood_sugar_model/blood_sugar_model.dart';

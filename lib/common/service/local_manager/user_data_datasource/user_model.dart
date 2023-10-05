@@ -21,7 +21,8 @@ class UserModel extends User {
   @override
   final String? phoneNumber;
 
-
+  @override
+  final String? currentPass;
 
   @override
   final String? role;
@@ -42,9 +43,8 @@ class UserModel extends User {
   @override
   final DoctorInforModel? doctor;
   UserModel(
-      {
-        
-        this.age,
+      {this.currentPass,
+      this.age,
       this.address,
       this.height,
       this.weight,
@@ -59,6 +59,7 @@ class UserModel extends User {
       this.doctor,
       this.relatives})
       : super(
+            currentPass: currentPass,
             unreadCount: unreadCount,
             email: email,
             id: id,

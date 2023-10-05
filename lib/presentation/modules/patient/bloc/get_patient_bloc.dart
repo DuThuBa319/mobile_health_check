@@ -1,7 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:flutter/material.dart';
@@ -10,8 +9,8 @@ import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_pass_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
-import '../../../../data/models/relative_model/relative_infor_model.dart';
 import '../../../../domain/entities/change_password_entity.dart';
+import '../../../../domain/entities/login_entity_group/account_entity.dart';
 import '../../../../domain/entities/login_entity_group/sign_in_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
@@ -68,6 +67,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         await changePassUsecase.changePassEntity(
             event.changePassEntity, event.userId);
         final newViewModel = state.viewModel;
+
         emit(ChangePassState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -261,16 +261,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        // final accountEntity =
         await _doctorInforUsecase.addPatientEntity(
-            event.doctorId, event.patientInforModel);
-        // firebaseAuthService.createUserWithEmailAndPassword(
-        //     email: '${event.patientInforModel!.phoneNumber}@gmail.com',
-        //     password: event.patientInforModel!.phoneNumber,
-        //     id: accountEntity?.id ?? '--',
-        //     role: 'patient',
-        //     name: event.patientInforModel!.name,
-        //     phoneNumber: event.patientInforModel!.phoneNumber);
+            event.doctorId, event.accountEntity);
         final newViewModel = state.viewModel;
         emit(
           RegistPatientState(
@@ -310,16 +302,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        // final accountEntity =
         await _patientUseCase.addRelativeInforEntity(
-            event.patientId, event.relativeInforModel);
-        // firebaseAuthService.createUserWithEmailAndPassword(
-        //     email: '${event.relativeInforModel!.phoneNumber}@gmail.com',
-        //     password: event.relativeInforModel!.phoneNumber,
-        //     id: accountEntity?.id ?? '--',
-        //     role: 'patient',
-        //     name: event.relativeInforModel!.name,
-        //     phoneNumber: event.relativeInforModel!.phoneNumber);
+            event.patientId, event.accountEntity);
         final newViewModel = state.viewModel;
         emit(RegistRelativeState(
             status: BlocStatusState.success, viewModel: newViewModel));
@@ -587,224 +571,4 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
     }
   }
-
-//   Future<void> _onGetBloodPressureHistoryData(
-//     GetBloodPressureHistoryDataEvent event,
-//     Emitter<GetPatientState> emit,
-//   ) async {
-//     emit(
-//       GetPatientInforState(
-//         status: BlocStatusState.loading,
-//         viewModel: state.viewModel,
-//       ),
-//     );
-//     try {
-//       final responses =
-//           await bloodPressureUseCase.getListBloodPressureEntities();
-
-//       List<BloodPressureEntity>? listBloodPressure = [];
-//       for (var response in responses) {
-//         if (response.updatedDate!.isAfter(event.startDate) &&
-//             response.updatedDate!.isBefore(event.endDate)) {
-//           listBloodPressure.add(response);
-//           print(listBloodPressure);
-//         }
-//       }
-//       final newViewModel =
-//           state.viewModel.copyWith(listBloodPressure: listBloodPressure);
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.success,
-//           viewModel: newViewModel,
-//         ),
-//       );
-//     } catch (e) {
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.failure,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
-
-//   ////
-//   Future<void> _onGetBloodPressureHistoryInitData(
-//     GetBloodPressureHistoryInitDataEvent event,
-//     Emitter<GetPatientState> emit,
-//   ) async {
-//     emit(
-//       GetPatientInforState(
-//         status: BlocStatusState.loading,
-//         viewModel: state.viewModel,
-//       ),
-//     );
-//     try {
-//       final responses =
-//           await bloodPressureUseCase.getListBloodPressureEntities();
-//       List<BloodPressureEntity>? listBloodPressure = [];
-//       for (var response in responses) {
-//         listBloodPressure.add(response);
-//         print(listBloodPressure);
-//       }
-//       final newViewModel =
-//           state.viewModel.copyWith(listBloodPressure: listBloodPressure);
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.success,
-//           viewModel: newViewModel,
-//         ),
-//       );
-//     } catch (e) {
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.failure,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
-
-//   ///
-
-//   Future<void> _onGetBloodSugarHistoryInitData(
-//     GetBloodSugarHistoryInitDataEvent event,
-//     Emitter<GetPatientState> emit,
-//   ) async {
-//     emit(
-//       GetPatientInforState(
-//         status: BlocStatusState.loading,
-//         viewModel: state.viewModel,
-//       ),
-//     );
-//     try {
-//       final responses = await bloodSugarUseCase.getListBloodSugarEntities();
-
-//       final newViewModel = state.viewModel.copyWith(listBloodSugar: responses);
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.success,
-//           viewModel: newViewModel,
-//         ),
-//       );
-//     } catch (e) {
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.failure,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
-// /////
-
-//   Future<void> _onGetBloodSugarHistoryData(
-//     GetBloodSugarHistoryDataEvent event,
-//     Emitter<GetPatientState> emit,
-//   ) async {
-//     emit(
-//       GetPatientInforState(
-//         status: BlocStatusState.loading,
-//         viewModel: state.viewModel,
-//       ),
-//     );
-//     try {
-//       final responses = await bloodSugarUseCase.getListBloodSugarEntities();
-//       List<BloodSugarEntity>? listBloodSugar = [];
-//       for (var response in responses) {
-//         if (response.updatedDate!.isAfter(event.startDate) &&
-//             response.updatedDate!.isBefore(event.endDate)) {
-//           listBloodSugar.add(response);
-//         }
-//       }
-//       final newViewModel = state.viewModel.copyWith(
-//         listBloodSugar: listBloodSugar,
-//       );
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.success,
-//           viewModel: newViewModel,
-//         ),
-//       );
-//     } catch (e) {
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.failure,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
-// //////
-
-//   Future<void> _onGetTemperatureHistoryInitData(
-//     GetTemperatureHistoryInitDataEvent event,
-//     Emitter<GetPatientState> emit,
-//   ) async {
-//     emit(
-//       GetPatientInforState(
-//         status: BlocStatusState.loading,
-//         viewModel: state.viewModel,
-//       ),
-//     );
-//     try {
-//       final responses = await temperatureUsecase.getListTemperatureEntities();
-
-//       final newViewModel = state.viewModel.copyWith(listTemperature: responses);
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.success,
-//           viewModel: newViewModel,
-//         ),
-//       );
-//     } catch (e) {
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.failure,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
-
-// //////
-//   Future<void> _onGetTemperatureHistoryData(
-//     GetTemperatureHistoryDataEvent event,
-//     Emitter<GetPatientState> emit,
-//   ) async {
-//     emit(
-//       GetPatientInforState(
-//         status: BlocStatusState.loading,
-//         viewModel: state.viewModel,
-//       ),
-//     );
-//     try {
-//       final responses = await temperatureUsecase.getListTemperatureEntities();
-//       List<TemperatureEntity>? listTemperature = [];
-//       for (var response in responses) {
-//         if (response.updatedDate!.isAfter(event.startDate) &&
-//             response.updatedDate!.isBefore(event.endDate)) {
-//           listTemperature.add(response);
-//         }
-//       }
-//       final newViewModel =
-//           state.viewModel.copyWith(listTemperature: listTemperature);
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.success,
-//           viewModel: newViewModel,
-//         ),
-//       );
-//     } catch (e) {
-//       emit(
-//         state.copyWith(
-//           status: BlocStatusState.failure,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
-// }
-
-// enum ReadDataTask { temperature, bloodPressure, bloodGlucose }
 }

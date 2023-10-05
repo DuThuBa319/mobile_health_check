@@ -82,7 +82,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<DoctorInforModel>(Options(
       method: 'GET',
@@ -136,14 +136,14 @@ class _RestApiRepository implements RestApiRepository {
   @override
   Future<void> addPatientInforModel(
     String? doctorId,
-    PatientInforModel? patientInforModel,
+    AccountModel? accountModel,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(patientInforModel?.toJson() ?? <String, dynamic>{});
+    _data.addAll(accountModel?.toJson() ?? <String, dynamic>{});
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
@@ -168,7 +168,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'DELETE',
       headers: _headers,
@@ -196,7 +196,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'DELETE',
       headers: _headers,
@@ -221,7 +221,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<RelativeInforModel>(Options(
       method: 'GET',
@@ -278,7 +278,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<PatientInforModel>(Options(
       method: 'GET',
@@ -332,14 +332,14 @@ class _RestApiRepository implements RestApiRepository {
   @override
   Future<void> addRelativeInforModel(
     String? patientId,
-    RelativeInforModel? relativeInforModel,
+    AccountModel? accountModel,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(relativeInforModel?.toJson() ?? <String, dynamic>{});
+    _data.addAll(accountModel?.toJson() ?? <String, dynamic>{});
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
@@ -371,7 +371,7 @@ class _RestApiRepository implements RestApiRepository {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<NotificationModel>>(Options(
       method: 'GET',
@@ -402,7 +402,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'PATCH',
       headers: _headers,
@@ -427,7 +427,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'GET',
       headers: _headers,
@@ -454,7 +454,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'GET',
       headers: _headers,
@@ -481,7 +481,7 @@ class _RestApiRepository implements RestApiRepository {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'DELETE',
       headers: _headers,
@@ -513,7 +513,7 @@ class _RestApiRepository implements RestApiRepository {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<BloodPressureModel>>(Options(
       method: 'GET',
@@ -581,7 +581,7 @@ class _RestApiRepository implements RestApiRepository {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<BloodSugarModel>>(Options(
       method: 'GET',
@@ -648,7 +648,7 @@ class _RestApiRepository implements RestApiRepository {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<TemperatureModel>>(Options(
       method: 'GET',
@@ -716,7 +716,7 @@ class _RestApiRepository implements RestApiRepository {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<Spo2Model>>(Options(
       method: 'GET',

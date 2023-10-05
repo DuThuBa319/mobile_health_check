@@ -7,6 +7,7 @@ import '../../../../data/models/relative_model/relative_infor_model.dart';
 import 'user_model.dart';
 
 class User extends Equatable {
+  final String? currentPass;
   final int? unreadCount;
   final String? email;
   final String? id;
@@ -22,6 +23,7 @@ class User extends Equatable {
   final List<RelativeInforModel>? relatives;
   final DoctorInforModel? doctor;
   User({
+    this.currentPass,
     this.age,
     this.address,
     this.height,
@@ -43,6 +45,7 @@ class User extends Equatable {
         // avatar,
         // createdAt
         // ,
+        currentPass,
         age,
         address,
         weight,
@@ -60,6 +63,7 @@ class User extends Equatable {
 
   UserModel convertToModel() {
     return UserModel(
+      currentPass:currentPass,
         unreadCount: unreadCount,
         age: age,
         address: address,
@@ -77,7 +81,9 @@ class User extends Equatable {
   }
 
   User copyWith(
-      {String? currentPassword,
+      {String? currentPass,
+        
+        String? currentPassword,
       int? unreadCount,
       String? email,
       String? id,
@@ -94,6 +100,7 @@ class User extends Equatable {
       DoctorInforModel? doctor}) {
     return User(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
+      currentPass: currentPass??this.currentPass,
       unreadCount: unreadCount ?? this.unreadCount,
       age: age ?? this.age,
       address: address ?? address,

@@ -81,26 +81,26 @@ abstract class GetPatientState {
   }
 }
 
-class ChangePassState extends GetPatientState {
-  ChangePassState({
-    _ViewModel viewModel =
-        const _ViewModel(), //ViewModel là dữ liệu trong state
-    BlocStatusState status = BlocStatusState.initial, //status của state
-  }) : super(viewModel);
-}
-
 class GetPatientInitialState extends GetPatientState {
   GetPatientInitialState({
     _ViewModel viewModel =
         const _ViewModel(), //ViewModel là dữ liệu trong state
     BlocStatusState status = BlocStatusState.initial, //status của state
-  }) : super(viewModel);
+  }) : super(viewModel, status: status);
 }
 
 class GetPatientListState extends GetPatientState {
   GetPatientListState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class ChangePassState extends GetPatientState {
+  ChangePassState({
+    _ViewModel viewModel =
+        const _ViewModel(), //ViewModel là dữ liệu trong state
+    BlocStatusState status = BlocStatusState.initial, //status của state
   }) : super(viewModel, status: status);
 }
 

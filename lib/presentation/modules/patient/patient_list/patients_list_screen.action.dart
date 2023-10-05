@@ -16,7 +16,6 @@ extension PatientListScreenAction on _PatientListState {
         (state is GetPatientListOfRelativeState &&
             state.status == BlocStatusState.success)) {
       // ignore: invalid_use_of_protected_member
-     
 
       showToast(translation(context).dataLoaded);
     }
@@ -59,10 +58,14 @@ extension PatientListScreenAction on _PatientListState {
             );
           });
     }
-
+    
     if (state is RegistPatientState &&
         state.status == BlocStatusState.success) {
       showNoticeDialog(
+          onClose: () {
+            Navigator.pushNamed(context, RouteList.patientList,
+                arguments: userDataData.getUser()?.id);
+          },
           context: context,
           message: translation(context).addPatientSuccessfully,
           title: translation(context).notification,

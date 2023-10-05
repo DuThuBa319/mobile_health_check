@@ -124,45 +124,11 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    //      InkWell(
-                    //   onTap: () {
-                    //     Navigator.pushNamed(context, RouteList.selectEquip);
-                    //   },
-                    //   child: Container(
-                    //       height: 47,
-                    //       width: 47,
-                    //       decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(30),
-                    //         color: const Color.fromARGB(255, 123, 211, 255),
-                    //       ),
-                    //       child: const Icon(Icons.add,
-                    //
-                    //        size: 30, color: Colors.white)),
-                    // ),
                     iconBottomBar(
                         label: translation(context).selectEquip,
                         iconData: Icons.camera_alt,
                         isSelected: widget.selectedIndex == 0 ? true : false,
                         iconIndex: 0),
-
-                    // badges.Badge(
-                    //   showBadge: true,
-                    //   badgeStyle: const badges.BadgeStyle(
-                    //       elevation: 0, badgeColor: Colors.redAccent),
-                    //   position: badges.BadgePosition.topEnd(
-                    //       top: -3,
-                    //       end: (notificationData.unreadCount ?? 0) < SizeConfig.screenWidth*0.02
-                    //           ? 3
-                    //           : -3),
-                    //   badgeContent:
-                    //       Text('${notificationData.unreadCount ?? 0}'),
-                    //   child: iconBottomBar(
-                    //       label: translation(context).notification,
-                    //       iconData: Icons.notifications_none_rounded,
-                    //       isSelected: widget.selectedIndex == 1 ? true : false,
-                    //       iconIndex: 1),
-                    // ),
-
                     iconBottomBar(
                         label: translation(context).settingScreen,
                         iconData: Icons.settings_sharp,

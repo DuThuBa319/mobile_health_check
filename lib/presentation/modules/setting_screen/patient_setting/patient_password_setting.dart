@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/change_password_entity.dart';
 
 import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/loading_dialog.dart';
 import 'package:mobile_health_check/presentation/modules/patient/bloc/get_patient_bloc.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
 import '../../../common_widget/common_button.dart';
+import '../../../common_widget/dialog/dialog_one_button.dart';
+import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../common_widget/screen_form/custom_screen_form_for_patient.dart';
 import '../../../route/route_list.dart';
@@ -52,7 +54,55 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
                 Navigator.pushNamed(context, RouteList.patientSetting),
             icon: const Icon(Icons.arrow_back)),
         child: SingleChildScrollView(
-          child: Container(
+            child: BlocConsumer<GetPatientBloc, GetPatientState>(
+                listener: (context, state) {
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.success) {
+            showNoticeDialog(
+                onClose: () {
+                  if (userDataData.getUser()!.role == "doctor" ||
+                      userDataData.getUser()!.role == "relative") {
+                    Navigator.pushNamed(context, RouteList.setting,
+                        arguments: userDataData.getUser()?.id);
+                  }
+                  if (userDataData.getUser()!.role == "patient") {
+                    Navigator.pushNamed(context, RouteList.patientSetting,
+                        arguments: userDataData.getUser()?.id);
+                  }
+                },
+                context: context,
+                message: translation(context).updatePasswordSuccessfullly,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+          if (state is WifiDisconnectState &&
+              state.status == BlocStatusState.success) {
+            showNoticeDialog(
+                onClose: () {
+                  Navigator.pop(context);
+                },
+                context: context,
+                message: translation(context).wifiDisconnect,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.loading) {
+            showLoadingDialog(context: context);
+          }
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.failure) {
+            showNoticeDialog(
+                onClose: () {
+                  Navigator.pop(context);
+                },
+                context: context,
+                message: translation(context).currentPassWrong,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+        }, builder: (context, state) {
+          return Container(
             margin: EdgeInsets.only(
                 left: SizeConfig.screenWidth * 0.06,
                 right: SizeConfig.screenWidth * 0.06),
@@ -176,14 +226,10 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
                           bloc.add(ChangePassEvent(
                               changePassEntity: changePassEntity,
                               userId: userDataData.getUser()!.id));
-                          showToast(
-                              translation(context).updatePasswordSuccessfullly);
-                          Navigator.pushNamed(
-                              context, RouteList.patientSetting);
                         }),
                   )
                 ]),
-          ),
-        ));
+          );
+        })));
   }
 }
