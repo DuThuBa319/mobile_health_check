@@ -85,6 +85,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             phoneNumber: response.accountInfor?.phoneNumber,
             id: response.token?.id,
             name: response.accountInfor?.name));
+        
         emit(
           LoginActionState(
             status: BlocStatusState.success,

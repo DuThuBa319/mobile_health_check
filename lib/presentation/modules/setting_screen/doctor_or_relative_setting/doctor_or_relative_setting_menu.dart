@@ -115,7 +115,6 @@ class _SettingMenuState extends State<SettingMenu> {
                                 doctorId: userDataData.getUser()!.id!);
                         await notificationData.clearData();
                         await userDataData.clearData();
-                        await firebaseAuthService.signOut();
                         //   await OneSignal.logout();
 
                         // ignore: use_build_context_synchronously

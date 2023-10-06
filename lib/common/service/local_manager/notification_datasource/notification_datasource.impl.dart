@@ -16,20 +16,6 @@ class NotificationDataSourceImpl extends BaseDataSource
     await localDataManager.preferencesHelper.remove('delayTime');
   }
 
-  // @override
-  // Future<String?> getToken() async {
-  //   final token =
-  //       await localDataManager.secureStorage.read(key: PreferencesKey.token);
-  //   return token;
-  // }
-
-  // @override
-  // Future<void> setToken(String token) async {
-  //   await localDataManager.secureStorage.write(
-  //     key: PreferencesKey.token,
-  //     value: token,
-  //   );
-  // }
 
   @override
   int? get delayTime => localDataManager.preferencesHelper.getData("delayTime");

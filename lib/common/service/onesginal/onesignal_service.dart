@@ -103,110 +103,29 @@ class OneSignalNotificationService {
     // }
 
     OneSignal.shared.setExternalUserId(userId);
-    
-if(userDataData.getUser()!.role! == 'doctor'){
-  OneSignal.shared.sendTag("role", "doctor");
-    OneSignal.shared.sendTag("doctorId", userId);
-}
-  else if(userDataData.getUser()!.role! == 'relative'){
-  OneSignal.shared.sendTag("role", "relative");
-    OneSignal.shared.sendTag("relativeId", userId);
-}
+
+    if (userDataData.getUser()!.role! == 'doctor') {
+      OneSignal.shared.sendTag("role", "doctor");
+      OneSignal.shared.sendTag("doctorId", userId);
+    } else if (userDataData.getUser()!.role! == 'relative') {
+      OneSignal.shared.sendTag("role", "relative");
+      OneSignal.shared.sendTag("relativeId", userId);
+    }
   }
 
   static void unsubscribeFromNotifications({required String doctorId}) {
     // Clear any tags and external user ID
-    if(userDataData.getUser()!.role! == 'doctor'){
-  OneSignal.shared.deleteTags(["role", "doctorId"]);
-    OneSignal.shared.removeExternalUserId();
-}
-   else if(userDataData.getUser()!.role! == 'relative'){
-  OneSignal.shared.deleteTags(["role", "relativeId"]);
-    OneSignal.shared.removeExternalUserId();
-}
+    if (userDataData.getUser()!.role! == 'doctor') {
+      OneSignal.shared.deleteTags(["role", "doctorId"]);
+      OneSignal.shared.removeExternalUserId();
+    } else if (userDataData.getUser()!.role! == 'relative') {
+      OneSignal.shared.deleteTags(["role", "relativeId"]);
+      OneSignal.shared.removeExternalUserId();
+    }
 
     // Unsubscribe the user from notifications
   }
 }
-
-// @Singleton()
-// class OneSignalNotificationService {
-//   OneSignalNotificationService._();
-
-//   @factoryMethod
-//   static Future<OneSignalNotificationService> create() async {
-//     final instance = OneSignalNotificationService._();
-//     await instance._init();
-//     return instance;
-//   }
-
-//   Future<void> _init() async {
-//     if (kDebugMode) {
-//       await OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-
-//     }
-//     OneSignal.initialize("eb1e614e-54fe-4824-9c1a-aad236ec92d3");
-
-//     OneSignal.Notifications.requestPermission(
-//         true); //!Hàm này yêu cầu người dùng cho phép ứng dụng gửi thông báo đẩy.
-//     OneSignal.Notifications.addForegroundWillDisplayListener((event) {
-//       //setState(() {});
-//       event.preventDefault();
-//       event.notification.display();
-//     });
-//     OneSignal.Notifications.addClickListener((openedResult) async {
-//       await Future.delayed(
-//           Duration(milliseconds: notificationData.delayTime ?? 1500));
-//       notificationData.saveDelayTime(0);
-
-//       notificationAction(openedResult);
-//     });
-//   }
-
-//   static Future<void> setUserId(String userId) async {
-//     if (kIsWeb) {
-//       return;
-//     }
-//     await OneSignal.User.addAlias('doctor', userId);
-//   }
-
-//   static Future<void> setLanguage(String languageCode) async {
-//     if (kIsWeb) {
-//       return;
-//     }
-//     await OneSignal.User.setLanguage(languageCode);
-//   }
-
-//   static Future<void> removeUserId() async {
-//     if (kIsWeb) {
-//       return;
-//     }
-//   }
-
-//   static void subscribeNotification({required String userId}) {
-//     // if (user.id == null) {
-//     //   return;
-//     // }
-
-//     OneSignal.User.addAlias('doctor', userId);
-//     // OneSignal.shared.sendTag('email', user.email);
-//     // OneSignal.shared.sendTag('userId', user.id);
-//     // OneSignal.shared.setExternalUserId("240914");
-
-//     OneSignal.User.addTags({"role": "doctor", "doctorId": userId});
-//     OneSignal.User.pushSubscription.optIn();
-//   }
-
-//   static Future<void> unsubscribeFromNotifications(
-//       {required String doctorId}) async {
-//     // Clear any tags and external user ID
-//     await OneSignal.User.removeTags(["role", "doctorId"]);
-//     await OneSignal.User.removeAlias('doctor');
-//     OneSignal.User.pushSubscription.optOut();
-//     // Unsubscribe the user from notifications
-//   }
-// }
-
 void notificationAction(OSNotificationOpenedResult openedResult) {
   NotificationBloc notificationBloc = getIt<NotificationBloc>();
   NavigationService navigationService = injector<NavigationService>();

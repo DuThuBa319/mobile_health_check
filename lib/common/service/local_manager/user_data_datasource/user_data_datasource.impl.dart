@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
 
-import '../../../singletons.dart';
 import '../base_datasource.dart';
 
 import 'user.dart';
@@ -20,9 +19,10 @@ class UserDataDataSourceImpl extends BaseDataSource
     await localDataManager.preferencesHelper.remove('user');
   }
 
+  // @override
+  // bool get isLogin => firebaseAuthService.isSignedIn;
   @override
-  bool get isLogin => firebaseAuthService.isSignedIn;
-
+  bool get isLogin => true;
   @override
   User? getUser() {
     final data = localDataManager.preferencesHelper.getData("user") as String?;

@@ -100,6 +100,7 @@ extension LoginAction on _LoginState {
       Navigator.pop(context);
       showToast(translation(context).verifySuccessfully);
       bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
+
       // bloc.add(GetUnreadCountNotificationEvent(
       //     doctorId: userDataData.getUser()!.id!));
     }
