@@ -38,6 +38,7 @@ extension LoginAction on _LoginState {
     }
     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
+      //  showNoticeDialog();
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -97,6 +98,7 @@ extension LoginAction on _LoginState {
     }
 
     if (state is LoginActionState && state.status == BlocStatusState.success) {
+      userDataData.setLogin();
       Navigator.pop(context);
       showToast(translation(context).verifySuccessfully);
       bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
