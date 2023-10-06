@@ -103,27 +103,25 @@ class OneSignalNotificationService {
     // }
 
     OneSignal.shared.setExternalUserId(userId);
-    
-if(userDataData.getUser()!.role! == 'doctor'){
-  OneSignal.shared.sendTag("role", "doctor");
-    OneSignal.shared.sendTag("doctorId", userId);
-}
-  else if(userDataData.getUser()!.role! == 'relative'){
-  OneSignal.shared.sendTag("role", "relative");
-    OneSignal.shared.sendTag("relativeId", userId);
-}
+
+    if (userDataData.getUser()!.role! == 'doctor') {
+      OneSignal.shared.sendTag("role", "doctor");
+      OneSignal.shared.sendTag("doctorId", userId);
+    } else if (userDataData.getUser()!.role! == 'relative') {
+      OneSignal.shared.sendTag("role", "relative");
+      OneSignal.shared.sendTag("relativeId", userId);
+    }
   }
 
-  static void unsubscribeFromNotifications({required String doctorId}) {
+  static void unsubscribeFromNotifications({required String userId}) {
     // Clear any tags and external user ID
-    if(userDataData.getUser()!.role! == 'doctor'){
-  OneSignal.shared.deleteTags(["role", "doctorId"]);
-    OneSignal.shared.removeExternalUserId();
-}
-   else if(userDataData.getUser()!.role! == 'relative'){
-  OneSignal.shared.deleteTags(["role", "relativeId"]);
-    OneSignal.shared.removeExternalUserId();
-}
+    if (userDataData.getUser()!.role! == 'doctor') {
+      OneSignal.shared.deleteTags(["role", "doctorId"]);
+      OneSignal.shared.removeExternalUserId();
+    } else if (userDataData.getUser()!.role! == 'relative') {
+      OneSignal.shared.deleteTags(["role", "relativeId"]);
+      OneSignal.shared.removeExternalUserId();
+    }
 
     // Unsubscribe the user from notifications
   }

@@ -38,7 +38,7 @@ extension LoginAction on _LoginState {
     }
     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
-      //  showNoticeDialog();
+      // showNoticeDialog(title: ,titleBtn: );
       showDialog(
           context: context,
           builder: (BuildContext context) {

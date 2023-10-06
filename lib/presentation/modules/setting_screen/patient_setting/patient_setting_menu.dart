@@ -22,7 +22,6 @@ class PatientSettingMenu extends StatefulWidget {
 class _PatientSettingMenuState extends State<PatientSettingMenu> {
   @override
   Widget build(BuildContext context) {
-    
     SizeConfig.init(context);
     return PatientCustomScreenForm(
         title: translation(context).setting,
@@ -97,7 +96,7 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                         onTap: () async {
                           await notificationData.clearData();
                           await userDataData.clearData();
-
+                          await userDataData.setLogout();
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamedAndRemoveUntil(context,
                               RouteList.login, (Route<dynamic> route) => false);

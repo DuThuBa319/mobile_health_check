@@ -112,7 +112,7 @@ class _SettingMenuState extends State<SettingMenu> {
                       onTap: () async {
                         OneSignalNotificationService
                             .unsubscribeFromNotifications(
-                                doctorId: userDataData.getUser()!.id!);
+                                userId: userDataData.getUser()!.id!);
                         await notificationData.clearData();
                         await userDataData.clearData();
                         // await firebaseAuthService.signOut();
