@@ -35,7 +35,7 @@ class BloodPressureEntity {
         return const Color.fromARGB(255, 64, 247, 70);
       } else if (sys! >= 120 && sys! <= 139) {
         //|| dia! >= 80 && dia! <= 89
-        return Colors.orange;
+        return Colors.red;
       } else if (sys! >= 140 && sys! <= 159) {
         //|| dia! >= 90 && dia! <= 99
         return Colors.red;

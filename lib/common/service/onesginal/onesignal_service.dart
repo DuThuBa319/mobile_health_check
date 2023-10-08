@@ -113,7 +113,7 @@ class OneSignalNotificationService {
     }
   }
 
-  static void unsubscribeFromNotifications({required String doctorId}) {
+  static void unsubscribeFromNotifications({required String userId}) {
     // Clear any tags and external user ID
     if (userDataData.getUser()!.role! == 'doctor') {
       OneSignal.shared.deleteTags(["role", "doctorId"]);

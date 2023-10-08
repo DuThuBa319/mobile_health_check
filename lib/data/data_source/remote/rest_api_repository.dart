@@ -10,6 +10,7 @@ import '../../models/blood_sugar_model/blood_sugar_model.dart';
 import '../../models/change_password_model/change_password_model.dart';
 import '../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../models/patient_infor_model/patient_infor_model.dart';
+import '../../models/person_cell_model/person_cell_model.dart';
 import '../../models/relative_model/relative_infor_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
 import '../../models/spo2_model/spo2_model.dart';
@@ -22,6 +23,20 @@ abstract class RestApiRepository {
   factory RestApiRepository(Dio dio, {String baseUrl}) = _RestApiRepository;
   // @GET('/Users/AllPatients')
   // Future<List<PatientModel>> getPatientListModels();
+
+//! admin task
+  //? GET ALL DOCTOR
+  @GET('/Users/AllDoctors') //để hiện detail
+  Future<List<PersonCellModel>> getAllDoctorModel();
+
+  //? CREATE DOCTOR ACCOUNT
+  @POST('/Users/CreateDoctorAccount')
+  Future<void> createDoctorAccountModel(@Body() AccountModel? accountModel);
+
+  //? DELETE DOCTOR
+  @DELETE('/Users/DeleteDoctorAccount/{doctorId}') //delete
+  Future<void> deleteDoctor(@Path('doctorId') String? doctorId);
+
 //! Authentication
 //? sign In
   @POST('/Auth/SignIn')
@@ -48,8 +63,8 @@ abstract class RestApiRepository {
 
   //? ADD NEW PATIENT
   @POST('/Users/{doctorId}/CreatePatientAccount')
-  Future<void> addPatientInforModel(@Path('doctorId') String? doctorId,
-      @Body() AccountModel? accountModel);
+  Future<void> addPatientInforModel(
+      @Path('doctorId') String? doctorId, @Body() AccountModel? accountModel);
 
   //? DELETE PATIENT
   @DELETE('/Users/DeletePatient/{patientId}') //delete
@@ -88,8 +103,8 @@ abstract class RestApiRepository {
 
   //? ADD NEW RELATIVE
   @POST('/Users/{patientId}/CreateRelativeAccount')
-  Future<void> addRelativeInforModel(@Path('patientId') String? patientId,
-      @Body() AccountModel? accountModel);
+  Future<void> addRelativeInforModel(
+      @Path('patientId') String? patientId, @Body() AccountModel? accountModel);
 
 //! Notification --------------------------------
   //? GET NOTIFICATIONS LIST
@@ -110,7 +125,7 @@ abstract class RestApiRepository {
   Future<int> getUnreadCountNotification(
     @Path('personId') String? personId,
   );
-  
+
   //? GET NOTIFICATION COUNT
   @GET('/Notifications/{personId}/Count') //để hiện detail
   Future<int> getNumberOfNotifications(

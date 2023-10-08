@@ -83,8 +83,8 @@ class _Spo2NotificationReadingScreenState
                 height: SizeConfig.screenWidth * 0.08,
               ),
               CustomImagePicker(
-                imagePath: widget.notificationEntity!.spo2Entity?.imageLink ??
-                    widget.notificationEntity!.spo2Entity?.imageLink!,
+                imagePath: widget.notificationEntity?.spo2Entity?.imageLink ??
+                    widget.notificationEntity?.spo2Entity?.imageLink,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
@@ -117,12 +117,12 @@ class _Spo2NotificationReadingScreenState
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.notificationEntity!.spo2Entity!.spo2 ?? widget.notificationEntity!.spo2Entity!.spo2!}",
+                                      "${widget.notificationEntity?.spo2Entity?.spo2 ?? widget.notificationEntity!.spo2Entity!.spo2!}",
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
                                       fontSize: SizeConfig.screenWidth * 0.25,
                                       // color: widget.notificationEntity!.spo2Entity!.statusColor,
-                                      color: AppColor.oximeter)),
+                                      color: widget.notificationEntity?.spo2Entity?.statusColor)),
                               TextSpan(
                                   text: ' %',
                                   style: AppTextTheme.body0.copyWith(

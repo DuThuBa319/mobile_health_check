@@ -1,35 +1,19 @@
-part of 'patient_infor_screen.dart';
+part of 'doctor_infor_screen.dart';
 
 // ignore: library_private_types_in_public_api
-extension PatientInforScreenAction on _PatientInforScreenState {
-  void _blocListener(BuildContext context, GetPatientState state) {
-    if (state is GetPatientInforState &&
+extension DoctorInforScreenAction on _DoctorInforScreenState {
+  void _blocListener(BuildContext context, GetDoctorState state) {
+    if (state is GetDoctorInforState &&
         state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);
     }
-    if (state is GetPatientInforState &&
+    if (state is GetDoctorInforState &&
         state.status == BlocStatusState.success) {
       showToast(translation(context).dataLoaded);
     }
-    if (state is GetPatientInforState &&
+    if (state is GetDoctorInforState &&
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
-    }
-    if (state is RegistRelativeState &&
-        state.status == BlocStatusState.loading) {
-      showToast(translation(context).waitForSeconds);
-    }
-    if (state is RegistRelativeState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
-          onClose: () {
-            Navigator.pushNamed(context, RouteList.patientInfor,
-                arguments: widget.patientId);
-          },
-          context: context,
-          message: translation(context).addRelativeSuccessfully,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
     }
   }
 
@@ -47,7 +31,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     );
   }
 
-  void showInfor(PatientInforEntity patientInforEntity) {
+  void showInfor(DoctorInforEntity patientInforEntity) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -169,27 +153,6 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                   fontWeight: FontWeight.w600)),
                         ),
                       ),
-                      onTap: () {
-                        if (naviagte == "bloodPressureHistory") {
-                          Navigator.pushNamed(
-                              context, RouteList.bloodPressureHistory,
-                              arguments: widget.patientId ?? widget.patientId!);
-                        }
-
-                        if (naviagte == "bloodSugarHistory") {
-                          Navigator.pushNamed(
-                              context, RouteList.bloodSugarHistory,
-                              arguments: widget.patientId ?? widget.patientId!);
-                        }
-                        if (naviagte == "oximeterHistory") {
-                          Navigator.pushNamed(context, RouteList.spo2History,
-                              arguments: widget.patientId ?? widget.patientId!);
-                        } else if (naviagte == "bodyTemperatureColor") {
-                          Navigator.pushNamed(
-                              context, RouteList.temperatureHistory,
-                              arguments: widget.patientId ?? widget.patientId!);
-                        }
-                      },
                     ),
                   ],
                 ),
@@ -327,7 +290,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                               text: "${spo2Entity?.spo2}",
                                               style: AppTextTheme.title3
                                                   .copyWith(
-                                                      color: AppColor.oximeter,
+                                                      color: spo2Entity
+                                                          ?.statusColor,
                                                       //     spo2Entity?.statusColor,
                                                       fontSize: SizeConfig
                                                               .screenWidth *

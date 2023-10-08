@@ -177,6 +177,7 @@ class _LoginState extends State<LoginScreen> {
                         SizedBox(
                           width: SizeConfig.screenWidth * 0.8,
                           child: TextField(
+                            keyboardType: TextInputType.number,
                             // focusNode: _focusNode,
                             controller: _usernameController,
                             style: TextStyle(

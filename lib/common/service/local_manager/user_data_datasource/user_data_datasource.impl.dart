@@ -22,7 +22,17 @@ class UserDataDataSourceImpl extends BaseDataSource
   // @override
   // bool get isLogin => firebaseAuthService.isSignedIn;
   @override
-  bool get isLogin => true;
+  bool? get isLogin => localDataManager.preferencesHelper.getData('isLogin');
+  @override
+  Future<void> setLogin() async {
+    localDataManager.preferencesHelper.saveData("isLogin", true);
+  }
+
+  @override
+  Future<void> setLogout() async {
+    localDataManager.preferencesHelper.saveData("isLogin", false);
+  }
+
   @override
   User? getUser() {
     final data = localDataManager.preferencesHelper.getData("user") as String?;

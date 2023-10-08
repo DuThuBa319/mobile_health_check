@@ -41,9 +41,4 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
   Future<void> deleteNotificationModel(String? notificationId) {
     return restApi.deleteNotificationModel(notificationId);
   }
-
-  // @override
-  // Future<NotificationModel> registNotification(NotificationModel Notification) {
-  //   return restApi.registNotification(Notification);
-  // }
 }

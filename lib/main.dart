@@ -104,8 +104,8 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     Future.delayed(const Duration(seconds: 1)).then((value) async {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
-      final isLogin = userDataData.isLogin;
-      if (isLogin == true) {
+      bool isLogin = userDataData.isLogin ?? false;
+      if (isLogin) {
         if (userDataData.getUser() != null) {
           if (userDataData.getUser()!.role == "doctor" ||
               userDataData.getUser()!.role == "relative") {

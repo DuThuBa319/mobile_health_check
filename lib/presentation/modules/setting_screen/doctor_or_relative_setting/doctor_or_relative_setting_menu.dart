@@ -36,8 +36,20 @@ class _SettingMenuState extends State<SettingMenu> {
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()!.id!),
+            onPressed: () {
+              if ((userDataData.getUser()!.role == "doctor" ||
+                      userDataData.getUser()!.role == "relative") &&
+                  (userDataData.getUser()!.id !=
+                      "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+                Navigator.pushNamed(context, RouteList.patientList,
+                    arguments: userDataData.getUser()!.id!);
+              } else if (userDataData.getUser()!.role == "doctor" &&
+                  userDataData.getUser()!.id ==
+                      "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+                Navigator.pushNamed(context, RouteList.doctorList,
+                    arguments: userDataData.getUser()!.id!);
+              }
+            },
             icon: const Icon(Icons.arrow_back)),
         selectedIndex: 1,
         child: SingleChildScrollView(
@@ -54,7 +66,9 @@ class _SettingMenuState extends State<SettingMenu> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  (userDataData.getUser()?.role == "relative")
+                  (userDataData.getUser()?.role == "relative" ||
+                          userDataData.getUser()!.id ==
+                              "97488bbf-6737-4476-9bcc-4644efe6bf70")
                       ? Center(
                           child: CustomImagePicker(
                             gender: userDataData.getUser()?.gender,
@@ -110,13 +124,20 @@ class _SettingMenuState extends State<SettingMenu> {
                       title: translation(context).logOut,
                       buttonColor: AppColor.saveSetting,
                       onTap: () async {
-                        OneSignalNotificationService
-                            .unsubscribeFromNotifications(
-                                doctorId: userDataData.getUser()!.id!);
-                        await notificationData.clearData();
-                        await userDataData.clearData();
-                        //   await OneSignal.logout();
+                        if ((userDataData.getUser()!.role == "doctor" ||
+                                userDataData.getUser()!.role == "relative") &&
+                            (userDataData.getUser()!.id !=
+                                "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+                          OneSignalNotificationService
+                              .unsubscribeFromNotifications(
+                                  userId: userDataData.getUser()!.id!);
+                          await notificationData.clearData();
+                        }
 
+                        await userDataData.clearData();
+                        // await firebaseAuthService.signOut();
+                        //   await OneSignal.logout();
+                        await userDataData.setLogout();
                         // ignore: use_build_context_synchronously
                         Navigator.pushNamedAndRemoveUntil(context,
                             RouteList.login, (Route<dynamic> route) => false);

@@ -96,9 +96,9 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
                           text: '${widget.response!.spo2}',
                           style: AppTextTheme.title3.copyWith(
                               // color: widget.response?.statusColor,
-                              color: AppColor.oximeter,
+                              color: widget.response?.statusColor,
                               fontSize: SizeConfig.screenWidth * 0.12,
-                              fontWeight: FontWeight.w500)),
+                            fontWeight: FontWeight.w500)),
                       TextSpan(
                           text: " %",
                           style: AppTextTheme.title3.copyWith(

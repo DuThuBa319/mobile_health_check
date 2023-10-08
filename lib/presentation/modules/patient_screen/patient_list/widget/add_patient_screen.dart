@@ -125,6 +125,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   height: SizeConfig.screenWidth * 0.2,
                   width: SizeConfig.screenWidth * 0.9,
                   child: TextField(
+                                        keyboardType: TextInputType.number,
+
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.gray767676,
                     controller: _controllerPatientPhoneNumber,

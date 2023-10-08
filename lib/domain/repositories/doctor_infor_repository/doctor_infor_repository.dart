@@ -13,6 +13,7 @@ abstract class DoctorInforRepository {
       String? doctorId, AccountModel? accountModel);
   Future<void> updateDoctorInforModel(
       String? doctorId, DoctorInforModel? doctorInforModel);
+      
   Future<void> deletePatientModel(String? patientId);
   Future<void> deleteRelativeModel({String? relativeId, String? patientId});
 }

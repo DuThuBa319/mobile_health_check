@@ -6,7 +6,7 @@ import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
-import 'package:mobile_health_check/presentation/modules/patient/patient_profile/widget/patient_infor_cell.dart';
+import 'package:mobile_health_check/presentation/modules/patient_screen/patient_profile/add_relative_screen.dart';
 import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -21,6 +21,11 @@ import '../common_widget/enum_common.dart';
 import '../modules/OCR_scanner/blood_glucose_reading_screen.dart';
 import '../modules/OCR_scanner/spo2_reading_screen.dart';
 import '../modules/OCR_scanner/temperature_reading_screen.dart';
+import '../modules/admin_screen/bloc/get_doctor_bloc.dart';
+import '../modules/admin_screen/doctor_list/doctor_list_screen.dart';
+import '../modules/admin_screen/doctor_list/widget/add_doctor_screen.dart';
+import '../modules/admin_screen/doctor_profile/doctor_infor_screen.dart';
+import '../modules/admin_screen/doctor_profile/widget/doctor_infor_cell.dart';
 import '../modules/camera_demo/camera_bloc/camera_bloc.dart';
 import '../modules/history/blood_pressure_history_screen/blood_pressure_history_screen.dart';
 import '../modules/history/blood_sugar_history_screen/blood_sugar_history_screen.dart';
@@ -38,11 +43,11 @@ import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart
 import '../modules/notification_onesignal/detail_screen/spo2_reading.dart';
 import '../modules/notification_onesignal/detail_screen/temperature_reading.dart';
 import '../modules/notification_onesignal/notification_screen.dart';
-import '../modules/patient/bloc/get_patient_bloc.dart';
-import '../modules/patient/patient_list/patients_list_screen.dart';
-import '../modules/patient/patient_list/widget/add_patient_screen.dart';
-import '../modules/patient/patient_profile/add_relative_screen.dart';
-import '../modules/patient/patient_profile/patient_infor_screen.dart';
+
+import '../modules/patient_screen/bloc/get_patient_bloc.dart';
+import '../modules/patient_screen/patient_list/patients_list_screen.dart';
+import '../modules/patient_screen/patient_list/widget/add_patient_screen.dart';
+import '../modules/patient_screen/patient_profile/patient_infor_screen.dart';
 import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_language_setting.dart';
 import '../modules/setting_screen/doctor_or_relative_setting/doctor_relative_password_setting.dart';
 import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_setting_menu.dart';
@@ -67,6 +72,18 @@ class AppRoute {
             );
           },
         );
+
+      case '/doctorInfor':
+        final doctorId = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<GetDoctorBloc>(
+              create: (context) => getIt<GetDoctorBloc>(),
+              child: DoctorInforScreen(doctorId: doctorId),
+            );
+          },
+        );
+
       case '/patientInforCell':
         final response = routeSettings.arguments as PatientInforEntity;
         return MaterialPageRoute(
@@ -103,6 +120,16 @@ class AppRoute {
             );
           },
         );
+      case '/doctor_list':
+        final id = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<GetDoctorBloc>(
+              create: (context) => getIt<GetDoctorBloc>(),
+              child: DoctorListScreen(id: id),
+            );
+          },
+        );
 
       case '/signUp':
         // final id = routeSettings.arguments as String;
@@ -129,6 +156,16 @@ class AppRoute {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
               child: AddPatientScreen(getPatientBloc: bloc),
+            );
+          },
+        );
+         case '/addDoctor':
+        final bloc = routeSettings.arguments as GetDoctorBloc;
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<GetDoctorBloc>(
+              create: (context) => getIt<GetDoctorBloc>(),
+              child: AddDoctorScreen(getDoctorBloc: bloc),
             );
           },
         );
@@ -335,7 +372,7 @@ class AppRoute {
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: SettingDrOrRePassword(),
+              child: const SettingDrOrRePassword(),
             );
           },
         );
