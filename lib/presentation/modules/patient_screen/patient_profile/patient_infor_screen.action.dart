@@ -78,7 +78,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     BloodSugarEntity? bloodSugarEntity,
     TemperatureEntity? temperatureEntity,
     DateTime? dateTime,
-    required String naviagte,
+    required String navigate,
     required String imagePath,
     required String indicator,
     required Color color,
@@ -170,31 +170,31 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                         ),
                       ),
                       onTap: () {
-                        if (naviagte == "bloodPressureHistory") {
+                        if (navigate == "bloodPressureHistory") {
                           Navigator.pushNamed(
                               context, RouteList.bloodPressureHistory,
-                              arguments: widget.patientId ?? widget.patientId!);
+                              arguments: widget.patientId);
                         }
 
-                        if (naviagte == "bloodSugarHistory") {
+                        if (navigate == "bloodSugarHistory") {
                           Navigator.pushNamed(
                               context, RouteList.bloodSugarHistory,
-                              arguments: widget.patientId ?? widget.patientId!);
+                              arguments: widget.patientId);
                         }
-                        if (naviagte == "oximeterHistory") {
+                        if (navigate == "oximeterHistory") {
                           Navigator.pushNamed(context, RouteList.spo2History,
-                              arguments: widget.patientId ?? widget.patientId!);
-                        } else if (naviagte == "bodyTemperatureColor") {
+                              arguments: widget.patientId);
+                        } else if (navigate == "bodyTemperatureColor") {
                           Navigator.pushNamed(
                               context, RouteList.temperatureHistory,
-                              arguments: widget.patientId ?? widget.patientId!);
+                              arguments: widget.patientId);
                         }
                       },
                     ),
                   ],
                 ),
               ),
-              naviagte == "bloodPressureHistory"
+              navigate == "bloodPressureHistory"
                   ? Container(
                       margin: const EdgeInsets.only(top: 10),
                       width: SizeConfig.screenWidth * 0.6,
@@ -275,7 +275,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                         ],
                       ),
                     )
-                  : naviagte == "bloodSugarHistory"
+                  : navigate == "bloodSugarHistory"
                       ? Container(
                           margin: EdgeInsets.only(
                             top: SizeConfig.screenHeight * 0.025,
@@ -309,7 +309,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                   ),
                                 )
                               ]))
-                      : naviagte == "oximeterHistory"
+                      : navigate == "oximeterHistory"
                           ? Container(
                               margin: EdgeInsets.only(
                                 top: SizeConfig.screenHeight * 0.02,
@@ -328,7 +328,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                               style: AppTextTheme.title3
                                                   .copyWith(
                                                       color: spo2Entity
-                                                    ?.statusColor,
+                                                          ?.statusColor,
                                                       //     spo2Entity?.statusColor,
                                                       fontSize: SizeConfig
                                                               .screenWidth *

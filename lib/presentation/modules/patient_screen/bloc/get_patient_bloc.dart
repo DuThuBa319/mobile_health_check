@@ -13,7 +13,6 @@ import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_
 
 import '../../../../domain/entities/change_password_entity.dart';
 import '../../../../domain/entities/login_entity_group/account_entity.dart';
-import '../../../../domain/entities/login_entity_group/sign_in_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
 import '../../../../domain/usecases/patient_usecase/patient_usecase.dart';
@@ -151,13 +150,14 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       );
 
       try {
-        final numberOfNotificationsEntity = await notificationUsecase
-            .getNumberOfNotificationEntity(event.userId);
+        final unreadNotificationsCount = await notificationUsecase
+            .getUnreadCountNotificationEntity(event.userId);
         final response =
             await _doctorInforUsecase.getDoctorInforEntity(event.userId);
         final newViewModel = state.viewModel.copyWith(
             doctorInforEntity: response,
-            totalCount: numberOfNotificationsEntity);
+            unreadCount: unreadNotificationsCount,
+            patientEntities: response?.patients);
         emit(GetPatientListState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -194,14 +194,16 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        final numberOfNotificationsEntity = await notificationUsecase
-            .getNumberOfNotificationEntity(event.relativeId);
+        final unreadNotificationsCount = await notificationUsecase
+            .getUnreadCountNotificationEntity(event.relativeId);
+
         final response = await _relativeInforUsecase
             .getRelativeInforEntity(event.relativeId);
 
         final newViewModel = state.viewModel.copyWith(
             relativeInforEntity: response,
-            totalCount: numberOfNotificationsEntity);
+            unreadCount: unreadNotificationsCount,
+            patientEntities: response?.patients);
         emit(GetPatientListOfRelativeState(
           status: BlocStatusState.success,
           viewModel: newViewModel,

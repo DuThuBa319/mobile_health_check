@@ -32,7 +32,7 @@ import '../bloc/get_patient_bloc.dart';
 part 'patient_infor_screen.action.dart';
 
 class PatientInforScreen extends StatefulWidget {
-  final String? patientId;
+  final String patientId;
 
   const PatientInforScreen({
     Key? key,
@@ -76,8 +76,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
               if ((state is GetPatientInitialState) ||
                   (state is DeleteRelativeState &&
                       state.status == BlocStatusState.success)) {
-                patientBloc.add(GetPatientInforEvent(
-                    patientId: widget.patientId ?? widget.patientId!));
+                patientBloc
+                    .add(GetPatientInforEvent(patientId: widget.patientId));
               }
               if (state is GetPatientInforState &&
                   state.status == BlocStatusState.loading) {
@@ -93,18 +93,16 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                   (state is DeleteRelativeState &&
                       state.status == BlocStatusState.loading)) {
                 PatientInforEntity patient =
-                    state.viewModel.patientInforEntity ??
-                        state.viewModel.patientInforEntity!;
-                // DoctorInforEntity doctor = state.viewModel.doctorInforEntity ??
-                //     state.viewModel.doctorInforEntity!;
+                    state.viewModel.patientInforEntity!;
+
                 return SmartRefresher(
                     header: const WaterDropHeader(),
                     controller: _refreshController,
                     onRefresh: () async {
                       await Future.delayed(const Duration(milliseconds: 1000));
                       _refreshController.refreshCompleted();
-                      patientBloc.add(GetPatientInforEvent(
-                          patientId: widget.patientId ?? widget.patientId!));
+                      patientBloc.add(
+                          GetPatientInforEvent(patientId: widget.patientId));
                     },
                     child: SingleChildScrollView(
                       child: Column(
@@ -127,10 +125,6 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   end: Alignment.bottomCenter,
                                   // Thay đổi begin và end để điều chỉnh hướng chuyển đổi màu
                                 ),
-                                // borderRadius: BorderRadius.vertical(
-                                //     bottom: Radius.elliptical(
-                                //         MediaQuery.of(context).size.width,
-                                //         SizeConfig.screenWidth*0.020)),
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -230,84 +224,92 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context,
-                                            RouteList.bloodPressuerDetail,
-                                            arguments:
-                                                patient.bloodPressures?[0]);
-                                        showToast(translation(context)
-                                            .waitForSeconds);
-                                      },
-                                      child: homeCell(
-                                          bloodPressureEntity:
-                                              patient.bloodPressures?[0],
-                                          dateTime: patient
-                                              .bloodPressures?[0].updatedDate,
-                                          naviagte: "bloodPressureHistory",
-                                          imagePath: Assets.bloodPressureMeter,
-                                          indicator: translation(context)
-                                              .bloodPressure,
-                                          color: AppColor.bloodPressureEquip),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context,
-                                            RouteList.bodyTemperatureDetail,
-                                            arguments:
-                                                patient.bodyTemperatures?[0]);
-                                        showToast(translation(context)
-                                            .waitForSeconds);
-                                      },
-                                      child: homeCell(
-                                          temperatureEntity:
-                                              patient.bodyTemperatures?[0],
-                                          dateTime: patient
-                                              .bodyTemperatures?[0].updatedDate,
-                                          naviagte: "bodyTemperatureColor",
-                                          imagePath:
-                                              Assets.bodyTemperatureMeter,
-                                          indicator: translation(context)
-                                              .bodyTemperature,
-                                          color: AppColor.bodyTemperatureColor),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, RouteList.bloodSugarDetail,
-                                            arguments: patient.bloodSugars?[0]);
-                                        showToast(translation(context)
-                                            .waitForSeconds);
-                                      },
-                                      child: homeCell(
-                                          bloodSugarEntity:
-                                              patient.bloodSugars?[0],
-                                          dateTime: patient
-                                              .bloodSugars?[0].updatedDate,
-                                          naviagte: "bloodSugarHistory",
-                                          imagePath: Assets.bloodGlucoseMeter,
-                                          indicator:
-                                              translation(context).bloodSugar,
-                                          color: AppColor.bloodGlucosColor),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, RouteList.spo2Detail,
-                                            arguments: patient.spo2s?[0]);
-                                        showToast(translation(context)
-                                            .waitForSeconds);
-                                      },
-                                      child: homeCell(
-                                          spo2Entity: patient.spo2s?[0],
-                                          dateTime:
-                                              patient.spo2s?[0].updatedDate,
-                                          naviagte: "oximeterHistory",
-                                          imagePath: Assets.oximeter,
-                                          indicator:
-                                              translation(context).oximeter,
-                                          color: AppColor.oximeterCell),
-                                    ),
+                                    if (patient.bloodPressures!.isNotEmpty)
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context,
+                                              RouteList.bloodPressuerDetail,
+                                              arguments:
+                                                  patient.bloodPressures?[0]);
+                                          showToast(translation(context)
+                                              .waitForSeconds);
+                                        },
+                                        child: homeCell(
+                                            bloodPressureEntity:
+                                                patient.bloodPressures?[0],
+                                            dateTime: patient
+                                                .bloodPressures?[0].updatedDate,
+                                            navigate: "bloodPressureHistory",
+                                            imagePath:
+                                                Assets.bloodPressureMeter,
+                                            indicator: translation(context)
+                                                .bloodPressure,
+                                            color: AppColor.bloodPressureEquip),
+                                      ),
+                                    if (patient.bodyTemperatures!.isNotEmpty)
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context,
+                                              RouteList.bodyTemperatureDetail,
+                                              arguments:
+                                                  patient.bodyTemperatures?[0]);
+                                          showToast(translation(context)
+                                              .waitForSeconds);
+                                        },
+                                        child: homeCell(
+                                            temperatureEntity:
+                                                patient.bodyTemperatures?[0],
+                                            dateTime: patient
+                                                .bodyTemperatures?[0]
+                                                .updatedDate,
+                                            navigate: "bodyTemperatureColor",
+                                            imagePath:
+                                                Assets.bodyTemperatureMeter,
+                                            indicator: translation(context)
+                                                .bodyTemperature,
+                                            color:
+                                                AppColor.bodyTemperatureColor),
+                                      ),
+                                    if (patient.bloodSugars!.isNotEmpty)
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context,
+                                              RouteList.bloodSugarDetail,
+                                              arguments:
+                                                  patient.bloodSugars?[0]);
+                                          showToast(translation(context)
+                                              .waitForSeconds);
+                                        },
+                                        child: homeCell(
+                                            bloodSugarEntity:
+                                                patient.bloodSugars?[0],
+                                            dateTime: patient
+                                                .bloodSugars?[0].updatedDate,
+                                            navigate: "bloodSugarHistory",
+                                            imagePath: Assets.bloodGlucoseMeter,
+                                            indicator:
+                                                translation(context).bloodSugar,
+                                            color: AppColor.bloodGlucosColor),
+                                      ),
+                                    if (patient.spo2s!.isNotEmpty)
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, RouteList.spo2Detail,
+                                              arguments: patient.spo2s?[0]);
+                                          showToast(translation(context)
+                                              .waitForSeconds);
+                                        },
+                                        child: homeCell(
+                                            spo2Entity: patient.spo2s?[0],
+                                            dateTime:
+                                                patient.spo2s?[0].updatedDate,
+                                            navigate: "oximeterHistory",
+                                            imagePath: Assets.oximeter,
+                                            indicator:
+                                                translation(context).oximeter,
+                                            color: AppColor.oximeterCell),
+                                      ),
                                     const SizedBox(
                                       height: 10,
                                     ),
@@ -316,6 +318,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                               : SizedBox(
                                   height: SizeConfig.screenHeight * 0.2,
                                   child: Center(
+                                    //! dịch
                                     child: Text("Chưa có dữ liệu",
                                         style: AppTextTheme.body0.copyWith(
                                             color: Colors.red,
@@ -324,69 +327,69 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                             fontWeight: FontWeight.w500)),
                                   ),
                                 ),
-                          Container(
-                            padding: EdgeInsets.only(
-                              top: SizeConfig.screenWidth * 0.02,
-                              left: SizeConfig.screenWidth * 0.04,
-                              bottom: SizeConfig.screenWidth * 0.02,
-                              right: SizeConfig.screenWidth * 0.025,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  translation(context).relative,
-                                  style: AppTextTheme.body0.copyWith(
-                                      fontSize: SizeConfig.screenHeight * 0.02,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 2,
-                                ),
-                                lineDecor(),
-                                SizedBox(
-                                  height: SizeConfig.screenWidth * 0.02,
-                                ),
-                              ],
-                            ),
-                          ),
-                          ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            itemCount: patient.relatives?.length ?? 0,
-                            itemBuilder: (BuildContext context, int index) {
-                              final relatives = patient.relatives?[index];
-                              return RelativeListCell(
-                                deleteRelativeBloc: patientBloc,
-                                relativeInforEntity: relatives,
-                                patientInforEntity: patient,
-                              );
-                            },
-                          ),
-                          (userDataData.getUser()?.role == "doctor" &&
-                                  patient.relatives!.length <= 2)
-                              ? Padding(
-                                  padding: EdgeInsets.only(
-                                    left: SizeConfig.screenWidth * 0.04,
+                          if (userDataData.getUser()?.role == "doctor")
+                            Container(
+                              padding: EdgeInsets.only(
+                                top: SizeConfig.screenWidth * 0.02,
+                                left: SizeConfig.screenWidth * 0.04,
+                                bottom: SizeConfig.screenWidth * 0.02,
+                                right: SizeConfig.screenWidth * 0.025,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    translation(context).relative,
+                                    style: AppTextTheme.body0.copyWith(
+                                        fontSize:
+                                            SizeConfig.screenHeight * 0.02,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  child: CommonButton(
-                                      width: SizeConfig.screenWidth * 0.4,
-                                      height: SizeConfig.screenHeight * 0.045,
-                                      title: translation(context).addRelative,
-                                      buttonColor: AppColor.lineDecor,
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, RouteList.addRelative,
-                                            arguments: {
-                                              "patientBloc": patientBloc,
-                                              "patientId": widget.patientId
-                                            });
-                                      }),
-                                )
-                              : const SizedBox(
-                                  width: 0.5,
-                                ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  lineDecor(),
+                                  SizedBox(
+                                    height: SizeConfig.screenWidth * 0.02,
+                                  ),
+                                  ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    itemCount: patient.relatives?.length ?? 0,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      final relatives =
+                                          patient.relatives?[index];
+                                      return RelativeListCell(
+                                        deleteRelativeBloc: patientBloc,
+                                        relativeInforEntity: relatives,
+                                        patientInforEntity: patient,
+                                      );
+                                    },
+                                  ),
+                                  patient.relatives!.length <= 2
+                                      ? CommonButton(
+                                          width: SizeConfig.screenWidth * 0.4,
+                                          height:
+                                              SizeConfig.screenHeight * 0.045,
+                                          title:
+                                              translation(context).addRelative,
+                                          buttonColor: AppColor.lineDecor,
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, RouteList.addRelative,
+                                                arguments: {
+                                                  "patientBloc": patientBloc,
+                                                  "patientId": widget.patientId
+                                                });
+                                          })
+                                      : const SizedBox(
+                                          width: 0.5,
+                                        ),
+                                ],
+                              ),
+                            ),
                         ],
                       ),
                     ));

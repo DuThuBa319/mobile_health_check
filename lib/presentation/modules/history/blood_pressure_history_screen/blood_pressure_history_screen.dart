@@ -158,9 +158,8 @@ class BloodPressureHistoryScreenState
                         timeFrom = timeTo;
                         strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
                       },
-                      title: translation(context).notification ,
+                      title: translation(context).notification,
                       titleBtn: translation(context).exit);
-                  
                 } else {
                   onGetBloodPressureData();
                 }
@@ -194,12 +193,6 @@ class BloodPressureHistoryScreenState
                         child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
-                    // onGetBloodPressureInitData();
-                    //onGetHistoryData();
-                    // return Center(
-                    //     child: Text('Vui lòng chọn thông tin',
-                    //         style: AppTextTheme.body2
-                    //             .copyWith(color: Colors.red)));
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
@@ -220,8 +213,9 @@ class BloodPressureHistoryScreenState
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodPressure!.isEmpty) {
+                      //! dịch
                       return Center(
-                          child: Text(translation(context).selectTime,
+                          child: Text('Không có dữ liệu',
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {

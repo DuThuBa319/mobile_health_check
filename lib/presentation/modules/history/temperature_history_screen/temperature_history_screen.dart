@@ -210,8 +210,9 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listTemperature!.isEmpty) {
+                      //! dịch
                       return Center(
-                          child: Text(translation(context).selectTime,
+                          child: Text('Không có dữ liệu',
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {

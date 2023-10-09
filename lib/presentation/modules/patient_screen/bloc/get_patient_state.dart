@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 part of 'get_patient_bloc.dart';
 
 // ViewModel is used for store all properties which want to be stored, processed and updated, chứa dữ liệu của 1 state
@@ -11,22 +13,18 @@ class _ViewModel {
   final DoctorInforEntity? doctorInforEntity;
   final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
-  final SignInEntity? signInEntity;
-  final int? totalCount;
+
+  final int? unreadCount;
   final String? userName;
   final String? password;
   final List<PersonCellEntity>? allDoctorEntity;
 
   const _ViewModel({
-    // this.listBloodPressure,
-    // this.listBloodSugar,
-    // this.listTemperature,
     this.allDoctorEntity,
     this.password,
     this.userName,
-    this.totalCount,
+    this.unreadCount,
     this.relativeInforEntity,
-    this.signInEntity,
     this.relativeEntities,
     this.doctorInforEntity,
     this.patientInforEntity,
@@ -35,33 +33,26 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
-      {
-        final List<PersonCellEntity>? allDoctorEntity,
+      {final List<PersonCellEntity>? allDoctorEntity,
       final RelativeInforEntity? relativeInforEntity,
-      final SignInEntity? signInEntity,
       final DoctorInforEntity? doctorInforEntity,
       final List<PatientInforEntity>? patientEntities,
       final PatientInforEntity? patientInforEntity,
       final List<RelativeInforEntity>? relativeEntities,
-      final int? totalCount,
+      final int? unreadCount,
       final String? userName,
       final String? password}) {
     // ignore: unnecessary_this
     return _ViewModel(
         allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
-        totalCount: totalCount ?? this.totalCount,
+        unreadCount: unreadCount ?? this.unreadCount,
         relativeInforEntity: relativeInforEntity ?? this.relativeInforEntity,
-        signInEntity: signInEntity ?? this.signInEntity,
         relativeEntities: relativeEntities ?? this.relativeEntities,
         patientInforEntity: patientInforEntity ?? this.patientInforEntity,
         patientEntities: patientEntities ?? this.patientEntities,
         doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,
         userName: userName ?? this.userName,
-        password: password ?? this.password
-        // listBloodPressure: listBloodPressure ?? listBloodPressure,
-        // listBloodSugar: listBloodSugar ?? listBloodSugar,
-        // listTemperature: listTemperature ?? listTemperature
-        );
+        password: password ?? this.password);
   }
 }
 

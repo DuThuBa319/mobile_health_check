@@ -92,16 +92,6 @@ class _PatientListState extends State<PatientListScreen> {
                       }
                     }
 
-                    if (state is GetPatientInitialState) {
-                      if (userDataData.getUser()!.role! == 'doctor') {
-                        patientBloc.add(GetPatientListEvent(
-                            userId: widget.id ?? widget.id!));
-                      } else if (userDataData.getUser()!.role! == 'relative') {
-                        patientBloc.add(GetPatientListOfRelativeEvent(
-                            relativeId: widget.id ?? widget.id!));
-                      }
-                    }
-
                     if ((state is GetPatientListState &&
                             state.status == BlocStatusState.loading) ||
                         (state is GetPatientListOfRelativeState &&
@@ -156,11 +146,10 @@ class _PatientListState extends State<PatientListScreen> {
                                                               .screenWidth *
                                                           0.035),
                                               badgeContent: state.viewModel
-                                                          .totalCount ==
+                                                          .unreadCount ==
                                                       null
                                                   ? null
-                                                  : Text(
-                                                      "${state.viewModel.totalCount}",
+                                                  : Text("${state.viewModel.unreadCount}",
                                                       style: TextStyle(
                                                           fontSize: SizeConfig
                                                                   .screenWidth *
@@ -346,11 +335,10 @@ class _PatientListState extends State<PatientListScreen> {
                                                               .screenWidth *
                                                           0.035),
                                               badgeContent: state.viewModel
-                                                          .totalCount ==
+                                                          .unreadCount ==
                                                       null
                                                   ? null
-                                                  : Text(
-                                                      "${state.viewModel.totalCount}",
+                                                  : Text("${state.viewModel.unreadCount}",
                                                       style: TextStyle(
                                                           fontSize: SizeConfig
                                                                   .screenWidth *
@@ -477,20 +465,29 @@ class _PatientListState extends State<PatientListScreen> {
                                     await Future.delayed(
                                         const Duration(milliseconds: 1000));
                                     _refreshController.refreshCompleted();
-                                    patientBloc.add(GetPatientListEvent(
-                                        userId: widget.id ?? widget.id!));
+                                    if (userDataData.getUser()!.role! ==
+                                        'doctor') {
+                                      patientBloc.add(GetPatientListEvent(
+                                          userId: widget.id ?? widget.id!));
+                                    } else if (userDataData.getUser()!.role! ==
+                                        'relative') {
+                                      patientBloc.add(
+                                          GetPatientListOfRelativeEvent(
+                                              relativeId:
+                                                  widget.id ?? widget.id!));
+                                    }
                                   },
                                   child: ListView.builder(
                                     physics: const BouncingScrollPhysics(),
                                     padding: EdgeInsets.zero,
                                     shrinkWrap: true,
-                                    itemCount: state.viewModel.doctorInforEntity
-                                            ?.patients?.length ??
+                                    itemCount: state.viewModel.patientEntities
+                                            ?.length ??
                                         0,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      final patientInforEntity = state.viewModel
-                                          .doctorInforEntity?.patients![index];
+                                      final patientInforEntity = state
+                                          .viewModel.patientEntities?[index];
                                       return PatientListCell(
                                         patientInforEntity: patientInforEntity,
                                         patientBloc: patientBloc,
@@ -548,7 +545,7 @@ class _PatientListState extends State<PatientListScreen> {
                                               },
                                               child: badges.Badge(
                                                 // badgeStyle: badges.BadgeStyle(badgeColor:  (state.viewModel
-                                                //                 .totalCount ==
+                                                //                 .unreadCount ==
                                                 //             null)
                                                 //         ? null:AppColor.redFB4B53),
                                                 position:
@@ -558,11 +555,11 @@ class _PatientListState extends State<PatientListScreen> {
                                                                 .screenWidth *
                                                             0.035),
                                                 badgeContent: state.viewModel
-                                                            .totalCount ==
+                                                            .unreadCount ==
                                                         null
                                                     ? null
                                                     : Text(
-                                                        "${state.viewModel.totalCount}",
+                                                        "${state.viewModel.unreadCount}",
                                                         style: TextStyle(
                                                             fontSize: SizeConfig
                                                                     .screenWidth *
@@ -723,6 +720,7 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.failure) ||
                         state is GetPatientListOfRelativeState &&
                             state.status == BlocStatusState.failure) {
+                              //! dịch
                       return const Center(
                         child: Text("error"),
                       );

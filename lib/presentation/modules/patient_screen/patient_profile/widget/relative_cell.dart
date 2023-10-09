@@ -34,8 +34,7 @@ class _RelativeListCellState extends State<RelativeListCell> {
 
     return Container(
         margin: EdgeInsets.only(
-            left: SizeConfig.screenWidth * 0.04,
-            right: SizeConfig.screenWidth * 0.04,
+            right: SizeConfig.screenWidth * 0.005,
             bottom: SizeConfig.screenWidth * 0.025),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: Colors.white),

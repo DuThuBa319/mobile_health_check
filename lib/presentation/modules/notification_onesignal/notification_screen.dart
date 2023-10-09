@@ -59,30 +59,6 @@ class _NotificationListState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // OneSignal.Notifications.addForegroundWillDisplayListener((event) {
-    //   event.preventDefault();
-    //   setState(() {});
-    //   event.notification.display();
-    //   // notificationBloc.add(GetNotificationListEvent(doctorId: widget.id));
-    // });
-    // OneSignal.shared.setNotificationWillShowInForegroundHandler((event) {
-    //   setState(() {});
-    //   event.complete(event.notification);
-    // });
-    // OneSignal.shared.setNotificationOpenedHandler((openedResult) {
-    //   Future.delayed(const Duration(milliseconds: 3000));
-    //   Navigator.pushNamed(context, RouteList.patientInfor,
-    //       arguments: openedResult.notification.additionalData?["patientId"]);
-    //   setState(() {});
-    // });
-    // OneSignal.Notifications.addClickListener((openedResult) async {
-    //   final NotificationUsecase count = getIt<NotificationUsecase>();
-    //   // notificationAction(openedResult, context);
-    //   Future.delayed(const Duration(milliseconds: 3000));
-    //   Navigator.pushNamed(context, RouteList.patientInfor,
-    //       arguments: openedResult.notification.additionalData?["patientId"]);
-    //   setState(() {});
-    // });
     SizeConfig.init(context);
     return CustomScreenForm(
         isRelativeApp:
@@ -98,7 +74,7 @@ class _NotificationListState extends State<NotificationScreen> {
             onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
                 arguments: userDataData.getUser()!.id!),
             icon: const Icon(Icons.arrow_back)),
-        selectedIndex: 1,
+        selectedIndex: 2,
         child: Container(
           padding: const EdgeInsets.all(10),
           child: BlocConsumer<NotificationBloc, NotificationState>(

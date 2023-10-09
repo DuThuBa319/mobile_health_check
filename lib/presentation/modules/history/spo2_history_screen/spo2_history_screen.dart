@@ -42,8 +42,8 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
     SizeConfig.init(context);
 
     return CustomScreenForm(
-        isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+      isRelativeApp:
+          (userDataData.getUser()?.role == "relative") ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -209,8 +209,9 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listSpo2!.isEmpty) {
+                      //! dịch
                       return Center(
-                          child: Text(translation(context).selectTime,
+                          child: Text("Không có dữ liệu",
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {

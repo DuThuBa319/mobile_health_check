@@ -12,8 +12,6 @@ import '../../../route/route_list.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 
-
-
 class SettingPatientLanguage extends StatefulWidget {
   const SettingPatientLanguage({super.key});
 
@@ -166,6 +164,7 @@ class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
+                          // ignore: use_build_context_synchronously
                           Navigator.pop(context);
 
                           showToast("Change language successfully");
