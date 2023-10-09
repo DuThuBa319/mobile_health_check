@@ -14,7 +14,7 @@ import '../../common_widget/dialog/loading_dialog.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../theme/theme_color.dart';
-import '../patient/bloc/get_patient_bloc.dart';
+import '../patient_screen/bloc/get_patient_bloc.dart';
 
 class SettingProfile extends StatefulWidget {
   const SettingProfile({super.key});
@@ -182,6 +182,7 @@ class _SettingProfileState extends State<SettingProfile> {
                   height: heightCell,
                   width: widthCell,
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
                     controller: _controllerPhoneNumber,
@@ -212,6 +213,8 @@ class _SettingProfileState extends State<SettingProfile> {
                   height: heightCell,
                   width: widthCell,
                   child: TextField(
+                                        keyboardType: TextInputType.number,
+
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
                     controller: _controllerAge,

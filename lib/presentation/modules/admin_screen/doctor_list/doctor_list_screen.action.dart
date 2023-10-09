@@ -1,30 +1,25 @@
-part of 'patients_list_screen.dart';
+part of 'doctor_list_screen.dart';
 
 // ignore: library_private_types_in_public_api
-extension PatientListScreenAction on _PatientListState {
-  void _blocListener(BuildContext context, GetPatientState state) {
+extension DoctorListScreenAction on _DoctorListState {
+  void _blocListener(BuildContext context, GetDoctorState state) {
     // logger.d('change state', state);
     // _refreshController
     //   ..refreshCompleted()
     //   ..loadComplete();
-    if (state is GetPatientListState &&
+    if (state is GetDoctorListState &&
         state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);
     }
-    if ((state is GetPatientListState &&
-            state.status == BlocStatusState.success) ||
-        (state is GetPatientListOfRelativeState &&
-            state.status == BlocStatusState.success)) {
-      // ignore: invalid_use_of_protected_member
-
+    if ((state is GetDoctorListState &&
+        state.status == BlocStatusState.success)) {
       showToast(translation(context).dataLoaded);
     }
-    if (state is GetPatientListState &&
+    if (state is GetDoctorListState &&
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
     }
-    if (state is RegistPatientState &&
-        state.status == BlocStatusState.loading) {
+    if (state is RegistDoctorState && state.status == BlocStatusState.loading) {
       showToast(translation(context).waitForSeconds);
     }
     if (state is WifiDisconnectState &&
@@ -58,24 +53,18 @@ extension PatientListScreenAction on _PatientListState {
             );
           });
     }
-    
-    if (state is RegistPatientState &&
-        state.status == BlocStatusState.success) {
+
+    if (state is RegistDoctorState && state.status == BlocStatusState.success) {
       showNoticeDialog(
           onClose: () {
-            Navigator.pushNamed(context, RouteList.patientList,
+            Navigator.pushNamed(context, RouteList.doctorList,
                 arguments: userDataData.getUser()?.id);
           },
           context: context,
-          message: translation(context).addPatientSuccessfully,
+          message: translation(context).addDoctorSuccessfully,
           title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
-  }
-
-  void gotoRegistPatientScreen() {
-    Navigator.pushNamed(context, RouteList.registPatient,
-        arguments: patientBloc);
   }
 
   Future<bool> _onWillPop() async {
@@ -87,7 +76,7 @@ extension PatientListScreenAction on _PatientListState {
             titleBtn2: translation(context).yes,
             onClose1: () {},
             onClose2: () {
-              SystemNavigator.pop();
+              Navigator.pop(context);
             })) ??
         false;
   }

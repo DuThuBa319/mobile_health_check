@@ -122,6 +122,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                   height: SizeConfig.screenWidth * 0.2,
                   width: SizeConfig.screenWidth * 0.9,
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.gray767676,
                     controller: _controllerRelativePhoneNumber,
@@ -160,7 +161,6 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         widget.patientBloc?.add(RegistRelativeEvent(
                             accountEntity: accountEntity,
                             patientId: widget.patientId));
-                            
                       } else {
                         showNoticeDialog(
                             context: context,

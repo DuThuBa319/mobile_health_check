@@ -3,12 +3,17 @@ class RouteList {
   static const String mainPageRoute = '/mainRoute';
 
   static const String account = '/account';
+static const String login = '/login';
 
   static const String patientInfor = '/patientInfor';
-  static const String login = '/login';
-
   static const String patientList = '/patient_list';
   static const String registPatient = '/regist_patient';
+
+  static const String doctorInfor = '/doctorInfor';
+  static const String doctorList = '/doctor_list';
+  static const String registDoctor = '/regist_doctor';
+
+
   static const String bloodPressuerDetail = '/bloodPressuerDetail';
   static const String bloodSugarDetail = '/bloodSugarDetail';
   static const String spo2Detail = '/spo2Detail';
@@ -40,6 +45,8 @@ class RouteList {
   static const String patientSettingPass = '/patientSettingPass';
   static const String patientSettingLanguage = '/patientSettingLanguage';
   static const String addPatient = '/addPatient';
+    static const String addDoctor = '/addDoctor';
+
   static const String addRelative = '/addRelative';
   static const String signUp = '/signUp';
 

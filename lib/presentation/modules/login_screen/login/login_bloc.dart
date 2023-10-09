@@ -82,10 +82,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                 ? "doctor"
                 : (response.roles?[0] == "Relative")
                     ? "relative"
-                    : "patient",
+                    : (response.roles?[0] == "Patient")
+                        ? "patient"
+                        : "null",
             phoneNumber: response.accountInfor?.phoneNumber,
             id: response.token?.id,
             name: response.accountInfor?.name));
+
         emit(
           LoginActionState(
             status: BlocStatusState.success,
@@ -142,8 +145,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
       try {
-        if (userDataData.getUser()!.role! == 'doctor' ||
-            userDataData.getUser()!.role! == 'relative') {
+        if (userDataData.getUser()!.role! == "doctor" &&
+            userDataData.getUser()!.id ==
+                "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+                  
+                }
+
+        if ((userDataData.getUser()!.role! == 'doctor' ||
+                userDataData.getUser()!.role! == 'relative') &&
+            userDataData.getUser()!.id !=
+                "97488bbf-6737-4476-9bcc-4644efe6bf70") {
           await OneSignalNotificationService.create();
           OneSignalNotificationService.subscribeNotification(
               userId: userDataData.getUser()!.id!);

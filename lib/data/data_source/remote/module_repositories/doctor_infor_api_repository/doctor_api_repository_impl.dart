@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/data/models/account_model/account_model.dart';
-import 'package:mobile_health_check/data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../../../presentation/common_widget/enum_common.dart';
 import '../../../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../rest_api_repository.dart';
@@ -21,12 +20,11 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
     return restApi.getDoctorInforModel(doctorId);
   }
 
- @override
+  @override
   Future<void> updateDoctorInforModel(
       String? doctorId, DoctorInforModel? doctorInforModel) {
     return restApi.updateDoctorInforModel(doctorId, doctorInforModel);
   }
-
 
   @override
   Future<void> addPatientInforModel(
@@ -43,6 +41,4 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
   Future<void> deleteRelativeModel({String? relativeId, String? patientId}) {
     return restApi.deleteRelative(patientId: patientId, relativeId: relativeId);
   }
-
-  
 }

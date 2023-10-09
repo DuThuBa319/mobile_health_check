@@ -30,7 +30,7 @@ class BloodSugarEntity {
         return const Color.fromARGB(255, 64, 247, 70);
       } else if (bloodSugar! >= 101 && bloodSugar! <= 125) {
         //|| dia! >= 80 && dia! <= 89
-        return Colors.orange;
+        return Colors.red;
       } else if (bloodSugar! >= 126) {
         //|| dia! >= 90 && dia! <= 99
         return Colors.red;

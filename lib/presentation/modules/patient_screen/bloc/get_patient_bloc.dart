@@ -1,11 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
+import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
+import 'package:mobile_health_check/domain/usecases/admin_usecase/admin_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_pass_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
@@ -28,7 +30,9 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final NotificationUsecase notificationUsecase;
   final ChangePassUsecase changePassUsecase;
   final Connectivity _connectivity;
+  final AdminUsecase _adminUsecase;
   GetPatientBloc(
+      this._adminUsecase,
       this._patientUseCase,
       this._doctorInforUsecase,
       this._relativeInforUsecase,
@@ -48,6 +52,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<DeleteRelativeEvent>(_onDeleteRelative);
     on<DeletePatientEvent>(_onDeletePatient);
     on<ChangePassEvent>(_onChangePass);
+    on<GetDoctorListEvent>(_onGetDoctorList);
   }
 
   Future<void> _onChangePass(
@@ -67,8 +72,48 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         await changePassUsecase.changePassEntity(
             event.changePassEntity, event.userId);
         final newViewModel = state.viewModel;
-
         emit(ChangePassState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+      } catch (response) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onGetDoctorList(
+    GetDoctorListEvent event,
+    Emitter<GetPatientState> emit,
+  ) async {
+    final connectivityResult = await _connectivity.checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
+      emit(
+        GetDoctorListState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+
+      try {
+        final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
+        final newViewModel =
+            state.viewModel.copyWith(allDoctorEntity: allDoctorEntity);
+        emit(GetDoctorListState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
         ));

@@ -72,7 +72,9 @@ class _PatientInforCellState extends State<PatientInforCell> {
                       : "${widget.patientInforEntity.age}"),
               in4Cell(
                 "${translation(context).gender}: ",
-                widget.patientInforEntity.gender == false ? "Nam" : "nữ",
+                widget.patientInforEntity.gender == 0
+                    ? translation(context).male
+                    : translation(context).female,
               ),
               in4Cell(
                   "${translation(context).height}: ",

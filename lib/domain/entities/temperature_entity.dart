@@ -30,7 +30,7 @@ class TemperatureEntity {
         return const Color.fromARGB(255, 64, 247, 70);
       } else if (temperature! >= 37 && temperature! <= 38) {
         //|| dia! >= 80 && dia! <= 89
-        return Colors.orange;
+        return Colors.red;
       } else if (temperature! >= 38.1) {
         //|| dia! >= 90 && dia! <= 99
         return Colors.red;

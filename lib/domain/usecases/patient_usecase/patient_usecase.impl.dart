@@ -26,7 +26,9 @@ class PatientUsecaseImpl extends PatientUsecase {
   Future<PatientInforEntity?> getPatientInforEntityInPatientApp(
       String? patientId) async {
     final response = await _repository.getPatientInforModel(patientId);
-    await userDataData.setUser(UserModel(
+    
+    await userDataData.setUser(
+      UserModel(
         height: response.height,
         weight: response.weight,
         address: response.address ?? "chưa có thông tin",

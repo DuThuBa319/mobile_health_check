@@ -31,13 +31,18 @@
 "oldPhoneNumber":"Your Previous PhoneNumber",
 "password":"Password",
 "patientIn4":"Patient Information",
+"doctorIn4":"Doctor Information",
+
 "patientList":"PATIENT LIST",
+"doctorList":"DOCTOR LIST",
+
 "phoneNumber":"PhoneNumber",
 "prediabetes":"Prediabetes",
 "prehypertension":"Prehypertension",
 "save":"Save",
 "search":"Search",
 "searchPatient":"Search patient",
+"searchDoctor":"Search doctor",
 "selectLanguage":"Select Language",
 "selectTime":"Select Time",
 "setting":"Setting",
@@ -87,9 +92,13 @@
 "verifying":"Verifying, please wait...",
 "verifySuccessfully":"Verify Successfully",
 "addPatient":"Add patient",
+"addDoctor":"Add doctor",
+
 "gender":"Gender",
 "address":"Address",
 "addPatientSuccessfully":"Add patient successfully",
+"addDoctorSuccessfully":"Add doctor successfully",
+
 "addRelativeSuccessfully":"Add relative successfully",
 "addRelative":"Add relative",
 "relativeIn4":"Relative information",

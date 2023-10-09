@@ -3,6 +3,10 @@ part of 'get_patient_bloc.dart';
 @immutable
 abstract class PatientEvent {}
 
+class GetDoctorListEvent extends PatientEvent {
+  GetDoctorListEvent() : super();
+}
+
 class GetPatientListEvent extends PatientEvent {
   // GetPatientListEvent();
   final String userId;

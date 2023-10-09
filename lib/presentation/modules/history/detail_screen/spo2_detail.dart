@@ -134,7 +134,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                                       letterSpacing: -4,
                                       fontSize: SizeConfig.screenWidth * 0.25,
                                       // color: widget.spo2Entity!.statusColor,
-                                      color: AppColor.oximeter)),
+                                      color: widget.spo2Entity?.statusColor)),
                               TextSpan(
                                   text: ' %',
                                   style: AppTextTheme.body0.copyWith(

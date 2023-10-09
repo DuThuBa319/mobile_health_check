@@ -102,14 +102,25 @@ extension LoginAction on _LoginState {
       Navigator.pop(context);
       showToast(translation(context).verifySuccessfully);
       bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
+
       // bloc.add(GetUnreadCountNotificationEvent(
       //     doctorId: userDataData.getUser()!.id!));
     }
 
     if (state is GetUserDataState && state.status == BlocStatusState.success) {
       Navigator.pop(context);
-      if (userDataData.getUser()!.role! == 'doctor' ||
-          userDataData.getUser()!.role! == 'relative') {
+
+      if (userDataData.getUser()!.role == 'doctor' &&
+          userDataData.getUser()!.id ==
+              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+        Navigator.pushNamed(context, RouteList.doctorList,
+            arguments: userDataData.getUser()!.id!);
+      }
+
+      if ((userDataData.getUser()!.role! == 'doctor' ||
+              userDataData.getUser()!.role! == 'relative') &&
+          userDataData.getUser()!.id !=
+              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
         notificationData.saveDelayTime(0);
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);

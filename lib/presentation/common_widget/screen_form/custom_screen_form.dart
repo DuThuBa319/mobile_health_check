@@ -186,8 +186,18 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 
   void _onItemTapped(int index) {
     if (index == 0 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.patientList,
-          arguments: userDataData.getUser()!.id!);
+      if ((userDataData.getUser()!.role == "doctor" ||
+              userDataData.getUser()!.role == "relative") &&
+          (userDataData.getUser()!.id !=
+              "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+        Navigator.pushNamed(context, RouteList.patientList,
+            arguments: userDataData.getUser()!.id!);
+      } else if (userDataData.getUser()!.role == "doctor" &&
+          userDataData.getUser()!.id ==
+              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+        Navigator.pushNamed(context, RouteList.doctorList,
+            arguments: userDataData.getUser()!.id!);
+      }
     }
     if (index == 1 && index != widget.selectedIndex) {
       Navigator.pushNamed(context, RouteList.setting);

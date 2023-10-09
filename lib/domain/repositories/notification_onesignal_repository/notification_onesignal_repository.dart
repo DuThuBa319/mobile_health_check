@@ -13,6 +13,5 @@ abstract class NotificationRepository {
   Future<void> setReadedNotificationModel(String? notificationId);
   Future<int?> getUnreadCountNotification(String? userId);
   Future<int?> getNumberOfNotifications(String? userId);
-
   Future<void> deleteNotificationModel(String? notificationId);
 }

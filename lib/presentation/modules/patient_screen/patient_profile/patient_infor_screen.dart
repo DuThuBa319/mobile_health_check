@@ -4,7 +4,7 @@ import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:mobile_health_check/presentation/modules/patient/patient_profile/widget/relative_cell.dart';
+import 'package:mobile_health_check/presentation/modules/patient_screen/patient_profile/widget/relative_cell.dart';
 
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +77,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                   (state is DeleteRelativeState &&
                       state.status == BlocStatusState.success)) {
                 patientBloc.add(GetPatientInforEvent(
-                   patientId: widget.patientId ?? widget.patientId!));
+                    patientId: widget.patientId ?? widget.patientId!));
               }
               if (state is GetPatientInforState &&
                   state.status == BlocStatusState.loading) {
@@ -104,7 +104,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                       await Future.delayed(const Duration(milliseconds: 1000));
                       _refreshController.refreshCompleted();
                       patientBloc.add(GetPatientInforEvent(
-                         patientId: widget.patientId ?? widget.patientId!));
+                          patientId: widget.patientId ?? widget.patientId!));
                     },
                     child: SingleChildScrollView(
                       child: Column(

@@ -15,11 +15,13 @@ class _ViewModel {
   final int? totalCount;
   final String? userName;
   final String? password;
+  final List<PersonCellEntity>? allDoctorEntity;
 
   const _ViewModel({
     // this.listBloodPressure,
     // this.listBloodSugar,
     // this.listTemperature,
+    this.allDoctorEntity,
     this.password,
     this.userName,
     this.totalCount,
@@ -33,7 +35,9 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
-      {final RelativeInforEntity? relativeInforEntity,
+      {
+        final List<PersonCellEntity>? allDoctorEntity,
+      final RelativeInforEntity? relativeInforEntity,
       final SignInEntity? signInEntity,
       final DoctorInforEntity? doctorInforEntity,
       final List<PatientInforEntity>? patientEntities,
@@ -44,6 +48,7 @@ class _ViewModel {
       final String? password}) {
     // ignore: unnecessary_this
     return _ViewModel(
+        allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
         totalCount: totalCount ?? this.totalCount,
         relativeInforEntity: relativeInforEntity ?? this.relativeInforEntity,
         signInEntity: signInEntity ?? this.signInEntity,
@@ -91,6 +96,13 @@ class GetPatientInitialState extends GetPatientState {
 
 class GetPatientListState extends GetPatientState {
   GetPatientListState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
+class GetDoctorListState extends GetPatientState {
+  GetDoctorListState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
@@ -191,6 +203,10 @@ final _factories = <Type,
         status: status,
       ),
   GetPatientListState: (viewModel, status) => GetPatientListState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  GetDoctorListState: (viewModel, status) => GetDoctorListState(
         viewModel: viewModel,
         status: status,
       ),

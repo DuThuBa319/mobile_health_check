@@ -26,6 +26,8 @@ class DoctorInforRepositoryImpl extends DoctorInforRepository {
     return _doctorInforApi.updateDoctorInforModel(doctorId,doctorInforModel);
   }
 
+  
+
    @override
   Future<void> deletePatientModel( String? patientId) {
     return _doctorInforApi.deletePatientModel( patientId);
