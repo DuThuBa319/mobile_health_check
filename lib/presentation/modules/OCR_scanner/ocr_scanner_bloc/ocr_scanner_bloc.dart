@@ -66,7 +66,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
             flashOn: selectedImage.flashOn);
         //  dataList = await sendImageToAzureFunction(selectedImage);
         final bloodPressureEntity = BloodPressureEntity(
-            sys: dataList[0], pulse: dataList[2], updatedDate: DateTime.now());
+            sys: dataList[0], pulse: dataList[1], updatedDate: DateTime.now());
 
         newViewModel = state.viewModel.copyWith(
             bloodPressureImageFile: selectedImage.croppedImage,
@@ -114,7 +114,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
           state.viewModel.bloodPressureEntity?.copywith(imageLink: imageUrl);
 
       await bloodPressureUseCase.createBloodPressureEntity(
-         patientId: userDataData.getUser()!.id!,
+          patientId: userDataData.getUser()!.id!,
           bloodPressureEntity: entity ?? BloodPressureEntity());
       emit(
         state.copyWith(
@@ -226,7 +226,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
           state.viewModel.bloodSugarEntity?.copywith(imageLink: imageUrl);
 
       await bloodSugarUseCase.createBloodSugarEntity(
-         patientId: userDataData.getUser()!.id!,
+          patientId: userDataData.getUser()!.id!,
           bloodSugarEntity: entity ?? BloodSugarEntity());
       emit(
         state.copyWith(
@@ -441,7 +441,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       final entity = state.viewModel.spo2Entity?.copywith(imageLink: imageUrl);
 
       await spo2UseCase.createSpo2Entity(
-          patientId: userDataData.getUser()!.id!, spo2Entity: entity ?? Spo2Entity());
+          patientId: userDataData.getUser()!.id!,
+          spo2Entity: entity ?? Spo2Entity());
       emit(
         state.copyWith(
           status: BlocStatusState.success,

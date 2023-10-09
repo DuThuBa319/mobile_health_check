@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +97,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       }
       //! catch do sai password
-      catch (e) {
+      on DioException catch (e) {
+        emit(
+          LoginActionState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              isLogin: false,
+              errorMessage: e.response!.data,
+            ),
+          ),
+        );
+      } catch (e) {
         emit(
           LoginActionState(
             status: BlocStatusState.failure,
