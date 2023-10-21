@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
@@ -74,6 +75,11 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(ChangePassState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
+        ));
+      } on DioException catch (e) {
+        emit(state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(errorMessage: e.response?.data),
         ));
       } catch (response) {
         emit(
@@ -240,7 +246,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        if (userDataData.getUser()!.role! == 'doctor') {
+        if (userDataData.getUser()!.role! == UserRole.doctor) {
           final response =
               await _doctorInforUsecase.getDoctorInforEntity(event.id);
           final allPatients = response!.patients;
@@ -258,7 +264,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             viewModel: newViewModel,
           ));
         }
-        if (userDataData.getUser()!.role! == 'relative') {
+        if (userDataData.getUser()!.role! == UserRole.relative) {
           final response =
               await _relativeInforUsecase.getRelativeInforEntity(event.id);
           final allPatients = response!.patients;
@@ -354,6 +360,12 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         final newViewModel = state.viewModel;
         emit(RegistRelativeState(
             status: BlocStatusState.success, viewModel: newViewModel));
+      } on DioException catch (e) {
+        //! e.response.data == "Username or password is invalid"
+        emit(state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(errorMessage: e.response?.data),
+        ));
       } catch (e) {
         emit(RegistRelativeState(
           status: BlocStatusState.failure,
@@ -580,27 +592,12 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        // await _doctorInforUsecase.deleteRelationshipDoctorAndPatientEntity(
-        //     event.doctorId, event.patientId);
         await _doctorInforUsecase.deletePatientEntity(event.patientId);
-        final response =
-            await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
-        final newViewModel =
-            state.viewModel.copyWith(doctorInforEntity: response);
+
         emit(DeletePatientState(
           status: BlocStatusState.success,
-          viewModel: newViewModel,
+          viewModel: state.viewModel,
         ));
-        // emit(
-        //   GetPatientListState(
-        //     status: BlocStatusState.loading,
-        //     viewModel: state.viewModel,
-        //   ),
-        // );
-        // emit(GetPatientListState(
-        //   status: BlocStatusState.success,
-        //   viewModel: newViewModel,
-        // ));
       } catch (e) {
         emit(
           state.copyWith(

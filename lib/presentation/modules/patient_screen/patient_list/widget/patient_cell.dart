@@ -7,6 +7,7 @@ import '../../../../../classes/language.dart';
 import '../../../../../domain/entities/patient_infor_entity.dart';
 import '../../../../../function.dart';
 import '../../../../common_widget/dialog/dialog_two_button.dart';
+import '../../../../common_widget/enum_common.dart';
 import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
@@ -69,7 +70,7 @@ class _PatientListCellState extends State<PatientListCell> {
                         ? "chưa cập nhật"
                         : widget.patientInforEntity!.phoneNumber,
                     style: AppTextTheme.body4),
-                trailing: (userDataData.getUser()?.role == "relative")
+                trailing: (userDataData.getUser()?.role == UserRole.relative)
                     ? const SizedBox(
                         width: 0.5,
                       )

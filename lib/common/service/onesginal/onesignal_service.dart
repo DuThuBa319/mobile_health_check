@@ -11,6 +11,7 @@ import '../../../domain/entities/blood_sugar_entity.dart';
 import '../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../domain/entities/spo2_entity.dart';
 import '../../../domain/entities/temperature_entity.dart';
+import '../../../presentation/common_widget/enum_common.dart';
 import '../../../presentation/modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../../presentation/route/route_list.dart';
 import '../navigation/navigation_service.dart';
@@ -104,10 +105,10 @@ class OneSignalNotificationService {
 
     OneSignal.shared.setExternalUserId(userId);
 
-    if (userDataData.getUser()!.role! == 'doctor') {
+    if (userDataData.getUser()!.role! == UserRole.doctor) {
       OneSignal.shared.sendTag("role", "doctor");
       OneSignal.shared.sendTag("doctorId", userId);
-    } else if (userDataData.getUser()!.role! == 'relative') {
+    } else if (userDataData.getUser()!.role! == UserRole.relative) {
       OneSignal.shared.sendTag("role", "relative");
       OneSignal.shared.sendTag("relativeId", userId);
     }
@@ -115,10 +116,10 @@ class OneSignalNotificationService {
 
   static void unsubscribeFromNotifications({required String userId}) {
     // Clear any tags and external user ID
-    if (userDataData.getUser()!.role! == 'doctor') {
+    if (userDataData.getUser()!.role! == UserRole.doctor) {
       OneSignal.shared.deleteTags(["role", "doctorId"]);
       OneSignal.shared.removeExternalUserId();
-    } else if (userDataData.getUser()!.role! == 'relative') {
+    } else if (userDataData.getUser()!.role! == UserRole.relative) {
       OneSignal.shared.deleteTags(["role", "relativeId"]);
       OneSignal.shared.removeExternalUserId();
     }

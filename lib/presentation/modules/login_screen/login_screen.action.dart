@@ -110,23 +110,19 @@ extension LoginAction on _LoginState {
     if (state is GetUserDataState && state.status == BlocStatusState.success) {
       Navigator.pop(context);
 
-      if (userDataData.getUser()!.role == 'doctor' &&
-          userDataData.getUser()!.id ==
-              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+      if (userDataData.getUser()!.role == UserRole.admin) {
         Navigator.pushNamed(context, RouteList.doctorList,
             arguments: userDataData.getUser()!.id!);
       }
 
-      if ((userDataData.getUser()!.role! == 'doctor' ||
-              userDataData.getUser()!.role! == 'relative') &&
-          userDataData.getUser()!.id !=
-              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+      if ((userDataData.getUser()!.role! == UserRole.doctor ||
+              userDataData.getUser()!.role! == UserRole.relative) ) {
         notificationData.saveDelayTime(0);
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);
       }
 
-      if (userDataData.getUser()!.role! == 'patient') {
+      if (userDataData.getUser()!.role! == UserRole.patient) {
         Navigator.pushNamed(context, RouteList.selectEquip);
       }
     }

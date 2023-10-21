@@ -60,12 +60,12 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
               state.status == BlocStatusState.success) {
             showNoticeDialog(
                 onClose: () {
-                  if (userDataData.getUser()!.role == "doctor" ||
-                      userDataData.getUser()!.role == "relative") {
+                  if (userDataData.getUser()!.role == UserRole.doctor ||
+                      userDataData.getUser()!.role == UserRole.relative) {
                     Navigator.pushNamed(context, RouteList.setting,
                         arguments: userDataData.getUser()?.id);
                   }
-                  if (userDataData.getUser()!.role == "patient") {
+                  if (userDataData.getUser()!.role == UserRole.patient) {
                     Navigator.pushNamed(context, RouteList.patientSetting,
                         arguments: userDataData.getUser()?.id);
                   }
@@ -220,12 +220,22 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          final changePassEntity = ChangePassEntity(
-                              currentPassword: _controllerCurrentPassword.text,
-                              newPassword: _controllerNewPassword.text);
-                          bloc.add(ChangePassEvent(
-                              changePassEntity: changePassEntity,
-                              userId: userDataData.getUser()!.id));
+                          if (_controllerCurrentPassword.text.isEmpty ||
+                              _controllerNewPassword.text.isEmpty) {
+                            showNoticeDialog(
+                                context: context,
+                                message: "Vui lòng nhập đủ thông tin",
+                                title: translation(context).notification,
+                                titleBtn: translation(context).exit);
+                          } else {
+                            final changePassEntity = ChangePassEntity(
+                                currentPassword:
+                                    _controllerCurrentPassword.text,
+                                newPassword: _controllerNewPassword.text);
+                            bloc.add(ChangePassEvent(
+                                changePassEntity: changePassEntity,
+                                userId: userDataData.getUser()!.id));
+                          }
                         }),
                   )
                 ]),

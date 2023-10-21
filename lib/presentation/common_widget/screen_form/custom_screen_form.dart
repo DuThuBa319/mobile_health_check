@@ -7,6 +7,7 @@ import '../../../common/singletons.dart';
 import '../../../function.dart';
 import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../route/route_list.dart';
+import '../enum_common.dart';
 
 class CustomScreenForm extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
@@ -186,15 +187,11 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 
   void _onItemTapped(int index) {
     if (index == 0 && index != widget.selectedIndex) {
-      if ((userDataData.getUser()!.role == "doctor" ||
-              userDataData.getUser()!.role == "relative") &&
-          (userDataData.getUser()!.id !=
-              "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+      if ((userDataData.getUser()!.role == UserRole.doctor ||
+          userDataData.getUser()!.role == UserRole.relative)) {
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);
-      } else if (userDataData.getUser()!.role == "doctor" &&
-          userDataData.getUser()!.id ==
-              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+      } else if (userDataData.getUser()!.role == UserRole.admin) {
         Navigator.pushNamed(context, RouteList.doctorList,
             arguments: userDataData.getUser()!.id!);
       }

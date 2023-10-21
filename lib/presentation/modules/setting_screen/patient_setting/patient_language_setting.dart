@@ -1,4 +1,3 @@
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../classes/language.dart';
@@ -166,8 +165,6 @@ class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
                           MyApp.setLocale(context, locale);
                           // ignore: use_build_context_synchronously
                           Navigator.pop(context);
-
-                          showToast("Change language successfully");
                         }
                         if (notificationData.localeId == 2) {
                           selectedLanguage = Language(2, VIETNAMESE, 'vi');
@@ -175,9 +172,8 @@ class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
                               await setLocale(selectedLanguage!.languageCode);
                           // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
+                          // ignore: use_build_context_synchronously
                           Navigator.pop(context);
-
-                          showToast("Đổi ngôn ngữ thành công");
                         }
                       },
                     ),

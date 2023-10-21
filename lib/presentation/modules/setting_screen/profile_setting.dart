@@ -51,8 +51,8 @@ class _SettingProfileState extends State<SettingProfile> {
     // checkWifiAvailability();
     super.initState();
     setState(() {
-      if (userDataData.getUser()!.role == "relative" ||
-          userDataData.getUser()!.role == "doctor") {
+      if (userDataData.getUser()!.role == UserRole.relative ||
+          userDataData.getUser()!.role == UserRole.doctor) {
         _controllerName.text = userDataData.getUser()!.name!;
         _controllerPhoneNumber.text = userDataData.getUser()!.phoneNumber!;
         _controllerAge.text = "${userDataData.getUser()?.age ?? 0}";
@@ -60,6 +60,10 @@ class _SettingProfileState extends State<SettingProfile> {
             userDataData.getUser()?.address ?? "chưa có thông tin";
         _controllerGender.text =
             userDataData.getUser()?.gender == 0 ? "Nam" : "Nữ";
+        _controllerWeight.text =
+            "${userDataData.getUser()?.weight?.toInt() ?? 0}";
+        _controllerHeight.text =
+            "${userDataData.getUser()?.height?.toInt() ?? 0}";
       } else {
         _controllerName.text = userDataData.getUser()!.name!;
         _controllerPhoneNumber.text = userDataData.getUser()!.phoneNumber!;
@@ -97,12 +101,12 @@ class _SettingProfileState extends State<SettingProfile> {
               state.status == BlocStatusState.success) {
             showNoticeDialog(
                 onClose: () {
-                  if (userDataData.getUser()!.role == "doctor" ||
-                      userDataData.getUser()!.role == "relative") {
+                  if (userDataData.getUser()!.role == UserRole.doctor ||
+                      userDataData.getUser()!.role == UserRole.relative) {
                     Navigator.pushNamed(context, RouteList.setting,
                         arguments: userDataData.getUser()?.id);
                   }
-                  if (userDataData.getUser()!.role == "patient") {
+                  if (userDataData.getUser()!.role == UserRole.patient) {
                     Navigator.pushNamed(context, RouteList.patientSetting,
                         arguments: userDataData.getUser()?.id);
                   }
@@ -213,8 +217,7 @@ class _SettingProfileState extends State<SettingProfile> {
                   height: heightCell,
                   width: widthCell,
                   child: TextField(
-                                        keyboardType: TextInputType.number,
-
+                    keyboardType: TextInputType.number,
                     textAlign: TextAlign.start,
                     cursorColor: AppColor.black,
                     controller: _controllerAge,
@@ -262,8 +265,8 @@ class _SettingProfileState extends State<SettingProfile> {
                   ),
                 ),
               ),
-              (userDataData.getUser()!.role == "relative" ||
-                      userDataData.getUser()!.role == "doctor")
+              (userDataData.getUser()!.role == UserRole.relative ||
+                      userDataData.getUser()!.role == UserRole.doctor)
                   ? (const SizedBox())
                   : Container(
                       margin: EdgeInsets.only(
@@ -297,8 +300,8 @@ class _SettingProfileState extends State<SettingProfile> {
                         ),
                       ),
                     ),
-              (userDataData.getUser()!.role == "relative" ||
-                      userDataData.getUser()!.role == "doctor")
+              (userDataData.getUser()!.role == UserRole.relative ||
+                      userDataData.getUser()!.role == UserRole.doctor)
                   ? (const SizedBox())
                   : Container(
                       margin: EdgeInsets.only(
@@ -370,77 +373,91 @@ class _SettingProfileState extends State<SettingProfile> {
                     title: translation(context).save,
                     buttonColor: AppColor.saveSetting,
                     onTap: () async {
-                      // if (isWifiAvailable || is4GAvailable) {
-                      final int gender;
-                      int? newAge = int.parse(_controllerAge.text);
-                      if (_controllerGender.text == "Nam" ||
-                          _controllerGender.text == "nam" ||
-                          _controllerGender.text == "male" ||
-                          _controllerGender.text == "Male") {
-                        gender = 0;
+                      if (_controllerAddress.text.isEmpty ||
+                          _controllerAge.text.isEmpty ||
+                          _controllerGender.text.isEmpty ||
+                          _controllerHeight.text.isEmpty ||
+                          _controllerPhoneNumber.text.isEmpty ||
+                          _controllerWeight.text.isEmpty ||
+                          _controllerName.text.isEmpty) {
+                        showNoticeDialog(
+                            context: context,
+                            message: "Vui lòng nhập đủ thông tin",
+                            title: translation(context).notification,
+                            titleBtn: translation(context).exit);
                       } else {
-                        gender = 1;
-                      }
+                        final int gender;
+                        int? newAge = int.parse(_controllerAge.text);
+                        if (_controllerGender.text == "Nam" ||
+                            _controllerGender.text == "nam" ||
+                            _controllerGender.text == "male" ||
+                            _controllerGender.text == "Male") {
+                          gender = 0;
+                        } else {
+                          gender = 1;
+                        }
 
-                      if (userDataData.getUser()!.role == "relative") {
-                        RelativeInforEntity newRelativeInforEntity =
-                            RelativeInforEntity(
-                          gender: gender,
-                          name: _controllerName.text,
-                          phoneNumber: _controllerPhoneNumber.text,
-                          age: newAge,
-                          id: userDataData.getUser()!.id!,
-                          address: _controllerAddress.text,
-                          personType: 2,
-                        );
-                        updatePatientBloc.add(UpdateRelativeInforEvent(
-                            relativeInforEntity: newRelativeInforEntity,
-                            id: userDataData.getUser()!.id));
-                        await userDataData.setUser(newRelativeInforEntity
-                            .convertUser(user: userDataData.getUser()!)
-                            .convertToModel());
-                      }
+                        if (userDataData.getUser()!.role == UserRole.relative) {
+                          RelativeInforEntity newRelativeInforEntity =
+                              RelativeInforEntity(
+                            gender: gender,
+                            name: _controllerName.text,
+                            phoneNumber: _controllerPhoneNumber.text,
+                            age: newAge,
+                            id: userDataData.getUser()!.id!,
+                            address: _controllerAddress.text,
+                            personType: 2,
+                          );
+                          updatePatientBloc.add(UpdateRelativeInforEvent(
+                              relativeInforEntity: newRelativeInforEntity,
+                              id: userDataData.getUser()!.id));
+                          await userDataData.setUser(newRelativeInforEntity
+                              .convertUser(user: userDataData.getUser()!)
+                              .convertToModel());
+                        }
 
-                      if (userDataData.getUser()!.role == "doctor") {
-                        DoctorInforEntity newDoctorInforEntity =
-                            DoctorInforEntity(
-                          gender: gender,
-                          name: _controllerName.text,
-                          phoneNumber: _controllerPhoneNumber.text,
-                          age: newAge,
-                          id: userDataData.getUser()!.id!,
-                          address: _controllerAddress.text,
-                          personType: 2,
-                        );
+                        if (userDataData.getUser()!.role == UserRole.doctor) {
+                          DoctorInforEntity newDoctorInforEntity =
+                              DoctorInforEntity(
+                            gender: gender,
+                            name: _controllerName.text,
+                            phoneNumber: _controllerPhoneNumber.text,
+                            age: newAge,
+                            id: userDataData.getUser()!.id!,
+                            address: _controllerAddress.text,
+                            personType: 2,
+                          );
 
-                        updatePatientBloc.add(UpdateDoctorInforEvent(
-                            doctorInforEntity: newDoctorInforEntity,
-                            id: userDataData.getUser()!.id));
-                        await userDataData.setUser(newDoctorInforEntity
-                            .convertUser(user: userDataData.getUser()!)
-                            .convertToModel());
-                      } else if (userDataData.getUser()!.role == "patient") {
-                        var height = double.parse(_controllerHeight.text);
-                        var weight = double.parse(_controllerWeight.text);
-                        PatientInforEntity newPatientInforEntity =
-                            PatientInforEntity(
-                          gender: gender,
-                          personType: 0,
-                          name: _controllerName.text,
-                          phoneNumber: _controllerPhoneNumber.text,
-                          age: newAge,
-                          height: height,
-                          weight: weight,
-                          id: userDataData.getUser()?.id!,
-                          address: _controllerAddress.text,
-                        );
+                          updatePatientBloc.add(UpdateDoctorInforEvent(
+                              doctorInforEntity: newDoctorInforEntity,
+                              id: userDataData.getUser()!.id));
+                          await userDataData.setUser(newDoctorInforEntity
+                              .convertUser(user: userDataData.getUser()!)
+                              .convertToModel());
+                        } else if (userDataData.getUser()!.role ==
+                            UserRole.patient) {
+                          var height = double.parse(_controllerHeight.text);
+                          var weight = double.parse(_controllerWeight.text);
+                          PatientInforEntity newPatientInforEntity =
+                              PatientInforEntity(
+                            gender: gender,
+                            personType: 0,
+                            name: _controllerName.text,
+                            phoneNumber: _controllerPhoneNumber.text,
+                            age: newAge,
+                            height: height,
+                            weight: weight,
+                            id: userDataData.getUser()?.id!,
+                            address: _controllerAddress.text,
+                          );
 
-                        updatePatientBloc.add(UpdatePatientInforEvent(
-                            patientInforEntity: newPatientInforEntity,
-                            id: userDataData.getUser()?.id));
-                        await userDataData.setUser(newPatientInforEntity
-                            .convertUser(user: userDataData.getUser()!)
-                            .convertToModel());
+                          updatePatientBloc.add(UpdatePatientInforEvent(
+                              patientInforEntity: newPatientInforEntity,
+                              id: userDataData.getUser()?.id));
+                          await userDataData.setUser(newPatientInforEntity
+                              .convertUser(user: userDataData.getUser()!)
+                              .convertToModel());
+                        }
                       }
                     }
                     // }

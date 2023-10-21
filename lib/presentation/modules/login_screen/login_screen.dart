@@ -77,14 +77,15 @@ class _LoginState extends State<LoginScreen> {
                               setState(() {});
                             },
                             child: Stack(
+                              clipBehavior: Clip.none,
                               children: [
                                 Image.asset(
                                   Assets.enFlag,
                                   scale: SizeConfig.screenWidth * 0.03,
                                 ),
                                 Positioned(
-                                  left: SizeConfig.screenWidth * 0.095,
-                                  top: 8,
+                                  left: SizeConfig.screenWidth * 0.065,
+                                  top: 2,
                                   child: Icon(
                                     Icons.check_circle,
                                     // ignore: unrelated_type_equality_checks
@@ -113,14 +114,15 @@ class _LoginState extends State<LoginScreen> {
                               setState(() {});
                             },
                             child: Stack(
+                              clipBehavior: Clip.none,
                               children: [
                                 Image.asset(
                                   Assets.vnFlag,
                                   scale: SizeConfig.screenWidth * 0.03,
                                 ),
                                 Positioned(
-                                  left: SizeConfig.screenWidth * 0.095,
-                                  top: 8,
+                                  left: SizeConfig.screenWidth * 0.065,
+                                  top: 2,
                                   child: Icon(
                                     Icons.check_circle,
                                     // ignore: unrelated_type_equality_checks
@@ -177,7 +179,7 @@ class _LoginState extends State<LoginScreen> {
                         SizedBox(
                           width: SizeConfig.screenWidth * 0.8,
                           child: TextField(
-                            keyboardType: TextInputType.number,
+                            // keyboardType: TextInputType.number,
                             // focusNode: _focusNode,
                             controller: _usernameController,
                             style: TextStyle(

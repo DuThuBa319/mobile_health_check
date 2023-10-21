@@ -9,6 +9,7 @@ import '../../../../classes/language.dart';
 import '../../../../function.dart';
 import '../../../common_widget/common_button.dart';
 
+import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/app_text_theme.dart';
@@ -27,7 +28,7 @@ class _SettingMenuState extends State<SettingMenu> {
     SizeConfig.init(context);
     return CustomScreenForm(
         isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -37,15 +38,11 @@ class _SettingMenuState extends State<SettingMenu> {
         backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
             onPressed: () {
-              if ((userDataData.getUser()!.role == "doctor" ||
-                      userDataData.getUser()!.role == "relative") &&
-                  (userDataData.getUser()!.id !=
-                      "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+              if ((userDataData.getUser()!.role == UserRole.doctor ||
+                  userDataData.getUser()!.role == UserRole.relative)) {
                 Navigator.pushNamed(context, RouteList.patientList,
                     arguments: userDataData.getUser()!.id!);
-              } else if (userDataData.getUser()!.role == "doctor" &&
-                  userDataData.getUser()!.id ==
-                      "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+              } else if (userDataData.getUser()!.role == UserRole.admin) {
                 Navigator.pushNamed(context, RouteList.doctorList,
                     arguments: userDataData.getUser()!.id!);
               }
@@ -66,9 +63,8 @@ class _SettingMenuState extends State<SettingMenu> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  (userDataData.getUser()?.role == "relative" ||
-                          userDataData.getUser()!.id ==
-                              "97488bbf-6737-4476-9bcc-4644efe6bf70")
+                  (userDataData.getUser()?.role == UserRole.relative ||
+                          userDataData.getUser()?.role == UserRole.admin)
                       ? Center(
                           child: CustomImagePicker(
                             gender: userDataData.getUser()?.gender,
@@ -91,7 +87,7 @@ class _SettingMenuState extends State<SettingMenu> {
                           )),
                         ),
                   Text(
-                      (userDataData.getUser()?.role == "doctor")
+                      (userDataData.getUser()?.role == UserRole.doctor)
                           ? "Dr.${userDataData.getUser()?.name}"
                           : "${userDataData.getUser()?.name}",
                       style: AppTextTheme.body0.copyWith(
@@ -124,10 +120,9 @@ class _SettingMenuState extends State<SettingMenu> {
                       title: translation(context).logOut,
                       buttonColor: AppColor.saveSetting,
                       onTap: () async {
-                        if ((userDataData.getUser()!.role == "doctor" ||
-                                userDataData.getUser()!.role == "relative") &&
-                            (userDataData.getUser()!.id !=
-                                "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+                        if ((userDataData.getUser()!.role == UserRole.doctor ||
+                            userDataData.getUser()!.role ==
+                                UserRole.relative)) {
                           OneSignalNotificationService
                               .unsubscribeFromNotifications(
                                   userId: userDataData.getUser()!.id!);

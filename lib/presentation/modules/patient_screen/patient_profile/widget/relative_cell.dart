@@ -8,6 +8,7 @@ import '../../../../../common/singletons.dart';
 import '../../../../../domain/entities/patient_infor_entity.dart';
 import '../../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../../function.dart';
+import '../../../../common_widget/enum_common.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../bloc/get_patient_bloc.dart';
 
@@ -52,7 +53,7 @@ class _RelativeListCellState extends State<RelativeListCell> {
                     ? translation(context).notUpdate
                     : widget.relativeInforEntity!.phoneNumber,
                 style: AppTextTheme.body4),
-            trailing: (userDataData.getUser()?.role == "doctor")
+            trailing: (userDataData.getUser()?.role == UserRole.doctor)
                 ? IconButton(
                     onPressed: () {
                       showNoticeDialogTwoButton(

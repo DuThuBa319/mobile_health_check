@@ -139,27 +139,26 @@ class AppRoute {
           },
         );
       case '/addRelative':
-        final map = routeSettings.arguments as Map;
+        final patientId= routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
               child: AddRelativeScreen(
-                  patientId: map["patientId"], patientBloc: map["patientBloc"]),
+                  patientId: patientId),
             );
           },
         );
       case '/addPatient':
-        final bloc = routeSettings.arguments as GetPatientBloc;
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: AddPatientScreen(getPatientBloc: bloc),
+              child: const AddPatientScreen(),
             );
           },
         );
-         case '/addDoctor':
+      case '/addDoctor':
         final bloc = routeSettings.arguments as GetDoctorBloc;
         return MaterialPageRoute(
           builder: (context) {

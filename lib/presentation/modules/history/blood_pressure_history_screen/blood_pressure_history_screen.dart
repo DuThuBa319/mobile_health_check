@@ -52,7 +52,7 @@ class BloodPressureHistoryScreenState
     SizeConfig.init(context);
     return CustomScreenForm(
       isRelativeApp:
-          (userDataData.getUser()?.role == "relative") ? true : false,
+          (userDataData.getUser()?.role == UserRole.relative) ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,

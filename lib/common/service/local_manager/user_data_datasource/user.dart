@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../data/models/doctor_infor_model/doctor_infor_model.dart';
 import '../../../../data/models/patient_infor_model/patient_infor_model.dart';
 import '../../../../data/models/relative_model/relative_infor_model.dart';
+import '../../../../presentation/common_widget/enum_common.dart';
 import 'user_model.dart';
 
 class User extends Equatable {
@@ -13,7 +14,7 @@ class User extends Equatable {
   final String? id;
   final String? name;
   final String? phoneNumber;
-  final String? role;
+  final UserRole? role;
   final int? age;
   final double? weight;
   final double? height;
@@ -63,7 +64,7 @@ class User extends Equatable {
 
   UserModel convertToModel() {
     return UserModel(
-      currentPass:currentPass,
+        currentPass: currentPass,
         unreadCount: unreadCount,
         age: age,
         address: address,
@@ -82,14 +83,13 @@ class User extends Equatable {
 
   User copyWith(
       {String? currentPass,
-        
-        String? currentPassword,
+      String? currentPassword,
       int? unreadCount,
       String? email,
       String? id,
       String? name,
       String? phoneNumber,
-      String? role,
+      UserRole? role,
       int? age,
       String? address,
       double? weight,
@@ -100,7 +100,7 @@ class User extends Equatable {
       DoctorInforModel? doctor}) {
     return User(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
-      currentPass: currentPass??this.currentPass,
+      currentPass: currentPass ?? this.currentPass,
       unreadCount: unreadCount ?? this.unreadCount,
       age: age ?? this.age,
       address: address ?? address,

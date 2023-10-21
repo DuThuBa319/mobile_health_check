@@ -78,13 +78,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             await _authenUsecase.signInAuthenEntity(authenInforEntity);
         //! post => dữ liêu => lưu vào local
         await userDataData.setUser(UserModel(
-            role: (response.roles?[0] == "Doctor")
-                ? "doctor"
-                : (response.roles?[0] == "Relative")
-                    ? "relative"
-                    : (response.roles?[0] == "Patient")
-                        ? "patient"
-                        : "null",
+            role: response.role,
             phoneNumber: response.accountInfor?.phoneNumber,
             id: response.token?.id,
             name: response.accountInfor?.name));
@@ -145,21 +139,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
       try {
-        if (userDataData.getUser()!.role! == "doctor" &&
-            userDataData.getUser()!.id ==
-                "97488bbf-6737-4476-9bcc-4644efe6bf70") {
-                  
-                }
+        // if (userDataData.getUser()!.role! == "doctor" &&
+        //     userDataData.getUser()!.id ==
+        //         "97488bbf-6737-4476-9bcc-4644efe6bf70") {}
 
-        if ((userDataData.getUser()!.role! == 'doctor' ||
-                userDataData.getUser()!.role! == 'relative') &&
-            userDataData.getUser()!.id !=
-                "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+        if ((userDataData.getUser()!.role! == UserRole.doctor ||
+            userDataData.getUser()!.role! == UserRole.relative)) {
           await OneSignalNotificationService.create();
           OneSignalNotificationService.subscribeNotification(
               userId: userDataData.getUser()!.id!);
         }
-        if (userDataData.getUser()!.role! == 'patient') {
+        if (userDataData.getUser()!.role! == UserRole.patient) {
           await _patientUseCase
               .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
         }
