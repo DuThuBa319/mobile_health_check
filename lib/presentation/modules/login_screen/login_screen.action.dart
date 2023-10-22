@@ -112,7 +112,7 @@ extension LoginAction on _LoginState {
 
       if (userDataData.getUser()!.role == 'doctor' &&
           userDataData.getUser()!.id ==
-              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+              "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
         Navigator.pushNamed(context, RouteList.doctorList,
             arguments: userDataData.getUser()!.id!);
       }
@@ -120,7 +120,7 @@ extension LoginAction on _LoginState {
       if ((userDataData.getUser()!.role! == 'doctor' ||
               userDataData.getUser()!.role! == 'relative') &&
           userDataData.getUser()!.id !=
-              "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+              "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
         notificationData.saveDelayTime(0);
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);

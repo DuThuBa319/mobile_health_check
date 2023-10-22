@@ -147,14 +147,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         if (userDataData.getUser()!.role! == "doctor" &&
             userDataData.getUser()!.id ==
-                "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+                "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
                   
                 }
 
         if ((userDataData.getUser()!.role! == 'doctor' ||
                 userDataData.getUser()!.role! == 'relative') &&
             userDataData.getUser()!.id !=
-                "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+                "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
           await OneSignalNotificationService.create();
           OneSignalNotificationService.subscribeNotification(
               userId: userDataData.getUser()!.id!);

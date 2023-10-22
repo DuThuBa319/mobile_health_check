@@ -40,12 +40,12 @@ class _SettingMenuState extends State<SettingMenu> {
               if ((userDataData.getUser()!.role == "doctor" ||
                       userDataData.getUser()!.role == "relative") &&
                   (userDataData.getUser()!.id !=
-                      "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+                      "e73bbd27-1714-4c58-a124-951cbc0eb3ea")) {
                 Navigator.pushNamed(context, RouteList.patientList,
                     arguments: userDataData.getUser()!.id!);
               } else if (userDataData.getUser()!.role == "doctor" &&
                   userDataData.getUser()!.id ==
-                      "97488bbf-6737-4476-9bcc-4644efe6bf70") {
+                      "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
                 Navigator.pushNamed(context, RouteList.doctorList,
                     arguments: userDataData.getUser()!.id!);
               }
@@ -68,7 +68,7 @@ class _SettingMenuState extends State<SettingMenu> {
                 children: [
                   (userDataData.getUser()?.role == "relative" ||
                           userDataData.getUser()!.id ==
-                              "97488bbf-6737-4476-9bcc-4644efe6bf70")
+                              "e73bbd27-1714-4c58-a124-951cbc0eb3ea")
                       ? Center(
                           child: CustomImagePicker(
                             gender: userDataData.getUser()?.gender,
@@ -127,7 +127,7 @@ class _SettingMenuState extends State<SettingMenu> {
                         if ((userDataData.getUser()!.role == "doctor" ||
                                 userDataData.getUser()!.role == "relative") &&
                             (userDataData.getUser()!.id !=
-                                "97488bbf-6737-4476-9bcc-4644efe6bf70")) {
+                                "e73bbd27-1714-4c58-a124-951cbc0eb3ea")) {
                           OneSignalNotificationService
                               .unsubscribeFromNotifications(
                                   userId: userDataData.getUser()!.id!);

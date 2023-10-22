@@ -86,8 +86,12 @@ class _PatientInforCellState extends State<PatientInforCell> {
                   (widget.patientInforEntity.weight?.toInt() == 0)
                       ? "${translation(context).notUpdate} (kg)"
                       : "${widget.patientInforEntity.weight?.toInt()} (kg)"),
-              in4Cell("${translation(context).address}: ",
-                  "${widget.patientInforEntity.address}"),
+              in4Cell(
+                  "${translation(context).address}: ",
+                  (widget.patientInforEntity.address == "" ||
+                          widget.patientInforEntity.address == null)
+                      ? translation(context).notUpdate
+                      : widget.patientInforEntity.address!),
               SizedBox(height: SizeConfig.screenHeight * 0.03),
               CommonButton(
                   width: SizeConfig.screenWidth * 0.9,

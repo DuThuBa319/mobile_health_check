@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
 
 import '../../../common/service/local_manager/user_data_datasource/user_model.dart';
