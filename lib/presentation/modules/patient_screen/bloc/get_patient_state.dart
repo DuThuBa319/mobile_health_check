@@ -13,27 +13,39 @@ class _ViewModel {
   final DoctorInforEntity? doctorInforEntity;
   final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
-
+  final String? errorEmptyName;
+  final String? errorEmptyPhoneNumber;
+  final String? errorEmptyCurrentPassword;
+  final String? errorEmptyNewPassword;
   final int? unreadCount;
   final String? userName;
   final String? password;
   final List<PersonCellEntity>? allDoctorEntity;
+  final String? errorMessage;
 
-  const _ViewModel({
-    this.allDoctorEntity,
-    this.password,
-    this.userName,
-    this.unreadCount,
-    this.relativeInforEntity,
-    this.relativeEntities,
-    this.doctorInforEntity,
-    this.patientInforEntity,
-    this.patientEntities,
-  });
+  const _ViewModel(
+      {this.errorEmptyCurrentPassword,
+      this.errorEmptyNewPassword,
+      this.errorEmptyName,
+      this.errorEmptyPhoneNumber,
+      this.allDoctorEntity,
+      this.password,
+      this.userName,
+      this.unreadCount,
+      this.relativeInforEntity,
+      this.relativeEntities,
+      this.doctorInforEntity,
+      this.patientInforEntity,
+      this.patientEntities,
+      this.errorMessage});
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
-      {final List<PersonCellEntity>? allDoctorEntity,
+      {final String? errorEmptyCurrentPassword,
+      final String? errorEmptyNewPassword,
+      final String? errorEmptyName,
+      final String? errorEmptyPhoneNumber,
+      final List<PersonCellEntity>? allDoctorEntity,
       final RelativeInforEntity? relativeInforEntity,
       final DoctorInforEntity? doctorInforEntity,
       final List<PatientInforEntity>? patientEntities,
@@ -41,7 +53,8 @@ class _ViewModel {
       final List<RelativeInforEntity>? relativeEntities,
       final int? unreadCount,
       final String? userName,
-      final String? password}) {
+      final String? password,
+      final String? errorMessage}) {
     // ignore: unnecessary_this
     return _ViewModel(
         allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
@@ -52,7 +65,15 @@ class _ViewModel {
         patientEntities: patientEntities ?? this.patientEntities,
         doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,
         userName: userName ?? this.userName,
-        password: password ?? this.password);
+        password: password ?? this.password,
+        errorMessage: errorMessage ?? this.errorMessage,
+        errorEmptyPhoneNumber:
+            errorEmptyPhoneNumber ?? this.errorEmptyPhoneNumber,
+        errorEmptyName: errorEmptyName ?? this.errorEmptyName,
+        errorEmptyCurrentPassword:
+            errorEmptyCurrentPassword ?? this.errorEmptyCurrentPassword,
+        errorEmptyNewPassword:
+            errorEmptyNewPassword ?? this.errorEmptyNewPassword);
   }
 }
 

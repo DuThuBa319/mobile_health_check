@@ -10,7 +10,6 @@ import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
-import '../../../common_widget/dialog/loading_dialog.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../route/route_list.dart';
@@ -22,18 +21,15 @@ class SettingDrOrRePassword extends StatefulWidget {
   const SettingDrOrRePassword({
     Key? key,
   }) : super(key: key);
-
   @override
   State<SettingDrOrRePassword> createState() => _SettingDrOrRePasswordState();
 }
 
 class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
   GetPatientBloc get bloc => BlocProvider.of(context);
-
   final TextEditingController _controllerCurrentPassword =
       TextEditingController();
   final TextEditingController _controllerNewPassword = TextEditingController();
-
   bool showPass1 = true;
   bool showPass2 = true;
 
@@ -43,7 +39,7 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
 
     return CustomScreenForm(
         isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         title: translation(context).updatePassword,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -58,25 +54,22 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
         child: SingleChildScrollView(
           child: BlocConsumer<GetPatientBloc, GetPatientState>(
               listener: (context, state) {
+
+           //! CHANGE PASS SUCCESSFULLY
             if (state is ChangePassState &&
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
                   onClose: () {
-                    if (userDataData.getUser()!.role == "doctor" ||
-                        userDataData.getUser()!.role == "relative") {
-                      Navigator.pushNamed(context, RouteList.setting,
-                          arguments: userDataData.getUser()?.id);
-                    }
-                    if (userDataData.getUser()!.role == "patient") {
-                      Navigator.pushNamed(context, RouteList.patientSetting,
-                          arguments: userDataData.getUser()?.id);
-                    }
+                    Navigator.pushNamed(context, RouteList.setting,
+                        arguments: userDataData.getUser()?.id);
                   },
                   context: context,
                   message: translation(context).updatePasswordSuccessfullly,
                   title: translation(context).notification,
                   titleBtn: translation(context).accept);
             }
+
+            //! WIFI DISCONNECT
             if (state is WifiDisconnectState &&
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
@@ -88,12 +81,15 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                   title: translation(context).notification,
                   titleBtn: translation(context).accept);
             }
+            // if (state is ChangePassState &&
+            //     state.status == BlocStatusState.loading) {
+            //   showLoadingDialog(context: context);
+            // }
+            //! ERROR CURRENT PASSWORD
             if (state is ChangePassState &&
-                state.status == BlocStatusState.loading) {
-              showLoadingDialog(context: context);
-            }
-            if (state is ChangePassState &&
-                state.status == BlocStatusState.failure ) {
+                state.status == BlocStatusState.failure &&
+                state.viewModel.errorMessage ==
+                    translation(context).currentPassWrong) {
               showNoticeDialog(
                   onClose: () {
                     Navigator.pop(context);
@@ -133,6 +129,7 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                             width: SizeConfig.screenWidth * 0.85,
                             child: TextField(
                               // focusNode: _focusNode,
+
                               controller: _controllerCurrentPassword,
                               obscureText: showPass1,
                               style: TextStyle(
@@ -140,6 +137,14 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.only(bottom: 5, top: 5),
+                                errorText: state.viewModel
+                                            .errorEmptyCurrentPassword ==
+                                        translation(context)
+                                            .pleaseEnterYourCurrentPassword
+                                    ? state.viewModel.errorEmptyCurrentPassword
+                                    : null,
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                       showPass1
@@ -190,6 +195,14 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.only(bottom: 5, top: 5),
+                                errorText:
+                                    state.viewModel.errorEmptyNewPassword ==
+                                            translation(context)
+                                                .pleaseEnterYourNewPassword
+                                        ? state.viewModel.errorEmptyNewPassword
+                                        : null,
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                       showPass2

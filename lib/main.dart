@@ -1,4 +1,5 @@
 import 'package:mobile_health_check/common/singletons.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -107,16 +108,19 @@ class _SplashScreenState extends State<SplashScreen> {
       bool isLogin = userDataData.isLogin ?? false;
       if (isLogin) {
         if (userDataData.getUser() != null) {
-          if (userDataData.getUser()!.role == "doctor" ||
-              userDataData.getUser()!.role == "relative") {
-            // ignore: use_build_context_synchronously
-            Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()!.id!);
-          } else if (userDataData.getUser()!.role == "patient") {
+          if (userDataData.getUser()!.role == UserRole.patient) {
             Navigator.pushNamed(
               context,
               RouteList.selectEquip,
             );
+          } else if (userDataData.getUser()!.role == UserRole.doctor ||
+              userDataData.getUser()!.role == UserRole.relative) {
+            // ignore: use_build_context_synchronously
+            Navigator.pushNamed(context, RouteList.patientList,
+                arguments: userDataData.getUser()!.id!);
+          } else if (userDataData.getUser()!.role == UserRole.admin) {
+            Navigator.pushNamed(context, RouteList.doctorList,
+                arguments: userDataData.getUser()!.id!);
           }
         } else {
           Navigator.pushNamed(context, RouteList.login);

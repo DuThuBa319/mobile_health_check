@@ -10,7 +10,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../classes/language.dart';
 
 import '../../../../common/singletons.dart';
-import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/dialog_two_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/loading_widget.dart';
@@ -22,7 +21,7 @@ import '../bloc/get_patient_bloc.dart';
 part 'patients_list_screen.action.dart';
 
 class PatientListScreen extends StatefulWidget {
-  final String? id;
+  final String id;
 
   const PatientListScreen({
     Key? key,
@@ -52,8 +51,9 @@ class _PatientListState extends State<PatientListScreen> {
     return WillPopScope(
         onWillPop: _onWillPop,
         child: CustomScreenForm(
-            isRelativeApp:
-                (userDataData.getUser()?.role == "relative") ? true : false,
+            isRelativeApp: (userDataData.getUser()?.role == UserRole.relative)
+                ? true
+                : false,
             isShowAppBar: false,
             isShowLeadingButton: false,
             isShowBottomNayvigationBar: true,
@@ -83,12 +83,12 @@ class _PatientListState extends State<PatientListScreen> {
                   listener: _blocListener,
                   builder: (context, state) {
                     if (state is GetPatientInitialState) {
-                      if (userDataData.getUser()!.role! == 'doctor') {
-                        patientBloc.add(GetPatientListEvent(
-                            userId: widget.id ?? widget.id!));
-                      } else if (userDataData.getUser()!.role! == 'relative') {
+                      if (userDataData.getUser()!.role! == UserRole.doctor) {
+                        patientBloc.add(GetPatientListEvent(userId: widget.id));
+                      } else if (userDataData.getUser()!.role! ==
+                          UserRole.relative) {
                         patientBloc.add(GetPatientListOfRelativeEvent(
-                            relativeId: widget.id ?? widget.id!));
+                            relativeId: widget.id));
                       }
                     }
 
@@ -176,7 +176,8 @@ class _PatientListState extends State<PatientListScreen> {
                                       SizeConfig.screenWidth * 0.03),
                                   color: Colors.white,
                                 ),
-                                child: userDataData.getUser()?.role == "doctor"
+                                child: userDataData.getUser()?.role ==
+                                        UserRole.doctor
                                     ? Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -222,8 +223,7 @@ class _PatientListState extends State<PatientListScreen> {
                                                           searchText:
                                                               filterKeyword
                                                                   .text,
-                                                          id: widget.id ??
-                                                              widget.id!),
+                                                          id: widget.id),
                                                     );
                                                   },
                                                 ),
@@ -259,8 +259,7 @@ class _PatientListState extends State<PatientListScreen> {
                                                   FilterPatientEvent(
                                                       searchText:
                                                           filterKeyword.text,
-                                                      id: widget.id ??
-                                                          widget.id!),
+                                                      id: widget.id),
                                                 );
                                               },
                                             ),
@@ -282,8 +281,6 @@ class _PatientListState extends State<PatientListScreen> {
                         (state is GetPatientListState &&
                             state.status == BlocStatusState.success) ||
                         (state is GetPatientListOfRelativeState &&
-                            state.status == BlocStatusState.success) ||
-                        (state is DeletePatientState &&
                             state.status == BlocStatusState.success) ||
                         (state is RegistPatientState &&
                             state.status == BlocStatusState.loading)) {
@@ -365,7 +362,8 @@ class _PatientListState extends State<PatientListScreen> {
                                       SizeConfig.screenWidth * 0.03),
                                   color: Colors.white,
                                 ),
-                                child: userDataData.getUser()?.role == "doctor"
+                                child: userDataData.getUser()?.role ==
+                                        UserRole.doctor
                                     ? Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -411,8 +409,7 @@ class _PatientListState extends State<PatientListScreen> {
                                                           searchText:
                                                               filterKeyword
                                                                   .text,
-                                                          id: widget.id ??
-                                                              widget.id!),
+                                                          id: widget.id),
                                                     );
                                                   },
                                                 ),
@@ -448,8 +445,7 @@ class _PatientListState extends State<PatientListScreen> {
                                                   FilterPatientEvent(
                                                       searchText:
                                                           filterKeyword.text,
-                                                      id: widget.id ??
-                                                          widget.id!),
+                                                      id: widget.id),
                                                 );
                                               },
                                             ),
@@ -466,15 +462,14 @@ class _PatientListState extends State<PatientListScreen> {
                                         const Duration(milliseconds: 1000));
                                     _refreshController.refreshCompleted();
                                     if (userDataData.getUser()!.role! ==
-                                        'doctor') {
+                                        UserRole.doctor) {
                                       patientBloc.add(GetPatientListEvent(
-                                          userId: widget.id ?? widget.id!));
+                                          userId: widget.id));
                                     } else if (userDataData.getUser()!.role! ==
-                                        'relative') {
+                                        UserRole.relative) {
                                       patientBloc.add(
                                           GetPatientListOfRelativeEvent(
-                                              relativeId:
-                                                  widget.id ?? widget.id!));
+                                              relativeId: widget.id));
                                     }
                                   },
                                   child: ListView.builder(
@@ -588,7 +583,7 @@ class _PatientListState extends State<PatientListScreen> {
                                     color: Colors.white,
                                   ),
                                   child: userDataData.getUser()?.role ==
-                                          "doctor"
+                                          UserRole.doctor
                                       ? Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -634,8 +629,7 @@ class _PatientListState extends State<PatientListScreen> {
                                                             searchText:
                                                                 filterKeyword
                                                                     .text,
-                                                            id: widget.id ??
-                                                                widget.id!),
+                                                            id: widget.id),
                                                       );
                                                     },
                                                   ),
@@ -671,8 +665,7 @@ class _PatientListState extends State<PatientListScreen> {
                                                     FilterPatientEvent(
                                                         searchText:
                                                             filterKeyword.text,
-                                                        id: widget.id ??
-                                                            widget.id!),
+                                                        id: widget.id),
                                                   );
                                                 },
                                               ),
@@ -691,7 +684,7 @@ class _PatientListState extends State<PatientListScreen> {
                                       patientBloc.add(
                                         FilterPatientEvent(
                                             searchText: filterKeyword.text,
-                                            id: widget.id ?? widget.id!),
+                                            id: widget.id),
                                       );
                                     },
                                     child: ListView.builder(
@@ -720,9 +713,8 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.failure) ||
                         state is GetPatientListOfRelativeState &&
                             state.status == BlocStatusState.failure) {
-                              //! dịch
-                      return const Center(
-                        child: Text("error"),
+                      return Center(
+                        child: Text(translation(context).error),
                       );
                     }
 

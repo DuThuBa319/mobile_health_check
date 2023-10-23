@@ -242,7 +242,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                               ),
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
-                                                labelText: "Glucose:",
+                                                labelText: translation(context).bloodSugar,
                                                 labelStyle: TextStyle(
                                                     color: AppColor.gray767676,
                                                     fontSize:

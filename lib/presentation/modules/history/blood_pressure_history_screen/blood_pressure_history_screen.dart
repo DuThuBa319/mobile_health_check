@@ -52,7 +52,7 @@ class BloodPressureHistoryScreenState
     SizeConfig.init(context);
     return CustomScreenForm(
       isRelativeApp:
-          (userDataData.getUser()?.role == "relative") ? true : false,
+          (userDataData.getUser()?.role == UserRole.relative) ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -215,7 +215,7 @@ class BloodPressureHistoryScreenState
                     if (state.viewModel.listBloodPressure!.isEmpty) {
                       //! dịch
                       return Center(
-                          child: Text('Không có dữ liệu',
+                          child: Text(translation(context).noData,
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {

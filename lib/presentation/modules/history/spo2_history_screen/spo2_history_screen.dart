@@ -43,7 +43,7 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
 
     return CustomScreenForm(
       isRelativeApp:
-          (userDataData.getUser()?.role == "relative") ? true : false,
+          (userDataData.getUser()?.role == UserRole.relative) ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -211,7 +211,7 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                     if (state.viewModel.listSpo2!.isEmpty) {
                       //! dịch
                       return Center(
-                          child: Text("Không có dữ liệu",
+                          child: Text(translation(context).noData,
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {

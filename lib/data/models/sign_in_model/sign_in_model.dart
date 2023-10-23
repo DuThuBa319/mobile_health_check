@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mobile_health_check/data/models/token_model/token_model.dart';
 
 import '../../../domain/entities/login_entity_group/sign_in_entity.dart';
+import '../../../presentation/common_widget/enum_common.dart';
 import '../account_model/account_model.dart';
 
 part 'sign_in_model.g.dart';
@@ -21,9 +22,16 @@ class SignInModel {
   Map<String, dynamic> toJson() => _$SignInModelToJson(this);
 
   SignInEntity converToSignInEntity() {
+    const map = {
+      'Doctor': UserRole.doctor,
+      'Admin': UserRole.admin,
+      'Patient': UserRole.patient,
+      'Rerelative': UserRole.relative
+    };
+
     return SignInEntity(
         accountInfor: accountInfor?.converToAccountInforEntity(),
         token: token?.convertToTokenEntity(),
-        roles: roles);
+        role: map[roles?[0]]);
   }
 }

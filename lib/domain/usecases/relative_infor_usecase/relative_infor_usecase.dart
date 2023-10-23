@@ -1,7 +1,10 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../classes/language.dart';
 import '../../../common/service/local_manager/user_data_datasource/user_model.dart';
+import '../../../common/service/navigation/navigation_service.dart';
 import '../../../common/singletons.dart';
+import '../../../di/di.dart';
 import '../../entities/relative_infor_entity.dart';
 import '../../repositories/relative_infor_repository/relative_infor_repository.dart';
 

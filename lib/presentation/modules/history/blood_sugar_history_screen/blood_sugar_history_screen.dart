@@ -44,7 +44,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
 
     return CustomScreenForm(
       isRelativeApp:
-          (userDataData.getUser()?.role == "relative") ? true : false,
+          (userDataData.getUser()?.role == UserRole.relative) ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -205,7 +205,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                     if (state.viewModel.listBloodSugar!.isEmpty) {
                       //! dịch
                       return Center(
-                          child: Text('Không có dữ liệu',
+                          child: Text(translation(context).noData,
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {

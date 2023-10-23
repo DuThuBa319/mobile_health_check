@@ -32,10 +32,8 @@
 "password":"Password",
 "patientIn4":"Patient Information",
 "doctorIn4":"Doctor Information",
-
 "patientList":"PATIENT LIST",
 "doctorList":"DOCTOR LIST",
-
 "phoneNumber":"PhoneNumber",
 "prediabetes":"Prediabetes",
 "prehypertension":"Prehypertension",
@@ -93,12 +91,39 @@
 "verifySuccessfully":"Verify Successfully",
 "addPatient":"Add patient",
 "addDoctor":"Add doctor",
-
+"pleaseEnterYourAccount":"Please enter your account",
+"pleaseEnterYourPassword":"Please enter your password",
 "gender":"Gender",
 "address":"Address",
 "addPatientSuccessfully":"Add patient successfully",
 "addDoctorSuccessfully":"Add doctor successfully",
+"pleaseEnterYourCurrentPassword":"Please enter your current password",
+"pleaseEnterYourNewPassword":"Please enter your new password",
+"pleaseEnterCompleteInformation":"Please enter complete information",
+"pleaseEnterCompleteLogin":"Please enter complete your username and password",
 
+"pleaseEnterRelativeName":"Please enter relatives name ",
+"pleaseEnterPatientName":"Please enter patient's name",
+"pleaseEnterDoctorName":"Please enter doctor's name",
+"pleaseEnterRelativePhoneNumber":"Please enter realtives phonenumber ",
+"pleaseEnterPatientPhoneNumber":"Please enter patient's phonenumber ",
+"pleaseEnterDoctorPhoneNumber":"Please enter doctor's phonenumber ",
+
+"pleaseUpdateYourName":"Please update your name",
+"pleaseUpdateYourPhoneNumber":"Please update your phonenumber",
+"pleaseUpdateYourAge":"Please update your age",
+"pleaseUpdateYourGender":"Please update your gender",
+"pleaseUpdateYourAddress":"Please update your address",
+"pleaseUpdateYourWeight":"Please update your weight",
+"pleaseUpdateYourHeight":"Please update your height",
+"hasDoctorBefore":"This patient has been managed by another doctor",
+
+"duplicatedDoctorPhoneNumber":"This phone number has been already registered by another account",
+"duplicatedRelationshipPAD":"The relationship between these entities has been existed",
+
+
+
+"invalidPhonenumber":"Invalid phone number, must be 10-11 characters long",
 "addRelativeSuccessfully":"Add relative successfully",
 "addRelative":"Add relative",
 "relativeIn4":"Relative information",
@@ -136,9 +161,12 @@
 "deleteRelative":"Delete this relative?",
 "deletePatient":"Delete this patient?",
 "doNotHaveInformation":"Don't have information",
-"male":"male",
-"female":"female",
-"currentPassWrong":"Wrong current password!"
+"male":"Male",
+"female":"Female",
+"currentPassWrong":"Wrong current password!",
+"duplicatedPatientPhoneNumber":"This phone number has been registered by another person",
+"duplicatedRelationshipPAR":"The relationship between these entities has been existed",
+"maximumRelativeCount":"The number of relatives belonging to this patient is already maxium"
 }
 
 

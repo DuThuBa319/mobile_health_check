@@ -2,11 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/classes/language.dart';
+import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/data/models/authentication_model/authentication_model.dart';
 
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/service/onesginal/onesignal_service.dart';
 import '../../../../common/singletons.dart';
+import '../../../../di/di.dart';
 import '../../../../domain/entities/login_entity_group/authentication_entity.dart';
 import '../../../../domain/entities/login_entity_group/sign_in_entity.dart';
 import '../../../../domain/usecases/authentication_usecase/authentication_usecase.dart';
@@ -24,6 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   final Connectivity _connectivity;
   final NotificationUsecase count;
+
   LoginBloc(
       this._patientUseCase, this.count, this._connectivity, this._authenUsecase)
       : super(LoginInitialState()) {
@@ -35,6 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginUserEvent event,
     Emitter<LoginState> emit,
   ) async {
+    NavigationService navigationService = injector<NavigationService>();
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -44,30 +49,54 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           viewModel: state.viewModel,
         ),
       );
+      if (event.username == null ||
+          event.username?.trim() == '' ||
+          event.password == null ||
+          event.password?.trim() == '') {
+        if (event.username == null || event.username?.trim() == '') {
+          emit(
+            LoginActionState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                isLogin: false,
+                errorMessage1:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourAccount,
+              ),
+            ),
+          );
+        }
+        if (event.password == null || event.password?.trim() == '') {
+          emit(
+            LoginActionState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                isLogin: false,
+                errorMessage2:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourPassword,
+              ),
+            ),
+          );
+        }
+        if ((event.password == null || event.password?.trim() == '') &&
+            (event.username == null || event.username?.trim() == '')) {
+          emit(
+            LoginActionState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                isLogin: false,
+                errorMessage2:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourPassword,
+                errorMessage1:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourAccount,
+              ),
+            ),
+          );
+        }
 
-      // final response = await _usecase.getListUserEntity();
-      if (event.username == null || event.username?.trim() == '') {
-        emit(
-          LoginActionState(
-            status: BlocStatusState.failure,
-            viewModel: const _ViewModel(
-              isLogin: false,
-              errorMessage: 'Vui lòng nhập tài khoản',
-            ),
-          ),
-        );
-        return;
-      }
-      if (event.password == null || event.password?.trim() == '') {
-        emit(
-          LoginActionState(
-            status: BlocStatusState.failure,
-            viewModel: const _ViewModel(
-              isLogin: false,
-              errorMessage: 'Vui lòng nhập mật khẩu',
-            ),
-          ),
-        );
         return;
       }
       try {
@@ -78,13 +107,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             await _authenUsecase.signInAuthenEntity(authenInforEntity);
         //! post => dữ liêu => lưu vào local
         await userDataData.setUser(UserModel(
-            role: (response.roles?[0] == "Doctor")
-                ? "doctor"
-                : (response.roles?[0] == "Relative")
-                    ? "relative"
-                    : (response.roles?[0] == "Patient")
-                        ? "patient"
-                        : "null",
+            role: response.role,
             phoneNumber: response.accountInfor?.phoneNumber,
             id: response.token?.id,
             name: response.accountInfor?.name));
@@ -99,6 +122,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ),
         );
       }
+      //  e.requestOptions.queryParameters["errors"]
+      //             ["Password"][0]
       //! catch do sai password
       on DioException catch (e) {
         emit(
@@ -106,7 +131,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
               isLogin: false,
-              errorMessage: e.response!.data,
+              errorMessage1: e.response?.data,
             ),
           ),
         );
@@ -114,9 +139,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(
           LoginActionState(
             status: BlocStatusState.failure,
-            viewModel: const _ViewModel(
+            viewModel: _ViewModel(
               isLogin: false,
-              errorMessage: 'Xảy ra lỗi',
+              errorMessage1:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .error,
             ),
           ),
         );
@@ -135,6 +162,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     GetUserDataEvent event,
     Emitter<LoginState> emit,
   ) async {
+    NavigationService navigationService = injector<NavigationService>();
+  
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -145,21 +174,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
       try {
-        if (userDataData.getUser()!.role! == "doctor" &&
-            userDataData.getUser()!.id ==
-                "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
-                  
-                }
+        // if (userDataData.getUser()!.role! == "doctor" &&
+        //     userDataData.getUser()!.id ==
+        //         "97488bbf-6737-4476-9bcc-4644efe6bf70") {}
 
-        if ((userDataData.getUser()!.role! == 'doctor' ||
-                userDataData.getUser()!.role! == 'relative') &&
-            userDataData.getUser()!.id !=
-                "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
+        if ((userDataData.getUser()!.role! == UserRole.doctor ||
+            userDataData.getUser()!.role! == UserRole.relative)) {
           await OneSignalNotificationService.create();
           OneSignalNotificationService.subscribeNotification(
               userId: userDataData.getUser()!.id!);
         }
-        if (userDataData.getUser()!.role! == 'patient') {
+        if (userDataData.getUser()!.role! == UserRole.patient) {
           await _patientUseCase
               .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
         }
@@ -173,9 +198,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(
           state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: const _ViewModel(
+            viewModel: _ViewModel(
               isLogin: false,
-              errorMessage: 'Xảy ra lỗi',
+              errorMessage1:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .error,
             ),
           ),
         );

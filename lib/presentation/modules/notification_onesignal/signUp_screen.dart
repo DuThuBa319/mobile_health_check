@@ -6,6 +6,7 @@ import '../../../classes/language.dart';
 import '../../../common/singletons.dart';
 import '../../common_widget/common_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
+import '../../common_widget/enum_common.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../theme/theme_color.dart';
 
@@ -49,7 +50,7 @@ class _SignUpDoctorScreenState extends State<SignUpDoctorScreen> {
     String confirmPass = "";
     return CustomScreenForm(
         isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         title: translation(context).signUp,
         isShowRightButon: false,
         isShowAppBar: true,

@@ -15,22 +15,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
     }
-    if (state is RegistRelativeState &&
-        state.status == BlocStatusState.loading) {
-      showToast(translation(context).waitForSeconds);
-    }
-    if (state is RegistRelativeState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
-          onClose: () {
-            Navigator.pushNamed(context, RouteList.patientInfor,
-                arguments: widget.patientId);
-          },
-          context: context,
-          message: translation(context).addRelativeSuccessfully,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
-    }
+  
   }
 
   Widget infoText({required String? title, required String? content}) {

@@ -2,8 +2,11 @@ import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
 import 'package:mobile_health_check/domain/repositories/doctor_infor_repository/doctor_infor_repository.dart';
 
+import '../../../classes/language.dart';
 import '../../../common/service/local_manager/user_data_datasource/user_model.dart';
+import '../../../common/service/navigation/navigation_service.dart';
 import '../../../common/singletons.dart';
+import '../../../di/di.dart';
 import '../../entities/doctor_infor_entity.dart';
 
 part 'doctor_infor_usecase.impl.dart';

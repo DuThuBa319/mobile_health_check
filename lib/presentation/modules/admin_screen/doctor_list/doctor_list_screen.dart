@@ -66,8 +66,8 @@ class _DoctorListState extends State<DoctorListScreen> {
                   borderRadius: BorderRadius.circular(30)),
               child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, RouteList.addDoctor,
-                        arguments: getDoctorBloc);
+                    Navigator.pushNamed(context, RouteList.addDoctor
+                       );
                     filterKeyword = TextEditingController(text: " ");
                   },
                   icon: const Icon(
@@ -418,8 +418,8 @@ class _DoctorListState extends State<DoctorListScreen> {
                     if ((state is GetDoctorListState &&
                         state.status == BlocStatusState.failure)) {
                           //! dịch
-                      return const Center(
-                        child: Text("error"),
+                      return  Center(
+                        child: Text(translation(context).error),
                       );
                     }
 

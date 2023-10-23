@@ -62,7 +62,7 @@ class _NotificationListState extends State<NotificationScreen> {
     SizeConfig.init(context);
     return CustomScreenForm(
         isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         isShowAppBar: true,
         isShowLeadingButton: true,
         isShowBottomNayvigationBar: true,

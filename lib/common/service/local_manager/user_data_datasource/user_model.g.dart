@@ -17,7 +17,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       id: json['id'] as String?,
       name: json['name'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
-      role: json['role'] as String?,
+      role: $enumDecodeNullable(_$UserRoleEnumMap, json['role']),
       gender: json['gender'] as int?,
       patients: (json['patients'] as List<dynamic>?)
           ?.map((e) => PatientInforModel.fromJson(e as Map<String, dynamic>))
@@ -45,7 +45,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   writeNotNull('name', instance.name);
   writeNotNull('phoneNumber', instance.phoneNumber);
   writeNotNull('currentPass', instance.currentPass);
-  writeNotNull('role', instance.role);
+  writeNotNull('role', _$UserRoleEnumMap[instance.role]);
   writeNotNull('age', instance.age);
   writeNotNull('weight', instance.weight);
   writeNotNull('height', instance.height);
@@ -57,3 +57,10 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   writeNotNull('doctor', instance.doctor?.toJson());
   return val;
 }
+
+const _$UserRoleEnumMap = {
+  UserRole.doctor: 'doctor',
+  UserRole.patient: 'patient',
+  UserRole.relative: 'relative',
+  UserRole.admin: 'admin',
+};

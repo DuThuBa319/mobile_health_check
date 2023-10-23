@@ -110,33 +110,28 @@ extension LoginAction on _LoginState {
     if (state is GetUserDataState && state.status == BlocStatusState.success) {
       Navigator.pop(context);
 
-      if (userDataData.getUser()!.role == 'doctor' &&
-          userDataData.getUser()!.id ==
-              "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
+      if (userDataData.getUser()!.role == UserRole.admin) {
         Navigator.pushNamed(context, RouteList.doctorList,
             arguments: userDataData.getUser()!.id!);
       }
 
-      if ((userDataData.getUser()!.role! == 'doctor' ||
-              userDataData.getUser()!.role! == 'relative') &&
-          userDataData.getUser()!.id !=
-              "e73bbd27-1714-4c58-a124-951cbc0eb3ea") {
+      if ((userDataData.getUser()!.role! == UserRole.doctor ||
+          userDataData.getUser()!.role! == UserRole.relative)) {
         notificationData.saveDelayTime(0);
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);
       }
 
-      if (userDataData.getUser()!.role! == 'patient') {
+      if (userDataData.getUser()!.role! == UserRole.patient) {
         Navigator.pushNamed(context, RouteList.selectEquip);
       }
     }
 
     if (state.status == BlocStatusState.failure) {
-      final message = state.viewModel.errorMessage ?? '--';
       Navigator.pop(context);
       showNoticeDialog(
           context: context,
-          message: message,
+          message: translation(context).pleaseEnterCompleteLogin,
           title: translation(context).notification,
           titleBtn: translation(context).exit);
       if (userDataData.getUser() != null) {

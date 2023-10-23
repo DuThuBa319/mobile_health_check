@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
@@ -9,6 +10,9 @@ import 'package:mobile_health_check/domain/entities/login_entity_group/account_e
 import 'package:mobile_health_check/domain/usecases/admin_usecase/admin_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
+import '../../../../classes/language.dart';
+import '../../../../common/service/navigation/navigation_service.dart';
+import '../../../../di/di.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_doctor_event.dart';
 part 'get_doctor_state.dart';
@@ -158,6 +162,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     RegistDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
+    NavigationService navigationService = injector<NavigationService>();
+
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -167,6 +173,64 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
           viewModel: state.viewModel,
         ),
       );
+
+      if (event.accountEntity.name == null ||
+          event.accountEntity.name?.trim() == '' ||
+          event.accountEntity.phoneNumber == null ||
+          event.accountEntity.phoneNumber?.trim() == '' ||
+          event.accountEntity.phoneNumber!.length < 10) {
+
+        if (event.accountEntity.name == null ||
+            event.accountEntity.name?.trim() == '') {
+              
+          emit(
+            RegistDoctorState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyName:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterDoctorName,
+              ),
+            ),
+          );
+        }
+        if (event.accountEntity.phoneNumber == null ||
+            event.accountEntity.phoneNumber?.trim() == '' ||
+            event.accountEntity.phoneNumber!.length < 10) {
+          emit(
+            RegistDoctorState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyPhoneNumber:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .invalidPhonenumber,
+              ),
+            ),
+          );
+        }
+        if ((event.accountEntity.phoneNumber == null ||
+                event.accountEntity.phoneNumber?.trim() == '' ||
+                event.accountEntity.phoneNumber!.length < 10) &&
+            (event.accountEntity.name == null ||
+                event.accountEntity.name?.trim() == '')) {
+          emit(
+            RegistDoctorState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyName:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterDoctorName,
+                errorEmptyPhoneNumber:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .invalidPhonenumber,
+              ),
+            ),
+          );
+        }
+
+        return;
+      }
+
       try {
         await _adminUsecase.createDoctorAccountEntity(event.accountEntity);
         final newViewModel = state.viewModel;
@@ -176,13 +240,17 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
             viewModel: newViewModel,
           ),
         );
-      } catch (e) {
-        emit(
-          state.copyWith(
+      } on DioException catch (e) {
+        if (e.response?.data ==
+            "This phone number has been already registered by another account") {
+          emit(state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .duplicatedDoctorPhoneNumber),
+          ));
+        }
       }
     } else {
       emit(

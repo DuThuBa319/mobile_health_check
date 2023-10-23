@@ -30,7 +30,9 @@ class _LoginState extends State<LoginScreen> {
   LoginBloc get bloc => BlocProvider.of(context);
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   bool showPass = true;
+
   // final FocusNode _focusNode = FocusNode();
 
   @override
@@ -77,14 +79,15 @@ class _LoginState extends State<LoginScreen> {
                               setState(() {});
                             },
                             child: Stack(
+                              clipBehavior: Clip.none,
                               children: [
                                 Image.asset(
                                   Assets.enFlag,
                                   scale: SizeConfig.screenWidth * 0.03,
                                 ),
                                 Positioned(
-                                  left: SizeConfig.screenWidth * 0.095,
-                                  top: 8,
+                                  left: SizeConfig.screenWidth * 0.065,
+                                  top: 2,
                                   child: Icon(
                                     Icons.check_circle,
                                     // ignore: unrelated_type_equality_checks
@@ -113,14 +116,15 @@ class _LoginState extends State<LoginScreen> {
                               setState(() {});
                             },
                             child: Stack(
+                              clipBehavior: Clip.none,
                               children: [
                                 Image.asset(
                                   Assets.vnFlag,
                                   scale: SizeConfig.screenWidth * 0.03,
                                 ),
                                 Positioned(
-                                  left: SizeConfig.screenWidth * 0.095,
-                                  top: 8,
+                                  left: SizeConfig.screenWidth * 0.065,
+                                  top: 2,
                                   child: Icon(
                                     Icons.check_circle,
                                     // ignore: unrelated_type_equality_checks
@@ -177,7 +181,7 @@ class _LoginState extends State<LoginScreen> {
                         SizedBox(
                           width: SizeConfig.screenWidth * 0.8,
                           child: TextField(
-                            keyboardType: TextInputType.number,
+                         
                             // focusNode: _focusNode,
                             controller: _usernameController,
                             style: TextStyle(
@@ -185,6 +189,11 @@ class _LoginState extends State<LoginScreen> {
                               color: Colors.black,
                             ),
                             decoration: InputDecoration(
+                              errorText: (state.viewModel.errorMessage1 ==
+                                      translation(context)
+                                          .pleaseEnterYourAccount)
+                                  ? state.viewModel.errorMessage1
+                                  : null,
                               border: InputBorder.none,
                               labelText: translation(context).phoneNumber,
                               icon: Icon(Icons.account_box_rounded,
@@ -226,6 +235,11 @@ class _LoginState extends State<LoginScreen> {
                               color: Colors.black,
                             ),
                             decoration: InputDecoration(
+                              errorText: (state.viewModel.errorMessage2 ==
+                                      translation(context)
+                                          .pleaseEnterYourPassword)
+                                  ? state.viewModel.errorMessage2
+                                  : null,
                               suffixIcon: IconButton(
                                 icon: Icon(
                                     showPass
@@ -268,9 +282,6 @@ class _LoginState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  // nut si
-                  //
-                  //gn in
                   GestureDetector(
                       onTap: login,
                       child: Container(
@@ -294,6 +305,7 @@ class _LoginState extends State<LoginScreen> {
                           ),
                         ),
                       )),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

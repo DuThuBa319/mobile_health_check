@@ -1,5 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
@@ -11,6 +13,8 @@ import 'package:mobile_health_check/domain/usecases/admin_usecase/admin_usecase.
 import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_pass_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
+import '../../../../classes/language.dart';
+import '../../../../di/di.dart';
 import '../../../../domain/entities/change_password_entity.dart';
 import '../../../../domain/entities/login_entity_group/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
@@ -53,11 +57,12 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<ChangePassEvent>(_onChangePass);
     on<GetDoctorListEvent>(_onGetDoctorList);
   }
-
   Future<void> _onChangePass(
     ChangePassEvent event,
     Emitter<GetPatientState> emit,
   ) async {
+    NavigationService navigationService = injector<NavigationService>();
+
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -67,6 +72,58 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           viewModel: state.viewModel,
         ),
       );
+
+      if (event.changePassEntity.currentPassword == null ||
+          event.changePassEntity.currentPassword?.trim() == '' ||
+          event.changePassEntity.newPassword == null ||
+          event.changePassEntity.newPassword?.trim() == '') {
+        if (event.changePassEntity.currentPassword == null ||
+            event.changePassEntity.currentPassword?.trim() == '') {
+          emit(
+            ChangePassState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyCurrentPassword:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourCurrentPassword,
+              ),
+            ),
+          );
+        }
+        if (event.changePassEntity.newPassword == null ||
+            event.changePassEntity.newPassword?.trim() == '') {
+          emit(
+            ChangePassState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyNewPassword:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourNewPassword,
+              ),
+            ),
+          );
+        }
+        if ((event.changePassEntity.newPassword == null ||
+                event.changePassEntity.newPassword?.trim() == '') &&
+            (event.changePassEntity.currentPassword == null ||
+                event.changePassEntity.currentPassword?.trim() == '')) {
+          emit(
+            ChangePassState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyCurrentPassword:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourCurrentPassword,
+                errorEmptyNewPassword:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterYourNewPassword,
+              ),
+            ),
+          );
+        }
+        return;
+      }
+
       try {
         await changePassUsecase.changePassEntity(
             event.changePassEntity, event.userId);
@@ -75,6 +132,16 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           status: BlocStatusState.success,
           viewModel: newViewModel,
         ));
+      } on DioException catch (e) {
+        if (e.response?.data == "Password is invalid") {
+          emit(state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .currentPassWrong),
+          ));
+        }
       } catch (response) {
         emit(
           state.copyWith(
@@ -240,7 +307,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        if (userDataData.getUser()!.role! == 'doctor') {
+        if (userDataData.getUser()!.role! == UserRole.doctor) {
           final response =
               await _doctorInforUsecase.getDoctorInforEntity(event.id);
           final allPatients = response!.patients;
@@ -258,7 +325,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             viewModel: newViewModel,
           ));
         }
-        if (userDataData.getUser()!.role! == 'relative') {
+        if (userDataData.getUser()!.role! == UserRole.relative) {
           final response =
               await _relativeInforUsecase.getRelativeInforEntity(event.id);
           final allPatients = response!.patients;
@@ -298,6 +365,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistPatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
+    NavigationService navigationService = injector<NavigationService>();
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -307,6 +375,62 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           viewModel: state.viewModel,
         ),
       );
+
+      if (event.accountEntity?.name == null ||
+          event.accountEntity?.name?.trim() == '' ||
+          event.accountEntity?.phoneNumber == null ||
+          event.accountEntity?.phoneNumber?.trim() == '' ||
+          event.accountEntity!.phoneNumber!.length < 10) {
+        if (event.accountEntity?.name == null ||
+            event.accountEntity?.name?.trim() == '') {
+          emit(
+            RegistPatientState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyName:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterPatientName,
+              ),
+            ),
+          );
+        }
+        if (event.accountEntity?.phoneNumber == null ||
+            event.accountEntity?.phoneNumber?.trim() == '' ||
+            event.accountEntity!.phoneNumber!.length < 10) {
+          emit(
+            RegistPatientState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyPhoneNumber:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .invalidPhonenumber,
+              ),
+            ),
+          );
+        }
+        if ((event.accountEntity?.phoneNumber == null ||
+                event.accountEntity?.phoneNumber?.trim() == '' ||
+                event.accountEntity!.phoneNumber!.length < 10) &&
+            (event.accountEntity?.name == null ||
+                event.accountEntity?.name?.trim() == '')) {
+          emit(
+            RegistPatientState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyName:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterPatientName,
+                errorEmptyPhoneNumber:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .invalidPhonenumber,
+              ),
+            ),
+          );
+        }
+
+        return;
+      }
+
       try {
         await _doctorInforUsecase.addPatientEntity(
             event.doctorId, event.accountEntity);
@@ -317,13 +441,36 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             viewModel: newViewModel,
           ),
         );
-      } catch (e) {
-        emit(
-          state.copyWith(
+      } on DioException catch (e) {
+        if (e.response?.data ==
+            "This phone number has been registered by another person") {
+          emit(state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .duplicatedPatientPhoneNumber),
+          ));
+        } else if (e.response?.data ==
+            "The relationship between these entities has been existed") {
+          emit(state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .duplicatedRelationshipPAD),
+          ));
+        }
+        else if (e.response?.data ==
+            "This patient has been managed by another doctor") {
+          emit(state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .hasDoctorBefore),
+          ));
+        }
       }
     } else {
       emit(
@@ -339,6 +486,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistRelativeEvent event,
     Emitter<GetPatientState> emit,
   ) async {
+    NavigationService navigationService = injector<NavigationService>();
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -348,12 +496,88 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           viewModel: state.viewModel,
         ),
       );
+      if (event.accountEntity?.name == null ||
+          event.accountEntity?.name?.trim() == '' ||
+          event.accountEntity?.phoneNumber == null ||
+          event.accountEntity?.phoneNumber?.trim() == '' ||
+          event.accountEntity!.phoneNumber!.length < 10) {
+        if (event.accountEntity?.name == null ||
+            event.accountEntity?.name?.trim() == '') {
+          emit(
+            RegistRelativeState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyName:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterRelativeName,
+              ),
+            ),
+          );
+        }
+        if (event.accountEntity?.phoneNumber == null ||
+            event.accountEntity?.phoneNumber?.trim() == '' ||
+            event.accountEntity!.phoneNumber!.length < 10) {
+          emit(
+            RegistRelativeState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyPhoneNumber:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .invalidPhonenumber,
+              ),
+            ),
+          );
+        }
+        if ((event.accountEntity?.phoneNumber == null ||
+                event.accountEntity?.phoneNumber?.trim() == '' ||
+                event.accountEntity!.phoneNumber!.length < 10) &&
+            (event.accountEntity?.name == null ||
+                event.accountEntity?.name?.trim() == '')) {
+          emit(
+            RegistRelativeState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorEmptyName:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .pleaseEnterRelativeName,
+                errorEmptyPhoneNumber:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .invalidPhonenumber,
+              ),
+            ),
+          );
+        }
+
+        return;
+      }
+
       try {
         await _patientUseCase.addRelativeInforEntity(
             event.patientId, event.accountEntity);
         final newViewModel = state.viewModel;
         emit(RegistRelativeState(
             status: BlocStatusState.success, viewModel: newViewModel));
+      } on DioException catch (e) {
+        if (e.response?.data ==
+            "The relationship between these entities has been existed") {
+          emit(state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .duplicatedRelationshipPAR),
+          ));
+        }
+        if (e.response?.data ==
+            "The number of relatives belonging to this patient is already maxium") {
+          emit(state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .maximumRelativeCount),
+          ));
+        }
       } catch (e) {
         emit(RegistRelativeState(
           status: BlocStatusState.failure,
@@ -580,27 +804,12 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        // await _doctorInforUsecase.deleteRelationshipDoctorAndPatientEntity(
-        //     event.doctorId, event.patientId);
         await _doctorInforUsecase.deletePatientEntity(event.patientId);
-        final response =
-            await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
-        final newViewModel =
-            state.viewModel.copyWith(doctorInforEntity: response);
+
         emit(DeletePatientState(
           status: BlocStatusState.success,
-          viewModel: newViewModel,
+          viewModel: state.viewModel,
         ));
-        // emit(
-        //   GetPatientListState(
-        //     status: BlocStatusState.loading,
-        //     viewModel: state.viewModel,
-        //   ),
-        // );
-        // emit(GetPatientListState(
-        //   status: BlocStatusState.success,
-        //   viewModel: newViewModel,
-        // ));
       } catch (e) {
         emit(
           state.copyWith(

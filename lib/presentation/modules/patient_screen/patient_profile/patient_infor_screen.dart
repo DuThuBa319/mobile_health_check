@@ -17,7 +17,6 @@ import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
 import '../../../common_widget/common_button.dart';
-import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -59,7 +58,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
     return CustomScreenForm(
         title: translation(context).patientIn4,
         isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: true,
@@ -327,7 +326,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                             fontWeight: FontWeight.w500)),
                                   ),
                                 ),
-                          if (userDataData.getUser()?.role == "doctor")
+                          if (userDataData.getUser()?.role == UserRole.doctor)
                             Container(
                               padding: EdgeInsets.only(
                                 top: SizeConfig.screenWidth * 0.02,
@@ -379,10 +378,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           onTap: () {
                                             Navigator.pushNamed(
                                                 context, RouteList.addRelative,
-                                                arguments: {
-                                                  "patientBloc": patientBloc,
-                                                  "patientId": widget.patientId
-                                                });
+                                                arguments: widget.patientId);
                                           })
                                       : const SizedBox(
                                           width: 0.5,

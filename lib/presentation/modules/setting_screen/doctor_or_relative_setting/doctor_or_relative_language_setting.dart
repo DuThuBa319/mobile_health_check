@@ -1,4 +1,5 @@
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ import '../../../../classes/language_constant.dart';
 import '../../../../common/singletons.dart';
 import '../../../../main.dart';
 import '../../../common_widget/common_button.dart';
+import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/app_text_theme.dart';
@@ -27,7 +29,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
     Language? selectedLanguage;
     return CustomScreenForm(
         isRelativeApp:
-            (userDataData.getUser()?.role == "relative") ? true : false,
+            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -163,21 +165,17 @@ class _SettingLanguageState extends State<SettingLanguage> {
                           selectedLanguage = Language(1, ENGLISH, 'en');
                           Locale locale =
                               await setLocale(selectedLanguage!.languageCode);
-                          // ignore: use_build_context_synchronously
+
                           MyApp.setLocale(context, locale);
                           Navigator.pop(context);
-
-                          showToast("Change language successfully");
                         }
                         if (notificationData.localeId == 2) {
                           selectedLanguage = Language(2, VIETNAMESE, 'vi');
                           Locale locale =
                               await setLocale(selectedLanguage!.languageCode);
-                          // ignore: use_build_context_synchronously
+
                           MyApp.setLocale(context, locale);
                           Navigator.pop(context);
-
-                          showToast("Đổi ngôn ngữ thành công");
                         }
                       },
                     ),

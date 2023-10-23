@@ -5,6 +5,7 @@ import 'package:mobile_health_check/data/models/patient_infor_model/patient_info
 import 'package:mobile_health_check/data/models/relative_model/relative_infor_model.dart';
 
 import '../../../../data/models/doctor_infor_model/doctor_infor_model.dart';
+import '../../../../presentation/common_widget/enum_common.dart';
 
 part 'user_model.g.dart';
 
@@ -25,7 +26,7 @@ class UserModel extends User {
   final String? currentPass;
 
   @override
-  final String? role;
+  final UserRole? role;
   @override
   final int? age;
   @override

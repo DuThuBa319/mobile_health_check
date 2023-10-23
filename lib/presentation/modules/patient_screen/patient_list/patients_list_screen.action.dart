@@ -21,9 +21,9 @@ extension PatientListScreenAction on _PatientListState {
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
     }
-    if (state is RegistPatientState &&
-        state.status == BlocStatusState.loading) {
-      showToast(translation(context).waitForSeconds);
+    if ((state is DeletePatientState &&
+        state.status == BlocStatusState.success)) {
+      patientBloc.add(GetPatientListEvent(userId: widget.id));
     }
     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
@@ -56,19 +56,6 @@ extension PatientListScreenAction on _PatientListState {
             );
           });
     }
-    
-    if (state is RegistPatientState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
-          onClose: () {
-            Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()?.id);
-          },
-          context: context,
-          message: translation(context).addPatientSuccessfully,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
-    }
   }
 
   void gotoRegistPatientScreen() {
@@ -85,7 +72,7 @@ extension PatientListScreenAction on _PatientListState {
             titleBtn2: translation(context).yes,
             onClose1: () {},
             onClose2: () {
-            Navigator.pop(context);
+              Navigator.pop(context);
             })) ??
         false;
   }

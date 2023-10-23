@@ -7,6 +7,7 @@ import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import '../../../../../classes/language.dart';
 import '../../../../../function.dart';
 import '../../../../common_widget/dialog/dialog_two_button.dart';
+import '../../../../common_widget/enum_common.dart';
 import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';
@@ -66,10 +67,10 @@ class _DoctorListCellState extends State<DoctorListCell> {
                 ),
                 subtitle: Text(
                     widget.doctorCellEntity?.phoneNumber == ""
-                        ? "chưa cập nhật"
+                        ? translation(context).notUpdate
                         : widget.doctorCellEntity!.phoneNumber,
                     style: AppTextTheme.body4),
-                trailing: (userDataData.getUser()?.role == "relative")
+                trailing: (userDataData.getUser()?.role == UserRole.relative)
                     ? const SizedBox(
                         width: 0.5,
                       )

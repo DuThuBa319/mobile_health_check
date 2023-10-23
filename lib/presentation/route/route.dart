@@ -35,7 +35,7 @@ import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/history/spo2_history_screen/spo2_history_screen.dart';
 import '../modules/login_screen/login/login_bloc.dart';
-import '../modules/login_screen/signUp_screen.dart';
+import '../modules/notification_onesignal/signUp_screen.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../modules/notification_onesignal/detail_screen/blood_pressure_reading.dart';
 import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart';
@@ -139,33 +139,30 @@ class AppRoute {
           },
         );
       case '/addRelative':
-        final map = routeSettings.arguments as Map;
+        final patientId = routeSettings.arguments as String;
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: AddRelativeScreen(
-                  patientId: map["patientId"], patientBloc: map["patientBloc"]),
+              child: AddRelativeScreen(patientId: patientId),
             );
           },
         );
       case '/addPatient':
-        final bloc = routeSettings.arguments as GetPatientBloc;
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetPatientBloc>(
               create: (context) => getIt<GetPatientBloc>(),
-              child: AddPatientScreen(getPatientBloc: bloc),
+              child: const AddPatientScreen(),
             );
           },
         );
       case '/addDoctor':
-        final bloc = routeSettings.arguments as GetDoctorBloc;
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<GetDoctorBloc>(
               create: (context) => getIt<GetDoctorBloc>(),
-              child: AddDoctorScreen(getDoctorBloc: bloc),
+              child: const AddDoctorScreen(),
             );
           },
         );
