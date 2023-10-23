@@ -67,7 +67,7 @@ class _DoctorListCellState extends State<DoctorListCell> {
                 ),
                 subtitle: Text(
                     widget.doctorCellEntity?.phoneNumber == ""
-                        ? "chưa cập nhật"
+                        ? translation(context).notUpdate
                         : widget.doctorCellEntity!.phoneNumber,
                     style: AppTextTheme.body4),
                 trailing: (userDataData.getUser()?.role == UserRole.relative)

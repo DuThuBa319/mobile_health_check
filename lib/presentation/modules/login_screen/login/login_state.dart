@@ -11,7 +11,8 @@ class _ViewModel {
   final SignInEntity? signInEntity;
   final int? count;
   final bool isLogin;
-  final String? errorMessage;
+  final String? errorMessage1;
+  final String? errorMessage2;
   final User? person;
 
   // final PatientInforEntity? patientInforEntity;
@@ -20,7 +21,8 @@ class _ViewModel {
     this.signInEntity,
     this.count,
     this.isLogin = false,
-    this.errorMessage,
+    this.errorMessage1,
+    this.errorMessage2,
     this.person,
     // this.patientInforEntity
   });
@@ -30,7 +32,8 @@ class _ViewModel {
     SignInEntity? signInEntity,
     int? count,
     bool? isLogin,
-    String? errorMessage,
+    String? errorMessage1,
+    String? errorMessage2,
     User? person,
     // PatientInforEntity? patientInforEntity
   }) {
@@ -39,7 +42,9 @@ class _ViewModel {
       signInEntity: signInEntity ?? this.signInEntity,
       count: count ?? this.count,
       isLogin: isLogin ?? this.isLogin,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage1: errorMessage1 ?? this.errorMessage1,
+      errorMessage2: errorMessage2 ?? this.errorMessage2,
+
       person: person ?? this.person,
     );
   }

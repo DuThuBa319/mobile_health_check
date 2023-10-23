@@ -19,9 +19,9 @@ extension DoctorListScreenAction on _DoctorListState {
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
     }
-    if (state is RegistDoctorState && state.status == BlocStatusState.loading) {
-      showToast(translation(context).waitForSeconds);
-    }
+    // if (state is RegistDoctorState && state.status == BlocStatusState.loading) {
+    //   showToast(translation(context).waitForSeconds);
+    // }
     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
       showDialog(
@@ -54,17 +54,17 @@ extension DoctorListScreenAction on _DoctorListState {
           });
     }
 
-    if (state is RegistDoctorState && state.status == BlocStatusState.success) {
-      showNoticeDialog(
-          onClose: () {
-            Navigator.pushNamed(context, RouteList.doctorList,
-                arguments: userDataData.getUser()?.id);
-          },
-          context: context,
-          message: translation(context).addDoctorSuccessfully,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
-    }
+    // if (state is RegistDoctorState && state.status == BlocStatusState.success) {
+    //   showNoticeDialog(
+    //       onClose: () {
+    //         Navigator.pushNamed(context, RouteList.doctorList,
+    //             arguments: userDataData.getUser()?.id);
+    //       },
+    //       context: context,
+    //       message: translation(context).addDoctorSuccessfully,
+    //       title: translation(context).notification,
+    //       titleBtn: translation(context).exit);
+    // }
   }
 
   Future<bool> _onWillPop() async {

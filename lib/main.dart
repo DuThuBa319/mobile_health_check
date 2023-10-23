@@ -118,7 +118,10 @@ class _SplashScreenState extends State<SplashScreen> {
             // ignore: use_build_context_synchronously
             Navigator.pushNamed(context, RouteList.patientList,
                 arguments: userDataData.getUser()!.id!);
-          } else if (userDataData.getUser()!.role == UserRole.admin) {}
+          } else if (userDataData.getUser()!.role == UserRole.admin) {
+            Navigator.pushNamed(context, RouteList.doctorList,
+                arguments: userDataData.getUser()!.id!);
+          }
         } else {
           Navigator.pushNamed(context, RouteList.login);
         }

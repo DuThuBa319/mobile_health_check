@@ -130,8 +130,8 @@ class OneSignalNotificationService {
 
 void notificationAction(OSNotificationOpenedResult openedResult) {
   NotificationBloc notificationBloc = getIt<NotificationBloc>();
-  NavigationService navigationService = injector<NavigationService>();
   //!---------Blood Pressure------------------//
+  NavigationService navigationService = injector<NavigationService>();
   if (openedResult.notification.additionalData?["Indicator"] ==
       "BloodPressure") {
     String? patientId = openedResult.notification.additionalData?["patientId"];

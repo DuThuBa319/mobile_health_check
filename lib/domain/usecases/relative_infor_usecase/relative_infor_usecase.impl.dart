@@ -11,9 +11,13 @@ class RelativeInforUsecaseImpl extends RelativeInforUsecase {
   @override
   Future<RelativeInforEntity?> getRelativeInforEntity(
       String? relativeId) async {
+    NavigationService navigationService = injector<NavigationService>();
+
     final response = await _repository.getRelativeInforModel(relativeId);
     await userDataData.setUser(UserModel(
-        address: response?.address ?? "chưa có thông tin",
+        address: response?.address ??
+            translation(navigationService.navigatorKey.currentContext!)
+                .notUpdate,
         age: response?.age ?? 0,
         gender: response?.gender,
         id: userDataData.getUser()!.id,

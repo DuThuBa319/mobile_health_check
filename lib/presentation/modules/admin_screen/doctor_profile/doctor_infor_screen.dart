@@ -1,7 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
-import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
@@ -12,8 +9,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
-import '../../../../domain/entities/blood_pressure_entity.dart';
-import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/doctor_infor_entity.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -123,8 +118,6 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                                   SizedBox(
                                     height: SizeConfig.screenWidth * 0.025,
                                   ),
-                                 
-                           
                                   CustomImagePicker(
                                     age: doctor.age,
                                     gender: doctor.gender,

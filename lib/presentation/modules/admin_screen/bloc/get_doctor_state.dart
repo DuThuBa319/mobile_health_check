@@ -7,32 +7,36 @@ class _ViewModel {
   // final List<TemperatureEntity>? listTemperature;
 
   final DoctorInforEntity? doctorInforEntity;
-  final String? userName;
-  final String? password;
+  final String? errorEmptyName;
+  final String? errorEmptyPhoneNumber;
   final List<PersonCellEntity>? allDoctorEntity;
-
+  final String? errorMessage;
   const _ViewModel({
     // this.listBloodPressure,
     // this.listBloodSugar,
     // this.listTemperature,
+    this.errorMessage,
     this.allDoctorEntity,
-    this.password,
-    this.userName,
+    this.errorEmptyPhoneNumber,
+    this.errorEmptyName,
     this.doctorInforEntity,
   });
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
-      {final List<PersonCellEntity>? allDoctorEntity,
+      {final String? errorMessage,
+        final List<PersonCellEntity>? allDoctorEntity,
       final DoctorInforEntity? doctorInforEntity,
-      final String? userName,
-      final String? password}) {
+      final String? errorEmptyName,
+      final String? errorEmptyPhoneNumber}) {
     // ignore: unnecessary_this
     return _ViewModel(
+      errorMessage: errorMessage??this.errorMessage,
         allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
         doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,
-        userName: userName ?? this.userName,
-        password: password ?? this.password);
+        errorEmptyName: errorEmptyName ?? this.errorEmptyName,
+        errorEmptyPhoneNumber:
+            errorEmptyPhoneNumber ?? this.errorEmptyPhoneNumber);
   }
 }
 

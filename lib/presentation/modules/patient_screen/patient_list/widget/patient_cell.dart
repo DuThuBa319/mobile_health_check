@@ -67,7 +67,7 @@ class _PatientListCellState extends State<PatientListCell> {
                 ),
                 subtitle: Text(
                     widget.patientInforEntity?.phoneNumber == ""
-                        ? "chưa cập nhật"
+                        ? translation(context).notUpdate
                         : widget.patientInforEntity!.phoneNumber,
                     style: AppTextTheme.body4),
                 trailing: (userDataData.getUser()?.role == UserRole.relative)
@@ -79,7 +79,7 @@ class _PatientListCellState extends State<PatientListCell> {
                           showNoticeDialogTwoButton(
                               context: context,
                               title: translation(context).notification,
-                              message: "Delete this Patient?",
+                              message: translation(context).deletePatient,
                               titleBtn1: translation(context).exit,
                               titleBtn2: translation(context).accept,
                               onClose2: () {

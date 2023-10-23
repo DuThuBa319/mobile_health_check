@@ -25,6 +25,7 @@ class CommonButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        margin: const EdgeInsets.only(bottom: 15),
         height: height,
         width: width ?? MediaQuery.of(context).size.width * 0.85,
         padding: EdgeInsets.only(

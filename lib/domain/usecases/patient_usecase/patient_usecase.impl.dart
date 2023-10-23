@@ -25,13 +25,15 @@ class PatientUsecaseImpl extends PatientUsecase {
   @override
   Future<PatientInforEntity?> getPatientInforEntityInPatientApp(
       String? patientId) async {
+    NavigationService navigationService = injector<NavigationService>();
     final response = await _repository.getPatientInforModel(patientId);
-    
-    await userDataData.setUser(
-      UserModel(
+
+    await userDataData.setUser(UserModel(
         height: response.height,
         weight: response.weight,
-        address: response.address ?? "chưa có thông tin",
+        address: response.address ??
+            translation(navigationService.navigatorKey.currentContext!)
+                .notUpdate,
         age: response.age ?? 0,
         gender: response.gender,
         id: userDataData.getUser()!.id,
@@ -48,8 +50,8 @@ class PatientUsecaseImpl extends PatientUsecase {
   @override
   Future<void> addRelativeInforEntity(
       String? patientId, AccountEntity? accountEntity) async {
-    
-    await _repository.addRelativeInforModel(patientId, accountEntity?.convertToAccountModel);
+    await _repository.addRelativeInforModel(
+        patientId, accountEntity?.convertToAccountModel);
     // return accountModel?.convertAccountEntity();
   }
 }

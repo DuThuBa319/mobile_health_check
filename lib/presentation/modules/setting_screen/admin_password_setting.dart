@@ -7,26 +7,27 @@ import 'package:mobile_health_check/function.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
-import '../../../common_widget/common_button.dart';
-import '../../../common_widget/dialog/dialog_one_button.dart';
-import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/line_decor.dart';
-import '../../../common_widget/screen_form/custom_screen_form_for_patient.dart';
-import '../../../route/route_list.dart';
-import '../../../theme/theme_color.dart';
-import '../../patient_screen/bloc/get_patient_bloc.dart';
+
+import '../../common_widget/common_button.dart';
+import '../../common_widget/dialog/dialog_one_button.dart';
+import '../../common_widget/enum_common.dart';
+import '../../common_widget/line_decor.dart';
+import '../../common_widget/screen_form/custom_screen_form.dart';
+import '../../route/route_list.dart';
+import '../../theme/theme_color.dart';
+import '../patient_screen/bloc/get_patient_bloc.dart';
 
 // ignore: must_be_immutable
-class SettingPatientPassword extends StatefulWidget {
-  const SettingPatientPassword({
+class SettingAdminPassword extends StatefulWidget {
+  const SettingAdminPassword({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SettingPatientPassword> createState() => _SettingPatientPasswordState();
+  State<SettingAdminPassword> createState() => _SettingAdminPasswordState();
 }
 
-class _SettingPatientPasswordState extends State<SettingPatientPassword> {
+class _SettingAdminPasswordState extends State<SettingAdminPassword> {
   GetPatientBloc get bloc => BlocProvider.of(context);
 
   final TextEditingController _controllerCurrentPassword =
@@ -40,7 +41,7 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
-    return PatientCustomScreenForm(
+    return CustomScreenForm(
         title: translation(context).updatePassword,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -49,14 +50,12 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
         leadingButton: IconButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, RouteList.patientSetting),
+            onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),
         child: SingleChildScrollView(
             child: BlocConsumer<GetPatientBloc, GetPatientState>(
                 listener: (context, state) {
-                  
-        //! CHANGE PASSWORD SUCCESSFULLY
+          //! CHANGE PASSWORD SUCCESSFULLY
           if (state is ChangePassState &&
               state.status == BlocStatusState.success) {
             showNoticeDialog(

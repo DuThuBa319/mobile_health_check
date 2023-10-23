@@ -10,10 +10,13 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
 
   @override
   Future<DoctorInforEntity?> getDoctorInforEntity(String? doctorId) async {
+    NavigationService navigationService = injector<NavigationService>();
+
     final response = await _repository.getDoctorInforModel(doctorId);
     final entity = response?.getDoctorInforEntity();
     await userDataData.setUser(UserModel(
-      address: response?.address ?? "chưa có thông tin",
+      address: response?.address ??
+          translation(navigationService.navigatorKey.currentContext!).notUpdate,
       age: response?.age ?? 0,
       gender: response?.gender,
       id: userDataData.getUser()!.id,
@@ -28,7 +31,8 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
   @override
   Future<void> addPatientEntity(
       String? doctorId, AccountEntity? accountEntity) async {
-        await _repository.addPatientInforModel(doctorId, accountEntity?.convertToAccountModel);
+    await _repository.addPatientInforModel(
+        doctorId, accountEntity?.convertToAccountModel);
   }
 
   @override

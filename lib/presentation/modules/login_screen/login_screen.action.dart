@@ -116,7 +116,7 @@ extension LoginAction on _LoginState {
       }
 
       if ((userDataData.getUser()!.role! == UserRole.doctor ||
-              userDataData.getUser()!.role! == UserRole.relative) ) {
+          userDataData.getUser()!.role! == UserRole.relative)) {
         notificationData.saveDelayTime(0);
         Navigator.pushNamed(context, RouteList.patientList,
             arguments: userDataData.getUser()!.id!);
@@ -128,11 +128,10 @@ extension LoginAction on _LoginState {
     }
 
     if (state.status == BlocStatusState.failure) {
-      final message = state.viewModel.errorMessage ?? '--';
       Navigator.pop(context);
       showNoticeDialog(
           context: context,
-          message: message,
+          message: translation(context).pleaseEnterCompleteLogin,
           title: translation(context).notification,
           titleBtn: translation(context).exit);
       if (userDataData.getUser() != null) {

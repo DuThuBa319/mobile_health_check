@@ -13,7 +13,10 @@ class _ViewModel {
   final DoctorInforEntity? doctorInforEntity;
   final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
-
+  final String? errorEmptyName;
+  final String? errorEmptyPhoneNumber;
+  final String? errorEmptyCurrentPassword;
+  final String? errorEmptyNewPassword;
   final int? unreadCount;
   final String? userName;
   final String? password;
@@ -21,7 +24,11 @@ class _ViewModel {
   final String? errorMessage;
 
   const _ViewModel(
-      {this.allDoctorEntity,
+      {this.errorEmptyCurrentPassword,
+      this.errorEmptyNewPassword,
+      this.errorEmptyName,
+      this.errorEmptyPhoneNumber,
+      this.allDoctorEntity,
       this.password,
       this.userName,
       this.unreadCount,
@@ -34,7 +41,11 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
-      {final List<PersonCellEntity>? allDoctorEntity,
+      {final String? errorEmptyCurrentPassword,
+      final String? errorEmptyNewPassword,
+      final String? errorEmptyName,
+      final String? errorEmptyPhoneNumber,
+      final List<PersonCellEntity>? allDoctorEntity,
       final RelativeInforEntity? relativeInforEntity,
       final DoctorInforEntity? doctorInforEntity,
       final List<PatientInforEntity>? patientEntities,
@@ -55,7 +66,14 @@ class _ViewModel {
         doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,
         userName: userName ?? this.userName,
         password: password ?? this.password,
-        errorMessage: errorMessage ?? this.errorMessage);
+        errorMessage: errorMessage ?? this.errorMessage,
+        errorEmptyPhoneNumber:
+            errorEmptyPhoneNumber ?? this.errorEmptyPhoneNumber,
+        errorEmptyName: errorEmptyName ?? this.errorEmptyName,
+        errorEmptyCurrentPassword:
+            errorEmptyCurrentPassword ?? this.errorEmptyCurrentPassword,
+        errorEmptyNewPassword:
+            errorEmptyNewPassword ?? this.errorEmptyNewPassword);
   }
 }
 

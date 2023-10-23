@@ -28,4 +28,4 @@ class CroppedImage {
 
 const baseUrl = 'https://mobilehealthcare.azurewebsites.net/';
 
-enum UserRole { doctor, patient, relative ,admin}
+enum UserRole { doctor, patient, relative, admin }

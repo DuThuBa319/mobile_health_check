@@ -8,9 +8,7 @@ import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
 import '../../../common_widget/common_button.dart';
-import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
@@ -52,10 +50,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
         // selectedIndex: 2,
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
           listener: (context, state) {
-            if (state is RegistRelativeState &&
-                state.status == BlocStatusState.loading) {
-              showToast(translation(context).waitForSeconds);
-            }
+            //! ADD RELATIVE SUCCESSFULLY
             if (state is RegistRelativeState &&
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
@@ -68,8 +63,14 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                   title: translation(context).notification,
                   titleBtn: translation(context).exit);
             }
+
+            //! Exception
             if (state is RegistRelativeState &&
-                state.status == BlocStatusState.failure) {
+                state.status == BlocStatusState.failure &&
+                (state.viewModel.errorMessage ==
+                        translation(context).duplicatedRelationshipPAR ||
+                    state.viewModel.errorMessage ==
+                        translation(context).maximumRelativeCount)) {
               showNoticeDialog(
                 context: context,
                 message: state.viewModel.errorMessage!,
@@ -79,12 +80,6 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
             }
           },
           builder: (context, state) {
-            if (state is RegistRelativeState &&
-                state.status == BlocStatusState.loading) {
-              return const Center(
-                child: Loading(brightness: Brightness.light),
-              );
-            }
             return SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.only(
@@ -103,7 +98,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            translation(context).patientIn4,
+                            translation(context).relativeIn4,
                             style: TextStyle(
                                 fontSize: SizeConfig.screenWidth * 0.06,
                                 fontWeight: FontWeight.w500),
@@ -139,6 +134,12 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                             color: AppColor.gray767676,
                             fontSize: SizeConfig.screenWidth * 0.06),
                         decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.only(bottom: 3, top: 5),
+                          errorText: state.viewModel.errorEmptyName ==
+                                  translation(context).pleaseEnterRelativeName
+                              ? state.viewModel.errorEmptyName
+                              : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
@@ -174,6 +175,12 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                             color: AppColor.gray767676,
                             fontSize: SizeConfig.screenWidth * 0.06),
                         decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.only(bottom: 3, top: 5),
+                          errorText: state.viewModel.errorEmptyPhoneNumber ==
+                                  translation(context).invalidPhonenumber
+                              ? state.viewModel.errorEmptyPhoneNumber
+                              : null,
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
@@ -194,33 +201,38 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          int phoneNumberCount =
-                              _controllerRelativePhoneNumber.text.length;
-                          if (_controllerRelativeName.text.isEmpty ||
-                              _controllerRelativePhoneNumber.text.isEmpty) {
-                            showNoticeDialog(
-                                context: context,
-                                message: "Vui lòng nhập đủ thông tin",
-                                title: translation(context).notification,
-                                titleBtn: translation(context).exit);
-                          } else if (phoneNumberCount == 10 ||
-                              phoneNumberCount == 11) {
-                            AccountEntity? accountEntity = AccountEntity(
-                              name: _controllerRelativeName.text,
-                              phoneNumber: _controllerRelativePhoneNumber.text,
-                            );
+                          // int phoneNumberCount =
+                          //     _controllerRelativePhoneNumber.text.length;
+                          // if (_controllerRelativeName.text.isEmpty ||
+                          //     _controllerRelativePhoneNumber.text.isEmpty) {
+                          //   showNoticeDialog(
+                          //       context: context,
+                          //       message: translation(context)
+                          //           .pleaseEnterCompleteInformation,
+                          //       title: translation(context).notification,
+                          //       titleBtn: translation(context).exit);
+                          // }
+                          // else
+                          //  if (phoneNumberCount == 10 ||
+                          //     phoneNumberCount == 11) {
 
-                            patientBloc.add(RegistRelativeEvent(
-                                accountEntity: accountEntity,
-                                patientId: widget.patientId));
-                          } else {
-                            showNoticeDialog(
-                                context: context,
-                                message:
-                                    "Số điện thoại không chính xác, phải từ 10-11 ký tự",
-                                title: translation(context).notification,
-                                titleBtn: translation(context).exit);
-                          }
+                          AccountEntity? accountEntity = AccountEntity(
+                            name: _controllerRelativeName.text,
+                            phoneNumber: _controllerRelativePhoneNumber.text,
+                          );
+
+                          patientBloc.add(RegistRelativeEvent(
+                              accountEntity: accountEntity,
+                              patientId: widget.patientId));
+
+                          // } else {
+                          //   showNoticeDialog(
+                          //       context: context,
+                          //       message:
+                          //           translation(context).invalidPhonenumber,
+                          //       title: translation(context).notification,
+                          //       titleBtn: translation(context).exit);
+                          // }
                         }),
                   )
                 ]),

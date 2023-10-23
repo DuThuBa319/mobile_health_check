@@ -212,7 +212,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                     if (state.viewModel.listTemperature!.isEmpty) {
                       //! dịch
                       return Center(
-                          child: Text('Không có dữ liệu',
+                          child: Text(translation(context).noData,
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
                     } else {
