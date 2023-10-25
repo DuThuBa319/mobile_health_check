@@ -78,9 +78,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 (state.viewModel.errorMessage ==
                         translation(context).duplicatedRelationshipPAD ||
                     state.viewModel.errorMessage ==
-                        translation(context).hasDoctorBefore ||
-                    state.viewModel.errorMessage ==
-                        translation(context).duplicatedPatientPhoneNumber)) {
+                        translation(context).hasDoctorBefore)) {
               showNoticeDialog(
                 context: context,
                 message: state.viewModel.errorMessage!,

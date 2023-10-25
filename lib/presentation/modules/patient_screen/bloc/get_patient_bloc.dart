@@ -443,15 +443,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         );
       } on DioException catch (e) {
         if (e.response?.data ==
-            "This phone number has been registered by another person") {
-          emit(state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
-                errorMessage:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .duplicatedPatientPhoneNumber),
-          ));
-        } else if (e.response?.data ==
             "The relationship between these entities has been existed") {
           emit(state.copyWith(
             status: BlocStatusState.failure,
