@@ -120,7 +120,7 @@
 
 "duplicatedDoctorPhoneNumber":"This phone number has been already registered by another account",
 "duplicatedRelationshipPAD":"The relationship between these entities has been existed",
-
+"noNotification":"there is no notification",
 
 
 "invalidPhonenumber":"Invalid phone number, must be 10-11 characters long",
@@ -160,6 +160,7 @@
 "phoneNumberCountError":"Incorrect phone number, must be 10-11 characters",
 "deleteRelative":"Delete this relative?",
 "deletePatient":"Delete this patient?",
+"deleteDoctor":"Delete this doctor?",
 "doNotHaveInformation":"Don't have information",
 "male":"Male",
 "female":"Female",

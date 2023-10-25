@@ -417,7 +417,6 @@ class _DoctorListState extends State<DoctorListScreen> {
 
                     if ((state is GetDoctorListState &&
                         state.status == BlocStatusState.failure)) {
-                          //! dịch
                       return  Center(
                         child: Text(translation(context).error),
                       );

@@ -203,7 +203,6 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listSpo2!.isEmpty) {
-                      //! dịch
                       return Center(
                           child: Text(translation(context).noData,
                               style: AppTextTheme.body2

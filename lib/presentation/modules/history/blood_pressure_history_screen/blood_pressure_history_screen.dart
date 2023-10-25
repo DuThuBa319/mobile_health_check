@@ -213,7 +213,6 @@ class BloodPressureHistoryScreenState
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodPressure!.isEmpty) {
-                      //! dịch
                       return Center(
                           child: Text(translation(context).noData,
                               style: AppTextTheme.body2

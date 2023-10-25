@@ -116,14 +116,13 @@ class _NotificationListState extends State<NotificationScreen> {
                     (state is SetReadedNotificationState &&
                         state.status == BlocStatusState.success)) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
-                    //! dịch
                     return Center(
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Chưa có thông báo',
+                          translation(context).noNotification,
                           style: AppTextTheme.body2.copyWith(color: Colors.red),
                         ),
                         const SizedBox(height: 10),
