@@ -34,22 +34,39 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       ),
     );
     try {
-      final response = await notificationUsecase.getNotificationListEntity(
-         userId: event.doctorId,
-          startIndex: event.startIndex,
-          lastIndex: event.lastIndex);
-
+      int? numberOfNotificationEntity = await notificationUsecase
+          .getNumberOfNotificationEntity(event.doctorId);
+      int requestLastIndex = 0;
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
-      final numberOfNotificationEntity = await notificationUsecase
-          .getNumberOfNotificationEntity(event.doctorId);
+      numberOfNotificationEntity ??= 0;
+      _ViewModel newViewModel = state.viewModel.copyWith(
+          unreadCount: unreadCount,
+          totalCount: numberOfNotificationEntity,
+          notificationEntity: []);
+      if (numberOfNotificationEntity == 0) {
+        emit(GetNotificationListState(
+          status: BlocStatusState.success,
+          viewModel: newViewModel,
+        ));
+        return;
+      }
+      if (numberOfNotificationEntity <= event.lastIndex) {
+        requestLastIndex = numberOfNotificationEntity - 1;
+      } else {
+        requestLastIndex = event.lastIndex;
+      }
+      final response = await notificationUsecase.getNotificationListEntity(
+          userId: event.doctorId,
+          startIndex: event.startIndex,
+          lastIndex: requestLastIndex);
       List<NotificationEntity> newNotificationList =
           state.viewModel.notificationEntity ?? [];
       newNotificationList.addAll(response!);
-      final newViewModel = state.viewModel.copyWith(
+      newViewModel = state.viewModel.copyWith(
           notificationEntity: newNotificationList,
           unreadCount: unreadCount,
-         totalCount: numberOfNotificationEntity);
+          totalCount: numberOfNotificationEntity);
       emit(GetNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -114,11 +131,15 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     try {
       final response = await notificationUsecase.getNotificationListEntity(
-          userId: event.doctorId, startIndex: 0, lastIndex: 49);
+          userId: event.doctorId, startIndex: 0, lastIndex: 14);
+      final totalCount = await notificationUsecase
+          .getNumberOfNotificationEntity(event.doctorId);
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
-      final newViewModel = state.viewModel
-          .copyWith(notificationEntity: response, unreadCount: unreadCount);
+      final newViewModel = state.viewModel.copyWith(
+          notificationEntity: response,
+          unreadCount: unreadCount,
+          totalCount: totalCount);
       emit(RefreshNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,
@@ -202,7 +223,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       await notificationUsecase.deleteNotificationEntity(event.notificationId);
       state.viewModel.notificationEntity?.removeAt(event.index!);
       emit(DeleteNotificationState(
-          status: BlocStatusState.success, viewModel: state.viewModel));
+          status: BlocStatusState.success,
+          viewModel: state.viewModel
+              .copyWith(totalCount: state.viewModel.totalCount! - 1)));
     } catch (e) {
       emit(
         state.copyWith(

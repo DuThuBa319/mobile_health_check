@@ -127,6 +127,7 @@ class OneSignalNotificationService {
     // Unsubscribe the user from notifications
   }
 }
+
 void notificationAction(OSNotificationOpenedResult openedResult) {
   NotificationBloc notificationBloc = getIt<NotificationBloc>();
   //!---------Blood Pressure------------------//
@@ -159,6 +160,7 @@ void notificationAction(OSNotificationOpenedResult openedResult) {
         patientName: patientName,
         patientId: patientId,
         sendDate: updatedDate);
+    navigationService.navigatorKey.currentContext;
 
     navigationService
         .navigateTo(RouteList.bloodPressuerNotificationReading, argument: {

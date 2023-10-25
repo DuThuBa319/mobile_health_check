@@ -76,6 +76,7 @@ class _DoctorListCellState extends State<DoctorListCell> {
                       )
                     : IconButton(
                         onPressed: () {
+                          //! dịch
                           showNoticeDialogTwoButton(
                               context: context,
                               title: translation(context).notification,

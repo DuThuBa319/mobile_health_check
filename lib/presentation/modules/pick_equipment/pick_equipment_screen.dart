@@ -116,12 +116,6 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   },
                 ),
               ),
-              // const SizedBox(height: 100),
-              // CommonButton(
-              //   height: 80,
-              //   title: 'Upload',
-              //   onTap: upload,
-              // )
             ],
           ),
         ),
@@ -187,7 +181,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
             message: translation(context).exitApp,
             title: translation(context).areYouSure,
             titleBtn1: translation(context).no,
-            titleBtn2:translation(context).yes,
+            titleBtn2: translation(context).yes,
             onClose1: () {},
             onClose2: () {
               SystemNavigator.pop();

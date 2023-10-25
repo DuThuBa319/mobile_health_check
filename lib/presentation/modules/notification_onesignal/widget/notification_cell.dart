@@ -56,27 +56,27 @@ class _NotificationCellState extends State<NotificationCell> {
           showToast(translation(context).waitForSeconds);
 
           Navigator.pushNamed(context, RouteList.bloodSugarNotificationReading,
-          arguments: {
-            "notificationEntity": widget.notificationEntity,
-            "navigateFromCell": true
-          });
+              arguments: {
+                "notificationEntity": widget.notificationEntity,
+                "navigateFromCell": true
+              });
         }
         if (widget.notificationEntity?.bodyTemperatureEntity != null) {
           showToast(translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bodyTemperatureNotificationReading,
-             arguments: {
-            "notificationEntity": widget.notificationEntity,
-            "navigateFromCell": true
-          });
+              arguments: {
+                "notificationEntity": widget.notificationEntity,
+                "navigateFromCell": true
+              });
         }
         if (widget.notificationEntity?.spo2Entity != null) {
           showToast(translation(context).waitForSeconds);
           Navigator.pushNamed(context, RouteList.spo2NotificationReading,
-            arguments: {
-            "notificationEntity": widget.notificationEntity,
-            "navigateFromCell": true
-          });
+              arguments: {
+                "notificationEntity": widget.notificationEntity,
+                "navigateFromCell": true
+              });
         }
       },
       child: Container(
@@ -146,7 +146,7 @@ class _NotificationCellState extends State<NotificationCell> {
                                   fontSize: SizeConfig.screenWidth * 0.035,
                                 )),
                             (widget.notificationEntity?.read == true)
-                                ? GestureDetector(
+                                ? InkWell(
                                     onTap: () {
                                       showDialog(
                                         context: context,

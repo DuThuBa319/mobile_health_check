@@ -90,9 +90,8 @@ class _BloodPressureNotificationReadingScreenState
                 height: SizeConfig.screenWidth * 0.06,
               ),
               CustomImagePicker(
-                imagePath: widget
-                        .notificationEntity?.bloodPressureEntity?.imageLink ??
-                    widget.notificationEntity?.bloodPressureEntity?.imageLink!,
+                imagePath:
+                    widget.notificationEntity?.bloodPressureEntity?.imageLink,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),

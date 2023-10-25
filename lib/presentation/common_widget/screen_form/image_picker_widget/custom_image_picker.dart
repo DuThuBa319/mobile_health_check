@@ -72,6 +72,9 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             child: Image.network(
                               widget.imagePath ?? widget.imagePath!,
                               fit: BoxFit.fill,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Icon(Icons.image_not_supported_outlined,
+                                      size: SizeConfig.screenWidth / 2),
                             ),
                           ),
                         ),

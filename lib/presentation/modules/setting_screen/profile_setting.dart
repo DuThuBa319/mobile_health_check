@@ -287,11 +287,7 @@ class _SettingProfileState extends State<SettingProfile> {
                               _controllerName.text.isEmpty) {
                             showToast(translation(context)
                                 .pleaseEnterCompleteInformation);
-                            // showNoticeDialog(
-                            //     context: context,
-                            //     message: "Vui lòng nhập đủ thông tin",
-                            //     title: translation(context).notification,
-                            //     titleBtn: translation(context).exit);
+                            
                           } else {
                             final int gender;
                             int? newAge = int.parse(_controllerAge.text);

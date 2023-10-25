@@ -105,9 +105,6 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                                 ),
                               ],
                             )),
-                      // const SizedBox(height: SizeConfig.screenWidth*0.08),
-                      // const Center(
-                      //     child: CommonButton(height: SizeConfig.screenWidth*0.18, title: 'Cập nhật'))
                     ]),
               ),
             );

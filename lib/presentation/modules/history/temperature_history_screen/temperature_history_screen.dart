@@ -184,12 +184,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                         child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
-                    // onGetTemperatureInitData();
-                    //onGetHistoryData();
-                    // return Center(
-                    //     child: Text('Vui lòng chọn thông tin',
-                    //         style: AppTextTheme.body2
-                    //             .copyWith(color: Colors.red)));
+             
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
