@@ -203,7 +203,6 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodSugar!.isEmpty) {
-                      //! dịch
                       return Center(
                           child: Text(translation(context).noData,
                               style: AppTextTheme.body2

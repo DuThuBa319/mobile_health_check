@@ -154,6 +154,8 @@
 "phoneNumberCountError":"Số điện thoại không chính xác, phải từ 10-11 ký tự",
 "deleteRelative":"Bạn muốn xóa người thân này?",
 "deletePatient":"Bạn muốn xóa bệnh nhân này?",
+"deleteDoctor":"Bạn muốn xóa bác sĩ này?",
+"noNotification":"Chưa có thông báo",
 "doNotHaveInformation":"chưa có thông tin",
 "male":"Nam",
 "female":"Nữ",

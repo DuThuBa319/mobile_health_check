@@ -76,11 +76,10 @@ class _DoctorListCellState extends State<DoctorListCell> {
                       )
                     : IconButton(
                         onPressed: () {
-                          //! dịch
                           showNoticeDialogTwoButton(
                               context: context,
                               title: translation(context).notification,
-                              message: "Delete this Doctor?",
+                              message: translation(context).deleteDoctor,
                               titleBtn1: translation(context).exit,
                               titleBtn2: translation(context).accept,
                               onClose2: () {

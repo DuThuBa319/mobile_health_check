@@ -317,8 +317,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                               : SizedBox(
                                   height: SizeConfig.screenHeight * 0.2,
                                   child: Center(
-                                    //! dịch
-                                    child: Text("Chưa có dữ liệu",
+                                    child: Text(translation(context).noData,
                                         style: AppTextTheme.body0.copyWith(
                                             color: Colors.red,
                                             fontSize:
