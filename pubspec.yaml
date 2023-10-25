@@ -63,11 +63,7 @@ dependencies:
   # utils
   fluttertoast: ^8.2.2
   rflutter_alert: ^2.0.7
-  # lưu ý setup cho ios
-  image_picker: ^1.0.2
   
-  permission_handler: ^10.4.3
-  camera: ^0.10.5+2
   #ui
   full_screen_image: ^2.0.0
   page_transition: ^2.0.9
@@ -79,6 +75,10 @@ dependencies:
   firebase_core: ^2.15.0
   provider: ^6.0.5
   localization: ^2.1.0
+  # lưu ý setup cho ios
+  image_picker: ^1.0.2
+  permission_handler: ^10.4.3
+  camera: ^0.10.5+2
 dev_dependencies:
   flutter_test:
     sdk: flutter

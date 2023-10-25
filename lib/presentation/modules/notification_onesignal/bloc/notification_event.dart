@@ -6,8 +6,8 @@ abstract class NotificationEvent {}
 class GetNotificationListEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
   final String? doctorId;
-  final int? startIndex;
-  final int? lastIndex;
+  final int startIndex;
+  final int lastIndex;
   GetNotificationListEvent(
       {required this.doctorId,
       required this.startIndex,
@@ -16,9 +16,9 @@ class GetNotificationListEvent extends NotificationEvent {
 
 class RenewPageAfterActionEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
-  final String? doctorId;
-  final int? startIndex;
-  final int? lastIndex;
+  final String doctorId;
+  final int startIndex;
+  final int lastIndex;
   RenewPageAfterActionEvent(
       {required this.doctorId,
       required this.startIndex,
@@ -26,7 +26,6 @@ class RenewPageAfterActionEvent extends NotificationEvent {
 }
 
 class RefreshNotificationListEvent extends NotificationEvent {
-  // final List<NotificationEntity>? notificationEntiry;
   final String? doctorId;
 
   RefreshNotificationListEvent({
@@ -36,31 +35,16 @@ class RefreshNotificationListEvent extends NotificationEvent {
 
 class SetReadedNotificationEvent extends NotificationEvent {
   final String? notificationId;
-//  final String? doctorId;
-//   final int? startIndex;
-//   final int? lastIndex;
-  SetReadedNotificationEvent({ 
-    required this.notificationId
- 
-      // ,required this.doctorId,
-      //     required this.startIndex,
-      //     required this.lastIndex
-      })
-      : super();
+
+  SetReadedNotificationEvent({required this.notificationId}) : super();
 }
+
 class SetReadedNotificationFromCellEvent extends NotificationEvent {
   final int? index;
   final String? notificationId;
-//  final String? doctorId;
-//   final int? startIndex;
-//   final int? lastIndex;
- SetReadedNotificationFromCellEvent({ required this.index,
-    required this.notificationId
- 
-      // ,required this.doctorId,
-      //     required this.startIndex,
-      //     required this.lastIndex
-      })
+
+  SetReadedNotificationFromCellEvent(
+      {required this.index, required this.notificationId})
       : super();
 }
 

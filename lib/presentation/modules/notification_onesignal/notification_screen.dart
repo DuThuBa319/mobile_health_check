@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/modules/notification_onesignal/widget/notification_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../classes/language.dart';
 import '../../../presentation/common_widget/screen_form/custom_screen_form.dart';
+import '../../common_widget/common_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/loading_widget.dart';
@@ -37,9 +37,10 @@ class _NotificationListState extends State<NotificationScreen> {
   // final controller = ScrollController();
   NotificationBloc get notificationBloc => BlocProvider.of(context);
   int lastIndex = -1;
-  int startIndex = -25;
-  int quantity = 25;
+  int startIndex = -15;
+  int quantity = 15;
   bool loadMore = true;
+  String? doctorId = userDataData.getUser()!.id;
   @override
   void initState() {
     super.initState();
@@ -50,9 +51,7 @@ class _NotificationListState extends State<NotificationScreen> {
         lastIndex += quantity;
         startIndex += quantity;
         notificationBloc.add(GetNotificationListEvent(
-            doctorId: userDataData.getUser()!.id,
-            startIndex: startIndex,
-            lastIndex: lastIndex));
+            doctorId: doctorId, startIndex: startIndex, lastIndex: lastIndex));
       }
     });
   }
@@ -72,7 +71,7 @@ class _NotificationListState extends State<NotificationScreen> {
         title: translation(context).notification,
         leadingButton: IconButton(
             onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()!.id!),
+                arguments: doctorId!),
             icon: const Icon(Icons.arrow_back)),
         selectedIndex: 2,
         child: Container(
@@ -81,10 +80,10 @@ class _NotificationListState extends State<NotificationScreen> {
               listener: _blocListener,
               builder: (context, state) {
                 if (state is NotificationInitialState) {
-                  lastIndex = 24;
+                  lastIndex = 14;
                   startIndex = 0;
                   notificationBloc.add(GetNotificationListEvent(
-                      doctorId: userDataData.getUser()!.id,
+                      doctorId: doctorId,
                       startIndex: startIndex,
                       lastIndex: lastIndex));
                 }
@@ -117,37 +116,33 @@ class _NotificationListState extends State<NotificationScreen> {
                     (state is SetReadedNotificationState &&
                         state.status == BlocStatusState.success)) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
+                    //! dịch
                     return Center(
-                        child: Text(translation(context).selectTime,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Chưa có thông báo',
+                          style: AppTextTheme.body2.copyWith(color: Colors.red),
+                        ),
+                        const SizedBox(height: 10),
+                        CommonButton(
+                          height: SizeConfig.screenHeight * 0.04,
+                          width: SizeConfig.screenWidth * 0.25,
+                          title: 'Thử lại',
+                          onTap: () {
+                            notificationBloc.add(RefreshNotificationListEvent(
+                                doctorId: doctorId));
+                          },
+                        )
+                      ],
+                    ));
                   } else {
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        RichText(
-                            textAlign: TextAlign.start,
-                            text: TextSpan(children: [
-                              TextSpan(
-                                text:
-                                    "${translation(context).unreadNotifications}:",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: SizeConfig.screenWidth * 0.06),
-                              ),
-                              TextSpan(
-                                  text: " ${state.viewModel.unreadCount ?? 0}",
-                                  style: AppTextTheme.body1.copyWith(
-                                      color: AppColor.redFB4B53,
-                                      fontSize: SizeConfig.screenWidth * 0.08,
-                                      fontWeight: FontWeight.w500)),
-                            ])),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        lineDecor(),
                         Expanded(
                           child: SmartRefresher(
                               controller: _refreshController,
@@ -156,10 +151,9 @@ class _NotificationListState extends State<NotificationScreen> {
                                 await Future.delayed(
                                     const Duration(milliseconds: 1000));
                                 _refreshController.refreshCompleted();
-                                notificationBloc
-                                    .add(RefreshNotificationListEvent(
-                                  doctorId: widget.id ?? widget.id!,
-                                ));
+                                notificationBloc.add(
+                                    RefreshNotificationListEvent(
+                                        doctorId: doctorId));
                               },
                               child: ListView.builder(
                                   controller: expandingController,
@@ -170,6 +164,12 @@ class _NotificationListState extends State<NotificationScreen> {
                                       1,
                                   itemBuilder:
                                       (BuildContext context, int index) {
+                                    loadMore = state.viewModel
+                                                .notificationEntity!.length <
+                                            state.viewModel.totalCount!
+                                        ? true
+                                        : false;
+
                                     if (index <
                                         state.viewModel.notificationEntity!
                                             .length) {
@@ -180,22 +180,26 @@ class _NotificationListState extends State<NotificationScreen> {
                                         notificationBloc: notificationBloc,
                                       );
                                     }
+
                                     if (state.viewModel.notificationEntity!
-                                            .length >=
+                                            .length ==
                                         state.viewModel.totalCount!) {
-                                      loadMore = false;
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 32),
-                                        child: Center(
-                                            child: Text(
-                                          translation(context).endOfList,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: SizeConfig.screenWidth *
-                                                  0.05),
-                                        )),
-                                      );
+                                      if (state.viewModel.totalCount! > 15) {
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 32),
+                                          child: Center(
+                                              child: Text(
+                                            translation(context).endOfList,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColor.gray767676,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.04),
+                                          )),
+                                        );
+                                      }
                                     } else {
                                       return const Padding(
                                         padding:
@@ -205,13 +209,13 @@ class _NotificationListState extends State<NotificationScreen> {
                                         ),
                                       );
                                     }
+                                    return null;
                                   })),
                         ),
                       ],
                     );
                   }
                 }
-
                 return Container();
               }),
         ));

@@ -147,7 +147,7 @@ class _PatientCustomScreenFormState extends State<PatientCustomScreenForm> {
       required IconData iconData,
       required bool isSelected,
       required int iconIndex}) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         _onItemTapped(iconIndex);
       },

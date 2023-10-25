@@ -182,13 +182,7 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                         child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
-                    //onGetHistoryData();
-                    // onGetSpo2InitData();
-
-                    // return Center(
-                    //     child: Text('Vui lòng chọn thông tin',
-                    //         style: AppTextTheme.body2
-                    //             .copyWith(color: Colors.red)));
+                    
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(

@@ -29,15 +29,7 @@ class NotificationModel {
   @JsonKey(name: "spO2")
   Spo2Model? spo2Model;
 
-  // //NotificationMetadata? data;
-  //LocalizationModel? contents;
 
-  // @JsonKey(name: 'subject_type')
-  // String? subjectType;
-  // @JsonKey(name: 'subject_id')
-  // String? subjectId;
-  // @JsonKey(name: 'send_after')
-  // DateTime? sendAfter;
 
   NotificationModel({
     this.spo2Model,
