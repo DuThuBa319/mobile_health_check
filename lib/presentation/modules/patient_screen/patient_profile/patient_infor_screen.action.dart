@@ -32,31 +32,6 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     );
   }
 
-  void showInfor(PatientInforEntity patientInforEntity) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              translation(context).patientIn4,
-              style: TextStyle(
-                  color: AppColor.lineDecor,
-                  fontSize: SizeConfig.screenWidth * 0.06,
-                  fontWeight: FontWeight.bold),
-            ),
-            content: ListView(children: const []),
-            actions: [
-              TextButton(
-                child: Text(translation(context).back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
-  }
-
   Widget homeCell({
     Spo2Entity? spo2Entity,
     BloodPressureEntity? bloodPressureEntity,

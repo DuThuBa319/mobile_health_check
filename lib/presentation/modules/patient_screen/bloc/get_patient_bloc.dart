@@ -15,7 +15,6 @@ import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_
 
 import '../../../../classes/language.dart';
 import '../../../../di/di.dart';
-import '../../../../domain/entities/change_password_entity.dart';
 import '../../../../domain/entities/login_entity_group/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
@@ -44,122 +43,127 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       this.changePassUsecase)
       : super(GetPatientInitialState()) {
     on<GetPatientListEvent>(_onGetPatientList);
-    on<GetPatientListOfRelativeEvent>(_onGetPatientListOfRelative);
+    // on<GetPatientListOfRelativeEvent>(_onGetPatientListOfRelative);
     on<FilterPatientEvent>(_onSearchPatient);
-    on<UpdatePatientInforEvent>(_onUpdatePatientInfor);
-    on<UpdateRelativeInforEvent>(_onUpdateRelativeInfor);
-    on<UpdateDoctorInforEvent>(_onUpdateDoctorInfor);
+    // on<UpdatePatientInforEvent>(_onUpdatePatientInfor);
+    // on<UpdateRelativeInforEvent>(_onUpdateRelativeInfor);
+    // on<UpdateDoctorInforEvent>(_onUpdateDoctorInfor);
     on<RegistPatientEvent>(_onAddPatient);
     on<RegistRelativeEvent>(_onAddRelative);
     on<GetPatientInforEvent>(_getPatientInfor);
     on<DeleteRelativeEvent>(_onDeleteRelative);
     on<DeletePatientEvent>(_onDeletePatient);
-    on<ChangePassEvent>(_onChangePass);
+    // on<ChangePassEvent>(_onChangePass);
     on<GetDoctorListEvent>(_onGetDoctorList);
   }
-  Future<void> _onChangePass(
-    ChangePassEvent event,
-    Emitter<GetPatientState> emit,
-  ) async {
-    NavigationService navigationService = injector<NavigationService>();
 
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        ChangePassState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
+  // //! CHANGE PASSWORD
 
-      if (event.changePassEntity.currentPassword == null ||
-          event.changePassEntity.currentPassword?.trim() == '' ||
-          event.changePassEntity.newPassword == null ||
-          event.changePassEntity.newPassword?.trim() == '') {
-        if (event.changePassEntity.currentPassword == null ||
-            event.changePassEntity.currentPassword?.trim() == '') {
-          emit(
-            ChangePassState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyCurrentPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourCurrentPassword,
-              ),
-            ),
-          );
-        }
-        if (event.changePassEntity.newPassword == null ||
-            event.changePassEntity.newPassword?.trim() == '') {
-          emit(
-            ChangePassState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyNewPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourNewPassword,
-              ),
-            ),
-          );
-        }
-        if ((event.changePassEntity.newPassword == null ||
-                event.changePassEntity.newPassword?.trim() == '') &&
-            (event.changePassEntity.currentPassword == null ||
-                event.changePassEntity.currentPassword?.trim() == '')) {
-          emit(
-            ChangePassState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyCurrentPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourCurrentPassword,
-                errorEmptyNewPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourNewPassword,
-              ),
-            ),
-          );
-        }
-        return;
-      }
+  // Future<void> _onChangePass(
+  //   ChangePassEvent event,
+  //   Emitter<GetPatientState> emit,
+  // ) async {
+  //   NavigationService navigationService = injector<NavigationService>();
 
-      try {
-        await changePassUsecase.changePassEntity(
-            event.changePassEntity, event.userId);
-        final newViewModel = state.viewModel;
-        emit(ChangePassState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      } on DioException catch (e) {
-        if (e.response?.data == "Password is invalid") {
-          emit(state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
-                errorMessage:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .currentPassWrong),
-          ));
-        }
-      } catch (response) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+  //   final connectivityResult = await _connectivity.checkConnectivity();
+  //   if (connectivityResult == ConnectivityResult.wifi ||
+  //       connectivityResult == ConnectivityResult.mobile) {
+  //     emit(
+  //       ChangePassState(
+  //         status: BlocStatusState.loading,
+  //         viewModel: state.viewModel,
+  //       ),
+  //     );
 
+  //     if (event.changePassEntity.currentPassword == null ||
+  //         event.changePassEntity.currentPassword?.trim() == '' ||
+  //         event.changePassEntity.newPassword == null ||
+  //         event.changePassEntity.newPassword?.trim() == '') {
+  //       if (event.changePassEntity.currentPassword == null ||
+  //           event.changePassEntity.currentPassword?.trim() == '') {
+  //         emit(
+  //           ChangePassState(
+  //             status: BlocStatusState.failure,
+  //             viewModel: _ViewModel(
+  //               errorEmptyCurrentPassword:
+  //                   translation(navigationService.navigatorKey.currentContext!)
+  //                       .pleaseEnterYourCurrentPassword,
+  //             ),
+  //           ),
+  //         );
+  //       } else if (event.changePassEntity.newPassword == null ||
+  //           event.changePassEntity.newPassword?.trim() == '') {
+  //         emit(
+  //           ChangePassState(
+  //             status: BlocStatusState.failure,
+  //             viewModel: _ViewModel(
+  //               errorEmptyNewPassword:
+  //                   translation(navigationService.navigatorKey.currentContext!)
+  //                       .pleaseEnterYourNewPassword,
+  //             ),
+  //           ),
+  //         );
+  //       } else if ((event.changePassEntity.newPassword == null ||
+  //               event.changePassEntity.newPassword?.trim() == '') &&
+  //           (event.changePassEntity.currentPassword == null ||
+  //               event.changePassEntity.currentPassword?.trim() == '')) {
+  //         emit(
+  //           ChangePassState(
+  //             status: BlocStatusState.failure,
+  //             viewModel: _ViewModel(
+  //               errorEmptyCurrentPassword:
+  //                   translation(navigationService.navigatorKey.currentContext!)
+  //                       .pleaseEnterYourCurrentPassword,
+  //               errorEmptyNewPassword:
+  //                   translation(navigationService.navigatorKey.currentContext!)
+  //                       .pleaseEnterYourNewPassword,
+  //             ),
+  //           ),
+  //         );
+  //       }
+  //       return;
+  //     }
+
+  //     try {
+  //       await changePassUsecase.changePassEntity(
+  //           event.changePassEntity, event.userId);
+  //       final newViewModel = state.viewModel;
+  //       emit(ChangePassState(
+  //         status: BlocStatusState.success,
+  //         viewModel: newViewModel,
+  //       ));
+  //     } on DioException catch (e) {
+  //       if (e.response?.data == "Password is invalid") {
+  //         emit(state.copyWith(
+  //           status: BlocStatusState.failure,
+  //           viewModel: state.viewModel.copyWith(
+  //               errorMessage:
+  //                   translation(navigationService.navigatorKey.currentContext!)
+  //                       .currentPassWrong),
+  //         ));
+  //       }
+  //     } catch (response) {
+  //       emit(
+  //         state.copyWith(
+  //           status: BlocStatusState.failure,
+  //           viewModel: state.viewModel.copyWith(
+  //               errorMessage:
+  //                   translation(navigationService.navigatorKey.currentContext!)
+  //                       .error),
+  //         ),
+  //       );
+  //     }
+  //   } else {
+  //     emit(
+  //       WifiDisconnectState(
+  //         status: BlocStatusState.success,
+  //         viewModel: state.viewModel,
+  //       ),
+  //     );
+  //   }
+  // }
+
+//! GET DOCTOR LIST
   Future<void> _onGetDoctorList(
     GetDoctorListEvent event,
     Emitter<GetPatientState> emit,
@@ -179,6 +183,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
         final newViewModel =
             state.viewModel.copyWith(allDoctorEntity: allDoctorEntity);
+
         emit(GetDoctorListState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -186,9 +191,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       } catch (e) {
         emit(
           state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
+              status: BlocStatusState.failure, viewModel: state.viewModel),
         );
       }
     } else {
@@ -201,12 +204,12 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
+//! GET PATIENT LIST IN DOCTOR APP
   Future<void> _onGetPatientList(
     GetPatientListEvent event,
     Emitter<GetPatientState> emit,
   ) async {
     final connectivityResult = await _connectivity.checkConnectivity();
-
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
       emit(
@@ -219,16 +222,32 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       try {
         final unreadNotificationsCount = await notificationUsecase
             .getUnreadCountNotificationEntity(event.userId);
-        final response =
-            await _doctorInforUsecase.getDoctorInforEntity(event.userId);
-        final newViewModel = state.viewModel.copyWith(
-            doctorInforEntity: response,
-            unreadCount: unreadNotificationsCount,
-            patientEntities: response?.patients);
-        emit(GetPatientListState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
+        if (userDataData.getUser()?.role == UserRole.doctor) {
+          final response =
+              await _doctorInforUsecase.getDoctorInforEntity(event.userId);
+          final newViewModel = state.viewModel.copyWith(
+              doctorInforEntity: response,
+              unreadCount: unreadNotificationsCount,
+              patientEntities: response?.patients);
+
+          emit(GetPatientListState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ));
+        } else if (userDataData.getUser()?.role == UserRole.relative) {
+          final response =
+              await _relativeInforUsecase.getRelativeInforEntity(event.userId);
+
+          final newViewModel = state.viewModel.copyWith(
+              relativeInforEntity: response,
+              unreadCount: unreadNotificationsCount,
+              patientEntities: response?.patients);
+
+          emit(GetPatientListState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ));
+        }
       } catch (e) {
         emit(
           state.copyWith(
@@ -247,52 +266,55 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
-  Future<void> _onGetPatientListOfRelative(
-    GetPatientListOfRelativeEvent event,
-    Emitter<GetPatientState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        GetPatientListOfRelativeState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        final unreadNotificationsCount = await notificationUsecase
-            .getUnreadCountNotificationEntity(event.relativeId);
+// //! GET PATIENT LIST IN RELATIVE APP
 
-        final response = await _relativeInforUsecase
-            .getRelativeInforEntity(event.relativeId);
+//   Future<void> _onGetPatientListOfRelative(
+//     GetPatientListOfRelativeEvent event,
+//     Emitter<GetPatientState> emit,
+//   ) async {
+//     final connectivityResult = await _connectivity.checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.wifi ||
+//         connectivityResult == ConnectivityResult.mobile) {
+//       emit(
+//         GetPatientListOfRelativeState(
+//           status: BlocStatusState.loading,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//       try {
+//         final unreadNotificationsCount = await notificationUsecase
+//             .getUnreadCountNotificationEntity(event.relativeId);
+//         final response = await _relativeInforUsecase
+//             .getRelativeInforEntity(event.relativeId);
 
-        final newViewModel = state.viewModel.copyWith(
-            relativeInforEntity: response,
-            unreadCount: unreadNotificationsCount,
-            patientEntities: response?.patients);
-        emit(GetPatientListOfRelativeState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+//         final newViewModel = state.viewModel.copyWith(
+//             relativeInforEntity: response,
+//             unreadCount: unreadNotificationsCount,
+//             patientEntities: response?.patients);
 
+//         emit(GetPatientListOfRelativeState(
+//           status: BlocStatusState.success,
+//           viewModel: newViewModel,
+//         ));
+//       } catch (e) {
+//         emit(
+//           state.copyWith(
+//             status: BlocStatusState.failure,
+//             viewModel: state.viewModel,
+//           ),
+//         );
+//       }
+//     } else {
+//       emit(
+//         WifiDisconnectState(
+//           status: BlocStatusState.success,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//     }
+//   }
+
+//! SEARCH PATIENT
   Future<void> _onSearchPatient(
     FilterPatientEvent event,
     Emitter<GetPatientState> emit,
@@ -361,6 +383,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
+//! ADD PATIENT
   Future<void> _onAddPatient(
     RegistPatientEvent event,
     Emitter<GetPatientState> emit,
@@ -380,7 +403,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           event.accountEntity?.name?.trim() == '' ||
           event.accountEntity?.phoneNumber == null ||
           event.accountEntity?.phoneNumber?.trim() == '' ||
-          event.accountEntity!.phoneNumber!.length < 10) {
+          event.accountEntity!.phoneNumber!.length < 10 ||
+          event.accountEntity!.phoneNumber!.length > 11) {
         if (event.accountEntity?.name == null ||
             event.accountEntity?.name?.trim() == '') {
           emit(
@@ -396,7 +420,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         }
         if (event.accountEntity?.phoneNumber == null ||
             event.accountEntity?.phoneNumber?.trim() == '' ||
-            event.accountEntity!.phoneNumber!.length < 10) {
+            event.accountEntity!.phoneNumber!.length < 10 ||
+            event.accountEntity!.phoneNumber!.length > 11) {
           emit(
             RegistPatientState(
               status: BlocStatusState.failure,
@@ -410,7 +435,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         }
         if ((event.accountEntity?.phoneNumber == null ||
                 event.accountEntity?.phoneNumber?.trim() == '' ||
-                event.accountEntity!.phoneNumber!.length < 10) &&
+                event.accountEntity!.phoneNumber!.length < 10 ||
+                event.accountEntity!.phoneNumber!.length > 11) &&
             (event.accountEntity?.name == null ||
                 event.accountEntity?.name?.trim() == '')) {
           emit(
@@ -451,8 +477,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                     translation(navigationService.navigatorKey.currentContext!)
                         .duplicatedRelationshipPAD),
           ));
-        }
-        else if (e.response?.data ==
+        } else if (e.response?.data ==
             "This patient has been managed by another doctor") {
           emit(state.copyWith(
             status: BlocStatusState.failure,
@@ -462,6 +487,14 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                         .hasDoctorBefore),
           ));
         }
+      } catch (response) {
+        emit(RegistPatientState(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .error),
+        ));
       }
     } else {
       emit(
@@ -473,6 +506,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
+//! ADD RELATIVE
   Future<void> _onAddRelative(
     RegistRelativeEvent event,
     Emitter<GetPatientState> emit,
@@ -491,7 +525,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           event.accountEntity?.name?.trim() == '' ||
           event.accountEntity?.phoneNumber == null ||
           event.accountEntity?.phoneNumber?.trim() == '' ||
-          event.accountEntity!.phoneNumber!.length < 10) {
+          event.accountEntity!.phoneNumber!.length < 10 ||
+          event.accountEntity!.phoneNumber!.length > 11) {
         if (event.accountEntity?.name == null ||
             event.accountEntity?.name?.trim() == '') {
           emit(
@@ -507,7 +542,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         }
         if (event.accountEntity?.phoneNumber == null ||
             event.accountEntity?.phoneNumber?.trim() == '' ||
-            event.accountEntity!.phoneNumber!.length < 10) {
+            event.accountEntity!.phoneNumber!.length < 10 ||
+            event.accountEntity!.phoneNumber!.length > 11) {
           emit(
             RegistRelativeState(
               status: BlocStatusState.failure,
@@ -521,7 +557,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         }
         if ((event.accountEntity?.phoneNumber == null ||
                 event.accountEntity?.phoneNumber?.trim() == '' ||
-                event.accountEntity!.phoneNumber!.length < 10) &&
+                event.accountEntity!.phoneNumber!.length < 10 ||
+                event.accountEntity!.phoneNumber!.length > 11) &&
             (event.accountEntity?.name == null ||
                 event.accountEntity?.name?.trim() == '')) {
           emit(
@@ -538,16 +575,14 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             ),
           );
         }
-
-        return;
+        return; //? Return để dừng, nếu không return thì sẽ thực hiện tiếp những dòng dưới
       }
 
       try {
         await _patientUseCase.addRelativeInforEntity(
             event.patientId, event.accountEntity);
-        final newViewModel = state.viewModel;
         emit(RegistRelativeState(
-            status: BlocStatusState.success, viewModel: newViewModel));
+            status: BlocStatusState.success, viewModel: state.viewModel));
       } on DioException catch (e) {
         if (e.response?.data ==
             "The relationship between these entities has been existed") {
@@ -569,10 +604,13 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                         .maximumRelativeCount),
           ));
         }
-      } catch (e) {
+      } catch (response) {
         emit(RegistRelativeState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .error),
         ));
       }
     } else {
@@ -585,6 +623,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
+//! GET PATIENT INFOR
   Future<void> _getPatientInfor(
     GetPatientInforEvent event,
     Emitter<GetPatientState> emit,
@@ -610,9 +649,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       } catch (e) {
         emit(
           state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
+              status: BlocStatusState.failure, viewModel: state.viewModel),
         );
       }
     } else {
@@ -625,122 +662,119 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
-  Future<void> _onUpdatePatientInfor(
-    UpdatePatientInforEvent event,
-    Emitter<GetPatientState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        UpdatePatientInforState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        await _patientUseCase.updatePatientInforEntity(
-            event.id, event.patientInforEntity);
-        final newViewModel = state.viewModel;
-        emit(UpdatePatientInforState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+//   Future<void> _onUpdatePatientInfor(
+//     UpdatePatientInforEvent event,
+//     Emitter<GetPatientState> emit,
+//   ) async {
+//     final connectivityResult = await _connectivity.checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.wifi ||
+//         connectivityResult == ConnectivityResult.mobile) {
+//       emit(
+//         UpdatePatientInforState(
+//           status: BlocStatusState.loading,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//       try {
+//         await _patientUseCase.updatePatientInforEntity(
+//             event.id, event.patientInforEntity);
+//         final newViewModel = state.viewModel;
+//         emit(UpdatePatientInforState(
+//           status: BlocStatusState.success,
+//           viewModel: newViewModel,
+//         ));
+//       } catch (e) {
+//         emit(
+//           state.copyWith(
+//               status: BlocStatusState.failure, viewModel: state.viewModel),
+//         );
+//       }
+//     } else {
+//       emit(
+//         WifiDisconnectState(
+//           status: BlocStatusState.success,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//     }
+//   }
 
-  Future<void> _onUpdateRelativeInfor(
-    UpdateRelativeInforEvent event,
-    Emitter<GetPatientState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        UpdateRelativeInforState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        await _relativeInforUsecase.updateRelativeInforEntity(
-            event.id, event.relativeInforEntity);
-        final newViewModel = state.viewModel;
-        emit(UpdateRelativeInforState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+//   Future<void> _onUpdateRelativeInfor(
+//     UpdateRelativeInforEvent event,
+//     Emitter<GetPatientState> emit,
+//   ) async {
+//     final connectivityResult = await _connectivity.checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.wifi ||
+//         connectivityResult == ConnectivityResult.mobile) {
+//       emit(
+//         UpdateRelativeInforState(
+//           status: BlocStatusState.loading,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//       try {
+//         await _relativeInforUsecase.updateRelativeInforEntity(
+//             event.id, event.relativeInforEntity);
+//         final newViewModel = state.viewModel;
+//         emit(UpdateRelativeInforState(
+//           status: BlocStatusState.success,
+//           viewModel: newViewModel,
+//         ));
+//       } catch (e) {
+//         emit(
+//           state.copyWith(
+//               status: BlocStatusState.failure, viewModel: state.viewModel),
+//         );
+//       }
+//     } else {
+//       emit(
+//         WifiDisconnectState(
+//           status: BlocStatusState.success,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//     }
+//   }
 
-  Future<void> _onUpdateDoctorInfor(
-    UpdateDoctorInforEvent event,
-    Emitter<GetPatientState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        UpdateDoctorInforState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        await _doctorInforUsecase.updateDoctorInforEntity(
-            event.id, event.doctorInforEntity);
-        final newViewModel = state.viewModel;
-        emit(UpdateDoctorInforState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+// //
+//   Future<void> _onUpdateDoctorInfor(
+//     UpdateDoctorInforEvent event,
+//     Emitter<GetPatientState> emit,
+//   ) async {
+//     final connectivityResult = await _connectivity.checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.wifi ||
+//         connectivityResult == ConnectivityResult.mobile) {
+//       emit(
+//         UpdateDoctorInforState(
+//           status: BlocStatusState.loading,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//       try {
+//         await _doctorInforUsecase.updateDoctorInforEntity(
+//             event.id, event.doctorInforEntity);
+//         final newViewModel = state.viewModel;
+//         emit(UpdateDoctorInforState(
+//           status: BlocStatusState.success,
+//           viewModel: newViewModel,
+//         ));
+//       } catch (e) {
+//         emit(
+//           state.copyWith(
+//             status: BlocStatusState.failure,
+//             viewModel: state.viewModel,
+//           ),
+//         );
+//       }
+//     } else {
+//       emit(
+//         WifiDisconnectState(
+//           status: BlocStatusState.success,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//     }
+//   }
 
   Future<void> _onDeleteRelative(
     DeleteRelativeEvent event,

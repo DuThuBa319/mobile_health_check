@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
+import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../classes/language.dart';
@@ -14,10 +15,10 @@ import '../../../di/di.dart';
 import '../../../domain/entities/doctor_infor_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
 import '../../common_widget/common_button.dart';
+import '../../common_widget/dialog/loading_dialog.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../theme/theme_color.dart';
-import '../patient_screen/bloc/get_patient_bloc.dart';
 
 class SettingProfile extends StatefulWidget {
   const SettingProfile({super.key});
@@ -27,7 +28,7 @@ class SettingProfile extends StatefulWidget {
 }
 
 class _SettingProfileState extends State<SettingProfile> {
-  GetPatientBloc get updatePatientBloc => BlocProvider.of(context);
+  SettingBloc get updatePatientBloc => BlocProvider.of(context);
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerAge = TextEditingController();
   final TextEditingController _controllerGender = TextEditingController();
@@ -193,7 +194,7 @@ class _SettingProfileState extends State<SettingProfile> {
         backgroundColor: AppColor.backgroundColor,
         // selectedIndex: 2,
         child: SingleChildScrollView(
-          child: BlocConsumer<GetPatientBloc, GetPatientState>(
+          child: BlocConsumer<SettingBloc, SettingState>(
               listener: (context, state) {
             if (((state is UpdateDoctorInforState) ||
                     (state is UpdateRelativeInforState) ||
@@ -221,21 +222,18 @@ class _SettingProfileState extends State<SettingProfile> {
             if (state is WifiDisconnectState &&
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
-                  onClose: () {
-                    Navigator.pop(context);
-                  },
                   context: context,
                   message: translation(context).wifiDisconnect,
                   title: translation(context).notification,
                   titleBtn: translation(context).accept);
             }
             // //! LOADING
-            // if (((state is UpdateDoctorInforState) ||
-            //         (state is UpdateRelativeInforState) ||
-            //         (state is UpdatePatientInforState)) &&
-            //     state.status == BlocStatusState.loading) {
-            //   showLoadingDialog(context: context);
-            // }
+            if (((state is UpdateDoctorInforState) ||
+                    (state is UpdateRelativeInforState) ||
+                    (state is UpdatePatientInforState)) &&
+                state.status == BlocStatusState.loading) {
+              showLoadingDialog(context: context);
+            }
           }, builder: (context, state) {
             return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -287,7 +285,6 @@ class _SettingProfileState extends State<SettingProfile> {
                               _controllerName.text.isEmpty) {
                             showToast(translation(context)
                                 .pleaseEnterCompleteInformation);
-                            
                           } else {
                             final int gender;
                             int? newAge = int.parse(_controllerAge.text);

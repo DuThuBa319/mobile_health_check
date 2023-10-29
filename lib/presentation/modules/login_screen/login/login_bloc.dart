@@ -126,15 +126,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       //             ["Password"][0]
       //! catch do sai password
       on DioException catch (e) {
-        emit(
-          LoginActionState(
-            status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              isLogin: false,
-              errorMessage1: e.response?.data,
+        if (e.response?.data == "Username or password is invalid") {
+          emit(
+            LoginActionState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                isLogin: false,
+                errorMessage1:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .wrongAccount,
+              ),
             ),
-          ),
-        );
+          );
+          return;
+        }
+       
       } catch (e) {
         emit(
           LoginActionState(
@@ -163,7 +169,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     NavigationService navigationService = injector<NavigationService>();
-  
+
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {

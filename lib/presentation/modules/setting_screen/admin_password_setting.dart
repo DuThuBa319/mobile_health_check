@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/change_password_entity.dart';
 
 import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
@@ -15,7 +16,6 @@ import '../../common_widget/line_decor.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../route/route_list.dart';
 import '../../theme/theme_color.dart';
-import '../patient_screen/bloc/get_patient_bloc.dart';
 
 // ignore: must_be_immutable
 class SettingAdminPassword extends StatefulWidget {
@@ -28,7 +28,7 @@ class SettingAdminPassword extends StatefulWidget {
 }
 
 class _SettingAdminPasswordState extends State<SettingAdminPassword> {
-  GetPatientBloc get bloc => BlocProvider.of(context);
+  SettingBloc get bloc => BlocProvider.of(context);
 
   final TextEditingController _controllerCurrentPassword =
       TextEditingController();
@@ -53,7 +53,7 @@ class _SettingAdminPasswordState extends State<SettingAdminPassword> {
             onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),
         child: SingleChildScrollView(
-            child: BlocConsumer<GetPatientBloc, GetPatientState>(
+            child: BlocConsumer<SettingBloc, SettingState>(
                 listener: (context, state) {
           //! CHANGE PASSWORD SUCCESSFULLY
           if (state is ChangePassState &&

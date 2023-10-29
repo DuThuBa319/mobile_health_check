@@ -21,36 +21,13 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
       showToast(translation(context).loadingError);
       // Navigator.of(context, rootNavigator: true).pop();
     }
-    if (state is WifiDisconnectState &&
+     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
-      showDialog(
+      showNoticeDialog(
           context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(
-                translation(context).notification,
-                style: TextStyle(
-                    color: AppColor.lineDecor,
-                    fontSize: SizeConfig.screenWidth * 0.08,
-                    fontWeight: FontWeight.bold),
-              ),
-              content: Text(
-                translation(context).wifiDisconnect,
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: SizeConfig.screenWidth * 0.05,
-                    fontWeight: FontWeight.w400),
-              ),
-              actions: [
-                TextButton(
-                  child: Text(translation(context).accept),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          });
+          message: translation(context).wifiDisconnect,
+          title: translation(context).notification,
+          titleBtn: translation(context).exit);
     }
   }
 
@@ -84,19 +61,11 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
         endTime: timeTo, id: widget.id, startTime: timeFrom));
   }
 
-  Future<void> onGetBloodPressureInitData() async {
-    historyBloc.add(GetBloodPressureHistoryInitDataEvent(
-        endTime: timeTo, id: widget.id, startTime: timeFrom));
-  }
-  // Future<void> onGetBloodSugarData() async {
-  //   historyBloc.add(
-  //       GetBloodSugarHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
+  // Future<void> onGetBloodPressureInitData() async {
+  //   historyBloc.add(GetBloodPressureHistoryInitDataEvent(
+  //       endTime: timeTo, id: widget.id, startTime: timeFrom));
   // }
 
-  // Future<void> onGetTemperatureData() async {
-  //   historyBloc.add(
-  //       GetTemperatureHistoryDataEvent(endDate: dateTo, startDate: dateFrom));
-  // }
 
   Future<void> _onRefresh() async {
     // monitor network fetch

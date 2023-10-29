@@ -50,7 +50,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
         // selectedIndex: 2,
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
           listener: (context, state) {
-            //! ADD RELATIVE SUCCESSFULLY
+//! ADD RELATIVE SUCCESSFULLY
             if (state is RegistRelativeState &&
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
@@ -64,19 +64,30 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                   titleBtn: translation(context).exit);
             }
 
-            //! Exception
+//! EXCEPTION
             if (state is RegistRelativeState &&
                 state.status == BlocStatusState.failure &&
                 (state.viewModel.errorMessage ==
                         translation(context).duplicatedRelationshipPAR ||
                     state.viewModel.errorMessage ==
-                        translation(context).maximumRelativeCount)) {
+                        translation(context).maximumRelativeCount ||
+                    state.viewModel.errorMessage ==
+                        translation(context).error)) {
               showNoticeDialog(
                 context: context,
                 message: state.viewModel.errorMessage!,
                 title: translation(context).notification,
                 titleBtn: translation(context).exit,
               );
+            }
+//! WIFI DISCONNECT
+            if (state is WifiDisconnectState &&
+                state.status == BlocStatusState.success) {
+              showNoticeDialog(
+                  context: context,
+                  message: translation(context).wifiDisconnect,
+                  title: translation(context).notification,
+                  titleBtn: translation(context).exit);
             }
           },
           builder: (context, state) {

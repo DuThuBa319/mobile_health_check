@@ -9,12 +9,13 @@ import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
+import '../../../common_widget/dialog/loading_dialog.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../common_widget/screen_form/custom_screen_form_for_patient.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
-import '../../patient_screen/bloc/get_patient_bloc.dart';
+import '../setting_bloc/setting_bloc.dart';
 
 // ignore: must_be_immutable
 class SettingPatientPassword extends StatefulWidget {
@@ -27,7 +28,7 @@ class SettingPatientPassword extends StatefulWidget {
 }
 
 class _SettingPatientPasswordState extends State<SettingPatientPassword> {
-  GetPatientBloc get bloc => BlocProvider.of(context);
+  SettingBloc get bloc => BlocProvider.of(context);
 
   final TextEditingController _controllerCurrentPassword =
       TextEditingController();
@@ -53,10 +54,37 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
                 Navigator.pushNamed(context, RouteList.patientSetting),
             icon: const Icon(Icons.arrow_back)),
         child: SingleChildScrollView(
-            child: BlocConsumer<GetPatientBloc, GetPatientState>(
+            child: BlocConsumer<SettingBloc, SettingState>(
                 listener: (context, state) {
-                  
-        //! CHANGE PASSWORD SUCCESSFULLY
+          //! WIFI DISCONNECT
+          if (state is WifiDisconnectState &&
+              state.status == BlocStatusState.success) {
+            showNoticeDialog(
+                context: context,
+                message: translation(context).wifiDisconnect,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.loading) {
+            showLoadingDialog(context: context);
+          }
+          //! ERROR CURRENT PASSWORD
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.failure &&
+              state.viewModel.errorMessage ==
+                  translation(context).currentPassWrong) {
+            showNoticeDialog(
+                onClose: () {
+                  Navigator.pushNamed(context, RouteList.patientSettingPass);
+                },
+                context: context,
+                message: translation(context).currentPassWrong,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+          //! CHANGE PASSWORD SUCCESSFULLY
           if (state is ChangePassState &&
               state.status == BlocStatusState.success) {
             showNoticeDialog(
@@ -66,36 +94,6 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
                 },
                 context: context,
                 message: translation(context).updatePasswordSuccessfullly,
-                title: translation(context).notification,
-                titleBtn: translation(context).accept);
-          }
-          //! WIFI DISCONNECT
-          if (state is WifiDisconnectState &&
-              state.status == BlocStatusState.success) {
-            showNoticeDialog(
-                onClose: () {
-                  Navigator.pop(context);
-                },
-                context: context,
-                message: translation(context).wifiDisconnect,
-                title: translation(context).notification,
-                titleBtn: translation(context).accept);
-          }
-          // if (state is ChangePassState &&
-          //     state.status == BlocStatusState.loading) {
-          //   showLoadingDialog(context: context);
-          // }
-          //! ERROR CURRENT PASSWORD
-          if (state is ChangePassState &&
-              state.status == BlocStatusState.failure &&
-              state.viewModel.errorMessage ==
-                  translation(context).currentPassWrong) {
-            showNoticeDialog(
-                onClose: () {
-                  Navigator.pop(context);
-                },
-                context: context,
-                message: translation(context).currentPassWrong,
                 title: translation(context).notification,
                 titleBtn: translation(context).accept);
           }

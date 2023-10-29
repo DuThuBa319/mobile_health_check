@@ -35,7 +35,6 @@ import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/history/spo2_history_screen/spo2_history_screen.dart';
 import '../modules/login_screen/login/login_bloc.dart';
-import '../modules/notification_onesignal/signUp_screen.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../modules/notification_onesignal/detail_screen/blood_pressure_reading.dart';
 import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart';
@@ -55,6 +54,7 @@ import '../modules/setting_screen/patient_setting/patient_language_setting.dart'
 import '../modules/setting_screen/patient_setting/patient_password_setting.dart';
 import '../modules/setting_screen/profile_setting.dart';
 import '../modules/setting_screen/patient_setting/patient_setting_menu.dart';
+import '../modules/setting_screen/setting_bloc/setting_bloc.dart';
 
 class AppRoute {
   static GetIt getIt = GetIt.instance;
@@ -131,13 +131,7 @@ class AppRoute {
           },
         );
 
-      case '/signUp':
-        // final id = routeSettings.arguments as String;
-        return MaterialPageRoute(
-          builder: (context) {
-            return const SignUpDoctorScreen();
-          },
-        );
+     
       case '/addRelative':
         final patientId = routeSettings.arguments as String;
         return MaterialPageRoute(
@@ -338,8 +332,8 @@ class AppRoute {
       case '/settingProfile':
         return MaterialPageRoute(
           builder: (context) {
-            return BlocProvider<GetPatientBloc>(
-              create: (context) => getIt<GetPatientBloc>(),
+            return BlocProvider<SettingBloc>(
+              create: (context) => getIt<SettingBloc>(),
               child: const SettingProfile(),
             );
           },
@@ -347,8 +341,8 @@ class AppRoute {
       case '/patientSettingPass':
         return MaterialPageRoute(
           builder: (context) {
-            return BlocProvider<GetPatientBloc>(
-              create: (context) => getIt<GetPatientBloc>(),
+            return BlocProvider<SettingBloc>(
+              create: (context) => getIt<SettingBloc>(),
               child: const SettingPatientPassword(),
             );
           },
@@ -364,11 +358,11 @@ class AppRoute {
             return const SettingLanguage();
           },
         );
-      case '/settingDrPass':
+      case '/settingDrOrRePass':
         return MaterialPageRoute(
           builder: (context) {
-            return BlocProvider<GetPatientBloc>(
-              create: (context) => getIt<GetPatientBloc>(),
+            return BlocProvider<SettingBloc>(
+              create: (context) => getIt<SettingBloc>(),
               child: const SettingDrOrRePassword(),
             );
           },

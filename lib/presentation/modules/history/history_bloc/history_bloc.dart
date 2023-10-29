@@ -29,12 +29,11 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<GetBloodSugarHistoryDataEvent>(_onGetBloodSugarHistoryData);
     on<GetTemperatureHistoryDataEvent>(_onGetTemperatureHistoryData);
     on<GetSpo2HistoryDataEvent>(_onGetSpo2HistoryData);
-
-    on<GetBloodPressureHistoryInitDataEvent>(
-        _onGetBloodPressureHistoryInitData);
-    on<GetBloodSugarHistoryInitDataEvent>(_onGetBloodSugarHistoryInitData);
-    on<GetTemperatureHistoryInitDataEvent>(_onGetTemperatureHistoryInitData);
-    on<GetSpo2HistoryInitDataEvent>(_onGetSpo2HistoryInitData);
+    // on<GetBloodPressureHistoryInitDataEvent>(
+    //     _onGetBloodPressureHistoryInitData);
+    // on<GetBloodSugarHistoryInitDataEvent>(_onGetBloodSugarHistoryInitData);
+    // on<GetTemperatureHistoryInitDataEvent>(_onGetTemperatureHistoryInitData);
+    // on<GetSpo2HistoryInitDataEvent>(_onGetSpo2HistoryInitData);
   }
 
   ///
@@ -63,7 +62,6 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
           if (response.updatedDate!.isAfter(event.startTime) &&
               response.updatedDate!.isBefore(event.endTime)) {
             listBloodPressure.add(response);
-            print(listBloodPressure);
           }
         }
         final newViewModel =
@@ -93,101 +91,100 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 
   ////
-  Future<void> _onGetBloodPressureHistoryInitData(
-    GetBloodPressureHistoryInitDataEvent event,
-    Emitter<HistoryState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        GetHistoryDataState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        final responses =
-            await bloodPressureUseCase.getListBloodPressureEntities(
-               patientId: event.id,
-                endTime: event.endTime,
-                startTime: event.startTime);
-        List<BloodPressureEntity>? listBloodPressure = [];
-        for (var response in responses) {
-          listBloodPressure.add(response);
-          print(listBloodPressure);
-        }
-        final newViewModel =
-            state.viewModel.copyWith(listBloodPressure: listBloodPressure);
-        emit(
-          state.copyWith(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ),
-        );
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+//   Future<void> _onGetBloodPressureHistoryInitData(
+//     GetBloodPressureHistoryInitDataEvent event,
+//     Emitter<HistoryState> emit,
+//   ) async {
+//     final connectivityResult = await _connectivity.checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.wifi ||
+//         connectivityResult == ConnectivityResult.mobile) {
+//       emit(
+//         GetHistoryDataState(
+//           status: BlocStatusState.loading,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//       try {
+//         final responses =
+//             await bloodPressureUseCase.getListBloodPressureEntities(
+//                patientId: event.id,
+//                 endTime: event.endTime,
+//                 startTime: event.startTime);
+//         List<BloodPressureEntity>? listBloodPressure = [];
+//         for (var response in responses) {
+//           listBloodPressure.add(response);
+//         }
+//         final newViewModel =
+//             state.viewModel.copyWith(listBloodPressure: listBloodPressure);
+//         emit(
+//           state.copyWith(
+//             status: BlocStatusState.success,
+//             viewModel: newViewModel,
+//           ),
+//         );
+//       } catch (e) {
+//         emit(
+//           state.copyWith(
+//             status: BlocStatusState.failure,
+//             viewModel: state.viewModel,
+//           ),
+//         );
+//       }
+//     } else {
+//       emit(
+//         WifiDisconnectState(
+//           status: BlocStatusState.success,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//     }
+//   }
 
-  ///
+//   ///
 
-  Future<void> _onGetBloodSugarHistoryInitData(
-    GetBloodSugarHistoryInitDataEvent event,
-    Emitter<HistoryState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        GetHistoryDataState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        final responses = await bloodSugarUseCase.getListBloodSugarEntities(
-            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
+//   Future<void> _onGetBloodSugarHistoryInitData(
+//     GetBloodSugarHistoryInitDataEvent event,
+//     Emitter<HistoryState> emit,
+//   ) async {
+//     final connectivityResult = await _connectivity.checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.wifi ||
+//         connectivityResult == ConnectivityResult.mobile) {
+//       emit(
+//         GetHistoryDataState(
+//           status: BlocStatusState.loading,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//       try {
+//         final responses = await bloodSugarUseCase.getListBloodSugarEntities(
+//             patientId: event.id, endTime: event.endTime, startTime: event.startTime);
 
-        final newViewModel =
-            state.viewModel.copyWith(listBloodSugar: responses);
-        emit(
-          state.copyWith(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ),
-        );
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
-/////
+//         final newViewModel =
+//             state.viewModel.copyWith(listBloodSugar: responses);
+//         emit(
+//           state.copyWith(
+//             status: BlocStatusState.success,
+//             viewModel: newViewModel,
+//           ),
+//         );
+//       } catch (e) {
+//         emit(
+//           state.copyWith(
+//             status: BlocStatusState.failure,
+//             viewModel: state.viewModel,
+//           ),
+//         );
+//       }
+//     } else {
+//       emit(
+//         WifiDisconnectState(
+//           status: BlocStatusState.success,
+//           viewModel: state.viewModel,
+//         ),
+//       );
+//     }
+//   }
+// /////
 
   Future<void> _onGetBloodSugarHistoryData(
     GetBloodSugarHistoryDataEvent event,
@@ -204,7 +201,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await bloodSugarUseCase.getListBloodSugarEntities(
-            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id,
+            endTime: event.endTime,
+            startTime: event.startTime);
         List<BloodSugarEntity>? listBloodSugar = [];
         for (var response in responses) {
           if (response.updatedDate!.isAfter(event.startTime) &&
@@ -240,48 +239,48 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 //////
 
-  Future<void> _onGetTemperatureHistoryInitData(
-    GetTemperatureHistoryInitDataEvent event,
-    Emitter<HistoryState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        GetHistoryDataState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        final responses = await temperatureUsecase.getListTemperatureEntities(
-            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
+  // Future<void> _onGetTemperatureHistoryInitData(
+  //   GetTemperatureHistoryInitDataEvent event,
+  //   Emitter<HistoryState> emit,
+  // ) async {
+  //   final connectivityResult = await _connectivity.checkConnectivity();
+  //   if (connectivityResult == ConnectivityResult.wifi ||
+  //       connectivityResult == ConnectivityResult.mobile) {
+  //     emit(
+  //       GetHistoryDataState(
+  //         status: BlocStatusState.loading,
+  //         viewModel: state.viewModel,
+  //       ),
+  //     );
+  //     try {
+  //       final responses = await temperatureUsecase.getListTemperatureEntities(
+  //           patientId: event.id, endTime: event.endTime, startTime: event.startTime);
 
-        final newViewModel =
-            state.viewModel.copyWith(listTemperature: responses);
-        emit(
-          state.copyWith(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ),
-        );
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+  //       final newViewModel =
+  //           state.viewModel.copyWith(listTemperature: responses);
+  //       emit(
+  //         state.copyWith(
+  //           status: BlocStatusState.success,
+  //           viewModel: newViewModel,
+  //         ),
+  //       );
+  //     } catch (e) {
+  //       emit(
+  //         state.copyWith(
+  //           status: BlocStatusState.failure,
+  //           viewModel: state.viewModel,
+  //         ),
+  //       );
+  //     }
+  //   } else {
+  //     emit(
+  //       WifiDisconnectState(
+  //         status: BlocStatusState.success,
+  //         viewModel: state.viewModel,
+  //       ),
+  //     );
+  //   }
+  // }
 
 //////
   Future<void> _onGetTemperatureHistoryData(
@@ -299,7 +298,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await temperatureUsecase.getListTemperatureEntities(
-           patientId: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id,
+            endTime: event.endTime,
+            startTime: event.startTime);
         List<TemperatureEntity>? listTemperature = [];
         for (var response in responses) {
           if (response.updatedDate!.isAfter(event.startTime) &&
@@ -333,47 +334,47 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     }
   }
 
-  Future<void> _onGetSpo2HistoryInitData(
-    GetSpo2HistoryInitDataEvent event,
-    Emitter<HistoryState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        GetHistoryDataState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        final responses = await spo2Usecase.getListSpo2Entities(
-            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
+  // Future<void> _onGetSpo2HistoryInitData(
+  //   GetSpo2HistoryInitDataEvent event,
+  //   Emitter<HistoryState> emit,
+  // ) async {
+  //   final connectivityResult = await _connectivity.checkConnectivity();
+  //   if (connectivityResult == ConnectivityResult.wifi ||
+  //       connectivityResult == ConnectivityResult.mobile) {
+  //     emit(
+  //       GetHistoryDataState(
+  //         status: BlocStatusState.loading,
+  //         viewModel: state.viewModel,
+  //       ),
+  //     );
+  //     try {
+  //       final responses = await spo2Usecase.getListSpo2Entities(
+  //           patientId: event.id, endTime: event.endTime, startTime: event.startTime);
 
-        final newViewModel = state.viewModel.copyWith(listSpo2: responses);
-        emit(
-          state.copyWith(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ),
-        );
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
-  }
+  //       final newViewModel = state.viewModel.copyWith(listSpo2: responses);
+  //       emit(
+  //         state.copyWith(
+  //           status: BlocStatusState.success,
+  //           viewModel: newViewModel,
+  //         ),
+  //       );
+  //     } catch (e) {
+  //       emit(
+  //         state.copyWith(
+  //           status: BlocStatusState.failure,
+  //           viewModel: state.viewModel,
+  //         ),
+  //       );
+  //     }
+  //   } else {
+  //     emit(
+  //       WifiDisconnectState(
+  //         status: BlocStatusState.success,
+  //         viewModel: state.viewModel,
+  //       ),
+  //     );
+  //   }
+  // }
 /////
 
   Future<void> _onGetSpo2HistoryData(
@@ -391,7 +392,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       );
       try {
         final responses = await spo2Usecase.getListSpo2Entities(
-            patientId: event.id, endTime: event.endTime, startTime: event.startTime);
+            patientId: event.id,
+            endTime: event.endTime,
+            startTime: event.startTime);
         List<Spo2Entity>? listSpo2 = [];
         for (var response in responses) {
           if (response.updatedDate!.isAfter(event.startTime) &&

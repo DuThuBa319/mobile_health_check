@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
@@ -10,6 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../classes/language.dart';
 
 import '../../../../common/singletons.dart';
+import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/dialog_two_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/loading_widget.dart';
@@ -83,19 +85,20 @@ class _PatientListState extends State<PatientListScreen> {
                   listener: _blocListener,
                   builder: (context, state) {
                     if (state is GetPatientInitialState) {
-                      if (userDataData.getUser()!.role! == UserRole.doctor) {
+                      // if (userDataData.getUser()?.role == UserRole.doctor) {
                         patientBloc.add(GetPatientListEvent(userId: widget.id));
-                      } else if (userDataData.getUser()!.role! ==
-                          UserRole.relative) {
-                        patientBloc.add(GetPatientListOfRelativeEvent(
-                            relativeId: widget.id));
-                      }
+                      // }
+                      //  else if (userDataData.getUser()?.role ==
+                      //     UserRole.relative) {
+                      //   patientBloc.add(GetPatientListOfRelativeEvent(
+                      //       relativeId: widget.id));
+                      // }
                     }
 
                     if ((state is GetPatientListState &&
                             state.status == BlocStatusState.loading) ||
-                        (state is GetPatientListOfRelativeState &&
-                            state.status == BlocStatusState.loading) ||
+                        // (state is GetPatientListOfRelativeState &&
+                        //     state.status == BlocStatusState.loading) ||
                         (state is SearchPatientState &&
                             state.status == BlocStatusState.loading)) {
                       return Padding(
@@ -280,8 +283,9 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.loading) ||
                         (state is GetPatientListState &&
                             state.status == BlocStatusState.success) ||
-                        (state is GetPatientListOfRelativeState &&
-                            state.status == BlocStatusState.success) ||
+                        // (state is GetPatientListOfRelativeState &&
+                        //     state.status == BlocStatusState.success) 
+                        //     ||
                         (state is RegistPatientState &&
                             state.status == BlocStatusState.loading)) {
                       return Padding(
@@ -461,16 +465,16 @@ class _PatientListState extends State<PatientListScreen> {
                                     await Future.delayed(
                                         const Duration(milliseconds: 1000));
                                     _refreshController.refreshCompleted();
-                                    if (userDataData.getUser()!.role! ==
-                                        UserRole.doctor) {
+                                    // if (userDataData.getUser()!.role! ==
+                                    //     UserRole.doctor) {
                                       patientBloc.add(GetPatientListEvent(
                                           userId: widget.id));
-                                    } else if (userDataData.getUser()!.role! ==
-                                        UserRole.relative) {
-                                      patientBloc.add(
-                                          GetPatientListOfRelativeEvent(
-                                              relativeId: widget.id));
-                                    }
+                                    // } else if (userDataData.getUser()!.role! ==
+                                    //     UserRole.relative) {
+                                    //   patientBloc.add(
+                                    //       GetPatientListOfRelativeEvent(
+                                    //           relativeId: widget.id));
+                                    // }
                                   },
                                   child: ListView.builder(
                                     physics: const BouncingScrollPhysics(),
@@ -710,9 +714,12 @@ class _PatientListState extends State<PatientListScreen> {
                     }
 
                     if ((state is GetPatientListState &&
-                            state.status == BlocStatusState.failure) ||
-                        state is GetPatientListOfRelativeState &&
-                            state.status == BlocStatusState.failure) {
+                            state.status == BlocStatusState.failure) 
+                            // ||
+                        // state is GetPatientListOfRelativeState &&
+                        //     state.status == BlocStatusState.failure
+                            )
+                             {
                       return Center(
                         child: Text(translation(context).error),
                       );

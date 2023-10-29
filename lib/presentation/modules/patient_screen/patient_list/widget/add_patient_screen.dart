@@ -78,7 +78,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 (state.viewModel.errorMessage ==
                         translation(context).duplicatedRelationshipPAD ||
                     state.viewModel.errorMessage ==
-                        translation(context).hasDoctorBefore)) {
+                        translation(context).hasDoctorBefore ||
+                    state.viewModel.errorMessage ==
+                        translation(context).error)) {
               showNoticeDialog(
                 context: context,
                 message: state.viewModel.errorMessage!,
@@ -86,14 +88,17 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 titleBtn: translation(context).exit,
               );
             }
+//! WIFI DISCONNECT
+            if (state is WifiDisconnectState &&
+                state.status == BlocStatusState.success) {
+              showNoticeDialog(
+                  context: context,
+                  message: translation(context).wifiDisconnect,
+                  title: translation(context).notification,
+                  titleBtn: translation(context).exit);
+            }
           },
           builder: (context, state) {
-            // if (state is RegistPatientState &&
-            //     state.status == BlocStatusState.loading) {
-            //   return const Center(
-            //     child: Loading(brightness: Brightness.light),
-            //   );
-            // }
             return SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.only(

@@ -13,11 +13,11 @@ class GetPatientListEvent extends PatientEvent {
   GetPatientListEvent({required this.userId}) : super();
 }
 
-class GetPatientListOfRelativeEvent extends PatientEvent {
-  // GetPatientListEvent();
-  final String relativeId;
-  GetPatientListOfRelativeEvent({required this.relativeId}) : super();
-}
+// class GetPatientListOfRelativeEvent extends PatientEvent {
+//   // GetPatientListEvent();
+//   final String relativeId;
+//   GetPatientListOfRelativeEvent({required this.relativeId}) : super();
+// }
 
 class FilterPatientEvent extends PatientEvent {
   FilterPatientEvent({required this.searchText, required this.id});
@@ -57,31 +57,31 @@ class GetPatientInforEvent extends PatientEvent {
   GetPatientInforEvent({required this.patientId}) : super();
 }
 
-class UpdatePatientInforEvent extends PatientEvent {
-  final String? id;
-  final PatientInforEntity patientInforEntity;
-  UpdatePatientInforEvent({required this.patientInforEntity, required this.id})
-      : super();
-}
+// class UpdatePatientInforEvent extends PatientEvent {
+//   final String? id;
+//   final PatientInforEntity patientInforEntity;
+//   UpdatePatientInforEvent({required this.patientInforEntity, required this.id})
+//       : super();
+// }
 
-class ChangePassEvent extends PatientEvent {
-  final String? userId;
-  final ChangePassEntity changePassEntity;
-  ChangePassEvent({required this.changePassEntity, required this.userId})
-      : super();
-}
+// class ChangePassEvent extends PatientEvent {
+//   final String? userId;
+//   final ChangePassEntity changePassEntity;
+//   ChangePassEvent({required this.changePassEntity, required this.userId})
+//       : super();
+// }
 
-class UpdateRelativeInforEvent extends PatientEvent {
-  final String? id;
-  final RelativeInforEntity relativeInforEntity;
-  UpdateRelativeInforEvent(
-      {required this.relativeInforEntity, required this.id})
-      : super();
-}
+// class UpdateRelativeInforEvent extends PatientEvent {
+//   final String? id;
+//   final RelativeInforEntity relativeInforEntity;
+//   UpdateRelativeInforEvent(
+//       {required this.relativeInforEntity, required this.id})
+//       : super();
+// }
 
-class UpdateDoctorInforEvent extends PatientEvent {
-  final String? id;
-  final DoctorInforEntity doctorInforEntity;
-  UpdateDoctorInforEvent({required this.doctorInforEntity, required this.id})
-      : super();
-}
+// class UpdateDoctorInforEvent extends PatientEvent {
+//   final String? id;
+//   final DoctorInforEntity doctorInforEntity;
+//   UpdateDoctorInforEvent({required this.doctorInforEntity, required this.id})
+//       : super();
+// }

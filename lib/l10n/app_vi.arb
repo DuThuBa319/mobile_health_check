@@ -155,8 +155,14 @@
 "deleteRelative":"Bạn muốn xóa người thân này?",
 "deletePatient":"Bạn muốn xóa bệnh nhân này?",
 "deleteDoctor":"Bạn muốn xóa bác sĩ này?",
+"deleteRelativeSuccessfully":"Xóa người thân thành công",
+"deletePatientSuccessfully":"Xóa bệnh nhân thành công",
+"deleteDoctorSuccessfully":"Xóa bác sĩ thành công",
+"deleteNotificationSuccessfully":"Xóa thông báo thành công",
+
 "noNotification":"Chưa có thông báo",
 "doNotHaveInformation":"chưa có thông tin",
+"loadAgain":"Tải lại",
 "male":"Nam",
 "female":"Nữ",
 "currentPassWrong":"Mật khẩu cũ không đúng!",
@@ -164,5 +170,6 @@
 "duplicatedRelationshipPAR":"Bệnh nhân đã đăng ký với người thân có số điện thoại này rồi",
 "duplicatedRelationshipPAD":"Bệnh nhân đã đăng ký với bác sĩ này rồi",
 "hasDoctorBefore":"Bệnh nhân đã đăng ký với bác sĩ khác",
-"maximumRelativeCount":"Số người thân đã đạt tối đa"
+"maximumRelativeCount":"Số người thân đã đạt tối đa",
+"wrongAccount":"Tài khoản hoặc mật khẩu không đúng"
 }
