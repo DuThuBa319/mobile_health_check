@@ -194,6 +194,13 @@ class BloodPressureHistoryScreenState
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                   }
+                  if (state is WifiDisconnectState &&
+                      state.status == BlocStatusState.success) {
+                    return Center(
+                        child: Text(translation(context).error,
+                            style: AppTextTheme.body2
+                                .copyWith(color: Colors.red)));
+                  }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
                       child: Loading(

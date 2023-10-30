@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../classes/language.dart';
 
-import '../../../../common/singletons.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/dialog_two_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
@@ -66,8 +65,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                   borderRadius: BorderRadius.circular(30)),
               child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, RouteList.addDoctor
-                       );
+                    Navigator.pushNamed(context, RouteList.addDoctor);
                     filterKeyword = TextEditingController(text: " ");
                   },
                   icon: const Icon(
@@ -97,7 +95,6 @@ class _DoctorListState extends State<DoctorListScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              //! đổi text => doctorList
                               Text(
                                 translation(context).doctorList,
                                 style: TextStyle(
@@ -416,8 +413,10 @@ class _DoctorListState extends State<DoctorListScreen> {
                     }
 
                     if ((state is GetDoctorListState &&
-                        state.status == BlocStatusState.failure)) {
-                      return  Center(
+                            state.status == BlocStatusState.failure) ||
+                        (state is WifiDisconnectState &&
+                            state.status == BlocStatusState.success)) {
+                      return Center(
                         child: Text(translation(context).error),
                       );
                     }

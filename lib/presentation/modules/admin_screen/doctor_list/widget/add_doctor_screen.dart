@@ -17,7 +17,7 @@ import '../../../../theme/theme_color.dart';
 import '../../bloc/get_doctor_bloc.dart';
 
 class AddDoctorScreen extends StatefulWidget {
- const AddDoctorScreen({
+  const AddDoctorScreen({
     super.key,
   });
   @override
@@ -53,6 +53,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
             icon: const Icon(Icons.arrow_back)),
         child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
           listener: (context, state) {
+            
             //! ADD Doctor SUCCESSFULLY
             if (state is RegistDoctorState &&
                 state.status == BlocStatusState.success) {
@@ -66,17 +67,28 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                   titleBtn: translation(context).exit);
             }
 
-            //! DUPLICATED DOCTOR ACCOUNT _ PHONENUMBER
+            //! EXCEPTION
             if (state is RegistDoctorState &&
                 state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).duplicatedDoctorPhoneNumber) {
+                (state.viewModel.errorMessage ==
+                        translation(context).duplicatedDoctorPhoneNumber ||
+                    state.viewModel.errorMessage ==
+                        translation(context).error)) {
               showNoticeDialog(
                 context: context,
                 message: state.viewModel.errorMessage!,
                 title: translation(context).notification,
                 titleBtn: translation(context).exit,
               );
+            }
+            //! WIFI DISCONNECT
+            if (state is WifiDisconnectState &&
+                state.status == BlocStatusState.success) {
+              showNoticeDialog(
+                  context: context,
+                  message: translation(context).wifiDisconnect,
+                  title: translation(context).notification,
+                  titleBtn: translation(context).exit);
             }
           },
           builder: (context, state) {

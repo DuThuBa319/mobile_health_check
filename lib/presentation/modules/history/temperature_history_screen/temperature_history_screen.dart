@@ -30,11 +30,13 @@ class TemperatureHistoryScreen extends StatefulWidget {
 
 class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
-  DateTime dateFrom = DateTime.now().add(const Duration(days: -1));
-  DateTime dateTo = DateTime.now();
-  String strDateFrom = DateFormat('dd/MM/yyyy')
-      .format(DateTime.now().add(const Duration(days: -1)));
-  String strDateTo = DateFormat('dd/MM/yyyy').format(DateTime.now());
+ DateTime timeFrom =
+      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
+  DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
+  String strTimeFrom = DateFormat('dd/MM/yyyy').format(
+      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00)));
+  String strTimeTo = DateFormat('dd/MM/yyyy')
+      .format(DateTime.now().add(const Duration(hours: 23, minutes: 59)));
   HistoryBloc get historyBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
@@ -98,7 +100,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                         Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5,
                             size: SizeConfig.screenWidth * 0.08),
-                        Text(strDateFrom,
+                        Text(strTimeFrom,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5,
                                 fontSize: SizeConfig.screenWidth * 0.05))
@@ -126,7 +128,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                         Icon(Icons.calendar_month,
                             color: AppColor.color43C8F5,
                             size: SizeConfig.screenWidth * 0.08),
-                        Text(strDateTo,
+                        Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
                                 color: AppColor.color43C8F5,
                                 fontSize: SizeConfig.screenWidth * 0.05))
@@ -141,13 +143,13 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
           Center(
             child: InkWell(
               onTap: () {
-                if (dateFrom.isAfter(dateTo)) {
+                if (timeFrom.isAfter(timeTo)) {
                   showNoticeDialog(
                       context: context,
                       message: translation(context).selectError,
                       onClose: () {
-                        dateFrom = dateTo;
-                        strDateFrom = DateFormat('dd/MM/yyyy').format(dateFrom);
+                        timeFrom = timeTo;
+                        strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
                       },
                       title: translation(context).notification,
                       titleBtn: translation(context).exit);
@@ -185,6 +187,13 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
              
+                  }
+                   if (state is WifiDisconnectState &&
+                      state.status == BlocStatusState.success) {
+                    return Center(
+                        child: Text(translation(context).error,
+                            style: AppTextTheme.body2
+                                .copyWith(color: Colors.red)));
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(

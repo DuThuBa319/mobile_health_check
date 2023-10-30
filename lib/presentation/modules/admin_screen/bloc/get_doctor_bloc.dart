@@ -163,7 +163,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     Emitter<GetDoctorState> emit,
   ) async {
     NavigationService navigationService = injector<NavigationService>();
-
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -178,11 +177,10 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
           event.accountEntity.name?.trim() == '' ||
           event.accountEntity.phoneNumber == null ||
           event.accountEntity.phoneNumber?.trim() == '' ||
-          event.accountEntity.phoneNumber!.length < 10) {
-
+          event.accountEntity.phoneNumber!.length < 10 ||
+          event.accountEntity.phoneNumber!.length > 11) {
         if (event.accountEntity.name == null ||
             event.accountEntity.name?.trim() == '') {
-              
           emit(
             RegistDoctorState(
               status: BlocStatusState.failure,
@@ -196,7 +194,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         }
         if (event.accountEntity.phoneNumber == null ||
             event.accountEntity.phoneNumber?.trim() == '' ||
-            event.accountEntity.phoneNumber!.length < 10) {
+            event.accountEntity.phoneNumber!.length < 10 ||
+            event.accountEntity.phoneNumber!.length > 11) {
           emit(
             RegistDoctorState(
               status: BlocStatusState.failure,
@@ -210,7 +209,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         }
         if ((event.accountEntity.phoneNumber == null ||
                 event.accountEntity.phoneNumber?.trim() == '' ||
-                event.accountEntity.phoneNumber!.length < 10) &&
+                event.accountEntity.phoneNumber!.length < 10 ||
+                event.accountEntity.phoneNumber!.length > 11) &&
             (event.accountEntity.name == null ||
                 event.accountEntity.name?.trim() == '')) {
           emit(
@@ -251,6 +251,14 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
                         .duplicatedDoctorPhoneNumber),
           ));
         }
+      } catch (response) {
+        emit(state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .error),
+        ));
       }
     } else {
       emit(

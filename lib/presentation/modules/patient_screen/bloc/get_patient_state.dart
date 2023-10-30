@@ -120,13 +120,13 @@ class GetDoctorListState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-class ChangePassState extends GetPatientState {
-  ChangePassState({
-    _ViewModel viewModel =
-        const _ViewModel(), //ViewModel là dữ liệu trong state
-    BlocStatusState status = BlocStatusState.initial, //status của state
-  }) : super(viewModel, status: status);
-}
+// class ChangePassState extends GetPatientState {
+//   ChangePassState({
+//     _ViewModel viewModel =
+//         const _ViewModel(), //ViewModel là dữ liệu trong state
+//     BlocStatusState status = BlocStatusState.initial, //status của state
+//   }) : super(viewModel, status: status);
+// }
 
 class WifiDisconnectState extends GetPatientState {
   WifiDisconnectState({
@@ -135,12 +135,12 @@ class WifiDisconnectState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-class GetPatientListOfRelativeState extends GetPatientState {
-  GetPatientListOfRelativeState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
+// class GetPatientListOfRelativeState extends GetPatientState {
+//   GetPatientListOfRelativeState({
+//     _ViewModel viewModel = const _ViewModel(),
+//     BlocStatusState status = BlocStatusState.initial,
+//   }) : super(viewModel, status: status);
+// }
 
 class SearchPatientState extends GetPatientState {
   SearchPatientState({
@@ -170,26 +170,26 @@ class RegistPatientState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-class UpdatePatientInforState extends GetPatientState {
-  UpdatePatientInforState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
+// class UpdatePatientInforState extends GetPatientState {
+//   UpdatePatientInforState({
+//     _ViewModel viewModel = const _ViewModel(),
+//     BlocStatusState status = BlocStatusState.initial,
+//   }) : super(viewModel, status: status);
+// }
 
-class UpdateRelativeInforState extends GetPatientState {
-  UpdateRelativeInforState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
+// class UpdateRelativeInforState extends GetPatientState {
+//   UpdateRelativeInforState({
+//     _ViewModel viewModel = const _ViewModel(),
+//     BlocStatusState status = BlocStatusState.initial,
+//   }) : super(viewModel, status: status);
+// }
 
-class UpdateDoctorInforState extends GetPatientState {
-  UpdateDoctorInforState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
+// class UpdateDoctorInforState extends GetPatientState {
+//   UpdateDoctorInforState({
+//     _ViewModel viewModel = const _ViewModel(),
+//     BlocStatusState status = BlocStatusState.initial,
+//   }) : super(viewModel, status: status);
+// }
 
 class DeleteRelativeState extends GetPatientState {
   DeleteRelativeState({
@@ -222,11 +222,11 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  GetPatientListOfRelativeState: (viewModel, status) =>
-      GetPatientListOfRelativeState(
-        viewModel: viewModel,
-        status: status,
-      ),
+  // GetPatientListOfRelativeState: (viewModel, status) =>
+  //     GetPatientListOfRelativeState(
+  //       viewModel: viewModel,
+  //       status: status,
+  //     ),
   SearchPatientState: (viewModel, status) => SearchPatientState(
         viewModel: viewModel,
         status: status,
@@ -243,18 +243,18 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  UpdatePatientInforState: (viewModel, status) => UpdatePatientInforState(
-        viewModel: viewModel,
-        status: status,
-      ),
-  UpdateRelativeInforState: (viewModel, status) => UpdateRelativeInforState(
-        viewModel: viewModel,
-        status: status,
-      ),
-  UpdateDoctorInforState: (viewModel, status) => UpdateDoctorInforState(
-        viewModel: viewModel,
-        status: status,
-      ),
+  // UpdatePatientInforState: (viewModel, status) => UpdatePatientInforState(
+  //       viewModel: viewModel,
+  //       status: status,
+  //     ),
+  // UpdateRelativeInforState: (viewModel, status) => UpdateRelativeInforState(
+  //       viewModel: viewModel,
+  //       status: status,
+  //     ),
+  // UpdateDoctorInforState: (viewModel, status) => UpdateDoctorInforState(
+  //       viewModel: viewModel,
+  //       status: status,
+  //     ),
   DeleteRelativeState: (viewModel, status) => DeleteRelativeState(
         viewModel: viewModel,
         status: status,
@@ -267,8 +267,8 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  ChangePassState: (viewModel, status) => ChangePassState(
-        viewModel: viewModel,
-        status: status,
-      ),
+  // ChangePassState: (viewModel, status) => ChangePassState(
+  //       viewModel: viewModel,
+  //       status: status,
+  //     ),
 };

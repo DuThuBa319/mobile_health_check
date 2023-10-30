@@ -119,14 +119,15 @@ class PatientInforModel {
     );
   }
 
+//! GET PATIENT INFOR IN PATIENT APP DOESN'T GET INDICATOR OF EQUIPMENT
   PatientInforEntity getPatientInforEntityPatientApp() {
-    List<RelativeInforEntity> relativeEntities = [];
-    if (relatives != null || relatives!.isEmpty) {
-      for (var model in relatives!) {
-        relativeEntities.add(model.getRelativeInforEntity());
-      }
-    }
-    DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
+    // List<RelativeInforEntity> relativeEntities = [];
+    // if (relatives != null || relatives!.isEmpty) {
+    //   for (var model in relatives!) {
+    //     relativeEntities.add(model.getRelativeInforEntity());
+    //   }
+    // }
+    // DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
     return PatientInforEntity(
       id: id ?? "",
       age: age,
@@ -137,8 +138,8 @@ class PatientInforModel {
       gender: gender,
       personType: personType,
       weight: weight,
-      doctor: doctorEntity,
-      relatives: relativeEntities,
+      // doctor: doctorEntity,
+      // relatives: relativeEntities,
     );
   }
 

@@ -8,6 +8,18 @@ extension LoginAction on _LoginState {
     if (state is LoginInitialState && state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);
     }
+
+    if (state is LoginActionState &&
+        state.status == BlocStatusState.failure &&
+        state.viewModel.errorMessage1 == translation(context).wrongAccount) {
+      Navigator.pop(context);
+      showNoticeDialog(
+          context: context,
+          message: translation(context).wrongAccount,
+          title: translation(context).notification,
+          titleBtn: translation(context).exit);
+    }
+
     if (state is LoginActionState && state.status == BlocStatusState.loading) {
       showDialog(
         barrierDismissible: false,
@@ -38,35 +50,11 @@ extension LoginAction on _LoginState {
     }
     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
-      // showNoticeDialog(title: ,titleBtn: );
-      showDialog(
+      showNoticeDialog(
           context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(
-                translation(context).notification,
-                style: TextStyle(
-                    color: AppColor.lineDecor,
-                    fontSize: SizeConfig.screenWidth * 0.08,
-                    fontWeight: FontWeight.bold),
-              ),
-              content: Text(
-                translation(context).wifiDisconnect,
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: SizeConfig.screenWidth * 0.05,
-                    fontWeight: FontWeight.w400),
-              ),
-              actions: [
-                TextButton(
-                  child: Text(translation(context).accept),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          });
+          message: translation(context).wifiDisconnect,
+          title: translation(context).notification,
+          titleBtn: translation(context).exit);
     }
     if (state is GetUserDataState && state.status == BlocStatusState.loading) {
       showDialog(
@@ -127,17 +115,31 @@ extension LoginAction on _LoginState {
       }
     }
 
-    if (state.status == BlocStatusState.failure) {
+    if (state is GetUserDataState && state.status == BlocStatusState.failure) {
       Navigator.pop(context);
       showNoticeDialog(
           context: context,
-          message: translation(context).pleaseEnterCompleteLogin,
+          message: translation(context).error,
           title: translation(context).notification,
           titleBtn: translation(context).exit);
       if (userDataData.getUser() != null) {
         userDataData.localDataManager.preferencesHelper.remove('user');
       }
     }
+  }
+
+  Future<bool> _onWillPop() async {
+    return (await showNoticeDialogTwoButton(
+            context: context,
+            message: translation(context).exitApp,
+            title: translation(context).areYouSure,
+            titleBtn1: translation(context).no,
+            titleBtn2: translation(context).yes,
+            onClose1: () {},
+            onClose2: () {
+              SystemNavigator.pop();
+            })) ??
+        false;
   }
 
   Future<void> login() async {

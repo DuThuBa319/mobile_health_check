@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/presentation/modules/admin_screen/bloc/get_doctor_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/notification_onesignal/widget/notification_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../classes/language.dart';
 import '../../../presentation/common_widget/screen_form/custom_screen_form.dart';
 import '../../common_widget/common_button.dart';
+import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/loading_widget.dart';
@@ -129,7 +131,7 @@ class _NotificationListState extends State<NotificationScreen> {
                         CommonButton(
                           height: SizeConfig.screenHeight * 0.04,
                           width: SizeConfig.screenWidth * 0.25,
-                          title: 'Thử lại',
+                          title: translation(context).loadAgain,
                           onTap: () {
                             notificationBloc.add(RefreshNotificationListEvent(
                                 doctorId: doctorId));
@@ -214,6 +216,13 @@ class _NotificationListState extends State<NotificationScreen> {
                       ],
                     );
                   }
+                } else if (state is GetNotificationListState &&
+                        state.status == BlocStatusState.failure ||
+                    state is WifiDisconnectState &&
+                        state.status == BlocStatusState.success) {
+                  return Center(
+                    child: Text(translation(context).error),
+                  );
                 }
                 return Container();
               }),

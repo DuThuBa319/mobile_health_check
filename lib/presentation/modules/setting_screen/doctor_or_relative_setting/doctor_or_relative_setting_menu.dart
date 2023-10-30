@@ -96,7 +96,7 @@ class _SettingMenuState extends State<SettingMenu> {
                   SizedBox(height: SizeConfig.screenWidth * 0.05),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
-                        context, RouteList.settingDrPassword),
+                        context, RouteList.settingDrOrRePassword),
                     child: settingMenuCell(
                         translation(context).updatePassword, context),
                   ),

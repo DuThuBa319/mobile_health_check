@@ -26,7 +26,7 @@ class SignInModel {
       'Doctor': UserRole.doctor,
       'Admin': UserRole.admin,
       'Patient': UserRole.patient,
-      'Rerelative': UserRole.relative
+      'Relative': UserRole.relative
     };
 
     return SignInEntity(

@@ -121,7 +121,7 @@
 "duplicatedDoctorPhoneNumber":"This phone number has been already registered by another account",
 "duplicatedRelationshipPAD":"The relationship between these entities has been existed",
 "noNotification":"there is no notification",
-
+"wrongAccount":"Username or password is invalid",
 
 "invalidPhonenumber":"Invalid phone number, must be 10-11 characters long",
 "addRelativeSuccessfully":"Add relative successfully",
@@ -158,9 +158,17 @@
 "no":"No",
 "yes":"Yes",
 "phoneNumberCountError":"Incorrect phone number, must be 10-11 characters",
+
 "deleteRelative":"Delete this relative?",
 "deletePatient":"Delete this patient?",
 "deleteDoctor":"Delete this doctor?",
+"loadAgain":"Load again",
+
+"deleteRelativeSuccessfully":"Delete relative successfully",
+"deletePatientSuccessfully":"Delete patient successfully",
+"deleteDoctorSuccessfully":"Delete doctor successfully",
+"deleteNotificationSuccessfully":"Delete notification successfully",
+
 "doNotHaveInformation":"Don't have information",
 "male":"Male",
 "female":"Female",

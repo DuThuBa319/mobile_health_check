@@ -35,7 +35,7 @@ static const String login = '/login';
   static const String spo2History = '/spo2History';
 
   static const String settingDrPhone = '/settingDrPhone';
-  static const String settingDrPassword = '/settingDrPass';
+  static const String settingDrOrRePassword = '/settingDrOrRePass';
   static const String settingLanguage = '/settingLanguage';
 
   static const String setting = '/setting';
@@ -48,7 +48,7 @@ static const String login = '/login';
     static const String addDoctor = '/addDoctor';
 
   static const String addRelative = '/addRelative';
-  static const String signUp = '/signUp';
+
 
   static const String bloodPressureScreen = '/bloodPressureScreen';
   static const String bloodGlucoseScreen = '/bloodGlucoseScreen';

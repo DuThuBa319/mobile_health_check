@@ -122,7 +122,9 @@ import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.da
     as _i64;
 import '../presentation/modules/patient_screen/bloc/get_patient_bloc.dart'
     as _i60;
-import 'di.dart' as _i65;
+import '../presentation/modules/setting_screen/setting_bloc/setting_bloc.dart'
+    as _i65;
+import 'di.dart' as _i66;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
@@ -250,9 +252,17 @@ _i1.GetIt $initGetIt(
         gh<_i35.TemperatureUsecase>(),
         gh<_i31.Spo2Usecase>(),
       ));
+  gh.factory<_i65.SettingBloc>(() => _i65.SettingBloc(
+        gh<_i23.PatientUsecase>(),
+        gh<_i8.DoctorInforUsecase>(),
+        gh<_i27.RelativeInforUsecase>(),
+        gh<_i59.Connectivity>(),
+        gh<_i18.NotificationUsecase>(),
+        gh<_i57.ChangePassUsecase>(),
+      ));
   return getIt;
 }
 
-class _$DioProvider extends _i65.DioProvider {}
+class _$DioProvider extends _i66.DioProvider {}
 
-class _$AppModule extends _i65.AppModule {}
+class _$AppModule extends _i66.AppModule {}

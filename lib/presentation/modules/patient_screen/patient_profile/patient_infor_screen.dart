@@ -72,6 +72,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
+              
               if ((state is GetPatientInitialState) ||
                   (state is DeleteRelativeState &&
                       state.status == BlocStatusState.success)) {
