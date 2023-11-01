@@ -283,9 +283,7 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.loading) ||
                         (state is GetPatientListState &&
                             state.status == BlocStatusState.success) ||
-                        // (state is GetPatientListOfRelativeState &&
-                        //     state.status == BlocStatusState.success) 
-                        //     ||
+                        
                         (state is RegistPatientState &&
                             state.status == BlocStatusState.loading)) {
                       return Padding(

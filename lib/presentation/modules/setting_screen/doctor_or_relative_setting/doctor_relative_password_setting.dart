@@ -10,9 +10,9 @@ import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
 import '../../../common_widget/common_button.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
-import '../../../common_widget/dialog/loading_dialog.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
+import '../../../common_widget/loading_widget.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 import '../setting_bloc/setting_bloc.dart';
@@ -52,58 +52,58 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
             onPressed: () => Navigator.pushNamed(context, RouteList.setting),
             icon: const Icon(Icons.arrow_back)),
         selectedIndex: 2,
-        child: SingleChildScrollView(
-          child: BlocConsumer<SettingBloc, SettingState>(
-              listener: (context, state) {
-            //! WIFI DISCONNECT
-            if (state is WifiDisconnectState &&
-                state.status == BlocStatusState.success) {
-              showNoticeDialog(
-                  context: context,
-                  message: translation(context).wifiDisconnect,
-                  title: translation(context).notification,
-                  titleBtn: translation(context).accept);
-            }
+        child:
+            BlocConsumer<SettingBloc, SettingState>(listener: (context, state) {
+          //! WIFI DISCONNECT
+          if (state is WifiDisconnectState &&
+              state.status == BlocStatusState.success) {
+            showNoticeDialog(
+                context: context,
+                message: translation(context).wifiDisconnect,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
 
-            if (state is ChangePassState &&
-                state.status == BlocStatusState.loading) {
-              showLoadingDialog(context: context);
-            }
+          //! ERROR CURRENT PASSWORD
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.failure &&
+              state.viewModel.errorMessage ==
+                  translation(context).currentPassWrong) {
+            showNoticeDialog(
+                context: context,
+                message: translation(context).currentPassWrong,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
 
-            //! ERROR CURRENT PASSWORD
-            if (state is ChangePassState &&
-                state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).currentPassWrong) {
-              showNoticeDialog(
-                  onClose: () {
-                    Navigator.pushNamed(
-                        context, RouteList.settingDrOrRePassword);
-                  },
-                  context: context,
-                  message: translation(context).currentPassWrong,
-                  title: translation(context).notification,
-                  titleBtn: translation(context).accept);
-            }
-
-            //! CHANGE PASS SUCCESSFULLY
-            if (state is ChangePassState &&
-                state.status == BlocStatusState.success) {
-              showNoticeDialog(
-                  onClose: () {
-                    Navigator.pushNamed(context, RouteList.setting,
-                        arguments: userDataData.getUser()?.id);
-                  },
-                  context: context,
-                  message: translation(context).updatePasswordSuccessfullly,
-                  title: translation(context).notification,
-                  titleBtn: translation(context).accept);
-            }
-          }, builder: (context, state) {
-            return Container(
-              margin: EdgeInsets.only(
-                  left: SizeConfig.screenWidth * 0.06,
-                  right: SizeConfig.screenWidth * 0.06),
+          //! CHANGE PASS SUCCESSFULLY
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.success) {
+            showNoticeDialog(
+                onClose: () {
+                  // Navigator.pushNamed(context, RouteList.setting,
+                  //     arguments: userDataData.getUser()?.id);
+                  Navigator.pop(context);
+                },
+                context: context,
+                message: translation(context).updatePasswordSuccessfullly,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+        }, builder: (context, state) {
+          if (state is ChangePassState &&
+              state.status == BlocStatusState.loading) {
+            return const Center(
+              child: Loading(
+                brightness: Brightness.light,
+              ),
+            );
+          }
+          return Container(
+            margin: EdgeInsets.only(
+                left: SizeConfig.screenWidth * 0.06,
+                right: SizeConfig.screenWidth * 0.06),
+            child: SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -245,8 +245,8 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
                           }),
                     )
                   ]),
-            );
-          }),
-        ));
+            ),
+          );
+        }));
   }
 }
