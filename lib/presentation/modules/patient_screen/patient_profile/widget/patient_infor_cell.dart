@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../../../classes/language.dart';
-import '../../../../common_widget/common_button.dart';
+import '../../../../common_widget/rectangle_button.dart';
 import '../../../../theme/theme_color.dart';
 
 class PatientInforCell extends StatefulWidget {
@@ -93,7 +93,7 @@ class _PatientInforCellState extends State<PatientInforCell> {
                       ? translation(context).notUpdate
                       : widget.patientInforEntity.address!),
               SizedBox(height: SizeConfig.screenHeight * 0.03),
-              CommonButton(
+              RectangleButton(
                   width: SizeConfig.screenWidth * 0.9,
                   height: SizeConfig.screenHeight * 0.07,
                   title: translation(context).back,

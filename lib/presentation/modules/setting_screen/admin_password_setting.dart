@@ -9,7 +9,7 @@ import 'package:mobile_health_check/presentation/modules/setting_screen/setting_
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
 
-import '../../common_widget/common_button.dart';
+import '../../common_widget/rectangle_button.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/line_decor.dart';
@@ -229,7 +229,7 @@ class _SettingAdminPasswordState extends State<SettingAdminPassword> {
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,

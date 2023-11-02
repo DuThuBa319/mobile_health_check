@@ -5,7 +5,7 @@ import 'package:mobile_health_check/presentation/modules/setting_screen/widget_s
 
 import '../../../../classes/language.dart';
 import '../../../../function.dart';
-import '../../../common_widget/common_button.dart';
+import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../common_widget/screen_form/custom_screen_form_for_patient.dart';
 import '../../../route/route_list.dart';
@@ -89,7 +89,7 @@ class _PatientSettingMenuState extends State<PatientSettingMenu> {
                   ),
                   SizedBox(height: SizeConfig.screenWidth * 0.01),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).logOut,
                         buttonColor: AppColor.saveSetting,

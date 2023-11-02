@@ -1,5 +1,5 @@
 import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,10 +13,12 @@ import '../../../theme/theme_color.dart';
 
 class Spo2NotificationReadingScreen extends StatefulWidget {
   final NotificationEntity? notificationEntity;
-    final bool? navigateFromCell;
+  final bool? navigateFromCell;
 
   const Spo2NotificationReadingScreen(
-      {super.key, required this.notificationEntity, required this.navigateFromCell});
+      {super.key,
+      required this.notificationEntity,
+      required this.navigateFromCell});
 
   @override
   State<Spo2NotificationReadingScreen> createState() =>
@@ -122,7 +124,8 @@ class _Spo2NotificationReadingScreenState
                                       letterSpacing: -4,
                                       fontSize: SizeConfig.screenWidth * 0.25,
                                       // color: widget.notificationEntity!.spo2Entity!.statusColor,
-                                      color: widget.notificationEntity?.spo2Entity?.statusColor)),
+                                      color: widget.notificationEntity
+                                          ?.spo2Entity?.statusColor)),
                               TextSpan(
                                   text: ' %',
                                   style: AppTextTheme.body0.copyWith(
@@ -141,7 +144,7 @@ class _Spo2NotificationReadingScreenState
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  CommonButton(
+                  RectangleButton(
                     editSizeText: true,
                     sizeText: SizeConfig.screenWidth * 0.04,
                     height: SizeConfig.screenHeight * 0.07,
@@ -159,7 +162,7 @@ class _Spo2NotificationReadingScreenState
                   const SizedBox(
                     width: 5,
                   ),
-                  CommonButton(
+                  RectangleButton(
                     editSizeText: true,
                     sizeText: SizeConfig.screenWidth * 0.04,
                     height: SizeConfig.screenHeight * 0.07,
@@ -168,8 +171,10 @@ class _Spo2NotificationReadingScreenState
                     buttonColor: Colors.red,
                     onTap: () {
                       // if (_isLoading == false) {
-(widget.navigateFromCell == true)? Navigator.pop(context):
-                      Navigator.pushNamed(context, RouteList.notification,arguments: userDataData.getUser()?.id);
+                      (widget.navigateFromCell == true)
+                          ? Navigator.pop(context)
+                          : Navigator.pushNamed(context, RouteList.notification,
+                              arguments: userDataData.getUser()?.id);
                       // }
                     },
                   ),

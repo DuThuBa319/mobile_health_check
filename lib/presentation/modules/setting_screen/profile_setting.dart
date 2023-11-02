@@ -14,7 +14,7 @@ import '../../../common/singletons.dart';
 import '../../../di/di.dart';
 import '../../../domain/entities/doctor_infor_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
-import '../../common_widget/common_button.dart';
+import '../../common_widget/rectangle_button.dart';
 import '../../common_widget/dialog/loading_dialog.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
@@ -270,7 +270,7 @@ class _SettingProfileState extends State<SettingProfile> {
                           _controllerAddress, translation(context).address),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                         width: widthCell,
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,

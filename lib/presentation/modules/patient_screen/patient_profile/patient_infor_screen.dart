@@ -16,7 +16,7 @@ import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
-import '../../../common_widget/common_button.dart';
+import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -72,7 +72,6 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
-              
               if ((state is GetPatientInitialState) ||
                   (state is DeleteRelativeState &&
                       state.status == BlocStatusState.success)) {
@@ -368,7 +367,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     },
                                   ),
                                   patient.relatives!.length <= 2
-                                      ? CommonButton(
+                                      ? RectangleButton(
                                           width: SizeConfig.screenWidth * 0.4,
                                           height:
                                               SizeConfig.screenHeight * 0.045,

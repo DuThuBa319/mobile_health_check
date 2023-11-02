@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form_for_patient.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -38,7 +38,6 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
   @override
   Widget build(BuildContext context) {
     return PatientCustomScreenForm(
-      
       title: translation(context).bloodGlucoseMeter,
       isShowAppBar: true,
       isShowLeadingButton: true,
@@ -102,7 +101,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                 // SizedBox(
                                 //     height:
                                 //         SizeConfig.screenHeight * 0.33),
-                                CommonButton(
+                                RectangleButton(
                                   buttonColor: AppColor.greyD9,
                                   textColor: Colors.white,
                                   height: SizeConfig.screenWidth * 0.18,
@@ -115,8 +114,6 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                 ),
                               ],
                             )),
-
-                      
                     ]),
               ),
             );
@@ -240,7 +237,8 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                               ),
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
-                                                labelText: translation(context).bloodSugar,
+                                                labelText: translation(context)
+                                                    .bloodSugar,
                                                 labelStyle: TextStyle(
                                                     color: AppColor.gray767676,
                                                     fontSize:
@@ -317,7 +315,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           Center(
-              child: CommonButton(
+              child: RectangleButton(
             height: SizeConfig.screenWidth * 0.18,
             width: SizeConfig.screenWidth * 0.8,
             title: translation(context).upload,

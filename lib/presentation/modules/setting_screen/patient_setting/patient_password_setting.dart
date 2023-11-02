@@ -7,7 +7,7 @@ import 'package:mobile_health_check/function.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
-import '../../../common_widget/common_button.dart';
+import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/loading_dialog.dart';
 import '../../../common_widget/enum_common.dart';
@@ -228,7 +228,7 @@ class _SettingPatientPasswordState extends State<SettingPatientPassword> {
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,

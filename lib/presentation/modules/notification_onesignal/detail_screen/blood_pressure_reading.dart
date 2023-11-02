@@ -1,6 +1,6 @@
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -187,7 +187,7 @@ class _BloodPressureNotificationReadingScreenState
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  CommonButton(
+                  RectangleButton(
                     editSizeText: true,
                     sizeText: SizeConfig.screenWidth * 0.04,
                     height: SizeConfig.screenHeight * 0.07,
@@ -205,7 +205,7 @@ class _BloodPressureNotificationReadingScreenState
                   const SizedBox(
                     width: 5,
                   ),
-                  CommonButton(
+                  RectangleButton(
                     editSizeText: true,
                     sizeText: SizeConfig.screenWidth * 0.04,
                     height: SizeConfig.screenHeight * 0.07,

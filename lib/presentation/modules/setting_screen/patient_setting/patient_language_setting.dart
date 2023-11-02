@@ -4,7 +4,7 @@ import '../../../../classes/language.dart';
 import '../../../../classes/language_constant.dart';
 import '../../../../common/singletons.dart';
 import '../../../../main.dart';
-import '../../../common_widget/common_button.dart';
+import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/line_decor.dart';
 import '../../../common_widget/screen_form/custom_screen_form_for_patient.dart';
 import '../../../route/route_list.dart';
@@ -151,7 +151,7 @@ class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
                     ),
                   ),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                       height: sreenHeight * 0.07,
                       width: sreenWidth * 0.7,
                       title: translation(context).save,

@@ -28,6 +28,11 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+    <!--Flutter Phone Direct Caller-->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+  		<string>tel</string>
+	</array>
 	<!-- Permission options for the `location` group -->
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>Need location when in use</string>

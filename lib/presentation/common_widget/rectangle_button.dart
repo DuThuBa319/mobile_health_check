@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CommonButton extends StatelessWidget {
+class RectangleButton extends StatelessWidget {
   final double height;
   final double? width;
   final Color? buttonColor;
@@ -9,7 +9,7 @@ class CommonButton extends StatelessWidget {
   final double? sizeText;
   final bool? editSizeText;
   final void Function()? onTap;
-  const CommonButton(
+  const RectangleButton(
       {super.key,
       this.editSizeText,
       this.sizeText,

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
 import '../../../../classes/language.dart';
 import '../../../../function.dart';
-import '../../../common_widget/common_button.dart';
+import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import '../../../route/route_list.dart';
@@ -113,7 +113,7 @@ class _SettingMenuState extends State<SettingMenu> {
                         settingMenuCell(translation(context).language, context),
                   ),
                   SizedBox(height: SizeConfig.screenWidth * 0.01),
-                  CommonButton(
+                  RectangleButton(
                       height: SizeConfig.screenHeight * 0.07,
                       title: translation(context).logOut,
                       buttonColor: AppColor.saveSetting,

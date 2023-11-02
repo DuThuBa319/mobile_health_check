@@ -8,7 +8,7 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 
-import '../../../../common_widget/common_button.dart';
+import '../../../../common_widget/rectangle_button.dart';
 import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/enum_common.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
@@ -53,7 +53,6 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
             icon: const Icon(Icons.arrow_back)),
         child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
           listener: (context, state) {
-            
             //! ADD Doctor SUCCESSFULLY
             if (state is RegistDoctorState &&
                 state.status == BlocStatusState.success) {
@@ -207,7 +206,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                         width: SizeConfig.screenWidth * 0.9,
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,

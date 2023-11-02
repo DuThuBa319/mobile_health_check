@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
-import 'package:mobile_health_check/presentation/modules/patient_screen/patient_list/widget/patient_cell.dart';
+import 'package:mobile_health_check/presentation/modules/patient_screen/patient_list/widget/patient_list_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

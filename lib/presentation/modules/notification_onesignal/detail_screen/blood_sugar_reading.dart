@@ -1,6 +1,6 @@
 import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
 import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -161,7 +161,7 @@ class _BloodSugarNotificationReadingScreenState
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  CommonButton(
+                  RectangleButton(
                     editSizeText: true,
                     sizeText: SizeConfig.screenWidth * 0.04,
                     height: SizeConfig.screenHeight * 0.07,
@@ -179,7 +179,7 @@ class _BloodSugarNotificationReadingScreenState
                   const SizedBox(
                     width: 5,
                   ),
-                  CommonButton(
+                  RectangleButton(
                     editSizeText: true,
                     sizeText: SizeConfig.screenWidth * 0.04,
                     height: SizeConfig.screenHeight * 0.07,

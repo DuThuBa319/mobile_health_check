@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../classes/language.dart';
 import '../../../presentation/common_widget/screen_form/custom_screen_form.dart';
-import '../../common_widget/common_button.dart';
+import '../../common_widget/rectangle_button.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
@@ -128,7 +128,7 @@ class _NotificationListState extends State<NotificationScreen> {
                           style: AppTextTheme.body2.copyWith(color: Colors.red),
                         ),
                         const SizedBox(height: 10),
-                        CommonButton(
+                        RectangleButton(
                           height: SizeConfig.screenHeight * 0.04,
                           width: SizeConfig.screenWidth * 0.25,
                           title: translation(context).loadAgain,

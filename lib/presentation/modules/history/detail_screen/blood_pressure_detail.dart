@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -99,7 +99,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                 height: SizeConfig.screenWidth * 0.08,
               ),
               CustomImagePicker(
-                imagePath: (isWifiAvailable ||is4GAvailable)
+                imagePath: (isWifiAvailable || is4GAvailable)
                     ? widget.bloodPressureEntity?.imageLink ?? ''
                     : null, // Set imagePath to null if Wi-Fi is not available
                 isOnTapActive: true,
@@ -188,7 +188,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                     ],
                   )),
               SizedBox(height: SizeConfig.screenWidth * 0.05),
-              CommonButton(
+              RectangleButton(
                 height: SizeConfig.screenHeight * 0.07,
                 title: translation(context).back,
                 buttonColor: Colors.red,
