@@ -72,7 +72,7 @@ class _SettingDrOrRePasswordState extends State<SettingDrOrRePassword> {
 
             //! ERROR CURRENT PASSWORD
             if (state is ChangePassState &&
-                state.status == BlocStatusState.failure &&
+                state.status  == BlocStatusState.failure &&
                 state.viewModel.errorMessage ==
                     translation(context).currentPassWrong) {
               showNoticeDialog(

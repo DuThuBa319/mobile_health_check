@@ -18,7 +18,7 @@ import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../route/route_list.dart';
-import '../bloc/get_patient_bloc.dart';
+import '../bloc/get_patient_bloc.dart'; 
 
 part 'patients_list_screen.action.dart';
 
@@ -85,20 +85,10 @@ class _PatientListState extends State<PatientListScreen> {
                   listener: _blocListener,
                   builder: (context, state) {
                     if (state is GetPatientInitialState) {
-                      // if (userDataData.getUser()?.role == UserRole.doctor) {
                         patientBloc.add(GetPatientListEvent(userId: widget.id));
-                      // }
-                      //  else if (userDataData.getUser()?.role ==
-                      //     UserRole.relative) {
-                      //   patientBloc.add(GetPatientListOfRelativeEvent(
-                      //       relativeId: widget.id));
-                      // }
                     }
-
                     if ((state is GetPatientListState &&
                             state.status == BlocStatusState.loading) ||
-                        // (state is GetPatientListOfRelativeState &&
-                        //     state.status == BlocStatusState.loading) ||
                         (state is SearchPatientState &&
                             state.status == BlocStatusState.loading)) {
                       return Padding(
@@ -139,7 +129,7 @@ class _PatientListState extends State<PatientListScreen> {
                                                   RouteList.notification,
                                                   arguments: userDataData
                                                       .getUser()!
-                                                      .id!);
+                                                      .id);
                                             },
                                             child: badges.Badge(
                                               position:
