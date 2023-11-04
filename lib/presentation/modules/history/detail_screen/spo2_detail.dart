@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,8 +19,7 @@ class Spo2DetailScreen extends StatefulWidget {
 }
 
 class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
-
- bool isWifiAvailable = false;
+  bool isWifiAvailable = false;
   bool is4GAvailable = false;
   @override
   void initState() {
@@ -93,8 +92,8 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
               SizedBox(
                 height: SizeConfig.screenHeight * 0.04,
               ),
-            CustomImagePicker(
-                imagePath: (isWifiAvailable ||is4GAvailable)
+              CustomImagePicker(
+                imagePath: (isWifiAvailable || is4GAvailable)
                     ? widget.spo2Entity?.imageLink ?? ''
                     : null, // Set imagePath to null if Wi-Fi is not available
                 isOnTapActive: true,
@@ -149,7 +148,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                     ],
                   )),
               SizedBox(height: SizeConfig.screenWidth * 0.05),
-              CommonButton(
+              RectangleButton(
                 height: SizeConfig.screenHeight * 0.07,
                 title: translation(context).back,
                 buttonColor: Colors.red,

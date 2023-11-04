@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -189,7 +189,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       ),
                     ],
                   )),
-              CommonButton(
+              RectangleButton(
                 height: SizeConfig.screenHeight * 0.07,
                 title: translation(context).back,
                 buttonColor: Colors.red,

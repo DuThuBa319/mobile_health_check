@@ -1,7 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:mobile_health_check/presentation/common_widget/common_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form_for_patient.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +11,7 @@ import '../../common_widget/assets.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 
+import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../theme/app_text_theme.dart';
 import 'ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'widget/OCR_scanner_widget.dart';
@@ -33,12 +33,12 @@ class _BloodPressureReadingScreenState
 
   OCRScannerBloc get scanBloc => BlocProvider.of(context);
   TextEditingController editSys = TextEditingController();
-  
+
   TextEditingController editPul = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return PatientCustomScreenForm(
+    return CustomScreenForm(
       title: translation(context).bloodPressureMeter,
       isShowAppBar: true,
       isShowLeadingButton: true,
@@ -97,7 +97,7 @@ class _BloodPressureReadingScreenState
                                 // SizedBox(
                                 //     height:
                                 //         SizeConfig.screenHeight * 0.33),
-                                CommonButton(
+                                RectangleButton(
                                   buttonColor: AppColor.greyD9,
                                   textColor: Colors.white,
                                   height: SizeConfig.screenWidth * 0.18,
@@ -245,7 +245,6 @@ class _BloodPressureReadingScreenState
                                                   ),
                                                 ),
                                               ),
-                                            
                                               Container(
                                                 margin: EdgeInsets.only(
                                                     bottom:
@@ -297,7 +296,6 @@ class _BloodPressureReadingScreenState
                                             child:
                                                 Text(translation(context).save),
                                             onPressed: () {
-                                            
                                               int? editedSys =
                                                   int.parse(editSys.text);
                                               int? editedPul =
@@ -305,7 +303,6 @@ class _BloodPressureReadingScreenState
                                               scanBloc.add(
                                                   EditBloodPressureDataEvent(
                                                       context: context,
-                                                      
                                                       editedPul: editedPul,
                                                       editedSys: editedSys));
 
@@ -380,7 +377,7 @@ class _BloodPressureReadingScreenState
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           Center(
-              child: CommonButton(
+              child: RectangleButton(
             height: SizeConfig.screenWidth * 0.18,
             width: SizeConfig.screenWidth * 0.8,
             title: translation(context).upload,

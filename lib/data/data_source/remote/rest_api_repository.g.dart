@@ -19,6 +19,31 @@ class _RestApiRepository implements RestApiRepository {
   String? baseUrl;
 
   @override
+  Future<void> resetPasswordModel({String? userId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/ResetPassword/${userId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
   Future<List<PersonCellModel>> getAllDoctorModel() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

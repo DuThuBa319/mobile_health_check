@@ -2,19 +2,12 @@ part of 'get_doctor_bloc.dart';
 
 // ViewModel is used for store all properties which want to be stored, processed and updated, chứa dữ liệu của 1 state
 class _ViewModel {
-  // final List<BloodPressureEntity>? listBloodPressure;
-  // final List<BloodSugarEntity>? listBloodSugar;
-  // final List<TemperatureEntity>? listTemperature;
-
   final DoctorInforEntity? doctorInforEntity;
   final String? errorEmptyName;
   final String? errorEmptyPhoneNumber;
   final List<PersonCellEntity>? allDoctorEntity;
   final String? errorMessage;
   const _ViewModel({
-    // this.listBloodPressure,
-    // this.listBloodSugar,
-    // this.listTemperature,
     this.errorMessage,
     this.allDoctorEntity,
     this.errorEmptyPhoneNumber,
@@ -25,13 +18,13 @@ class _ViewModel {
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
       {final String? errorMessage,
-        final List<PersonCellEntity>? allDoctorEntity,
+      final List<PersonCellEntity>? allDoctorEntity,
       final DoctorInforEntity? doctorInforEntity,
       final String? errorEmptyName,
       final String? errorEmptyPhoneNumber}) {
     // ignore: unnecessary_this
     return _ViewModel(
-      errorMessage: errorMessage??this.errorMessage,
+        errorMessage: errorMessage ?? this.errorMessage,
         allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
         doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,
         errorEmptyName: errorEmptyName ?? this.errorEmptyName,
@@ -110,6 +103,13 @@ class RegistDoctorState extends GetDoctorState {
   }) : super(viewModel, status: status);
 }
 
+class ResetDoctorPasswordState extends GetDoctorState {
+  ResetDoctorPasswordState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -136,6 +136,10 @@ final _factories = <Type,
         status: status,
       ),
   RegistDoctorState: (viewModel, status) => RegistDoctorState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  ResetDoctorPasswordState: (viewModel, status) => ResetDoctorPasswordState(
         viewModel: viewModel,
         status: status,
       ),

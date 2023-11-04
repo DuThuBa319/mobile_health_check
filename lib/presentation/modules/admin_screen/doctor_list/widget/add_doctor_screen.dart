@@ -8,7 +8,7 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 
-import '../../../../common_widget/common_button.dart';
+import '../../../../common_widget/rectangle_button.dart';
 import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/enum_common.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
@@ -39,7 +39,6 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        isRelativeApp: false,
         title: translation(context).addDoctor,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -53,13 +52,13 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
             icon: const Icon(Icons.arrow_back)),
         child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
           listener: (context, state) {
-            
             //! ADD Doctor SUCCESSFULLY
             if (state is RegistDoctorState &&
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
                   onClose: () {
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, RouteList.doctorList,
+                        arguments: userDataData.getUser()?.id);
                   },
                   context: context,
                   message: translation(context).addDoctorSuccessfully,
@@ -207,44 +206,19 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                         width: SizeConfig.screenWidth * 0.9,
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          // int phoneNumberCount =
-                          //     _controllerDoctorPhoneNumber.text.length;
-                          // if (_controllerDoctorName.text.isEmpty ||
-                          //     _controllerDoctorPhoneNumber.text.isEmpty) {
-                          //   showNoticeDialog(
-                          //       context: context,
-                          //       message: translation(context)
-                          //           .pleaseEnterCompleteInformation,
-                          //       title: translation(context).notification,
-                          //       titleBtn: translation(context).exit);
-                          // }
-                          // else
-                          //  if (phoneNumberCount == 10 ||
-                          //     phoneNumberCount == 11) {
-
                           AccountEntity? accountEntity = AccountEntity(
                             name: _controllerDoctorName.text,
                             phoneNumber: _controllerDoctorPhoneNumber.text,
                           );
-
                           bloc.add(RegistDoctorEvent(
                             accountEntity: accountEntity,
                           ));
-
-                          // } else {
-                          //   showNoticeDialog(
-                          //       context: context,
-                          //       message:
-                          //           translation(context).invalidPhonenumber,
-                          //       title: translation(context).notification,
-                          //       titleBtn: translation(context).exit);
-                          // }
                         }),
                   )
                 ]),

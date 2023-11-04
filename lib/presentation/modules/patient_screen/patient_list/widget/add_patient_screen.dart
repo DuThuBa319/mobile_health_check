@@ -9,7 +9,7 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 
-import '../../../../common_widget/common_button.dart';
+import '../../../../common_widget/rectangle_button.dart';
 import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/enum_common.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
@@ -40,8 +40,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        isRelativeApp:
-            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         title: translation(context).addPatient,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -49,10 +47,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-        leadingButton: IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()!.id!),
-            icon: const Icon(Icons.arrow_back)),
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
           listener: (context, state) {
             // if (state is RegistPatientState &&
@@ -215,7 +209,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Center(
-                      child: CommonButton(
+                      child: RectangleButton(
                           width: SizeConfig.screenWidth * 0.9,
                           height: SizeConfig.screenHeight * 0.07,
                           title: translation(context).save,

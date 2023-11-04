@@ -4,18 +4,28 @@ part of 'patient_infor_screen.dart';
 extension PatientInforScreenAction on _PatientInforScreenState {
   void _blocListener(BuildContext context, GetPatientState state) {
     if (state is GetPatientInforState &&
-        state.status == BlocStatusState.loading) {
+            state.status == BlocStatusState.loading ||
+        state is ResetPasswordCustomerState &&
+            state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);
     }
+
     if (state is GetPatientInforState &&
         state.status == BlocStatusState.success) {
       showToast(translation(context).dataLoaded);
     }
+
+    if (state is ResetPasswordCustomerState &&
+        state.status == BlocStatusState.success) {
+      showToast(translation(context).resetPatientPasswordSuccessfully);
+    }
+
     if (state is GetPatientInforState &&
-        state.status == BlocStatusState.failure) {
+            state.status == BlocStatusState.failure ||
+        state is ResetPasswordCustomerState &&
+            state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
     }
-  
   }
 
   Widget infoText({required String? title, required String? content}) {

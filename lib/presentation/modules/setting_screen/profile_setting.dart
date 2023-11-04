@@ -6,16 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
+import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
-import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../classes/language.dart';
 import '../../../common/singletons.dart';
 import '../../../di/di.dart';
 import '../../../domain/entities/doctor_infor_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
-import '../../common_widget/common_button.dart';
-import '../../common_widget/dialog/loading_dialog.dart';
+import '../../common_widget/rectangle_button.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../theme/theme_color.dart';
@@ -41,14 +40,6 @@ class _SettingProfileState extends State<SettingProfile> {
   double widthCell = SizeConfig.screenWidth * 0.9;
   double heightCell = SizeConfig.screenHeight * 0.11;
   late Map<TextEditingController, String> _errorMessages;
-  // void checkWifiAvailability() async {
-  // var connectivityResult = await Connectivity().checkConnectivity();
-  // setState(() {
-  // ignore: unrelated_type_equality_checks
-  //   isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
-  //   is4GAvailable = connectivityResult == ConnectivityResult.mobile;
-  // });
-  // }
 
   @override
   void initState() {
@@ -193,49 +184,51 @@ class _SettingProfileState extends State<SettingProfile> {
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
         // selectedIndex: 2,
-        child: SingleChildScrollView(
-          child: BlocConsumer<SettingBloc, SettingState>(
-              listener: (context, state) {
-            if (((state is UpdateDoctorInforState) ||
-                    (state is UpdateRelativeInforState) ||
-                    (state is UpdatePatientInforState)) &&
-                state.status == BlocStatusState.success) {
-              //! UPDATE PROFILE SUCCESSFULLY
-              showNoticeDialog(
-                  onClose: () {
-                    if (userDataData.getUser()!.role == UserRole.doctor ||
-                        userDataData.getUser()!.role == UserRole.relative) {
-                      Navigator.pushNamed(context, RouteList.setting,
-                          arguments: userDataData.getUser()?.id);
-                    }
-                    if (userDataData.getUser()!.role == UserRole.patient) {
-                      Navigator.pushNamed(context, RouteList.patientSetting,
-                          arguments: userDataData.getUser()?.id);
-                    }
-                  },
-                  context: context,
-                  message: translation(context).updateProfileSuccessfully,
-                  title: translation(context).notification,
-                  titleBtn: translation(context).accept);
-            }
-            //! WIFI DISCONNECT
-            if (state is WifiDisconnectState &&
-                state.status == BlocStatusState.success) {
-              showNoticeDialog(
-                  context: context,
-                  message: translation(context).wifiDisconnect,
-                  title: translation(context).notification,
-                  titleBtn: translation(context).accept);
-            }
-            // //! LOADING
-            if (((state is UpdateDoctorInforState) ||
-                    (state is UpdateRelativeInforState) ||
-                    (state is UpdatePatientInforState)) &&
-                state.status == BlocStatusState.loading) {
-              showLoadingDialog(context: context);
-            }
-          }, builder: (context, state) {
-            return Column(
+        child:
+            BlocConsumer<SettingBloc, SettingState>(listener: (context, state) {
+          if (((state is UpdateDoctorInforState) ||
+                  (state is UpdateRelativeInforState) ||
+                  (state is UpdatePatientInforState)) &&
+              state.status == BlocStatusState.success) {
+            //! UPDATE PROFILE SUCCESSFULLY
+            showNoticeDialog(
+                onClose: () {
+                  Navigator.pop(context);
+                },
+                context: context,
+                message: translation(context).updateProfileSuccessfully,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+          //! WIFI DISCONNECT
+          if (state is WifiDisconnectState &&
+              state.status == BlocStatusState.success) {
+            showNoticeDialog(
+                context: context,
+                message: translation(context).wifiDisconnect,
+                title: translation(context).notification,
+                titleBtn: translation(context).accept);
+          }
+          // //! LOADING
+          if (((state is UpdateDoctorInforState) ||
+                  (state is UpdateRelativeInforState) ||
+                  (state is UpdatePatientInforState)) &&
+              state.status == BlocStatusState.loading) {
+            showToast(translation(context).loadingData);
+          }
+        }, builder: (context, state) {
+          if (((state is UpdateDoctorInforState) ||
+                  (state is UpdateRelativeInforState) ||
+                  (state is UpdatePatientInforState)) &&
+              state.status == BlocStatusState.loading) {
+            return const Center(
+              child: Loading(
+                brightness: Brightness.light,
+              ),
+            );
+          }
+          return SingleChildScrollView(
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -270,7 +263,7 @@ class _SettingProfileState extends State<SettingProfile> {
                           _controllerAddress, translation(context).address),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                         width: widthCell,
                         height: SizeConfig.screenHeight * 0.07,
                         title: translation(context).save,
@@ -365,8 +358,8 @@ class _SettingProfileState extends State<SettingProfile> {
                         // }
                         ),
                   )
-                ]);
-          }),
-        ));
+                ]),
+          );
+        }));
   }
 }

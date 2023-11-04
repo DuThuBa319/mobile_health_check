@@ -14,17 +14,21 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
 
     final response = await _repository.getDoctorInforModel(doctorId);
     final entity = response?.getDoctorInforEntity();
-    await userDataData.setUser(UserModel(
-      address: response?.address ??
-          translation(navigationService.navigatorKey.currentContext!).notUpdate,
-      age: response?.age ?? 0,
-      gender: response?.gender,
-      id: userDataData.getUser()!.id,
-      role: userDataData.getUser()!.role,
-      name: userDataData.getUser()!.name,
-      phoneNumber: response?.phoneNumber,
-      email: userDataData.getUser()!.email,
-    ));
+    if (userDataData.getUser()?.role == UserRole.doctor) {
+      await userDataData.setUser(UserModel(
+        address: response?.address ??
+            translation(navigationService.navigatorKey.currentContext!)
+                .notUpdate,
+        age: response?.age ?? 0,
+        gender: response?.gender,
+        id: userDataData.getUser()!.id,
+        role: userDataData.getUser()!.role,
+        name: userDataData.getUser()!.name,
+        phoneNumber: response?.phoneNumber,
+        email: userDataData.getUser()!.email,
+      ));
+    }
+    ;
     return entity;
   }
 

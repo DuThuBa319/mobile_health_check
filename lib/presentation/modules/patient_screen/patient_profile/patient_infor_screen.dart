@@ -4,7 +4,6 @@ import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:mobile_health_check/presentation/modules/patient_screen/patient_profile/widget/relative_cell.dart';
 
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,8 @@ import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
-import '../../../common_widget/common_button.dart';
+import '../../../common_widget/dialog/dialog_two_button.dart';
+import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -24,6 +24,7 @@ import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 
 // import '../../bloc/Patientlist/get_Patient_bloc/get_Patient_bloc.dart';
+import '../../../common_widget/slidable.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/get_patient_bloc.dart';
@@ -46,6 +47,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
   GetPatientBloc get patientBloc => BlocProvider.of(context);
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+  double? nameFormWidth;
 
   @override
   void initState() {
@@ -57,28 +59,48 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
     SizeConfig.init(context);
     return CustomScreenForm(
         title: translation(context).patientIn4,
-        isRelativeApp:
-            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
-        isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         appBarColor: const Color(0xff7BD4FF),
         backgroundColor: const Color(0xffDBF3FF),
-        leadingButton: IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteList.patientList,
-                arguments: userDataData.getUser()!.id!),
-            icon: const Icon(Icons.arrow_back)),
+        isShowRightButon: true,
+        rightButton: GestureDetector(
+          onTap: () {
+            //!RESET PATIENT PASSWORD
+
+            showNoticeDialogTwoButton(
+                context: context,
+                message: translation(context).resetPatientPassword,
+                title: translation(context).notification,
+                titleBtn1: translation(context).exit,
+                titleBtn2: translation(context).accept,
+                onClose2: () => patientBloc
+                    .add(ResetPasswordCustomerEvent(userId: widget.patientId)));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: SizedBox(
+              child: Icon(
+                Icons.lock_reset_outlined,
+                color: Colors.white,
+                size: SizeConfig.screenWidth * 0.1,
+              ),
+            ),
+          ),
+        ),
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
-              
               if ((state is GetPatientInitialState) ||
                   (state is DeleteRelativeState &&
+                      state.status == BlocStatusState.success) ||
+                  (state is ResetPasswordCustomerState &&
                       state.status == BlocStatusState.success)) {
                 patientBloc
                     .add(GetPatientInforEvent(patientId: widget.patientId));
               }
+
               if (state is GetPatientInforState &&
                   state.status == BlocStatusState.loading) {
                 return const Center(
@@ -90,8 +112,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
 
               if ((state is GetPatientInforState &&
                       state.status == BlocStatusState.success) ||
-                  (state is DeleteRelativeState &&
-                      state.status == BlocStatusState.loading)) {
+                  state is ResetPasswordCustomerState &&
+                      state.status == BlocStatusState.loading) {
                 PatientInforEntity patient =
                     state.viewModel.patientInforEntity!;
 
@@ -131,7 +153,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    height: SizeConfig.screenWidth * 0.025,
+                                    height: SizeConfig.screenHeight * 0.01,
                                   ),
                                   Center(
                                     child: CustomImagePicker(
@@ -145,36 +167,49 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   SizedBox(
                                     height: SizeConfig.screenHeight * 0.01,
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        patient.name,
-                                        style: AppTextTheme.body1.copyWith(
+                                  SizedBox(
+                                    width: SizeConfig.screenWidth * 0.8,
+                                    child: Text.rich(
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                      style: AppTextTheme.body1.copyWith(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
-                                        ),
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.06),
+                                      TextSpan(
+                                        text: patient.name,
+                                        children: [
+                                          WidgetSpan(
+                                            child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pushNamed(
+                                                      context,
+                                                      RouteList
+                                                          .patientInforCell,
+                                                      arguments: patient);
+                                                },
+                                                child: SizedBox(
+                                                    width:
+                                                        SizeConfig.screenWidth *
+                                                            0.07,
+                                                    height:
+                                                        SizeConfig.screenWidth *
+                                                            0.07,
+                                                    child: Image.asset(
+                                                      Assets.detail,
+                                                      fit: BoxFit.cover,
+                                                    ))),
+                                          ),
+                                        ],
                                       ),
-                                      GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(context,
-                                                RouteList.patientInforCell,
-                                                arguments: patient);
-                                          },
-                                          child: SizedBox(
-                                              width:
-                                                  SizeConfig.screenWidth * 0.12,
-                                              child: Image.asset(
-                                                Assets.detail,
-                                                fit: BoxFit.cover,
-                                              ))),
-                                    ],
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 5,
                                   ),
                                   Text(patient.phoneNumber,
+                                      textAlign: TextAlign.center,
                                       style: AppTextTheme.body3.copyWith(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w400,
@@ -351,7 +386,13 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   SizedBox(
                                     height: SizeConfig.screenWidth * 0.02,
                                   ),
-                                  ListView.builder(
+                                  ListView.separated(
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            const Divider(
+                                      height: 8,
+                                      color: AppColor.backgroundColor,
+                                    ),
                                     physics: const BouncingScrollPhysics(),
                                     padding: EdgeInsets.zero,
                                     shrinkWrap: true,
@@ -360,15 +401,19 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                         (BuildContext context, int index) {
                                       final relatives =
                                           patient.relatives?[index];
-                                      return RelativeListCell(
-                                        deleteRelativeBloc: patientBloc,
+                                      return SlideAbleForm(
+                                        isRelativeCell: true,
+                                        patientBloc: patientBloc,
                                         relativeInforEntity: relatives,
                                         patientInforEntity: patient,
                                       );
                                     },
                                   ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
                                   patient.relatives!.length <= 2
-                                      ? CommonButton(
+                                      ? RectangleButton(
                                           width: SizeConfig.screenWidth * 0.4,
                                           height:
                                               SizeConfig.screenHeight * 0.045,

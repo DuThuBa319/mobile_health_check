@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
 import 'package:mobile_health_check/domain/repositories/doctor_infor_repository/doctor_infor_repository.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 
 import '../../../classes/language.dart';
 import '../../../common/service/local_manager/user_data_datasource/user_model.dart';

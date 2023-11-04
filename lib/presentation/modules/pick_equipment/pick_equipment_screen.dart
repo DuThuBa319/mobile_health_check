@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form_for_patient.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import '../../../classes/language.dart';
 import '../../../function.dart';
 import '../../common_widget/dialog/dialog_two_button.dart';
 import '../../common_widget/line_decor.dart';
+import '../../common_widget/screen_form/custom_screen_form.dart';
 import '../../route/route_list.dart';
 part 'pick_equipment_screen.action.dart';
 
@@ -27,7 +27,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
     // double screenWidth = SizeConfig.screenWidth;
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: PatientCustomScreenForm(
+      child: CustomScreenForm(
         appBarColor: AppColor.appBarColor,
         title: translation(context).selectEquip,
         isShowAppBar: true,

@@ -5,7 +5,7 @@ import 'package:mobile_health_check/presentation/common_widget/screen_form/custo
 
 import '../../../../../classes/language.dart';
 import '../../../../../domain/entities/doctor_infor_entity.dart';
-import '../../../../common_widget/common_button.dart';
+import '../../../../common_widget/rectangle_button.dart';
 import '../../../../theme/theme_color.dart';
 
 class DoctorInforCell extends StatefulWidget {
@@ -79,7 +79,7 @@ class _DoctorInforCellState extends State<DoctorInforCell> {
               in4Cell("${translation(context).address}: ",
                   "${widget.doctorInforEntity.address}"),
               SizedBox(height: SizeConfig.screenHeight * 0.03),
-              CommonButton(
+              RectangleButton(
                   width: SizeConfig.screenWidth * 0.9,
                   height: SizeConfig.screenHeight * 0.07,
                   title: translation(context).back,

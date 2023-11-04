@@ -3,17 +3,27 @@ part of 'doctor_infor_screen.dart';
 // ignore: library_private_types_in_public_api
 extension DoctorInforScreenAction on _DoctorInforScreenState {
   void _blocListener(BuildContext context, GetDoctorState state) {
-    if (state is GetDoctorInforState &&
-        state.status == BlocStatusState.loading) {
+    if ((state is GetDoctorInforState &&
+            state.status == BlocStatusState.loading) ||
+        (state is ResetDoctorPasswordState &&
+            state.status == BlocStatusState.loading)) {
       showToast(translation(context).loadingData);
     }
     if (state is GetDoctorInforState &&
         state.status == BlocStatusState.success) {
       showToast(translation(context).dataLoaded);
     }
-    if (state is GetDoctorInforState &&
-        state.status == BlocStatusState.failure) {
-      showToast(translation(context).loadingError);
+
+    if (state is ResetDoctorPasswordState &&
+        state.status == BlocStatusState.success) {
+      showToast(translation(context).resetDoctorPasswordSuccessfully);
+    }
+
+    if ((state is GetDoctorInforState &&
+            state.status == BlocStatusState.failure) ||
+        (state is ResetDoctorPasswordState &&
+            state.status == BlocStatusState.failure)) {
+      showToast(translation(context).error);
     }
   }
 

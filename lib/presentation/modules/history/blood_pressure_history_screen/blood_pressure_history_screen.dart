@@ -6,7 +6,6 @@ import 'package:mobile_health_check/function.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../common/singletons.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -51,8 +50,6 @@ class BloodPressureHistoryScreenState
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-      isRelativeApp:
-          (userDataData.getUser()?.role == UserRole.relative) ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,

@@ -5,7 +5,6 @@ import 'package:mobile_health_check/presentation/modules/history/temperature_his
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../common/singletons.dart';
 import '../../../../function.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
@@ -30,7 +29,7 @@ class TemperatureHistoryScreen extends StatefulWidget {
 
 class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
- DateTime timeFrom =
+  DateTime timeFrom =
       DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
   DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
   String strTimeFrom = DateFormat('dd/MM/yyyy').format(
@@ -43,8 +42,6 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
     SizeConfig.init(context);
 
     return CustomScreenForm(
-      isRelativeApp:
-          (userDataData.getUser()?.role == UserRole.relative) ? true : false,
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -186,9 +183,8 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                         child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
-             
                   }
-                   if (state is WifiDisconnectState &&
+                  if (state is WifiDisconnectState &&
                       state.status == BlocStatusState.success) {
                     return Center(
                         child: Text(translation(context).error,

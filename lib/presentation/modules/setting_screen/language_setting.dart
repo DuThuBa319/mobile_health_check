@@ -1,30 +1,32 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:mobile_health_check/presentation/common_widget/dialog/loading_dialog.dart';
+import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../classes/language.dart';
-import '../../../../classes/language_constant.dart';
-import '../../../../common/singletons.dart';
-import '../../../../main.dart';
-import '../../../common_widget/common_button.dart';
-import '../../../common_widget/line_decor.dart';
-import '../../../common_widget/screen_form/custom_screen_form_for_patient.dart';
-import '../../../route/route_list.dart';
-import '../../../theme/app_text_theme.dart';
-import '../../../theme/theme_color.dart';
+import '../../../classes/language.dart';
+import '../../../classes/language_constant.dart';
+import '../../../common/singletons.dart';
+import '../../../main.dart';
+import '../../common_widget/rectangle_button.dart';
+import '../../common_widget/line_decor.dart';
+import '../../theme/app_text_theme.dart';
+import '../../theme/theme_color.dart';
 
-class SettingPatientLanguage extends StatefulWidget {
-  const SettingPatientLanguage({super.key});
+class SettingLanguage extends StatefulWidget {
+  const SettingLanguage({super.key});
 
   @override
-  State<SettingPatientLanguage> createState() => _SettingPatientLanguageState();
+  State<SettingLanguage> createState() => _SettingLanguageState();
 }
 
-class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
+class _SettingLanguageState extends State<SettingLanguage> {
   @override
   Widget build(BuildContext context) {
     final sreenHeight = MediaQuery.of(context).size.height;
     final sreenWidth = MediaQuery.of(context).size.width;
     Language? selectedLanguage;
-    return PatientCustomScreenForm(
+    return CustomScreenForm(
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -32,11 +34,7 @@ class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-        leadingButton: IconButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, RouteList.patientSetting),
-            icon: const Icon(Icons.arrow_back)),
-        // selectedIndex: 2,
+        selectedIndex: 2,
         child: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.only(
@@ -151,7 +149,7 @@ class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
                     ),
                   ),
                   Center(
-                    child: CommonButton(
+                    child: RectangleButton(
                       height: sreenHeight * 0.07,
                       width: sreenWidth * 0.7,
                       title: translation(context).save,
@@ -161,19 +159,23 @@ class _SettingPatientLanguageState extends State<SettingPatientLanguage> {
                           selectedLanguage = Language(1, ENGLISH, 'en');
                           Locale locale =
                               await setLocale(selectedLanguage!.languageCode);
-                          // ignore: use_build_context_synchronously
+                          showLoadingDialog(context: context);
+                          await Future.delayed(const Duration(
+                              milliseconds: 2000)); // Wait for 1 second
                           MyApp.setLocale(context, locale);
-                          // ignore: use_build_context_synchronously
                           Navigator.pop(context);
+                          return;
                         }
                         if (notificationData.localeId == 2) {
                           selectedLanguage = Language(2, VIETNAMESE, 'vi');
                           Locale locale =
                               await setLocale(selectedLanguage!.languageCode);
-                          // ignore: use_build_context_synchronously
                           MyApp.setLocale(context, locale);
-                          // ignore: use_build_context_synchronously
+                          showLoadingDialog(context: context);
+                          await Future.delayed(const Duration(
+                              milliseconds: 1500)); // Wait for 1 second
                           Navigator.pop(context);
+                          return;
                         }
                       },
                     ),

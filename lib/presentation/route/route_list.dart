@@ -34,16 +34,16 @@ static const String login = '/login';
   static const String temperatureHistory = '/temperatureHistory';
   static const String spo2History = '/spo2History';
 
-  static const String settingDrPhone = '/settingDrPhone';
-  static const String settingDrOrRePassword = '/settingDrOrRePass';
-  static const String settingLanguage = '/settingLanguage';
 
-  static const String setting = '/setting';
-  static const String patientSetting = '/patientSetting';
+  // static const String settingDrOrRePassword = '/settingDrOrRePass';
+  static const String settingPass = '/settingPass';
+  // static const String patientSettingPass = '/patientSettingPass';
+
+  static const String settingLanguage = '/settingLanguage';
+  static const String settingMenu = '/settingMenu';
+  // static const String patientSetting = '/patientSetting';
   static const String selectEquip = '/select';
   static const String settingProfile = '/settingProfile';
-  static const String patientSettingPass = '/patientSettingPass';
-  static const String patientSettingLanguage = '/patientSettingLanguage';
   static const String addPatient = '/addPatient';
     static const String addDoctor = '/addDoctor';
 

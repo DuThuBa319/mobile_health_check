@@ -49,6 +49,7 @@ dependencies:
   #network
   retrofit: ^4.0.1
   onesignal_flutter: ^3.5.1
+  flutter_slidable: ^3.0.1
   #onesignal_flutter: ^5.0.0
   #utils
   # The following adds the Cupertino Icons font to your application.
@@ -58,6 +59,7 @@ dependencies:
   fluttertoast: ^8.2.2
   rflutter_alert: ^2.0.7
   
+  
   #ui
   full_screen_image: ^2.0.0
   page_transition: ^2.0.9
@@ -66,22 +68,23 @@ dependencies:
   image: ^4.0.17
   pull_to_refresh: ^2.0.0
   connectivity_plus: ^4.0.2
-
-  # lưu ý setup cho ios
-  flutter_bloc: ^8.1.3
   intl: any
+  flutter_bloc: ^8.1.3
   firebase_storage: ^11.2.5
   firebase_auth: ^4.8.0
-  flutter_secure_storage: ^8.0.0
-  firebase_core: ^2.15.0
   provider: ^6.0.5
+  http: ^1.1.0
+  firebase_core: ^2.15.0
   localization: ^2.1.0
   cupertino_icons: ^1.0.2
-  http: ^1.1.0
   shared_preferences: ^2.2.0
+  # lưu ý setup cho ios
+  flutter_secure_storage: ^8.0.0
   image_picker: ^1.0.2
   permission_handler: ^10.4.3
   camera: ^0.10.5+2
+  flutter_phone_direct_caller: ^2.1.1
+  url_launcher: ^6.1.9
 dev_dependencies:
   flutter_test:
     sdk: flutter

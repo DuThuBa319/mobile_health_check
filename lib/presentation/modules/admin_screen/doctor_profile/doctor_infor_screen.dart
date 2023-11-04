@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_two_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../common/singletons.dart';
 import '../../../../domain/entities/doctor_infor_entity.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -16,7 +16,6 @@ import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 
 // import '../../bloc/Doctorlist/get_Doctor_bloc/get_Doctor_bloc.dart';
-import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/get_doctor_bloc.dart';
 
@@ -49,25 +48,42 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
     SizeConfig.init(context);
     return CustomScreenForm(
         title: translation(context).doctorIn4,
-        isRelativeApp: false,
-        isShowRightButon: false,
+        isShowRightButon: true,
         isShowAppBar: true,
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         appBarColor: const Color(0xff7BD4FF),
         backgroundColor: const Color(0xffDBF3FF),
-        leadingButton: IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteList.doctorList,
-                  arguments: userDataData.getUser()!.id!);
-            },
-            icon: const Icon(Icons.arrow_back)),
+        rightButton: GestureDetector(
+          onTap: () {
+            //!RESET DOCTOR PASSWORD
+            showNoticeDialogTwoButton(
+                context: context,
+                message: translation(context).resetDoctorPassword,
+                title: translation(context).notification,
+                titleBtn1: translation(context).exit,
+                titleBtn2: translation(context).accept,
+                onClose2: () => doctorBloc
+                    .add(ResetDoctorPasswordEvent(doctorId: widget.doctorId)));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: SizedBox(
+              child: Icon(
+                Icons.lock_reset_outlined,
+                color: Colors.white,
+                size: SizeConfig.screenWidth * 0.1,
+              ),
+            ),
+          ),
+        ),
         child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
             listener: _blocListener,
             builder: (context, state) {
-              if ((state is GetDoctorInitialState)) {
-                doctorBloc.add(GetDoctorInforEvent(
-                    doctorId: widget.doctorId ?? widget.doctorId!));
+              if ((state is GetDoctorInitialState) ||
+                  (state is ResetDoctorPasswordState &&
+                      state.status == BlocStatusState.success)) {
+                doctorBloc.add(GetDoctorInforEvent(doctorId: widget.doctorId));
               }
               if (state is GetDoctorInforState &&
                   state.status == BlocStatusState.loading) {
@@ -79,7 +95,9 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
               }
 
               if ((state is GetDoctorInforState &&
-                  state.status == BlocStatusState.success)) {
+                      state.status == BlocStatusState.success) ||
+                  (state is ResetDoctorPasswordState &&
+                      state.status == BlocStatusState.loading)) {
                 DoctorInforEntity doctor = state.viewModel.doctorInforEntity ??
                     state.viewModel.doctorInforEntity!;
 
@@ -146,10 +164,22 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                                       ))
                                 ],
                               )),
-
+                          SizedBox(
+                            height: SizeConfig.screenHeight * 0.04,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: SizeConfig.screenWidth * 0.025),
+                            child: Text(
+                              translation(context).lastUpdate,
+                              style: AppTextTheme.body0.copyWith(
+                                  fontSize: SizeConfig.screenHeight * 0.02,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                           lineDecor(
                               spaceBottom: SizeConfig.screenWidth * 0.025,
-                              spaceTop: SizeConfig.screenWidth * 0.035,
+                              spaceTop: 5,
                               spaceLeft: SizeConfig.screenWidth * 0.025),
 
                           //! Data

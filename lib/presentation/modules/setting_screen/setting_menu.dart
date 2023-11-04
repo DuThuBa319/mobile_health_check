@@ -3,15 +3,15 @@ import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/modules/setting_screen/widget_setting.dart';
-import '../../../../classes/language.dart';
-import '../../../../function.dart';
-import '../../../common_widget/common_button.dart';
-import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
-import '../../../route/route_list.dart';
-import '../../../theme/app_text_theme.dart';
-import '../../../theme/theme_color.dart';
+import 'package:mobile_health_check/presentation/modules/setting_screen/widget/widget_setting.dart';
+import '../../../classes/language.dart';
+import '../../../function.dart';
+import '../../common_widget/rectangle_button.dart';
+import '../../common_widget/enum_common.dart';
+import '../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+import '../../route/route_list.dart';
+import '../../theme/app_text_theme.dart';
+import '../../theme/theme_color.dart';
 
 class SettingMenu extends StatefulWidget {
   const SettingMenu({super.key});
@@ -25,8 +25,6 @@ class _SettingMenuState extends State<SettingMenu> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        isRelativeApp:
-            (userDataData.getUser()?.role == UserRole.relative) ? true : false,
         title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
@@ -34,18 +32,6 @@ class _SettingMenuState extends State<SettingMenu> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-        leadingButton: IconButton(
-            onPressed: () {
-              if ((userDataData.getUser()!.role == UserRole.doctor ||
-                  userDataData.getUser()!.role == UserRole.relative)) {
-                Navigator.pushNamed(context, RouteList.patientList,
-                    arguments: userDataData.getUser()!.id!);
-              } else if (userDataData.getUser()!.role == UserRole.admin) {
-                Navigator.pushNamed(context, RouteList.doctorList,
-                    arguments: userDataData.getUser()!.id!);
-              }
-            },
-            icon: const Icon(Icons.arrow_back)),
         selectedIndex: 1,
         child: SingleChildScrollView(
           child: Container(
@@ -62,7 +48,7 @@ class _SettingMenuState extends State<SettingMenu> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   (userDataData.getUser()?.role == UserRole.relative ||
-                          userDataData.getUser()?.role == UserRole.admin)
+                          userDataData.getUser()?.role == UserRole.patient)
                       ? Center(
                           child: CustomImagePicker(
                             gender: userDataData.getUser()?.gender,
@@ -80,7 +66,9 @@ class _SettingMenuState extends State<SettingMenu> {
                           width: SizeConfig.screenWidth * 0.25,
                           child: ClipRect(
                               child: Image.asset(
-                            Assets.doctor,
+                            (userDataData.getUser()?.role == UserRole.doctor)
+                                ? Assets.doctor
+                                : Assets.family,
                             fit: BoxFit.fill,
                           )),
                         ),
@@ -94,18 +82,27 @@ class _SettingMenuState extends State<SettingMenu> {
                   Text(userDataData.getUser()?.phoneNumber ?? '--',
                       style: AppTextTheme.body3),
                   SizedBox(height: SizeConfig.screenWidth * 0.05),
+
+                  //? ĐỔI MẬT KHẨU
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                        context, RouteList.settingDrOrRePassword),
                     child: settingMenuCell(
                         translation(context).updatePassword, context),
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteList.settingPass);
+                    },
                   ),
+
+                  //? CẬP NHẬT THÔNG TIN
+
                   GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, RouteList.settingProfile),
                     child: settingMenuCell(
                         translation(context).updateProfile, context),
                   ),
+
+                  //? ĐỔI NGÔN NGỮ
+
                   GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, RouteList.settingLanguage),
@@ -113,7 +110,7 @@ class _SettingMenuState extends State<SettingMenu> {
                         settingMenuCell(translation(context).language, context),
                   ),
                   SizedBox(height: SizeConfig.screenWidth * 0.01),
-                  CommonButton(
+                  RectangleButton(
                       height: SizeConfig.screenHeight * 0.07,
                       title: translation(context).logOut,
                       buttonColor: AppColor.saveSetting,
@@ -127,9 +124,11 @@ class _SettingMenuState extends State<SettingMenu> {
                           await notificationData.clearData();
                         }
 
+                        if (userDataData.getUser()!.role == UserRole.patient) {
+                          await notificationData.clearData();
+                        }
+
                         await userDataData.clearData();
-                        // await firebaseAuthService.signOut();
-                        //   await OneSignal.logout();
                         await userDataData.setLogout();
                         // ignore: use_build_context_synchronously
                         Navigator.pushNamedAndRemoveUntil(context,

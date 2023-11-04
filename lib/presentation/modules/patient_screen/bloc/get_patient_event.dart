@@ -13,12 +13,6 @@ class GetPatientListEvent extends PatientEvent {
   GetPatientListEvent({required this.userId}) : super();
 }
 
-// class GetPatientListOfRelativeEvent extends PatientEvent {
-//   // GetPatientListEvent();
-//   final String relativeId;
-//   GetPatientListOfRelativeEvent({required this.relativeId}) : super();
-// }
-
 class FilterPatientEvent extends PatientEvent {
   FilterPatientEvent({required this.searchText, required this.id});
   final String searchText;
@@ -35,6 +29,11 @@ class DeletePatientEvent extends PatientEvent {
   DeletePatientEvent({required this.patientId, required this.doctorId});
   final String? doctorId;
   final String? patientId;
+}
+
+class ResetPasswordCustomerEvent extends PatientEvent {
+  ResetPasswordCustomerEvent({this.userId});
+  final String? userId;
 }
 
 class RegistPatientEvent extends PatientEvent {
@@ -56,32 +55,3 @@ class GetPatientInforEvent extends PatientEvent {
   final String patientId;
   GetPatientInforEvent({required this.patientId}) : super();
 }
-
-// class UpdatePatientInforEvent extends PatientEvent {
-//   final String? id;
-//   final PatientInforEntity patientInforEntity;
-//   UpdatePatientInforEvent({required this.patientInforEntity, required this.id})
-//       : super();
-// }
-
-// class ChangePassEvent extends PatientEvent {
-//   final String? userId;
-//   final ChangePassEntity changePassEntity;
-//   ChangePassEvent({required this.changePassEntity, required this.userId})
-//       : super();
-// }
-
-// class UpdateRelativeInforEvent extends PatientEvent {
-//   final String? id;
-//   final RelativeInforEntity relativeInforEntity;
-//   UpdateRelativeInforEvent(
-//       {required this.relativeInforEntity, required this.id})
-//       : super();
-// }
-
-// class UpdateDoctorInforEvent extends PatientEvent {
-//   final String? id;
-//   final DoctorInforEntity doctorInforEntity;
-//   UpdateDoctorInforEvent({required this.doctorInforEntity, required this.id})
-//       : super();
-// }

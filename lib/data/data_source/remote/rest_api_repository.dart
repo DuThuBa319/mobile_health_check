@@ -24,6 +24,13 @@ abstract class RestApiRepository {
   // @GET('/Users/AllPatients')
   // Future<List<PatientModel>> getPatientListModels();
 
+//! Reset Password
+
+  @PATCH("/Users/ResetPassword/{userId}") //update
+  Future<void> resetPasswordModel({
+    @Path("userId") String? userId,
+  });
+
 //! admin task
   //? GET ALL DOCTOR
   @GET('/Users/AllDoctors') //để hiện detail

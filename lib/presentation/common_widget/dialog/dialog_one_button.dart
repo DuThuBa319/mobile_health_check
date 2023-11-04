@@ -27,7 +27,6 @@ Future<dynamic> showNoticeDialog({
     useRootNavigator: useRootNavigator,
     builder: (context) {
       final theme = Theme.of(context);
-
       showAndroidDialog() => AlertDialog(
             title: Text(
               title ?? translation(context).notification,

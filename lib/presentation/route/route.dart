@@ -47,13 +47,10 @@ import '../modules/patient_screen/patient_list/patients_list_screen.dart';
 import '../modules/patient_screen/patient_list/widget/add_patient_screen.dart';
 import '../modules/patient_screen/patient_profile/patient_infor_screen.dart';
 import '../modules/patient_screen/patient_profile/widget/patient_infor_cell.dart';
-import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_language_setting.dart';
-import '../modules/setting_screen/doctor_or_relative_setting/doctor_relative_password_setting.dart';
-import '../modules/setting_screen/doctor_or_relative_setting/doctor_or_relative_setting_menu.dart';
-import '../modules/setting_screen/patient_setting/patient_language_setting.dart';
-import '../modules/setting_screen/patient_setting/patient_password_setting.dart';
+import '../modules/setting_screen/language_setting.dart';
+import '../modules/setting_screen/password_setting.dart';
+import '../modules/setting_screen/setting_menu.dart';
 import '../modules/setting_screen/profile_setting.dart';
-import '../modules/setting_screen/patient_setting/patient_setting_menu.dart';
 import '../modules/setting_screen/setting_bloc/setting_bloc.dart';
 
 class AppRoute {
@@ -131,7 +128,6 @@ class AppRoute {
           },
         );
 
-     
       case '/addRelative':
         final patientId = routeSettings.arguments as String;
         return MaterialPageRoute(
@@ -320,14 +316,14 @@ class AppRoute {
           },
         );
 
-      case '/setting':
+      case '/settingMenu':
         return MaterialPageRoute(builder: (context) {
           return const SettingMenu();
         });
-      case '/patientSetting':
-        return MaterialPageRoute(builder: (context) {
-          return const PatientSettingMenu();
-        });
+      // case '/patientSetting':
+      //   return MaterialPageRoute(builder: (context) {
+      //     return const PatientSettingMenu();
+      //   });
 
       case '/settingProfile':
         return MaterialPageRoute(
@@ -338,19 +334,6 @@ class AppRoute {
             );
           },
         );
-      case '/patientSettingPass':
-        return MaterialPageRoute(
-          builder: (context) {
-            return BlocProvider<SettingBloc>(
-              create: (context) => getIt<SettingBloc>(),
-              child: const SettingPatientPassword(),
-            );
-          },
-        );
-      case '/patientSettingLanguage':
-        return MaterialPageRoute(builder: (context) {
-          return const SettingPatientLanguage();
-        });
 
       case '/settingLanguage':
         return MaterialPageRoute(
@@ -358,12 +341,21 @@ class AppRoute {
             return const SettingLanguage();
           },
         );
-      case '/settingDrOrRePass':
+      // case '/settingDrOrRePass':
+      //   return MaterialPageRoute(
+      //     builder: (context) {
+      //       return BlocProvider<SettingBloc>(
+      //         create: (context) => getIt<SettingBloc>(),
+      //         child: const SettingDrOrRePassword(),
+      //       );
+      //     },
+      //   );
+      case '/settingPass':
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<SettingBloc>(
               create: (context) => getIt<SettingBloc>(),
-              child: const SettingDrOrRePassword(),
+              child: const SettingPassword(),
             );
           },
         );

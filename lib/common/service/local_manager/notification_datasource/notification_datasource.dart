@@ -13,8 +13,6 @@ abstract class NotificationDataSource extends BaseDataSource {
   //! Id =2 => vi
 
   Future<void> saveDelayTime(int delayTime);
-
-
   Future<void> saveLocale(int localeId);
   
 }

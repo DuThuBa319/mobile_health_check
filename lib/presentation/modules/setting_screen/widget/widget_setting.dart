@@ -4,8 +4,10 @@ import 'package:mobile_health_check/function.dart';
 
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 
-import '../../../classes/language.dart';
-import '../../theme/app_text_theme.dart';
+import '../../../../classes/language.dart';
+import '../../../theme/app_text_theme.dart';
+
+
 
 Widget settingMenuCell(String selectSetting, BuildContext context) {
   SizeConfig.init(context);

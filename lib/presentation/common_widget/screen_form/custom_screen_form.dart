@@ -11,7 +11,6 @@ import '../enum_common.dart';
 
 class CustomScreenForm extends StatefulWidget {
   final bool? isShowBottomNayvigationBar;
-  final bool? isRelativeApp;
   final bool isShowAppBar;
   final Color? appBarColor;
   final Color? backgroundColor;
@@ -30,7 +29,6 @@ class CustomScreenForm extends StatefulWidget {
   final Widget? floatActionButton;
   const CustomScreenForm(
       {super.key,
-      this.isRelativeApp = false,
       this.notificationBloc,
       this.messageBody,
       this.unreadCount,
@@ -72,7 +70,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       IconButton(
                         icon: Icon(
                           Icons.arrow_back,
-                          size: 35,
+                          size: SizeConfig.screenWidth * 0.1,
                           color: widget.appComponentColor,
                         ),
                         onPressed: () {
@@ -85,18 +83,18 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                 widget.title!,
                 style: AppTextTheme.title1.copyWith(
                     color: widget.appComponentColor,
-                    fontSize: SizeConfig.screenWidth * 0.07),
+                    fontSize: SizeConfig.screenWidth * 0.065),
               ),
               actions: [
                 widget.isShowRightButon
                     ? widget.rightButton ??
-                        const SizedBox(
-                          height: 30,
-                          width: 30,
+                        SizedBox(
+                          height: SizeConfig.screenWidth * 0.05,
+                          width: SizeConfig.screenWidth * 0.05,
                         )
-                    : const SizedBox(
-                        height: 30,
-                        width: 30,
+                    : SizedBox(
+                        height: SizeConfig.screenWidth * 0.05,
+                        width: SizeConfig.screenWidth * 0.05,
                       )
               ],
             )
@@ -122,8 +120,13 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     iconBottomBar(
-                        label: translation(context).homeScreen,
-                        iconData: Icons.list,
+                        label:
+                            (userDataData.getUser()?.role == UserRole.doctor ||
+                                    userDataData.getUser()?.role ==
+                                        UserRole.relative)
+                                ? translation(context).homeScreen
+                                : translation(context).selectEquip,
+                        iconData: Icons.home_filled,
                         isSelected: widget.selectedIndex == 0 ? true : false,
                         iconIndex: 0),
                     iconBottomBar(
@@ -137,8 +140,10 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
             )
           : null,
 
-      floatingActionButton:
-          widget.isRelativeApp == false ? widget.floatActionButton : null,
+      floatingActionButton: (userDataData.getUser()?.role == UserRole.doctor ||
+              userDataData.getUser()?.role == UserRole.admin)
+          ? widget.floatActionButton
+          : null,
     );
   }
 
@@ -194,10 +199,12 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       } else if (userDataData.getUser()!.role == UserRole.admin) {
         Navigator.pushNamed(context, RouteList.doctorList,
             arguments: userDataData.getUser()!.id!);
+      } else if (userDataData.getUser()!.role == UserRole.patient) {
+        Navigator.pushNamed(context, RouteList.selectEquip);
       }
     }
     if (index == 1 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.setting);
+      Navigator.pushNamed(context, RouteList.settingMenu);
     }
   }
 }
