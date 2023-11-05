@@ -16,6 +16,7 @@ import '../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../common_widget/slidable.dart';
 import '../../../route/route_list.dart';
+import '../../../theme/app_text_theme.dart';
 import '../bloc/get_doctor_bloc.dart';
 
 part 'doctor_list_screen.action.dart';
@@ -92,26 +93,37 @@ class _DoctorListState extends State<DoctorListScreen> {
                         (state is DeleteDoctorState &&
                             state.status == BlocStatusState.loading)) {
                       return formDoctorListScreen(
-                        isloading: true,
+                        isLoading: true,
                       );
                     }
 
                     if ((state is GetDoctorListState &&
                             state.status == BlocStatusState.success) ||
-                        (state is SearchDoctorState &&
+                        (state is DeleteDoctorState &&
                             state.status == BlocStatusState.success) ||
                         (state is DeleteDoctorState &&
-                            state.status == BlocStatusState.success)) {
+                            state.status == BlocStatusState.failure &&
+                            state.viewModel.errorMessage ==
+                                translation(context).cannotDeleteDoctor)) {
                       return formDoctorListScreen(
                           itemCount: state.viewModel.allDoctorEntity?.length,
-                          isloading: false,
+                          isLoading: false,
+                          personCellEntities: state.viewModel.allDoctorEntity);
+                    }
+                    if (state is SearchDoctorState &&
+                        state.status == BlocStatusState.success) {
+                      return formDoctorListScreen(
+                          itemCount: state.viewModel.allDoctorEntity?.length,
+                          isSearching: true,
                           personCellEntities: state.viewModel.allDoctorEntity);
                     }
 
                     if ((state is GetDoctorListState &&
                             state.status == BlocStatusState.failure) ||
                         (state is DeleteDoctorState &&
-                            state.status == BlocStatusState.failure) ||
+                            state.status == BlocStatusState.failure &&
+                            state.viewModel.errorMessage !=
+                                translation(context).cannotDeleteDoctor) ||
                         (state is SearchDoctorState &&
                             state.status == BlocStatusState.failure) ||
                         (state is WifiDisconnectState &&

@@ -50,7 +50,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<RegistPatientEvent>(_onAddPatient);
     on<RegistRelativeEvent>(_onAddRelative);
     on<GetPatientInforEvent>(_getPatientInfor);
-    on<DeleteRelativeEvent>(_onDeleteRelative);
+    on<RemoveRelationshipRaPEvent>(_onRemoveRelationshipRaP);
     on<DeletePatientEvent>(_onDeletePatient);
     on<ResetPasswordCustomerEvent>(_onResetPassword);
 
@@ -549,24 +549,24 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
-  Future<void> _onDeleteRelative(
-    DeleteRelativeEvent event,
+  Future<void> _onRemoveRelationshipRaP(
+    RemoveRelationshipRaPEvent event,
     Emitter<GetPatientState> emit,
   ) async {
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
       emit(
-        DeleteRelativeState(
+        RemoveRelationshipRaPState(
           status: BlocStatusState.loading,
           viewModel: state.viewModel,
         ),
       );
       try {
-        await _doctorInforUsecase.deleteRelativeEntity(
+        await _doctorInforUsecase.removeRelationshipRaPEntity(
             event.relativeId, event.patientId);
         final newViewModel = state.viewModel;
-        emit(DeleteRelativeState(
+        emit(RemoveRelationshipRaPState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
         ));

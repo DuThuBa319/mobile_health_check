@@ -77,9 +77,9 @@ abstract class RestApiRepository {
   @DELETE('/Users/DeletePatient/{patientId}') //delete
   Future<void> deletePatient(@Path('patientId') String? patientId);
 
-  //? DELETE RELATIVE
-  @DELETE('/Users/{patientId}/DeleteRelativeAccount/{relativeId}') //delete
-  Future<void> deleteRelative(
+  //? REMOVE RELATIVE & PATIENT RELATIONSHIP
+  @PATCH('/Users/RemoveRelationship/{relativeId}&&{patientId}')
+  Future<void> removeRelationshipRaP(
       {@Path('patientId') String? patientId,
       @Path('relativeId') String? relativeId});
 

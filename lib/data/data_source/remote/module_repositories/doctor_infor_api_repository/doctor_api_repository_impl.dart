@@ -38,7 +38,7 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
   }
 
   @override
-  Future<void> deleteRelativeModel({String? relativeId, String? patientId}) {
-    return restApi.deleteRelative(patientId: patientId, relativeId: relativeId);
+  Future<void> removeRelationshipRaPModel({String? relativeId, String? patientId}) {
+    return restApi.removeRelationshipRaP(patientId: patientId, relativeId: relativeId);
   }
 }

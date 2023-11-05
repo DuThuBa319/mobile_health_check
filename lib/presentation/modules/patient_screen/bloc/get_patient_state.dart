@@ -151,8 +151,8 @@ class RegistPatientState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-class DeleteRelativeState extends GetPatientState {
-  DeleteRelativeState({
+class RemoveRelationshipRaPState extends GetPatientState {
+  RemoveRelationshipRaPState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
@@ -205,7 +205,7 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  DeleteRelativeState: (viewModel, status) => DeleteRelativeState(
+  RemoveRelationshipRaPState: (viewModel, status) => RemoveRelationshipRaPState(
         viewModel: viewModel,
         status: status,
       ),

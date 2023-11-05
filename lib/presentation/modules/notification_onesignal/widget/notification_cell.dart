@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
@@ -79,135 +80,121 @@ class _NotificationCellState extends State<NotificationCell> {
               });
         }
       },
-      child: Container(
-          margin: EdgeInsets.only(
-              bottom: SizeConfig.screenWidth * 0.02,
-              top: SizeConfig.screenWidth * 0.025),
-          height: SizeConfig.screenHeight * 0.15,
-          width: SizeConfig.screenWidth * 0.8,
-          decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  blurRadius: 5,
-                  color: Colors.black12,
-                )
-              ],
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              border: Border.all(
-                  color: (widget.notificationEntity?.read == false)
-                      ? AppColor.topGradient
-                      : AppColor.lightGrey,
-                  width: 3)),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.05),
-                    padding:
-                        const EdgeInsets.only(left: 5, right: 5, bottom: 8),
-                    height: SizeConfig.screenHeight * 0.04,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5)),
-                      color: (widget.notificationEntity?.read == false)
-                          ? AppColor.topGradient
-                          : AppColor.lightGrey,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: SizeConfig.screenWidth * 0.01,
-                            ),
-                            Text("${widget.notificationEntity?.patientName}",
-                                style: AppTextTheme.body3.copyWith(
-                                    fontSize: SizeConfig.screenWidth * 0.04,
-                                    fontWeight: FontWeight.bold))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                                DateFormat('HH:mm dd/MM/yyyy').format((widget
-                                    .notificationEntity?.sendDate!
-                                    .add(const Duration(hours: 7)))!),
-                                style: AppTextTheme.body4.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: SizeConfig.screenWidth * 0.035,
-                                )),
-                            (widget.notificationEntity?.read == true)
-                                ? InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            Center(
-                                          child: AlertDialog(
-                                            title: Text(translation(context)
-                                                .notification),
-                                            content: Text(
-                                                translation(context)
-                                                    .deleteNotification,
-                                                style:
-                                                    AppTextTheme.body4.copyWith(
-                                                  color: Colors.black,
-                                                  fontSize:
-                                                      SizeConfig.screenWidth *
-                                                          0.05,
-                                                )),
-                                            actions: [
-                                              TextButton(
-                                                child: Text(
-                                                    translation(context).exit),
-                                                onPressed: () {
-                                                  //Navigator.pop(context);
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              TextButton(
-                                                child: Text(translation(context)
-                                                    .accept),
-                                                onPressed: () {
-                                                  widget.notificationBloc?.add(
-                                                      DeleteNotificationEvent(
-                                                          index:
-                                                              widget.cellIndex,
-                                                          notificationId: widget
-                                                              .notificationEntity
-                                                              ?.notificaitonId));
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.delete_outlined,
-                                      size: SizeConfig.screenWidth * 0.06,
-                                      color: AppColor.black,
-                                    ))
-                                : const SizedBox(
-                                    height: 1,
-                                    width: 1,
-                                  )
-                          ],
-                        ),
-                      ],
-                    )),
-                contentCell(widget.notificationEntity!, context)
-              ])),
+      child: Slidable(
+        closeOnScroll: true,
+        endActionPane: ActionPane(
+            motion: const StretchMotion(),
+            extentRatio: 0.4,
+            children: [
+              SlidableAction(
+                label: translation(context).delete,
+                autoClose: true,
+                borderRadius: BorderRadius.circular(10),
+                onPressed: (context) {
+                  widget.notificationEntity?.read == true
+                      ? showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(translation(context).notification),
+                              content:
+                                  Text(translation(context).deleteNotification),
+                              actions: [
+                                TextButton(
+                                  child: Text(translation(context).exit),
+                                  onPressed: () {
+                                    //Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text(translation(context).accept),
+                                  onPressed: () {
+                                    widget.notificationBloc?.add(
+                                        DeleteNotificationEvent(
+                                            index: widget.cellIndex,
+                                            notificationId: widget
+                                                .notificationEntity
+                                                ?.notificaitonId));
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        )
+                      : null;
+                },
+                backgroundColor: (widget.notificationEntity?.read == true)
+                    ? AppColor.lineDecor
+                    : AppColor.lightGrey,
+                foregroundColor: Colors.white,
+                icon: Icons.delete_outline_outlined,
+              ),
+            ]),
+        child: Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.15,
+            decoration: BoxDecoration(
+                boxShadow: const [
+                  BoxShadow(
+                    blurRadius: 5,
+                    color: Colors.black12,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                border: Border.all(
+                    color: (widget.notificationEntity?.read == false)
+                        ? AppColor.topGradient
+                        : AppColor.lightGrey,
+                    width: 3)),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      width: (SizeConfig.screenWidth - 5),
+                      height: SizeConfig.screenHeight * 0.05,
+                      padding: const EdgeInsets.only(left: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(5),
+                            topRight: Radius.circular(5)),
+                        color: (widget.notificationEntity?.read == false)
+                            ? AppColor.topGradient
+                            : AppColor.lightGrey,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("${widget.notificationEntity?.patientName}",
+                              softWrap: true,
+                              style: AppTextTheme.body3.copyWith(
+                                  fontSize: SizeConfig.screenWidth * 0.04,
+                                  fontWeight: FontWeight.bold)),
+                          Text(
+                              softWrap: true,
+                              DateFormat('HH:mm dd/MM/yyyy').format((widget
+                                  .notificationEntity?.sendDate!
+                                  .add(const Duration(hours: 7)))!),
+                              style: AppTextTheme.body4.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: SizeConfig.screenWidth * 0.03,
+                              )),
+                        ],
+                      )),
+                  Expanded(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      contentCell(widget.notificationEntity!, context),
+                    ],
+                  ))
+                ])),
+      ),
     );
   }
 }
@@ -229,6 +216,7 @@ Widget contentCell(
                 ? Colors.black
                 : const Color.fromARGB(255, 93, 93, 93),
           ),
+          softWrap: true,
         ),
       );
     case 1:
@@ -236,6 +224,7 @@ Widget contentCell(
         width: SizeConfig.screenWidth * 0.92,
         padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
         child: Text(
+          softWrap: true,
           "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bloodSugarIndex}",
           style: AppTextTheme.body4.copyWith(
             wordSpacing: 1,
@@ -252,6 +241,7 @@ Widget contentCell(
         width: SizeConfig.screenWidth * 0.92,
         padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
         child: Text(
+          softWrap: true,
           "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bodyTemperatureIndex}",
           style: AppTextTheme.body4.copyWith(
             wordSpacing: 1,
@@ -268,6 +258,7 @@ Widget contentCell(
         width: SizeConfig.screenWidth * 0.92,
         padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
         child: Text(
+          softWrap: true,
           "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).spo2Index}",
           style: AppTextTheme.body4.copyWith(
             wordSpacing: 1,
@@ -297,3 +288,22 @@ Widget contentCell(
       );
   }
 }
+
+//  showNoticeDialogTwoButton(
+//                                             context: context,
+//                                             message: translation(context)
+//                                                 .deleteNotification,
+//                                             title:
+//                                                 translation(context).notification,
+//                                             titleBtn1: translation(context).exit,
+//                                             titleBtn2:
+//                                                 translation(context).accept,
+//                                             onClose1: () =>
+//                                                 Navigator.pop(context),
+//                                             onClose2: () => widget
+//                                                 .notificationBloc
+//                                                 ?.add(DeleteNotificationEvent(
+//                                                     index: widget.cellIndex,
+//                                                     notificationId: widget
+//                                                         .notificationEntity
+//                                                         ?.notificaitonId)));

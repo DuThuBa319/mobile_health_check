@@ -316,6 +316,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     DeleteDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
+    NavigationService navigationService = injector<NavigationService>();
+
     final connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile) {
@@ -334,6 +336,17 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
           status: BlocStatusState.success,
           viewModel: newViewModel,
         ));
+      } on DioException catch (e) {
+        if (e.response?.data ==
+            "Cannot delete this account because it is still in a relationship with another account.") {
+          emit(state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .cannotDeleteDoctor),
+          ));
+        }
       } catch (e) {
         emit(
           state.copyWith(

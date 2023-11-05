@@ -33,7 +33,7 @@ class DoctorInforRepositoryImpl extends DoctorInforRepository {
     return _doctorInforApi.deletePatientModel( patientId);
   }
  @override
-  Future<void> deleteRelativeModel({String? relativeId,String? patientId}) {
-    return _doctorInforApi.deleteRelativeModel(patientId:patientId ,relativeId:relativeId);
+  Future<void> removeRelationshipRaPModel({String? relativeId,String? patientId}) {
+    return _doctorInforApi.removeRelationshipRaPModel(patientId:patientId ,relativeId:relativeId);
   }
 }

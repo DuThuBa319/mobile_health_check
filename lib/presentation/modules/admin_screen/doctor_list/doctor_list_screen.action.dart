@@ -27,6 +27,17 @@ extension DoctorListScreenAction on _DoctorListState {
           title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
+
+    if (state is DeleteDoctorState &&
+        state.status == BlocStatusState.failure &&
+        state.viewModel.errorMessage ==
+            translation(context).cannotDeleteDoctor) {
+      showNoticeDialog(
+          context: context,
+          message: state.viewModel.errorMessage!,
+          title: translation(context).notification,
+          titleBtn: translation(context).exit);
+    }
   }
 
   Future<bool> _onWillPop() async {
@@ -44,7 +55,8 @@ extension DoctorListScreenAction on _DoctorListState {
   }
 
   Widget formDoctorListScreen(
-      {bool? isloading,
+      {bool isSearching = false,
+      bool isLoading = false,
       int? itemCount,
       List<PersonCellEntity>? personCellEntities}) {
     return Padding(
@@ -103,7 +115,7 @@ extension DoctorListScreenAction on _DoctorListState {
                 ),
               ),
             ),
-            (isloading == true)
+            (isLoading == true)
                 ? const Expanded(
                     child: Center(
                       child: Loading(brightness: Brightness.light),
@@ -119,25 +131,44 @@ extension DoctorListScreenAction on _DoctorListState {
                         _refreshController.refreshCompleted();
                         getDoctorBloc.add(GetDoctorListEvent());
                       },
-                      child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(
-                          height: 8,
-                          color: AppColor.backgroundColor,
-                        ),
-                        physics: const BouncingScrollPhysics(),
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        itemCount: itemCount ?? 0,
-                        itemBuilder: (BuildContext context, int index) {
-                          final personCellEntity = personCellEntities?[index];
-                          return SlideAbleForm(
-                            isDoctorCell: true,
-                            doctorBloc: getDoctorBloc,
-                            personCellEntity: personCellEntity,
-                          );
-                        },
-                      ),
+                      child: personCellEntities!.isNotEmpty
+                          ? ListView.separated(
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(
+                                height: 8,
+                                color: AppColor.backgroundColor,
+                              ),
+                              physics: const BouncingScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              itemCount: itemCount ?? 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                final personCellEntity =
+                                    personCellEntities[index];
+                                return SlideAbleForm(
+                                  isDoctorCell: true,
+                                  doctorBloc: getDoctorBloc,
+                                  personCellEntity: personCellEntity,
+                                );
+                              },
+                            )
+                          : Center(
+                              child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                  (isSearching == false)
+                                      ? translation(context).noDoctor
+                                      : translation(context).wrongSearchDoctor,
+                                  style: AppTextTheme.body2.copyWith(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            )),
                     ),
                   )
           ]),

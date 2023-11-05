@@ -50,8 +50,9 @@ extension PatientListScreenAction on _PatientListState {
   }
 
   Widget formPatientListScreen(
-      {int? unreadCount,
-      bool? isloading,
+      {bool isSearching = false,
+      int? unreadCount,
+      bool isLoading = false,
       int? itemCount,
       List<PatientInforEntity>? patientInforEntities}) {
     return Padding(
@@ -142,7 +143,7 @@ extension PatientListScreenAction on _PatientListState {
                 ),
               ),
             ),
-            (isloading == true)
+            (isLoading == true)
                 ? const Expanded(
                     child: Center(
                       child: Loading(brightness: Brightness.light),
@@ -158,36 +159,53 @@ extension PatientListScreenAction on _PatientListState {
                         _refreshController.refreshCompleted();
                         patientBloc.add(GetPatientListEvent(userId: widget.id));
                       },
-                      child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(
-                          height: 8,
-                          color: AppColor.backgroundColor,
-                        ),
-                        physics: const BouncingScrollPhysics(),
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        itemCount: itemCount ?? 0,
-                        itemBuilder: (BuildContext context, int index) {
-                          final patientInforEntity =
-                              patientInforEntities?[index];
-                          return (userDataData.getUser()?.role ==
-                                  UserRole.doctor)
-                              ? SlideAbleForm(
-                                  isPatientCell: true,
-                                  patientBloc: patientBloc,
-                                  patientInforEntity: patientInforEntity,
-                                )
+                      child: (patientInforEntities!.isNotEmpty)
+                          ? ListView.separated(
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(
+                                height: 8,
+                                color: AppColor.backgroundColor,
+                              ),
+                              physics: const BouncingScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              itemCount: itemCount ?? 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                final patientInforEntity =
+                                    patientInforEntities[index];
+                                return (userDataData.getUser()?.role ==
+                                        UserRole.doctor)
+                                    ? SlideAbleForm(
+                                        isPatientCell: true,
+                                        patientBloc: patientBloc,
+                                        patientInforEntity: patientInforEntity,
+                                      )
 
-                              //! PatientList Cell không có slidable
-                              : PatientListCell(
-                                  patientBloc: patientBloc,
-                                  patientInforEntity: patientInforEntity,
-                                );
-                        },
-                      ),
+                                    //! PatientList Cell không có slidable
+                                    : PatientListCell(
+                                        patientBloc: patientBloc,
+                                        patientInforEntity: patientInforEntity,
+                                      );
+                              },
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                  (isSearching == false)
+                                      ? translation(context).noPatient
+                                      : translation(context).wrongSearchPatient,
+                                  style: AppTextTheme.body2.copyWith(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                     ),
-                  )
+                  ),
           ]),
     );
   }

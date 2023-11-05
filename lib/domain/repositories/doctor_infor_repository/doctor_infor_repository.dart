@@ -15,5 +15,5 @@ abstract class DoctorInforRepository {
       String? doctorId, DoctorInforModel? doctorInforModel);
       
   Future<void> deletePatientModel(String? patientId);
-  Future<void> deleteRelativeModel({String? relativeId, String? patientId});
+  Future<void> removeRelationshipRaPModel({String? relativeId, String? patientId});
 }

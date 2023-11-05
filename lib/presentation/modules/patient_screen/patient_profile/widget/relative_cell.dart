@@ -78,7 +78,7 @@ class _RelativeListCellState extends State<RelativeListCell> {
                               titleBtn2: translation(context).accept,
                               onClose2: () {
                                 widget.deleteRelativeBloc?.add(
-                                    DeleteRelativeEvent(
+                                    RemoveRelationshipRaPEvent(
                                         patientId:
                                             widget.patientInforEntity?.id,
                                         relativeId:

@@ -62,7 +62,6 @@ class _NotificationListState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-       
         isShowAppBar: true,
         isShowLeadingButton: true,
         isShowBottomNayvigationBar: true,
@@ -155,7 +154,13 @@ class _NotificationListState extends State<NotificationScreen> {
                                     RefreshNotificationListEvent(
                                         doctorId: doctorId));
                               },
-                              child: ListView.builder(
+                              child: ListView.separated(
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          const Divider(
+                                            height: 8,
+                                            color: AppColor.white,
+                                          ),
                                   controller: expandingController,
                                   physics: const BouncingScrollPhysics(),
                                   padding: EdgeInsets.zero,

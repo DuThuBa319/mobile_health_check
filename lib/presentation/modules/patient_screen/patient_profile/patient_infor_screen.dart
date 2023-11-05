@@ -93,7 +93,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
             listener: _blocListener,
             builder: (context, state) {
               if ((state is GetPatientInitialState) ||
-                  (state is DeleteRelativeState &&
+                  (state is RemoveRelationshipRaPState &&
                       state.status == BlocStatusState.success) ||
                   (state is ResetPasswordCustomerState &&
                       state.status == BlocStatusState.success)) {

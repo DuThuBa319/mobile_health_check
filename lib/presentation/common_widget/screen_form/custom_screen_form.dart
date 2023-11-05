@@ -86,12 +86,18 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                     fontSize: SizeConfig.screenWidth * 0.065),
               ),
               actions: [
-                widget.isShowRightButon
-                    ? widget.rightButton ??
-                        SizedBox(
-                          height: SizeConfig.screenWidth * 0.05,
-                          width: SizeConfig.screenWidth * 0.05,
-                        )
+                (userDataData.getUser()?.role == UserRole.admin ||
+                        userDataData.getUser()?.role == UserRole.doctor)
+                    ? widget.isShowRightButon
+                        ? widget.rightButton ??
+                            SizedBox(
+                              height: SizeConfig.screenWidth * 0.05,
+                              width: SizeConfig.screenWidth * 0.05,
+                            )
+                        : SizedBox(
+                            height: SizeConfig.screenWidth * 0.05,
+                            width: SizeConfig.screenWidth * 0.05,
+                          )
                     : SizedBox(
                         height: SizeConfig.screenWidth * 0.05,
                         width: SizeConfig.screenWidth * 0.05,

@@ -16,7 +16,7 @@ abstract class DoctorInforUsecase {
   Future<DoctorInforEntity?> getDoctorInforEntity(String? doctorId);
   Future<void> addPatientEntity(String? doctorId, AccountEntity? accountEntity);
   Future<void> deletePatientEntity(String? patientId);
-  Future<void> deleteRelativeEntity(String? relativeId, String? patientId);
+  Future<void> removeRelationshipRaPEntity(String? relativeId, String? patientId);
   Future<void> updateDoctorInforEntity(
       String? doctorId, DoctorInforEntity? doctorInforEntity);
 }

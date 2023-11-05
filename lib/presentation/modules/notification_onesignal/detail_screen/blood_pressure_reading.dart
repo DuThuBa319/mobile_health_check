@@ -25,16 +25,9 @@ class BloodPressureNotificationReadingScreen extends StatefulWidget {
 
 class _BloodPressureNotificationReadingScreenState
     extends State<BloodPressureNotificationReadingScreen> {
-  // bool _isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    // Timer(const Duration(milliseconds: 3000), () {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
   }
 
 ////////////////////////
@@ -76,13 +69,16 @@ class _BloodPressureNotificationReadingScreenState
                       Text(
                         "${widget.notificationEntity?.patientName}",
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenWidth * 0.07,
+                            fontSize: SizeConfig.screenWidth * 0.05,
                             fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: 5,
                       ),
                       Text(
                         " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
                         style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.04),
                       ),
                     ],
                   )),

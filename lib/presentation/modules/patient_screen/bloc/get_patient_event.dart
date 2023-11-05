@@ -19,8 +19,8 @@ class FilterPatientEvent extends PatientEvent {
   final String id;
 }
 
-class DeleteRelativeEvent extends PatientEvent {
-  DeleteRelativeEvent({required this.patientId, required this.relativeId});
+class RemoveRelationshipRaPEvent extends PatientEvent {
+  RemoveRelationshipRaPEvent({required this.patientId, required this.relativeId});
   final String? relativeId;
   final String? patientId;
 }

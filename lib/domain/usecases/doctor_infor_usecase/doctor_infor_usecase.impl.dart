@@ -52,9 +52,9 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
   }
 
   @override
-  Future<void> deleteRelativeEntity(
+  Future<void> removeRelationshipRaPEntity(
       String? relativeId, String? patientId) async {
-    await _repository.deleteRelativeModel(
+    await _repository.removeRelationshipRaPModel(
         relativeId: relativeId, patientId: patientId);
   }
 }

@@ -140,7 +140,7 @@ class SlideAbleForm extends StatelessWidget {
                             patientId: patientInforEntity?.id,
                           ));
                         } else if (isRelativeCell == true) {
-                          patientBloc?.add(DeleteRelativeEvent(
+                          patientBloc?.add(RemoveRelationshipRaPEvent(
                               patientId: patientInforEntity?.id,
                               relativeId: relativeInforEntity?.id));
                         } else if (isDoctorCell == true) {

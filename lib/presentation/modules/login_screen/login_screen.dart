@@ -242,23 +242,23 @@ class _LoginState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: null,
-                          child: Text(
-                            translation(context).forgotPass,
-                            style: TextStyle(
-                              letterSpacing: -0.5,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.035,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     GestureDetector(
+                    //       onTap: null,
+                    //       child: Text(
+                    //         translation(context).forgotPass,
+                    //         style: TextStyle(
+                    //           letterSpacing: -0.5,
+                    //           fontWeight: FontWeight.w400,
+                    //           color: AppColor.gray767676,
+                    //           fontSize: SizeConfig.screenWidth * 0.035,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     GestureDetector(
                         onTap: login,
                         child: Container(

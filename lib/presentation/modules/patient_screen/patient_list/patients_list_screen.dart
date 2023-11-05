@@ -20,6 +20,7 @@ import '../../../common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../common_widget/slidable.dart';
 import '../../../route/route_list.dart';
+import '../../../theme/app_text_theme.dart';
 import '../bloc/get_patient_bloc.dart';
 
 part 'patients_list_screen.action.dart';
@@ -92,22 +93,31 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.loading)) {
                       return formPatientListScreen(
                           unreadCount: state.viewModel.unreadCount,
-                          isloading: true);
+                          isLoading: true);
                     }
                     if ((state is GetPatientListState &&
-                            state.status == BlocStatusState.success) ||
-                        (state is SearchPatientState &&
                             state.status == BlocStatusState.success) ||
                         (state is GetPatientListState &&
                             state.status == BlocStatusState.loading &&
                             state.viewModel.patientEntities == null)) {
                       return formPatientListScreen(
-                        isloading: false,
+                        isLoading: false,
                         itemCount: state.viewModel.patientEntities?.length,
                         patientInforEntities: state.viewModel.patientEntities,
                         unreadCount: state.viewModel.unreadCount,
                       );
                     }
+
+                    if (state is SearchPatientState &&
+                        state.status == BlocStatusState.success) {
+                      return formPatientListScreen(
+                        isSearching: true,
+                        itemCount: state.viewModel.patientEntities?.length,
+                        patientInforEntities: state.viewModel.patientEntities,
+                        unreadCount: state.viewModel.unreadCount,
+                      );
+                    }
+
                     if ((state is GetPatientListState &&
                             state.status == BlocStatusState.failure) ||
                         (state is SearchPatientState &&
