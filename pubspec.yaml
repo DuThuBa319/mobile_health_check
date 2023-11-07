@@ -78,6 +78,7 @@ dependencies:
   localization: ^2.1.0
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.2.0
+  gap: ^3.0.1
   # lưu ý setup cho ios
   flutter_secure_storage: ^8.0.0
   image_picker: ^1.0.2

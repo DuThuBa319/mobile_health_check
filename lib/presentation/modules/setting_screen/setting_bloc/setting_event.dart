@@ -7,14 +7,6 @@ class GetDoctorListEvent extends SettingEvent {
   GetDoctorListEvent() : super();
 }
 
-
-
-
-
-
-
-
-
 class UpdatePatientInforEvent extends SettingEvent {
   final String? id;
   final PatientInforEntity patientInforEntity;
