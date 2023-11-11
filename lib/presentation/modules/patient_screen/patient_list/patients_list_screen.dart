@@ -70,9 +70,8 @@ class _PatientListState extends State<PatientListScreen> {
                   borderRadius: BorderRadius.circular(30)),
               child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, RouteList.addPatient,
-                        arguments: patientBloc);
-                    filterKeyword = TextEditingController(text: " ");
+                    Navigator.pushNamed(context, RouteList.addPatient);
+                    filterKeyword = TextEditingController(text: "");
                   },
                   icon: const Icon(
                     Icons.group_add_outlined,
@@ -99,7 +98,10 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.success) ||
                         (state is GetPatientListState &&
                             state.status == BlocStatusState.loading &&
-                            state.viewModel.patientEntities == null)) {
+                            state.viewModel.patientEntities == null) ||
+                        (state is DeletePatientState &&
+                                (state.status == BlocStatusState.loading) ||
+                            (state.status == BlocStatusState.success))) {
                       return formPatientListScreen(
                         isLoading: false,
                         itemCount: state.viewModel.patientEntities?.length,
@@ -127,7 +129,12 @@ class _PatientListState extends State<PatientListScreen> {
                         (state is WifiDisconnectState &&
                             state.status == BlocStatusState.success)) {
                       return Center(
-                        child: Text(translation(context).error),
+                        child: Text(
+                          translation(context).error,
+                          style: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontWeight: FontWeight.bold),
+                        ),
                       );
                     }
                     return Container();

@@ -69,13 +69,13 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                         child: Center(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
-                            child: Image.network(
-                              widget.imagePath ?? widget.imagePath!,
-                              fit: BoxFit.fill,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  Icon(Icons.image_not_supported_outlined,
-                                      size: SizeConfig.screenWidth / 2),
-                            ),
+                            child: Image.network(widget.imagePath!,
+                                fit: BoxFit.fill,
+                                errorBuilder: (context, error, stackTrace) {
+                              showToast(translation(context).uploadPhotoError);
+                              return Icon(Icons.image_not_supported_outlined,
+                                  size: SizeConfig.screenWidth / 2);
+                            }),
                           ),
                         ),
                       ),

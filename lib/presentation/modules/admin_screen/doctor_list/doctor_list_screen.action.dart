@@ -15,6 +15,9 @@ extension DoctorListScreenAction on _DoctorListState {
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
     }
+    if (state is DeleteDoctorState && state.status == BlocStatusState.loading) {
+      showToast(translation(context).deletingDoctoc);
+    }
     if (state is DeleteDoctorState && state.status == BlocStatusState.success) {
       showToast(translation(context).deleteDoctorSuccessfully);
     }

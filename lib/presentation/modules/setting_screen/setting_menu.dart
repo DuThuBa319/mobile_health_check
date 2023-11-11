@@ -33,109 +33,104 @@ class _SettingMenuState extends State<SettingMenu> {
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
         selectedIndex: 1,
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.1,
-            ),
-            margin: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.02,
-              left: SizeConfig.screenWidth * 0.05,
-              right: SizeConfig.screenWidth * 0.05,
-            ),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  (userDataData.getUser()?.role == UserRole.relative ||
-                          userDataData.getUser()?.role == UserRole.patient)
-                      ? Center(
-                          child: CustomImagePicker(
-                            gender: userDataData.getUser()?.gender,
-                            age: userDataData.getUser()?.age,
-                            imagePath: null,
-                            isOnTapActive: true,
-                            isforAvatar: true,
-                          ),
-                        )
-                      : Container(
-                          decoration: const BoxDecoration(
-                              color: AppColor.backgroundColor,
-                              shape: BoxShape.circle),
-                          height: SizeConfig.screenWidth * 0.25,
-                          width: SizeConfig.screenWidth * 0.25,
-                          child: ClipRect(
-                              child: Image.asset(
-                            (userDataData.getUser()?.role == UserRole.doctor)
-                                ? Assets.doctor
-                                : Assets.family,
-                            fit: BoxFit.fill,
-                          )),
-                        ),
-                  Text(
-                      (userDataData.getUser()?.role == UserRole.doctor)
-                          ? "Dr.${userDataData.getUser()?.name}"
-                          : "${userDataData.getUser()?.name}",
-                      style: AppTextTheme.body0.copyWith(
-                          fontWeight: FontWeight.w500,
-                          fontSize: SizeConfig.screenWidth * 0.05)),
-                  Text(userDataData.getUser()?.phoneNumber ?? '--',
-                      style: AppTextTheme.body3),
-                  SizedBox(height: SizeConfig.screenWidth * 0.05),
-
-                  //? ĐỔI MẬT KHẨU
-                  GestureDetector(
-                    child: settingMenuCell(
-                        translation(context).updatePassword, context),
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteList.settingPass);
-                    },
-                  ),
-
-                  //? CẬP NHẬT THÔNG TIN
-
-                  GestureDetector(
-                    onTap: () =>
-                        Navigator.pushNamed(context, RouteList.settingProfile),
-                    child: settingMenuCell(
-                        translation(context).updateProfile, context),
-                  ),
-
-                  //? ĐỔI NGÔN NGỮ
-
-                  GestureDetector(
-                    onTap: () =>
-                        Navigator.pushNamed(context, RouteList.settingLanguage),
-                    child:
-                        settingMenuCell(translation(context).language, context),
-                  ),
-                  SizedBox(height: SizeConfig.screenWidth * 0.01),
-                  RectangleButton(
-                      height: SizeConfig.screenHeight * 0.07,
-                      title: translation(context).logOut,
-                      buttonColor: AppColor.saveSetting,
-                      onTap: () async {
-                        if ((userDataData.getUser()!.role == UserRole.doctor ||
-                            userDataData.getUser()!.role ==
-                                UserRole.relative)) {
-                          OneSignalNotificationService
-                              .unsubscribeFromNotifications(
-                                  userId: userDataData.getUser()!.id!);
-                          await notificationData.clearData();
-                        }
-
-                        if (userDataData.getUser()!.role == UserRole.patient) {
-                          await notificationData.clearData();
-                        }
-
-                        await userDataData.clearData();
-                        await userDataData.setLogout();
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushNamedAndRemoveUntil(context,
-                            RouteList.login, (Route<dynamic> route) => false);
-                      })
-                ]),
+        isScrollable: true,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: SizeConfig.screenWidth * 0.1,
           ),
+          margin: EdgeInsets.only(
+            top: SizeConfig.screenWidth * 0.02,
+            left: SizeConfig.screenWidth * 0.05,
+            right: SizeConfig.screenWidth * 0.05,
+          ),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                (userDataData.getUser()?.role == UserRole.relative ||
+                        userDataData.getUser()?.role == UserRole.patient)
+                    ? Center(
+                        child: CustomImagePicker(
+                          gender: userDataData.getUser()?.gender,
+                          age: userDataData.getUser()?.age,
+                          imagePath: null,
+                          isOnTapActive: true,
+                          isforAvatar: true,
+                        ),
+                      )
+                    : Container(
+                        decoration: const BoxDecoration(
+                            color: AppColor.backgroundColor,
+                            shape: BoxShape.circle),
+                        height: SizeConfig.screenWidth * 0.25,
+                        width: SizeConfig.screenWidth * 0.25,
+                        child: ClipRect(
+                            child: Image.asset(
+                          (userDataData.getUser()?.role == UserRole.doctor)
+                              ? Assets.doctor
+                              : Assets.family,
+                          fit: BoxFit.fill,
+                        )),
+                      ),
+                Text(
+                    (userDataData.getUser()?.role == UserRole.doctor)
+                        ? "Dr.${userDataData.getUser()?.name}"
+                        : "${userDataData.getUser()?.name}",
+                    style: AppTextTheme.body0.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontSize: SizeConfig.screenWidth * 0.05)),
+                Text(userDataData.getUser()?.phoneNumber ?? '--',
+                    style: AppTextTheme.body3),
+                SizedBox(height: SizeConfig.screenWidth * 0.05),
+
+                //! ĐỔI MẬT KHẨU
+                GestureDetector(
+                  child: settingMenuCell(
+                      translation(context).updatePassword, context),
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteList.settingPass);
+                  },
+                ),
+
+                //! CẬP NHẬT THÔNG TIN
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, RouteList.settingProfile),
+                  child: settingMenuCell(
+                      translation(context).updateProfile, context),
+                ),
+
+                //! ĐỔI NGÔN NGỮ
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, RouteList.settingLanguage),
+                  child:
+                      settingMenuCell(translation(context).language, context),
+                ),
+                SizedBox(height: SizeConfig.screenWidth * 0.01),
+                RectangleButton(
+                    height: SizeConfig.screenHeight * 0.07,
+                    title: translation(context).logOut,
+                    buttonColor: AppColor.saveSetting,
+                    onTap: () async {
+                      if ((userDataData.getUser()?.role == UserRole.doctor ||
+                          userDataData.getUser()?.role == UserRole.relative)) {
+                        OneSignalNotificationService
+                            .unsubscribeFromNotifications(
+                                userId: userDataData.getUser()!.id!);
+                        await notificationData.clearData();
+                      }
+
+                      if (userDataData.getUser()?.role == UserRole.patient) {
+                        await notificationData.clearData();
+                      }
+                      await userDataData.clearData();
+                      await userDataData.setLogout();
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          RouteList.login, (Route<dynamic> route) => false);
+                    })
+              ]),
         ));
   }
 }

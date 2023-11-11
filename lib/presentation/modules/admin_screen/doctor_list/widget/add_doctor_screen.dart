@@ -57,8 +57,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
                   onClose: () {
-                    Navigator.pushNamed(context, RouteList.doctorList,
-                        arguments: userDataData.getUser()?.id);
+                    Navigator.pop(context);
                   },
                   context: context,
                   message: translation(context).addDoctorSuccessfully,

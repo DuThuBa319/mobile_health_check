@@ -93,8 +93,8 @@ class _SettingProfileState extends State<SettingProfile> {
                     .pleaseUpdateYourHeight,
           };
     setState(() {
-      if (userDataData.getUser()!.role == UserRole.relative ||
-          userDataData.getUser()!.role == UserRole.doctor ||
+      if (userDataData.getUser()?.role == UserRole.relative ||
+          userDataData.getUser()?.role == UserRole.doctor ||
           userDataData.getUser()?.role == UserRole.admin) {
         _controllerName.text = userDataData.getUser()!.name!;
         _controllerPhoneNumber.text = userDataData.getUser()!.phoneNumber!;
@@ -190,7 +190,7 @@ class _SettingProfileState extends State<SettingProfile> {
                   (state is UpdateRelativeInforState) ||
                   (state is UpdatePatientInforState)) &&
               state.status == BlocStatusState.success) {
-            //! UPDATE PROFILE SUCCESSFULLY
+          //! UPDATE PROFILE SUCCESSFULLY
             showNoticeDialog(
                 onClose: () {
                   Navigator.pop(context);
@@ -290,7 +290,7 @@ class _SettingProfileState extends State<SettingProfile> {
                               gender = 1;
                             }
 
-                            if (userDataData.getUser()!.role ==
+                            if (userDataData.getUser()?.role ==
                                 UserRole.relative) {
                               RelativeInforEntity newRelativeInforEntity =
                                   RelativeInforEntity(
@@ -310,7 +310,7 @@ class _SettingProfileState extends State<SettingProfile> {
                                   .convertToModel());
                             }
 
-                            if (userDataData.getUser()!.role ==
+                            if (userDataData.getUser()?.role ==
                                 UserRole.doctor) {
                               DoctorInforEntity newDoctorInforEntity =
                                   DoctorInforEntity(
@@ -329,7 +329,7 @@ class _SettingProfileState extends State<SettingProfile> {
                               await userDataData.setUser(newDoctorInforEntity
                                   .convertUser(user: userDataData.getUser()!)
                                   .convertToModel());
-                            } else if (userDataData.getUser()!.role ==
+                            } else if (userDataData.getUser()?.role ==
                                 UserRole.patient) {
                               var height = double.parse(_controllerHeight.text);
                               var weight = double.parse(_controllerWeight.text);

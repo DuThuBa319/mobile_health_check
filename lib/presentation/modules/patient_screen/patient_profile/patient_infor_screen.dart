@@ -15,7 +15,6 @@ import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
 import '../../../common_widget/assets.dart';
-import '../../../common_widget/dialog/dialog_two_button.dart';
 import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
@@ -47,7 +46,6 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
   GetPatientBloc get patientBloc => BlocProvider.of(context);
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  double? nameFormWidth;
 
   @override
   void initState() {
@@ -65,37 +63,11 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         appBarColor: const Color(0xff7BD4FF),
         backgroundColor: const Color(0xffDBF3FF),
         isShowRightButon: true,
-        rightButton: GestureDetector(
-          onTap: () {
-            //!RESET PATIENT PASSWORD
-
-            showNoticeDialogTwoButton(
-                context: context,
-                message: translation(context).resetPatientPassword,
-                title: translation(context).notification,
-                titleBtn1: translation(context).exit,
-                titleBtn2: translation(context).accept,
-                onClose2: () => patientBloc
-                    .add(ResetPasswordCustomerEvent(userId: widget.patientId)));
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: SizedBox(
-              child: Icon(
-                Icons.lock_reset_outlined,
-                color: Colors.white,
-                size: SizeConfig.screenWidth * 0.1,
-              ),
-            ),
-          ),
-        ),
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
               if ((state is GetPatientInitialState) ||
                   (state is RemoveRelationshipRaPState &&
-                      state.status == BlocStatusState.success) ||
-                  (state is ResetPasswordCustomerState &&
                       state.status == BlocStatusState.success)) {
                 patientBloc
                     .add(GetPatientInforEvent(patientId: widget.patientId));
@@ -111,12 +83,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
               }
 
               if ((state is GetPatientInforState &&
-                      state.status == BlocStatusState.success) ||
-                  state is ResetPasswordCustomerState &&
-                      state.status == BlocStatusState.loading) {
+                  state.status == BlocStatusState.success)) {
                 PatientInforEntity patient =
                     state.viewModel.patientInforEntity!;
-
                 return SmartRefresher(
                     header: const WaterDropHeader(),
                     controller: _refreshController,
@@ -134,18 +103,13 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                           Container(
                               width: SizeConfig.screenWidth,
                               decoration: const BoxDecoration(
-                                // color: const Color.fromARGB(255, 123, 211, 255),
                                 gradient: LinearGradient(
                                   colors: [
                                     Color(0xff7BD4FF),
                                     Color(0xffDBF3FF),
-
-                                    // Colors.white, // Xanh nhạt nhất
-                                    // Xanh đậm nhất
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
-                                  // Thay đổi begin và end để điều chỉnh hướng chuyển đổi màu
                                 ),
                               ),
                               child: Column(
@@ -270,6 +234,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               .waitForSeconds);
                                         },
                                         child: homeCell(
+                                            context: context,
                                             bloodPressureEntity:
                                                 patient.bloodPressures?[0],
                                             dateTime: patient
@@ -292,6 +257,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               .waitForSeconds);
                                         },
                                         child: homeCell(
+                                            context: context,
                                             temperatureEntity:
                                                 patient.bodyTemperatures?[0],
                                             dateTime: patient
@@ -316,6 +282,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               .waitForSeconds);
                                         },
                                         child: homeCell(
+                                            context: context,
                                             bloodSugarEntity:
                                                 patient.bloodSugars?[0],
                                             dateTime: patient
@@ -336,6 +303,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               .waitForSeconds);
                                         },
                                         child: homeCell(
+                                            context: context,
                                             spo2Entity: patient.spo2s?[0],
                                             dateTime:
                                                 patient.spo2s?[0].updatedDate,
@@ -384,7 +352,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   ),
                                   lineDecor(),
                                   SizedBox(
-                                    height: SizeConfig.screenWidth * 0.02,
+                                    height: SizeConfig.screenHeight * 0.01,
                                   ),
                                   ListView.separated(
                                     separatorBuilder:
@@ -412,7 +380,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   const SizedBox(
                                     height: 8,
                                   ),
-                                  patient.relatives!.length <= 2
+                                  patient.relatives!.length < 2
                                       ? RectangleButton(
                                           width: SizeConfig.screenWidth * 0.4,
                                           height:
@@ -437,7 +405,14 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
               }
               if (state.status == BlocStatusState.failure ||
                   state is WifiDisconnectState) {
-                return Center(child: Text(translation(context).error));
+                return Center(
+                  child: Text(
+                    translation(context).error,
+                    style: TextStyle(
+                        fontSize: SizeConfig.screenWidth * 0.05,
+                        fontWeight: FontWeight.bold),
+                  ),
+                );
               }
               return Container();
             }));

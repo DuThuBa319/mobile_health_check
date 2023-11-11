@@ -126,7 +126,7 @@ class _LoginState extends State<LoginScreen> {
                     ),
 
                     SizedBox(
-                      height: SizeConfig.screenWidth * 0.05,
+                      height: SizeConfig.screenHeight * 0.02,
                     ),
                     Center(
                       child: Text(
@@ -166,6 +166,13 @@ class _LoginState extends State<LoginScreen> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                isDense:
+                                    true, // Giữ khoảng cách cố định cho icon
+
+                                contentPadding: const EdgeInsets.only(
+                                  bottom: 5,
+                                  top: 5,
+                                ),
                                 errorText: (state.viewModel.errorMessage1 ==
                                         translation(context)
                                             .pleaseEnterYourAccount)
@@ -212,6 +219,13 @@ class _LoginState extends State<LoginScreen> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                isDense:
+                                    true, // Giữ khoảng cách cố định cho icon
+
+                                contentPadding: const EdgeInsets.only(
+                                  bottom: 5,
+                                  top: 5,
+                                ),
                                 errorText: (state.viewModel.errorMessage2 ==
                                         translation(context)
                                             .pleaseEnterYourPassword)
@@ -242,28 +256,29 @@ class _LoginState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: null,
-                    //       child: Text(
-                    //         translation(context).forgotPass,
-                    //         style: TextStyle(
-                    //           letterSpacing: -0.5,
-                    //           fontWeight: FontWeight.w400,
-                    //           color: AppColor.gray767676,
-                    //           fontSize: SizeConfig.screenWidth * 0.035,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(
+                              context, RouteList.forgotPass),
+                          child: Text(
+                            translation(context).forgotPass,
+                            style: TextStyle(
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.gray767676,
+                              fontSize: SizeConfig.screenWidth * 0.038,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     GestureDetector(
                         onTap: login,
                         child: Container(
                           margin: EdgeInsets.only(
-                              top: SizeConfig.screenWidth * 0.03,
+                              top: SizeConfig.screenWidth * 0.04,
                               bottom: SizeConfig.screenWidth * 0.2),
                           decoration: BoxDecoration(
                               color: AppColor.topGradient,
@@ -282,38 +297,6 @@ class _LoginState extends State<LoginScreen> {
                             ),
                           ),
                         )),
-
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    //   children: [
-                    //     Text(
-                    //       translation(context).dontHaveAccount,
-                    //       style: TextStyle(
-                    //         fontWeight: FontWeight.w400,
-                    //         color: AppColor.gray767676,
-                    //         fontSize: SizeConfig.screenWidth * 0.04,
-                    //       ),
-                    //     ),
-                    //     const SizedBox(
-                    //       width: 5,
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         // Navigator.pushNamed(context, RouteList.signUp);
-                    //       },
-                    //       child: Text(
-                    //         "${translation(context).signUp}!",
-                    //         style: TextStyle(
-                    //           decoration: TextDecoration.underline,
-                    //           fontWeight: FontWeight.bold,
-                    //           color: AppColor.topGradient,
-                    //           fontSize: SizeConfig.screenWidth * 0.04,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),

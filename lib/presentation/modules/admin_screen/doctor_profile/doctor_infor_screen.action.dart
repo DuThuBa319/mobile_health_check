@@ -4,9 +4,7 @@ part of 'doctor_infor_screen.dart';
 extension DoctorInforScreenAction on _DoctorInforScreenState {
   void _blocListener(BuildContext context, GetDoctorState state) {
     if ((state is GetDoctorInforState &&
-            state.status == BlocStatusState.loading) ||
-        (state is ResetDoctorPasswordState &&
-            state.status == BlocStatusState.loading)) {
+            state.status == BlocStatusState.loading) ) {
       showToast(translation(context).loadingData);
     }
     if (state is GetDoctorInforState &&
@@ -14,15 +12,10 @@ extension DoctorInforScreenAction on _DoctorInforScreenState {
       showToast(translation(context).dataLoaded);
     }
 
-    if (state is ResetDoctorPasswordState &&
-        state.status == BlocStatusState.success) {
-      showToast(translation(context).resetDoctorPasswordSuccessfully);
-    }
+    
 
     if ((state is GetDoctorInforState &&
-            state.status == BlocStatusState.failure) ||
-        (state is ResetDoctorPasswordState &&
-            state.status == BlocStatusState.failure)) {
+            state.status == BlocStatusState.failure) ) {
       showToast(translation(context).error);
     }
   }

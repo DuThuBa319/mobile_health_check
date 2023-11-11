@@ -78,6 +78,13 @@ abstract class LoginState {
 //   }) : super(viewModel, status: status);
 // }
 
+class ResetPasswordState extends LoginState {
+  ResetPasswordState({
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 class LoginInitialState extends LoginState {
   LoginInitialState({
     _ViewModel viewModel = const _ViewModel(),
@@ -131,6 +138,10 @@ final _factories = <Type,
         status: status,
       ),
   WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  ResetPasswordState: (viewModel, status) => ResetPasswordState(
         viewModel: viewModel,
         status: status,
       ),

@@ -26,9 +26,9 @@ abstract class RestApiRepository {
 
 //! Reset Password
 
-  @PATCH("/Users/ResetPassword/{userId}") //update
+  @PATCH("/Users/ResetPassword?phoneNumber={phoneNumber}") //update
   Future<void> resetPasswordModel({
-    @Path("userId") String? userId,
+    @Path("phoneNumber") String? phoneNumber,
   });
 
 //! admin task

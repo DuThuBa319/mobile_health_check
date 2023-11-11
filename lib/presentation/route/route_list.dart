@@ -48,6 +48,7 @@ static const String login = '/login';
     static const String addDoctor = '/addDoctor';
 
   static const String addRelative = '/addRelative';
+  static const String forgotPass = '/forgotPass';
 
 
   static const String bloodPressureScreen = '/bloodPressureScreen';

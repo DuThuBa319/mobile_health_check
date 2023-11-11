@@ -20,7 +20,8 @@ class FilterPatientEvent extends PatientEvent {
 }
 
 class RemoveRelationshipRaPEvent extends PatientEvent {
-  RemoveRelationshipRaPEvent({required this.patientId, required this.relativeId});
+  RemoveRelationshipRaPEvent(
+      {required this.patientId, required this.relativeId});
   final String? relativeId;
   final String? patientId;
 }
@@ -29,11 +30,6 @@ class DeletePatientEvent extends PatientEvent {
   DeletePatientEvent({required this.patientId, required this.doctorId});
   final String? doctorId;
   final String? patientId;
-}
-
-class ResetPasswordCustomerEvent extends PatientEvent {
-  ResetPasswordCustomerEvent({this.userId});
-  final String? userId;
 }
 
 class RegistPatientEvent extends PatientEvent {

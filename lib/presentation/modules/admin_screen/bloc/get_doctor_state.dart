@@ -103,13 +103,6 @@ class RegistDoctorState extends GetDoctorState {
   }) : super(viewModel, status: status);
 }
 
-class ResetDoctorPasswordState extends GetDoctorState {
-  ResetDoctorPasswordState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
-
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -136,10 +129,6 @@ final _factories = <Type,
         status: status,
       ),
   RegistDoctorState: (viewModel, status) => RegistDoctorState(
-        viewModel: viewModel,
-        status: status,
-      ),
-  ResetDoctorPasswordState: (viewModel, status) => ResetDoctorPasswordState(
         viewModel: viewModel,
         status: status,
       ),

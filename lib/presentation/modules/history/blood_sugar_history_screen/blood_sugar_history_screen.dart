@@ -5,7 +5,6 @@ import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/presentation/modules/history/blood_sugar_history_screen/widget/blood_sugar_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../common/singletons.dart';
 import '../../../../function.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
@@ -31,7 +30,7 @@ class BloodSugarHistoryScreen extends StatefulWidget {
 
 class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
- DateTime timeFrom =
+  DateTime timeFrom =
       DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
   DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
   String strTimeFrom = DateFormat('dd/MM/yyyy').format(
@@ -45,7 +44,6 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
     SizeConfig.init(context);
 
     return CustomScreenForm(
-
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -185,12 +183,13 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                   }
-                   if (state is WifiDisconnectState &&
+                  if (state is WifiDisconnectState &&
                       state.status == BlocStatusState.success) {
                     return Center(
                         child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
@@ -205,8 +204,9 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       state.status == BlocStatusState.failure) {
                     return Center(
                         child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {

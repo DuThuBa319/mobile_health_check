@@ -91,39 +91,12 @@ class _NotificationCellState extends State<NotificationCell> {
                 autoClose: true,
                 borderRadius: BorderRadius.circular(10),
                 onPressed: (context) {
-                  widget.notificationEntity?.read == true
-                      ? showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text(translation(context).notification),
-                              content:
-                                  Text(translation(context).deleteNotification),
-                              actions: [
-                                TextButton(
-                                  child: Text(translation(context).exit),
-                                  onPressed: () {
-                                    //Navigator.pop(context);
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text(translation(context).accept),
-                                  onPressed: () {
-                                    widget.notificationBloc?.add(
-                                        DeleteNotificationEvent(
-                                            index: widget.cellIndex,
-                                            notificationId: widget
-                                                .notificationEntity
-                                                ?.notificaitonId));
-                                    Navigator.pop(context);
-                                  },
-                                )
-                              ],
-                            );
-                          },
-                        )
-                      : null;
+                  if (widget.notificationEntity?.read == true) {
+                    widget.notificationBloc?.add(DeleteNotificationEvent(
+                        index: widget.cellIndex,
+                        notificationId:
+                            widget.notificationEntity?.notificaitonId));
+                  }
                 },
                 backgroundColor: (widget.notificationEntity?.read == true)
                     ? AppColor.lineDecor
@@ -155,7 +128,7 @@ class _NotificationCellState extends State<NotificationCell> {
                 children: [
                   Container(
                       width: (SizeConfig.screenWidth - 5),
-                      height: SizeConfig.screenHeight * 0.05,
+                      height: SizeConfig.screenHeight * 0.04,
                       padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
@@ -165,15 +138,31 @@ class _NotificationCellState extends State<NotificationCell> {
                             ? AppColor.topGradient
                             : AppColor.lightGrey,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("${widget.notificationEntity?.patientName}",
-                              softWrap: true,
-                              style: AppTextTheme.body3.copyWith(
-                                  fontSize: SizeConfig.screenWidth * 0.04,
-                                  fontWeight: FontWeight.bold)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColor.white),
+                                child: const Icon(
+                                    Icons.circle_notifications_sharp,
+                                    color: AppColor.lineDecor),
+                              ),
+                              SizedBox(
+                                width: SizeConfig.screenWidth * 0.02,
+                              ),
+                              Text(translation(context).updateIndicator,
+                                  softWrap: true,
+                                  style: AppTextTheme.body3.copyWith(
+                                      color: AppColor.black,
+                                      fontSize: SizeConfig.screenWidth * 0.04,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
                           Text(
                               softWrap: true,
                               DateFormat('HH:mm dd/MM/yyyy').format((widget
@@ -201,92 +190,63 @@ class _NotificationCellState extends State<NotificationCell> {
 
 Widget contentCell(
     NotificationEntity notificationEntity, BuildContext context) {
-  switch (notificationEntity.type) {
-    case 0:
-      return Container(
-        width: SizeConfig.screenWidth * 0.92,
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Text(
-          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bloodPressureIndex}",
-          style: AppTextTheme.body4.copyWith(
-            wordSpacing: 1,
-            fontWeight: FontWeight.w400,
-            fontSize: SizeConfig.screenWidth * 0.045,
-            color: (notificationEntity.read == false)
-                ? Colors.black
-                : const Color.fromARGB(255, 93, 93, 93),
-          ),
-          softWrap: true,
+  return Container(
+      width: SizeConfig.screenWidth * 0.92,
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: RichText(
+        softWrap: true,
+        textAlign: TextAlign.start,
+        text: TextSpan(
+          children: [
+            TextSpan(
+                text: translation(context).patient,
+                style: TextStyle(
+                  color: AppColor.black,
+                  fontSize: SizeConfig.screenWidth * 0.045,
+                )),
+            const WidgetSpan(
+                child: SizedBox(
+              width: 5,
+            )),
+            TextSpan(
+              text: notificationEntity.patientName,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenWidth * 0.048,
+                  fontWeight: FontWeight.bold),
+            ),
+            const WidgetSpan(
+                child: SizedBox(
+              width: 5,
+            )),
+            TextSpan(
+              text: translation(context).hasJustUpdated,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenWidth * 0.045),
+            ),
+            const WidgetSpan(
+                child: SizedBox(
+              width: 5,
+            )),
+            TextSpan(
+              text: notificationEntity.type == 0
+                  ? translation(context).bloodPressureIndex
+                  : notificationEntity.type == 1
+                      ? translation(context).bloodSugarIndex
+                      : notificationEntity.type == 2
+                          ? translation(context).bodyTemperatureIndex
+                          : notificationEntity.type == 3
+                              ? translation(context).spo2Index
+                              : "",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenWidth * 0.048,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-      );
-    case 1:
-      return Container(
-        width: SizeConfig.screenWidth * 0.92,
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Text(
-          softWrap: true,
-          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bloodSugarIndex}",
-          style: AppTextTheme.body4.copyWith(
-            wordSpacing: 1,
-            fontWeight: FontWeight.w400,
-            fontSize: SizeConfig.screenWidth * 0.045,
-            color: (notificationEntity.read == false)
-                ? Colors.black
-                : const Color.fromARGB(255, 93, 93, 93),
-          ),
-        ),
-      );
-    case 2:
-      return Container(
-        width: SizeConfig.screenWidth * 0.92,
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Text(
-          softWrap: true,
-          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).bodyTemperatureIndex}",
-          style: AppTextTheme.body4.copyWith(
-            wordSpacing: 1,
-            fontWeight: FontWeight.w400,
-            fontSize: SizeConfig.screenWidth * 0.045,
-            color: (notificationEntity.read == false)
-                ? Colors.black
-                : const Color.fromARGB(255, 93, 93, 93),
-          ),
-        ),
-      );
-    case 3:
-      return Container(
-        width: SizeConfig.screenWidth * 0.92,
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Text(
-          softWrap: true,
-          "${translation(context).patient} ${notificationEntity.patientName} ${translation(context).hasJustUpdated} ${translation(context).spo2Index}",
-          style: AppTextTheme.body4.copyWith(
-            wordSpacing: 1,
-            fontWeight: FontWeight.w400,
-            fontSize: SizeConfig.screenWidth * 0.045,
-            color: (notificationEntity.read == false)
-                ? Colors.black
-                : const Color.fromARGB(255, 93, 93, 93),
-          ),
-        ),
-      );
-    default:
-      return Container(
-        width: SizeConfig.screenWidth * 0.92,
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Text(
-          "",
-          style: AppTextTheme.body4.copyWith(
-            wordSpacing: 1,
-            fontWeight: FontWeight.w400,
-            fontSize: SizeConfig.screenWidth * 0.045,
-            color: (notificationEntity.read == false)
-                ? Colors.black
-                : const Color.fromARGB(255, 93, 93, 93),
-          ),
-        ),
-      );
-  }
+      ));
 }
 
 //  showNoticeDialogTwoButton(

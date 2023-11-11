@@ -23,6 +23,7 @@ class Assets {
       'lib/assets/images/blood_glucos_equipment.png';
   static const String bloodPressureMeter =
       'lib/assets/images/blood_pressure_equipment.png';
+  static const String forgotPassword = 'lib/assets/images/forgotPassword.png';
   static const String bodyTemperatureMeter =
       'lib/assets/images/body_temperature_equipment.png';
   static const String photo = 'lib/assets/images/photo.png';
@@ -45,5 +46,4 @@ class Assets {
   static const String oxi = 'lib/assets/images/oxi.png';
   static const String family = 'lib/assets/images/family.png';
   static const String detail = 'lib/assets/images/detail.png';
-
 }

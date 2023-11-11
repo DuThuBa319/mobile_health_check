@@ -50,59 +50,58 @@ class _PatientInforCellState extends State<PatientInforCell> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
+        isScrollable: true,
         // selectedIndex: 2,
-        child: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.05,
-              left: SizeConfig.screenWidth * 0.05,
-              right: SizeConfig.screenWidth * 0.05,
-            ),
-            height: SizeConfig.screenHeight * 0.8,
-            width: SizeConfig.screenWidth * 0.9,
-            child: ListView(children: [
-              in4Cell("${translation(context).name}: ",
-                  widget.patientInforEntity.name),
-              in4Cell("${translation(context).phoneNumber}: ",
-                  widget.patientInforEntity.phoneNumber),
-              in4Cell(
-                  "${translation(context).age}: ",
-                  (widget.patientInforEntity.age == 0)
-                      ? translation(context).notUpdate
-                      : "${widget.patientInforEntity.age}"),
-              in4Cell(
-                "${translation(context).gender}: ",
-                widget.patientInforEntity.gender == 0
-                    ? translation(context).male
-                    : translation(context).female,
-              ),
-              in4Cell(
-                  "${translation(context).height}: ",
-                  (widget.patientInforEntity.height?.toInt() == 0)
-                      ? "${translation(context).notUpdate} (cm)"
-                      : "${widget.patientInforEntity.height?.toInt()} (cm)"),
-              in4Cell(
-                  "${translation(context).weight}: ",
-                  (widget.patientInforEntity.weight?.toInt() == 0)
-                      ? "${translation(context).notUpdate} (kg)"
-                      : "${widget.patientInforEntity.weight?.toInt()} (kg)"),
-              in4Cell(
-                  "${translation(context).address}: ",
-                  (widget.patientInforEntity.address == "" ||
-                          widget.patientInforEntity.address == null)
-                      ? translation(context).notUpdate
-                      : widget.patientInforEntity.address!),
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
-              RectangleButton(
-                  width: SizeConfig.screenWidth * 0.9,
-                  height: SizeConfig.screenHeight * 0.07,
-                  title: translation(context).back,
-                  buttonColor: AppColor.saveSetting,
-                  onTap: () {
-                    Navigator.pop(context);
-                  })
-            ]),
+        child: Container(
+          margin: EdgeInsets.only(
+            top: SizeConfig.screenWidth * 0.05,
+            left: SizeConfig.screenWidth * 0.05,
+            right: SizeConfig.screenWidth * 0.05,
           ),
+          height: SizeConfig.screenHeight * 0.8,
+          width: SizeConfig.screenWidth * 0.9,
+          child: ListView(children: [
+            in4Cell("${translation(context).name}: ",
+                widget.patientInforEntity.name),
+            in4Cell("${translation(context).phoneNumber}: ",
+                widget.patientInforEntity.phoneNumber),
+            in4Cell(
+                "${translation(context).age}: ",
+                (widget.patientInforEntity.age == 0)
+                    ? translation(context).notUpdate
+                    : "${widget.patientInforEntity.age}"),
+            in4Cell(
+              "${translation(context).gender}: ",
+              widget.patientInforEntity.gender == 0
+                  ? translation(context).male
+                  : translation(context).female,
+            ),
+            in4Cell(
+                "${translation(context).height}: ",
+                (widget.patientInforEntity.height?.toInt() == 0)
+                    ? "${translation(context).notUpdate} (cm)"
+                    : "${widget.patientInforEntity.height?.toInt()} (cm)"),
+            in4Cell(
+                "${translation(context).weight}: ",
+                (widget.patientInforEntity.weight?.toInt() == 0)
+                    ? "${translation(context).notUpdate} (kg)"
+                    : "${widget.patientInforEntity.weight?.toInt()} (kg)"),
+            in4Cell(
+                "${translation(context).address}: ",
+                (widget.patientInforEntity.address == "" ||
+                        widget.patientInforEntity.address == null)
+                    ? translation(context).notUpdate
+                    : widget.patientInforEntity.address!),
+            SizedBox(height: SizeConfig.screenHeight * 0.03),
+            RectangleButton(
+                width: SizeConfig.screenWidth * 0.9,
+                height: SizeConfig.screenHeight * 0.07,
+                title: translation(context).back,
+                buttonColor: AppColor.saveSetting,
+                onTap: () {
+                  Navigator.pop(context);
+                })
+          ]),
         ));
   }
 }

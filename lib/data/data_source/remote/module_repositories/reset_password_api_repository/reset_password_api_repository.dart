@@ -1,3 +1,3 @@
 abstract class ResetPasswordApiRepository {
-  Future<void> resetPasswordModel({String? userId});
+  Future<void> resetPasswordModel({String? phoneNumber});
 }

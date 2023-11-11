@@ -94,8 +94,7 @@ class _BloodSugarNotificationReadingScreenState
               ),
               CustomImagePicker(
                 imagePath:
-                    widget.notificationEntity!.bloodSugarEntity?.imageLink ??
-                        widget.notificationEntity!.bloodSugarEntity?.imageLink!,
+                    widget.notificationEntity!.bloodSugarEntity?.imageLink,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),

@@ -67,7 +67,7 @@ class _DoctorListState extends State<DoctorListScreen> {
               child: IconButton(
                   onPressed: () {
                     Navigator.pushNamed(context, RouteList.addDoctor);
-                    filterKeyword = TextEditingController(text: " ");
+                    filterKeyword = TextEditingController(text: "");
                   },
                   icon: const Icon(
                     Icons.group_add_outlined,
@@ -79,7 +79,9 @@ class _DoctorListState extends State<DoctorListScreen> {
               child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
                   listener: _blocListener,
                   builder: (context, state) {
-                    if (state is GetDoctorInitialState) {
+                    if (state is GetDoctorInitialState ||
+                        (state is DeleteDoctorState &&
+                            state.status == BlocStatusState.success)) {
                       getDoctorBloc.add(GetDoctorListEvent());
                     }
 
@@ -89,8 +91,6 @@ class _DoctorListState extends State<DoctorListScreen> {
                             state.status == BlocStatusState.loading &&
                             state.viewModel.allDoctorEntity == null) ||
                         (state is SearchDoctorState &&
-                            state.status == BlocStatusState.loading) ||
-                        (state is DeleteDoctorState &&
                             state.status == BlocStatusState.loading)) {
                       return formDoctorListScreen(
                         isLoading: true,
@@ -100,7 +100,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                     if ((state is GetDoctorListState &&
                             state.status == BlocStatusState.success) ||
                         (state is DeleteDoctorState &&
-                            state.status == BlocStatusState.success) ||
+                            state.status == BlocStatusState.loading) ||
                         (state is DeleteDoctorState &&
                             state.status == BlocStatusState.failure &&
                             state.viewModel.errorMessage ==
@@ -129,7 +129,12 @@ class _DoctorListState extends State<DoctorListScreen> {
                         (state is WifiDisconnectState &&
                             state.status == BlocStatusState.success)) {
                       return Center(
-                        child: Text(translation(context).error),
+                        child: Text(
+                          translation(context).error,
+                          style: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontWeight: FontWeight.bold),
+                        ),
                       );
                     }
 
