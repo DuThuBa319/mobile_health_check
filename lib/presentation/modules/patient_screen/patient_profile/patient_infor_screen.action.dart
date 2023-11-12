@@ -4,9 +4,7 @@ part of 'patient_infor_screen.dart';
 extension PatientInforScreenAction on _PatientInforScreenState {
   void _blocListener(BuildContext context, GetPatientState state) {
     if (state is GetPatientInforState &&
-            state.status == BlocStatusState.loading ||
-        state is ResetPasswordCustomerState &&
-            state.status == BlocStatusState.loading) {
+        state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);
     }
 
@@ -15,16 +13,19 @@ extension PatientInforScreenAction on _PatientInforScreenState {
       showToast(translation(context).dataLoaded);
     }
 
-    if (state is ResetPasswordCustomerState &&
-        state.status == BlocStatusState.success) {
-      showToast(translation(context).resetPatientPasswordSuccessfully);
+    if (state is GetPatientInforState &&
+        state.status == BlocStatusState.failure) {
+      showToast(translation(context).loadingError);
     }
 
-    if (state is GetPatientInforState &&
-            state.status == BlocStatusState.failure ||
-        state is ResetPasswordCustomerState &&
-            state.status == BlocStatusState.failure) {
-      showToast(translation(context).loadingError);
+    if (state is RemoveRelationshipRaPState &&
+        state.status == BlocStatusState.loading) {
+      showToast(translation(context).deletingRelative);
+    }
+
+    if (state is RemoveRelationshipRaPState &&
+        state.status == BlocStatusState.success) {
+      showToast(translation(context).deleteRelativeSuccessfully);
     }
   }
 
@@ -43,6 +44,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
   }
 
   Widget homeCell({
+    context,
     Spo2Entity? spo2Entity,
     BloodPressureEntity? bloodPressureEntity,
     BloodSugarEntity? bloodSugarEntity,

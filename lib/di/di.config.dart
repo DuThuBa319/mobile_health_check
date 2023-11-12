@@ -232,13 +232,11 @@ _i1.GetIt $initGetIt(
   gh.factory<_i61.ChangePassUsecase>(
       () => _i61.ChangePassUsecaseImpl(gh<_i60.ChangePassRepository>()));
   gh.factory<_i62.GetDoctorBloc>(() => _i62.GetDoctorBloc(
-        gh<_i31.ResetPasswordUsecase>(),
         gh<_i45.AdminUsecase>(),
         gh<_i8.DoctorInforUsecase>(),
         gh<_i63.Connectivity>(),
       ));
   gh.factory<_i64.GetPatientBloc>(() => _i64.GetPatientBloc(
-        gh<_i31.ResetPasswordUsecase>(),
         gh<_i45.AdminUsecase>(),
         gh<_i23.PatientUsecase>(),
         gh<_i8.DoctorInforUsecase>(),
@@ -259,6 +257,7 @@ _i1.GetIt $initGetIt(
         gh<_i18.NotificationUsecase>(),
         gh<_i63.Connectivity>(),
         gh<_i49.AuthenUsecase>(),
+        gh<_i31.ResetPasswordUsecase>(),
       ));
   gh.factory<_i67.NotificationBloc>(
       () => _i67.NotificationBloc(gh<_i18.NotificationUsecase>()));

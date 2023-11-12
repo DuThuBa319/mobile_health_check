@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_two_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
@@ -54,35 +53,10 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
         isShowLeadingButton: true,
         appBarColor: const Color(0xff7BD4FF),
         backgroundColor: const Color(0xffDBF3FF),
-        rightButton: GestureDetector(
-          onTap: () {
-            //!RESET DOCTOR PASSWORD
-            showNoticeDialogTwoButton(
-                context: context,
-                message: translation(context).resetDoctorPassword,
-                title: translation(context).notification,
-                titleBtn1: translation(context).exit,
-                titleBtn2: translation(context).accept,
-                onClose2: () => doctorBloc
-                    .add(ResetDoctorPasswordEvent(doctorId: widget.doctorId)));
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: SizedBox(
-              child: Icon(
-                Icons.lock_reset_outlined,
-                color: Colors.white,
-                size: SizeConfig.screenWidth * 0.1,
-              ),
-            ),
-          ),
-        ),
         child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
             listener: _blocListener,
             builder: (context, state) {
-              if ((state is GetDoctorInitialState) ||
-                  (state is ResetDoctorPasswordState &&
-                      state.status == BlocStatusState.success)) {
+              if (state is GetDoctorInitialState) {
                 doctorBloc.add(GetDoctorInforEvent(doctorId: widget.doctorId));
               }
               if (state is GetDoctorInforState &&
@@ -94,10 +68,8 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                 );
               }
 
-              if ((state is GetDoctorInforState &&
-                      state.status == BlocStatusState.success) ||
-                  (state is ResetDoctorPasswordState &&
-                      state.status == BlocStatusState.loading)) {
+              if (state is GetDoctorInforState &&
+                  state.status == BlocStatusState.success) {
                 DoctorInforEntity doctor = state.viewModel.doctorInforEntity ??
                     state.viewModel.doctorInforEntity!;
 
@@ -218,7 +190,12 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
               }
               if (state.status == BlocStatusState.failure ||
                   state is WifiDisconnectState) {
-                return Center(child: Text(translation(context).error));
+                return Center(child: Text(
+                          translation(context).error,
+                          style: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontWeight: FontWeight.bold),
+                        ),);
               }
               return Container();
             }));

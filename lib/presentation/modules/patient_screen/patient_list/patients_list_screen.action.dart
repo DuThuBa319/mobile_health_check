@@ -15,11 +15,18 @@ extension PatientListScreenAction on _PatientListState {
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
     }
+
+    if (state is DeletePatientState &&
+        state.status == BlocStatusState.loading) {
+      showToast(translation(context).deletingPatient);
+    }
+
     if ((state is DeletePatientState &&
         state.status == BlocStatusState.success)) {
       showToast(translation(context).deletePatientSuccessfully);
       patientBloc.add(GetPatientListEvent(userId: widget.id));
     }
+
     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
       showNoticeDialog(
@@ -28,11 +35,6 @@ extension PatientListScreenAction on _PatientListState {
           title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
-  }
-
-  void gotoRegistPatientScreen() {
-    Navigator.pushNamed(context, RouteList.registPatient,
-        arguments: patientBloc);
   }
 
   Future<bool> _onWillPop() async {

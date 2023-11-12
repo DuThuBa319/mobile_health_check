@@ -13,7 +13,6 @@ import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_
 import '../../../../classes/language.dart';
 import '../../../../common/service/navigation/navigation_service.dart';
 import '../../../../di/di.dart';
-import '../../../../domain/usecases/reset_password_usecase/reset_password_usecase.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_doctor_event.dart';
 part 'get_doctor_state.dart';
@@ -23,9 +22,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
   final DoctorInforUsecase _doctorInforUsecase;
   final Connectivity _connectivity;
   final AdminUsecase _adminUsecase;
-  final ResetPasswordUsecase _resetPasswordUsecase;
   GetDoctorBloc(
-    this._resetPasswordUsecase,
     this._adminUsecase,
     this._doctorInforUsecase,
     this._connectivity,
@@ -35,45 +32,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     on<DeleteDoctorEvent>(_onDeleteDoctor);
     on<GetDoctorInforEvent>(_getDoctorInfor);
     on<RegistDoctorEvent>(_onRegistDoctor);
-    on<ResetDoctorPasswordEvent>(_onResetDoctorPassword);
-  }
-
-//! RESET DOCTOR PASSWORD
-  Future<void> _onResetDoctorPassword(
-    ResetDoctorPasswordEvent event,
-    Emitter<GetDoctorState> emit,
-  ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
-      emit(
-        ResetDoctorPasswordState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        await _resetPasswordUsecase.resetPasswordEntity(userId: event.doctorId);
-        emit(ResetDoctorPasswordState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ));
-      } catch (e) {
-        emit(
-          state.copyWith(
-            status: BlocStatusState.failure,
-            viewModel: state.viewModel,
-          ),
-        );
-      }
-    } else {
-      emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
-        ),
-      );
-    }
   }
 
   Future<void> _onGetDoctorList(
@@ -215,66 +173,67 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
 
-      if (event.accountEntity.name == null ||
-          event.accountEntity.name?.trim() == '' ||
-          event.accountEntity.phoneNumber == null ||
-          event.accountEntity.phoneNumber?.trim() == '' ||
-          event.accountEntity.phoneNumber!.length < 10 ||
-          event.accountEntity.phoneNumber!.length > 11) {
-        if (event.accountEntity.name == null ||
-            event.accountEntity.name?.trim() == '') {
-          emit(
-            RegistDoctorState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyName:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterDoctorName,
-              ),
+      if ((event.accountEntity!.name == null ||
+              event.accountEntity!.name?.trim() == '') &&
+          (event.accountEntity!.phoneNumber != null &&
+              event.accountEntity!.phoneNumber?.trim() != '' &&
+              event.accountEntity!.phoneNumber!.length >= 10 &&
+              event.accountEntity!.phoneNumber!.length <= 11)) {
+        emit(
+          RegistDoctorState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              errorEmptyName:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .pleaseEnterDoctorName,
             ),
-          );
-        }
-        if (event.accountEntity.phoneNumber == null ||
-            event.accountEntity.phoneNumber?.trim() == '' ||
-            event.accountEntity.phoneNumber!.length < 10 ||
-            event.accountEntity.phoneNumber!.length > 11) {
-          emit(
-            RegistDoctorState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyPhoneNumber:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .invalidPhonenumber,
-              ),
-            ),
-          );
-        }
-        if ((event.accountEntity.phoneNumber == null ||
-                event.accountEntity.phoneNumber?.trim() == '' ||
-                event.accountEntity.phoneNumber!.length < 10 ||
-                event.accountEntity.phoneNumber!.length > 11) &&
-            (event.accountEntity.name == null ||
-                event.accountEntity.name?.trim() == '')) {
-          emit(
-            RegistDoctorState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyName:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterDoctorName,
-                errorEmptyPhoneNumber:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .invalidPhonenumber,
-              ),
-            ),
-          );
-        }
+          ),
+        );
+        return;
+      }
 
+      if ((event.accountEntity!.name != null &&
+              event.accountEntity!.name?.trim() != '') &&
+          (event.accountEntity!.phoneNumber == null ||
+              event.accountEntity!.phoneNumber?.trim() == '' ||
+              event.accountEntity!.phoneNumber!.length < 10 ||
+              event.accountEntity!.phoneNumber!.length > 11)) {
+        emit(
+          RegistDoctorState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              errorEmptyPhoneNumber:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .invalidPhonenumber,
+            ),
+          ),
+        );
+        return;
+      }
+      if ((event.accountEntity!.name == null ||
+              event.accountEntity!.name?.trim() == '') &&
+          (event.accountEntity!.phoneNumber == null ||
+              event.accountEntity!.phoneNumber?.trim() == '' ||
+              event.accountEntity!.phoneNumber!.length < 10 ||
+              event.accountEntity!.phoneNumber!.length > 11)) {
+        emit(
+          RegistDoctorState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              errorEmptyName:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .pleaseEnterDoctorName,
+              errorEmptyPhoneNumber:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .invalidPhonenumber,
+            ),
+          ),
+        );
         return;
       }
 
       try {
-        await _adminUsecase.createDoctorAccountEntity(event.accountEntity);
+        await _adminUsecase.createDoctorAccountEntity(event.accountEntity!);
         final newViewModel = state.viewModel;
         emit(
           RegistDoctorState(

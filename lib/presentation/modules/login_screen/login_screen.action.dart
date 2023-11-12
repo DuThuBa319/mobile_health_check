@@ -12,14 +12,31 @@ extension LoginAction on _LoginState {
     if (state is LoginActionState &&
         state.status == BlocStatusState.failure &&
         state.viewModel.errorMessage1 == translation(context).wrongAccount) {
-      Navigator.pop(context);
       showNoticeDialog(
+          onClose: () => Navigator.pop(context),
           context: context,
           message: translation(context).wrongAccount,
           title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
 
+    if (state is LoginActionState &&
+        state.status == BlocStatusState.failure &&
+        (state.viewModel.errorMessage1 ==
+                translation(context).pleaseEnterYourAccount ||
+            state.viewModel.errorMessage2 ==
+                translation(context).pleaseEnterYourPassword)) {
+      Navigator.pop(context);
+    }
+    
+    if (state is WifiDisconnectState &&
+        state.status == BlocStatusState.success) {
+      showNoticeDialog(
+          context: context,
+          message: translation(context).wifiDisconnect,
+          title: translation(context).notification,
+          titleBtn: translation(context).exit);
+    }
     if (state is LoginActionState && state.status == BlocStatusState.loading) {
       showDialog(
         barrierDismissible: false,
@@ -48,14 +65,7 @@ extension LoginAction on _LoginState {
         ),
       );
     }
-    if (state is WifiDisconnectState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
-          context: context,
-          message: translation(context).wifiDisconnect,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
-    }
+
     if (state is GetUserDataState && state.status == BlocStatusState.loading) {
       showDialog(
         barrierDismissible: false,
@@ -90,9 +100,6 @@ extension LoginAction on _LoginState {
       Navigator.pop(context);
       showToast(translation(context).verifySuccessfully);
       bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
-
-      // bloc.add(GetUnreadCountNotificationEvent(
-      //     doctorId: userDataData.getUser()!.id!));
     }
 
     if (state is GetUserDataState && state.status == BlocStatusState.success) {

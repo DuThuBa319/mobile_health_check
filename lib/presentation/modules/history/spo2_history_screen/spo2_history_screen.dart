@@ -5,7 +5,6 @@ import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/presentation/modules/history/spo2_history_screen/widget/spo2_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../common/singletons.dart';
 import '../../../../function.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
@@ -44,7 +43,6 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
     SizeConfig.init(context);
 
     return CustomScreenForm(
-     
       title: translation(context).history,
       isShowAppBar: true,
       isShowBottomNayvigationBar: true,
@@ -188,8 +186,9 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                       state.status == BlocStatusState.success) {
                     return Center(
                         child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
 
                   if (state.status == BlocStatusState.loading) {
@@ -205,8 +204,9 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                       state.status == BlocStatusState.failure) {
                     return Center(
                         child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {

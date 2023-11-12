@@ -3,6 +3,7 @@ import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/blood_pressure_reading_screen.dart';
 import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
+import 'package:mobile_health_check/presentation/modules/forgot_pass_screen/forgot_password_screen.dart';
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
@@ -103,6 +104,15 @@ class AppRoute {
             return BlocProvider<LoginBloc>(
               create: (context) => getIt<LoginBloc>(),
               child: const LoginScreen(),
+            );
+          },
+        );
+      case '/forgotPass':
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<LoginBloc>(
+              create: (context) => getIt<LoginBloc>(),
+              child: const ForgotPassScreen(),
             );
           },
         );

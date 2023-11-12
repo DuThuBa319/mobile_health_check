@@ -50,45 +50,44 @@ class _DoctorInforCellState extends State<DoctorInforCell> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
+        isScrollable: true,
         // selectedIndex: 2,
-        child: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.05,
-              left: SizeConfig.screenWidth * 0.05,
-              right: SizeConfig.screenWidth * 0.05,
-            ),
-            height: SizeConfig.screenHeight * 0.8,
-            width: SizeConfig.screenWidth * 0.9,
-            child: ListView(children: [
-              in4Cell("${translation(context).name}: ",
-                  widget.doctorInforEntity.name),
-              in4Cell("${translation(context).phoneNumber}: ",
-                  widget.doctorInforEntity.phoneNumber),
-              in4Cell(
-                  "${translation(context).age}: ",
-                  (widget.doctorInforEntity.age == 0)
-                      ? translation(context).notUpdate
-                      : "${widget.doctorInforEntity.age}"),
-              in4Cell(
-                "${translation(context).gender}: ",
-                widget.doctorInforEntity.gender == 0
-                    ? translation(context).male
-                    : translation(context).female,
-              ),
-              in4Cell("${translation(context).address}: ",
-                  "${widget.doctorInforEntity.address}"),
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
-              RectangleButton(
-                  width: SizeConfig.screenWidth * 0.9,
-                  height: SizeConfig.screenHeight * 0.07,
-                  title: translation(context).back,
-                  buttonColor: AppColor.saveSetting,
-                  onTap: () {
-                    Navigator.pop(context);
-                  })
-            ]),
+        child: Container(
+          margin: EdgeInsets.only(
+            top: SizeConfig.screenWidth * 0.05,
+            left: SizeConfig.screenWidth * 0.05,
+            right: SizeConfig.screenWidth * 0.05,
           ),
+          height: SizeConfig.screenHeight * 0.8,
+          width: SizeConfig.screenWidth * 0.9,
+          child: ListView(children: [
+            in4Cell("${translation(context).name}: ",
+                widget.doctorInforEntity.name),
+            in4Cell("${translation(context).phoneNumber}: ",
+                widget.doctorInforEntity.phoneNumber),
+            in4Cell(
+                "${translation(context).age}: ",
+                (widget.doctorInforEntity.age == 0)
+                    ? translation(context).notUpdate
+                    : "${widget.doctorInforEntity.age}"),
+            in4Cell(
+              "${translation(context).gender}: ",
+              widget.doctorInforEntity.gender == 0
+                  ? translation(context).male
+                  : translation(context).female,
+            ),
+            in4Cell("${translation(context).address}: ",
+                "${widget.doctorInforEntity.address}"),
+            SizedBox(height: SizeConfig.screenHeight * 0.03),
+            RectangleButton(
+                width: SizeConfig.screenWidth * 0.9,
+                height: SizeConfig.screenHeight * 0.07,
+                title: translation(context).back,
+                buttonColor: AppColor.saveSetting,
+                onTap: () {
+                  Navigator.pop(context);
+                })
+          ]),
         ));
   }
 }

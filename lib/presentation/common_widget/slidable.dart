@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 
 import '../../classes/language.dart';
 import '../../common/singletons.dart';
@@ -40,52 +39,6 @@ class SlideAbleForm extends StatelessWidget {
     SizeConfig.init(context);
     return Slidable(
       closeOnScroll: true,
-      startActionPane: isRelativeCell == true
-          ? ActionPane(
-              motion: const StretchMotion(),
-              extentRatio: 0.45,
-              children: [
-//! RESET RELATIVE'S PASSWORD ACTION
-                  SlidableAction(
-                    autoClose: true,
-                    borderRadius: BorderRadius.circular(10),
-                    onPressed: (context) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(translation(context).notification),
-                            content: Text(
-                                translation(context).resetRelativePassword),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(translation(context).exit),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  patientBloc?.add(ResetPasswordCustomerEvent(
-                                      userId: relativeInforEntity?.id));
-                                  showToast(translation(context)
-                                      .resetRelativePasswordSuccessfully);
-                                  Navigator.pop(context);
-                                },
-                                child: Text(translation(context).accept),
-                              )
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    backgroundColor: AppColor.primaryColorLight,
-                    foregroundColor: Colors.white,
-                    label: translation(context).reset,
-                    icon: Icons.lock_reset_sharp,
-                  )
-                ])
-          : null,
       endActionPane: ActionPane(motion: const StretchMotion(), children: [
         //! Call Action
         SlidableAction(
@@ -167,7 +120,7 @@ class SlideAbleForm extends StatelessWidget {
             right: 2,
             left: 2,
           ),
-          height: SizeConfig.screenHeight * 0.125,
+          height: SizeConfig.screenHeight * 0.11,
           padding: const EdgeInsets.only(
             top: 7,
             bottom: 7,

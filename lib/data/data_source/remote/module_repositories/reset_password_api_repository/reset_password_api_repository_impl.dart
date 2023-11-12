@@ -16,7 +16,7 @@ class ResetPasswordApiRepositoryImpl implements ResetPasswordApiRepository {
   }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
   @override
-  Future<void> resetPasswordModel({String? userId}) {
-    return restApi.resetPasswordModel(userId: userId);
+  Future<void> resetPasswordModel({String? phoneNumber}) {
+    return restApi.resetPasswordModel(phoneNumber: phoneNumber);
   }
 }

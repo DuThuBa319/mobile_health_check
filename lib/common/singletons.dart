@@ -1,5 +1,4 @@
 import 'package:mobile_health_check/common/service/local_manager/notification_datasource/notification_datasource.dart';
-
 import '../di/di.dart';
 import 'service/firebase/firebase_auth_service.dart';
 import 'service/local_manager/user_data_datasource/user_data_datasource.dart';

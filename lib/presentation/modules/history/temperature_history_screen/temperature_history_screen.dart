@@ -188,8 +188,9 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                       state.status == BlocStatusState.success) {
                     return Center(
                         child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
@@ -204,8 +205,9 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                       state.status == BlocStatusState.failure) {
                     return Center(
                         child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {

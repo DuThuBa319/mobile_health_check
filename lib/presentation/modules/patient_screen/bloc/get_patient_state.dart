@@ -165,12 +165,7 @@ class DeletePatientState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-class ResetPasswordCustomerState extends GetPatientState {
-  ResetPasswordCustomerState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
+
 
 final _factories = <Type,
     Function(
@@ -213,10 +208,7 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  ResetPasswordCustomerState: (viewModel, status) => ResetPasswordCustomerState(
-        viewModel: viewModel,
-        status: status,
-      ),
+
   WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
         viewModel: viewModel,
         status: status,

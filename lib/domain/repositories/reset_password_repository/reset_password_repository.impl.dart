@@ -11,7 +11,7 @@ class ResetPasswordRepositoryImpl extends ResetPasswordRepository {
     this._authenInforApi,
   );
   @override
-  Future<void> resetPasswordModel({String? userId}) {
-    return _authenInforApi.resetPasswordModel(userId: userId);
+  Future<void> resetPasswordModel({String? phoneNumber}) {
+    return _authenInforApi.resetPasswordModel(phoneNumber: phoneNumber);
   }
 }

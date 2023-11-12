@@ -23,13 +23,9 @@ class GetDoctorInforEvent extends GetDoctorEvent {
   GetDoctorInforEvent({required this.doctorId}) : super();
 }
 
-class ResetDoctorPasswordEvent extends GetDoctorEvent {
-  final String? doctorId;
-  ResetDoctorPasswordEvent({required this.doctorId}) : super();
-}
 
 class RegistDoctorEvent extends GetDoctorEvent {
-  final AccountEntity accountEntity;
+  final AccountEntity? accountEntity;
   RegistDoctorEvent({required this.accountEntity}) : super();
 }
 

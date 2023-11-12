@@ -9,7 +9,7 @@ class ResetPasswordUsecaseImpl extends ResetPasswordUsecase {
   ResetPasswordUsecaseImpl(this._repository);
 
   @override
-  Future<void> resetPasswordEntity({String? userId}) async {
-    return _repository.resetPasswordModel(userId: userId);
+  Future<void> resetPasswordEntity({String? phoneNumber}) async {
+    return _repository.resetPasswordModel(phoneNumber: phoneNumber);
   }
 }

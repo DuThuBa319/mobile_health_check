@@ -6,5 +6,5 @@ import '../../../data/data_source/remote/module_repositories/reset_password_api_
 part 'reset_password_repository.impl.dart';
 
 abstract class ResetPasswordRepository {
-  Future<void> resetPasswordModel({String? userId});
+  Future<void> resetPasswordModel({String? phoneNumber});
 }

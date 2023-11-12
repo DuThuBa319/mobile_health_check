@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/data/models/authentication_model/authentication_model.dart';
+import 'package:mobile_health_check/domain/usecases/reset_password_usecase/reset_password_usecase.dart';
 
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/service/onesginal/onesignal_service.dart';
@@ -24,15 +25,86 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final PatientUsecase _patientUseCase;
   final AuthenUsecase _authenUsecase;
-
+  final ResetPasswordUsecase _resetPasswordUsecase;
   final Connectivity _connectivity;
   final NotificationUsecase count;
 
-  LoginBloc(
-      this._patientUseCase, this.count, this._connectivity, this._authenUsecase)
+  LoginBloc(this._patientUseCase, this.count, this._connectivity,
+      this._authenUsecase, this._resetPasswordUsecase)
       : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
     on<GetUserDataEvent>(_onGetUserData);
+    on<ResetPasswordEvent>(_onResetPassword);
+  }
+
+//! RESET PASSWORD
+  Future<void> _onResetPassword(
+    ResetPasswordEvent event,
+    Emitter<LoginState> emit,
+  ) async {
+    NavigationService navigationService = injector<NavigationService>();
+
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile) {
+      emit(
+        ResetPasswordState(
+          status: BlocStatusState.loading,
+          viewModel: state.viewModel,
+        ),
+      );
+
+      if (event.phoneNumber == null || event.phoneNumber?.trim() == '') {
+        emit(
+          ResetPasswordState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              errorMessage1:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .pleaseEnterPhoneNumber,
+            ),
+          ),
+        );
+        return;
+      }
+
+      try {
+        await _resetPasswordUsecase.resetPasswordEntity(
+            phoneNumber: event.phoneNumber);
+        emit(ResetPasswordState(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
+        ));
+      } on DioException catch (e) {
+        if (e.response?.data == "This phone number hasn't been registered") {
+          emit(
+            ResetPasswordState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                errorMessage1:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .wrongPhoneNumber,
+              ),
+            ),
+          );
+          return;
+        }
+      } catch (e) {
+        emit(
+          state.copyWith(
+            status: BlocStatusState.failure,
+            viewModel: state.viewModel,
+          ),
+        );
+      }
+    } else {
+      emit(
+        WifiDisconnectState(
+          status: BlocStatusState.success,
+          viewModel: state.viewModel,
+        ),
+      );
+    }
   }
 
   Future<void> _onLogin(
@@ -49,53 +121,53 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           viewModel: state.viewModel,
         ),
       );
-      if (event.username == null ||
-          event.username?.trim() == '' ||
-          event.password == null ||
-          event.password?.trim() == '') {
-        if (event.username == null || event.username?.trim() == '') {
-          emit(
-            LoginActionState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                isLogin: false,
-                errorMessage1:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourAccount,
-              ),
+
+      if ((event.username == null || event.username == '') &&
+          (event.password != null && event.password?.trim() != '')) {
+        emit(
+          LoginActionState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              isLogin: false,
+              errorMessage1:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .pleaseEnterYourAccount,
             ),
-          );
-        }
-        if (event.password == null || event.password?.trim() == '') {
-          emit(
-            LoginActionState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                isLogin: false,
-                errorMessage2:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourPassword,
-              ),
+          ),
+        );
+        return;
+      }
+      if ((event.password == null || event.password?.trim() == '') &&
+          ((event.username != null && event.username?.trim() != ''))) {
+        emit(
+          LoginActionState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              isLogin: false,
+              errorMessage2:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .pleaseEnterYourPassword,
             ),
-          );
-        }
-        if ((event.password == null || event.password?.trim() == '') &&
-            (event.username == null || event.username?.trim() == '')) {
-          emit(
-            LoginActionState(
-              status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                isLogin: false,
-                errorMessage2:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourPassword,
-                errorMessage1:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourAccount,
-              ),
+          ),
+        );
+        return;
+      }
+      if ((event.password == null || event.password?.trim() == '') &&
+          (event.username == null || event.username?.trim() == '')) {
+        emit(
+          LoginActionState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+              isLogin: false,
+              errorMessage2:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .pleaseEnterYourPassword,
+              errorMessage1:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .pleaseEnterYourAccount,
             ),
-          );
-        }
+          ),
+        );
 
         return;
       }
@@ -140,7 +212,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
           return;
         }
-       
       } catch (e) {
         emit(
           LoginActionState(

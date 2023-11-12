@@ -9,7 +9,6 @@ import '../../../../classes/language.dart';
 import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
-import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/get_patient_bloc.dart';
 
@@ -51,8 +50,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
                   onClose: () {
-                    Navigator.pushNamed(context, RouteList.patientInfor,
-                        arguments: widget.patientId);
+                    Navigator.pop(context);
                   },
                   context: context,
                   message: translation(context).addRelativeSuccessfully,
@@ -208,21 +206,6 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         title: translation(context).save,
                         buttonColor: AppColor.saveSetting,
                         onTap: () {
-                          // int phoneNumberCount =
-                          //     _controllerRelativePhoneNumber.text.length;
-                          // if (_controllerRelativeName.text.isEmpty ||
-                          //     _controllerRelativePhoneNumber.text.isEmpty) {
-                          //   showNoticeDialog(
-                          //       context: context,
-                          //       message: translation(context)
-                          //           .pleaseEnterCompleteInformation,
-                          //       title: translation(context).notification,
-                          //       titleBtn: translation(context).exit);
-                          // }
-                          // else
-                          //  if (phoneNumberCount == 10 ||
-                          //     phoneNumberCount == 11) {
-
                           AccountEntity? accountEntity = AccountEntity(
                             name: _controllerRelativeName.text,
                             phoneNumber: _controllerRelativePhoneNumber.text,
@@ -231,15 +214,6 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                           patientBloc.add(RegistRelativeEvent(
                               accountEntity: accountEntity,
                               patientId: widget.patientId));
-
-                          // } else {
-                          //   showNoticeDialog(
-                          //       context: context,
-                          //       message:
-                          //           translation(context).invalidPhonenumber,
-                          //       title: translation(context).notification,
-                          //       titleBtn: translation(context).exit);
-                          // }
                         }),
                   )
                 ]),

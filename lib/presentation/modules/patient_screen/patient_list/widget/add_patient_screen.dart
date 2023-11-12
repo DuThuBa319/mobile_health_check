@@ -5,7 +5,6 @@ import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
-import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 
@@ -57,8 +56,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               showToast(translation(context).addPatientSuccessfully);
               showNoticeDialog(
                   onClose: () {
-                    Navigator.pushNamed(context, RouteList.patientList,
-                        arguments: userDataData.getUser()?.id);
+                    Navigator.pop(context);
                   },
                   context: context,
                   message: translation(context).addPatientSuccessfully,
