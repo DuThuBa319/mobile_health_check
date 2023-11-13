@@ -121,92 +121,90 @@ class SlideAbleForm extends StatelessWidget {
             left: 2,
           ),
           height: SizeConfig.screenHeight * 0.11,
-          padding: const EdgeInsets.only(
-            top: 7,
-            bottom: 7,
-          ),
-          decoration: BoxDecoration(
+              decoration: BoxDecoration(
             boxShadow: const [BoxShadow(color: Colors.black26)],
             borderRadius: BorderRadius.circular(
               10, // Đặt giá trị bán kính bo góc tại đây
             ),
             color: AppColor.white,
           ),
-          child: ListTile(
-            onTap: () {
-              if (isPatientCell == true) {
-                Navigator.pushNamed(
-                  context,
-                  RouteList.patientInfor,
-                  arguments: patientInforEntity?.id,
-                );
-              } else if (isDoctorCell == true) {
-                Navigator.pushNamed(
-                  context,
-                  RouteList.doctorInfor,
-                  arguments: personCellEntity?.id,
-                );
-              }
-            },
-            contentPadding: const EdgeInsets.only(left: 10),
-            leading: SizedBox(
-                width: isRelativeCell == true
-                    ? SizeConfig.screenWidth * 0.13
-                    : SizeConfig.screenWidth * 0.1,
-                child: isRelativeCell == true
-                    ? Icon(
-                        Icons.account_box_rounded,
-                        color: AppColor.primaryColorLight,
-                        size: SizeConfig.screenWidth * 0.14,
-                      )
-                    : Icon(
-                        Icons.person_pin,
-                        color: AppColor.lineDecor,
-                        size: SizeConfig.screenWidth * 0.11,
-                      )),
-            title: Transform.translate(
-              offset: const Offset(-10, 0),
-              child: isPatientCell == true
-                  ? Text(
-                      patientInforEntity?.name ?? '',
-                      style: AppTextTheme.body2.copyWith(
-                          fontSize: SizeConfig.screenWidth * 0.052,
-                          fontWeight: FontWeight.w500),
-                    )
-                  : isRelativeCell == true
-                      ? Text(
-                          relativeInforEntity?.name ?? '',
-                          style: AppTextTheme.body2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.06,
-                              fontWeight: FontWeight.w500),
+          child: Center(
+            child: ListTile(
+              onTap: () {
+                if (isPatientCell == true) {
+                  Navigator.pushNamed(
+                    context,
+                    RouteList.patientInfor,
+                    arguments: patientInforEntity?.id,
+                  );
+                } else if (isDoctorCell == true) {
+                  Navigator.pushNamed(
+                    context,
+                    RouteList.doctorInfor,
+                    arguments: personCellEntity?.id,
+                  );
+                }
+              },
+              contentPadding: const EdgeInsets.only(left: 10),
+              leading: SizedBox(
+                  width: isRelativeCell == true
+                      ? SizeConfig.screenWidth * 0.13
+                      : SizeConfig.screenWidth * 0.1,
+                  child: isRelativeCell == true
+                      ? Icon(
+                          Icons.account_box_rounded,
+                          color: AppColor.primaryColorLight,
+                          size: SizeConfig.screenWidth * 0.14,
                         )
-                      : Text(
-                          personCellEntity?.name ?? '',
-                          style: AppTextTheme.body2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.052,
-                              fontWeight: FontWeight.w500),
-                        ),
-            ),
-            subtitle: Transform.translate(
-              offset: const Offset(-10, 0),
-              child: (isPatientCell == true)
-                  ? Text(
-                      patientInforEntity?.phoneNumber == ""
-                          ? translation(context).notUpdate
-                          : patientInforEntity!.phoneNumber,
-                      style: AppTextTheme.body3)
-                  : isRelativeCell == true
-                      ? Text(
-                          relativeInforEntity?.phoneNumber == ""
-                              ? translation(context).notUpdate
-                              : relativeInforEntity!.phoneNumber,
-                          style: AppTextTheme.body4.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.05))
-                      : Text(
-                          personCellEntity?.phoneNumber == ""
-                              ? translation(context).notUpdate
-                              : personCellEntity!.phoneNumber,
-                          style: AppTextTheme.body3),
+                      : Icon(
+                          Icons.person_pin,
+                          color: AppColor.lineDecor,
+                          size: SizeConfig.screenWidth * 0.11,
+                        )),
+              title: Transform.translate(
+                offset: const Offset(-10, 0),
+                child: isPatientCell == true
+                    ? Text(
+                        patientInforEntity?.name ?? '',
+                        style: AppTextTheme.body2.copyWith(
+                            fontSize: SizeConfig.screenWidth * 0.052,
+                            fontWeight: FontWeight.w500),
+                      )
+                    : isRelativeCell == true
+                        ? Text(
+                            relativeInforEntity?.name ?? '',
+                            style: AppTextTheme.body2.copyWith(
+                                fontSize: SizeConfig.screenWidth * 0.06,
+                                fontWeight: FontWeight.w500),
+                          )
+                        : Text(
+                            personCellEntity?.name ?? '',
+                            style: AppTextTheme.body2.copyWith(
+                                fontSize: SizeConfig.screenWidth * 0.052,
+                                fontWeight: FontWeight.w500),
+                          ),
+              ),
+              subtitle: Transform.translate(
+                offset: const Offset(-10, 0),
+                child: (isPatientCell == true)
+                    ? Text(
+                        patientInforEntity?.phoneNumber == ""
+                            ? translation(context).notUpdate
+                            : patientInforEntity!.phoneNumber,
+                        style: AppTextTheme.body3)
+                    : isRelativeCell == true
+                        ? Text(
+                            relativeInforEntity?.phoneNumber == ""
+                                ? translation(context).notUpdate
+                                : relativeInforEntity!.phoneNumber,
+                            style: AppTextTheme.body4.copyWith(
+                                fontSize: SizeConfig.screenWidth * 0.05))
+                        : Text(
+                            personCellEntity?.phoneNumber == ""
+                                ? translation(context).notUpdate
+                                : personCellEntity!.phoneNumber,
+                            style: AppTextTheme.body3),
+              ),
             ),
           )),
     );

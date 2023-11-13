@@ -155,7 +155,21 @@ class _NotificationCellState extends State<NotificationCell> {
                               SizedBox(
                                 width: SizeConfig.screenWidth * 0.02,
                               ),
-                              Text(translation(context).updateIndicator,
+                              Text(
+                                  widget.notificationEntity?.type == 0
+                                      ? translation(context).updateBloodPressure
+                                      : widget.notificationEntity?.type == 1
+                                          ? translation(context)
+                                              .updateBloodSugar
+                                          : widget.notificationEntity?.type == 2
+                                              ? translation(context)
+                                                  .updateBodytemperature
+                                              : widget.notificationEntity
+                                                          ?.type ==
+                                                      3
+                                                  ? translation(context)
+                                                      .updateSpo2
+                                                  : "",
                                   softWrap: true,
                                   style: AppTextTheme.body3.copyWith(
                                       color: AppColor.black,

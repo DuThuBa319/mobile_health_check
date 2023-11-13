@@ -122,7 +122,10 @@
 "pleaseUpdateYourHeight":"Please update your height",
 "hasDoctorBefore":"This patient has been managed by another doctor",
 "updateIndicator":"Updated new indicator.",
-
+"updateBloodPressure":"Blood pressure update.",
+"updateBloodSugar":"Blood sugar update.",
+"updateBodytemperature":"Body temperature update.",
+"updateSpo2":"SpO2 update.",
 "duplicatedDoctorPhoneNumber":"This phone number has been already registered by another account",
 "duplicatedRelationshipPAD":"The relationship between these entities has been existed",
 "noNotification":"No notifications have been received yet",

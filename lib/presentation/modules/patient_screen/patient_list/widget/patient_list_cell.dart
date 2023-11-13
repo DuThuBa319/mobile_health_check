@@ -30,16 +30,17 @@ class _PatientListCellState extends State<PatientListCell> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Container(
-        padding: const EdgeInsets.only(top: 7, bottom: 7),
-        margin: const EdgeInsets.only(right: 2, left: 2),
-        height: SizeConfig.screenHeight * 0.125,
-        decoration: BoxDecoration(
-          boxShadow: const [BoxShadow(color: Colors.black26)],
-          borderRadius: BorderRadius.circular(
-            10, // Đặt giá trị bán kính bo góc tại đây
-          ),
-          color: AppColor.white,
+      // padding: const EdgeInsets.only(top: 7, bottom: 7),
+      margin: const EdgeInsets.only(right: 2, left: 2),
+      height: SizeConfig.screenHeight * 0.125,
+      decoration: BoxDecoration(
+        boxShadow: const [BoxShadow(color: Colors.black26)],
+        borderRadius: BorderRadius.circular(
+          10, // Đặt giá trị bán kính bo góc tại đây
         ),
+        color: AppColor.white,
+      ),
+      child: Center(
         child: ListTile(
           onTap: () {
             Navigator.pushNamed(
@@ -50,29 +51,34 @@ class _PatientListCellState extends State<PatientListCell> {
           },
           contentPadding: const EdgeInsets.only(left: 10),
           leading: SizedBox(
-              width: SizeConfig.screenWidth * 0.11,
-              child: Icon(
-                Icons.person_pin,
-                color: AppColor.lineDecor,
-                size: SizeConfig.screenWidth * 0.11,
-              )),
+            width: SizeConfig.screenWidth * 0.11,
+            child: Icon(
+              Icons.person_pin,
+              color: AppColor.lineDecor,
+              size: SizeConfig.screenWidth * 0.105,
+            ),
+          ),
           title: Transform.translate(
             offset: const Offset(-10, 0),
             child: Text(
               widget.patientInforEntity?.name ?? '',
               style: AppTextTheme.body2.copyWith(
-                  fontSize: SizeConfig.screenWidth * 0.052,
-                  fontWeight: FontWeight.w500),
+                fontSize: SizeConfig.screenWidth * 0.052,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           subtitle: Transform.translate(
             offset: const Offset(-10, 0),
             child: Text(
-                widget.patientInforEntity?.phoneNumber == ""
-                    ? translation(context).notUpdate
-                    : widget.patientInforEntity!.phoneNumber,
-                style: AppTextTheme.body3),
+              widget.patientInforEntity?.phoneNumber == ""
+                  ? translation(context).notUpdate
+                  : widget.patientInforEntity!.phoneNumber,
+              style: AppTextTheme.body3,
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
