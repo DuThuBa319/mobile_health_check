@@ -1,5 +1,6 @@
 part of 'image_picker_widget.dart';
 
+// ignore: library_private_types_in_public_api
 extension ImagePickerAction on _ImagePickerGridViewState {
   void _blocListener(BuildContext context, ImagePickerState state) {
     if (state is GetImageState && state.status == BlocStatusState.loading) {

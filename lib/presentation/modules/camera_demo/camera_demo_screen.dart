@@ -13,6 +13,7 @@ import '../../../classes/language.dart';
 import '../../../function.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
+import '../../theme/theme_color.dart';
 import 'camera_bloc/camera_bloc.dart';
 part 'camera_demo_screen.action.dart';
 
@@ -112,7 +113,7 @@ class CameraScreenState extends State<CameraScreen>
                           translation(context).error,
                           style: TextStyle(
                               fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,color: AppColor.red),
                         ),);
             }
             if ((state is CameraReadyState &&

@@ -42,7 +42,7 @@ class _NotificationListState extends State<NotificationScreen> {
   int startIndex = -15;
   int quantity = 15;
   bool loadMore = true;
-  String? doctorId = userDataData.getUser()!.id;
+  String? doctorId = userDataData.getUser()?.id;
   @override
   void initState() {
     super.initState();
@@ -226,11 +226,12 @@ class _NotificationListState extends State<NotificationScreen> {
                         state.status == BlocStatusState.success) {
                   return Center(
                     child: Text(
-                          translation(context).error,
-                          style: TextStyle(
-                              fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold),
-                        ),
+                      translation(context).error,
+                      style: TextStyle(
+                          fontSize: SizeConfig.screenWidth * 0.05,
+                          fontWeight: FontWeight.bold,
+                          color: AppColor.red),
+                    ),
                   );
                 }
                 return Container();
