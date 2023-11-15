@@ -141,7 +141,9 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   padding: EdgeInsets.only(
                       top: 7, bottom: 7, right: SizeConfig.screenWidth * 0.02),
                   margin: EdgeInsets.only(
-                      right: SizeConfig.screenWidth * 0.02, left: 2),
+                      right: SizeConfig.screenWidth * 0.02,
+                      left: 2,
+                      bottom: 10),
                   height: SizeConfig.screenHeight * 0.1,
                   child: Center(
                     child: ListTile(
@@ -235,7 +237,10 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   height: SizeConfig.screenWidth * 0.04,
                 ),
                 Text(cellTitle,
-                    style: AppTextTheme.title3.copyWith(color: Colors.white)),
+                    softWrap: true,
+                    style: AppTextTheme.title3.copyWith(
+                        color: Colors.white,
+                        fontSize: SizeConfig.screenWidth * 0.040)),
               ],
             )),
       ),

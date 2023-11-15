@@ -110,7 +110,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // TODO: implement initState
-    Future.delayed(const Duration(milliseconds:1500 )).then((value) async {
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) async {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
       bool isLogin = userDataData.isLogin ?? false;
       if (isLogin) {

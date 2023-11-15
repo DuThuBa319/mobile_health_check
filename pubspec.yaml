@@ -33,7 +33,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
- 
   path_provider: ^2.0.15
   injectable: ^2.1.1
   build_runner: ^2.2.0
@@ -91,13 +90,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
+
+
+
 flutter_launcher_icons:
   android: true
   ios: true
   image_path: "lib/assets/images/TeleHealth.jpg"
   remove_alpha_ios: true
-  color: "#71C3FF"
-
+  background_color_ios: "#0xff71C3FF"
+  background_color_android: "#0xff71C3FF"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

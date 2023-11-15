@@ -116,17 +116,17 @@ class _LoginState extends State<LoginScreen> {
                       children: language,
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.02,
+                      height: SizeConfig.screenHeight * 0.03,
                     ),
                     Center(
                       child: Image.asset(
-                        Assets.appLogo,
-                        scale: 3,
+                        Assets.teleHealth,
+                        scale: 6,
                       ),
                     ),
 
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.02,
+                      height: SizeConfig.screenHeight * 0.04,
                     ),
                     Center(
                       child: Text(
@@ -148,8 +148,8 @@ class _LoginState extends State<LoginScreen> {
                         color: AppColor.cardBackgroundColor,
                       ),
                       margin: EdgeInsets.only(
-                          top: SizeConfig.screenWidth * 0.06,
-                          bottom: SizeConfig.screenWidth * 0.035),
+                          top: SizeConfig.screenWidth * 0.03,
+                          bottom: SizeConfig.screenWidth * 0.025),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -200,7 +200,6 @@ class _LoginState extends State<LoginScreen> {
                         color: AppColor.cardBackgroundColor,
                       ),
                       margin: EdgeInsets.only(
-                          top: SizeConfig.screenWidth * 0.06,
                           bottom: SizeConfig.screenWidth * 0.04),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
