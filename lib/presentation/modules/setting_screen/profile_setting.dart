@@ -132,7 +132,7 @@ class _SettingProfileState extends State<SettingProfile> {
   Widget _buildTextField(TextEditingController controller, String label) {
     return Container(
       margin: EdgeInsets.only(
-          bottom: SizeConfig.screenHeight * 0.025,
+          bottom: SizeConfig.screenHeight * 0.01,
           left: SizeConfig.screenWidth * 0.03,
           right: SizeConfig.screenWidth * 0.03),
       padding: EdgeInsets.only(
@@ -190,7 +190,7 @@ class _SettingProfileState extends State<SettingProfile> {
                   (state is UpdateRelativeInforState) ||
                   (state is UpdatePatientInforState)) &&
               state.status == BlocStatusState.success) {
-          //! UPDATE PROFILE SUCCESSFULLY
+            //! UPDATE PROFILE SUCCESSFULLY
             showNoticeDialog(
                 onClose: () {
                   Navigator.pop(context);

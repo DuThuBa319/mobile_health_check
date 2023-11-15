@@ -77,7 +77,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                   ],
                 ),
                 lineDecor(
-                    spaceTop: SizeConfig.screenHeight * 0.02,
+                    spaceTop: SizeConfig.screenHeight * 0.01,
                     spaceBottom: SizeConfig.screenHeight * 0.01),
                 Center(
                   child: Column(
@@ -137,8 +137,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                             left: SizeConfig.screenWidth * 0.05,
                             right: SizeConfig.screenWidth * 0.04),
                         margin: EdgeInsets.only(
-                            top: SizeConfig.screenWidth * 0.04,
-                            bottom: SizeConfig.screenWidth * 0.04),
+                            bottom: SizeConfig.screenWidth * 0.05),
                         decoration: BoxDecoration(
                           color: AppColor.white,
                           borderRadius: BorderRadius.circular(

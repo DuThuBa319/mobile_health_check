@@ -122,7 +122,6 @@ class SlideAbleForm extends StatelessWidget {
           ),
           height: SizeConfig.screenHeight * 0.11,
           decoration: BoxDecoration(
-            boxShadow: const [BoxShadow(color: Colors.black26)],
             borderRadius: BorderRadius.circular(
               10, // Đặt giá trị bán kính bo góc tại đây
             ),
