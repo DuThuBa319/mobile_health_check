@@ -42,7 +42,6 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-
         // selectedIndex: 2,
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
           listener: (context, state) {

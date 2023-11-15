@@ -33,6 +33,6 @@ class Spo2Entity {
         return Colors.red;
       }
     }
-    return null;
+    return null;  
   }
 }

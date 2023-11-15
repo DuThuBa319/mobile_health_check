@@ -194,5 +194,6 @@
 "duplicatedRelationshipPAD":"Bệnh nhân đã đăng ký với bác sĩ này rồi",
 "hasDoctorBefore":"Bệnh nhân đã đăng ký với bác sĩ khác",
 "maximumRelativeCount":"Số người thân đã đạt tối đa",
-"wrongAccount":"Tài khoản hoặc mật khẩu không đúng"
+"wrongAccount":"Tài khoản hoặc mật khẩu không đúng",
+"contact":"Liên hệ"
 }

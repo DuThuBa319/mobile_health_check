@@ -28,7 +28,7 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
         email: userDataData.getUser()!.email,
       ));
     }
-    ;
+
     return entity;
   }
 

@@ -150,6 +150,8 @@ class _NotificationListState extends State<NotificationScreen> {
                                 await Future.delayed(
                                     const Duration(milliseconds: 1000));
                                 _refreshController.refreshCompleted();
+                                lastIndex = 14;
+                                startIndex = 0;
                                 notificationBloc.add(
                                     RefreshNotificationListEvent(
                                         doctorId: doctorId));
@@ -229,8 +231,7 @@ class _NotificationListState extends State<NotificationScreen> {
                       translation(context).error,
                       style: TextStyle(
                           fontSize: SizeConfig.screenWidth * 0.05,
-                          fontWeight: FontWeight.bold,
-                          color: AppColor.red),
+                          fontWeight: FontWeight.bold),
                     ),
                   );
                 }

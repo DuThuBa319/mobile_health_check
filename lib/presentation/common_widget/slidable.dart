@@ -121,7 +121,7 @@ class SlideAbleForm extends StatelessWidget {
             left: 2,
           ),
           height: SizeConfig.screenHeight * 0.11,
-              decoration: BoxDecoration(
+          decoration: BoxDecoration(
             boxShadow: const [BoxShadow(color: Colors.black26)],
             borderRadius: BorderRadius.circular(
               10, // Đặt giá trị bán kính bo góc tại đây
@@ -162,7 +162,7 @@ class SlideAbleForm extends StatelessWidget {
                           size: SizeConfig.screenWidth * 0.11,
                         )),
               title: Transform.translate(
-                offset: const Offset(-10, 0),
+                offset: const Offset(0, 0),
                 child: isPatientCell == true
                     ? Text(
                         patientInforEntity?.name ?? '',
@@ -185,7 +185,7 @@ class SlideAbleForm extends StatelessWidget {
                           ),
               ),
               subtitle: Transform.translate(
-                offset: const Offset(-10, 0),
+                offset: const Offset(0, 0),
                 child: (isPatientCell == true)
                     ? Text(
                         patientInforEntity?.phoneNumber == ""

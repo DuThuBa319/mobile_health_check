@@ -13,10 +13,11 @@ class Assets {
   static const String nightRainy = 'lib/assets/images/NightRainy.png';
   static const String nightFoggy = 'lib/assets/images/NightFoggy.png';
   static const String nightThunderStorm = 'lib/assets/images/NightThunder.png';
-  static const String logoFlutter = 'lib/assets/images/flutter_logo.png';
   static const String bloodSugar = 'lib/assets/images/blood_sugar_icon.png';
   static const String bloodPressureicon =
       'lib/assets/images/blood_pressure_icon.png';
+  static const String teleHealth = 'lib/assets/images/TeleHealth.jpg';
+
   static const String temperature = 'lib/assets/images/thermometer_icon.png';
   static const String thermometer = 'lib/assets/images/thermometer_img.png';
   static const String bloodGlucoseMeter =
