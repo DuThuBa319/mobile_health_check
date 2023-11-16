@@ -12,6 +12,7 @@ import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_
 
 import '../../../../classes/language.dart';
 import '../../../../common/service/navigation/navigation_service.dart';
+import '../../../../common/singletons.dart';
 import '../../../../di/di.dart';
 import '../../../common_widget/enum_common.dart';
 part 'get_doctor_event.dart';
@@ -48,7 +49,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
-       
         final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
         final newViewModel =
             state.viewModel.copyWith(allDoctorEntity: allDoctorEntity);
@@ -88,7 +88,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
-       
         final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
         // List<DoctorEntity>? searchResult = [];
         final filteredDoctors = allDoctorEntity
@@ -134,7 +133,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
-       
         final doctorInforEntity =
             await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
         final newViewModel =
@@ -236,9 +234,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
 
       try {
-       
-      
-        await _adminUsecase.createDoctorAccountEntity(event.accountEntity!);
+        await _adminUsecase.createDoctorAccountEntity(
+            event.accountEntity!, userDataData.getUser()!.id);
         final newViewModel = state.viewModel;
         emit(
           RegistDoctorState(
@@ -292,7 +289,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
-       
         await _adminUsecase.deleteDoctorEntity(event.doctorId);
         final response = await _adminUsecase.getAllDoctorEntity();
         final newViewModel =

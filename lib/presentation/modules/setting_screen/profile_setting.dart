@@ -129,7 +129,8 @@ class _SettingProfileState extends State<SettingProfile> {
     });
   }
 
-  Widget _buildTextField(TextEditingController controller, String label) {
+  Widget _buildTextField(TextEditingController controller, String label,
+      {bool enabled = true}) {
     return Container(
       margin: EdgeInsets.only(
           bottom: SizeConfig.screenHeight * 0.01,
@@ -145,6 +146,7 @@ class _SettingProfileState extends State<SettingProfile> {
       ),
       child: Center(
         child: TextField(
+          enabled: enabled,
           keyboardType: (controller == _controllerAge ||
                   controller == _controllerWeight ||
                   controller == _controllerHeight ||
@@ -238,7 +240,8 @@ class _SettingProfileState extends State<SettingProfile> {
                       spaceBottom: SizeConfig.screenHeight * 0.012),
                   _buildTextField(_controllerName, translation(context).name),
                   _buildTextField(
-                      _controllerPhoneNumber, translation(context).phoneNumber),
+                      _controllerPhoneNumber, translation(context).phoneNumber,
+                      enabled: false),
                   userDataData.getUser()?.role == UserRole.admin
                       ? const SizedBox(height: 0.1)
                       : _buildTextField(
@@ -263,100 +266,112 @@ class _SettingProfileState extends State<SettingProfile> {
                           _controllerAddress, translation(context).address),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Center(
-                    child: RectangleButton(
-                        width: widthCell,
-                        height: SizeConfig.screenHeight * 0.07,
-                        title: translation(context).save,
-                        buttonColor: AppColor.saveSetting,
-                        onTap: () async {
-                          if (_controllerAddress.text.isEmpty ||
-                              _controllerAge.text.isEmpty ||
-                              _controllerGender.text.isEmpty ||
-                              _controllerHeight.text.isEmpty ||
-                              _controllerPhoneNumber.text.isEmpty ||
-                              _controllerWeight.text.isEmpty ||
-                              _controllerName.text.isEmpty) {
-                            showToast(translation(context)
-                                .pleaseEnterCompleteInformation);
-                          } else {
-                            final int gender;
-                            int? newAge = int.parse(_controllerAge.text);
-                            if (_controllerGender.text == "Nam" ||
-                                _controllerGender.text == "nam" ||
-                                _controllerGender.text == "male" ||
-                                _controllerGender.text == "Male") {
-                              gender = 0;
-                            } else {
-                              gender = 1;
+                    child: userDataData.getUser()?.role == UserRole.admin
+                        ? const SizedBox(height: 0.1)
+                        : RectangleButton(
+                            width: widthCell,
+                            height: SizeConfig.screenHeight * 0.07,
+                            title: translation(context).save,
+                            buttonColor: AppColor.saveSetting,
+                            onTap: () async {
+                              if (_controllerAddress.text.isEmpty ||
+                                  _controllerAge.text.isEmpty ||
+                                  _controllerGender.text.isEmpty ||
+                                  _controllerHeight.text.isEmpty ||
+                                  _controllerPhoneNumber.text.isEmpty ||
+                                  _controllerWeight.text.isEmpty ||
+                                  _controllerName.text.isEmpty) {
+                                showToast(translation(context)
+                                    .pleaseEnterCompleteInformation);
+                              } else {
+                                final int gender;
+                                int? newAge = int.parse(_controllerAge.text);
+                                if (_controllerGender.text == "Nam" ||
+                                    _controllerGender.text == "nam" ||
+                                    _controllerGender.text == "male" ||
+                                    _controllerGender.text == "Male") {
+                                  gender = 0;
+                                } else {
+                                  gender = 1;
+                                }
+
+                                if (userDataData.getUser()?.role ==
+                                    UserRole.relative) {
+                                  RelativeInforEntity newRelativeInforEntity =
+                                      RelativeInforEntity(
+                                    gender: gender,
+                                    name: _controllerName.text,
+                                    phoneNumber: _controllerPhoneNumber.text,
+                                    age: newAge,
+                                    id: userDataData.getUser()!.id!,
+                                    address: _controllerAddress.text,
+                                    personType: 2,
+                                  );
+                                  updatePatientBloc.add(
+                                      UpdateRelativeInforEvent(
+                                          relativeInforEntity:
+                                              newRelativeInforEntity,
+                                          id: userDataData.getUser()!.id));
+                                  await userDataData.setUser(
+                                      newRelativeInforEntity
+                                          .convertUser(
+                                              user: userDataData.getUser()!)
+                                          .convertToModel());
+                                }
+
+                                if (userDataData.getUser()?.role ==
+                                    UserRole.doctor) {
+                                  DoctorInforEntity newDoctorInforEntity =
+                                      DoctorInforEntity(
+                                    gender: gender,
+                                    name: _controllerName.text,
+                                    phoneNumber: _controllerPhoneNumber.text,
+                                    age: newAge,
+                                    id: userDataData.getUser()!.id!,
+                                    address: _controllerAddress.text,
+                                    personType: 2,
+                                  );
+
+                                  updatePatientBloc.add(UpdateDoctorInforEvent(
+                                      doctorInforEntity: newDoctorInforEntity,
+                                      id: userDataData.getUser()!.id));
+                                  await userDataData.setUser(
+                                      newDoctorInforEntity
+                                          .convertUser(
+                                              user: userDataData.getUser()!)
+                                          .convertToModel());
+                                } else if (userDataData.getUser()?.role ==
+                                    UserRole.patient) {
+                                  var height =
+                                      double.parse(_controllerHeight.text);
+                                  var weight =
+                                      double.parse(_controllerWeight.text);
+                                  PatientInforEntity newPatientInforEntity =
+                                      PatientInforEntity(
+                                    gender: gender,
+                                    personType: 0,
+                                    name: _controllerName.text,
+                                    phoneNumber: _controllerPhoneNumber.text,
+                                    age: newAge,
+                                    height: height,
+                                    weight: weight,
+                                    id: userDataData.getUser()?.id!,
+                                    address: _controllerAddress.text,
+                                  );
+
+                                  updatePatientBloc.add(UpdatePatientInforEvent(
+                                      patientInforEntity: newPatientInforEntity,
+                                      id: userDataData.getUser()?.id));
+                                  await userDataData.setUser(
+                                      newPatientInforEntity
+                                          .convertUser(
+                                              user: userDataData.getUser()!)
+                                          .convertToModel());
+                                }
+                              }
                             }
-
-                            if (userDataData.getUser()?.role ==
-                                UserRole.relative) {
-                              RelativeInforEntity newRelativeInforEntity =
-                                  RelativeInforEntity(
-                                gender: gender,
-                                name: _controllerName.text,
-                                phoneNumber: _controllerPhoneNumber.text,
-                                age: newAge,
-                                id: userDataData.getUser()!.id!,
-                                address: _controllerAddress.text,
-                                personType: 2,
-                              );
-                              updatePatientBloc.add(UpdateRelativeInforEvent(
-                                  relativeInforEntity: newRelativeInforEntity,
-                                  id: userDataData.getUser()!.id));
-                              await userDataData.setUser(newRelativeInforEntity
-                                  .convertUser(user: userDataData.getUser()!)
-                                  .convertToModel());
-                            }
-
-                            if (userDataData.getUser()?.role ==
-                                UserRole.doctor) {
-                              DoctorInforEntity newDoctorInforEntity =
-                                  DoctorInforEntity(
-                                gender: gender,
-                                name: _controllerName.text,
-                                phoneNumber: _controllerPhoneNumber.text,
-                                age: newAge,
-                                id: userDataData.getUser()!.id!,
-                                address: _controllerAddress.text,
-                                personType: 2,
-                              );
-
-                              updatePatientBloc.add(UpdateDoctorInforEvent(
-                                  doctorInforEntity: newDoctorInforEntity,
-                                  id: userDataData.getUser()!.id));
-                              await userDataData.setUser(newDoctorInforEntity
-                                  .convertUser(user: userDataData.getUser()!)
-                                  .convertToModel());
-                            } else if (userDataData.getUser()?.role ==
-                                UserRole.patient) {
-                              var height = double.parse(_controllerHeight.text);
-                              var weight = double.parse(_controllerWeight.text);
-                              PatientInforEntity newPatientInforEntity =
-                                  PatientInforEntity(
-                                gender: gender,
-                                personType: 0,
-                                name: _controllerName.text,
-                                phoneNumber: _controllerPhoneNumber.text,
-                                age: newAge,
-                                height: height,
-                                weight: weight,
-                                id: userDataData.getUser()?.id!,
-                                address: _controllerAddress.text,
-                              );
-
-                              updatePatientBloc.add(UpdatePatientInforEvent(
-                                  patientInforEntity: newPatientInforEntity,
-                                  id: userDataData.getUser()?.id));
-                              await userDataData.setUser(newPatientInforEntity
-                                  .convertUser(user: userDataData.getUser()!)
-                                  .convertToModel());
-                            }
-                          }
-                        }
-                        // }
-                        ),
+                            // }
+                            ),
                   )
                 ]),
           );

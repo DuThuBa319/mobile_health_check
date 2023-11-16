@@ -16,8 +16,8 @@ class AdminApiRepositoryImpl implements AdminApiRepository {
   }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
   @override
-  Future<void> createDoctorAccountModel(AccountModel? accountModel) {
-    return restApi.createDoctorAccountModel(accountModel);
+  Future<void> createDoctorAccountModel(AccountModel? accountModel,String? adminId) {
+    return restApi.createDoctorAccountModel(accountModel,adminId);
   }
 
   @override

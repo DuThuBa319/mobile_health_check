@@ -6,9 +6,11 @@ import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../classes/language.dart';
+import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
+import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/get_patient_bloc.dart';
 
@@ -50,7 +52,11 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
                   onClose: () {
-                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RouteList.patientInfor,
+                      arguments: widget.patientId,
+                    );
                   },
                   context: context,
                   message: translation(context).addRelativeSuccessfully,
@@ -85,6 +91,12 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
             }
           },
           builder: (context, state) {
+            if (state.status == BlocStatusState.loading) {
+              return const Center(
+                  child: Loading(
+                brightness: Brightness.light,
+              ));
+            }
             return SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.only(

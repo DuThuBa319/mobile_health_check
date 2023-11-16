@@ -73,7 +73,10 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> createDoctorAccountModel(AccountModel? accountModel) async {
+  Future<void> createDoctorAccountModel(
+    AccountModel? accountModel,
+    String? adminId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -87,7 +90,7 @@ class _RestApiRepository implements RestApiRepository {
     )
         .compose(
           _dio.options,
-          '/Users/CreateDoctorAccount',
+          '/Users/CreateDoctorAccount/${adminId}',
           queryParameters: queryParameters,
           data: _data,
         )

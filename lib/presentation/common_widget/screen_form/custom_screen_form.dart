@@ -127,11 +127,9 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   children: <Widget>[
                     iconBottomBar(
                         label:
-                            (userDataData.getUser()?.role == UserRole.doctor ||
-                                    userDataData.getUser()?.role ==
-                                        UserRole.relative)
-                                ? translation(context).homeScreen
-                                : translation(context).selectEquip,
+                            (userDataData.getUser()?.role == UserRole.patient)
+                                ? translation(context).selectEquip
+                                : translation(context).homeScreen,
                         iconData: Icons.home_filled,
                         isSelected: widget.selectedIndex == 0 ? true : false,
                         iconIndex: 0),
@@ -200,13 +198,20 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     if (index == 0 && index != widget.selectedIndex) {
       if ((userDataData.getUser()!.role == UserRole.doctor ||
           userDataData.getUser()!.role == UserRole.relative)) {
-        Navigator.pushNamed(context, RouteList.patientList,
-            arguments: userDataData.getUser()!.id!);
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            RouteList.patientList,
+            arguments: userDataData.getUser()!.id!,
+            (route) => false);
       } else if (userDataData.getUser()!.role == UserRole.admin) {
-        Navigator.pushNamed(context, RouteList.doctorList,
-            arguments: userDataData.getUser()!.id!);
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            RouteList.doctorList,
+            arguments: userDataData.getUser()!.id!,
+            (route) => false);
       } else if (userDataData.getUser()!.role == UserRole.patient) {
-        Navigator.pushNamed(context, RouteList.selectEquip);
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouteList.selectEquip, (route) => false);
       }
     }
     if (index == 1 && index != widget.selectedIndex) {

@@ -361,7 +361,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
           temperatureEntity: entity ?? TemperatureEntity());
       emit(
         state.copyWith(
-          status: BlocStatusState.success,
+          status: BlocStatusState.failure,
         ),
       );
     } catch (e) {
