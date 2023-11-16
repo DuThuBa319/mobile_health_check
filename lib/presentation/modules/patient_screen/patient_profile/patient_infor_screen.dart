@@ -410,7 +410,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                     translation(context).error,
                     style: TextStyle(
                         fontSize: SizeConfig.screenWidth * 0.05,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.red),
                   ),
                 );
               }

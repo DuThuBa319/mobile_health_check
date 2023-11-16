@@ -3,6 +3,7 @@ import 'package:mobile_health_check/presentation/common_widget/enum_common.dart'
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'classes/language.dart';
 import 'common/service/navigation/navigation_observer.dart';
 import 'common/service/navigation/navigation_service.dart';
@@ -86,7 +87,7 @@ class _MyAppState extends State<MyApp> {
       navigatorObservers: [myNavigatorObserver],
       locale: _locale,
       debugShowCheckedModeBanner: false,
-      title: 'Health Check App',
+      title: 'TeleHealth',
       onGenerateRoute: AppRoute.onGenerateRoute,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -109,7 +110,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // TODO: implement initState
-    Future.delayed(const Duration(seconds: 1)).then((value) async {
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) async {
       // Navigator.pushNamed(context, RouteList.OCR_screen);
       bool isLogin = userDataData.isLogin ?? false;
       if (isLogin) {
@@ -140,10 +141,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.white,
       body: Center(
         child: Image.asset(
-          Assets.appLogo,
-          scale: 3,
+          Assets.teleHealth,
+          scale: 6,
         ),
       ),
     );

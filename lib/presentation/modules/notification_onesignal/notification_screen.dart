@@ -42,7 +42,7 @@ class _NotificationListState extends State<NotificationScreen> {
   int startIndex = -15;
   int quantity = 15;
   bool loadMore = true;
-  String? doctorId = userDataData.getUser()!.id;
+  String? doctorId = userDataData.getUser()?.id;
   @override
   void initState() {
     super.initState();

@@ -87,7 +87,6 @@ class _SettingPasswordState extends State<SettingPassword> {
               state.status == BlocStatusState.loading) {
             return const Center(
               child: Loading(
-                
                 brightness: Brightness.light,
               ),
             );

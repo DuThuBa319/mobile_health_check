@@ -133,7 +133,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                           translation(context).error,
                           style: TextStyle(
                               fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,color: AppColor.red),
                         ),
                       );
                     }
