@@ -3,7 +3,7 @@ import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/OCR_scanner/blood_pressure_reading_screen.dart';
 import 'package:mobile_health_check/presentation/modules/camera_demo/camera_demo_screen.dart';
-import 'package:mobile_health_check/presentation/modules/forgot_pass_screen/forgot_password_screen.dart';
+
 import 'package:mobile_health_check/presentation/modules/history/temperature_history_screen/temperature_history_screen.dart';
 
 import 'package:mobile_health_check/presentation/modules/login_screen/login_screen.dart';
@@ -35,7 +35,8 @@ import '../modules/history/detail_screen/spo2_detail.dart';
 import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/history/spo2_history_screen/spo2_history_screen.dart';
-import '../modules/login_screen/login/login_bloc.dart';
+import '../modules/login_screen/forgot_pass_screen/forgot_password_screen.dart';
+import '../modules/login_screen/login_bloc/login_bloc.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../modules/notification_onesignal/detail_screen/blood_pressure_reading.dart';
 import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart';

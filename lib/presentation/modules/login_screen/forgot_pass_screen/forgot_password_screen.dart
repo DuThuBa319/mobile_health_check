@@ -5,13 +5,16 @@ import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/loading_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:mobile_health_check/presentation/modules/login_screen/login/login_bloc.dart';
+import 'package:mobile_health_check/presentation/modules/login_screen/login_bloc/login_bloc.dart';
 
-import '../../../classes/language.dart';
-import '../../common_widget/dialog/dialog_one_button.dart';
-import '../../common_widget/enum_common.dart';
-import '../../theme/app_text_theme.dart';
-import '../../theme/theme_color.dart';
+import '../../../../classes/language.dart';
+
+import '../../../common_widget/dialog/dialog_one_button.dart';
+import '../../../common_widget/enum_common.dart';
+import '../../../theme/app_text_theme.dart';
+import '../../../theme/theme_color.dart';
+
+
 part 'forgot_password_screen_actions.dart';
 
 class ForgotPassScreen extends StatefulWidget {

@@ -74,9 +74,8 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       ),
     );
     try {
-      Future.delayed(const Duration(seconds: 4), () {
-        if (state is CameraReadyState &&
-            state.status == BlocStatusState.loading) {
+      Future.delayed(const Duration(seconds: 5), () {
+        if (state.status == BlocStatusState.loading) {
           emit(
             state.copyWith(
               status: BlocStatusState.failure,

@@ -48,6 +48,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
+       
         final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
         final newViewModel =
             state.viewModel.copyWith(allDoctorEntity: allDoctorEntity);
@@ -87,6 +88,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
+       
         final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
         // List<DoctorEntity>? searchResult = [];
         final filteredDoctors = allDoctorEntity
@@ -132,6 +134,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
+       
         final doctorInforEntity =
             await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
         final newViewModel =
@@ -233,6 +236,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
 
       try {
+       
+      
         await _adminUsecase.createDoctorAccountEntity(event.accountEntity!);
         final newViewModel = state.viewModel;
         emit(
@@ -287,6 +292,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
+       
         await _adminUsecase.deleteDoctorEntity(event.doctorId);
         final response = await _adminUsecase.getAllDoctorEntity();
         final newViewModel =

@@ -9,26 +9,30 @@ extension LoginAction on _LoginState {
       showToast(translation(context).loadingData);
     }
 
-    if (state is LoginActionState &&
-        state.status == BlocStatusState.failure &&
-        state.viewModel.errorMessage1 == translation(context).wrongAccount) {
-      showNoticeDialog(
-          onClose: () => Navigator.pop(context),
-          context: context,
-          message: translation(context).wrongAccount,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
+    if (state is LoginActionState && state.status == BlocStatusState.failure) {
+      if ((state.viewModel.errorMessage1 ==
+              translation(context).pleaseEnterYourAccount ||
+          state.viewModel.errorMessage2 ==
+              translation(context).pleaseEnterYourPassword)) {
+        Navigator.pop(context);
+      } else if (state.viewModel.errorMessage1 ==
+          translation(context).wrongAccount) {
+        showNoticeDialog(
+            onClose: () => Navigator.pop(context),
+            context: context,
+            message: translation(context).wrongAccount,
+            title: translation(context).notification,
+            titleBtn: translation(context).exit);
+      } else {
+        showNoticeDialog(
+            onClose: () => Navigator.pop(context),
+            context: context,
+            message: translation(context).error,
+            title: translation(context).notification,
+            titleBtn: translation(context).exit);
+      }
     }
 
-    if (state is LoginActionState &&
-        state.status == BlocStatusState.failure &&
-        (state.viewModel.errorMessage1 ==
-                translation(context).pleaseEnterYourAccount ||
-            state.viewModel.errorMessage2 ==
-                translation(context).pleaseEnterYourPassword)) {
-      Navigator.pop(context);
-    }
-    
     if (state is WifiDisconnectState &&
         state.status == BlocStatusState.success) {
       showNoticeDialog(
