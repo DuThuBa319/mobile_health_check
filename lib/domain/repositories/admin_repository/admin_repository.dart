@@ -8,7 +8,7 @@ import '../../../data/models/person_cell_model/person_cell_model.dart';
 part 'admin_repository.impl.dart';
 
 abstract class AdminRepository {
-  Future<void> createDoctorAccountModel(AccountModel? accountModel);
+  Future<void> createDoctorAccountModel(AccountModel? accountModel,String? adminId);
   Future<List<PersonCellModel>> getAllDoctorModel();
   Future<void> deleteDoctorModel(String? doctorId);
 }

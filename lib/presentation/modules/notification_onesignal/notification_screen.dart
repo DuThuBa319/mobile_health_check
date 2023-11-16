@@ -222,10 +222,10 @@ class _NotificationListState extends State<NotificationScreen> {
                       ],
                     );
                   }
-                } else if (state is GetNotificationListState &&
+                } else if (
                         state.status == BlocStatusState.failure ||
-                    state is WifiDisconnectState &&
-                        state.status == BlocStatusState.success) {
+                    (state is WifiDisconnectState &&
+                        state.status == BlocStatusState.success)) {
                   return Center(
                     child: Text(
                       translation(context).error,

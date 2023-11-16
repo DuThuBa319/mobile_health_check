@@ -8,11 +8,13 @@ import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../../classes/language.dart';
 
+import '../../../../common_widget/loading_widget.dart';
 import '../../../../common_widget/rectangle_button.dart';
 import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/enum_common.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
 
+import '../../../../route/route_list.dart';
 import '../../../../theme/theme_color.dart';
 import '../../bloc/get_patient_bloc.dart';
 
@@ -56,7 +58,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               showToast(translation(context).addPatientSuccessfully);
               showNoticeDialog(
                   onClose: () {
-                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RouteList.patientList,
+                        arguments: userDataData.getUser()!.id!,
+                        (route) => false);
                   },
                   context: context,
                   message: translation(context).addPatientSuccessfully,
@@ -91,6 +97,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
             }
           },
           builder: (context, state) {
+            if (state.status == BlocStatusState.loading) {
+              return const Center(
+                  child: Loading(
+                brightness: Brightness.light,
+              ));
+            }
             return SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.only(

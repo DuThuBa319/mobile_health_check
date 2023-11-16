@@ -251,10 +251,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
       try {
-        // if (userDataData.getUser()!.role! == "doctor" &&
-        //     userDataData.getUser()!.id ==
-        //         "97488bbf-6737-4476-9bcc-4644efe6bf70") {}
-
         if ((userDataData.getUser()!.role! == UserRole.doctor ||
             userDataData.getUser()!.role! == UserRole.relative)) {
           await OneSignalNotificationService.create();

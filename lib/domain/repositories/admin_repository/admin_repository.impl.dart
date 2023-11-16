@@ -12,8 +12,8 @@ class AdminRepositoryImpl extends AdminRepository {
   );
 
   @override
-  Future<void> createDoctorAccountModel(AccountModel? accountModel) {
-    return _doctorInforApi.createDoctorAccountModel(accountModel);
+  Future<void> createDoctorAccountModel(AccountModel? accountModel,String? adminId) {
+    return _doctorInforApi.createDoctorAccountModel(accountModel,adminId);
   }
 
   @override

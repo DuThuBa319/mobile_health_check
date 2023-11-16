@@ -7,7 +7,7 @@ import '../../repositories/admin_repository/admin_repository.dart';
 part 'admin_usecase.impl.dart';
 
 abstract class AdminUsecase {
-  Future<void> createDoctorAccountEntity(AccountEntity? accountEntity);
+  Future<void> createDoctorAccountEntity(AccountEntity? accountEntity,String? adminId);
   Future<List<PersonCellEntity>> getAllDoctorEntity();
   Future<void> deleteDoctorEntity(String? doctorId);
 

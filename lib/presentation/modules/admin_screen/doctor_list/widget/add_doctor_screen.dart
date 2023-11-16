@@ -8,6 +8,7 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 
+import '../../../../common_widget/loading_widget.dart';
 import '../../../../common_widget/rectangle_button.dart';
 import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/enum_common.dart';
@@ -46,10 +47,6 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
         isShowLeadingButton: true,
         appBarColor: AppColor.topGradient,
         backgroundColor: AppColor.backgroundColor,
-        leadingButton: IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteList.doctorList,
-                arguments: userDataData.getUser()!.id!),
-            icon: const Icon(Icons.arrow_back)),
         child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
           listener: (context, state) {
             //! ADD Doctor SUCCESSFULLY
@@ -57,7 +54,11 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 state.status == BlocStatusState.success) {
               showNoticeDialog(
                   onClose: () {
-                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RouteList.doctorList,
+                        arguments: userDataData.getUser()!.id,
+                        (route) => false);
                   },
                   context: context,
                   message: translation(context).addDoctorSuccessfully,
@@ -90,6 +91,12 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
             }
           },
           builder: (context, state) {
+            if (state.status == BlocStatusState.loading) {
+              return const Center(
+                  child: Loading(
+                brightness: Brightness.light,
+              ));
+            }
             return SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.only(

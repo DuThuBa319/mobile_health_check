@@ -15,5 +15,13 @@ extension TemperatureReadingScreenAction on _TemperatureReadingScreenState {
       }
       showToast(translation(context).dataLoaded);
     }
+    if (state.status == BlocStatusState.failure) {
+      showNoticeDialog(
+          context: context,
+          message: translation(context).error,
+          title: translation(context).notification,
+          titleBtn: translation(context).exit,
+          onClose: () {});
+    }
   }
 }

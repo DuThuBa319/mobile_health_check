@@ -60,6 +60,16 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         isShowAppBar: true,
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
+        leadingButton: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteList.patientList,
+                arguments: userDataData.getUser()!.id!,
+                (route) => false);
+          },
+        ),
         appBarColor: const Color(0xff7BD4FF),
         backgroundColor: const Color(0xffDBF3FF),
         isShowRightButon: true,

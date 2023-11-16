@@ -37,8 +37,8 @@ abstract class RestApiRepository {
   Future<List<PersonCellModel>> getAllDoctorModel();
 
   //? CREATE DOCTOR ACCOUNT
-  @POST('/Users/CreateDoctorAccount')
-  Future<void> createDoctorAccountModel(@Body() AccountModel? accountModel);
+  @POST('/Users/CreateDoctorAccount/{adminId}')
+  Future<void> createDoctorAccountModel(@Body() AccountModel? accountModel,@Path() String? adminId);
 
   //? DELETE DOCTOR
   @DELETE('/Users/DeleteDoctorAccount/{doctorId}') //delete

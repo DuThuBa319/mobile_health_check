@@ -15,7 +15,6 @@ extension ImagePickerAction on _ImagePickerGridViewState {
   }
 
   Future<ImageSource> selectSource() async {
-    ImageSource source;
     final completer = Completer<ImageSource>();
     await showModalBottomSheet<ImageSource>(
       context: context,

@@ -9,9 +9,10 @@ class AdminUsecaseImpl extends AdminUsecase {
   AdminUsecaseImpl(this._repository);
 
   @override
-  Future<void> createDoctorAccountEntity(AccountEntity? accountEntity) async {
-    await _repository
-        .createDoctorAccountModel(accountEntity?.convertToAccountModel);
+  Future<void> createDoctorAccountEntity(
+      AccountEntity? accountEntity, String? adminId) async {
+    await _repository.createDoctorAccountModel(
+        accountEntity?.convertToAccountModel, adminId);
   }
 
   @override

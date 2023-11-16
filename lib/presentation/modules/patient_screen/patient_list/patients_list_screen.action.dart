@@ -57,6 +57,7 @@ extension PatientListScreenAction on _PatientListState {
       bool isLoading = false,
       int? itemCount,
       List<PatientInforEntity>? patientInforEntities}) {
+    if (patientInforEntities == null) patientInforEntities = [];
     return Padding(
       padding: EdgeInsets.only(
         left: SizeConfig.screenWidth * 0.035,
@@ -161,7 +162,7 @@ extension PatientListScreenAction on _PatientListState {
                         _refreshController.refreshCompleted();
                         patientBloc.add(GetPatientListEvent(userId: widget.id));
                       },
-                      child: (patientInforEntities!.isNotEmpty)
+                      child: (patientInforEntities.isNotEmpty)
                           ? ListView.separated(
                               separatorBuilder:
                                   (BuildContext context, int index) =>
@@ -175,7 +176,7 @@ extension PatientListScreenAction on _PatientListState {
                               itemCount: itemCount ?? 0,
                               itemBuilder: (BuildContext context, int index) {
                                 final patientInforEntity =
-                                    patientInforEntities[index];
+                                    patientInforEntities?[index];
                                 return (userDataData.getUser()?.role ==
                                         UserRole.doctor)
                                     ? SlideAbleForm(
