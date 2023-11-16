@@ -1,4 +1,4 @@
-import 'package:mobile_health_check/common/service/onesginal/onesignal_service.dart';
+ import 'package:mobile_health_check/common/service/onesginal/onesignal_service.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';

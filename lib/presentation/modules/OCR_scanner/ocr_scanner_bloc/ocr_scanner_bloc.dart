@@ -344,7 +344,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     );
     try {
       String? imageUrl = " ";
-
       final result = await FirebaseStorageService.uploadFile(
           file: state.viewModel.temperatureImageFile!,
           fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
@@ -352,10 +351,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       if (result != null) {
         imageUrl = result.url;
       }
-
       final entity =
           state.viewModel.temperatureEntity?.copywith(imageLink: imageUrl);
-
       await temperatureUseCase.createTemperatureEntity(
           patientId: userDataData.getUser()!.id!,
           temperatureEntity: entity ?? TemperatureEntity());
