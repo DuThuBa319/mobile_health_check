@@ -52,7 +52,7 @@ extension DoctorListScreenAction on _DoctorListState {
             titleBtn2: translation(context).yes,
             onClose1: () {},
             onClose2: () {
-              Navigator.pop(context);
+              SystemNavigator.pop();
             })) ??
         false;
   }
