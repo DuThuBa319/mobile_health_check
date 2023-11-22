@@ -1,5 +1,4 @@
 part of 'blood_glucose_reading_screen.dart';
-
 // ignore: library_private_types_in_public_api
 extension BloodGlucoseReadingScreenAction on _BloodGlucoseReadingScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
