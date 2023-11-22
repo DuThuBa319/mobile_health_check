@@ -10,17 +10,24 @@ extension LoginAction on _LoginState {
     }
 
     if (state is LoginActionState && state.status == BlocStatusState.failure) {
-      if ((state.viewModel.errorMessage1 ==
+      if ((state.viewModel.errorMessage ==
               translation(context).pleaseEnterYourAccount ||
-          state.viewModel.errorMessage2 ==
+          state.viewModel.errorMessage ==
               translation(context).pleaseEnterYourPassword)) {
         Navigator.pop(context);
-      } else if (state.viewModel.errorMessage1 ==
+      } else if (state.viewModel.errorMessage ==
           translation(context).wrongAccount) {
         showNoticeDialog(
             onClose: () => Navigator.pop(context),
             context: context,
             message: translation(context).wrongAccount,
+            title: translation(context).notification,
+            titleBtn: translation(context).exit);
+      } else if (state.viewModel.errorMessage ==
+          translation(context).wifiDisconnect) {
+        showNoticeDialog(
+            context: context,
+            message: translation(context).wifiDisconnect,
             title: translation(context).notification,
             titleBtn: translation(context).exit);
       } else {
@@ -33,14 +40,6 @@ extension LoginAction on _LoginState {
       }
     }
 
-    if (state is WifiDisconnectState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
-          context: context,
-          message: translation(context).wifiDisconnect,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
-    }
     if (state is LoginActionState && state.status == BlocStatusState.loading) {
       showDialog(
         barrierDismissible: false,
@@ -139,18 +138,21 @@ extension LoginAction on _LoginState {
     }
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showNoticeDialogTwoButton(
-            context: context,
-            message: translation(context).exitApp,
-            title: translation(context).areYouSure,
-            titleBtn1: translation(context).no,
-            titleBtn2: translation(context).yes,
-            onClose1: () {},
-            onClose2: () {
-              SystemNavigator.pop();
-            })) ??
-        false;
+  _onWillPop(bool didPop) async {
+    bool enableToPop = true;
+
+    if (enableToPop == true) {
+      await showNoticeDialogTwoButton(
+          context: context,
+          message: translation(context).exitApp,
+          title: translation(context).areYouSure,
+          titleBtn1: translation(context).no,
+          titleBtn2: translation(context).yes,
+          onClose1: () {},
+          onClose2: () {
+            SystemNavigator.pop();
+          });
+    }
   }
 
   Future<void> login() async {

@@ -72,3 +72,7 @@ Future<dynamic> showNoticeDialog({
     },
   );
 }
+
+//! showErrorDialog (one button)
+//! showSuccessDialog (onebutton)
+//! showAlertDialog (two buttons)

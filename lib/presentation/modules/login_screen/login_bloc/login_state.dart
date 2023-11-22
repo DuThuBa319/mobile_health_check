@@ -11,8 +11,8 @@ class _ViewModel {
   final SignInEntity? signInEntity;
   final int? count;
   final bool isLogin;
-  final String? errorMessage1;
-  final String? errorMessage2;
+  final String? errorMessage;
+
   final User? person;
 
   // final PatientInforEntity? patientInforEntity;
@@ -21,8 +21,7 @@ class _ViewModel {
     this.signInEntity,
     this.count,
     this.isLogin = false,
-    this.errorMessage1,
-    this.errorMessage2,
+    this.errorMessage,
     this.person,
     // this.patientInforEntity
   });
@@ -32,8 +31,7 @@ class _ViewModel {
     SignInEntity? signInEntity,
     int? count,
     bool? isLogin,
-    String? errorMessage1,
-    String? errorMessage2,
+    String? errorMessage,
     User? person,
     // PatientInforEntity? patientInforEntity
   }) {
@@ -42,8 +40,7 @@ class _ViewModel {
       signInEntity: signInEntity ?? this.signInEntity,
       count: count ?? this.count,
       isLogin: isLogin ?? this.isLogin,
-      errorMessage1: errorMessage1 ?? this.errorMessage1,
-      errorMessage2: errorMessage2 ?? this.errorMessage2,
+      errorMessage: errorMessage ?? this.errorMessage,
 
       person: person ?? this.person,
     );
@@ -99,26 +96,12 @@ class LoginActionState extends LoginState {
   }) : super(viewModel, status: status);
 }
 
-class WifiDisconnectState extends LoginState {
-  WifiDisconnectState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
-
 class GetUserDataState extends LoginState {
   GetUserDataState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
-
-// class GetUnreadCountNotificationState extends LoginState {
-//   GetUnreadCountNotificationState({
-//     _ViewModel viewModel = const _ViewModel(),
-//     BlocStatusState status = BlocStatusState.initial,
-//   }) : super(viewModel, status: status);
-// }
 
 final _factories = <Type,
     Function(
@@ -137,17 +120,8 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
-        viewModel: viewModel,
-        status: status,
-      ),
   ResetPasswordState: (viewModel, status) => ResetPasswordState(
         viewModel: viewModel,
         status: status,
       ),
-  // GetUnreadCountNotificationState: (viewModel, status) =>
-  //     GetUnreadCountNotificationState(
-  //       viewModel: viewModel,
-  //       status: status,
-  //     ),
 };

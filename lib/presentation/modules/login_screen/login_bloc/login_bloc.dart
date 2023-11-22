@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/data/models/authentication_model/authentication_model.dart';
+import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/reset_password_usecase/reset_password_usecase.dart';
 
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
@@ -26,10 +27,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final PatientUsecase _patientUseCase;
   final AuthenUsecase _authenUsecase;
   final ResetPasswordUsecase _resetPasswordUsecase;
-  final Connectivity _connectivity;
+  final NetworkInfo networkInfo;
   final NotificationUsecase count;
 
-  LoginBloc(this._patientUseCase, this.count, this._connectivity,
+  LoginBloc(this._patientUseCase, this.count, this.networkInfo,
       this._authenUsecase, this._resetPasswordUsecase)
       : super(LoginInitialState()) {
     on<LoginUserEvent>(_onLogin);
@@ -44,9 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     NavigationService navigationService = injector<NavigationService>();
 
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+    if (await networkInfo.isConnected == true) {
       emit(
         ResetPasswordState(
           status: BlocStatusState.loading,
@@ -59,7 +58,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ResetPasswordState(
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
-              errorMessage1:
+              errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .pleaseEnterPhoneNumber,
             ),
@@ -81,7 +80,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ResetPasswordState(
               status: BlocStatusState.failure,
               viewModel: _ViewModel(
-                errorMessage1:
+                errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .wrongPhoneNumber,
               ),
@@ -93,15 +92,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(
           state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -112,9 +117,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     NavigationService navigationService = injector<NavigationService>();
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+
+    if (await networkInfo.isConnected == true) {
       emit(
         LoginActionState(
           status: BlocStatusState.loading,
@@ -122,14 +126,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
 
-      if ((event.username == null || event.username == '') &&
-          (event.password != null && event.password?.trim() != '')) {
+      if (event.username == null || event.username == '') {
         emit(
           LoginActionState(
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
               isLogin: false,
-              errorMessage1:
+              errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .pleaseEnterYourAccount,
             ),
@@ -137,14 +140,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
         return;
       }
-      if ((event.password == null || event.password?.trim() == '') &&
-          ((event.username != null && event.username?.trim() != ''))) {
+      if (event.password == null || event.password?.trim() == '') {
         emit(
           LoginActionState(
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
               isLogin: false,
-              errorMessage2:
+              errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .pleaseEnterYourPassword,
             ),
@@ -152,25 +154,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
         return;
       }
-      if ((event.password == null || event.password?.trim() == '') &&
-          (event.username == null || event.username?.trim() == '')) {
-        emit(
-          LoginActionState(
-            status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              isLogin: false,
-              errorMessage2:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterYourPassword,
-              errorMessage1:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterYourAccount,
-            ),
-          ),
-        );
 
-        return;
-      }
       try {
         final AuthenEntity authenInforEntity =
             AuthenModel(username: event.username, password: event.password)
@@ -204,7 +188,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               status: BlocStatusState.failure,
               viewModel: _ViewModel(
                 isLogin: false,
-                errorMessage1:
+                errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .wrongAccount,
               ),
@@ -218,7 +202,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
               isLogin: false,
-              errorMessage1:
+              errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .error,
             ),
@@ -227,9 +211,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -241,9 +228,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     NavigationService navigationService = injector<NavigationService>();
 
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+    if (await networkInfo.isConnected == true) {
       emit(
         GetUserDataState(
           status: BlocStatusState.loading,
@@ -273,7 +258,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
               isLogin: false,
-              errorMessage1:
+              errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .error,
             ),
@@ -282,9 +267,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
