@@ -14,7 +14,9 @@ Future<dynamic> showLoadingDialog({
           return false;
         },
         child: const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
         ),
       );
     },

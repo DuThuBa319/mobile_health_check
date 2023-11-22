@@ -57,8 +57,9 @@ class _LoginState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Language? selectedLanguage;
     SizeConfig.init(context);
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: _onWillPop,
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: _blocListener,
         builder: (context, state) {
@@ -175,10 +176,10 @@ class _LoginState extends State<LoginScreen> {
                                   bottom: 5,
                                   top: 5,
                                 ),
-                                errorText: (state.viewModel.errorMessage1 ==
+                                errorText: (state.viewModel.errorMessage ==
                                         translation(context)
                                             .pleaseEnterYourAccount)
-                                    ? state.viewModel.errorMessage1
+                                    ? state.viewModel.errorMessage
                                     : null,
                                 border: InputBorder.none,
                                 labelText: translation(context).phoneNumber,
@@ -227,10 +228,10 @@ class _LoginState extends State<LoginScreen> {
                                   bottom: 5,
                                   top: 5,
                                 ),
-                                errorText: (state.viewModel.errorMessage2 ==
+                                errorText: (state.viewModel.errorMessage ==
                                         translation(context)
                                             .pleaseEnterYourPassword)
-                                    ? state.viewModel.errorMessage2
+                                    ? state.viewModel.errorMessage
                                     : null,
                                 suffixIcon: IconButton(
                                   icon: Icon(

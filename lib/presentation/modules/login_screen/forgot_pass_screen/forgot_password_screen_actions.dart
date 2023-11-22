@@ -12,12 +12,31 @@ extension ForgotPassAction on _ForgotPassState {
     }
 
     if (state is ResetPasswordState &&
-        state.status == BlocStatusState.failure &&
-        ((state.viewModel.errorMessage1 ==
-                translation(context).wrongPhoneNumber) ||
-            (state.viewModel.errorMessage1 ==
-                translation(context).pleaseEnterPhoneNumber))) {
-      Navigator.pop(context);
+        state.status == BlocStatusState.failure) {
+      if ((state.viewModel.errorMessage ==
+              translation(context).wrongPhoneNumber) ||
+          (state.viewModel.errorMessage ==
+              translation(context).pleaseEnterPhoneNumber)) {
+        Navigator.pop(context);
+        if (state.viewModel.errorMessage ==
+            translation(context).wifiDisconnect) {
+          showNoticeDialog(
+              context: context,
+              message: translation(context).wifiDisconnect,
+              title: translation(context).notification,
+              titleBtn: translation(context).exit);
+        }
+      }
+      if ((state.viewModel.errorMessage !=
+              translation(context).wrongPhoneNumber &&
+          state.viewModel.errorMessage !=
+              translation(context).pleaseEnterPhoneNumber)) {
+        showNoticeDialog(
+            context: context,
+            message: translation(context).error,
+            title: translation(context).notification,
+            titleBtn: translation(context).exit);
+      }
     }
 
     if (state is ResetPasswordState &&
@@ -32,14 +51,6 @@ extension ForgotPassAction on _ForgotPassState {
           title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
-
-    if (state is WifiDisconnectState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
-          context: context,
-          message: translation(context).wifiDisconnect,
-          title: translation(context).notification,
-          titleBtn: translation(context).exit);
-    }
   }
 }
+

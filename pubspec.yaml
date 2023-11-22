@@ -45,6 +45,8 @@ dependencies:
   json_annotation: ^4.8.0
   dio: ^5.0.0
   get_it: ^7.2.0
+  
+  auto_route: ^7.8.4
   #network
   retrofit: ^4.0.1
   onesignal_flutter: ^3.5.1
@@ -90,6 +92,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
+  auto_route_generator: ^7.3.2
 
 
 
