@@ -21,12 +21,12 @@ extension Spo2HistoryScreenAction on Spo2HistoryScreenState {
       showToast(translation(context).loadingError);
       // Navigator.of(context, rootNavigator: true).pop();
     }
-    if (state is WifiDisconnectState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
+   if (state.status == BlocStatusState.failure &&
+                state.viewModel.errorMessage ==
+                    translation(context).wifiDisconnect) {
+      showExceptionDialog(
           context: context,
           message: translation(context).wifiDisconnect,
-          title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
   }

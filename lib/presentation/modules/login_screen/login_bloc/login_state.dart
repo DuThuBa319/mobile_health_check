@@ -41,7 +41,6 @@ class _ViewModel {
       count: count ?? this.count,
       isLogin: isLogin ?? this.isLogin,
       errorMessage: errorMessage ?? this.errorMessage,
-
       person: person ?? this.person,
     );
   }

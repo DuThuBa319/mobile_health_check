@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
@@ -109,12 +109,15 @@ class CameraScreenState extends State<CameraScreen>
               ));
             }
             if (state.status == BlocStatusState.failure) {
-              return Center(child: Text(
-                          translation(context).error,
-                          style: TextStyle(
-                              fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold,color: AppColor.red),
-                        ),);
+              return Center(
+                child: Text(
+                  translation(context).error,
+                  style: TextStyle(
+                      fontSize: SizeConfig.screenWidth * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.red),
+                ),
+              );
             }
             if ((state is CameraReadyState &&
                     state.status == BlocStatusState.success) ||

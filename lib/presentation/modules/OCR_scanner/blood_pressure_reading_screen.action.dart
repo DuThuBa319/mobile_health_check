@@ -17,10 +17,9 @@ extension BloodPressureReadingScreenAction on _BloodPressureReadingScreenState {
     }
      if (state.status == BlocStatusState.failure) {
      
-        showNoticeDialog(
+        showExceptionDialog(
             context: context,
             message: translation(context).error,
-            title: translation(context).notification,
             titleBtn: translation(context).exit,
             onClose: () {});
       

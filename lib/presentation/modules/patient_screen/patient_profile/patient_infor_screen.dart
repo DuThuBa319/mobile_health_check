@@ -413,8 +413,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                       ),
                     ));
               }
-              if (state.status == BlocStatusState.failure ||
-                  state is WifiDisconnectState) {
+             if (state.status == BlocStatusState.failure &&
+                state.viewModel.errorMessage ==
+                    translation(context).wifiDisconnect) {
                 return Center(
                   child: Text(
                     translation(context).error,

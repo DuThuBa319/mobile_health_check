@@ -188,8 +188,7 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                       ),
                     ));
               }
-              if (state.status == BlocStatusState.failure ||
-                  state is WifiDisconnectState) {
+              if (state.status == BlocStatusState.failure ) {
                 return Center(child: Text(
                           translation(context).error,
                           style: TextStyle(

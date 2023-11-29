@@ -7,11 +7,11 @@ import 'package:mobile_health_check/main.dart';
 import 'package:mobile_health_check/presentation/common_widget/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/warning_dialog.dart';
 
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
-import '../../common_widget/dialog/dialog_one_button.dart';
-import '../../common_widget/dialog/dialog_two_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 import '../../route/route_list.dart';
@@ -161,6 +161,7 @@ class _LoginState extends State<LoginScreen> {
                           SizedBox(
                             width: SizeConfig.screenWidth * 0.8,
                             child: TextField(
+                              cursorColor: AppColor.gray767676,
                               keyboardType: TextInputType.number,
                               // focusNode: _focusNode,
                               controller: _usernameController,
@@ -169,6 +170,8 @@ class _LoginState extends State<LoginScreen> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                iconColor: AppColor.primaryColorLight,
+
                                 isDense:
                                     true, // Giữ khoảng cách cố định cho icon
 
@@ -214,6 +217,7 @@ class _LoginState extends State<LoginScreen> {
                             width: SizeConfig.screenWidth * 0.8,
                             child: TextField(
                               // focusNode: _focusNode,
+                              cursorColor: AppColor.gray767676,
                               controller: _passwordController,
                               obscureText: showPass,
                               style: TextStyle(
@@ -221,6 +225,7 @@ class _LoginState extends State<LoginScreen> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                iconColor: AppColor.primaryColorLight,
                                 isDense:
                                     true, // Giữ khoảng cách cố định cho icon
 
@@ -230,7 +235,7 @@ class _LoginState extends State<LoginScreen> {
                                 ),
                                 errorText: (state.viewModel.errorMessage ==
                                         translation(context)
-                                            .pleaseEnterYourPassword)
+                                            .pleaseEnterYourAccount)
                                     ? state.viewModel.errorMessage
                                     : null,
                                 suffixIcon: IconButton(

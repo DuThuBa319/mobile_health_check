@@ -3,14 +3,15 @@ import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/success_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 
 import '../../../../../classes/language.dart';
 
 import '../../../../common_widget/loading_widget.dart';
 import '../../../../common_widget/rectangle_button.dart';
-import '../../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../../common_widget/enum_common.dart';
 import '../../../../common_widget/screen_form/custom_screen_form.dart';
 
@@ -56,7 +57,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
             if (state is RegistPatientState &&
                 state.status == BlocStatusState.success) {
               showToast(translation(context).addPatientSuccessfully);
-              showNoticeDialog(
+              showSuccessDialog(
                   onClose: () {
                     Navigator.pushNamedAndRemoveUntil(
                         context,
@@ -65,8 +66,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         (route) => false);
                   },
                   context: context,
-                  message: translation(context).addPatientSuccessfully,
-                  title: translation(context).notification,
+                  message: translation(context).addPatientSuccessText,
+                  title: translation(context).addPatientSuccessfully,
                   titleBtn: translation(context).exit);
             }
 //
@@ -79,20 +80,19 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         translation(context).hasDoctorBefore ||
                     state.viewModel.errorMessage ==
                         translation(context).error)) {
-              showNoticeDialog(
+              showExceptionDialog(
                 context: context,
                 message: state.viewModel.errorMessage!,
-                title: translation(context).notification,
                 titleBtn: translation(context).exit,
               );
             }
 //! WIFI DISCONNECT
-            if (state is WifiDisconnectState &&
-                state.status == BlocStatusState.success) {
-              showNoticeDialog(
+          if (state.status == BlocStatusState.failure &&
+                state.viewModel.errorMessage ==
+                    translation(context).wifiDisconnect) {
+              showExceptionDialog(
                   context: context,
                   message: translation(context).wifiDisconnect,
-                  title: translation(context).notification,
                   titleBtn: translation(context).exit);
             }
           },

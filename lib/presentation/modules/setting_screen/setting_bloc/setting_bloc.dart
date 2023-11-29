@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
@@ -7,6 +6,7 @@ import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
+import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_pass_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
@@ -28,12 +28,13 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   final RelativeInforUsecase _relativeInforUsecase;
   final NotificationUsecase notificationUsecase;
   final ChangePassUsecase changePassUsecase;
-  final Connectivity _connectivity;
+  final NetworkInfo networkInfo;
+
   SettingBloc(
+    this.networkInfo,
       this._patientUseCase,
       this._doctorInforUsecase,
       this._relativeInforUsecase,
-      this._connectivity,
       this.notificationUsecase,
       this.changePassUsecase)
       : super(SettingInitialState()) {
@@ -49,11 +50,10 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     ChangePassEvent event,
     Emitter<SettingState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
 
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       if (event.changePassEntity.currentPassword == null ||
           event.changePassEntity.currentPassword?.trim() == '' ||
           event.changePassEntity.newPassword == null ||
@@ -142,9 +142,12 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -154,9 +157,9 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdatePatientInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         UpdatePatientInforState(
           status: BlocStatusState.loading,
@@ -179,9 +182,12 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -191,9 +197,9 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdateRelativeInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         UpdateRelativeInforState(
           status: BlocStatusState.loading,
@@ -216,9 +222,12 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -229,9 +238,9 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdateDoctorInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         UpdateDoctorInforState(
           status: BlocStatusState.loading,
@@ -256,9 +265,12 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }

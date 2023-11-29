@@ -54,7 +54,7 @@ class _ImagePickerGridViewState extends State<ImagePickerGridView> {
           height: height,
           child: state.status == BlocStatusState.loading
               ? const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: Colors.white,),
                 )
               : GridView.count(
                   padding: EdgeInsets.zero,

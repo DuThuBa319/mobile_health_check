@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/classes/language.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
 import 'package:mobile_health_check/presentation/modules/history/blood_sugar_history_screen/widget/blood_sugar_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../function.dart';
-import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';
 import '../../../common_widget/line_decor.dart';
@@ -140,14 +140,13 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
             child: InkWell(
               onTap: () {
                 if (timeFrom.isAfter(timeTo)) {
-                  showNoticeDialog(
+                  showExceptionDialog(
                       context: context,
                       message: translation(context).selectError,
                       onClose: () {
                         timeFrom = timeTo;
                         strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
                       },
-                      title: translation(context).notification,
                       titleBtn: translation(context).exit);
                 } else {
                   onGetBloodSugarData();
@@ -183,8 +182,9 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                   }
-                  if (state is WifiDisconnectState &&
-                      state.status == BlocStatusState.success) {
+                 if (state.status == BlocStatusState.failure &&
+                state.viewModel.errorMessage ==
+                    translation(context).wifiDisconnect) {
                     return Center(
                         child: Text(translation(context).error,
                             style: AppTextTheme.body2.copyWith(

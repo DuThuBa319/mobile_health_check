@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
 import '../../../function.dart';
 import '../../common_widget/assets.dart';
-import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';
 

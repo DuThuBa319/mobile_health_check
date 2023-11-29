@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/warning_dialog.dart';
 
 import '../../classes/language.dart';
 import '../../common/singletons.dart';
@@ -23,7 +24,7 @@ class SlideAbleForm extends StatelessWidget {
   final bool? isPatientCell;
   final bool? isDoctorCell;
   final bool? isRelativeCell;
-  const SlideAbleForm(
+  SlideAbleForm(
       {super.key,
       this.isDoctorCell = false,
       this.isPatientCell = false,
@@ -33,11 +34,13 @@ class SlideAbleForm extends StatelessWidget {
       this.doctorBloc,
       this.personCellEntity,
       this.relativeInforEntity});
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Slidable(
+      key: _scaffoldKey,
       closeOnScroll: true,
       endActionPane: ActionPane(motion: const StretchMotion(), children: [
         //! Call Action
@@ -68,47 +71,90 @@ class SlideAbleForm extends StatelessWidget {
           autoClose: true,
           borderRadius: BorderRadius.circular(10),
           onPressed: (context) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text(translation(context).notification),
-                  content: Text(isPatientCell == true
-                      ? translation(context).deletePatient
-                      : isRelativeCell == true
-                          ? translation(context).deleteRelative
-                          : translation(context).deleteDoctor),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(translation(context).exit),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        if (isPatientCell == true) {
-                          patientBloc?.add(DeletePatientEvent(
-                            doctorId: userDataData.getUser()!.id,
-                            patientId: patientInforEntity?.id,
-                          ));
-                        } else if (isRelativeCell == true) {
-                          patientBloc?.add(RemoveRelationshipRaPEvent(
-                              patientId: patientInforEntity?.id,
-                              relativeId: relativeInforEntity?.id));
-                        } else if (isDoctorCell == true) {
-                          doctorBloc?.add(DeleteDoctorEvent(
-                            doctorId: personCellEntity?.id,
-                          ));
-                        }
-                        Navigator.pop(context);
-                      },
-                      child: Text(translation(context).accept),
-                    )
-                  ],
-                );
-              },
-            );
+            showWarningDialog(
+                useRootNavigator: true,
+                //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                context: _scaffoldKey.currentContext ?? context,
+                message:  isPatientCell == true
+                    ? translation(context).deletePatient  
+                    : isRelativeCell == true
+                        ? translation(context).deleteRelative
+                        : translation(context).deleteDoctor,
+                title: isPatientCell == true
+                    ? translation(context).deletePatientWarningTitle
+                    : isRelativeCell == true
+                        ? translation(context).deleteRelativeWarningTitle
+                        : translation(context).deleteDoctorWarningTitle,
+                titleBtn1: translation(context).no,
+                titleBtn2: translation(context).yes,
+                onClose1: () {
+                  //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                  Navigator.pop(_scaffoldKey.currentContext ?? context);
+                },
+                onClose2: () {
+                  if (isPatientCell == true) {
+                    patientBloc?.add(DeletePatientEvent(
+                      doctorId: userDataData.getUser()!.id,
+                      patientId: patientInforEntity?.id,
+                    ));
+                  } else if (isRelativeCell == true) {
+                    patientBloc?.add(RemoveRelationshipRaPEvent(
+                        patientId: patientInforEntity?.id,
+                        relativeId: relativeInforEntity?.id));
+                  } else if (isDoctorCell == true) {
+                    doctorBloc?.add(DeleteDoctorEvent(
+                      doctorId: personCellEntity?.id,
+                    ));
+                  }
+                  //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                  Navigator.pop(_scaffoldKey.currentContext ?? context);
+                });
+
+            // showDialog(
+            //   context: context,
+            //   builder: (context) {
+            //     return AlertDialog(
+            //       title: Text(translation(context).notification),
+            //       content: Text(isPatientCell == true
+            //           ? translation(context).deletePatient
+            //           : isRelativeCell == true
+            //               ? translation(context).deleteRelative
+            //               : translation(context).deleteDoctor),
+            //       actions: [
+            //         TextButton(
+            //           onPressed: () {
+            //             Navigator.pop(context);
+            //           },
+            //           child: Text(
+            //             translation(context).exit,
+            //             style: const TextStyle(color: Colors.black),
+            //           ),
+            //         ),
+            //         TextButton(
+            //           onPressed: () {
+            //             if (isPatientCell == true) {
+            //               patientBloc?.add(DeletePatientEvent(
+            //                 doctorId: userDataData.getUser()!.id,
+            //                 patientId: patientInforEntity?.id,
+            //               ));
+            //             } else if (isRelativeCell == true) {
+            //               patientBloc?.add(RemoveRelationshipRaPEvent(
+            //                   patientId: patientInforEntity?.id,
+            //                   relativeId: relativeInforEntity?.id));
+            //             } else if (isDoctorCell == true) {
+            //               doctorBloc?.add(DeleteDoctorEvent(
+            //                 doctorId: personCellEntity?.id,
+            //               ));
+            //             }
+            //             Navigator.pop(context);
+            //           },
+            //           child: Text(translation(context).accept,
+            //               style: const TextStyle(color: Colors.black)),
+            //         )
+            //       ],
+            //     );
+            //   },
+            // );
           },
           backgroundColor: AppColor.lineDecor,
           foregroundColor: Colors.white,

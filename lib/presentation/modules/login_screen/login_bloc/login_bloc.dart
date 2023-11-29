@@ -148,7 +148,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               isLogin: false,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterYourPassword,
+                      .pleaseEnterYourAccount,
             ),
           ),
         );

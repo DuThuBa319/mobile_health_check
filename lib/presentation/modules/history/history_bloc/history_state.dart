@@ -5,19 +5,24 @@ class _ViewModel {
   final List<BloodSugarEntity>? listBloodSugar;
   final List<TemperatureEntity>? listTemperature;
   final List<Spo2Entity>? listSpo2;
-
+  final String? errorMessage;
   const _ViewModel(
-      {this.listTemperature, this.listBloodSugar, this.listBloodPressure,this.listSpo2});
+      {this.listTemperature,
+      this.listBloodSugar,
+      this.listBloodPressure,
+      this.listSpo2,
+      this.errorMessage});
 
-  _ViewModel copyWith(
-      {List<BloodPressureEntity>? listBloodPressure,
-      List<BloodSugarEntity>? listBloodSugar,
-      List<TemperatureEntity>? listTemperature,
-      List<Spo2Entity>? listSpo2,
-
-      }) {
+  _ViewModel copyWith({
+    List<BloodPressureEntity>? listBloodPressure,
+    List<BloodSugarEntity>? listBloodSugar,
+    List<TemperatureEntity>? listTemperature,
+    List<Spo2Entity>? listSpo2,
+    String? errorMessage,
+  }) {
     return _ViewModel(
-      listSpo2: listSpo2??this.listSpo2,
+      errorMessage: errorMessage??this.errorMessage,
+      listSpo2: listSpo2 ?? this.listSpo2,
       listTemperature: listTemperature ?? this.listTemperature,
       listBloodSugar: listBloodSugar ?? this.listBloodSugar,
       listBloodPressure: listBloodPressure ?? this.listBloodPressure,
@@ -64,13 +69,7 @@ class GetHistoryDataState extends HistoryState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
-class WifiDisconnectState extends HistoryState {
-  WifiDisconnectState({
-    // ignore: library_private_types_in_public_api
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
+
 
 
 final _factories = <Type,
@@ -86,8 +85,5 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
-        viewModel: viewModel,
-        status: status,
-      ),
+ 
 };

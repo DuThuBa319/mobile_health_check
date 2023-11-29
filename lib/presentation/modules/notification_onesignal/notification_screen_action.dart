@@ -15,12 +15,12 @@ extension NotificationScreenAction on _NotificationListState {
         state.status == BlocStatusState.success) {
       showToast(translation(context).deleteNotificationSuccessfully);
     }
-    if (state is WifiDisconnectState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
+   if (state.status == BlocStatusState.failure &&
+                state.viewModel.errorMessage ==
+                    translation(context).wifiDisconnect) {
+      showExceptionDialog(
           context: context,
           message: translation(context).wifiDisconnect,
-          title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
   }

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
+import '../../theme/theme_color.dart';
 
 Future<dynamic> showNoticeDialogTwoButton({
   required BuildContext context,
@@ -46,14 +47,18 @@ Future<dynamic> showNoticeDialogTwoButton({
                   dismissFunc.call();
                   onClose1?.call();
                 },
-                child: Text(titleBtn1 ?? translation(context).accept),
+                child: Text(titleBtn1 ?? translation(context).accept,
+                    style: const TextStyle(color: AppColor.black)),
               ),
               TextButton(
                 onPressed: () {
                   dismissFunc.call();
                   onClose2?.call();
                 },
-                child: Text(titleBtn2 ?? translation(context).exit),
+                child: Text(
+                  titleBtn2 ?? translation(context).exit,
+                  style: const TextStyle(color: AppColor.black),
+                ),
               )
             ],
           );
@@ -74,14 +79,20 @@ Future<dynamic> showNoticeDialogTwoButton({
                 dismissFunc.call();
                 onClose1?.call();
               },
-              child: Text(titleBtn1 ?? translation(context).accept),
+              child: Text(
+                titleBtn1 ?? translation(context).accept,
+                style: const TextStyle(color: AppColor.black),
+              ),
             ),
             CupertinoDialogAction(
               onPressed: () {
                 dismissFunc.call();
                 onClose2?.call();
               },
-              child: Text(titleBtn2 ?? translation(context).accept),
+              child: Text(
+                titleBtn2 ?? translation(context).accept,
+                style: const TextStyle(color: AppColor.black),
+              ),
             ),
           ],
         );

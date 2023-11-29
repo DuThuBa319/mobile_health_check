@@ -195,9 +195,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                         selectedLanguage = Language(1, ENGLISH, 'en');
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
-                        // showLoadingDialog(context: context);
-                        // await Future.delayed(const Duration(
-                        //     milliseconds: 2000)); // Wait for 1 second
+
                         MyApp.setLocale(context, locale);
                         Navigator.pop(context);
                         return;
@@ -207,9 +205,6 @@ class _SettingLanguageState extends State<SettingLanguage> {
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
                         MyApp.setLocale(context, locale);
-                        // showLoadingDialog(context: context);
-                        // await Future.delayed(const Duration(
-                        //     milliseconds: 1500)); // Wait for 1 second
                         Navigator.pop(context);
                         return;
                       }

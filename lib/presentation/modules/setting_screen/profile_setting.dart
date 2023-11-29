@@ -3,8 +3,9 @@ import 'package:mobile_health_check/common/service/navigation/navigation_service
 import 'package:mobile_health_check/domain/entities/relative_infor_entity.dart';
 import 'package:mobile_health_check/function.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/success_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
@@ -193,22 +194,22 @@ class _SettingProfileState extends State<SettingProfile> {
                   (state is UpdatePatientInforState)) &&
               state.status == BlocStatusState.success) {
             //! UPDATE PROFILE SUCCESSFULLY
-            showNoticeDialog(
+            showSuccessDialog(
                 onClose: () {
                   Navigator.pop(context);
                 },
                 context: context,
-                message: translation(context).updateProfileSuccessfully,
-                title: translation(context).notification,
-                titleBtn: translation(context).accept);
+                message: translation(context).updateProfileSuccessText,
+                title: translation(context).updateProfileSuccessfully,
+                titleBtn: translation(context).exit);
           }
           //! WIFI DISCONNECT
-          if (state is WifiDisconnectState &&
-              state.status == BlocStatusState.success) {
-            showNoticeDialog(
+          if (state.status == BlocStatusState.failure &&
+              state.viewModel.errorMessage ==
+                  translation(context).wifiDisconnect) {
+            showExceptionDialog(
                 context: context,
                 message: translation(context).wifiDisconnect,
-                title: translation(context).notification,
                 titleBtn: translation(context).accept);
           }
           // //! LOADING

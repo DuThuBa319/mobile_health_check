@@ -24,6 +24,12 @@ class AppColor {
   static const Color greyD9 = Color(0xFFd9d9d9);
   static const Color scaffoldBackgroundColor = Color(0xFFF1F3F7);
 
+  static const Color warningDialogColor = Color(0xFFF9CE4D);
+  static const Color warningDialogIconColor = Color(0xFFFFC107);
+
+  static const Color exceptionDialogColor = Color(0xFFFF7171);
+  static const Color exceptionDialogIconColor = Color(0xFFFF5353);
+
   static const Color inactiveColor = Color(0xFF111111);
   static const Color activeColor = primaryColor;
 
@@ -59,6 +65,7 @@ class AppColor {
   static const Color redFFF0F1 = Color(0xFFFFF0F1);
   static const Color blue001D37 = Color(0xFF001D37);
   static const Color blue0089D7 = Color(0xFF0089D7);
+  static const Color successDialog = Color(0xFF66AFFF);
 
   //light
   static const Color primaryText = Colors.black;

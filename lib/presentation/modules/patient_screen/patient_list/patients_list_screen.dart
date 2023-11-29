@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
+import 'package:mobile_health_check/presentation/common_widget/dialog/warning_dialog.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/modules/patient_screen/patient_list/widget/patient_list_cell.dart';
@@ -12,8 +14,6 @@ import '../../../../classes/language.dart';
 
 import '../../../../common/singletons.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
-import '../../../common_widget/dialog/dialog_one_button.dart';
-import '../../../common_widget/dialog/dialog_two_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/screen_form/custom_screen_form.dart';
@@ -53,8 +53,9 @@ class _PatientListState extends State<PatientListScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return WillPopScope(
-        onWillPop: _onWillPop,
+    return PopScope(
+        canPop: false,
+        onPopInvoked: _onWillPop,
         child: CustomScreenForm(
             isShowAppBar: false,
             isShowLeadingButton: false,
@@ -120,20 +121,14 @@ class _PatientListState extends State<PatientListScreen> {
                       );
                     }
 
-                    if ((state is GetPatientListState &&
-                            state.status == BlocStatusState.failure) ||
-                        (state is SearchPatientState &&
-                            state.status == BlocStatusState.failure) ||
-                        (state is DeletePatientState &&
-                            state.status == BlocStatusState.failure) ||
-                        (state is WifiDisconnectState &&
-                            state.status == BlocStatusState.success)) {
+                    if (state.status == BlocStatusState.failure) {
                       return Center(
                         child: Text(
                           translation(context).error,
                           style: TextStyle(
                               fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold,color: AppColor.red),
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.red),
                         ),
                       );
                     }
