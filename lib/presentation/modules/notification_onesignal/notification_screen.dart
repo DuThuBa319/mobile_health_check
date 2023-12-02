@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/modules/admin_screen/bloc/get_doctor_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/notification_onesignal/widget/notification_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';

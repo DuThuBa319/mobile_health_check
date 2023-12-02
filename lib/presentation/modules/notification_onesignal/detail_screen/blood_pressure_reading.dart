@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../function.dart';
+import '../../../../utils/size_config.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 
 class BloodPressureNotificationReadingScreen extends StatefulWidget {

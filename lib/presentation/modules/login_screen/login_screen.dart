@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/main.dart';
-import 'package:mobile_health_check/presentation/common_widget/assets.dart';
+import 'package:mobile_health_check/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

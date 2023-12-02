@@ -5,7 +5,7 @@ import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/presentation/modules/history/spo2_history_screen/widget/spo2_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../function.dart';
+import '../../../../utils/size_config.dart';
 import '../../../common_widget/dialog/dialog_one_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';

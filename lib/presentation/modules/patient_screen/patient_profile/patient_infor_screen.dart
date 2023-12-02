@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -14,7 +14,7 @@ import '../../../../common/singletons.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
-import '../../../common_widget/assets.dart';
+import '../../../../assets/assets.dart';
 import '../../../common_widget/rectangle_button.dart';
 import '../../../common_widget/dialog/show_toast.dart';
 import '../../../common_widget/enum_common.dart';

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
-import '../../../../function.dart';
+import '../../../../utils/size_config.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 
 class BloodPressureDetailScreen extends StatefulWidget {

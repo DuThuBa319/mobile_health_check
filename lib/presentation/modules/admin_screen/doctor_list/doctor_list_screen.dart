@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';

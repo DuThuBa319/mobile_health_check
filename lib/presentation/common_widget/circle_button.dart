@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../function.dart';
+import '../../utils/size_config.dart';
 
 class CircleButton extends StatelessWidget {
   final double size;

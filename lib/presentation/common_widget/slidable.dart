@@ -7,7 +7,7 @@ import '../../classes/language.dart';
 import '../../common/singletons.dart';
 import '../../domain/entities/cell_person_entity.dart';
 import '../../domain/entities/relative_infor_entity.dart';
-import '../../function.dart';
+import '../../utils/size_config.dart';
 import '../modules/admin_screen/bloc/get_doctor_bloc.dart';
 import '../modules/patient_screen/bloc/get_patient_bloc.dart';
 import '../route/route_list.dart';

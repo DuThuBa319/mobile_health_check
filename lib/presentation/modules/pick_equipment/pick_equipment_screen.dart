@@ -1,13 +1,13 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/presentation/common_widget/assets.dart';
+import 'package:mobile_health_check/assets/assets.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../../../classes/language.dart';
-import '../../../function.dart';
+import '../../../utils/size_config.dart';
 import '../../common_widget/circle_button.dart';
 import '../../common_widget/dialog/dialog_two_button.dart';
 import '../../common_widget/line_decor.dart';

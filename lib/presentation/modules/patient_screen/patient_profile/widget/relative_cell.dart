@@ -8,7 +8,7 @@ import '../../../../../classes/language.dart';
 import '../../../../../common/singletons.dart';
 import '../../../../../domain/entities/patient_infor_entity.dart';
 import '../../../../../domain/entities/relative_infor_entity.dart';
-import '../../../../../function.dart';
+import '../../../../../utils/size_config.dart';
 import '../../../../common_widget/circle_button.dart';
 import '../../../../common_widget/enum_common.dart';
 import '../../../../theme/app_text_theme.dart';

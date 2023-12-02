@@ -6,7 +6,7 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
-import '../../../../function.dart';
+import '../../../../utils/size_config.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/notification_bloc.dart';

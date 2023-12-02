@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../../classes/language.dart';
 import '../../../../../domain/entities/spo2_entity.dart';
-import '../../../../common_widget/assets.dart';
+import '../../../../../assets/assets.dart';
 import '../../../../common_widget/dialog/show_toast.dart';
 import '../../../../theme/app_text_theme.dart';
 import '../../../../theme/theme_color.dart';

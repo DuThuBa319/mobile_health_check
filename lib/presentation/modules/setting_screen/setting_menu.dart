@@ -1,11 +1,11 @@
 import 'package:mobile_health_check/common/service/onesginal/onesignal_service.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/presentation/common_widget/assets.dart';
+import 'package:mobile_health_check/assets/assets.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/widget/widget_setting.dart';
 import '../../../classes/language.dart';
-import '../../../function.dart';
+import '../../../utils/size_config.dart';
 import '../../common_widget/rectangle_button.dart';
 import '../../common_widget/enum_common.dart';
 import '../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';

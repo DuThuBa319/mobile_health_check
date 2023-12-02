@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
 import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';

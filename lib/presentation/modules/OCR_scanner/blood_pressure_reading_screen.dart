@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
-import '../../../function.dart';
-import '../../common_widget/assets.dart';
+import '../../../utils/size_config.dart';
+import '../../../assets/assets.dart';
 import '../../common_widget/dialog/dialog_one_button.dart';
 import '../../common_widget/dialog/show_toast.dart';
 import '../../common_widget/enum_common.dart';

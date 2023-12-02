@@ -9,7 +9,7 @@ import 'common/service/navigation/navigation_observer.dart';
 import 'common/service/navigation/navigation_service.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
-import 'presentation/common_widget/assets.dart';
+import 'assets/assets.dart';
 import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_options.dart';

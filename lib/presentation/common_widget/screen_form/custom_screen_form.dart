@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
 import '../../../common/singletons.dart';
-import '../../../function.dart';
+import '../../../utils/size_config.dart';
 import '../../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../route/route_list.dart';
 import '../enum_common.dart';

@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 
 import '../../../../../classes/language.dart';
 import '../../../../../domain/entities/blood_pressure_entity.dart';
-import '../../../../../function.dart';
-import '../../../../common_widget/assets.dart';
+import '../../../../../utils/size_config.dart';
+import '../../../../../assets/assets.dart';
 import '../../../../common_widget/dialog/show_toast.dart';
 import '../../../../route/route_list.dart';
 import '../../../../theme/app_text_theme.dart';

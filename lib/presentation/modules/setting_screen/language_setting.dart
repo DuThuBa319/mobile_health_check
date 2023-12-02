@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
-import '../../../function.dart';
+import '../../../utils/size_config.dart';
 import '../../../main.dart';
 import '../../common_widget/rectangle_button.dart';
 import '../../common_widget/line_decor.dart';
