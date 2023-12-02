@@ -1,7 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
-import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +7,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../domain/entities/doctor_infor_entity.dart';
-import '../../../common_widget/dialog/show_toast.dart';
-import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/loading_widget.dart';
-import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+
 
 // import '../../bloc/Doctorlist/get_Doctor_bloc/get_Doctor_bloc.dart';
+import '../../../common_widget/common.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/get_doctor_bloc.dart';
 
@@ -188,8 +184,7 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                       ),
                     ));
               }
-              if (state.status == BlocStatusState.failure ||
-                  state is WifiDisconnectState) {
+              if (state.status == BlocStatusState.failure ) {
                 return Center(child: Text(
                           translation(context).error,
                           style: TextStyle(

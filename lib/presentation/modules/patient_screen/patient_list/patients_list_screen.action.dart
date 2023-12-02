@@ -27,28 +27,30 @@ extension PatientListScreenAction on _PatientListState {
       patientBloc.add(GetPatientListEvent(userId: widget.id));
     }
 
-    if (state is WifiDisconnectState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
+    if (state.status == BlocStatusState.failure &&
+        state.viewModel.errorMessage == translation(context).wifiDisconnect) {
+      showExceptionDialog(
           context: context,
           message: translation(context).wifiDisconnect,
-          title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showNoticeDialogTwoButton(
-            context: context,
-            message: translation(context).exitApp,
-            title: translation(context).areYouSure,
-            titleBtn1: translation(context).no,
-            titleBtn2: translation(context).yes,
-            onClose1: () {},
-            onClose2: () {
-              SystemNavigator.pop();
-            })) ??
-        false;
+_onWillPop(bool didPop) async {
+    bool enableToPop = true;
+
+    if (enableToPop == true) {
+      await showWarningDialog(
+          context: context,
+          message: translation(context).areYouSureToExitApp,
+          title: translation(context).exitAppTitle,
+          titleBtn1: translation(context).no,
+          titleBtn2: translation(context).yes,
+          onClose1: () {},
+          onClose2: () {
+            SystemNavigator.pop();
+          });
+    }
   }
 
   Widget formPatientListScreen(
@@ -57,7 +59,7 @@ extension PatientListScreenAction on _PatientListState {
       bool isLoading = false,
       int? itemCount,
       List<PatientInforEntity>? patientInforEntities}) {
-    if (patientInforEntities == null) patientInforEntities = [];
+    patientInforEntities ??= [];
     return Padding(
       padding: EdgeInsets.only(
         left: SizeConfig.screenWidth * 0.035,

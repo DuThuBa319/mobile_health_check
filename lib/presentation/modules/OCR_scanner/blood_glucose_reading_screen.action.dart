@@ -1,5 +1,4 @@
 part of 'blood_glucose_reading_screen.dart';
-
 // ignore: library_private_types_in_public_api
 extension BloodGlucoseReadingScreenAction on _BloodGlucoseReadingScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
@@ -16,10 +15,9 @@ extension BloodGlucoseReadingScreenAction on _BloodGlucoseReadingScreenState {
       showToast(translation(context).dataLoaded);
     }
     if (state.status == BlocStatusState.failure) {
-      showNoticeDialog(
+      showExceptionDialog(
           context: context,
           message: translation(context).error,
-          title: translation(context).notification,
           titleBtn: translation(context).exit,
           onClose: () {});
     }

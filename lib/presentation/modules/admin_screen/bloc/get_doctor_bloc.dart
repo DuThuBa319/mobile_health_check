@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
@@ -7,6 +6,7 @@ import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
+import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/admin_usecase/admin_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
@@ -21,12 +21,12 @@ part 'get_doctor_state.dart';
 @injectable
 class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
   final DoctorInforUsecase _doctorInforUsecase;
-  final Connectivity _connectivity;
+  final NetworkInfo networkInfo;
   final AdminUsecase _adminUsecase;
   GetDoctorBloc(
     this._adminUsecase,
     this._doctorInforUsecase,
-    this._connectivity,
+    this.networkInfo,
   ) : super(GetDoctorInitialState()) {
     on<GetDoctorListEvent>(_onGetDoctorList);
     on<FilterDoctorEvent>(_onSearchDoctor);
@@ -39,9 +39,9 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     GetDoctorListEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+    NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         GetDoctorListState(
           status: BlocStatusState.loading,
@@ -66,9 +66,12 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -78,9 +81,9 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     FilterDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+    NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         SearchDoctorState(
           status: BlocStatusState.loading,
@@ -111,9 +114,12 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -123,9 +129,9 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     GetDoctorInforEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+    NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         GetDoctorInforState(
           status: BlocStatusState.loading,
@@ -151,9 +157,12 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -164,9 +173,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     Emitter<GetDoctorState> emit,
   ) async {
     NavigationService navigationService = injector<NavigationService>();
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+
+    if (await networkInfo.isConnected == true) {
       emit(
         RegistDoctorState(
           status: BlocStatusState.loading,
@@ -265,9 +273,12 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
@@ -279,9 +290,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
   ) async {
     NavigationService navigationService = injector<NavigationService>();
 
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+    if (await networkInfo.isConnected == true) {
       emit(
         DeleteDoctorState(
           status: BlocStatusState.loading,
@@ -318,9 +327,12 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }

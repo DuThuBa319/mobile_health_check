@@ -58,6 +58,8 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     // ignore: unused_element
 
     return Scaffold(
+    
+
       backgroundColor: widget.backgroundColor,
 //app bar ---------------------------------------
       appBar: widget.isShowAppBar
@@ -116,30 +118,30 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 // bottom app bar -------------------------
       bottomNavigationBar: widget.isShowBottomNayvigationBar == true
           ? BottomAppBar(
+              height: SizeConfig.screenHeight * 0.08,
+              surfaceTintColor: AppColor.white,
               color: AppColor.white,
               elevation: 40,
               notchMargin: 5,
-              child: Container(
-                margin: const EdgeInsets.only(top: 5),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    iconBottomBar(
-                        label:
-                            (userDataData.getUser()?.role == UserRole.patient)
-                                ? translation(context).selectEquip
-                                : translation(context).homeScreen,
-                        iconData: Icons.home_filled,
-                        isSelected: widget.selectedIndex == 0 ? true : false,
-                        iconIndex: 0),
-                    iconBottomBar(
-                        label: translation(context).settingScreen,
-                        iconData: Icons.settings_sharp,
-                        isSelected: widget.selectedIndex == 1 ? true : false,
-                        iconIndex: 1),
-                  ],
-                ),
+              
+              child: Row(
+                // mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  iconBottomBar(
+                      label: (userDataData.getUser()?.role == UserRole.patient)
+                          ? translation(context).selectEquip
+                          : translation(context).homeScreen,
+                      iconData: Icons.home_filled,
+                      isSelected: widget.selectedIndex == 0 ? true : false,
+                      iconIndex: 0),
+                  iconBottomBar(
+                      label: translation(context).settingScreen,
+                      iconData: Icons.settings_sharp,
+                      isSelected: widget.selectedIndex == 1 ? true : false,
+                      iconIndex: 1),
+                ],
               ),
             )
           : null,
@@ -162,19 +164,17 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       },
       child: Container(
         color: Colors.white,
-        padding: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.005,
-        ),
-        height: SizeConfig.screenHeight / 15,
-        width: SizeConfig.screenWidth / 2,
+        height: SizeConfig.screenHeight * 0.05,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Icon(
               iconData,
               color: isSelected
                   ? const Color.fromARGB(255, 123, 211, 255)
                   : AppColor.gray767676,
-              size: 27,
+              size: SizeConfig.screenHeight * 0.025,
             ),
             label != null
                 ? Text(
@@ -183,7 +183,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                         color: isSelected
                             ? const Color.fromARGB(255, 123, 211, 255)
                             : AppColor.gray767676,
-                        fontSize: 12,
+                        fontSize: SizeConfig.screenWidth * 0.03,
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal),
                   )

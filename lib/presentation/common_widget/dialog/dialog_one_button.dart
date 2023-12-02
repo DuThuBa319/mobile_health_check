@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 
 import '../../../classes/language.dart';
 
@@ -19,8 +20,8 @@ Future<dynamic> showNoticeDialog({
     if (dismissWhenAction) {
       Navigator.of(context, rootNavigator: useRootNavigator).pop();
     }
-  }
 
+  }
   return showDialog(
     context: context,
     barrierDismissible: barrierDismissible,
@@ -43,7 +44,10 @@ Future<dynamic> showNoticeDialog({
                   dismissFunc.call();
                   onClose?.call();
                 },
-                child: Text(titleBtn ?? translation(context).accept),
+                child: Text(
+                  titleBtn ?? translation(context).accept,
+                  style: const TextStyle(color: AppColor.black),
+                ),
               )
             ],
           );
@@ -64,7 +68,10 @@ Future<dynamic> showNoticeDialog({
                 dismissFunc.call();
                 onClose?.call();
               },
-              child: Text(titleBtn ?? translation(context).accept),
+              child: Text(
+                titleBtn ?? translation(context).accept,
+                style: const TextStyle(color: AppColor.black),
+              ),
             ),
           ],
         );

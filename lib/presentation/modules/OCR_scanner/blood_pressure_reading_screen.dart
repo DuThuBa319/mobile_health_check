@@ -1,6 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
-import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,11 +6,8 @@ import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
 import '../../../utils/size_config.dart';
 import '../../../assets/assets.dart';
-import '../../common_widget/dialog/dialog_one_button.dart';
-import '../../common_widget/dialog/show_toast.dart';
-import '../../common_widget/enum_common.dart';
 
-import '../../common_widget/screen_form/custom_screen_form.dart';
+import '../../common_widget/common.dart';
 import '../../theme/app_text_theme.dart';
 import 'ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'widget/OCR_scanner_widget.dart';

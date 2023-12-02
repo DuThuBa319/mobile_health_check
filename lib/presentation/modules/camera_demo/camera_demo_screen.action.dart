@@ -13,17 +13,20 @@ extension CameraScreenAction on CameraScreenState {
       await imageDialog(context, imageFile: state.viewModel.imageFile!);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.loading) {
+      // ignore: use_build_context_synchronously
       showToast(translation(context).processing);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.success) {
+      // ignore: use_build_context_synchronously
       showToast(translation(context).processSuccessfully);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.failure) {
       // ignore: use_build_context_synchronously
-      showNoticeDialog(
+      showExceptionDialog(
           context: context,
+          // ignore: use_build_context_synchronously
           message: translation(context).errorTryAgain,
-          title: translation(context).notification,
+          // ignore: use_build_context_synchronously
           titleBtn: translation(context).exit,
           onClose: () {
             Navigator.pop(context);
@@ -31,10 +34,11 @@ extension CameraScreenAction on CameraScreenState {
     }
     if (state is GetImageState && state.status == BlocStatusState.failure) {
       // ignore: use_build_context_synchronously
-      showNoticeDialog(
+      showExceptionDialog(
           context: context,
+          // ignore: use_build_context_synchronously
           message: translation(context).error,
-          title: translation(context).notification,
+          // ignore: use_build_context_synchronously
           titleBtn: translation(context).exit,
           onClose: () {
             Navigator.pop(context);

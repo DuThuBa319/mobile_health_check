@@ -22,12 +22,11 @@ extension DoctorListScreenAction on _DoctorListState {
       showToast(translation(context).deleteDoctorSuccessfully);
     }
 
-    if (state is WifiDisconnectState &&
-        state.status == BlocStatusState.success) {
-      showNoticeDialog(
+    if (state.status == BlocStatusState.failure &&
+        state.viewModel.errorMessage == translation(context).wifiDisconnect) {
+      showExceptionDialog(
           context: context,
           message: translation(context).wifiDisconnect,
-          title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
 
@@ -35,26 +34,28 @@ extension DoctorListScreenAction on _DoctorListState {
         state.status == BlocStatusState.failure &&
         state.viewModel.errorMessage ==
             translation(context).cannotDeleteDoctor) {
-      showNoticeDialog(
+      showExceptionDialog(
           context: context,
           message: state.viewModel.errorMessage!,
-          title: translation(context).notification,
           titleBtn: translation(context).exit);
     }
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showNoticeDialogTwoButton(
-            context: context,
-            message: translation(context).exitApp,
-            title: translation(context).areYouSure,
-            titleBtn1: translation(context).no,
-            titleBtn2: translation(context).yes,
-            onClose1: () {},
-            onClose2: () {
-              SystemNavigator.pop();
-            })) ??
-        false;
+  _onWillPop(bool didPop) async {
+    bool enableToPop = true;
+
+    if (enableToPop == true) {
+      await showWarningDialog(
+          context: context,
+          message: translation(context).areYouSureToExitApp,
+          title: translation(context).exitAppTitle,
+          titleBtn1: translation(context).no,
+          titleBtn2: translation(context).yes,
+          onClose1: () {},
+          onClose2: () {
+            SystemNavigator.pop();
+          });
+    }
   }
 
   Widget formDoctorListScreen(

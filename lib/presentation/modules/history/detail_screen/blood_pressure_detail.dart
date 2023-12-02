@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../../classes/language.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../utils/size_config.dart';
-import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+import '../../../common_widget/common.dart';
 
 class BloodPressureDetailScreen extends StatefulWidget {
   final BloodPressureEntity? bloodPressureEntity;

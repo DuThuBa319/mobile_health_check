@@ -1,18 +1,16 @@
 import 'dart:io';
 
-import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
-import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
-import 'package:flutter/material.dart';
+
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:mobile_health_check/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 
 import '../../../classes/language.dart';
 import '../../../utils/size_config.dart';
-import '../../common_widget/dialog/show_toast.dart';
-import '../../common_widget/enum_common.dart';
+
+import '../../common_widget/common.dart';
 import '../../theme/theme_color.dart';
 import 'camera_bloc/camera_bloc.dart';
 part 'camera_demo_screen.action.dart';
@@ -109,12 +107,15 @@ class CameraScreenState extends State<CameraScreen>
               ));
             }
             if (state.status == BlocStatusState.failure) {
-              return Center(child: Text(
-                          translation(context).error,
-                          style: TextStyle(
-                              fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold,color: AppColor.red),
-                        ),);
+              return Center(
+                child: Text(
+                  translation(context).error,
+                  style: TextStyle(
+                      fontSize: SizeConfig.screenWidth * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.red),
+                ),
+              );
             }
             if ((state is CameraReadyState &&
                     state.status == BlocStatusState.success) ||

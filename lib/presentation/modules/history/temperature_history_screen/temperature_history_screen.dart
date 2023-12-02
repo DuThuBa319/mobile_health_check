@@ -6,12 +6,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../utils/size_config.dart';
-import '../../../common_widget/dialog/dialog_one_button.dart';
-import '../../../common_widget/dialog/show_toast.dart';
-import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/line_decor.dart';
-import '../../../common_widget/loading_widget.dart';
-import '../../../common_widget/screen_form/custom_screen_form.dart';
+
+import '../../../common_widget/common.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 import '../history_bloc/history_bloc.dart';
@@ -141,14 +137,13 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
             child: InkWell(
               onTap: () {
                 if (timeFrom.isAfter(timeTo)) {
-                  showNoticeDialog(
+                  showExceptionDialog(
                       context: context,
                       message: translation(context).selectError,
                       onClose: () {
                         timeFrom = timeTo;
                         strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
                       },
-                      title: translation(context).notification,
                       titleBtn: translation(context).exit);
                 } else {
                   onGetTemperatureData();
@@ -184,8 +179,9 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                   }
-                  if (state is WifiDisconnectState &&
-                      state.status == BlocStatusState.success) {
+                  if (state.status == BlocStatusState.failure &&
+                      state.viewModel.errorMessage ==
+                          translation(context).wifiDisconnect) {
                     return Center(
                         child: Text(translation(context).error,
                             style: AppTextTheme.body2.copyWith(

@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
@@ -8,8 +7,8 @@ import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
 import '../../../utils/size_config.dart';
 import '../../../main.dart';
-import '../../common_widget/rectangle_button.dart';
-import '../../common_widget/line_decor.dart';
+
+import '../../common_widget/common.dart';
 import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 
@@ -195,9 +194,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                         selectedLanguage = Language(1, ENGLISH, 'en');
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
-                        // showLoadingDialog(context: context);
-                        // await Future.delayed(const Duration(
-                        //     milliseconds: 2000)); // Wait for 1 second
+
                         MyApp.setLocale(context, locale);
                         Navigator.pop(context);
                         return;
@@ -207,9 +204,6 @@ class _SettingLanguageState extends State<SettingLanguage> {
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
                         MyApp.setLocale(context, locale);
-                        // showLoadingDialog(context: context);
-                        // await Future.delayed(const Duration(
-                        //     milliseconds: 1500)); // Wait for 1 second
                         Navigator.pop(context);
                         return;
                       }

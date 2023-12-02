@@ -2,15 +2,11 @@ import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/assets/assets.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/loading_dialog.dart';
-import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:mobile_health_check/presentation/modules/login_screen/login_bloc/login_bloc.dart';
 
 import '../../../../classes/language.dart';
 
-import '../../../common_widget/dialog/dialog_one_button.dart';
-import '../../../common_widget/enum_common.dart';
+import '../../../common_widget/common.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 
@@ -103,6 +99,7 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                       SizedBox(
                         width: SizeConfig.screenWidth * 0.8,
                         child: TextField(
+                          cursorColor: AppColor.gray767676,
                           keyboardType: TextInputType.phone,
                           // focusNode: _focusNode,
                           controller: _phoneNumberController,

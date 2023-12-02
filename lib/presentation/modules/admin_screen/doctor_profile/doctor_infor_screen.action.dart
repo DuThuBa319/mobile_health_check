@@ -12,8 +12,6 @@ extension DoctorInforScreenAction on _DoctorInforScreenState {
       showToast(translation(context).dataLoaded);
     }
 
-    
-
     if ((state is GetDoctorInforState &&
             state.status == BlocStatusState.failure) ) {
       showToast(translation(context).error);

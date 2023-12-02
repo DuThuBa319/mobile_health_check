@@ -59,7 +59,7 @@ class _PatientListCellState extends State<PatientListCell> {
             ),
           ),
           title: Transform.translate(
-            offset: const Offset(10, 0),
+            offset: const Offset(-10, 0),
             child: Text(
               widget.patientInforEntity?.name ?? '',
               style: AppTextTheme.body2.copyWith(
@@ -69,7 +69,7 @@ class _PatientListCellState extends State<PatientListCell> {
             ),
           ),
           subtitle: Transform.translate(
-            offset: const Offset(10, 0),
+            offset: const Offset(-10, 0),
             child: Text(
               widget.patientInforEntity?.phoneNumber == ""
                   ? translation(context).notUpdate

@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:mobile_health_check/classes/language.dart';
+import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
+import 'package:mobile_health_check/di/di.dart';
+import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
@@ -20,10 +23,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final BloodSugarUsecase bloodSugarUseCase;
   final TemperatureUsecase temperatureUsecase;
   final Spo2Usecase spo2Usecase;
-  final Connectivity _connectivity;
+  final NetworkInfo networkInfo;
 
-  HistoryBloc(this.bloodPressureUseCase, this.bloodSugarUseCase,
-      this.temperatureUsecase, this.spo2Usecase, this._connectivity)
+  HistoryBloc(this.bloodPressureUseCase, this.bloodSugarUseCase,this.networkInfo,
+      this.temperatureUsecase, this.spo2Usecase, )
       : super(HistoryInitialState()) {
     on<GetBloodPressureHistoryDataEvent>(_onGetBloodPressureHistoryData);
     on<GetBloodSugarHistoryDataEvent>(_onGetBloodSugarHistoryData);
@@ -41,9 +44,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     GetBloodPressureHistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.loading,
@@ -82,117 +85,26 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
   }
 
-  ////
-//   Future<void> _onGetBloodPressureHistoryInitData(
-//     GetBloodPressureHistoryInitDataEvent event,
-//     Emitter<HistoryState> emit,
-//   ) async {
-//     final connectivityResult = await _connectivity.checkConnectivity();
-//     if (connectivityResult == ConnectivityResult.wifi ||
-//         connectivityResult == ConnectivityResult.mobile) {
-//       emit(
-//         GetHistoryDataState(
-//           status: BlocStatusState.loading,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//       try {
-//         final responses =
-//             await bloodPressureUseCase.getListBloodPressureEntities(
-//                patientId: event.id,
-//                 endTime: event.endTime,
-//                 startTime: event.startTime);
-//         List<BloodPressureEntity>? listBloodPressure = [];
-//         for (var response in responses) {
-//           listBloodPressure.add(response);
-//         }
-//         final newViewModel =
-//             state.viewModel.copyWith(listBloodPressure: listBloodPressure);
-//         emit(
-//           state.copyWith(
-//             status: BlocStatusState.success,
-//             viewModel: newViewModel,
-//           ),
-//         );
-//       } catch (e) {
-//         emit(
-//           state.copyWith(
-//             status: BlocStatusState.failure,
-//             viewModel: state.viewModel,
-//           ),
-//         );
-//       }
-//     } else {
-//       emit(
-//         WifiDisconnectState(
-//           status: BlocStatusState.success,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
 
-//   ///
-
-//   Future<void> _onGetBloodSugarHistoryInitData(
-//     GetBloodSugarHistoryInitDataEvent event,
-//     Emitter<HistoryState> emit,
-//   ) async {
-//     final connectivityResult = await _connectivity.checkConnectivity();
-//     if (connectivityResult == ConnectivityResult.wifi ||
-//         connectivityResult == ConnectivityResult.mobile) {
-//       emit(
-//         GetHistoryDataState(
-//           status: BlocStatusState.loading,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//       try {
-//         final responses = await bloodSugarUseCase.getListBloodSugarEntities(
-//             patientId: event.id, endTime: event.endTime, startTime: event.startTime);
-
-//         final newViewModel =
-//             state.viewModel.copyWith(listBloodSugar: responses);
-//         emit(
-//           state.copyWith(
-//             status: BlocStatusState.success,
-//             viewModel: newViewModel,
-//           ),
-//         );
-//       } catch (e) {
-//         emit(
-//           state.copyWith(
-//             status: BlocStatusState.failure,
-//             viewModel: state.viewModel,
-//           ),
-//         );
-//       }
-//     } else {
-//       emit(
-//         WifiDisconnectState(
-//           status: BlocStatusState.success,
-//           viewModel: state.viewModel,
-//         ),
-//       );
-//     }
-//   }
-// /////
 
   Future<void> _onGetBloodSugarHistoryData(
     GetBloodSugarHistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.loading,
@@ -230,66 +142,24 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
   }
-//////
 
-  // Future<void> _onGetTemperatureHistoryInitData(
-  //   GetTemperatureHistoryInitDataEvent event,
-  //   Emitter<HistoryState> emit,
-  // ) async {
-  //   final connectivityResult = await _connectivity.checkConnectivity();
-  //   if (connectivityResult == ConnectivityResult.wifi ||
-  //       connectivityResult == ConnectivityResult.mobile) {
-  //     emit(
-  //       GetHistoryDataState(
-  //         status: BlocStatusState.loading,
-  //         viewModel: state.viewModel,
-  //       ),
-  //     );
-  //     try {
-  //       final responses = await temperatureUsecase.getListTemperatureEntities(
-  //           patientId: event.id, endTime: event.endTime, startTime: event.startTime);
-
-  //       final newViewModel =
-  //           state.viewModel.copyWith(listTemperature: responses);
-  //       emit(
-  //         state.copyWith(
-  //           status: BlocStatusState.success,
-  //           viewModel: newViewModel,
-  //         ),
-  //       );
-  //     } catch (e) {
-  //       emit(
-  //         state.copyWith(
-  //           status: BlocStatusState.failure,
-  //           viewModel: state.viewModel,
-  //         ),
-  //       );
-  //     }
-  //   } else {
-  //     emit(
-  //       WifiDisconnectState(
-  //         status: BlocStatusState.success,
-  //         viewModel: state.viewModel,
-  //       ),
-  //     );
-  //   }
-  // }
-
-//////
   Future<void> _onGetTemperatureHistoryData(
     GetTemperatureHistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.loading,
@@ -326,64 +196,25 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }
   }
 
-  // Future<void> _onGetSpo2HistoryInitData(
-  //   GetSpo2HistoryInitDataEvent event,
-  //   Emitter<HistoryState> emit,
-  // ) async {
-  //   final connectivityResult = await _connectivity.checkConnectivity();
-  //   if (connectivityResult == ConnectivityResult.wifi ||
-  //       connectivityResult == ConnectivityResult.mobile) {
-  //     emit(
-  //       GetHistoryDataState(
-  //         status: BlocStatusState.loading,
-  //         viewModel: state.viewModel,
-  //       ),
-  //     );
-  //     try {
-  //       final responses = await spo2Usecase.getListSpo2Entities(
-  //           patientId: event.id, endTime: event.endTime, startTime: event.startTime);
-
-  //       final newViewModel = state.viewModel.copyWith(listSpo2: responses);
-  //       emit(
-  //         state.copyWith(
-  //           status: BlocStatusState.success,
-  //           viewModel: newViewModel,
-  //         ),
-  //       );
-  //     } catch (e) {
-  //       emit(
-  //         state.copyWith(
-  //           status: BlocStatusState.failure,
-  //           viewModel: state.viewModel,
-  //         ),
-  //       );
-  //     }
-  //   } else {
-  //     emit(
-  //       WifiDisconnectState(
-  //         status: BlocStatusState.success,
-  //         viewModel: state.viewModel,
-  //       ),
-  //     );
-  //   }
-  // }
-/////
 
   Future<void> _onGetSpo2HistoryData(
     GetSpo2HistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile) {
+   NavigationService navigationService = injector<NavigationService>();
+
+    if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.loading,
@@ -421,9 +252,12 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       }
     } else {
       emit(
-        WifiDisconnectState(
-          status: BlocStatusState.success,
-          viewModel: state.viewModel,
+        state.copyWith(
+          status: BlocStatusState.failure,
+          viewModel: state.viewModel.copyWith(
+              errorMessage:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .wifiDisconnect),
         ),
       );
     }

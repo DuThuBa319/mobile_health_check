@@ -1,11 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../../../classes/language.dart';
 import '../../../../../domain/entities/doctor_infor_entity.dart';
-import '../../../../common_widget/rectangle_button.dart';
+
+import '../../../../common_widget/common.dart';
 import '../../../../theme/theme_color.dart';
 
 class DoctorInforCell extends StatefulWidget {

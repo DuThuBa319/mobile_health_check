@@ -1,6 +1,5 @@
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
-import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../utils/size_config.dart';
-import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+import '../../../common_widget/common.dart';
 
 class BloodPressureNotificationReadingScreen extends StatefulWidget {
   final NotificationEntity? notificationEntity;

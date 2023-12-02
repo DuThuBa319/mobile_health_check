@@ -1,5 +1,4 @@
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +9,7 @@ import 'common/service/navigation/navigation_service.dart';
 import 'di/di.dart';
 import 'package:camera/camera.dart';
 import 'assets/assets.dart';
+import 'presentation/common_widget/common.dart';
 import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_options.dart';

@@ -4,16 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/change_password_entity.dart';
 
 import 'package:mobile_health_check/utils/size_config.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
-import '../../common_widget/dialog/dialog_one_button.dart';
-import '../../common_widget/enum_common.dart';
-import '../../common_widget/line_decor.dart';
-import '../../common_widget/loading_widget.dart';
-import '../../common_widget/rectangle_button.dart';
+
+import '../../common_widget/common.dart';
 import '../../theme/theme_color.dart';
 
 // ignore: must_be_immutable
@@ -48,38 +44,36 @@ class _SettingPasswordState extends State<SettingPassword> {
         selectedIndex: 2,
         child:
             BlocConsumer<SettingBloc, SettingState>(listener: (context, state) {
-          //! WIFI DISCONNECT
-          if (state is WifiDisconnectState &&
-              state.status == BlocStatusState.success) {
-            showNoticeDialog(
-                context: context,
-                message: translation(context).wifiDisconnect,
-                title: translation(context).notification,
-                titleBtn: translation(context).accept);
-          }
-
-          //! ERROR CURRENT PASSWORD
           if (state is ChangePassState &&
-              state.status == BlocStatusState.failure &&
-              state.viewModel.errorMessage ==
-                  translation(context).currentPassWrong) {
-            showNoticeDialog(
-                context: context,
-                message: translation(context).currentPassWrong,
-                title: translation(context).notification,
-                titleBtn: translation(context).accept);
+              state.status == BlocStatusState.failure) {
+            //! ERROR CURRENT PASSWORD
+            if (state.viewModel.errorMessage ==
+                translation(context).currentPassWrong) {
+              showExceptionDialog(
+                  context: context,
+                  message: translation(context).currentPassWrong,
+                  titleBtn: translation(context).exit);
+            }
+            //! WIFI DISCONNECT
+            if (state.viewModel.errorMessage ==
+                translation(context).wifiDisconnect) {
+              showExceptionDialog(
+                  context: context,
+                  message: translation(context).wifiDisconnect,
+                  titleBtn: translation(context).exit);
+            }
           }
 
           //! CHANGE PASS SUCCESSFULLY
           if (state is ChangePassState &&
               state.status == BlocStatusState.success) {
-            showNoticeDialog(
+            showSuccessDialog(
                 onClose: () {
                   Navigator.pop(context);
                 },
                 context: context,
-                message: translation(context).updatePasswordSuccessfullly,
-                title: translation(context).notification,
+                message: translation(context).changePassSuccessText,
+                title: translation(context).updatePasswordSuccessfullly,
                 titleBtn: translation(context).accept);
           }
         }, builder: (context, state) {
@@ -121,7 +115,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                             width: SizeConfig.screenWidth * 0.85,
                             child: TextField(
                               // focusNode: _focusNode,
-
+                              cursorColor: AppColor.gray767676,
                               controller: _controllerCurrentPassword,
                               obscureText: showPass1,
                               style: TextStyle(
@@ -129,6 +123,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                iconColor: AppColor.primaryColorLight,
                                 contentPadding:
                                     const EdgeInsets.only(bottom: 5, top: 5),
                                 errorText: state.viewModel
@@ -180,6 +175,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                             width: SizeConfig.screenWidth * 0.85,
                             child: TextField(
                               // focusNode: _focusNode,
+                              cursorColor: AppColor.gray767676,
                               controller: _controllerNewPassword,
                               obscureText: showPass2,
                               style: TextStyle(
@@ -187,6 +183,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
+                                iconColor: AppColor.primaryColorLight,
                                 contentPadding:
                                     const EdgeInsets.only(bottom: 5, top: 5),
                                 errorText:

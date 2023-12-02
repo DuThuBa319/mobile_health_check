@@ -20,10 +20,9 @@ extension ForgotPassAction on _ForgotPassState {
         Navigator.pop(context);
         if (state.viewModel.errorMessage ==
             translation(context).wifiDisconnect) {
-          showNoticeDialog(
+          showExceptionDialog(
               context: context,
               message: translation(context).wifiDisconnect,
-              title: translation(context).notification,
               titleBtn: translation(context).exit);
         }
       }
@@ -31,24 +30,23 @@ extension ForgotPassAction on _ForgotPassState {
               translation(context).wrongPhoneNumber &&
           state.viewModel.errorMessage !=
               translation(context).pleaseEnterPhoneNumber)) {
-        showNoticeDialog(
+        showExceptionDialog(
             context: context,
             message: translation(context).error,
-            title: translation(context).notification,
             titleBtn: translation(context).exit);
       }
     }
 
     if (state is ResetPasswordState &&
         state.status == BlocStatusState.success) {
-      showNoticeDialog(
+      showSuccessDialog(
           onClose: () {
             Navigator.pop(context);
             Navigator.pop(context);
           },
           context: context,
-          message: translation(context).resetPasswordSuccessfully,
-          title: translation(context).notification,
+          message: translation(context).resetPassSuccessText,
+          title: translation(context).resetPasswordSuccessfully,
           titleBtn: translation(context).exit);
     }
   }

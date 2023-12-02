@@ -1,19 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
-import 'package:mobile_health_check/presentation/modules/admin_screen/bloc/get_doctor_bloc.dart';
 import 'package:mobile_health_check/presentation/modules/notification_onesignal/widget/notification_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../classes/language.dart';
-import '../../../presentation/common_widget/screen_form/custom_screen_form.dart';
-import '../../common_widget/rectangle_button.dart';
-import '../../common_widget/dialog/dialog_one_button.dart';
-import '../../common_widget/dialog/show_toast.dart';
-import '../../common_widget/enum_common.dart';
-import '../../common_widget/loading_widget.dart';
+import '../../common_widget/common.dart';
+
 import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 import 'bloc/notification_bloc.dart';
@@ -212,7 +207,9 @@ class _NotificationListState extends State<NotificationScreen> {
                                         padding:
                                             EdgeInsets.symmetric(vertical: 32),
                                         child: Center(
-                                          child: CircularProgressIndicator(),
+                                          child: CircularProgressIndicator(
+                                            color: AppColor.white,
+                                          ),
                                         ),
                                       );
                                     }
@@ -222,10 +219,7 @@ class _NotificationListState extends State<NotificationScreen> {
                       ],
                     );
                   }
-                } else if (
-                        state.status == BlocStatusState.failure ||
-                    (state is WifiDisconnectState &&
-                        state.status == BlocStatusState.success)) {
+                } else if (state.status == BlocStatusState.failure) {
                   return Center(
                     child: Text(
                       translation(context).error,

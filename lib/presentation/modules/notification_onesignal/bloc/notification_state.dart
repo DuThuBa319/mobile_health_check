@@ -8,8 +8,9 @@ class _ViewModel {
   final List<NotificationEntity>? notificationEntity;
   final int? totalCount;
   final int? unreadCount;
-
+  final String? errorMessage;
   const _ViewModel({
+    this.errorMessage,
     this.unreadCount,
     this.notificationEntity,
     this.totalCount,
@@ -24,10 +25,12 @@ class _ViewModel {
     List<NotificationEntity>? notificationEntity,
     int? unreadCount,
     int? totalCount,
+    String? errorMessage,
   }) {
     // ignore: unneces
     // sary_this
     return _ViewModel(
+      errorMessage: errorMessage ?? this.errorMessage,
       notificationEntity: notificationEntity ?? this.notificationEntity,
       unreadCount: unreadCount ?? this.unreadCount,
       totalCount: totalCount ?? this.totalCount,

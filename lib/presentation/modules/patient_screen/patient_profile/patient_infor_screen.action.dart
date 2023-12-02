@@ -115,9 +115,6 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                               fontSize: SizeConfig.screenWidth * 0.032,
                               fontWeight: FontWeight.bold,
                             )),
-                        const SizedBox(
-                          height: 3,
-                        ),
                         Text(
                           DateFormat('HH:mm dd/MM/yyyy')
                               .format(dateTime ?? dateTime!),
@@ -171,8 +168,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                       margin: const EdgeInsets.only(top: 10),
                       width: SizeConfig.screenWidth * 0.6,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Row(
                             children: [

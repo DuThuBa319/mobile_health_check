@@ -68,12 +68,6 @@ class GetDoctorListState extends GetDoctorState {
   }) : super(viewModel, status: status);
 }
 
-class WifiDisconnectState extends GetDoctorState {
-  WifiDisconnectState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
 
 class SearchDoctorState extends GetDoctorState {
   SearchDoctorState({
@@ -132,8 +126,5 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
-        viewModel: viewModel,
-        status: status,
-      ),
+ 
 };

@@ -10,32 +10,27 @@ extension LoginAction on _LoginState {
     }
 
     if (state is LoginActionState && state.status == BlocStatusState.failure) {
-      if ((state.viewModel.errorMessage ==
-              translation(context).pleaseEnterYourAccount ||
-          state.viewModel.errorMessage ==
-              translation(context).pleaseEnterYourPassword)) {
+      if (state.viewModel.errorMessage ==
+          translation(context).pleaseEnterYourAccount) {
         Navigator.pop(context);
       } else if (state.viewModel.errorMessage ==
           translation(context).wrongAccount) {
-        showNoticeDialog(
+        showExceptionDialog(
             onClose: () => Navigator.pop(context),
             context: context,
             message: translation(context).wrongAccount,
-            title: translation(context).notification,
             titleBtn: translation(context).exit);
       } else if (state.viewModel.errorMessage ==
           translation(context).wifiDisconnect) {
-        showNoticeDialog(
+        showExceptionDialog(
             context: context,
             message: translation(context).wifiDisconnect,
-            title: translation(context).notification,
             titleBtn: translation(context).exit);
       } else {
-        showNoticeDialog(
+        showExceptionDialog(
             onClose: () => Navigator.pop(context),
             context: context,
             message: translation(context).error,
-            title: translation(context).notification,
             titleBtn: translation(context).exit);
       }
     }
@@ -49,7 +44,7 @@ extension LoginAction on _LoginState {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircularProgressIndicator(),
+              const CircularProgressIndicator(color: AppColor.white),
               const SizedBox(
                 height: 10,
               ),
@@ -78,7 +73,7 @@ extension LoginAction on _LoginState {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircularProgressIndicator(),
+              const CircularProgressIndicator(color: AppColor.white),
               const SizedBox(
                 height: 10,
               ),
@@ -127,10 +122,9 @@ extension LoginAction on _LoginState {
 
     if (state is GetUserDataState && state.status == BlocStatusState.failure) {
       Navigator.pop(context);
-      showNoticeDialog(
+      showExceptionDialog(
           context: context,
           message: translation(context).error,
-          title: translation(context).notification,
           titleBtn: translation(context).exit);
       if (userDataData.getUser() != null) {
         userDataData.localDataManager.preferencesHelper.remove('user');
@@ -138,14 +132,14 @@ extension LoginAction on _LoginState {
     }
   }
 
-  _onWillPop(bool didPop) async {
+_onWillPop(bool didPop) async {
     bool enableToPop = true;
 
     if (enableToPop == true) {
-      await showNoticeDialogTwoButton(
+      await showWarningDialog(
           context: context,
-          message: translation(context).exitApp,
-          title: translation(context).areYouSure,
+          message: translation(context).areYouSureToExitApp,
+          title: translation(context).exitAppTitle,
           titleBtn1: translation(context).no,
           titleBtn2: translation(context).yes,
           onClose1: () {},

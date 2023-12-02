@@ -124,12 +124,7 @@ class ChangePassState extends SettingState {
   }) : super(viewModel, status: status);
 }
 
-class WifiDisconnectState extends SettingState {
-  WifiDisconnectState({
-    _ViewModel viewModel = const _ViewModel(),
-    BlocStatusState status = BlocStatusState.initial,
-  }) : super(viewModel, status: status);
-}
+
 
 
 
@@ -166,9 +161,5 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  WifiDisconnectState: (viewModel, status) => WifiDisconnectState(
-        viewModel: viewModel,
-        status: status,
-      ),
- 
+
 };

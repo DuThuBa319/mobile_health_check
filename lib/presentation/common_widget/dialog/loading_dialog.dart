@@ -8,12 +8,12 @@ Future<dynamic> showLoadingDialog({
     context: context,
     builder: (BuildContext context) {
       // Wrap the dialog in a WillPopScope widget to intercept back button
-      return WillPopScope(
-        onWillPop: () async {
-          // Prevent back navigation while the loading dialog is displayed
-          return false;
-        },
-        child: const Center(
+      return const PopScope(
+        canPop: false,
+        onPopInvoked: null,
+        // Prevent back navigation while the loading dialog is displayed
+
+        child: Center(
           child: CircularProgressIndicator(
             color: Colors.white,
           ),

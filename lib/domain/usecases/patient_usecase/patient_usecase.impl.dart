@@ -28,7 +28,6 @@ class PatientUsecaseImpl extends PatientUsecase {
     NavigationService navigationService = injector<NavigationService>();
     final response = await _repository.getPatientInforModel(patientId);
     await userDataData.setUser(UserModel(
-
         height: response.height,
         weight: response.weight,
         address: response.address ??
@@ -42,8 +41,7 @@ class PatientUsecaseImpl extends PatientUsecase {
         phoneNumber: response.phoneNumber,
         email: userDataData.getUser()!.email,
         doctor: response.doctor,
-        relatives: response.relatives
-        ));
+        relatives: response.relatives));
     final entity = response.getPatientInforEntityPatientApp();
     return entity;
   }
