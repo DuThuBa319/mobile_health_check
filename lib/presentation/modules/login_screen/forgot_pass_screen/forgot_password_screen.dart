@@ -129,7 +129,6 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                   ),
                 ),
                 //Text field Password
-
                 GestureDetector(
                     onTap: () => bloc.add(ResetPasswordEvent(
                         phoneNumber: _phoneNumberController.text)),

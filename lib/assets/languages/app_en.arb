@@ -107,9 +107,9 @@
 "addPatientSuccessText":"You have successfully added a new patient to the list",
 "addRelativeSuccessText":"You have successfully added a relative for this patient.",
 "addDoctorSuccessText":"You have successfully added a new doctor to the list",
-"resetPassSuccessText":"You have successfully reset your password. Please try logging in again!",
+"resetPassSuccessText":"Your password after being reset is:",
 "changePassSuccessText":"You have successfully changed your password. Please remember it for next logins!",
-
+"tryLoggingAgain":"Please try logging again!",
 "pleaseEnterRelativeName":"Please fill in relatives name ",
 "pleaseEnterPatientName":"Please fill in patient's name",
 "pleaseEnterDoctorName":"Please fill in doctor's name",
@@ -190,7 +190,7 @@
 
 "loadAgain":"Load again",
 "pleaseEnterPhoneNumber":"Plese enter your phoneNumber",
-"resetPasswordSuccessfully":"Reset password successfully!",
+"resetPasswordSuccessfully":"Reset password successfully",
 "reset":"Reset password",
 "deleteRelativeSuccessfully":"Delete relative successfully",
 "deletePatientSuccessfully":"Delete patient successfully",

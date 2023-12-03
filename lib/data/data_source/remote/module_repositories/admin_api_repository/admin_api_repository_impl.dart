@@ -7,6 +7,14 @@ import '../../rest_api_repository.dart';
 import 'admin_api_repository.dart';
 
 @Injectable(as: AdminApiRepository)
+
+
+
+//?  AdminApiRepository là interface của AdminApiRepositoryImpl,
+//?  trong AdminApiRepositoryImpl phải định nghĩa lại mọi thứ có trong AdminApiRepository
+//?  Có thể implements nhiều class khác nhau
+
+
 class AdminApiRepositoryImpl implements AdminApiRepository {
   final Dio dio;
   final RestApiRepository restApi;
@@ -15,9 +23,12 @@ class AdminApiRepositoryImpl implements AdminApiRepository {
     required this.dio,
   }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
+//! Lưu ý, khi sử implement => phải  @override hết tất cả các phương thức của class cha (kể cả class thường hoặc abstract class)
+
   @override
-  Future<void> createDoctorAccountModel(AccountModel? accountModel,String? adminId) {
-    return restApi.createDoctorAccountModel(accountModel,adminId);
+  Future<void> createDoctorAccountModel(
+      AccountModel? accountModel, String? adminId) {
+    return restApi.createDoctorAccountModel(accountModel, adminId);
   }
 
   @override

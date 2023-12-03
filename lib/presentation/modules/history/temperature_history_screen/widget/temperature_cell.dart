@@ -34,34 +34,28 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
           decoration: BoxDecoration(
             color: AppColor.cardBackground,
             borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.02),
-            // boxShadow: const [
-            //   BoxShadow(
-            //     blurRadius: 15,
-            //     color: AppColor.backgroundColor,
-            //   )
-            // ]
           ),
           height: SizeConfig.screenHeight * 0.15,
           width: SizeConfig.screenWidth,
           margin: EdgeInsets.fromLTRB(
               SizeConfig.screenWidth * 0.02,
               SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.015,
               SizeConfig.screenWidth * 0.02),
           padding: EdgeInsets.only(
               top: SizeConfig.screenWidth * 0.02,
               left: SizeConfig.screenWidth * 0.02,
               right: SizeConfig.screenWidth * 0.02),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     Container(
                         padding: const EdgeInsets.all(5),
-                        height: SizeConfig.screenWidth * 0.13,
-                        width: SizeConfig.screenWidth * 0.13,
+                        height: SizeConfig.screenWidth * 0.11,
+                        width: SizeConfig.screenWidth * 0.11,
                         decoration: const BoxDecoration(
                           color: AppColor.bodyTemperatureColor,
                           shape: BoxShape.circle,
@@ -80,7 +74,6 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                             style: AppTextTheme.title4.copyWith(
                                 color: Colors.black,
                                 fontSize: SizeConfig.screenWidth * 0.045)),
-                        const SizedBox(height: 2),
                         Text(
                           DateFormat('hh:mm dd/MM/yyyy')
                               .format(widget.response!.updatedDate!),
@@ -91,40 +84,37 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                     )
                   ],
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(children: [
-                      TextSpan(
-                          text: '${widget.response?.temperature}',
-                          style: AppTextTheme.body1.copyWith(
-                              color: widget.response?.statusColor,
-                              fontSize: SizeConfig.screenWidth * 0.1,
-                              fontWeight: FontWeight.w400)),
-                      TextSpan(
-                          text: "°",
-                          style: AppTextTheme.body1.copyWith(
-                              color: const Color(0xff615A5A),
-                              fontSize: SizeConfig.screenWidth * 0.1,
-                              fontWeight: FontWeight.w500)),
-                      TextSpan(
-                          text: 'C',
-                          style: AppTextTheme.body1.copyWith(
-                              color: const Color(0xff615A5A),
-                              fontSize: SizeConfig.screenWidth * 0.08,
-                              fontWeight: FontWeight.w500))
-                    ]))
-              ],
-            )
-          ]),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(children: [
+                            TextSpan(
+                                text: '${widget.response?.temperature}',
+                                style: AppTextTheme.body1.copyWith(
+                                    color: widget.response?.statusColor,
+                                    fontSize: SizeConfig.screenWidth * 0.1,
+                                    fontWeight: FontWeight.w400)),
+                            TextSpan(
+                                text: "°",
+                                style: AppTextTheme.body1.copyWith(
+                                    color: const Color(0xff615A5A),
+                                    fontSize: SizeConfig.screenWidth * 0.1,
+                                    fontWeight: FontWeight.w500)),
+                            TextSpan(
+                                text: 'C',
+                                style: AppTextTheme.body1.copyWith(
+                                    color: const Color(0xff615A5A),
+                                    fontSize: SizeConfig.screenWidth * 0.08,
+                                    fontWeight: FontWeight.w500))
+                          ]))
+                    ],
+                  ),
+                )
+              ]),
         ));
   }
 

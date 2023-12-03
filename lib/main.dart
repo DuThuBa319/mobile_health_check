@@ -18,7 +18,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //! Phải gọi function configureDependencies() trước khi run App để sử dụng được DI
   configureDependencies();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await notificationData.saveDelayTime(2000);
   try {
