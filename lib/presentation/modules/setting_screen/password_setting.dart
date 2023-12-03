@@ -3,18 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/change_password_entity.dart';
 
-import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/success_dialog.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
-import '../../common_widget/enum_common.dart';
-import '../../common_widget/line_decor.dart';
-import '../../common_widget/loading_widget.dart';
-import '../../common_widget/rectangle_button.dart';
+
+import '../../common_widget/common.dart';
 import '../../theme/theme_color.dart';
 
 // ignore: must_be_immutable

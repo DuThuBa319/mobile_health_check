@@ -1,16 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/success_dialog.dart';
-import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
+
 
 import '../../../../classes/language.dart';
-import '../../../common_widget/loading_widget.dart';
-import '../../../common_widget/rectangle_button.dart';
-import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/screen_form/custom_screen_form.dart';
+
+import '../../../common_widget/common.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/get_patient_bloc.dart';

@@ -1,9 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/warning_dialog.dart';
-import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
-import 'package:mobile_health_check/presentation/common_widget/line_decor.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
+
 import 'package:mobile_health_check/presentation/modules/patient_screen/patient_list/widget/patient_list_cell.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +11,7 @@ import '../../../../classes/language.dart';
 
 import '../../../../common/singletons.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
-import '../../../common_widget/dialog/show_toast.dart';
-import '../../../common_widget/loading_widget.dart';
-import '../../../common_widget/screen_form/custom_screen_form.dart';
-
-import '../../../common_widget/slidable.dart';
+import '../../../common_widget/common.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/app_text_theme.dart';
 import '../bloc/get_patient_bloc.dart';

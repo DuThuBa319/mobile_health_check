@@ -9,17 +9,17 @@ extension Spo2HistoryScreenAction on Spo2HistoryScreenState {
     if (state is GetHistoryDataState &&
         state.status == BlocStatusState.loading) {
       showToast(translation(context).loadingData);
-      //   );
+      
     }
     if (state is GetHistoryDataState &&
         state.status == BlocStatusState.success) {
       showToast(translation(context).dataLoaded);
-      // Navigator.of(context, rootNavigator: true).pop();
+      
     }
     if (state is GetHistoryDataState &&
         state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
-      // Navigator.of(context, rootNavigator: true).pop();
+    
     }
    if (state.status == BlocStatusState.failure &&
                 state.viewModel.errorMessage ==

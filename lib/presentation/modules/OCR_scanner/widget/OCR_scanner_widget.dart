@@ -5,8 +5,8 @@ import 'package:full_screen_image/full_screen_image.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../function.dart';
-import '../../../common_widget/assets.dart';
+import '../../../../utils/size_config.dart';
+import '../../../../assets/assets.dart';
 import '../../../route/route_list.dart';
 import '../ocr_scanner_bloc/ocr_scanner_bloc.dart';
 

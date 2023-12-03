@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/warning_dialog.dart';
 
 import '../../classes/language.dart';
 import '../../common/singletons.dart';
 import '../../domain/entities/cell_person_entity.dart';
 import '../../domain/entities/relative_infor_entity.dart';
-import '../../function.dart';
+import '../../utils/size_config.dart';
 import '../modules/admin_screen/bloc/get_doctor_bloc.dart';
 import '../modules/patient_screen/bloc/get_patient_bloc.dart';
 import '../route/route_list.dart';
 import '../theme/app_text_theme.dart';
 import '../theme/theme_color.dart';
+import 'common.dart';
 
 class SlideAbleForm extends StatelessWidget {
   final PatientInforEntity? patientInforEntity;

@@ -1,13 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../domain/entities/temperature_entity.dart';
-import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+import '../../../common_widget/common.dart';
 import '../../../theme/theme_color.dart';
 
 class TemperatureDetailScreen extends StatefulWidget {

@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/classes/language.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/exception_dialog.dart';
 import 'package:mobile_health_check/presentation/modules/history/spo2_history_screen/widget/spo2_cell.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../function.dart';
-import '../../../common_widget/dialog/show_toast.dart';
-import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/line_decor.dart';
-import '../../../common_widget/loading_widget.dart';
-import '../../../common_widget/screen_form/custom_screen_form.dart';
+import '../../../../utils/size_config.dart';
+
+import '../../../common_widget/common.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
 import '../history_bloc/history_bloc.dart';

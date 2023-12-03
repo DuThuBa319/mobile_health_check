@@ -2,8 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
-import 'package:mobile_health_check/function.dart';
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -14,16 +13,11 @@ import '../../../../common/singletons.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/patient_infor_entity.dart';
-import '../../../common_widget/assets.dart';
-import '../../../common_widget/rectangle_button.dart';
-import '../../../common_widget/dialog/show_toast.dart';
-import '../../../common_widget/enum_common.dart';
-import '../../../common_widget/line_decor.dart';
-import '../../../common_widget/loading_widget.dart';
-import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
+import '../../../../assets/assets.dart';
 
 // import '../../bloc/Patientlist/get_Patient_bloc/get_Patient_bloc.dart';
-import '../../../common_widget/slidable.dart';
+
+import '../../../common_widget/common.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 import '../bloc/get_patient_bloc.dart';

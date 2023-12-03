@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/function.dart';
+
 
 import '../../../classes/language.dart';
+import '../../../utils/size_config.dart';
 import '../../theme/theme_color.dart';
 
 //! Delete Patient  - DONE

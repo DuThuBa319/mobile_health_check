@@ -3,8 +3,8 @@ import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_health_check/classes/language.dart';
 
-import '../../../../function.dart';
-import '../../assets.dart';
+import '../../../../utils/size_config.dart';
+import '../../../../assets/assets.dart';
 import '../../dialog/show_toast.dart';
 // ignore: depend_on_referenced_packages
 

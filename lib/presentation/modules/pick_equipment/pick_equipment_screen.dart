@@ -1,17 +1,15 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/presentation/common_widget/assets.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/warning_dialog.dart';
+import 'package:mobile_health_check/assets/assets.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../../../classes/language.dart';
-import '../../../function.dart';
-import '../../common_widget/circle_button.dart';
-import '../../common_widget/line_decor.dart';
-import '../../common_widget/screen_form/custom_screen_form.dart';
+import '../../../utils/size_config.dart';
+
+import '../../common_widget/common.dart';
 import '../../route/route_list.dart';
 part 'pick_equipment_screen.action.dart';
 

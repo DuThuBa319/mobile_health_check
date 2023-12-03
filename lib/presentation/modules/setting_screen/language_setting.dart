@@ -1,15 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
 import '../../../classes/language_constant.dart';
 import '../../../common/singletons.dart';
-import '../../../function.dart';
+import '../../../utils/size_config.dart';
 import '../../../main.dart';
-import '../../common_widget/rectangle_button.dart';
-import '../../common_widget/line_decor.dart';
+
+import '../../common_widget/common.dart';
 import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 
