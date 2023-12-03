@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
@@ -24,79 +22,44 @@ Future<dynamic> showNoticeDialogTwoButton({
     }
   }
 
-  return showDialog(
+  return showAdaptiveDialog(
     context: context,
     barrierDismissible: barrierDismissible,
     useRootNavigator: useRootNavigator,
     builder: (context) {
       final theme = Theme.of(context);
 
-      showAndroidDialog() => AlertDialog(
-            title: Text(
-              title ?? translation(context).notification,
-              style: theme.textTheme.headlineSmall,
-            ),
-            content: Text(
-              message,
-              style: theme.textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  dismissFunc.call();
-                  onClose1?.call();
-                },
-                child: Text(titleBtn1 ?? translation(context).accept,
-                    style: const TextStyle(color: AppColor.black)),
-              ),
-              TextButton(
-                onPressed: () {
-                  dismissFunc.call();
-                  onClose2?.call();
-                },
-                child: Text(
-                  titleBtn2 ?? translation(context).exit,
-                  style: const TextStyle(color: AppColor.black),
-                ),
-              )
-            ],
-          );
-
-      if (Platform.isAndroid) {
-        return showAndroidDialog();
-      } else {
-        return CupertinoAlertDialog(
-          title: Text(title ?? translation(context).notification),
-          content: Text(
-            message,
-            style: theme.textTheme.bodyMedium,
-            textAlign: TextAlign.center,
+      return AlertDialog.adaptive(
+        title: Text(
+          title ?? translation(context).notification,
+          style: theme.textTheme.headlineSmall,
+        ),
+        content: Text(
+          message,
+          style: theme.textTheme.bodyMedium,
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              dismissFunc.call();
+              onClose1?.call();
+            },
+            child: Text(titleBtn1 ?? translation(context).accept,
+                style: const TextStyle(color: AppColor.black)),
           ),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              onPressed: () {
-                dismissFunc.call();
-                onClose1?.call();
-              },
-              child: Text(
-                titleBtn1 ?? translation(context).accept,
-                style: const TextStyle(color: AppColor.black),
-              ),
+          TextButton(
+            onPressed: () {
+              dismissFunc.call();
+              onClose2?.call();
+            },
+            child: Text(
+              titleBtn2 ?? translation(context).exit,
+              style: const TextStyle(color: AppColor.black),
             ),
-            CupertinoDialogAction(
-              onPressed: () {
-                dismissFunc.call();
-                onClose2?.call();
-              },
-              child: Text(
-                titleBtn2 ?? translation(context).accept,
-                style: const TextStyle(color: AppColor.black),
-              ),
-            ),
-          ],
-        );
-      }
+          )
+        ],
+      );
     },
   );
 }
