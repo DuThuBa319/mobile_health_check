@@ -1,5 +1,6 @@
 {
     "cmake.sourceDirectory": "C:/Users/ADMIN/Desktop/mobile_health_check/linux",
     "C_Cpp.default.compilerPath": "",
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "bloc.newBlocTemplate.useSealedClasses": false
 }
