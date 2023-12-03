@@ -44,11 +44,12 @@ extension ForgotPassAction on _ForgotPassState {
             Navigator.pop(context);
             Navigator.pop(context);
           },
+          contentDialogSize: SizeConfig.screenWidth * 0.04,
           context: context,
-          message: translation(context).resetPassSuccessText,
+          message:
+              "${translation(context).resetPassSuccessText} ${_phoneNumberController.text}. ${translation(context).tryLoggingAgain}",
           title: translation(context).resetPasswordSuccessfully,
           titleBtn: translation(context).exit);
     }
   }
 }
-

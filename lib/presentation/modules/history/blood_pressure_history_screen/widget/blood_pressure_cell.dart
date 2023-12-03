@@ -36,105 +36,107 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.cardBackground,
-            borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.02),
+            borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.03),
           ),
           height: SizeConfig.screenHeight * 0.15,
           width: SizeConfig.screenWidth,
           margin: EdgeInsets.fromLTRB(
               SizeConfig.screenWidth * 0.02,
               SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.015,
               SizeConfig.screenWidth * 0.02),
           padding: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.02,
-              left: SizeConfig.screenWidth * 0.02,
-              right: SizeConfig.screenWidth * 0.02),
+            top: SizeConfig.screenWidth * 0.02,
+            left: SizeConfig.screenWidth * 0.02,
+            right: SizeConfig.screenWidth * 0.02,
+          ),
           child: Column(children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Container(
-                        padding: const EdgeInsets.all(5),
-                        height: SizeConfig.screenWidth * 0.1,
-                        width: SizeConfig.screenWidth * 0.1,
-                        decoration: const BoxDecoration(
-                            color: AppColor.bloodPressureColor,
-                            shape: BoxShape.circle),
-                        child: Center(
-                          child: Image.asset(
-                            Assets.bloodPressureicon,
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                    SizedBox(
-                      width: SizeConfig.screenWidth * 0.02,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(translation(context).bloodPressure,
-                            style: AppTextTheme.title4.copyWith(
-                                color: Colors.black,
-                                fontSize: SizeConfig.screenWidth * 0.045)),
-                        const SizedBox(height: 2),
-                        Text(
-                          DateFormat('HH:mm dd/MM/yyyy')
-                              .format(widget.response!.updatedDate!),
-                          style: AppTextTheme.title5.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.03),
-                        )
-                      ],
-                    )
-                  ],
+                Container(
+                    padding: const EdgeInsets.all(5),
+                    height: SizeConfig.screenWidth * 0.1,
+                    width: SizeConfig.screenWidth * 0.1,
+                    decoration: const BoxDecoration(
+                        color: AppColor.bloodPressureColor,
+                        shape: BoxShape.circle),
+                    child: Center(
+                      child: Image.asset(
+                        Assets.bloodPressureicon,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+                SizedBox(
+                  width: SizeConfig.screenWidth * 0.02,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${widget.response?.sys}',
-                        style: AppTextTheme.body1.copyWith(
-                          color: widget.response?.statusColor,
-
-                          fontSize: SizeConfig.screenWidth *
-                              0.1, // 0,1 xấp xỉ 38 39 40
-                        )),
+                    Text(translation(context).bloodPressure,
+                        style: AppTextTheme.title4.copyWith(
+                            color: Colors.black,
+                            fontSize: SizeConfig.screenWidth * 0.045)),
                     Text(
-                      'mmHg',
-                      style: AppTextTheme.title5.copyWith(
-                          fontSize: SizeConfig.screenWidth *
-                              0.03), // 0.03 xấp xỉ 12 13
-                    ),
-                  ],
-                ),
-                SizedBox(width: SizeConfig.screenWidth * 0.05),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('${widget.response?.pulse}',
-                        style: AppTextTheme.body1.copyWith(
-                            color: widget.response?.statusColor,
-                            fontSize:
-                                SizeConfig.screenWidth * 0.08, //0.08 xấp xỉ 30
-                            fontWeight: FontWeight.w400)),
-                    Text(
-                      'bpm',
+                      DateFormat('HH:mm dd/MM/yyyy')
+                          .format(widget.response!.updatedDate!),
                       style: AppTextTheme.title5
                           .copyWith(fontSize: SizeConfig.screenWidth * 0.03),
-                    ),
+                    )
                   ],
-                ),
+                )
               ],
+            ),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text('${widget.response?.sys}',
+                          style: AppTextTheme.body1.copyWith(
+                              color: widget.response?.statusColor,
+                              fontSize: SizeConfig.screenWidth *
+                                  0.09, // 0,1 xấp xỉ 38 39 40
+                              fontWeight: FontWeight.w500)),
+                      Text(
+                        textAlign: TextAlign.end,
+
+                        'mmHg',
+                        style: AppTextTheme.title5.copyWith(
+                            fontSize: SizeConfig.screenWidth * 0.035,
+                            fontWeight: FontWeight.w500), // 0.03 xấp xỉ 12 13
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: SizeConfig.screenWidth * 0.05),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        '${widget.response?.pulse}',
+                        style: AppTextTheme.body1.copyWith(
+                          color: widget.response?.statusColor,
+                          fontSize:
+                              SizeConfig.screenWidth * 0.075, //0.08 xấp xỉ 30
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        textAlign: TextAlign.end,
+                        'bpm',
+                        style: AppTextTheme.title5.copyWith(
+                            fontSize: SizeConfig.screenWidth * 0.035,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(height: 2)
+                    ],
+                  ),
+                ],
+              ),
             )
           ]),
         ));

@@ -40,76 +40,77 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
           margin: EdgeInsets.fromLTRB(
               SizeConfig.screenWidth * 0.02,
               SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.02,
+              SizeConfig.screenWidth * 0.015,
               SizeConfig.screenWidth * 0.02),
           padding: EdgeInsets.only(
               top: SizeConfig.screenWidth * 0.02, left: 12, right: 12),
-          child: Column(children: [
-            Row(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                    padding: const EdgeInsets.all(5),
-                    height: SizeConfig.screenWidth * 0.1,
-                    width: SizeConfig.screenWidth * 0.1,
-                    decoration: const BoxDecoration(
-                        color: AppColor.bodyTemperatureColor,
-                        shape: BoxShape.circle),
-                    child: Image.asset(
-                      Assets.bloodSugar,
-                      fit: BoxFit.cover,
-                    )),
-                SizedBox(
-                  width: SizeConfig.screenWidth * 0.01,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(translation(context).bloodSugar,
-                        style: AppTextTheme.title4.copyWith(
-                            color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.045)),
-                    const SizedBox(height: 2),
-                    Text(
-                      DateFormat('HH:mm dd/MM/yyyy')
-                          .format(widget.response!.updatedDate!),
-                      style: AppTextTheme.title5
-                          .copyWith(fontSize: SizeConfig.screenWidth * 0.03),
+                    Container(
+                        padding: const EdgeInsets.all(5),
+                        height: SizeConfig.screenWidth * 0.1,
+                        width: SizeConfig.screenWidth * 0.1,
+                        decoration: const BoxDecoration(
+                            color: AppColor.bodyTemperatureColor,
+                            shape: BoxShape.circle),
+                        child: Image.asset(
+                          Assets.bloodSugar,
+                          fit: BoxFit.cover,
+                        )),
+                    SizedBox(
+                      width: SizeConfig.screenWidth * 0.01,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(translation(context).bloodSugar,
+                            style: AppTextTheme.title4.copyWith(
+                                color: Colors.black,
+                                fontSize: SizeConfig.screenWidth * 0.045)),
+                        Text(
+                          DateFormat('HH:mm dd/MM/yyyy')
+                              .format(widget.response!.updatedDate!),
+                          style: AppTextTheme.title5.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.03),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: SizeConfig.screenWidth * 0.06,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      TextSpan(
-                          text: '${widget.response!.bloodSugar}',
-                          style: AppTextTheme.title3.copyWith(
-                              color: widget.response?.statusColor,
-                              fontSize: SizeConfig.screenWidth * 0.1,
-                              fontWeight: FontWeight.w500)),
-                      TextSpan(
-                          text: " mg/dL",
-                          style: AppTextTheme.title3.copyWith(
-                              color: const Color(0xff615A5A),
-                              fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.w500))
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                                text: '${widget.response!.bloodSugar}',
+                                style: AppTextTheme.title3.copyWith(
+                                    color: widget.response?.statusColor,
+                                    fontSize: SizeConfig.screenWidth * 0.1,
+                                    fontWeight: FontWeight.w500)),
+                            TextSpan(
+                                text: " mg/dL",
+                                style: AppTextTheme.title3.copyWith(
+                                    color: const Color(0xff615A5A),
+                                    fontSize: SizeConfig.screenWidth * 0.05,
+                                    fontWeight: FontWeight.w500))
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-          ]),
+                ),
+              ]),
         ));
   }
 

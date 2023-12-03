@@ -112,8 +112,9 @@
 "addPatientSuccessText":"Bạn đã thành công thêm một bệnh nhân mới vào danh sách",
 "addRelativeSuccessText":"Bạn đã thành công thêm một người thân cho bệnh nhân này",
 "addDoctorSuccessText":"Bạn đã thành công thêm một bác sĩ mới vào danh sách",
-"resetPassSuccessText":"Bạn đã được cấp lại mật khẩu thành công, hãy thử đăng nhập lại nhé!",
+"resetPassSuccessText":"Mật khẩu của bạn sau khi được cấp lại là:",
 "changePassSuccessText":"Bạn đã đổi mật khẩu thành công, hãy ghi nhớ cho những lần đăng nhập sau!",
+"tryLoggingAgain":"Hãy thử đăng nhập lại nhé!",
 
 
 "pleaseUpdateYourName":"Vui lòng cập nhập họ và tên của bạn",
@@ -201,7 +202,7 @@
 "call":"Liên hệ",
 "reset":"Cấp lại mật khẩu",
 "pleaseEnterPhoneNumber":"Vui lòng hãy nhập số điện thoại của bạn",
-"resetPasswordSuccessfully":"Cập nhật lại mật khẩu thành công!",
+"resetPasswordSuccessfully":"Cập nhật lại mật khẩu thành công",
 "noNotification":"Chưa có thông báo",
 "doNotHaveInformation":"chưa có thông tin",
 "loadAgain":"Tải lại",
