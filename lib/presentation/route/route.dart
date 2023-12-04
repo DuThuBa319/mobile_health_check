@@ -36,7 +36,7 @@ import '../modules/history/detail_screen/temperature_detail.dart';
 import '../modules/history/history_bloc/history_bloc.dart';
 import '../modules/history/spo2_history_screen/spo2_history_screen.dart';
 import '../modules/login_screen/forgot_pass_screen/forgot_password_screen.dart';
-import '../modules/login_screen/login_bloc/login_bloc.dart';
+import '../modules/login_screen/bloc/login_bloc.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../modules/notification_onesignal/detail_screen/blood_pressure_reading.dart';
 import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart';

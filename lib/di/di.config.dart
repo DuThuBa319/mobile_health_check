@@ -122,8 +122,7 @@ import '../presentation/modules/admin_screen/bloc/get_doctor_bloc.dart' as _i63;
 import '../presentation/modules/camera_demo/camera_bloc/camera_bloc.dart'
     as _i3;
 import '../presentation/modules/history/history_bloc/history_bloc.dart' as _i65;
-import '../presentation/modules/login_screen/login_bloc/login_bloc.dart'
-    as _i66;
+import '../presentation/modules/login_screen/bloc/login_bloc.dart' as _i66;
 import '../presentation/modules/notification_onesignal/bloc/notification_bloc.dart'
     as _i67;
 import '../presentation/modules/OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart'

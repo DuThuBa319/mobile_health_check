@@ -44,7 +44,6 @@ class CameraScreenState extends State<CameraScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     if (widget.task == MeasuringTask.bloodPressure) {
       currentZoomLevel = 1.7;
     }
