@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/assets/assets.dart';
@@ -11,6 +12,7 @@ import '../../../utils/size_config.dart';
 
 import '../../common_widget/common.dart';
 import '../../route/route_list.dart';
+import '../OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
 part 'pick_equipment_screen.action.dart';
 
 class PickEquipmentScreen extends StatefulWidget {
@@ -21,6 +23,13 @@ class PickEquipmentScreen extends StatefulWidget {
 }
 
 class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
+  OCRScannerBloc get scannerBloc => BlocProvider.of(context);
+  @override
+  void initState() {
+    super.initState();
+    scannerBloc.add(StartUpEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);

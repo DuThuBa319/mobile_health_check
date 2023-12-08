@@ -30,7 +30,12 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
 
   TextEditingController editBloogSugarController = TextEditingController();
   TextEditingController editBodyTemperatureController = TextEditingController();
-
+  
+  @override
+  void initState() {
+    super.initState();
+    scanBloc.add(StartUpEvent());
+  }
   @override
   Widget build(BuildContext context) {
     return CustomScreenForm(

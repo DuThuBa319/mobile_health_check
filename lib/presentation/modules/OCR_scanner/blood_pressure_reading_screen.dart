@@ -31,6 +31,11 @@ class _BloodPressureReadingScreenState
   TextEditingController editSys = TextEditingController();
 
   TextEditingController editPul = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    scanBloc.add(StartUpEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

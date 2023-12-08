@@ -3,28 +3,14 @@ part of 'ocr_scanner_bloc.dart';
 @immutable
 abstract class OCRScannerEvent {}
 
-class GetInitialBloodPressureDataEvent extends OCRScannerEvent {
-  GetInitialBloodPressureDataEvent();
+class StartUpEvent extends OCRScannerEvent {
+  StartUpEvent();
 }
+//---------- Blood Pressure ------------------------
 
 class GetBloodPressureDataEvent extends OCRScannerEvent {
   final BuildContext context;
   GetBloodPressureDataEvent({required this.context});
-}
-
-class GetBloodGlucoseDataEvent extends OCRScannerEvent {
-  final BuildContext context;
-  GetBloodGlucoseDataEvent({required this.context});
-}
-
-class GetTemperatureDataEvent extends OCRScannerEvent {
-  final BuildContext context;
-  GetTemperatureDataEvent({required this.context});
-}
-
-class GetSpo2DataEvent extends OCRScannerEvent {
-  final BuildContext context;
-  GetSpo2DataEvent({required this.context});
 }
 
 class UploadBloodPressureDataEvent extends OCRScannerEvent {
@@ -33,14 +19,6 @@ class UploadBloodPressureDataEvent extends OCRScannerEvent {
 
 class UploadBloodGlucoseDataEvent extends OCRScannerEvent {
   UploadBloodGlucoseDataEvent();
-}
-
-class UploadTemperatureDataEvent extends OCRScannerEvent {
-  UploadTemperatureDataEvent();
-}
-
-class UploadSpo2DataEvent extends OCRScannerEvent {
-  UploadSpo2DataEvent();
 }
 
 class EditBloodPressureDataEvent extends OCRScannerEvent {
@@ -54,6 +32,13 @@ class EditBloodPressureDataEvent extends OCRScannerEvent {
       required this.editedSys});
 }
 
+//----- Blood Sugar ----------------
+
+class GetBloodGlucoseDataEvent extends OCRScannerEvent {
+  final BuildContext context;
+  GetBloodGlucoseDataEvent({required this.context});
+}
+
 class EditBloodSugarDataEvent extends OCRScannerEvent {
   final double? glucose;
   final BuildContext context;
@@ -61,6 +46,17 @@ class EditBloodSugarDataEvent extends OCRScannerEvent {
     required this.context,
     required this.glucose,
   });
+}
+
+//-------Temperature ----------
+
+class GetTemperatureDataEvent extends OCRScannerEvent {
+  final BuildContext context;
+  GetTemperatureDataEvent({required this.context});
+}
+
+class UploadTemperatureDataEvent extends OCRScannerEvent {
+  UploadTemperatureDataEvent();
 }
 
 class EditBodyTemperatureDataEvent extends OCRScannerEvent {
@@ -73,9 +69,19 @@ class EditBodyTemperatureDataEvent extends OCRScannerEvent {
   });
 }
 
+//--------Spo2---------------------------
+
+class GetSpo2DataEvent extends OCRScannerEvent {
+  final BuildContext context;
+  GetSpo2DataEvent({required this.context});
+}
+
+class UploadSpo2DataEvent extends OCRScannerEvent {
+  UploadSpo2DataEvent();
+}
+
 class EditSpo2DataEvent extends OCRScannerEvent {
   final int? spo2;
-
   final BuildContext context;
   EditSpo2DataEvent({
     required this.context,

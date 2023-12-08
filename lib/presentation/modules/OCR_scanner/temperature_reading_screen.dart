@@ -27,6 +27,12 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
   TextEditingController editBodyTemperatureController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    scanBloc.add(StartUpEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScreenForm(
       title: translation(context).thermometer,

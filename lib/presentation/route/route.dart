@@ -22,7 +22,7 @@ import '../common_widget/enum_common.dart';
 import '../modules/OCR_scanner/blood_glucose_reading_screen.dart';
 import '../modules/OCR_scanner/spo2_reading_screen.dart';
 import '../modules/OCR_scanner/temperature_reading_screen.dart';
-import '../modules/admin_screen/bloc/get_doctor_bloc.dart';
+import '../modules/admin_screen/bloc/admin_bloc.dart';
 import '../modules/admin_screen/doctor_list/doctor_list_screen.dart';
 import '../modules/admin_screen/doctor_list/widget/add_doctor_screen.dart';
 import '../modules/admin_screen/doctor_profile/doctor_infor_screen.dart';
@@ -374,7 +374,10 @@ class AppRoute {
       case '/select':
         return MaterialPageRoute(
           builder: (context) {
-            return const PickEquipmentScreen();
+            return  BlocProvider(
+              create: (context) => getIt<OCRScannerBloc>(),
+              child: PickEquipmentScreen(),
+            );
           },
         );
       default:
