@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile_health_check/function.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 
 import '../../../classes/language.dart';
 import '../../theme/theme_color.dart';
