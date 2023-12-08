@@ -8,7 +8,7 @@ import '../../common/singletons.dart';
 import '../../domain/entities/cell_person_entity.dart';
 import '../../domain/entities/relative_infor_entity.dart';
 import '../../utils/size_config.dart';
-import '../modules/admin_screen/bloc/get_doctor_bloc.dart';
+import '../modules/admin_screen/bloc/admin_bloc.dart';
 import '../modules/patient_screen/bloc/get_patient_bloc.dart';
 import '../route/route_list.dart';
 import '../theme/app_text_theme.dart';

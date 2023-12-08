@@ -132,7 +132,7 @@ extension LoginAction on _LoginState {
     }
   }
 
-_onWillPop(bool didPop) async {
+  _onWillPop(bool didPop) async {
     bool enableToPop = true;
 
     if (enableToPop == true) {

@@ -1,4 +1,4 @@
-part of 'get_doctor_bloc.dart';
+part of 'admin_bloc.dart';
 
 @immutable
 abstract class GetDoctorEvent {}

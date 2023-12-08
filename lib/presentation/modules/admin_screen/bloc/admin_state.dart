@@ -1,4 +1,4 @@
-part of 'get_doctor_bloc.dart';
+part of 'admin_bloc.dart';
 
 // ViewModel is used for store all properties which want to be stored, processed and updated, chứa dữ liệu của 1 state
 class _ViewModel {

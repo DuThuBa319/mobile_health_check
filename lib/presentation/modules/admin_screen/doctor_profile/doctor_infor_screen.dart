@@ -12,7 +12,7 @@ import '../../../../domain/entities/doctor_infor_entity.dart';
 // import '../../bloc/Doctorlist/get_Doctor_bloc/get_Doctor_bloc.dart';
 import '../../../common_widget/common.dart';
 import '../../../theme/theme_color.dart';
-import '../bloc/get_doctor_bloc.dart';
+import '../bloc/admin_bloc.dart';
 
 part 'doctor_infor_screen.action.dart';
 

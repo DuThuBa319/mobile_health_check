@@ -25,7 +25,6 @@ class _SettingLanguageState extends State<SettingLanguage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (notificationData.localeId == 1) {
       setState(() {

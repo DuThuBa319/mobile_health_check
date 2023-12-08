@@ -7,7 +7,7 @@ import 'package:mobile_health_check/presentation/route/route_list.dart';
 import '../../../../../classes/language.dart';
 import '../../../../common_widget/common.dart';
 import '../../../../theme/theme_color.dart';
-import '../../bloc/get_doctor_bloc.dart';
+import '../../bloc/admin_bloc.dart';
 
 class AddDoctorScreen extends StatefulWidget {
   const AddDoctorScreen({

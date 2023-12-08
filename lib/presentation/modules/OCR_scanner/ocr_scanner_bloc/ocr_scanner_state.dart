@@ -77,6 +77,15 @@ class OCRScannerInitialState extends OCRScannerState {
   }) : super(viewModel);
 }
 
+//?-----Blood Pressure --------------------
+class StartUpState extends OCRScannerState {
+  StartUpState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
+
 class GetBloodPressureDataState extends OCRScannerState {
   GetBloodPressureDataState({
     // ignore: library_private_types_in_public_api
@@ -92,6 +101,9 @@ class UploadBloodPressureDataState extends OCRScannerState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+//?--- Blood Sugar ---------------
+
 
 class GetBloodGlucoseDataState extends OCRScannerState {
   GetBloodGlucoseDataState({
@@ -109,6 +121,9 @@ class UploadBloodGlucoseDataState extends OCRScannerState {
   }) : super(viewModel, status: status);
 }
 
+//? --------Temperature ---------
+
+
 class GetTemperatureDataState extends OCRScannerState {
   GetTemperatureDataState({
     // ignore: library_private_types_in_public_api
@@ -124,6 +139,8 @@ class UploadTemperatureDataState extends OCRScannerState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
+
+//? ---- Spo2 ---------------
 
 class GetSpo2DataState extends OCRScannerState {
   GetSpo2DataState({
@@ -150,11 +167,9 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-  GetTemperatureDataState: (viewModel, status) => GetTemperatureDataState(
-        viewModel: viewModel,
-        status: status,
-      ),
-  GetBloodGlucoseDataState: (viewModel, status) => GetBloodGlucoseDataState(
+  //? ----------- Blood Pressure -----------
+  StartUpState: (viewModel, status) =>
+      StartUpState(
         viewModel: viewModel,
         status: status,
       ),
@@ -167,8 +182,20 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
+  //? ----------- Blood Sugar --------------
+
+  GetBloodGlucoseDataState: (viewModel, status) => GetBloodGlucoseDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
   UploadBloodGlucoseDataState: (viewModel, status) =>
       UploadBloodGlucoseDataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+  //? ----------- Temperature --------------
+  
+  GetTemperatureDataState: (viewModel, status) => GetTemperatureDataState(
         viewModel: viewModel,
         status: status,
       ),
@@ -176,6 +203,8 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
+  //? ----------- Spo2 ---------------------
+  
   GetSpo2DataState: (viewModel, status) => GetSpo2DataState(
         viewModel: viewModel,
         status: status,

@@ -24,7 +24,12 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
   String? message = "";
   OCRScannerBloc get scanBloc => BlocProvider.of(context);
   TextEditingController editSpo2Controller = TextEditingController();
-
+  
+  @override
+  void initState() {
+    super.initState();
+    scanBloc.add(StartUpEvent());
+  }
   @override
   Widget build(BuildContext context) {
     return CustomScreenForm(

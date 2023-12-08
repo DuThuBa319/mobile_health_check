@@ -11,7 +11,7 @@ import '../../../../classes/language.dart';
 import '../../../common_widget/common.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/app_text_theme.dart';
-import '../bloc/get_doctor_bloc.dart';
+import '../bloc/admin_bloc.dart';
 
 part 'doctor_list_screen.action.dart';
 

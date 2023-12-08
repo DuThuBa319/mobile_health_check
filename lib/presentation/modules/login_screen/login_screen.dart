@@ -16,7 +16,8 @@ import '../../route/route_list.dart';
 import '../../theme/app_text_theme.dart';
 
 import '../../theme/theme_color.dart';
-import 'login_bloc/login_bloc.dart';
+import 'bloc/login_bloc.dart';
+
 
 part 'login_screen.action.dart';
 

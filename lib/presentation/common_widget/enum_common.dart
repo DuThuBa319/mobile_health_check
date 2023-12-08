@@ -26,6 +26,6 @@ class CroppedImage {
   CroppedImage(this.croppedImage, this.flashOn);
 }
 
-const baseUrl = 'https://mobilehealthcare.azurewebsites.net/';
+const baseUrl = 'https://healthcaremobile.azurewebsites.net/';
 
 enum UserRole { doctor, patient, relative, admin }

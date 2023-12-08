@@ -15,8 +15,8 @@ import '../../../../common/service/navigation/navigation_service.dart';
 import '../../../../common/singletons.dart';
 import '../../../../di/di.dart';
 import '../../../common_widget/enum_common.dart';
-part 'get_doctor_event.dart';
-part 'get_doctor_state.dart';
+part 'admin_event.dart';
+part 'admin_state.dart';
 
 @injectable
 class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
