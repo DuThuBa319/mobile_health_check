@@ -123,48 +123,107 @@ extension CameraScreenAction on CameraScreenState {
   }
 
   Future<dynamic> imageDialog(BuildContext context, {required File imageFile}) {
-    return showDialog(
+    return showAdaptiveDialog(
         barrierDismissible: false,
         context: context,
-        builder: (context) => AlertDialog(
-              title: Text(translation(context).yourPhoto),
+        builder: (context) => AlertDialog.adaptive(
+              iconPadding: EdgeInsets.zero,
               content: Container(
-                height: 400,
-                width: 350,
+                height: SizeConfig.screenHeight * 0.53,
+                width: SizeConfig.screenWidth,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(width: 1, color: Colors.blue)),
-                child: ClipRRect(
-                  borderRadius: BorderRadiusDirectional.circular(20),
-                  child: FullScreenWidget(
-                      disposeLevel: DisposeLevel.High,
-                      child: Image.file(
-                        File(imageFile.path),
-                      )),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      translation(context).yourPhoto,
+                      style: TextStyle(
+                          fontSize: SizeConfig.screenWidth * 0.075,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                          color: const Color.fromARGB(255, 60, 152, 198)),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: FullScreenWidget(
+                          disposeLevel: DisposeLevel.High,
+                          child: Image.file(
+                            File(imageFile.path),
+                          )),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: SizeConfig.screenWidth * 0.28,
+                            height: SizeConfig.screenHeight * 0.053,
+                            decoration: const BoxDecoration(
+                                color: AppColor.graybebebe,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Center(
+                              child: Text(
+                                translation(context).takePhotoAgain,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: SizeConfig.screenWidth * 0.035,
+                                    color: AppColor.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            final CroppedImage croppedImage = CroppedImage(
+                                imageFile,
+                                currentFlashMode == FlashMode.off
+                                    ? false
+                                    : true);
+                            controller!.dispose();
+                            cameraBloc.add(CameraStoppedEvent(
+                                controller: controller!,
+                                context: context,
+                                task: MeasuringTask.oximeter));
+                            Navigator.pop(context);
+
+                            Navigator.pop(context, croppedImage);
+                          },
+                          child: Container(
+                            width: SizeConfig.screenWidth * 0.28,
+                            height: SizeConfig.screenHeight * 0.053,
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 143, 217, 253),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Center(
+                              child: Text(
+                                translation(context).accept,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: SizeConfig.screenWidth * 0.04,
+                                    color: AppColor.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(translation(context).takePhotoAgain)),
-                const SizedBox(width: 10),
-                TextButton(
-                    onPressed: () {
-                      final CroppedImage croppedImage = CroppedImage(imageFile,
-                          currentFlashMode == FlashMode.off ? false : true);
-                      controller!.dispose();
-                      cameraBloc.add(CameraStoppedEvent(
-                          controller: controller!,
-                          context: context,
-                          task: MeasuringTask.oximeter));
-                      Navigator.pop(context);
-
-                      Navigator.pop(context, croppedImage);
-                    },
-                    child: Text(translation(context).accept))
-              ],
             ));
   }
 }

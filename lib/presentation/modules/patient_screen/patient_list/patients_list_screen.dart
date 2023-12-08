@@ -83,7 +83,12 @@ class _PatientListState extends State<PatientListScreen> {
                     if ((state is GetPatientListState &&
                             state.status == BlocStatusState.loading) ||
                         (state is SearchPatientState &&
-                            state.status == BlocStatusState.loading)) {
+                            state.status == BlocStatusState.loading) || 
+                        (state is DeletePatientState &&
+                            state.status == BlocStatusState.loading) ||
+                        (state is DeletePatientState &&
+                            state.status == BlocStatusState.success &&
+                            state.viewModel.patientEntities != null)) {
                       return formPatientListScreen(
                           unreadCount: state.viewModel.unreadCount,
                           isLoading: true);
@@ -92,10 +97,7 @@ class _PatientListState extends State<PatientListScreen> {
                             state.status == BlocStatusState.success) ||
                         (state is GetPatientListState &&
                             state.status == BlocStatusState.loading &&
-                            state.viewModel.patientEntities == null) ||
-                        (state is DeletePatientState &&
-                                (state.status == BlocStatusState.loading) ||
-                            (state.status == BlocStatusState.success))) {
+                            state.viewModel.patientEntities == null)) {
                       return formPatientListScreen(
                         isLoading: false,
                         itemCount: state.viewModel.patientEntities?.length,

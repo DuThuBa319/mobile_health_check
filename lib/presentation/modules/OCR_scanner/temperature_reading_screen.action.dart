@@ -8,10 +8,15 @@ extension TemperatureReadingScreenAction on _TemperatureReadingScreenState {
     }
     if (state.status == BlocStatusState.success) {
       if (state is UploadTemperatureDataState) {
-        successAlert(
-          context,
-          alertText: translation(context).uploadSuccessfully,
-        );
+        showSuccessDialog(
+            context: context,
+            message: translation(context).uploadBodyTemperatureSuccessfully,
+            title: translation(context).uploadSuccessfully,
+            titleBtn: translation(context).exit,
+            onClose: () {
+              Navigator.pushNamedAndRemoveUntil(context, RouteList.selectEquip,
+                  (Route<dynamic> route) => false);
+            });
       }
       showToast(translation(context).dataLoaded);
     }

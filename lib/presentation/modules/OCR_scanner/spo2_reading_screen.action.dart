@@ -8,10 +8,14 @@ extension Spo2ReadingScreenAction on _Spo2ReadingScreenState {
     }
     if (state.status == BlocStatusState.success) {
       if (state is UploadSpo2DataState) {
-        successAlert(
-          context,
-          alertText: translation(context).uploadSuccessfully,
-        );
+        showSuccessDialog(
+            context: context,
+            message: translation(context).uploadSpo2Successfully,
+            title: translation(context).uploadSuccessfully,
+            titleBtn: translation(context).exit,
+            onClose: (){  Navigator.pushNamedAndRemoveUntil(
+            context, RouteList.selectEquip, (Route<dynamic> route) => false);}
+            );
       }
       showToast(translation(context).dataLoaded);
     }

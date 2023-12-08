@@ -4,6 +4,7 @@
     "bloodSugar":"ĐO ĐƯỜNG HUYẾT",
     "bodyTemperature":"ĐO THÂN NHIỆT",
     "spo2": "ĐO NỒNG ĐỘ OXI",
+    "pulseOximeter":"ĐO NỒNG ĐỘ OXI",
     "changeLanguageSuccess":"Đổi ngôn ngữ thành công",
     "confirmNewPass":"Xác nhận lại mật khẩu mới",
     "confirmPass":"Xác nhận lại mật khẩu",
@@ -76,6 +77,13 @@
 "exit":"Thoát",
 "uploadPhotoError":"Không tải được hình ảnh",
 "uploadSuccessfully":"Gửi thông tin thành công",
+
+"uploadBloodPressureSuccessfully":"Bạn đã cập nhật chỉ số huyết áp mới thành công",
+"uploadBloodSugarSuccessfully":"Bạn đã cập nhật chỉ số đường huyết mới thành công",
+"uploadBodyTemperatureSuccessfully":"Bạn đã cập nhật chỉ số thân nhiệt mới thành công",
+"uploadSpo2Successfully":"Bạn đã cập nhật chỉ số nồng độ oxi mới thành công",
+
+
 "editIndicatore":"Điền số liệu chính xác theo thiết bị",
 "confirm":"Xác nhận",
 "titileForgetPass":"  Đừng lo lắng! Hãy nhập lại số điện thoại mà bạn đã đăng ký tài khoản để nhận lại mật khẩu mới nhé.",
@@ -193,7 +201,7 @@
 "deleteDoctorSuccessfully":"Xóa bác sĩ thành công",
 "deleteNotificationSuccessfully":"Xóa thông báo thành công",
 "delete":"Xóa",
-"cannotDeleteDoctor":"Không thể xóa vì bác sĩ này vẫn còn liên kết với các tài khoản bệnh nhân khác",
+"cannotDeleteDoctor":"Không thể xóa bác sĩ còn liên kết với các tài khoản bệnh nhân",
 
 "deletingPatient":"Đang xóa bệnh nhân",
 "deletingDoctoc":"Đang xóa bác sĩ",

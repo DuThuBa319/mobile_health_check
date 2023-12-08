@@ -568,7 +568,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     Emitter<GetPatientState> emit,
   ) async {
     NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         DeletePatientState(
@@ -577,6 +576,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
+
         await _doctorInforUsecase.deletePatientEntity(event.patientId);
 
         emit(DeletePatientState(

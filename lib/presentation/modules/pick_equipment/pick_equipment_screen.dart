@@ -105,7 +105,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                       }
                       if (index == 3) {
                         return equipmentCell(
-                            cellTitle: translation(context).spo2,
+                            cellTitle: translation(context).pulseOximeter,
                             imagePath: Assets.oximeter,
                             cellColor: AppColor.oximeter,
                             subCellColor: AppColor.oximeterCell,

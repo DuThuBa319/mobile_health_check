@@ -18,7 +18,6 @@ import '../../theme/app_text_theme.dart';
 import '../../theme/theme_color.dart';
 import 'bloc/login_bloc.dart';
 
-
 part 'login_screen.action.dart';
 
 List<Widget> language = <Widget>[
@@ -161,7 +160,7 @@ class _LoginState extends State<LoginScreen> {
                             width: SizeConfig.screenWidth * 0.8,
                             child: TextField(
                               cursorColor: AppColor.gray767676,
-                              keyboardType: TextInputType.number,
+                              // keyboardType: TextInputType.number,
                               // focusNode: _focusNode,
                               controller: _usernameController,
                               style: TextStyle(

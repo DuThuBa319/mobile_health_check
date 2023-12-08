@@ -18,6 +18,7 @@ class NotificationUsecaseImpl extends NotificationUsecase {
       final entity = response.convertNotificationEntity();
       responseEntities.add(entity);
     }
+    
     return responseEntities;
   }
 

@@ -7,10 +7,14 @@ extension BloodGlucoseReadingScreenAction on _BloodGlucoseReadingScreenState {
     }
     if (state.status == BlocStatusState.success) {
       if (state is UploadBloodGlucoseDataState) {
-        successAlert(
-          context,
-          alertText: translation(context).uploadSuccessfully,
-        );
+       showSuccessDialog(
+            context: context,
+            message: translation(context).uploadBloodSugarSuccessfully,
+            title: translation(context).uploadSuccessfully,
+            titleBtn: translation(context).exit,
+            onClose: (){  Navigator.pushNamedAndRemoveUntil(
+            context, RouteList.selectEquip, (Route<dynamic> route) => false);}
+            );
       }
       showToast(translation(context).dataLoaded);
     }

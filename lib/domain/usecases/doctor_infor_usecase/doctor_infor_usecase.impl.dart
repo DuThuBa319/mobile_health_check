@@ -11,9 +11,7 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
   @override
   Future<DoctorInforEntity?> getDoctorInforEntity(String? doctorId) async {
     NavigationService navigationService = injector<NavigationService>();
-
     final response = await _repository.getDoctorInforModel(doctorId);
-    final entity = response?.getDoctorInforEntity();
     if (userDataData.getUser()?.role == UserRole.doctor) {
       await userDataData.setUser(UserModel(
         address: response?.address ??
@@ -28,6 +26,7 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
         email: userDataData.getUser()!.email,
       ));
     }
+    final entity = response?.getDoctorEntity();
 
     return entity;
   }

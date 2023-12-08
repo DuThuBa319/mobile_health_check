@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
-import 'package:mobile_health_check/presentation/common_widget/dialog/dialog_one_button.dart';
+import 'package:mobile_health_check/classes/language.dart';
+import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
+import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 
-import '../../../../classes/language.dart';
 import '../../../../utils/size_config.dart';
 import '../../../../assets/assets.dart';
-import '../../../route/route_list.dart';
 import '../ocr_scanner_bloc/ocr_scanner_bloc.dart';
 
 Widget imagePickerCell(BuildContext context,
@@ -79,17 +79,29 @@ Widget imagePickerCell(BuildContext context,
   );
 }
 
-Future<dynamic> successAlert(
-  BuildContext context, {
-  required String alertText,
-}) {
-  return showNoticeDialog(
-      context: context,
-      message: alertText,
-      title: translation(context).notification,
-      titleBtn: translation(context).exit,
-      onClose: () {
-        Navigator.pushNamedAndRemoveUntil(
-            context, RouteList.selectEquip, (Route<dynamic> route) => false);
-      });
+Widget processingLoading(BuildContext context) {
+  return Center(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Loading(
+          brightness: Brightness.light,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Material(
+          type: MaterialType.transparency,
+          child: Text(
+            translation(context).processing,
+            style: AppTextTheme.body3.copyWith(
+              color: Colors.black,
+              decoration: null,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }
