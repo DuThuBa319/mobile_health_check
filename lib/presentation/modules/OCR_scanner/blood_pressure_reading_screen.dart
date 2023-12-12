@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,69 +51,43 @@ class _BloodPressureReadingScreenState
           listener: blocListener,
           builder: (context, scanState) {
             if (scanState.status == BlocStatusState.loading) {
-              return Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Loading(
-                      brightness: Brightness.light,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Material(
-                      type: MaterialType.transparency,
-                      child: Text(
-                        translation(context).processing,
-                        style: AppTextTheme.body3.copyWith(
-                          color: Colors.black,
-                          decoration: null,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              return processingLoading(context);
             }
             return SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(SizeConfig.screenWidth * 0.05),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: SizeConfig.screenWidth * 0.15),
-                      imagePickerCell(context,
-                          scanBloc: scanBloc,
-                          state: scanState,
-                          imageFile: scanState.viewModel.bloodPressureImageFile,
-                          event: GetBloodPressureDataEvent(context: context)),
-                      SizedBox(
-                        height: SizeConfig.screenWidth * 0.08,
-                      ),
-                      scanState.viewModel.bloodPressureImageFile != null
-                          ? bloodPressureCell(scanState)
-                          : Center(
-                              child: Column(
-                              children: [
-                                // SizedBox(
-                                //     height:
-                                //         SizeConfig.screenHeight * 0.33),
-                                RectangleButton(
-                                  buttonColor: AppColor.greyD9,
-                                  textColor: Colors.white,
-                                  height: SizeConfig.screenWidth * 0.18,
-                                  width: SizeConfig.screenWidth * 0.8,
-                                  title: translation(context).upload,
-                                  onTap: () {
-                                    // scanBloc.add(
-                                    //     UploadBloodPressureDataEvent());
-                                  },
-                                ),
-                              ],
-                            )),
-                    ]),
-              ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: SizeConfig.screenWidth * 0.05),
+                    imagePickerCell(context,
+                        scanBloc: scanBloc,
+                        state: scanState,
+                        imageFile: scanState.viewModel.bloodPressureImageFile,
+                        event: GetBloodPressureDataEvent(context: context)),
+                    SizedBox(
+                      height: SizeConfig.screenWidth * 0.08,
+                    ),
+                    scanState.viewModel.bloodPressureImageFile != null
+                        ? bloodPressureCell(scanState)
+                        : Center(
+                            child: Column(
+                            children: [
+                              // SizedBox(
+                              //     height:
+                              //         SizeConfig.screenHeight * 0.33),
+                              RectangleButton(
+                                buttonColor: AppColor.greyD9,
+                                textColor: Colors.white,
+                                height: SizeConfig.screenWidth * 0.18,
+                                width: SizeConfig.screenWidth * 0.8,
+                                title: translation(context).upload,
+                                onTap: () {
+                                  // scanBloc.add(
+                                  //     UploadBloodPressureDataEvent());
+                                },
+                              ),
+                            ],
+                          )),
+                  ]),
             );
           }),
     );
@@ -121,11 +96,12 @@ class _BloodPressureReadingScreenState
   Widget bloodPressureCell(OCRScannerState state) {
     return Center(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             height: SizeConfig.screenHeight * 0.24,
             width: SizeConfig.screenWidth * 0.8,
-            margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
             padding: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth * 0.04,
                 SizeConfig.screenWidth * 0.03,
@@ -135,257 +111,224 @@ class _BloodPressureReadingScreenState
                 borderRadius:
                     BorderRadius.circular(SizeConfig.screenWidth * 0.05),
                 color: AppColor.white),
-            child: DefaultTextStyle(
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: SizeConfig.screenWidth * 0.04,
-                fontWeight: FontWeight.w400,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.03),
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        height: MediaQuery.of(context).size.width * 0.2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.screenWidth * 0.05),
-                            color: AppColor.yellowFFF59D),
-                        child: Image.asset(
-                          Assets.bloodPressureicon,
-                          fit: BoxFit.cover,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.all(SizeConfig.screenWidth * 0.03),
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.width * 0.2,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenWidth * 0.05),
+                              color: AppColor.yellowFFF59D),
+                          child: Image.asset(
+                            Assets.bloodPressureicon,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      SizedBox(
-                        width: SizeConfig.screenWidth * 0.5,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(translation(context).bloodPressure,
-                                      style: AppTextTheme.title3.copyWith(
-                                          color: Colors.black,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.035,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(
-                                      DateFormat('HH:mm dd/MM/yyyy').format(
-                                          state.viewModel.bloodPressureEntity!
-                                              .updatedDate!),
-                                      style: AppTextTheme.title3.copyWith(
-                                          color: AppColor.gray767676,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.03,
-                                          fontWeight: FontWeight.bold))
-                                ]),
-                            GestureDetector(
-                                onTap: () {
-                                  showDialog<void>(
-                                    context: context,
-                                    barrierDismissible:
-                                        false, // user must tap button!
-                                    builder: (BuildContext context) {
-                                      editSys.text =
-                                          "${state.viewModel.bloodPressureEntity?.sys}";
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(translation(context).bloodPressure,
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: Colors.black,
+                                      fontSize: SizeConfig.screenWidth * 0.035,
+                                      fontWeight: FontWeight.bold)),
+                              Text(
+                                  DateFormat('HH:mm dd/MM/yyyy').format(state
+                                      .viewModel
+                                      .bloodPressureEntity!
+                                      .updatedDate!),
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: AppColor.gray767676,
+                                      fontSize: SizeConfig.screenWidth * 0.03,
+                                      fontWeight: FontWeight.bold))
+                            ]),
+                      ],
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          showDialog<void>(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              editSys.text =
+                                  "${state.viewModel.bloodPressureEntity?.sys}";
 
-                                      editPul.text =
-                                          "${state.viewModel.bloodPressureEntity?.pulse}";
-                                      return AlertDialog(
-                                        title: Text(translation(context)
-                                            .editIndicatore),
-                                        content: SingleChildScrollView(
-                                          child: ListBody(
-                                            children: <Widget>[
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    bottom:
-                                                        SizeConfig.screenWidth *
-                                                            0.025),
-                                                padding: EdgeInsets.only(
-                                                    left:
-                                                        SizeConfig.screenWidth *
-                                                            0.025),
-                                                height: SizeConfig.screenWidth *
-                                                    0.2,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: AppColor
-                                                      .cardBackgroundColor,
-                                                ),
-                                                child: TextField(
-                                                  controller: editSys,
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        SizeConfig.screenWidth *
-                                                            0.05,
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    labelText: "SYS:",
-                                                    labelStyle: TextStyle(
-                                                        color:
-                                                            AppColor.gray767676,
-                                                        fontSize: SizeConfig
-                                                                .screenWidth *
-                                                            0.05),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    bottom:
-                                                        SizeConfig.screenWidth *
-                                                            0.025),
-                                                padding: EdgeInsets.only(
-                                                    left:
-                                                        SizeConfig.screenWidth *
-                                                            0.025),
-                                                height: SizeConfig.screenWidth *
-                                                    0.2,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: AppColor
-                                                      .cardBackgroundColor,
-                                                ),
-                                                child: TextField(
-                                                  controller: editPul,
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        SizeConfig.screenWidth *
-                                                            0.05,
-                                                    color: Colors.black,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    labelText: "PUL:",
-                                                    labelStyle: TextStyle(
-                                                        color:
-                                                            AppColor.gray767676,
-                                                        fontSize: SizeConfig
-                                                                .screenWidth *
-                                                            0.05),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                              editPul.text =
+                                  "${state.viewModel.bloodPressureEntity?.pulse}";
+                              return AlertDialog(
+                                title:
+                                    Text(translation(context).editIndicatore),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            bottom:
+                                                SizeConfig.screenWidth * 0.025),
+                                        padding: EdgeInsets.only(
+                                            left:
+                                                SizeConfig.screenWidth * 0.025),
+                                        height: SizeConfig.screenWidth * 0.2,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: AppColor.cardBackgroundColor,
+                                        ),
+                                        child: TextField(
+                                          controller: editSys,
+                                          style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.05,
+                                            color: Colors.black,
+                                          ),
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            labelText: "SYS:",
+                                            labelStyle: TextStyle(
+                                                color: AppColor.gray767676,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05),
                                           ),
                                         ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                  translation(context).back)),
-                                          TextButton(
-                                            child:
-                                                Text(translation(context).save),
-                                            onPressed: () {
-                                              int? editedSys =
-                                                  int.parse(editSys.text);
-                                              int? editedPul =
-                                                  int.parse(editPul.text);
-                                              scanBloc.add(
-                                                  EditBloodPressureDataEvent(
-                                                      context: context,
-                                                      editedPul: editedPul,
-                                                      editedSys: editedSys));
-
-                                              Navigator.pop(context);
-                                            },
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            bottom:
+                                                SizeConfig.screenWidth * 0.025),
+                                        padding: EdgeInsets.only(
+                                            left:
+                                                SizeConfig.screenWidth * 0.025),
+                                        height: SizeConfig.screenWidth * 0.2,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: AppColor.cardBackgroundColor,
+                                        ),
+                                        child: TextField(
+                                          controller: editPul,
+                                          style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.05,
+                                            color: Colors.black,
                                           ),
-                                        ],
-                                      );
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            labelText: "PUL:",
+                                            labelStyle: TextStyle(
+                                                color: AppColor.gray767676,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(translation(context).back)),
+                                  TextButton(
+                                    child: Text(translation(context).save),
+                                    onPressed: () {
+                                      int? editedSys = int.parse(editSys.text);
+                                      int? editedPul = int.parse(editPul.text);
+                                      scanBloc.add(EditBloodPressureDataEvent(
+                                          context: context,
+                                          editedPul: editedPul,
+                                          editedSys: editedSys));
+
+                                      Navigator.pop(context);
                                     },
-                                  );
-                                },
-                                child: SizedBox(
-                                    width: SizeConfig.screenWidth * 0.075,
-                                    height: SizeConfig.screenWidth * 0.075,
-                                    child: Image.asset(Assets.edit)))
-                          ],
-                        ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: SizedBox(
+                            width: SizeConfig.screenWidth * 0.075,
+                            height: SizeConfig.screenWidth * 0.075,
+                            child: Image.asset(Assets.edit)))
+                  ],
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text("${state.viewModel.bloodPressureEntity?.sys}",
+                              style: AppTextTheme.title3.copyWith(
+                                  fontSize: SizeConfig.screenWidth * 0.12,
+                                  fontWeight: FontWeight.w500,
+                                  color: state.viewModel.bloodPressureEntity
+                                      ?.statusColor)),
+                          Text("mmHg",
+                              style: AppTextTheme.title3.copyWith(
+                                  color: const Color(0xff615A5A),
+                                  fontSize: SizeConfig.screenWidth * 0.05,
+                                  fontWeight: FontWeight.w500))
+                        ],
+                      ),
+                      SizedBox(
+                        width: SizeConfig.screenWidth * 0.05,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text("${state.viewModel.bloodPressureEntity?.pulse}",
+                              style: AppTextTheme.title3.copyWith(
+                                  color: state.viewModel.bloodPressureEntity
+                                      ?.statusColor,
+                                  fontSize: SizeConfig.screenWidth * 0.08,
+                                  fontWeight: FontWeight.w500)),
+                          Text("bpm",
+                              style: AppTextTheme.title3.copyWith(
+                                  color: const Color(0xff615A5A),
+                                  fontSize: SizeConfig.screenWidth * 0.05,
+                                  fontWeight: FontWeight.w500))
+                        ],
                       ),
                     ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    width: SizeConfig.screenWidth * 0.8,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text("${state.viewModel.bloodPressureEntity?.sys}",
-                                style: AppTextTheme.title3.copyWith(
-                                    fontSize: SizeConfig.screenWidth * 0.13,
-                                    fontWeight: FontWeight.w500,
-                                    color: state.viewModel.bloodPressureEntity
-                                        ?.statusColor)),
-                            Text("mmHg",
-                                style: AppTextTheme.title3.copyWith(
-                                    color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenWidth * 0.04,
-                                    fontWeight: FontWeight.w500))
-                          ],
-                        ),
-                        SizedBox(
-                          width: SizeConfig.screenWidth * 0.05,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                                "${state.viewModel.bloodPressureEntity?.pulse}",
-                                style: AppTextTheme.title3.copyWith(
-                                    color: state.viewModel.bloodPressureEntity
-                                        ?.statusColor,
-                                    fontSize: SizeConfig.screenWidth * 0.08,
-                                    fontWeight: FontWeight.w500)),
-                            Text("bpm",
-                                style: AppTextTheme.title3.copyWith(
-                                    color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenWidth * 0.04,
-                                    fontWeight: FontWeight.w500))
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.02),
-          Center(
-              child: RectangleButton(
+          SizedBox(height: SizeConfig.screenHeight * 0.03),
+          RectangleButton(
             height: SizeConfig.screenWidth * 0.18,
             width: SizeConfig.screenWidth * 0.8,
             title: translation(context).upload,
             onTap: () {
               scanBloc.add(UploadBloodPressureDataEvent());
             },
-          ))
+          )
         ],
       ),
     );

@@ -36,7 +36,9 @@ class DoctorInforModel {
       _$DoctorInforModelFromJson(json);
   Map<String, dynamic> toJson() => _$DoctorInforModelToJson(this);
 
-  DoctorInforEntity getDoctorInforEntity() {
+
+//! Chuyển từ Model về Entity
+  DoctorInforEntity getDoctorEntity() {
     List<PatientInforEntity> patientEntities = [];
     if (patients != null) {
       for (var model in patients!) {

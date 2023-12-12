@@ -105,7 +105,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                       }
                       if (index == 3) {
                         return equipmentCell(
-                            cellTitle: translation(context).spo2,
+                            cellTitle: translation(context).pulseOximeter,
                             imagePath: Assets.oximeter,
                             cellColor: AppColor.oximeter,
                             subCellColor: AppColor.oximeterCell,
@@ -147,7 +147,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                       color: Colors.red[100],
                       borderRadius: BorderRadius.circular(10)),
                   padding: EdgeInsets.only(
-                      top: 7, bottom: 7, right: SizeConfig.screenWidth * 0.02),
+                      bottom: 7, right: SizeConfig.screenWidth * 0.02),
                   margin: EdgeInsets.only(
                       right: SizeConfig.screenWidth * 0.02,
                       left: 2,

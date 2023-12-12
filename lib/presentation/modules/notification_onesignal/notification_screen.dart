@@ -178,7 +178,7 @@ class _NotificationListState extends State<NotificationScreen> {
                                       return NotificationCell(
                                         cellIndex: index,
                                         notificationEntity: state.viewModel
-                                            .notificationEntity![index],
+                                            .notificationEntity?[index],
                                         notificationBloc: notificationBloc,
                                       );
                                     }

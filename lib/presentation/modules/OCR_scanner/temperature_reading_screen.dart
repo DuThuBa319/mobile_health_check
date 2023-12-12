@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,282 +46,213 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
           listener: blocListener,
           builder: (context, scanState) {
             if (scanState.status == BlocStatusState.loading) {
-              return Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Loading(
-                      brightness: Brightness.light,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Material(
-                      type: MaterialType.transparency,
-                      child: Text(
-                        translation(context).processing,
-                        style: AppTextTheme.body3.copyWith(
-                          color: Colors.black,
-                          decoration: null,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              return processingLoading(context);
             }
             return SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(SizeConfig.screenWidth * 0.05),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //! Thermometer
-                      // Text(
-                      //   translation(context).thermometer,
-                      //   style: AppTextTheme.title2,
-                      // ),
-                      SizedBox(height: SizeConfig.screenWidth * 0.15),
-                      imagePickerCell(context,
-                          scanBloc: scanBloc,
-                          state: scanState,
-                          imageFile: scanState.viewModel.temperatureImageFile,
-                          event: GetTemperatureDataEvent(context: context)),
-                      SizedBox(
-                        height: SizeConfig.screenWidth * 0.08,
-                      ),
-                      scanState.viewModel.temperatureImageFile != null
-                          ? temperatureCell(scanState)
-                          : Center(
-                              child: Column(
-                              children: [
-                                RectangleButton(
-                                  buttonColor: AppColor.greyD9,
-                                  textColor: Colors.white,
-                                  height: SizeConfig.screenWidth * 0.18,
-                                  width: SizeConfig.screenWidth * 0.8,
-                                  title: translation(context).upload,
-                                  onTap: () {
-                                    // scanBloc.add(
-                                    //     UploadBloodPressureDataEvent());
-                                  },
-                                ),
-                              ],
-                            )),
-                    ]),
-              ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    //! Thermometer
+                    SizedBox(height: SizeConfig.screenHeight * 0.035),
+                    imagePickerCell(context,
+                        scanBloc: scanBloc,
+                        state: scanState,
+                        imageFile: scanState.viewModel.temperatureImageFile,
+                        event: GetTemperatureDataEvent(context: context)),
+                    SizedBox(height: SizeConfig.screenHeight * 0.035),
+
+                    scanState.viewModel.temperatureImageFile != null
+                        ? temperatureCell(scanState)
+                        : RectangleButton(
+                            buttonColor: AppColor.greyD9,
+                            textColor: Colors.white,
+                            height: SizeConfig.screenWidth * 0.18,
+                            width: SizeConfig.screenWidth * 0.8,
+                            title: translation(context).upload,
+                            onTap: () {
+                              // scanBloc.add(
+                              //     UploadBloodPressureDataEvent());
+                            },
+                          ),
+                  ]),
             );
           }),
     );
   }
 
   Widget temperatureCell(OCRScannerState state) {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            height: SizeConfig.screenHeight * 0.24,
-            width: SizeConfig.screenWidth * 0.8,
-            margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.07),
-            padding: EdgeInsets.fromLTRB(
-                SizeConfig.screenWidth * 0.04,
-                SizeConfig.screenWidth * 0.03,
-                SizeConfig.screenWidth * 0.04,
-                0),
-            decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(SizeConfig.screenWidth * 0.05),
-                color: AppColor.white),
-            child: DefaultTextStyle(
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: SizeConfig.screenWidth * 0.04,
-                fontWeight: FontWeight.w400,
-              ),
-              child: Column(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: SizeConfig.screenHeight * 0.24,
+          width: SizeConfig.screenWidth * 0.8,
+          padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.04,
+              SizeConfig.screenWidth * 0.03, SizeConfig.screenWidth * 0.04, 0),
+          decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(SizeConfig.screenWidth * 0.05),
+              color: AppColor.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.03),
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        height: MediaQuery.of(context).size.width * 0.2,
+                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.01),
+                        width: SizeConfig.screenWidth * 0.17,
+                        height: SizeConfig.screenWidth * 0.17,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                              SizeConfig.screenWidth * 0.05),
+                              SizeConfig.screenWidth * 0.04),
                           color: AppColor.bodyTemperatureColor,
                         ),
                         child: Image.asset(
                           Assets.temperature,
-                          fit: BoxFit.fitWidth,
+                          fit: BoxFit.contain,
                         ),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      SizedBox(
-                        width: SizeConfig.screenWidth * 0.5,
-                        child: Row(
+                      Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(translation(context).bodyTemperature,
-                                      style: AppTextTheme.title3.copyWith(
-                                          color: Colors.black,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.035,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(
-                                      DateFormat('HH:mm dd/MM/yyyy').format(
-                                          state.viewModel.temperatureEntity!
-                                              .updatedDate!),
-                                      style: AppTextTheme.title3.copyWith(
-                                          color: AppColor.gray767676,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.03,
-                                          fontWeight: FontWeight.bold))
-                                ]),
-                            GestureDetector(
-                                child: SizedBox(
-                                    width: SizeConfig.screenWidth * 0.075,
-                                    height: SizeConfig.screenWidth * 0.075,
-                                    child: Image.asset(Assets.edit)),
-                                onTap: () {
-                                  showDialog<void>(
-                                      context: context,
-                                      barrierDismissible:
-                                          false, // user must tap button!
-                                      builder: (BuildContext context) {
-                                        editBodyTemperatureController.text =
-                                            "${state.viewModel.temperatureEntity?.temperature}";
-                                        return AlertDialog(
-                                          title: Text(translation(context)
-                                              .editIndicatore),
-                                          content: Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: SizeConfig.screenWidth *
-                                                    0.025),
-                                            padding: EdgeInsets.only(
-                                                left: SizeConfig.screenWidth *
-                                                    0.025),
-                                            height:
-                                                SizeConfig.screenWidth * 0.2,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color:
-                                                  AppColor.cardBackgroundColor,
-                                            ),
-                                            child: TextField(
-                                              controller:
-                                                  editBodyTemperatureController,
-                                              style: TextStyle(
-                                                fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.05,
-                                                color: Colors.black,
-                                              ),
-                                              decoration: InputDecoration(
-                                                border: InputBorder.none,
-                                                labelText: translation(context)
-                                                    .bodyTemperature,
-                                                labelStyle: TextStyle(
-                                                    color: AppColor.gray767676,
-                                                    fontSize:
-                                                        SizeConfig.screenWidth *
-                                                            0.05),
-                                              ),
-                                            ),
-                                          ),
-                                          actions: <Widget>[
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text(
-                                                    translation(context).back)),
-                                            TextButton(
-                                              child: Text(
-                                                  translation(context).save),
-                                              onPressed: () {
-                                                double? editedTemperature =
-                                                    double.parse(
-                                                        editBodyTemperatureController
-                                                            .text);
-
-                                                setState(() {});
-                                                scanBloc.add(
-                                                    EditBodyTemperatureDataEvent(
-                                                        context: context,
-                                                        temperature:
-                                                            editedTemperature));
-
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                })
-                          ],
-                        ),
-                      ),
+                            Text(translation(context).bodyTemperature,
+                                style: AppTextTheme.title3.copyWith(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.04,
+                                    fontWeight: FontWeight.bold)),
+                            Text(
+                                DateFormat('HH:mm dd/MM/yyyy').format(state
+                                    .viewModel.temperatureEntity!.updatedDate!),
+                                style: AppTextTheme.title3.copyWith(
+                                    color: AppColor.gray767676,
+                                    fontSize: SizeConfig.screenWidth * 0.03,
+                                    fontWeight: FontWeight.bold))
+                          ]),
                     ],
                   ),
-                  SizedBox(height: SizeConfig.screenWidth * 0.03),
-                  Container(
-                    margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
-                    width: SizeConfig.screenWidth * 0.5,
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text:
-                                  "${state.viewModel.temperatureEntity?.temperature}",
-                              style: AppTextTheme.title3.copyWith(
-                                  color: state
-                                      .viewModel.temperatureEntity?.statusColor,
-                                  fontSize: SizeConfig.screenWidth * 0.15,
-                                  fontWeight: FontWeight.w500)),
-                          TextSpan(
-                              text: "°",
-                              style: AppTextTheme.title3.copyWith(
-                                  color: const Color(0xff615A5A),
-                                  fontSize: SizeConfig.screenWidth * 0.15,
-                                  fontWeight: FontWeight.w500)),
-                          TextSpan(
-                              text: "C",
-                              style: AppTextTheme.title3.copyWith(
-                                  color: const Color(0xff615A5A),
-                                  fontSize: SizeConfig.screenWidth * 0.1,
-                                  fontWeight: FontWeight.w500))
-                        ])),
-                  )
+                  GestureDetector(
+                      child: SizedBox(
+                          width: SizeConfig.screenWidth * 0.075,
+                          height: SizeConfig.screenWidth * 0.075,
+                          child: Image.asset(Assets.edit)),
+                      onTap: () {
+                        showDialog<void>(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              editBodyTemperatureController.text =
+                                  "${state.viewModel.temperatureEntity?.temperature}";
+                              return AlertDialog(
+                                title:
+                                    Text(translation(context).editIndicatore),
+                                content: Container(
+                                  margin: EdgeInsets.only(
+                                      bottom: SizeConfig.screenWidth * 0.025),
+                                  padding: EdgeInsets.only(
+                                      left: SizeConfig.screenWidth * 0.025),
+                                  height: SizeConfig.screenWidth * 0.2,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: AppColor.cardBackgroundColor,
+                                  ),
+                                  child: TextField(
+                                    controller: editBodyTemperatureController,
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText:
+                                          translation(context).bodyTemperature,
+                                      labelStyle: TextStyle(
+                                          color: AppColor.gray767676,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.05),
+                                    ),
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(translation(context).back)),
+                                  TextButton(
+                                    child: Text(translation(context).save),
+                                    onPressed: () {
+                                      double? editedTemperature = double.parse(
+                                          editBodyTemperatureController.text);
+
+                                      setState(() {});
+                                      scanBloc.add(EditBodyTemperatureDataEvent(
+                                          context: context,
+                                          temperature: editedTemperature));
+
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      })
                 ],
               ),
-            ),
+              Expanded(
+                child: Center(
+                  child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text:
+                                "${state.viewModel.temperatureEntity?.temperature}",
+                            style: AppTextTheme.title3.copyWith(
+                                color: state
+                                    .viewModel.temperatureEntity?.statusColor,
+                                fontSize: SizeConfig.screenWidth * 0.16,
+                                fontWeight: FontWeight.w500)),
+                        TextSpan(
+                            text: "°",
+                            style: AppTextTheme.title3.copyWith(
+                                color: const Color(0xff615A5A),
+                                fontSize: SizeConfig.screenWidth * 0.16,
+                                fontWeight: FontWeight.w500)),
+                        TextSpan(
+                            text: "C",
+                            style: AppTextTheme.title3.copyWith(
+                                color: const Color(0xff615A5A),
+                                fontSize: SizeConfig.screenWidth * 0.11,
+                                fontWeight: FontWeight.w500))
+                      ])),
+                ),
+              )
+            ],
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.02),
-          Center(
-              child: RectangleButton(
-            height: SizeConfig.screenWidth * 0.18,
-            width: SizeConfig.screenWidth * 0.8,
-            title: translation(context).upload,
-            onTap: () {
-              scanBloc.add(UploadTemperatureDataEvent());
-            },
-          ))
-        ],
-      ),
+        ),
+        SizedBox(height: SizeConfig.screenHeight * 0.03),
+        Center(
+            child: RectangleButton(
+          height: SizeConfig.screenWidth * 0.18,
+          width: SizeConfig.screenWidth * 0.8,
+          title: translation(context).upload,
+          onTap: () {
+            scanBloc.add(UploadTemperatureDataEvent());
+          },
+        ))
+      ],
     );
   }
 }

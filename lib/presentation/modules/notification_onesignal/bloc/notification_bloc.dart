@@ -40,10 +40,12 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       final unreadCount = await notificationUsecase
           .getUnreadCountNotificationEntity(event.doctorId);
       numberOfNotificationEntity ??= 0;
+
       _ViewModel newViewModel = state.viewModel.copyWith(
           unreadCount: unreadCount,
           totalCount: numberOfNotificationEntity,
           notificationEntity: []);
+
       if (numberOfNotificationEntity == 0) {
         emit(GetNotificationListState(
           status: BlocStatusState.success,
@@ -51,6 +53,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         ));
         return;
       }
+      
       if (numberOfNotificationEntity <= event.lastIndex) {
         requestLastIndex = numberOfNotificationEntity - 1;
       } else {
@@ -60,13 +63,16 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           userId: event.doctorId,
           startIndex: event.startIndex,
           lastIndex: requestLastIndex);
+
       List<NotificationEntity> newNotificationList =
           state.viewModel.notificationEntity ?? [];
       newNotificationList.addAll(response!);
+
       newViewModel = state.viewModel.copyWith(
           notificationEntity: newNotificationList,
           unreadCount: unreadCount,
           totalCount: numberOfNotificationEntity);
+
       emit(GetNotificationListState(
         status: BlocStatusState.success,
         viewModel: newViewModel,

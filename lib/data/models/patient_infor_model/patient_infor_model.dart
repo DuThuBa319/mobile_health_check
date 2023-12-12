@@ -91,7 +91,7 @@ class PatientInforModel {
         relativeEntities.add(model.getRelativeInforEntity());
       }
     }
-    DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
+    DoctorInforEntity? doctorEntity = doctor?.getDoctorEntity();
     return PatientInforEntity(
       id: id ?? "",
       age: age,
@@ -150,7 +150,7 @@ class PatientInforModel {
         relativeEntities.add(model.getRelativeInforEntity());
       }
     }
-    DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
+    DoctorInforEntity? doctorEntity = doctor?.getDoctorEntity();
     return PatientInforEntity(
       id: id ?? "",
       age: age,

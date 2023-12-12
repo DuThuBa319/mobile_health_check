@@ -35,7 +35,6 @@ class TemperatureUsecaseImpl extends TemperatureUsecase {
     final temperaturemodel = temperatureEntity.getTemperatureModel();
     final response = await _repository.createTemperatureModel(
         patientId: patientId, temperatureModel: temperaturemodel);
-
     return response;
   }
 }

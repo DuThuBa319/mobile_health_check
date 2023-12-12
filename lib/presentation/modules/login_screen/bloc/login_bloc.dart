@@ -7,7 +7,6 @@ import 'package:mobile_health_check/common/service/navigation/navigation_service
 import 'package:mobile_health_check/data/models/authentication_model/authentication_model.dart';
 import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/reset_password_usecase/reset_password_usecase.dart';
-
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/service/onesginal/onesignal_service.dart';
 import '../../../../common/singletons.dart';

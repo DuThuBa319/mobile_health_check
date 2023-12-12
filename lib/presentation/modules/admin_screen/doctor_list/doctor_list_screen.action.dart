@@ -35,6 +35,7 @@ extension DoctorListScreenAction on _DoctorListState {
         state.viewModel.errorMessage ==
             translation(context).cannotDeleteDoctor) {
       showExceptionDialog(
+        contentDialogSize: SizeConfig.screenWidth*0.035,
           context: context,
           message: state.viewModel.errorMessage!,
           titleBtn: translation(context).exit);
