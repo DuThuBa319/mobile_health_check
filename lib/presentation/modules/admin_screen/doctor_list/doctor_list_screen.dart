@@ -74,19 +74,20 @@ class _DoctorListState extends State<DoctorListScreen> {
               child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
                   listener: _blocListener,
                   builder: (context, state) {
-                    if (state is GetDoctorInitialState ||
-                        (state is DeleteDoctorState &&
-                            state.status == BlocStatusState.success)) {
-                      getDoctorBloc.add(GetDoctorListEvent());
+                    if (state is GetDoctorInitialState) {
+                      getDoctorBloc
+                          .add(GetDoctorListEvent(admindId: widget.id!));
                     }
 
                     if ((state is GetDoctorListState &&
                             state.status == BlocStatusState.loading) ||
-                        (state is GetDoctorListState &&
-                            state.status == BlocStatusState.loading &&
-                            state.viewModel.allDoctorEntity == null) ||
                         (state is SearchDoctorState &&
-                            state.status == BlocStatusState.loading)) {
+                            state.status == BlocStatusState.loading) ||
+                        (state is DeleteDoctorState &&
+                            state.status == BlocStatusState.loading) ||
+                        (state is DeleteDoctorState &&
+                            state.status == BlocStatusState.success &&
+                            state.viewModel.allDoctorEntity != null)) {
                       return formDoctorListScreen(
                         isLoading: true,
                       );
@@ -94,8 +95,9 @@ class _DoctorListState extends State<DoctorListScreen> {
 
                     if ((state is GetDoctorListState &&
                             state.status == BlocStatusState.success) ||
-                        (state is DeleteDoctorState &&
-                            state.status == BlocStatusState.loading) ||
+                        (state is GetDoctorListState &&
+                            state.status == BlocStatusState.loading &&
+                            state.viewModel.allDoctorEntity == null) ||
                         (state is DeleteDoctorState &&
                             state.status == BlocStatusState.failure &&
                             state.viewModel.errorMessage ==
@@ -124,7 +126,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                         ),
                       );
                     }
-
+                    
                     return Container();
                   }),
             )));

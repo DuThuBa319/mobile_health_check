@@ -94,7 +94,6 @@ class SlideAbleForm extends StatelessWidget {
                 onClose2: () {
                   if (isPatientCell == true) {
                     patientBloc?.add(DeletePatientEvent(
-                      doctorId: userDataData.getUser()!.id,
                       patientId: patientInforEntity?.id,
                     ));
                   } else if (isRelativeCell == true) {
@@ -104,62 +103,18 @@ class SlideAbleForm extends StatelessWidget {
                   } else if (isDoctorCell == true) {
                     doctorBloc?.add(DeleteDoctorEvent(
                       doctorId: personCellEntity?.id,
+                      adminId:  userDataData.getUser()?.id,
                     ));
                   }
                   //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
                   Navigator.pop(_scaffoldKey.currentContext ?? context);
                 });
-
-            // showDialog(
-            //   context: context,
-            //   builder: (context) {
-            //     return AlertDialog(
-            //       title: Text(translation(context).notification),
-            //       content: Text(isPatientCell == true
-            //           ? translation(context).deletePatient
-            //           : isRelativeCell == true
-            //               ? translation(context).deleteRelative
-            //               : translation(context).deleteDoctor),
-            //       actions: [
-            //         TextButton(
-            //           onPressed: () {
-            //             Navigator.pop(context);
-            //           },
-            //           child: Text(
-            //             translation(context).exit,
-            //             style: const TextStyle(color: Colors.black),
-            //           ),
-            //         ),
-            //         TextButton(
-            //           onPressed: () {
-            //             if (isPatientCell == true) {
-            //               patientBloc?.add(DeletePatientEvent(
-            //                 doctorId: userDataData.getUser()!.id,
-            //                 patientId: patientInforEntity?.id,
-            //               ));
-            //             } else if (isRelativeCell == true) {
-            //               patientBloc?.add(RemoveRelationshipRaPEvent(
-            //                   patientId: patientInforEntity?.id,
-            //                   relativeId: relativeInforEntity?.id));
-            //             } else if (isDoctorCell == true) {
-            //               doctorBloc?.add(DeleteDoctorEvent(
-            //                 doctorId: personCellEntity?.id,
-            //               ));
-            //             }
-            //             Navigator.pop(context);
-            //           },
-            //           child: Text(translation(context).accept,
-            //               style: const TextStyle(color: Colors.black)),
-            //         )
-            //       ],
-            //     );
-            //   },
-            // );
           },
           backgroundColor: AppColor.lineDecor,
           foregroundColor: Colors.white,
           icon: Icons.delete_outline_outlined,
         ),
+        
       ]),
       child: Container(
           margin: const EdgeInsets.only(

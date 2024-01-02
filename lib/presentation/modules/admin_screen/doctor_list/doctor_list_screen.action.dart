@@ -20,6 +20,7 @@ extension DoctorListScreenAction on _DoctorListState {
     }
     if (state is DeleteDoctorState && state.status == BlocStatusState.success) {
       showToast(translation(context).deleteDoctorSuccessfully);
+      getDoctorBloc.add(GetDoctorListEvent(admindId: widget.id!));
     }
 
     if (state.status == BlocStatusState.failure &&
@@ -35,7 +36,7 @@ extension DoctorListScreenAction on _DoctorListState {
         state.viewModel.errorMessage ==
             translation(context).cannotDeleteDoctor) {
       showExceptionDialog(
-        contentDialogSize: SizeConfig.screenWidth*0.035,
+          contentDialogSize: SizeConfig.screenWidth * 0.037,
           context: context,
           message: state.viewModel.errorMessage!,
           titleBtn: translation(context).exit);
@@ -112,7 +113,8 @@ extension DoctorListScreenAction on _DoctorListState {
                       onPressed: () {
                         getDoctorBloc.add(
                           FilterDoctorEvent(
-                              searchText: filterKeyword.text, id: widget.id!),
+                              searchText: filterKeyword.text,
+                              adminId: widget.id!),
                         );
                       },
                     ),
@@ -134,7 +136,8 @@ extension DoctorListScreenAction on _DoctorListState {
                         await Future.delayed(
                             const Duration(milliseconds: 1000));
                         _refreshController.refreshCompleted();
-                        getDoctorBloc.add(GetDoctorListEvent());
+                        getDoctorBloc
+                            .add(GetDoctorListEvent(admindId: widget.id!));
                       },
                       child: personCellEntities!.isNotEmpty
                           ? ListView.separated(

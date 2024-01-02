@@ -273,7 +273,7 @@ class _BloodPressureReadingScreenState
                   ],
                 ),
                 Expanded(
-                  child: Row(
+                  child:(state.viewModel.bloodPressureEntity?.pulse != null && state.viewModel.bloodPressureEntity?.sys != null ) ? Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -315,6 +315,13 @@ class _BloodPressureReadingScreenState
                         ],
                       ),
                     ],
+                  ):Center(
+                    child: Text(translation(context).unableToRecognizeReading,
+                            textAlign: TextAlign.center,
+                            style: AppTextTheme.title3.copyWith(
+                                color: AppColor.exceptionDialogIconColor,
+                                fontSize: SizeConfig.screenWidth * 0.055,
+                                fontWeight: FontWeight.w500)),
                   ),
                 )
               ],

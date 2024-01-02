@@ -33,7 +33,7 @@
 "oldPhoneNumber":"Your Previous PhoneNumber",
 "password":"Password",
 "patientIn4":"Patient Information",
-
+"unableToRecognizeReading":"Unable to recognize the captured reading, please take another photo!",
 "patientList":"PATIENT LIST",
 "doctorList":"DOCTOR LIST",
 "phoneNumber":"PhoneNumber",

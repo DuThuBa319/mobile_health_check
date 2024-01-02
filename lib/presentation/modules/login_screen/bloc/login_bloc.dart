@@ -113,7 +113,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _onLogin(
     LoginUserEvent event,
-    Emitter<LoginState> emit,
+    Emitter<LoginState>  emit,
   ) async {
     NavigationService navigationService = injector<NavigationService>();
 

@@ -56,4 +56,11 @@ class DoctorInforModel {
       patients: patientEntities,
     );
   }
+   DoctorInforEntity getDoctorInforEntityForList() {
+    return DoctorInforEntity(
+      id: id,
+      name: name,
+      phoneNumber: phoneNumber,
+    );
+  }
 }

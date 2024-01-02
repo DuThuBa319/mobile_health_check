@@ -24,21 +24,21 @@ class NotificationApiRepositoryImpl implements NotificationApiRepository {
 
   @override
   Future<void> setReadedNotificationModel(String? notificationId) {
-    return restApi.setReadedNotificationModel(notificationId);
+    return restApi.setReadedNotificationModel(notificationId:  notificationId);
   }
 
   @override
   Future<int> getUnreadCountNotification(String? userId) {
-    return restApi.getUnreadCountNotification(userId);
+    return restApi.getUnreadCountNotification(personId:  userId);
   }
 
   @override
   Future<int?> getNumberOfNotifications(String? userId) {
-    return restApi.getNumberOfNotifications(userId);
+    return restApi.getNumberOfNotifications(userId:  userId);
   }
 
   @override
   Future<void> deleteNotificationModel(String? notificationId) {
-    return restApi.deleteNotificationModel(notificationId);
+    return restApi.deleteNotificationModel(notificationId:  notificationId);
   }
 }

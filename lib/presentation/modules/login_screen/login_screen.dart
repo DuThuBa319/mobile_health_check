@@ -160,7 +160,7 @@ class _LoginState extends State<LoginScreen> {
                             width: SizeConfig.screenWidth * 0.8,
                             child: TextField(
                               cursorColor: AppColor.gray767676,
-                              // keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.number,
                               // focusNode: _focusNode,
                               controller: _usernameController,
                               style: TextStyle(

@@ -235,7 +235,6 @@ _i1.GetIt $initGetIt(
       ));
   gh.factory<_i63.GetPatientBloc>(() => _i63.GetPatientBloc(
         gh<_i12.NetworkInfo>(),
-        gh<_i45.AdminUsecase>(),
         gh<_i23.PatientUsecase>(),
         gh<_i8.DoctorInforUsecase>(),
         gh<_i27.RelativeInforUsecase>(),

@@ -2,6 +2,7 @@ part of 'admin_bloc.dart';
 
 // ViewModel is used for store all properties which want to be stored, processed and updated, chứa dữ liệu của 1 state
 class _ViewModel {
+  final AdminInforEntity? adminInforEntity;
   final DoctorInforEntity? doctorInforEntity;
   final String? errorEmptyName;
   final String? errorEmptyPhoneNumber;
@@ -13,6 +14,7 @@ class _ViewModel {
     this.errorEmptyPhoneNumber,
     this.errorEmptyName,
     this.doctorInforEntity,
+    this.adminInforEntity,
   });
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
@@ -21,9 +23,12 @@ class _ViewModel {
       final List<PersonCellEntity>? allDoctorEntity,
       final DoctorInforEntity? doctorInforEntity,
       final String? errorEmptyName,
-      final String? errorEmptyPhoneNumber}) {
+      final String? errorEmptyPhoneNumber,
+      final AdminInforEntity? adminInforEntity
+      }) {
     // ignore: unnecessary_this
     return _ViewModel(
+      adminInforEntity: adminInforEntity?? this.adminInforEntity,
         errorMessage: errorMessage ?? this.errorMessage,
         allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
         doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,
@@ -67,7 +72,6 @@ class GetDoctorListState extends GetDoctorState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
-
 
 class SearchDoctorState extends GetDoctorState {
   SearchDoctorState({
@@ -126,5 +130,4 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
- 
 };

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:mobile_health_check/data/models/admin_infor_model/admin_infor_model.dart';
 import 'package:retrofit/http.dart';
 
 import 'package:mobile_health_check/data/models/notification_onesignal_model/notification_onesignal_model.dart';
@@ -10,7 +11,6 @@ import '../../models/blood_sugar_model/blood_sugar_model.dart';
 import '../../models/change_password_model/change_password_model.dart';
 import '../../models/doctor_infor_model/doctor_infor_model.dart';
 import '../../models/patient_infor_model/patient_infor_model.dart';
-import '../../models/person_cell_model/person_cell_model.dart';
 import '../../models/relative_model/relative_infor_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
 import '../../models/spo2_model/spo2_model.dart';
@@ -25,29 +25,15 @@ abstract class RestApiRepository {
   // Future<List<PatientModel>> getPatientListModels();
 
 //! Reset Password
-
   @PATCH("/Users/ResetPassword?phoneNumber={phoneNumber}") //update
   Future<void> resetPasswordModel({
     @Path("phoneNumber") String? phoneNumber,
   });
 
-//! admin task
-  //? GET ALL DOCTOR
-  @GET('/Users/AllDoctors') //để hiện detail
-  Future<List<PersonCellModel>> getAllDoctorModel();
-
-  //? CREATE DOCTOR ACCOUNT
-  @POST('/Users/CreateDoctorAccount/{adminId}')
-  Future<void> createDoctorAccountModel(@Body() AccountModel? accountModel,@Path() String? adminId);
-
-  //? DELETE DOCTOR
-  @DELETE('/Users/DeleteDoctorAccount/{doctorId}') //delete
-  Future<void> deleteDoctor(@Path('doctorId') String? doctorId);
-
 //! Authentication
 //? sign In
   @POST('/Auth/SignIn')
-  Future<SignInModel> signIn(@Body() AuthenModel? authenModel);
+  Future<SignInModel> signIn({@Body() AuthenModel? authenModel});
 
 //? change password
 
@@ -56,26 +42,44 @@ abstract class RestApiRepository {
       {@Path("userId") String? userId,
       @Body() ChangePassModel? changePassModel});
 
+//! admin task
+
+  //? GET ADMIN INFOR
+  @GET('/Users/Admin/{adminId}') //để hiện detail
+  Future<AdminInforModel> getAdminInforModel({
+    @Path('adminId') String? adminId,
+  });
+
+  //? CREATE DOCTOR ACCOUNT
+  @POST('/Users/CreateDoctorAccount/{adminId}')
+  Future<void> createDoctorAccountModel(
+      {@Body() AccountModel? accountModel, @Path() String? adminId});
+
+  //? DELETE DOCTOR
+  @DELETE('/Users/DeleteDoctorAccount/{doctorId}') //delete
+  Future<void> deleteDoctor({@Path('doctorId') String? doctorId});
+
 //! Doctor ------------------------------
   //? GET DOCTOR INFOR
   @GET('/Users/DoctorProfile/{doctorId}') //để hiện detail
-  Future<DoctorInforModel> getDoctorInforModel(
+  Future<DoctorInforModel> getDoctorInforModel({
     @Path('doctorId') String? doctorId,
-  );
+  });
 
   //? UPDATE DOCTOR PROFILE
   @PATCH("/Users/UpdateProfile/{userId}") //update
-  Future<void> updateDoctorInforModel(@Path("userId") String? doctorId,
-      @Body() DoctorInforModel? doctorInforModel);
+  Future<void> updateDoctorInforModel(
+      {@Path("userId") String? doctorId,
+      @Body() DoctorInforModel? doctorInforModel});
 
   //? ADD NEW PATIENT
   @POST('/Users/{doctorId}/CreatePatientAccount')
   Future<void> addPatientInforModel(
-      @Path('doctorId') String? doctorId, @Body() AccountModel? accountModel);
+      {@Path('doctorId') String? doctorId, @Body() AccountModel? accountModel});
 
   //? DELETE PATIENT
   @DELETE('/Users/DeletePatient/{patientId}') //delete
-  Future<void> deletePatient(@Path('patientId') String? patientId);
+  Future<void> deletePatient({@Path('patientId') String? patientId});
 
   //? REMOVE RELATIVE & PATIENT RELATIONSHIP
   @PATCH('/Users/RemoveRelationship/{relativeId}&&{patientId}')
@@ -86,32 +90,35 @@ abstract class RestApiRepository {
 //! Relative ----------------------------
   //? GET RELATIVE INFOR
   @GET('/Users/RelativeProfile/{relativeId}') //để hiện detail
-  Future<RelativeInforModel> getRelativeInforModel(
+  Future<RelativeInforModel> getRelativeInforModel({
     @Path('relativeId') String? relativeId,
-  );
+  });
 
   //? UPDATE RELATIVE PROFILE
   @PATCH("/Users/UpdateProfile/{userId}") //update
-  Future<void> updateRelativeInforModel(@Path("userId") String? relativeId,
-      @Body() RelativeInforModel? relativeInforModel);
+  Future<void> updateRelativeInforModel(
+      {@Path("userId") String? relativeId,
+      @Body() RelativeInforModel? relativeInforModel});
 
 //! Patient -----------------------------
 
   //? GET PATIENT INFOR
   @GET('/Users/PatientProfile/{patientId}') //để hiện detail
-  Future<PatientInforModel> getPatientInforModel(
+  Future<PatientInforModel> getPatientInforModel({
     @Path('patientId') String? patientId,
-  );
+  });
 
   //? UPDATE PATIENT PROFILE
   @PATCH("/Users/UpdateProfile/{userId}") //update
-  Future<void> updatePatientInforModel(@Path("userId") String? patientId,
-      @Body() PatientInforModel? patientInforModel);
+  Future<void> updatePatientInforModel(
+      {@Path("userId") String? patientId,
+      @Body() PatientInforModel? patientInforModel});
 
   //? ADD NEW RELATIVE
   @POST('/Users/{patientId}/CreateRelativeAccount')
   Future<void> addRelativeInforModel(
-      @Path('patientId') String? patientId, @Body() AccountModel? accountModel);
+      {@Path('patientId') String? patientId,
+      @Body() AccountModel? accountModel});
 
 //! Notification --------------------------------
   //? GET NOTIFICATIONS LIST
@@ -125,24 +132,24 @@ abstract class RestApiRepository {
   //? SET UNREAD NOTIFICATION
   @PATCH("/Notifications/{notificationId}") //update
   Future<void> setReadedNotificationModel(
-      @Path("notificationId") String? notificationId);
+      {@Path("notificationId") String? notificationId});
 
   //? GET UNREAD NOTIFICATION COUNT
   @GET('/Notifications/{personId}/Unseen') //để hiện detail
-  Future<int> getUnreadCountNotification(
+  Future<int> getUnreadCountNotification({
     @Path('personId') String? personId,
-  );
+  });
 
   //? GET NOTIFICATION COUNT
   @GET('/Notifications/{personId}/Count') //để hiện detail
-  Future<int> getNumberOfNotifications(
+  Future<int> getNumberOfNotifications({
     @Path('personId') String? userId,
-  );
+  });
 
   //? DELETE NOTIFICATION
   @DELETE('/Notifications/{notificationId}') //delete
   Future<void> deleteNotificationModel(
-      @Path('notificationId') String? notificationId);
+      {@Path('notificationId') String? notificationId});
 
 //! BLOOD PRESSURE////////////////////////////
   @GET('/BloodPressures/{patientId}')

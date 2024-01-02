@@ -18,18 +18,18 @@ class PatientApiRepositoryImpl implements PatientApiRepository {
 
   @override
   Future<PatientInforModel> getPatientInforModel(String? patientId) {
-    return restApi.getPatientInforModel(patientId);
+    return restApi.getPatientInforModel(patientId:  patientId);
   }
 
   @override
   Future<void> updatePatientInforModel(
       String? userId, PatientInforModel? patientInforModel) {
-    return restApi.updatePatientInforModel(userId, patientInforModel);
+    return restApi.updatePatientInforModel(patientId:  userId, patientInforModel:  patientInforModel);
   }
 
   @override
   Future<void> addRelativeInforModel(
       String? patientId, AccountModel? accountModel) {
-    return restApi.addRelativeInforModel(patientId, accountModel);
+    return restApi.addRelativeInforModel(patientId:  patientId,accountModel:  accountModel);
   }
 }

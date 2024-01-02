@@ -53,8 +53,8 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         (route) => false);
                   },
                   context: context,
-                  message: translation(context).addDoctorSuccessfully,
-                  title: translation(context).notification,
+                  message: translation(context).addDoctorSuccessText,
+                  title: translation(context).addDoctorSuccessfully,
                   titleBtn: translation(context).exit);
             }
 

@@ -207,7 +207,7 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                 ],
               ),
               Expanded(
-                child: Center(
+                child:  state.viewModel.spo2Entity?.spo2 != null ? Center(
                   child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(children: [
@@ -223,8 +223,15 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                                 color: const Color(0xff615A5A),
                                 fontSize: SizeConfig.screenWidth * 0.155,
                                 fontWeight: FontWeight.w500))
-                      ])),
-                ),
+                      ]))
+                ): Center(
+                        child: Text(translation(context).unableToRecognizeReading,
+                            textAlign: TextAlign.center,
+                            style: AppTextTheme.title3.copyWith(
+                                color: AppColor.exceptionDialogIconColor,
+                                fontSize: SizeConfig.screenWidth * 0.055,
+                                fontWeight: FontWeight.w500)),
+                      ),
               )
             ],
           ),

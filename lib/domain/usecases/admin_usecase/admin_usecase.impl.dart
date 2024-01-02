@@ -15,14 +15,22 @@ class AdminUsecaseImpl extends AdminUsecase {
         accountEntity?.convertToAccountModel, adminId);
   }
 
+
+
   @override
-  Future<List<PersonCellEntity>> getAllDoctorEntity() async {
-    final allDoctorModel = await _repository.getAllDoctorModel();
-    final responseEntities = <PersonCellEntity>[];
-    for (final response in allDoctorModel) {
-      responseEntities.add(response.convertToPersonCellEntity());
+  Future<AdminInforEntity?> getAdminInforEntity({String? adminId}) async {
+    final response = await _repository.getAdminInforModel(adminId: adminId);
+    if (userDataData.getUser()?.role == UserRole.admin) {
+      await userDataData.setUser(UserModel(
+        id: userDataData.getUser()?.id,
+        role: userDataData.getUser()?.role,
+        name: userDataData.getUser()?.name,
+        phoneNumber: response?.phoneNumber,
+        email: userDataData.getUser()?.email,
+      ));
     }
-    return responseEntities;
+    final entity = response?.getAdminEntity();
+    return entity;
   }
 
   @override

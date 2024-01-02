@@ -138,14 +138,6 @@ extension CameraScreenAction on CameraScreenState {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      translation(context).yourPhoto,
-                      style: TextStyle(
-                          fontSize: SizeConfig.screenWidth * 0.075,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                          color: const Color.fromARGB(255, 60, 152, 198)),
-                    ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: FullScreenWidget(

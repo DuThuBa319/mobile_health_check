@@ -104,6 +104,7 @@
 "accept":"Đồng ý",
 "takePhotoAgain":"Chụp lại",
 "yourPhoto":"Hình bạn vừa chụp",
+"unableToRecognizeReading":"Không nhận diện được số liệu, vui lòng chụp lại!",
 "errorWhileTakingPhoto":"Xảy ra lỗi khi chụp ảnh",
 "photoLoading":"Đang lấy hình ảnh",
 "verifying":"Đang xác thực, vui lòng chờ...",
