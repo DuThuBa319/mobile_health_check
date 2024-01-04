@@ -1,5 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
+import 'package:mobile_health_check/di/di.dart';
 import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
@@ -371,14 +374,90 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     itemCount: patient.relatives?.length ?? 0,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      final relatives =
+                                      final relative =
                                           patient.relatives?[index];
+
+                                      //! SlideAbleForm
                                       return SlideAbleForm(
-                                        isRelativeCell: true,
-                                        patientBloc: patientBloc,
-                                        relativeInforEntity: relatives,
-                                        patientInforEntity: patient,
+                                        lableAction1: translation(context).call,
+                                        lableAction2:
+                                            translation(context).delete,
+                                        iconAction1: Icons.phone,
+                                        iconAction2:
+                                            Icons.delete_outline_outlined,
+                                        iconLeadingCell: Icon(
+                                          Icons.account_box_rounded,
+                                          color: AppColor.primaryColorLight,
+                                          size: SizeConfig.screenWidth * 0.14,
+                                        ),
+                                        textLine1: Text(
+                                          relative?.name ?? '',
+                                          style: AppTextTheme.body2.copyWith(
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.06,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        textLine2: Text(
+                                            relative?.phoneNumber == ""
+                                                ? translation(context).notUpdate
+                                                : relative!.phoneNumber,
+                                            style: AppTextTheme.body4.copyWith(
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05)),
+                                        widthLeadingIconCell:
+                                            SizeConfig.screenWidth * 0.13,
+                                        onTapCell: () {},
+                                        onAction1: () {
+                                          return FlutterPhoneDirectCaller
+                                              .callNumber(
+                                                  relative!.phoneNumber);
+                                        },
+                                        onAction2: () {
+                                          NavigationService navigationService =
+                                              injector<NavigationService>();
+                                          showWarningDialog(
+                                              useRootNavigator: true,
+                                              //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                              context: navigationService
+                                                      .navigatorKey
+                                                      .currentContext ??
+                                                  context,
+                                              message: translation(context)
+                                                  .deletePatient,
+                                              title: translation(context)
+                                                  .deletePatientWarningTitle,
+                                              titleBtn1:
+                                                  translation(context).no,
+                                              titleBtn2:
+                                                  translation(context).yes,
+                                              onClose1: () {
+                                                //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                                Navigator.pop(navigationService
+                                                        .navigatorKey
+                                                        .currentContext ??
+                                                    context);
+                                              },
+                                              onClose2: () {
+                                                patientBloc.add(
+                                                    RemoveRelationshipRaPEvent(
+                                                        relativeId:
+                                                            relative?.id,
+                                                        patientId: patient.id));
+                                                //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                                Navigator.pop(navigationService
+                                                        .navigatorKey
+                                                        .currentContext ??
+                                                    context);
+                                              });
+                                        },
                                       );
+                                      //? SlideAbleForm(
+                                      //   isRelativeCell: true,
+                                      //   patientBloc: patientBloc,
+                                      //   relativeInforEntity: relatives,
+                                      //   patientInforEntity: patient,
+                                      // );
                                     },
                                   ),
                                   const SizedBox(
@@ -407,9 +486,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                       ),
                     ));
               }
-             if (state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).wifiDisconnect) {
+              if (state.status == BlocStatusState.failure &&
+                  state.viewModel.errorMessage ==
+                      translation(context).wifiDisconnect) {
                 return Center(
                   child: Text(
                     translation(context).error,

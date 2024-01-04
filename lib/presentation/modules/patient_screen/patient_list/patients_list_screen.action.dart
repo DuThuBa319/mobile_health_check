@@ -36,7 +36,7 @@ extension PatientListScreenAction on _PatientListState {
     }
   }
 
-_onWillPop(bool didPop) async {
+  _onWillPop(bool didPop) async {
     bool enableToPop = true;
 
     if (enableToPop == true) {
@@ -181,11 +181,93 @@ _onWillPop(bool didPop) async {
                                     patientInforEntities?[index];
                                 return (userDataData.getUser()?.role ==
                                         UserRole.doctor)
-                                    ? SlideAbleForm(
-                                        isPatientCell: true,
-                                        patientBloc: patientBloc,
-                                        patientInforEntity: patientInforEntity,
+                                    ?
+                                    //! SlideAbleForm
+                                    SlideAbleForm(
+                                        lableAction1: translation(context).call,
+                                        lableAction2:
+                                            translation(context).delete,
+                                        iconAction1: Icons.phone,
+                                        iconAction2:
+                                            Icons.delete_outline_outlined,
+                                        widthLeadingIconCell:
+                                            SizeConfig.screenWidth * 0.11,
+                                        iconLeadingCell: Icon(
+                                          Icons.person_pin,
+                                          color: AppColor.lineDecor,
+                                          size: SizeConfig.screenWidth * 0.11,
+                                        ),
+                                        textLine1: Text(
+                                          patientInforEntity?.name ?? '',
+                                          style: AppTextTheme.body2.copyWith(
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.052,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        textLine2: Text(
+                                            patientInforEntity?.phoneNumber ==
+                                                    ""
+                                                ? translation(context).notUpdate
+                                                : patientInforEntity!
+                                                    .phoneNumber,
+                                            style: AppTextTheme.body3),
+                                        onTapCell: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            RouteList.patientInfor,
+                                            arguments: patientInforEntity?.id,
+                                          );
+                                        },
+                                        onAction1: () {
+                                          return FlutterPhoneDirectCaller
+                                              .callNumber(patientInforEntity!
+                                                  .phoneNumber);
+                                        },
+                                        onAction2: () {
+                                          NavigationService navigationService =
+                                              injector<NavigationService>();
+                                          showWarningDialog(
+                                              useRootNavigator: true,
+                                              //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                              context: navigationService
+                                                      .navigatorKey
+                                                      .currentContext ??
+                                                  context,
+                                              message: translation(context)
+                                                  .deletePatient,
+                                              title: translation(context)
+                                                  .deletePatientWarningTitle,
+                                              titleBtn1:
+                                                  translation(context).no,
+                                              titleBtn2:
+                                                  translation(context).yes,
+                                              onClose1: () {
+                                                //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                                Navigator.pop(navigationService
+                                                        .navigatorKey
+                                                        .currentContext ??
+                                                    context);
+                                              },
+                                              onClose2: () {
+                                                patientBloc
+                                                    .add(DeletePatientEvent(
+                                                  patientId:
+                                                      patientInforEntity!.id,
+                                                ));
+                                                //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                                Navigator.pop(navigationService
+                                                        .navigatorKey
+                                                        .currentContext ??
+                                                    context);
+                                              });
+                                        },
                                       )
+
+                                    //? SlideAbleForm(
+                                    //     isPatientCell: true,
+                                    //     patientBloc: patientBloc,
+                                    //     patientInforEntity: patientInforEntity,
+                                    //   )
 
                                     //! PatientList Cell không có slidable
                                     : PatientListCell(

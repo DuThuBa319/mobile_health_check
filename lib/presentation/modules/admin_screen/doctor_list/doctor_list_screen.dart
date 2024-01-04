@@ -1,4 +1,8 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
+import 'package:mobile_health_check/common/singletons.dart';
+import 'package:mobile_health_check/di/di.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 

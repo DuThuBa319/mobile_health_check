@@ -3,7 +3,7 @@ export 'enum_common.dart';
 export 'line_decor.dart';
 export 'loading_widget.dart';
 export 'rectangle_button.dart';
-export 'slidable.dart';
+export 'custom_slidable.dart';
 export 'dialog/dialog_one_button.dart';
 export 'dialog/dialog_two_button.dart';
 export 'dialog/exception_dialog.dart';

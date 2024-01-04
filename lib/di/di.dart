@@ -22,12 +22,14 @@ final getIt = GetIt.instance;
 
 //! Set up service locator (Dependency Injection)
 void configureDependencies() {
- //? Đăng ký tất cả dependency trong đây
+  //? Đăng ký tất cả dependency trong đây
   $initGetIt(injector);
   // Register the Connectivity instance
   injector.registerLazySingleton<Connectivity>(() => Connectivity());
 }
 
+/* @module là 1 annotation của injectable,
+   => đánh dấu abstract class sau là một module, nơi đăng ký các dependencies */
 @module
 abstract class DioProvider {
   @singleton
@@ -42,6 +44,9 @@ abstract class DioProvider {
     );
   }
 }
+
+/* @module là 1 annotation của injectable,
+   => đánh dấu abstract class sau là một module, nơi đăng ký các dependencies */
 
 @module
 abstract class AppModule {

@@ -32,7 +32,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        title: translation(context).addDoctor,
+        title: translation(context).doctorIn4,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: false,

@@ -86,8 +86,8 @@ class _LoginState extends State<LoginScreen> {
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
                             showToast("Change language successfully");
-                            await notificationData
-                                .saveLocale(selectedLanguage!.id);
+                            //? await notificationData
+                            //?     .saveLocale(selectedLanguage!.id);
                             setState(() {});
                           }
                           if (index == 1) {
@@ -97,8 +97,8 @@ class _LoginState extends State<LoginScreen> {
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
                             showToast("Đổi ngôn ngữ thành công");
-                            await notificationData
-                                .saveLocale(selectedLanguage!.id);
+                            //? await notificationData
+                            // ?    .saveLocale(selectedLanguage!.id);
                             setState(() {});
                           }
                         }

@@ -154,10 +154,78 @@ extension DoctorListScreenAction on _DoctorListState {
                               itemBuilder: (BuildContext context, int index) {
                                 final personCellEntity =
                                     personCellEntities[index];
+
+                                //! SlideAbleForm
                                 return SlideAbleForm(
-                                  isDoctorCell: true,
-                                  doctorBloc: getDoctorBloc,
-                                  personCellEntity: personCellEntity,
+                                  lableAction1: translation(context).call,
+                                  lableAction2: translation(context).delete,
+                                  iconAction1: Icons.phone,
+                                  iconAction2: Icons.delete_outline_outlined,
+                                  widthLeadingIconCell:
+                                      SizeConfig.screenWidth * 0.11,
+                                  iconLeadingCell: Icon(
+                                    Icons.person_pin,
+                                    color: AppColor.lineDecor,
+                                    size: SizeConfig.screenWidth * 0.11,
+                                  ),
+                                  textLine1: Text(
+                                    personCellEntity.name,
+                                    style: AppTextTheme.body2.copyWith(
+                                        fontSize:
+                                            SizeConfig.screenWidth * 0.052,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  textLine2: Text(
+                                      personCellEntity.phoneNumber == ""
+                                          ? translation(context).notUpdate
+                                          : personCellEntity.phoneNumber,
+                                      style: AppTextTheme.body3),
+                                  onTapCell: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteList.doctorInfor,
+                                      arguments: personCellEntity.id,
+                                    );
+                                  },
+                                  onAction1: () {
+                                    return FlutterPhoneDirectCaller.callNumber(
+                                        personCellEntity.phoneNumber);
+                                  },
+                                  onAction2: () {
+                                    NavigationService navigationService =
+                                        injector<NavigationService>();
+                                    showWarningDialog(
+                                        useRootNavigator: true,
+                                        //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                        context: navigationService
+                                                .navigatorKey.currentContext ??
+                                            context,
+                                        message:
+                                            translation(context).deleteDoctor,
+                                        title: translation(context)
+                                            .deleteDoctorWarningTitle,
+                                        titleBtn1: translation(context).no,
+                                        titleBtn2: translation(context).yes,
+                                        onClose1: () {
+                                          //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                          Navigator.pop(navigationService
+                                                  .navigatorKey
+                                                  .currentContext ??
+                                              context);
+                                        },
+                                        onClose2: () {
+                                          getDoctorBloc.add(DeleteDoctorEvent(
+                                            doctorId: personCellEntity.id,
+                                            adminId: userDataData.getUser()?.id,
+                                          ));
+
+                                          //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
+                                          Navigator.pop(navigationService
+                                                  .navigatorKey
+                                                  .currentContext ??
+                                              context);
+                                        });
+                                  },
                                 );
                               },
                             )
