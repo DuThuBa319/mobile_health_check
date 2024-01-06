@@ -245,10 +245,11 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   height: SizeConfig.screenWidth * 0.04,
                 ),
                 Text(cellTitle,
+                    textAlign: TextAlign.center,
                     softWrap: true,
                     style: AppTextTheme.title3.copyWith(
                         color: Colors.white,
-                        fontSize: SizeConfig.screenWidth * 0.040)),
+                        fontSize: SizeConfig.screenWidth * 0.037)),
               ],
             )),
       ),

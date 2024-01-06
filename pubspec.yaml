@@ -45,7 +45,7 @@ dependencies:
   json_annotation: ^4.8.0
   dio: ^5.0.0
   get_it: ^7.2.0
-  
+  flutter_barcode_scanner: ^2.0.0
   #network
   retrofit: ^4.0.1
   onesignal_flutter: ^3.5.1
@@ -84,9 +84,9 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   image_picker: ^1.0.2
   permission_handler: ^10.4.3
-  camera: ^0.10.5+2
+  camera: ^0.10.5+7
   flutter_phone_direct_caller: ^2.1.1
-
+  local_auth: ^2.1.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

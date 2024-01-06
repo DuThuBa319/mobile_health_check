@@ -22,10 +22,9 @@ final getIt = GetIt.instance;
 
 //! Set up service locator (Dependency Injection)
 void configureDependencies() {
- //? Đăng ký tất cả dependency trong đây
+  //? Đăng ký tất cả dependency trong đây
   $initGetIt(injector);
   // Register the Connectivity instance
-  injector.registerLazySingleton<Connectivity>(() => Connectivity());
 }
 
 @module
@@ -51,4 +50,6 @@ abstract class AppModule {
 
   @singleton
   NavigationService get navigationService => NavigationService();
+  @singleton
+  Connectivity get connectivity => Connectivity();
 }

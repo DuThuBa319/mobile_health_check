@@ -152,7 +152,10 @@ extension LoginAction on _LoginState {
   Future<void> login() async {
     final userName = _usernameController.text;
     final password = _passwordController.text;
-
+    // final canAuth = await BiometricAuthentication().checkBiometrics();
+    // if (canAuth) {
+    //   await BiometricAuthentication().authenticate();
+    // }
     bloc.add(
       LoginUserEvent(
         username: userName,

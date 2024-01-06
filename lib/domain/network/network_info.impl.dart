@@ -4,7 +4,7 @@ part of 'network_info.dart';
   as: NetworkInfo,
 )
 class NetworkInfoImpl extends NetworkInfo {
-  final Connectivity _connectivity = Connectivity();
+  final Connectivity _connectivity = injector<Connectivity>();
   NetworkInfoImpl();
   @override
   Future<bool> get isConnected async {
