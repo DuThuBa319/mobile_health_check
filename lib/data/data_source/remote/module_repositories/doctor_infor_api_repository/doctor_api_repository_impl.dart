@@ -17,24 +17,24 @@ class DoctorInforApiRepositoryImpl implements DoctorInforApiRepository {
 
   @override
   Future<DoctorInforModel> getDoctorInforModel(String? doctorId) {
-    return restApi.getDoctorInforModel(doctorId);
+    return restApi.getDoctorInforModel(doctorId:  doctorId);
   }
 
   @override
   Future<void> updateDoctorInforModel(
       String? doctorId, DoctorInforModel? doctorInforModel) {
-    return restApi.updateDoctorInforModel(doctorId, doctorInforModel);
+    return restApi.updateDoctorInforModel(doctorId:  doctorId,doctorInforModel:  doctorInforModel);
   }
 
   @override
   Future<void> addPatientInforModel(
       String? doctorId, AccountModel? accountModel) {
-    return restApi.addPatientInforModel(doctorId, accountModel);
+    return restApi.addPatientInforModel(doctorId:  doctorId,accountModel:  accountModel);
   }
 
   @override
   Future<void> deletePatientModel(String? patientId) {
-    return restApi.deletePatient(patientId);
+    return restApi.deletePatient(patientId:  patientId);
   }
 
   @override

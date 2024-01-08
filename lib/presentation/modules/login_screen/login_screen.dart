@@ -87,8 +87,8 @@ class _LoginState extends State<LoginScreen> {
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
                             showToast("Change language successfully");
-                            await notificationData
-                                .saveLocale(selectedLanguage!.id);
+                            //? await notificationData
+                            //?     .saveLocale(selectedLanguage!.id);
                             setState(() {});
                           }
                           if (index == 1) {
@@ -98,8 +98,8 @@ class _LoginState extends State<LoginScreen> {
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
                             showToast("Đổi ngôn ngữ thành công");
-                            await notificationData
-                                .saveLocale(selectedLanguage!.id);
+                            //? await notificationData
+                            // ?    .saveLocale(selectedLanguage!.id);
                             setState(() {});
                           }
                         }
@@ -161,7 +161,7 @@ class _LoginState extends State<LoginScreen> {
                             width: SizeConfig.screenWidth * 0.8,
                             child: TextField(
                               cursorColor: AppColor.gray767676,
-                              // keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.number,
                               // focusNode: _focusNode,
                               controller: _usernameController,
                               style: TextStyle(

@@ -19,6 +19,6 @@ class AuthenApiRepositoryImpl implements AuthenApiRepository {
 
   @override
   Future<SignInModel> signInModel(AuthenModel? authenModel) {
-    return restApi.signIn(authenModel);
+    return restApi.signIn(authenModel:  authenModel);
   }
 }

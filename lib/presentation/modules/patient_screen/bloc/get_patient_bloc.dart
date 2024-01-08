@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
+
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
@@ -9,12 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/network/network_info.dart';
-import 'package:mobile_health_check/domain/usecases/admin_usecase/admin_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_pass_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../di/di.dart';
+
 import '../../../../domain/entities/login_entity_group/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
@@ -31,12 +30,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final RelativeInforUsecase _relativeInforUsecase;
   final NotificationUsecase notificationUsecase;
   final ChangePassUsecase changePassUsecase;
-  final AdminUsecase _adminUsecase;
   final NetworkInfo networkInfo;
 
   GetPatientBloc(
       this.networkInfo,
-      this._adminUsecase,
       this._patientUseCase,
       this._doctorInforUsecase,
       this._relativeInforUsecase,
@@ -50,50 +47,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<GetPatientInforEvent>(_getPatientInfor);
     on<RemoveRelationshipRaPEvent>(_onRemoveRelationshipRaP);
     on<DeletePatientEvent>(_onDeletePatient);
-    on<GetDoctorListEvent>(_onGetDoctorList);
-  }
-
-//! GET DOCTOR LIST
-  Future<void> _onGetDoctorList(
-    GetDoctorListEvent event,
-    Emitter<GetPatientState> emit,
-  ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
-    if (await networkInfo.isConnected == true) {
-      emit(
-        GetDoctorListState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-
-      try {
-        final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
-        final newViewModel =
-            state.viewModel.copyWith(allDoctorEntity: allDoctorEntity);
-
-        emit(GetDoctorListState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      } catch (e) {
-        emit(
-          state.copyWith(
-              status: BlocStatusState.failure, viewModel: state.viewModel),
-        );
-      }
-    } else {
-      emit(
-        state.copyWith(
-          status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
-              errorMessage:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .wifiDisconnect),
-        ),
-      );
-    }
   }
 
 //! GET PATIENT LIST IN DOCTOR APP
@@ -101,8 +54,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     GetPatientListEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetPatientListState(
@@ -110,7 +61,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           viewModel: state.viewModel,
         ),
       );
-
       try {
         final unreadNotificationsCount = await notificationUsecase
             .getUnreadCountNotificationEntity(event.userId);
@@ -121,7 +71,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
               doctorInforEntity: response,
               unreadCount: unreadNotificationsCount,
               patientEntities: response?.patients);
-
           emit(GetPatientListState(
             status: BlocStatusState.success,
             viewModel: newViewModel,
@@ -166,8 +115,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     FilterPatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         SearchPatientState(
@@ -238,8 +185,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistPatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RegistPatientState(
@@ -364,8 +309,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistRelativeEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RegistRelativeState(
@@ -484,8 +427,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     GetPatientInforEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetPatientInforState(
@@ -525,8 +466,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RemoveRelationshipRaPEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RemoveRelationshipRaPState(
@@ -567,7 +506,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     DeletePatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
     if (await networkInfo.isConnected == true) {
       emit(
         DeletePatientState(
@@ -576,9 +514,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-
         await _doctorInforUsecase.deletePatientEntity(event.patientId);
-
         emit(DeletePatientState(
           status: BlocStatusState.success,
           viewModel: state.viewModel,

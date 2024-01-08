@@ -44,90 +44,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<List<PersonCellModel>> getAllDoctorModel() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<PersonCellModel>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/Users/AllDoctors',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) => PersonCellModel.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
-  Future<void> createDoctorAccountModel(
-    AccountModel? accountModel,
-    String? adminId,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(accountModel?.toJson() ?? <String, dynamic>{});
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/Users/CreateDoctorAccount/${adminId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
-  Future<void> deleteDoctor(String? doctorId) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'DELETE',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/Users/DeleteDoctorAccount/${doctorId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-  }
-
-  @override
-  Future<SignInModel> signIn(AuthenModel? authenModel) async {
+  Future<SignInModel> signIn({AuthenModel? authenModel}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -185,7 +102,89 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<DoctorInforModel> getDoctorInforModel(String? doctorId) async {
+  Future<AdminInforModel> getAdminInforModel({String? adminId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<AdminInforModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/Users/Admin/${adminId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = AdminInforModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<void> createDoctorAccountModel({
+    AccountModel? accountModel,
+    String? adminId,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(accountModel?.toJson() ?? <String, dynamic>{});
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/CreateDoctorAccount/${adminId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
+  Future<void> deleteDoctor({String? doctorId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/Users/DeleteDoctorAccount/${doctorId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
+  Future<DoctorInforModel> getDoctorInforModel({String? doctorId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -213,10 +212,10 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> updateDoctorInforModel(
+  Future<void> updateDoctorInforModel({
     String? doctorId,
     DoctorInforModel? doctorInforModel,
-  ) async {
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -242,10 +241,10 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> addPatientInforModel(
+  Future<void> addPatientInforModel({
     String? doctorId,
     AccountModel? accountModel,
-  ) async {
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -271,7 +270,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> deletePatient(String? patientId) async {
+  Future<void> deletePatient({String? patientId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -324,7 +323,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<RelativeInforModel> getRelativeInforModel(String? relativeId) async {
+  Future<RelativeInforModel> getRelativeInforModel({String? relativeId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -352,10 +351,10 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> updateRelativeInforModel(
+  Future<void> updateRelativeInforModel({
     String? relativeId,
     RelativeInforModel? relativeInforModel,
-  ) async {
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -381,7 +380,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<PatientInforModel> getPatientInforModel(String? patientId) async {
+  Future<PatientInforModel> getPatientInforModel({String? patientId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -409,10 +408,10 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> updatePatientInforModel(
+  Future<void> updatePatientInforModel({
     String? patientId,
     PatientInforModel? patientInforModel,
-  ) async {
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -438,10 +437,10 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> addRelativeInforModel(
+  Future<void> addRelativeInforModel({
     String? patientId,
     AccountModel? accountModel,
-  ) async {
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -505,7 +504,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> setReadedNotificationModel(String? notificationId) async {
+  Future<void> setReadedNotificationModel({String? notificationId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -530,7 +529,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<int> getUnreadCountNotification(String? personId) async {
+  Future<int> getUnreadCountNotification({String? personId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -557,7 +556,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<int> getNumberOfNotifications(String? userId) async {
+  Future<int> getNumberOfNotifications({String? userId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -584,7 +583,7 @@ class _RestApiRepository implements RestApiRepository {
   }
 
   @override
-  Future<void> deleteNotificationModel(String? notificationId) async {
+  Future<void> deleteNotificationModel({String? notificationId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);

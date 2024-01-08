@@ -14,7 +14,6 @@ import '../../../domain/entities/temperature_entity.dart';
 import '../../../presentation/common_widget/enum_common.dart';
 import '../../../presentation/modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../../presentation/route/route_list.dart';
-import '../navigation/navigation_service.dart';
 
 @Singleton()
 class OneSignalNotificationService {
@@ -131,7 +130,7 @@ class OneSignalNotificationService {
 void notificationAction(OSNotificationOpenedResult openedResult) {
   NotificationBloc notificationBloc = getIt<NotificationBloc>();
   //!---------Blood Pressure------------------//
-  NavigationService navigationService = injector<NavigationService>();
+
   if (openedResult.notification.additionalData?["Indicator"] ==
       "BloodPressure") {
     String? patientId = openedResult.notification.additionalData?["patientId"];

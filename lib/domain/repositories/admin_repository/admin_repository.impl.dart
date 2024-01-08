@@ -5,24 +5,26 @@ part of 'admin_repository.dart';
   as: AdminRepository,
 )
 class AdminRepositoryImpl extends AdminRepository {
-  final AdminApiRepository _doctorInforApi;
+  final AdminApiRepository _adminInforApi;
 
   AdminRepositoryImpl(
-    this._doctorInforApi,
+    this._adminInforApi,
   );
-
   @override
-  Future<void> createDoctorAccountModel(AccountModel? accountModel,String? adminId) {
-    return _doctorInforApi.createDoctorAccountModel(accountModel,adminId);
+  Future<AdminInforModel>? getAdminInforModel({String? adminId}) {
+    return _adminInforApi.getAdminInforModel(adminId: adminId);
   }
 
   @override
-  Future<List<PersonCellModel>> getAllDoctorModel() {
-    return _doctorInforApi.getAllDoctorModel();
+  Future<void> createDoctorAccountModel(
+      AccountModel? accountModel, String? adminId) {
+    return _adminInforApi.createDoctorAccountModel(accountModel, adminId);
   }
+
+  
 
   @override
   Future<void> deleteDoctorModel(String? doctorId) {
-    return _doctorInforApi.deleteDoctorModel(doctorId);
+    return _adminInforApi.deleteDoctorModel(doctorId);
   }
 }

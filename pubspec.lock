@@ -101,18 +101,18 @@ packages:
     dependency: transitive
     description:
       name: build_resolvers
-      sha256: "64e12b0521812d1684b1917bc80945625391cb9bdd4312536b1d69dcb6133ed8"
+      sha256: "339086358431fa15d7eca8b6a36e5d783728cf025e559b834f4609a1fcfb7b0a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   build_runner:
     dependency: "direct main"
     description:
       name: build_runner
-      sha256: "10c6bcdbf9d049a0b666702cf1cee4ddfdc38f02a19d35ae392863b47519848b"
+      sha256: "67d591d602906ef9201caf93452495ad1812bea2074f04e25dbd7c133785821b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.6"
+    version: "2.4.7"
   build_runner_core:
     dependency: transitive
     description:

@@ -12,17 +12,17 @@ class RelativeInforApiRepositoryImpl implements RelativeInforApiRepository {
 
   RelativeInforApiRepositoryImpl({
     required this.dio,
-  }) : restApi = RestApiRepository(dio,
-            baseUrl: baseUrl);
+  }) : restApi = RestApiRepository(dio, baseUrl: baseUrl);
 
   @override
   Future<RelativeInforModel> getRelativeInforModel(String? relativeId) {
-    return restApi.getRelativeInforModel(relativeId);
+    return restApi.getRelativeInforModel(relativeId: relativeId);
   }
 
   @override
   Future<void> updateRelativeInforModel(
       String? relativeId, RelativeInforModel? relativeInforModel) {
-    return restApi.updateRelativeInforModel(relativeId, relativeInforModel);
+    return restApi.updateRelativeInforModel(
+        relativeId: relativeId, relativeInforModel: relativeInforModel);
   }
 }

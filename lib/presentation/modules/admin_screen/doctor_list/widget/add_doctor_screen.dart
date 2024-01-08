@@ -32,7 +32,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        title: translation(context).addDoctor,
+        title: translation(context).doctorIn4,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: false,
@@ -53,8 +53,8 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         (route) => false);
                   },
                   context: context,
-                  message: translation(context).addDoctorSuccessfully,
-                  title: translation(context).notification,
+                  message: translation(context).addDoctorSuccessText,
+                  title: translation(context).addDoctorSuccessfully,
                   titleBtn: translation(context).exit);
             }
 

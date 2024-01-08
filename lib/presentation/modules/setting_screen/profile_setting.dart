@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/domain/entities/relative_infor_entity.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:mobile_health_check/presentation/modules/setting_screen/setting_
 
 import '../../../classes/language.dart';
 import '../../../common/singletons.dart';
-import '../../../di/di.dart';
+
 import '../../../domain/entities/doctor_infor_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
 
@@ -38,8 +37,6 @@ class _SettingProfileState extends State<SettingProfile> {
 
   @override
   void initState() {
-    NavigationService navigationService = injector<NavigationService>();
-
     // checkWifiAvailability();
     super.initState();
     // ignore: unrelated_type_equality_checks

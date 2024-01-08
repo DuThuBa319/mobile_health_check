@@ -42,8 +42,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     ResetPasswordEvent event,
     Emitter<LoginState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         ResetPasswordState(
@@ -115,8 +113,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginUserEvent event,
     Emitter<LoginState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         LoginActionState(
@@ -225,8 +221,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     GetUserDataEvent event,
     Emitter<LoginState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetUserDataState(

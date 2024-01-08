@@ -3,9 +3,6 @@ part of 'get_patient_bloc.dart';
 @immutable
 abstract class PatientEvent {}
 
-class GetDoctorListEvent extends PatientEvent {
-  GetDoctorListEvent() : super();
-}
 
 class GetPatientListEvent extends PatientEvent {
   // GetPatientListEvent();
@@ -27,8 +24,7 @@ class RemoveRelationshipRaPEvent extends PatientEvent {
 }
 
 class DeletePatientEvent extends PatientEvent {
-  DeletePatientEvent({required this.patientId, required this.doctorId});
-  final String? doctorId;
+  DeletePatientEvent({required this.patientId});
   final String? patientId;
 }
 

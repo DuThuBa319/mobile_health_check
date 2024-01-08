@@ -4,7 +4,7 @@ part of 'doctor_infor_screen.dart';
 extension DoctorInforScreenAction on _DoctorInforScreenState {
   void _blocListener(BuildContext context, GetDoctorState state) {
     if ((state is GetDoctorInforState &&
-            state.status == BlocStatusState.loading) ) {
+        state.status == BlocStatusState.loading)) {
       showToast(translation(context).loadingData);
     }
     if (state is GetDoctorInforState &&
@@ -13,7 +13,7 @@ extension DoctorInforScreenAction on _DoctorInforScreenState {
     }
 
     if ((state is GetDoctorInforState &&
-            state.status == BlocStatusState.failure) ) {
+        state.status == BlocStatusState.failure)) {
       showToast(translation(context).error);
     }
   }

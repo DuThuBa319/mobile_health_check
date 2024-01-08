@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
+
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:flutter/material.dart';
@@ -11,7 +11,8 @@ import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_p
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../di/di.dart';
+import '../../../../common/singletons.dart';
+
 import '../../../../domain/entities/change_password_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
@@ -31,7 +32,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   final NetworkInfo networkInfo;
 
   SettingBloc(
-    this.networkInfo,
+      this.networkInfo,
       this._patientUseCase,
       this._doctorInforUsecase,
       this._relativeInforUsecase,
@@ -50,9 +51,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     ChangePassEvent event,
     Emitter<SettingState> emit,
   ) async {
-
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       if (event.changePassEntity.currentPassword == null ||
           event.changePassEntity.currentPassword?.trim() == '' ||
@@ -104,7 +102,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         }
         return;
       }
-      
+
       emit(
         ChangePassState(
           status: BlocStatusState.loading,
@@ -157,8 +155,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdatePatientInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         UpdatePatientInforState(
@@ -197,8 +193,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdateRelativeInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         UpdateRelativeInforState(
@@ -238,8 +232,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdateDoctorInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         UpdateDoctorInforState(

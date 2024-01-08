@@ -235,34 +235,48 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                     ],
                   ),
                   Expanded(
-                    child: Container(
-                        margin:
-                            EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
-                        width: SizeConfig.screenWidth * 0.7,
-                        child: Center(
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                    text:
-                                        "${state.viewModel.bloodSugarEntity?.bloodSugar}",
-                                    style: AppTextTheme.title3.copyWith(
-                                        color: state.viewModel.bloodSugarEntity
-                                            ?.statusColor,
-                                        fontSize: SizeConfig.screenWidth * 0.15,
-                                        fontWeight: FontWeight.w500)),
-                                TextSpan(
-                                    text: " mg/dL",
-                                    style: AppTextTheme.title3.copyWith(
-                                        color: const Color(0xff615A5A),
-                                        fontSize: SizeConfig.screenWidth * 0.05,
-                                        fontWeight: FontWeight.w500))
-                              ],
-                            ),
-                          ),
-                        )),
-                  )
+                      child: state.viewModel.bloodSugarEntity?.bloodSugar !=
+                              null
+                          ? Container(
+                              margin: EdgeInsets.only(
+                                  left: SizeConfig.screenWidth * 0.1),
+                              width: SizeConfig.screenWidth * 0.7,
+                              child: Center(
+                                child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              "${state.viewModel.bloodSugarEntity?.bloodSugar}",
+                                          style: AppTextTheme.title3.copyWith(
+                                              color: state
+                                                  .viewModel
+                                                  .bloodSugarEntity
+                                                  ?.statusColor,
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.15,
+                                              fontWeight: FontWeight.w500)),
+                                      TextSpan(
+                                          text: " mg/dL",
+                                          style: AppTextTheme.title3.copyWith(
+                                              color: const Color(0xff615A5A),
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.05,
+                                              fontWeight: FontWeight.w500))
+                                    ],
+                                  ),
+                                ),
+                              ))
+                          : Center(
+                              child: Text(
+                                  translation(context).unableToRecognizeReading,
+                                  textAlign: TextAlign.center,
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: AppColor.exceptionDialogIconColor,
+                                      fontSize: SizeConfig.screenWidth * 0.055,
+                                      fontWeight: FontWeight.w500)),
+                            ))
                 ],
               ),
             ),

@@ -13,6 +13,7 @@ import 'presentation/common_widget/common.dart';
 import 'presentation/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_health_check/common/service/firebase/firebase_options.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 List<CameraDescription> cameras = [];
@@ -20,7 +21,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //! Phải gọi function configureDependencies() trước khi run App để sử dụng được DI
   configureDependencies();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await notificationData.saveDelayTime(2000);
   try {
@@ -45,29 +45,23 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
+//! MyApp.setLocale
+//! Bước này là thực hiện để đổi ngôn ngữ của toàn App
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state?.setLocale(newLocale);
     // ignore: unrelated_type_equality_checks
   }
 }
-
 class _MyAppState extends State<MyApp> {
-  Locale? _locale;
 
+  Locale? _locale;
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
-      if (_locale?.languageCode == 'en') {
-        notificationData.saveLocale(1);
-      }
-      if (_locale?.languageCode == 'vi') {
-        notificationData.saveLocale(2);
-      }
-      // ignore: unrelated_type_equality_checks
-    });
+         });
   }
-
+  
   @override
   void didChangeDependencies() {
     getLocale().then((locale) => {setLocale(locale)});
@@ -84,9 +78,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: _locale,
       navigatorKey: injector<NavigationService>().navigatorKey,
       navigatorObservers: [myNavigatorObserver],
-      locale: _locale,
       debugShowCheckedModeBanner: false,
       title: 'TeleHealth',
       onGenerateRoute: AppRoute.onGenerateRoute,

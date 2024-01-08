@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_health_check/domain/entities/admin_infor_entity.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
@@ -11,9 +12,9 @@ import 'package:mobile_health_check/domain/usecases/admin_usecase/admin_usecase.
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../common/service/navigation/navigation_service.dart';
+
 import '../../../../common/singletons.dart';
-import '../../../../di/di.dart';
+
 import '../../../common_widget/enum_common.dart';
 part 'admin_event.dart';
 part 'admin_state.dart';
@@ -34,13 +35,10 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     on<GetDoctorInforEvent>(_getDoctorInfor);
     on<RegistDoctorEvent>(_onRegistDoctor);
   }
-
   Future<void> _onGetDoctorList(
     GetDoctorListEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetDoctorListState(
@@ -49,9 +47,10 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
-        final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
-        final newViewModel =
-            state.viewModel.copyWith(allDoctorEntity: allDoctorEntity);
+        final response =
+            await _adminUsecase.getAdminInforEntity(adminId: event.admindId);
+        final newViewModel = state.viewModel.copyWith(
+            adminInforEntity: response, allDoctorEntity: response?.doctors);
         emit(GetDoctorListState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -81,8 +80,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     FilterDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         SearchDoctorState(
@@ -91,10 +88,12 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
-        final allDoctorEntity = await _adminUsecase.getAllDoctorEntity();
+        final response =
+            await _adminUsecase.getAdminInforEntity(adminId: event.adminId);
+
         // List<DoctorEntity>? searchResult = [];
-        final filteredDoctors = allDoctorEntity
-            .where((value) => value.name
+        final filteredDoctors = response?.doctors
+            ?.where((value) => value.name
                 .toLowerCase()
                 .contains(event.searchText.toLowerCase()))
             .toList();
@@ -129,8 +128,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     GetDoctorInforEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetDoctorInforState(
@@ -172,8 +169,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     RegistDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RegistDoctorState(
@@ -288,8 +283,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     DeleteDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         DeleteDoctorState(
@@ -299,12 +292,13 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       );
       try {
         await _adminUsecase.deleteDoctorEntity(event.doctorId);
-        final response = await _adminUsecase.getAllDoctorEntity();
-        final newViewModel =
-            state.viewModel.copyWith(allDoctorEntity: response);
+        // final response =
+        //       await _adminUsecase.getAdminInforEntity(adminId: event.adminId);
+        // final newViewModel =
+        //     state.viewModel.copyWith(allDoctorEntity: response?.doctors);
         emit(DeleteDoctorState(
           status: BlocStatusState.success,
-          viewModel: newViewModel,
+          viewModel: state.viewModel,
         ));
       } on DioException catch (e) {
         if (e.response?.data ==

@@ -9,7 +9,7 @@ import '../../../../presentation/common_widget/enum_common.dart';
 
 part 'user_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class UserModel extends User {
   @override
   final int? unreadCount;

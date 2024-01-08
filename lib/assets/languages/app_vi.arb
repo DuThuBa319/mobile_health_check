@@ -104,6 +104,7 @@
 "accept":"Đồng ý",
 "takePhotoAgain":"Chụp lại",
 "yourPhoto":"Hình bạn vừa chụp",
+"unableToRecognizeReading":"Không nhận diện được số liệu, vui lòng chụp lại!",
 "errorWhileTakingPhoto":"Xảy ra lỗi khi chụp ảnh",
 "photoLoading":"Đang lấy hình ảnh",
 "verifying":"Đang xác thực, vui lòng chờ...",
@@ -177,7 +178,7 @@
 "exitAppTitle":"Thoát ứng dụng",
 "areYouSureToExitApp":"Bạn có chắc muốn thoát khỏi ứng dụng chứ?",
 "no":"Không",
-"yes":"Đúng vậy",
+"yes":"Đồng ý",
 
 "noPatient":"Chưa có bệnh nhân",
 "noDoctor":"Chưa có bác sĩ",

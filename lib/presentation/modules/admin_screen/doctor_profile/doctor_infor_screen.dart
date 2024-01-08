@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 
@@ -7,7 +8,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../domain/entities/doctor_infor_entity.dart';
-
 
 // import '../../bloc/Doctorlist/get_Doctor_bloc/get_Doctor_bloc.dart';
 import '../../../common_widget/common.dart';
@@ -30,6 +30,7 @@ class DoctorInforScreen extends StatefulWidget {
 
 class _DoctorInforScreenState extends State<DoctorInforScreen> {
   GetDoctorBloc get doctorBloc => BlocProvider.of(context);
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -114,22 +115,18 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                                   SizedBox(
                                     height: SizeConfig.screenHeight * 0.01,
                                   ),
-                                  Text(
-                                    "Dr. ${doctor.name}",
-                                    style: AppTextTheme.body1.copyWith(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
+                                  SizedBox(
+                                    width: SizeConfig.screenWidth * 0.7,
+                                    child: Center(
+                                      child: Text(
+                                        "Dr. ${doctor.name}",
+                                        style: AppTextTheme.body1.copyWith(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(doctor.phoneNumber,
-                                      style: AppTextTheme.body3.copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: SizeConfig.screenWidth * 0.05,
-                                      ))
                                 ],
                               )),
                           SizedBox(
@@ -139,7 +136,7 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                             padding: EdgeInsets.only(
                                 left: SizeConfig.screenWidth * 0.025),
                             child: Text(
-                              translation(context).lastUpdate,
+                              translation(context).doctorIn4,
                               style: AppTextTheme.body0.copyWith(
                                   fontSize: SizeConfig.screenHeight * 0.02,
                                   fontWeight: FontWeight.bold),
@@ -156,75 +153,111 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                             physics:
                                 const NeverScrollableScrollPhysics(), // Add this line
                             children: [
-                              doctorIn4Cell("${translation(context).name}: ",
+                              doctorIn4Cell(
+                                  context,
+                                  "${translation(context).name}: ",
                                   doctor.name),
                               doctorIn4Cell(
+                                  context,
                                   "${translation(context).phoneNumber}: ",
-                                  doctor.phoneNumber),
+                                  doctor.phoneNumber,
+                                  isSelectable: true),
                               doctorIn4Cell(
+                                  context,
                                   "${translation(context).age}: ",
                                   (doctor.age == 0)
                                       ? translation(context).notUpdate
                                       : "${doctor.age}"),
                               doctorIn4Cell(
+                                context,
                                 "${translation(context).gender}: ",
                                 doctor.gender == 0
                                     ? translation(context).male
                                     : translation(context).female,
                               ),
                               doctorIn4Cell(
+                                  context,
                                   "${translation(context).address}: ",
                                   (doctor.address == null ||
                                           doctor.address == "")
                                       ? translation(context).notUpdate
-                                      : "${doctor.address}"),
+                                      : "${doctor.address}",
+                                  isSelectable: true),
                             ],
                           )
                         ],
                       ),
                     ));
               }
-              if (state.status == BlocStatusState.failure ) {
-                return Center(child: Text(
-                          translation(context).error,
-                          style: TextStyle(
-                              fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold,color: AppColor.red),
-                        ),);
+              if (state.status == BlocStatusState.failure) {
+                return Center(
+                  child: Text(
+                    translation(context).error,
+                    style: TextStyle(
+                        fontSize: SizeConfig.screenWidth * 0.05,
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.red),
+                  ),
+                );
               }
               return Container();
             }));
   }
 }
 
-Widget doctorIn4Cell(String titile, String text) {
+Widget doctorIn4Cell(BuildContext context, title, String text,
+    {bool isSelectable = false}) {
   return Container(
       margin: EdgeInsets.only(
           bottom: SizeConfig.screenWidth * 0.03,
           left: SizeConfig.screenWidth * 0.025,
-          right: SizeConfig.screenWidth * 0.025),
+          right: SizeConfig.screenWidth * 0.04),
       padding: EdgeInsets.only(
           left: SizeConfig.screenWidth * 0.03,
           top: SizeConfig.screenHeight * 0.02),
-      height: SizeConfig.screenHeight * 0.13,
+      height: title == "${translation(context).address}: "
+          ? SizeConfig.screenHeight * 0.15
+          : SizeConfig.screenHeight * 0.1,
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
       ),
       child: RichText(
+        maxLines: title == "${translation(context).address}: " ? 3 : 2,
+        overflow: TextOverflow.ellipsis,
+        softWrap: true,
         textAlign: TextAlign.start,
         text: TextSpan(
           children: [
             TextSpan(
-                text: titile,
+                text: title,
                 style: TextStyle(
                     color: AppColor.black,
                     fontSize: SizeConfig.screenWidth * 0.055,
                     fontWeight: FontWeight.w500)),
             TextSpan(
-              text: text,
+              text:text,
               style: TextStyle(
                   color: Colors.black, fontSize: SizeConfig.screenWidth * 0.05),
+            ),
+            const WidgetSpan(child: SizedBox(width: 10)),
+            WidgetSpan(
+              child: isSelectable
+                  ? InkWell(
+                      child: const Icon(Icons.copy, color: Colors.black54),
+                      onTap: () {
+                        Clipboard.setData(ClipboardData(text: text));
+                        // Clipboard.setData(ClipboardData(
+                        //         text: doctor.phoneNumber))
+                        //     .then((value) {
+                        //   ScaffoldMessenger.of(context)
+                        //       .showSnackBar(const SnackBar(
+                        //           title:
+                        //               Text('Đã sao chép')));
+                        // });
+                      },
+                    )
+                  : emptySpace(5),
             )
           ],
         ),

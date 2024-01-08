@@ -58,8 +58,6 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
     // ignore: unused_element
 
     return Scaffold(
-    
-
       backgroundColor: widget.backgroundColor,
 //app bar ---------------------------------------
       appBar: widget.isShowAppBar
@@ -123,7 +121,6 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               color: AppColor.white,
               elevation: 40,
               notchMargin: 5,
-              
               child: Row(
                 // mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -215,7 +212,11 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       }
     }
     if (index == 1 && index != widget.selectedIndex) {
-      Navigator.pushNamed(context, RouteList.settingMenu);
+      if (widget.selectedIndex == 0) {
+        Navigator.pushNamed(context, RouteList.settingMenu);
+      } else {
+        Navigator.pushReplacementNamed(context, RouteList.settingMenu);
+      }
     }
   }
 }

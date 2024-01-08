@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,8 +63,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         ),
       );
       try {
-        http.get(Uri.parse(
-            'https://telehealthflaskserver.azurewebsites.net/api/start_up?code=a-h-xcqI_Hn3u1ivR_UjAIa3eJuzmzjKcc-etZZU-_CoAzFuaBMVow%3D%3D'));
+        //    http.get(Uri.parse(url['testURL'] ?? ''));
         emit(state.copyWith(
           status: BlocStatusState.success,
           viewModel: state.viewModel,
@@ -598,10 +599,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
 Future<List<int?>> uploadBloodPressureImage(
     {required File croppedImage, required bool flashOn}) async {
   List<int?> dataList = [];
-  final request = http.MultipartRequest(
-      "POST",
-      Uri.parse(
-          "https://flask-server.azurewebsites.net/api/bloodpressure?code=VsvpcH9u0z8Wlo4EBEqBg9LlUE0x37h65w5QZdu2Pb74AzFux8d7gQ%3D%3D"));
+  final request =
+      http.MultipartRequest("POST", Uri.parse(url['bloodPressureURL'] ?? ''));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -625,10 +624,8 @@ Future<double?> uploadBloodGlucoseImage(
     {required File croppedImage, required bool flashOn}) async {
   double? glucose;
 
-  final request = http.MultipartRequest(
-      "POST",
-      Uri.parse(
-          "https://flask-server.azurewebsites.net/api/bloodglucose?code=7s34g-FdGx_VRWYQHkCvb55Zv4mkXOgECRhsqmnzqtBrAzFua74kWA%3D%3D"));
+  final request =
+      http.MultipartRequest("POST", Uri.parse(url['bloodSugarURL'] ?? ''));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -653,10 +650,8 @@ Future<double?> uploadBloodGlucoseImage(
 Future<double?> uploadTemperatureImage(
     {required File croppedImage, required bool flashOn}) async {
   double? temperature;
-  final request = http.MultipartRequest(
-      "POST",
-      Uri.parse(
-          "https://flask-server.azurewebsites.net/api/bodytemperature?code=Za4DcoO9bc5IMMUnBDMqWR8QY8r9dvg4VoMD_tdph7xrAzFuE31tfA%3D%3D"));
+  final request =
+      http.MultipartRequest("POST", Uri.parse(url['tempURL'] ?? ''));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
@@ -681,10 +676,7 @@ Future<double?> uploadTemperatureImage(
 Future<int?> uploadSpo2Image(
     {required File croppedImage, required bool flashOn}) async {
   int? spo2;
-  final request = http.MultipartRequest(
-      "POST",
-      Uri.parse(
-          "https://flask-server.azurewebsites.net/api/oxygen?code=dbUecZAtJzt_snPDrNohMJr27Tj5u0y5LvDodmFlnFxtAzFukHuD_w%3D%3D"));
+  final request = http.MultipartRequest("POST", Uri.parse(url['oxiURL'] ?? ''));
   final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
