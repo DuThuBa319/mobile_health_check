@@ -49,17 +49,34 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       try {
         final response =
             await _adminUsecase.getAdminInforEntity(adminId: event.admindId);
-        final newViewModel = state.viewModel.copyWith(
-            adminInforEntity: response, allDoctorEntity: response?.doctors);
-        emit(GetDoctorListState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
+        _ViewModel newViewModel =
+            state.viewModel.copyWith(adminInforEntity: response);
+        if (response?.doctors?.isNotEmpty == true) {
+          newViewModel = state.viewModel.copyWith(
+              adminInforEntity: response, allDoctorEntity: response?.doctors);
+          emit(GetDoctorListState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ));
+        } else {
+          emit(
+            state.copyWith(
+              status: BlocStatusState.failure,
+              viewModel: state.viewModel.copyWith(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .noDoctor),
+            ),
+          );
+        }
       } catch (e) {
         emit(
           state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
@@ -97,8 +114,10 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
                 .toLowerCase()
                 .contains(event.searchText.toLowerCase()))
             .toList();
+        //! danh sách có bs nhưng filter không có bác sĩ => failure
         final newViewModel =
             state.viewModel.copyWith(allDoctorEntity: filteredDoctors);
+
         emit(SearchDoctorState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
@@ -107,7 +126,10 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         emit(
           state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .no),
           ),
         );
       }

@@ -24,11 +24,10 @@ class _ViewModel {
       final DoctorInforEntity? doctorInforEntity,
       final String? errorEmptyName,
       final String? errorEmptyPhoneNumber,
-      final AdminInforEntity? adminInforEntity
-      }) {
+      final AdminInforEntity? adminInforEntity}) {
     // ignore: unnecessary_this
     return _ViewModel(
-      adminInforEntity: adminInforEntity?? this.adminInforEntity,
+        adminInforEntity: adminInforEntity ?? this.adminInforEntity,
         errorMessage: errorMessage ?? this.errorMessage,
         allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
         doctorInforEntity: doctorInforEntity ?? this.doctorInforEntity,

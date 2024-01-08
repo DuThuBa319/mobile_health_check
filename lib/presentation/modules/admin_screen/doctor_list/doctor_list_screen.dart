@@ -186,7 +186,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                                     itemCount:
                                         state.viewModel.allDoctorEntity?.length,
                                     personCellEntities:
-                                        state.viewModel.allDoctorEntity)
+                                        state.viewModel.allDoctorEntity!)
                                 : Container(),
                             //? Thành công
                             (state is SearchDoctorState &&
@@ -196,14 +196,14 @@ class _DoctorListState extends State<DoctorListScreen> {
                                         state.viewModel.allDoctorEntity?.length,
                                     isSearching: true,
                                     personCellEntities:
-                                        state.viewModel.allDoctorEntity)
+                                        state.viewModel.allDoctorEntity!)
                                 : Container(),
 
                             //? Failure
                             //  (state.status == BlocStatusState.failure) {
                             //   return Center(
                             //     child: Text(
-                            //       translation(context).error,
+                            //       state.viewModel.errorMessage ??translation(context).error,
                             //       style: TextStyle(
                             //           fontSize: SizeConfig.screenWidth * 0.05,
                             //           fontWeight: FontWeight.bold,
