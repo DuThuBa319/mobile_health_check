@@ -17,7 +17,7 @@ Future<void> scanQR() async {
   if (barcodeScanRes == '-1') {
     // showToast('Quét không thành công');
   } else {
-    //? do sonething
+    //? do something
     // textController = barcodeScanRes;
     // showToast(textController);
   }

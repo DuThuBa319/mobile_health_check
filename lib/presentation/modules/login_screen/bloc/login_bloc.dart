@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/classes/language.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/data/models/authentication_model/authentication_model.dart';
 import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/reset_password_usecase/reset_password_usecase.dart';
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/service/onesginal/onesignal_service.dart';
 import '../../../../common/singletons.dart';
-import '../../../../di/di.dart';
 import '../../../../domain/entities/login_entity_group/authentication_entity.dart';
 import '../../../../domain/entities/login_entity_group/sign_in_entity.dart';
 import '../../../../domain/usecases/authentication_usecase/authentication_usecase.dart';

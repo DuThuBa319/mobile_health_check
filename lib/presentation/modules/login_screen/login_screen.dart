@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:mobile_health_check/common/singletons.dart';
-import 'package:mobile_health_check/utils/biometric_authentication.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/main.dart';
 import 'package:mobile_health_check/assets/assets.dart';
