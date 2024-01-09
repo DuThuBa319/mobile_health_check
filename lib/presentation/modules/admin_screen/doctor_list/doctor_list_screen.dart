@@ -101,7 +101,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                             state.status == BlocStatusState.success) ||
                         (state is GetDoctorListState &&
                             state.status == BlocStatusState.loading &&
-                            state.viewModel.allDoctorEntity == null) ||
+                            state.viewModel.allDoctorEntity != null) ||
                         (state is DeleteDoctorState &&
                             state.status == BlocStatusState.failure &&
                             state.viewModel.errorMessage ==
@@ -130,7 +130,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                         ),
                       );
                     }
-                    
+
                     return Container();
                   }),
             )));

@@ -15,8 +15,6 @@ class AdminUsecaseImpl extends AdminUsecase {
         accountEntity?.convertToAccountModel, adminId);
   }
 
-
-
   @override
   Future<AdminInforEntity?> getAdminInforEntity({String? adminId}) async {
     final response = await _repository.getAdminInforModel(adminId: adminId);

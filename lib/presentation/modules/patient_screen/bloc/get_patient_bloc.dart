@@ -33,7 +33,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final NetworkInfo networkInfo;
 
   GetPatientBloc(
-      this.networkInfo,
+       this.networkInfo,
       this._patientUseCase,
       this._doctorInforUsecase,
       this._relativeInforUsecase,

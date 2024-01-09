@@ -374,9 +374,9 @@ class AppRoute {
       case '/select':
         return MaterialPageRoute(
           builder: (context) {
-            return  BlocProvider(
+            return BlocProvider(
               create: (context) => getIt<OCRScannerBloc>(),
-              child: PickEquipmentScreen(),
+              child: const PickEquipmentScreen(),
             );
           },
         );
