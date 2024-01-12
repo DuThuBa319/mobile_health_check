@@ -1,3 +1,5 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
@@ -6,32 +8,41 @@ import 'package:intl/intl.dart';
 
 import '../../../../classes/language.dart';
 import '../../../../common/singletons.dart';
-import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 import '../../../common_widget/screen_form/image_picker_widget/custom_image_picker.dart';
 import '../../../route/route_list.dart';
 import '../../../theme/theme_color.dart';
 
-class Spo2NotificationReadingScreen extends StatefulWidget {
+class TemperatureNotificationReadingScreen extends StatefulWidget {
   final NotificationEntity? notificationEntity;
   final bool? navigateFromCell;
 
-  const Spo2NotificationReadingScreen(
+  const TemperatureNotificationReadingScreen(
       {super.key,
       required this.notificationEntity,
       required this.navigateFromCell});
 
   @override
-  State<Spo2NotificationReadingScreen> createState() =>
-      _Spo2NotificationReadingScreenState();
+  State<TemperatureNotificationReadingScreen> createState() =>
+      _TemperatureNotificationReadingScreenState();
 }
 
-class _Spo2NotificationReadingScreenState
-    extends State<Spo2NotificationReadingScreen> {
-  // bool _isLoading = true;
-
+class _TemperatureNotificationReadingScreenState
+    extends State<TemperatureNotificationReadingScreen> {
+  bool isWifiAvailable = false;
+  bool is4GAvailable = false;
   @override
   void initState() {
     super.initState();
+    checkWifiAvailability();
+  }
+
+  void checkWifiAvailability() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      // ignore: unrelated_type_equality_checks
+      isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
+      is4GAvailable = connectivityResult == ConnectivityResult.mobile;
+    });
   }
 
   @override
@@ -39,7 +50,7 @@ class _Spo2NotificationReadingScreenState
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.06, 12, 10),
+        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.08, 12, 10),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -57,7 +68,7 @@ class _Spo2NotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenWidth * 0.1,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -85,31 +96,33 @@ class _Spo2NotificationReadingScreenState
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenWidth * 0.02,
               ),
               CustomImagePicker(
-                imagePath: widget.notificationEntity?.spo2Entity?.imageLink ??
-                    widget.notificationEntity?.spo2Entity?.imageLink,
+                imagePath: (isWifiAvailable || is4GAvailable)
+                    ? widget.notificationEntity?.bodyTemperatureEntity
+                            ?.imageLink ??
+                        ""
+                    : null,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenWidth * 0.02,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  margin:
-                      EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                  margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.1),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.23,
+                  height: SizeConfig.screenHeight * 0.26,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(translation(context).oximeter,
+                      Text(translation(context).bodyTemperature,
                           style: AppTextTheme.title2.copyWith(
                               fontSize: SizeConfig.screenWidth * 0.075,
                               color: Colors.black,
@@ -122,27 +135,36 @@ class _Spo2NotificationReadingScreenState
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.notificationEntity?.spo2Entity?.spo2 ?? widget.notificationEntity!.spo2Entity!.spo2!}",
+                                      "${widget.notificationEntity?.bodyTemperatureEntity!.temperature!}°",
                                   style: AppTextTheme.body0.copyWith(
-                                      letterSpacing: -4,
-                                      fontSize: SizeConfig.screenWidth * 0.25,
-                                      // color: widget.notificationEntity!.spo2Entity!.statusColor,
-                                      color: widget.notificationEntity
-                                          ?.spo2Entity?.statusColor)),
+                                    letterSpacing: -4,
+                                    fontSize: SizeConfig.screenWidth * 0.2,
+                                    color: widget.notificationEntity
+                                        ?.bodyTemperatureEntity!.statusColor,
+                                  )),
                               TextSpan(
-                                  text: ' %',
+                                  text: 'C',
                                   style: AppTextTheme.body0.copyWith(
-                                      fontSize: SizeConfig.screenWidth * 0.08,
-                                      // color: widget.notificationEntity!.spo2Entity!.statusColor,
-                                      color: Colors.black)),
+                                    fontSize: SizeConfig.screenWidth * 0.15,
+                                    color: widget.notificationEntity
+                                        ?.bodyTemperatureEntity!.statusColor,
+                                  )),
                             ],
                           ),
                         ),
                       ),
                       SizedBox(height: SizeConfig.screenWidth * 0.05),
+                      Center(
+                        child: Text(
+                            "${widget.notificationEntity?.bodyTemperatureEntity!.statusComment(context)}",
+                            style: AppTextTheme.body2.copyWith(
+                                color: widget.notificationEntity
+                                    ?.bodyTemperatureEntity!.statusColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: SizeConfig.screenWidth * 0.06)),
+                      ),
                     ],
                   )),
-              SizedBox(height: SizeConfig.screenWidth * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,

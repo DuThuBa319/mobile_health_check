@@ -40,7 +40,7 @@ class _ForgotPassState extends State<ForgotPassScreen> {
       appBarColor: const Color(0xff7BD4FF),
       backgroundColor: AppColor.white,
       child: BlocConsumer<LoginBloc, LoginState>(
-        listener: _blocForgotPassListener,
+        listener: _blocListener,
         builder: (context, state) {
           return SingleChildScrollView(
             padding: EdgeInsets.only(

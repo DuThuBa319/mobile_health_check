@@ -8,8 +8,10 @@ class _ViewModel {
   final List<NotificationEntity>? notificationEntity;
   final int? totalCount;
   final int? unreadCount;
+  final bool? isWifiDisconnect;
   final String? errorMessage;
   const _ViewModel({
+    this.isWifiDisconnect,
     this.errorMessage,
     this.unreadCount,
     this.notificationEntity,
@@ -22,6 +24,7 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "Get some specific props" instead of "Get all props"
   _ViewModel copyWith({
+    bool? isWifiDisconnect,
     List<NotificationEntity>? notificationEntity,
     int? unreadCount,
     int? totalCount,
@@ -30,6 +33,7 @@ class _ViewModel {
     // ignore: unneces
     // sary_this
     return _ViewModel(
+      isWifiDisconnect: isWifiDisconnect?? this.isWifiDisconnect,
       errorMessage: errorMessage ?? this.errorMessage,
       notificationEntity: notificationEntity ?? this.notificationEntity,
       unreadCount: unreadCount ?? this.unreadCount,

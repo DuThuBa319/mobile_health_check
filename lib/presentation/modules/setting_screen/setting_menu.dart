@@ -70,17 +70,18 @@ class _SettingMenuState extends State<SettingMenu> {
                           fit: BoxFit.fill,
                         )),
                       ),
-                Text(
-                    (userDataData.getUser()?.role == UserRole.doctor)
-                        ? "Dr.${userDataData.getUser()?.name}"
-                        : "${userDataData.getUser()?.name}",
-                    style: AppTextTheme.body0.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: SizeConfig.screenWidth * 0.05)),
-                Text(userDataData.getUser()?.phoneNumber ?? '--',
-                    style: AppTextTheme.body3),
+                SizedBox(
+                  width: SizeConfig.screenWidth * 0.8,
+                  child: Text(
+                      textAlign: TextAlign.center,
+                      (userDataData.getUser()?.role == UserRole.doctor)
+                          ? "Dr.${userDataData.getUser()?.name}"
+                          : "${userDataData.getUser()?.name}",
+                      style: AppTextTheme.body0.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontSize: SizeConfig.screenWidth * 0.06)),
+                ),
                 SizedBox(height: SizeConfig.screenWidth * 0.05),
-
                 //! ĐỔI MẬT KHẨU
                 GestureDetector(
                   child: settingMenuCell(
@@ -115,8 +116,6 @@ class _SettingMenuState extends State<SettingMenu> {
                         context: context,
                         message: translation(context).areYouSureToLogOut,
                         title: translation(context).logOut,
-                        titleBtn1: translation(context).no,
-                        titleBtn2: translation(context).yes,
                         onClose1: () {},
                         onClose2: () async {
                           if ((userDataData.getUser()?.role ==

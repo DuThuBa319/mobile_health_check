@@ -16,8 +16,8 @@ class BloodSugarUsecaseImpl extends BloodSugarUsecase {
   }) async {
     final responses = await _repository.getListBloodSugarModels(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime ,
+      startTime: startTime ,
     );
     var responseEntities = <BloodSugarEntity>[];
     for (final response in responses) {

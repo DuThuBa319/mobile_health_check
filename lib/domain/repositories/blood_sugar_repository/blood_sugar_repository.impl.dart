@@ -17,8 +17,8 @@ class BloodSugarRepositoryImpl extends BloodSugarRepository {
   }) {
     return bloodSugarApi.getListBloodSugarModels(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime,
+      startTime: startTime,
     );
   }
 

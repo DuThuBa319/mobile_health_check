@@ -5,6 +5,7 @@ import 'package:mobile_health_check/classes/language.dart';
 
 import '../../../../utils/size_config.dart';
 import '../../../../assets/assets.dart';
+import '../../../theme/theme_color.dart';
 import '../../dialog/show_toast.dart';
 // ignore: depend_on_referenced_packages
 
@@ -55,7 +56,15 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                           color: Colors.white,
                         ),
                       ),
-                      Text(translation(context).wifiDisconnect)
+                      Center(
+                          child: Text(
+                        textAlign: TextAlign.center,
+                        translation(context).wifiDisconnect,
+                        style: TextStyle(
+                            color: AppColor.red,
+                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontWeight: FontWeight.bold),
+                      ))
                     ],
                   )
                 : Container(

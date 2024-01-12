@@ -38,10 +38,10 @@ import '../modules/history/spo2_history_screen/spo2_history_screen.dart';
 import '../modules/login_screen/forgot_pass_screen/forgot_password_screen.dart';
 import '../modules/login_screen/bloc/login_bloc.dart';
 import '../modules/notification_onesignal/bloc/notification_bloc.dart';
-import '../modules/notification_onesignal/detail_screen/blood_pressure_reading.dart';
-import '../modules/notification_onesignal/detail_screen/blood_sugar_reading.dart';
-import '../modules/notification_onesignal/detail_screen/spo2_reading.dart';
-import '../modules/notification_onesignal/detail_screen/temperature_reading.dart';
+import '../modules/notification_onesignal/detail_screen_from_notificationCell/blood_pressure_reading.dart';
+import '../modules/notification_onesignal/detail_screen_from_notificationCell/blood_sugar_reading.dart';
+import '../modules/notification_onesignal/detail_screen_from_notificationCell/spo2_reading.dart';
+import '../modules/notification_onesignal/detail_screen_from_notificationCell/temperature_reading.dart';
 import '../modules/notification_onesignal/notification_screen.dart';
 
 import '../modules/patient_screen/bloc/get_patient_bloc.dart';

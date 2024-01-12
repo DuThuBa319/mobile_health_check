@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
@@ -24,9 +25,21 @@ class BloodPressureNotificationReadingScreen extends StatefulWidget {
 
 class _BloodPressureNotificationReadingScreenState
     extends State<BloodPressureNotificationReadingScreen> {
+  bool isWifiAvailable = false;
+  bool is4GAvailable = false;
   @override
   void initState() {
     super.initState();
+    checkWifiAvailability();
+  }
+
+  void checkWifiAvailability() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      // ignore: unrelated_type_equality_checks
+      isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
+      is4GAvailable = connectivityResult == ConnectivityResult.mobile;
+    });
   }
 
 ////////////////////////
@@ -85,8 +98,11 @@ class _BloodPressureNotificationReadingScreenState
                 height: SizeConfig.screenWidth * 0.06,
               ),
               CustomImagePicker(
-                imagePath:
-                    widget.notificationEntity?.bloodPressureEntity?.imageLink,
+                imagePath: (isWifiAvailable || is4GAvailable)
+                    ? widget.notificationEntity?.bloodPressureEntity
+                            ?.imageLink ??
+                        ""
+                    : null,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),

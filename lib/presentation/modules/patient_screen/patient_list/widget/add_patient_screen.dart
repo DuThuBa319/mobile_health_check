@@ -4,10 +4,7 @@ import 'package:mobile_health_check/domain/entities/login_entity_group/account_e
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../../../../classes/language.dart';
-
-
 
 import '../../../../common_widget/common.dart';
 import '../../../../route/route_list.dart';
@@ -46,49 +43,41 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         backgroundColor: AppColor.backgroundColor,
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
           listener: (context, state) {
-            // if (state is RegistPatientState &&
+            //! ADD PATIENT SUCCESSFULLY
+            if (state.status == BlocStatusState.success) {
+              if (state is RegistPatientState) {
+                showToast(translation(context).addPatientSuccessfully);
+                showSuccessDialog(
+                    onClose: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RouteList.patientList,
+                          arguments: userDataData.getUser()!.id!,
+                          (route) => false);
+                    },
+                    context: context,
+                    message: translation(context).addPatientSuccessText,
+                    title: translation(context).addPatientSuccessfully,
+                    titleBtn: translation(context).exit);
+              }
+            }
 
-//! ADD PATIENT SUCCESSFULLY
-            if (state is RegistPatientState &&
-                state.status == BlocStatusState.success) {
-              showToast(translation(context).addPatientSuccessfully);
-              showSuccessDialog(
-                  onClose: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteList.patientList,
-                        arguments: userDataData.getUser()!.id!,
-                        (route) => false);
-                  },
-                  context: context,
-                  message: translation(context).addPatientSuccessText,
-                  title: translation(context).addPatientSuccessfully,
-                  titleBtn: translation(context).exit);
-            }
 //
-//! EXCEPTION
-            if (state is RegistPatientState &&
-                state.status == BlocStatusState.failure &&
-                (state.viewModel.errorMessage ==
-                        translation(context).duplicatedRelationshipPAD ||
+            //! EXCEPTION, FAILURE
+            if (state.status == BlocStatusState.failure) {
+              if (state is RegistPatientState) {
+                if (state.viewModel.duplicatedRelationshipPAD == true ||
+                    state.viewModel.hasDoctorBefore == true ||
+                    state.viewModel.isWifiDisconnect == true ||
                     state.viewModel.errorMessage ==
-                        translation(context).hasDoctorBefore ||
-                    state.viewModel.errorMessage ==
-                        translation(context).error)) {
-              showExceptionDialog(
-                context: context,
-                message: state.viewModel.errorMessage!,
-                titleBtn: translation(context).exit,
-              );
-            }
-//! WIFI DISCONNECT
-          if (state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).wifiDisconnect) {
-              showExceptionDialog(
-                  context: context,
-                  message: translation(context).wifiDisconnect,
-                  titleBtn: translation(context).exit);
+                        translation(context).error) {
+                  showExceptionDialog(
+                    context: context,
+                    message: state.viewModel.errorMessage!,
+                    titleBtn: translation(context).exit,
+                  );
+                }
+              }
             }
           },
           builder: (context, state) {
@@ -155,9 +144,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           contentPadding:
                               const EdgeInsets.only(top: 5, bottom: 5),
 
-                          errorText: state.viewModel.errorEmptyName ==
-                                  translation(context).pleaseEnterPatientName
-                              ? state.viewModel.errorEmptyName
+                          errorText: (state.viewModel.errorEmptyName == true)
+                              ? translation(context).pleaseEnterPatientName
                               : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
@@ -196,10 +184,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(top: 5, bottom: 5),
-                          errorText: state.viewModel.errorEmptyPhoneNumber ==
-                                  translation(context).invalidPhonenumber
-                              ? state.viewModel.errorEmptyPhoneNumber
-                              : null,
+                          errorText:
+                              (state.viewModel.errorEmptyPhoneNumber == true)
+                                  ? translation(context).invalidPhonenumber
+                                  : null,
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
@@ -220,10 +208,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           title: translation(context).save,
                           buttonColor: AppColor.saveSetting,
                           onTap: () {
-                            // int phoneNumberCount =
-                            //     _controllerPatientPhoneNumber.text.length;
-                            // if (phoneNumberCount == 10 ||
-                            //     phoneNumberCount == 11) {
                             AccountEntity? newPatientAccountEntity =
                                 AccountEntity(
                               name: _controllerPatientName.text,
@@ -232,14 +216,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             bloc.add(RegistPatientEvent(
                                 accountEntity: newPatientAccountEntity,
                                 doctorId: userDataData.getUser()!.id));
-                            // } else {
-                            //   showNoticeDialog(
-                            //       context: context,
-                            //       message: translation(context)
-                            //           .phoneNumberCountError,
-                            //       title: translation(context).notification,
-                            //       titleBtn: translation(context).exit);
-                            // }
                           })),
                 ]),
               ),

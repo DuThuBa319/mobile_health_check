@@ -1,10 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
-import 'package:mobile_health_check/di/di.dart';
-import 'package:mobile_health_check/utils/size_config.dart';
-
 import 'package:mobile_health_check/presentation/modules/patient_screen/patient_list/widget/patient_list_cell.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +35,6 @@ TextEditingController filterKeyword = TextEditingController(text: '');
 class _PatientListState extends State<PatientListScreen> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-
   GetPatientBloc get patientBloc => BlocProvider.of(context);
   @override
   void initState() {
@@ -83,54 +79,214 @@ class _PatientListState extends State<PatientListScreen> {
                     if (state is GetPatientInitialState) {
                       patientBloc.add(GetPatientListEvent(userId: widget.id));
                     }
-                    if ((state is GetPatientListState &&
-                            state.status == BlocStatusState.loading) ||
-                        (state is SearchPatientState &&
-                            state.status == BlocStatusState.loading) || 
-                        (state is DeletePatientState &&
-                            state.status == BlocStatusState.loading) ||
-                        (state is DeletePatientState &&
-                            state.status == BlocStatusState.success &&
-                            state.viewModel.patientEntities != null)) {
-                      return formPatientListScreen(
-                          unreadCount: state.viewModel.unreadCount,
-                          isLoading: true);
-                    }
-                    if ((state is GetPatientListState &&
-                            state.status == BlocStatusState.success) ||
-                        (state is GetPatientListState &&
-                            state.status == BlocStatusState.loading &&
-                            state.viewModel.patientEntities == null)) {
-                      return formPatientListScreen(
-                        isLoading: false,
-                        itemCount: state.viewModel.patientEntities?.length,
-                        patientInforEntities: state.viewModel.patientEntities,
-                        unreadCount: state.viewModel.unreadCount,
-                      );
-                    }
 
-                    if (state is SearchPatientState &&
-                        state.status == BlocStatusState.success) {
-                      return formPatientListScreen(
-                        isSearching: true,
-                        itemCount: state.viewModel.patientEntities?.length,
-                        patientInforEntities: state.viewModel.patientEntities,
-                        unreadCount: state.viewModel.unreadCount,
-                      );
-                    }
-
-                    if (state.status == BlocStatusState.failure) {
-                      return Center(
-                        child: Text(
-                          translation(context).error,
-                          style: TextStyle(
-                              fontSize: SizeConfig.screenWidth * 0.05,
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.red),
+                    return Padding(
+                        padding: EdgeInsets.only(
+                          left: SizeConfig.screenWidth * 0.035,
+                          right: SizeConfig.screenWidth * 0.035,
                         ),
-                      );
-                    }
-                    return Container();
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      translation(context).patientList,
+                                      style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.07,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Container(
+                                      width: SizeConfig.screenWidth * 0.09,
+                                      height: SizeConfig.screenWidth * 0.09,
+                                      margin: EdgeInsets.only(
+                                        right: SizeConfig.screenWidth * 0.02,
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              100, 22, 44, 33),
+                                          borderRadius: BorderRadius.circular(
+                                              SizeConfig.screenWidth * 0.030)),
+                                      child: Center(
+                                        child: InkWell(
+                                            onTap: () {
+                                              if (state.viewModel
+                                                      .isWifiDisconnect ==
+                                                  true) {
+                                              } else {
+                                                Navigator.pushNamed(context,
+                                                    RouteList.notification,
+                                                    arguments: userDataData
+                                                        .getUser()!
+                                                        .id);
+                                              }
+                                            },
+                                            child: badges.Badge(
+                                              position:
+                                                  badges.BadgePosition.topEnd(
+                                                      top: -8,
+                                                      end: -SizeConfig
+                                                              .screenWidth *
+                                                          0.035),
+                                              badgeContent: state.viewModel
+                                                          .unreadCount ==
+                                                      null
+                                                  ? null
+                                                  : Text("${state.viewModel.unreadCount}",
+                                                      style: TextStyle(
+                                                          fontSize: SizeConfig
+                                                                  .screenWidth *
+                                                              0.03,
+                                                          color: Colors.white)),
+                                              child: const Icon(
+                                                  Icons
+                                                      .notifications_none_rounded,
+                                                  color: Colors.white),
+                                            )),
+                                      ),
+                                    )
+                                  ]),
+                              lineDecor(
+                                  spaceBottom: SizeConfig.screenWidth * 0.03,
+                                  spaceTop: 5),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  left: 2,
+                                  right: 2,
+                                  top: SizeConfig.screenWidth * 0.01,
+                                  bottom: SizeConfig.screenWidth * 0.05,
+                                ),
+                                decoration: BoxDecoration(
+                                  boxShadow: const [
+                                    BoxShadow(color: Colors.black26)
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white,
+                                ),
+                                child: SizedBox(
+                                  child: TextField(
+                                    controller: filterKeyword,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            SizeConfig.screenWidth * 0.03),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      hintText:
+                                          translation(context).searchPatient,
+                                      hintStyle: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.05),
+                                      suffixIcon: IconButton(
+                                        icon: const Icon(Icons.search),
+                                        color: Colors.black,
+                                        onPressed: () {
+                                          patientBloc.add(
+                                            FilterPatientEvent(
+                                                searchText: filterKeyword.text,
+                                                id: widget.id),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              //? Loading
+                              ((state is GetPatientListState &&
+                                          state.status ==
+                                              BlocStatusState.loading) ||
+                                      (state is SearchPatientState &&
+                                          state.status ==
+                                              BlocStatusState.loading) ||
+                                      (state is DeletePatientState &&
+                                          state.status ==
+                                              BlocStatusState.loading) ||
+                                      (state is DeletePatientState &&
+                                          state.status ==
+                                              BlocStatusState.success &&
+                                          state.viewModel.patientEntities !=
+                                              null))
+                                  ? const Expanded(
+                                      child: Center(
+                                        child: Loading(
+                                            brightness: Brightness.light),
+                                      ),
+                                    )
+                                  : Container(),
+                              //? Get thành công hoặc Giữ nguyên trạng thái
+                              ((state is GetPatientListState &&
+                                      state.status == BlocStatusState.success))
+                                  ? formPatientListScreen(
+                                      contxt: context,
+                                      itemCount: state
+                                          .viewModel.patientEntities?.length,
+                                      patientInforEntities:
+                                          state.viewModel.patientEntities!)
+                                  : Container(),
+                              //? Thành công
+                              (state is SearchPatientState &&
+                                      state.status == BlocStatusState.success)
+                                  ? formPatientListScreen(
+                                      contxt: context,
+                                      itemCount: state
+                                          .viewModel.patientEntities?.length,
+                                      patientInforEntities:
+                                          state.viewModel.patientEntities!)
+                                  : Container(),
+                              (state.status == BlocStatusState.failure &&
+                                      (state is SearchPatientState ||
+                                          state is GetPatientListState ||
+                                          state.viewModel.isWifiDisconnect ==
+                                              true))
+                                  ? Expanded(
+                                      child: Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            softWrap: true,
+                                            textAlign: TextAlign.center,
+                                            state.viewModel.errorMessage!,
+                                            style: AppTextTheme.body2
+                                                .copyWith(color: Colors.red),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          RectangleButton(
+                                            height:
+                                                SizeConfig.screenHeight * 0.052,
+                                            width: SizeConfig.screenWidth * 0.4,
+                                            title:
+                                                state.viewModel.errorMessage ==
+                                                        translation(context)
+                                                            .wrongSearchPatient
+                                                    ? translation(context)
+                                                        .backToList
+                                                    : translation(context)
+                                                        .loadAgain,
+                                            onTap: () {
+                                              filterKeyword =
+                                                  TextEditingController(
+                                                      text: '');
+                                              patientBloc.add(
+                                                  GetPatientListEvent(
+                                                      userId: widget.id));
+                                            },
+                                          )
+                                        ],
+                                      )),
+                                    )
+                                  : Container()
+                            ]));
                   }),
             )));
   }

@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member
+// ignore_for_file: invalid_use_of_protected_member, use_build_context_synchronously
 
 part of 'camera_demo_screen.dart';
 
@@ -13,32 +13,24 @@ extension CameraScreenAction on CameraScreenState {
       await imageDialog(context, imageFile: state.viewModel.imageFile!);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.loading) {
-      // ignore: use_build_context_synchronously
       showToast(translation(context).processing);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.success) {
-      // ignore: use_build_context_synchronously
       showToast(translation(context).processSuccessfully);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.failure) {
-      // ignore: use_build_context_synchronously
       showExceptionDialog(
           context: context,
-          // ignore: use_build_context_synchronously
           message: translation(context).errorTryAgain,
-          // ignore: use_build_context_synchronously
           titleBtn: translation(context).exit,
           onClose: () {
             Navigator.pop(context);
           });
     }
     if (state is GetImageState && state.status == BlocStatusState.failure) {
-      // ignore: use_build_context_synchronously
       showExceptionDialog(
           context: context,
-          // ignore: use_build_context_synchronously
           message: translation(context).error,
-          // ignore: use_build_context_synchronously
           titleBtn: translation(context).exit,
           onClose: () {
             Navigator.pop(context);
@@ -48,8 +40,6 @@ extension CameraScreenAction on CameraScreenState {
 
   void onNewCameraSelected(CameraDescription cameraDescription) async {
     final previousCameraController = controller;
-
-    // Instantiating the camera controller
     final CameraController cameraController = CameraController(
       cameraDescription,
       ResolutionPreset.max,
@@ -57,57 +47,35 @@ extension CameraScreenAction on CameraScreenState {
     );
 
     // Dispose the previous controller
-    await previousCameraController?.dispose();
 
-    // Replace with the new controller
-    if (mounted) {
-      controller = cameraController;
+    if (cameras.isNotEmpty) {
       cameraBloc.add(CameraInitializedEvent(
           controller: cameraController,
           context: context,
           task: widget.task,
           zoomValue: currentZoomLevel));
+    } else {
+      bool isCameraGranted = await Permission.camera.request().isGranted;
+      if (!isCameraGranted) {
+        checkPermission(context);
+      } else {
+        debugPrint("camera not available");
+      }
+    }
+    // Dispose the previous controller
+    await previousCameraController?.dispose();
+
+    // Replace with the new controller
+    if (mounted) {
+      setState(() {
+        controller = cameraController;
+      });
     }
 
     // Update UI if controller updated
     cameraController.addListener(() {
-      if (mounted) {
-        //cameraBloc.add(CameraUpdateUiEvent());
-      }
+      if (mounted) setState(() {});
     });
-
-    // Initialize controller
-    // try {
-    //   await controller!.initialize();
-    // } on CameraException catch (e) {
-    //   debugPrint('Error initializing camera: $e');
-    // }
-
-    // Update the Boolean
-    // if (mounted) {
-    //   await controller!.setFlashMode(
-    //     FlashMode.off,
-    //   );
-    //   setState(() {
-    //     isCameraInitialized = controller!.value.isInitialized;
-    //     backgroundColor = Colors.black;
-    //   });
-    // }
-
-    // cameraController.getMaxZoomLevel().then((value) => maxAvailableZoom = 4);
-
-    // cameraController
-    //     .getMinZoomLevel()
-    //     .then((value) => minAvailableZoom = value);
-    // cameraController.setZoomLevel(currentZoomLevel);
-    // cameraController
-    //     .getMinExposureOffset()
-    //     .then((value) => minAvailableExposureOffset = value);
-
-    // cameraController
-    //     .getMaxExposureOffset()
-    //     .then((value) => maxAvailableExposureOffset = value);
-    // currentFlashMode = controller!.value.flashMode;
   }
 
   void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
@@ -217,5 +185,50 @@ extension CameraScreenAction on CameraScreenState {
                 ),
               ),
             ));
+  }
+
+  openSettingDialog(BuildContext context) => AlertDialog(
+        title: const Text("Camera permission not granted"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              GestureDetector(
+                child: const Text("Open Setting"),
+                onTap: () async {
+                  Navigator.pop(context, null);
+                  controller?.dispose();
+                  await openAppSettings();
+                },
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              GestureDetector(
+                child: const Text("Cancel"),
+                onTap: () async {
+                  Navigator.pop(context, null);
+                  return;
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+  checkPermission(BuildContext context) async {
+    try {
+      bool isCameraGranted = await Permission.camera.request().isGranted;
+      if (!isCameraGranted) {
+        if (!isPopupPermissionShow) {
+          isPopupPermissionShow = true;
+
+          await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return openSettingDialog(context);
+              });
+        }
+        isPopupPermissionShow = false;
+      }
+    } catch (e) {
+      debugPrint("camera error: $e");
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 
 class RectangleButton extends StatelessWidget {
   final double height;
@@ -22,14 +23,13 @@ class RectangleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 15),
         height: height,
-        width: width ?? MediaQuery.of(context).size.width * 0.85,
-        padding: EdgeInsets.only(
-            top: height / 4, bottom: height / 4, right: 10, left: 10),
+        width: width ?? MediaQuery.of(context).size.width * 0.9,
+        margin: EdgeInsets.only(bottom: SizeConfig.screenHeight * 0.01),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8), color: buttonColor),
         child: Center(

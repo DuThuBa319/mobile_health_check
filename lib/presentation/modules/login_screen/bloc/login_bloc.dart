@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/classes/language.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/data/models/authentication_model/authentication_model.dart';
 import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/reset_password_usecase/reset_password_usecase.dart';
 import '../../../../common/service/local_manager/user_data_datasource/user_model.dart';
 import '../../../../common/service/onesginal/onesignal_service.dart';
 import '../../../../common/singletons.dart';
-import '../../../../di/di.dart';
 import '../../../../domain/entities/login_entity_group/authentication_entity.dart';
 import '../../../../domain/entities/login_entity_group/sign_in_entity.dart';
 import '../../../../domain/usecases/authentication_usecase/authentication_usecase.dart';
@@ -42,8 +40,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     ResetPasswordEvent event,
     Emitter<LoginState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         ResetPasswordState(
@@ -89,7 +85,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
       } catch (e) {
         emit(
-          state.copyWith(
+         ResetPasswordState(
             status: BlocStatusState.failure,
             viewModel: state.viewModel.copyWith(
                 errorMessage:
@@ -100,9 +96,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else {
       emit(
-        state.copyWith(
+         ResetPasswordState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+            
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -113,10 +110,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _onLogin(
     LoginUserEvent event,
-    Emitter<LoginState>  emit,
+    Emitter<LoginState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         LoginActionState(
@@ -210,7 +205,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else {
       emit(
-        state.copyWith(
+        LoginActionState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
               errorMessage:
@@ -225,8 +220,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     GetUserDataEvent event,
     Emitter<LoginState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetUserDataState(
@@ -246,14 +239,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
         }
         emit(
-          state.copyWith(
+           GetUserDataState(
             status: BlocStatusState.success,
             viewModel: state.viewModel,
           ),
         );
       } catch (e) {
         emit(
-          state.copyWith(
+           GetUserDataState(
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
               isLogin: false,

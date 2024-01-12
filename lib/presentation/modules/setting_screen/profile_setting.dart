@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/domain/entities/relative_infor_entity.dart';
+import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
 
 import '../../../classes/language.dart';
 import '../../../common/singletons.dart';
-import '../../../di/di.dart';
+
 import '../../../domain/entities/doctor_infor_entity.dart';
 import '../../../domain/entities/patient_infor_entity.dart';
 
@@ -38,8 +38,6 @@ class _SettingProfileState extends State<SettingProfile> {
 
   @override
   void initState() {
-    NavigationService navigationService = injector<NavigationService>();
-
     // checkWifiAvailability();
     super.initState();
     // ignore: unrelated_type_equality_checks
@@ -183,9 +181,9 @@ class _SettingProfileState extends State<SettingProfile> {
         // selectedIndex: 2,
         child:
             BlocConsumer<SettingBloc, SettingState>(listener: (context, state) {
-          if (((state is UpdateDoctorInforState) ||
-                  (state is UpdateRelativeInforState) ||
-                  (state is UpdatePatientInforState)) &&
+          if ((state is UpdateDoctorInforState ||
+                  state is UpdateRelativeInforState ||
+                  state is UpdatePatientInforState) &&
               state.status == BlocStatusState.success) {
             //! UPDATE PROFILE SUCCESSFULLY
             showSuccessDialog(
@@ -199,8 +197,7 @@ class _SettingProfileState extends State<SettingProfile> {
           }
           //! WIFI DISCONNECT
           if (state.status == BlocStatusState.failure &&
-              state.viewModel.errorMessage ==
-                  translation(context).wifiDisconnect) {
+              state.viewModel.isWifiDisconnect == true) {
             showExceptionDialog(
                 context: context,
                 message: translation(context).wifiDisconnect,
@@ -229,8 +226,17 @@ class _SettingProfileState extends State<SettingProfile> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.03,
+                      top: SizeConfig.screenHeight * 0.03,
+                    ),
+                    child: Text(translation(context).updateProfile,
+                        style: AppTextTheme.body0.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.screenWidth * 0.06)),
+                  ),
                   lineDecor(
-                      spaceTop: SizeConfig.screenHeight * 0.03,
                       spaceLeft: SizeConfig.screenWidth * 0.03,
                       spaceBottom: SizeConfig.screenHeight * 0.012),
                   _buildTextField(_controllerName, translation(context).name),
@@ -259,13 +265,13 @@ class _SettingProfileState extends State<SettingProfile> {
                       ? const SizedBox(height: 0.1)
                       : _buildTextField(
                           _controllerAddress, translation(context).address),
-                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Center(
                     child: userDataData.getUser()?.role == UserRole.admin
                         ? const SizedBox(height: 0.1)
                         : RectangleButton(
-                            width: widthCell,
-                            height: SizeConfig.screenHeight * 0.07,
+                            width: SizeConfig.screenWidth * 0.94,
+                            height: SizeConfig.screenHeight * 0.065,
                             title: translation(context).save,
                             buttonColor: AppColor.saveSetting,
                             onTap: () async {

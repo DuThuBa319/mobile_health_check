@@ -22,8 +22,8 @@ class BloodPressureApiRepositoryImpl implements BloodPressureApiRepository {
   }) {
     return restApi.getListBloodPressureModels(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime ,
+      startTime: startTime,
     );
   }
 

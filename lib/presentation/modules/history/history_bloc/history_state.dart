@@ -6,14 +6,17 @@ class _ViewModel {
   final List<TemperatureEntity>? listTemperature;
   final List<Spo2Entity>? listSpo2;
   final String? errorMessage;
+  final bool? isWifiDisconnect;
   const _ViewModel(
-      {this.listTemperature,
+      {this.isWifiDisconnect,
+        this.listTemperature,
       this.listBloodSugar,
       this.listBloodPressure,
       this.listSpo2,
       this.errorMessage});
 
   _ViewModel copyWith({
+    bool? isWifiDisconnect,
     List<BloodPressureEntity>? listBloodPressure,
     List<BloodSugarEntity>? listBloodSugar,
     List<TemperatureEntity>? listTemperature,
@@ -21,7 +24,8 @@ class _ViewModel {
     String? errorMessage,
   }) {
     return _ViewModel(
-      errorMessage: errorMessage??this.errorMessage,
+      isWifiDisconnect: isWifiDisconnect?? this.isWifiDisconnect,
+      errorMessage: errorMessage ?? this.errorMessage,
       listSpo2: listSpo2 ?? this.listSpo2,
       listTemperature: listTemperature ?? this.listTemperature,
       listBloodSugar: listBloodSugar ?? this.listBloodSugar,
@@ -70,8 +74,6 @@ class GetHistoryDataState extends HistoryState {
   }) : super(viewModel, status: status);
 }
 
-
-
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -85,5 +87,4 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
- 
 };

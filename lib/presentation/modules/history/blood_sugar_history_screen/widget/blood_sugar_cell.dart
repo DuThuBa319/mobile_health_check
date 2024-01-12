@@ -43,7 +43,10 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
               SizeConfig.screenWidth * 0.015,
               SizeConfig.screenWidth * 0.02),
           padding: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.02, left: 12, right: 12),
+              top: SizeConfig.screenHeight * 0.01,
+              left: SizeConfig.screenWidth * 0.02,
+              right: SizeConfig.screenWidth * 0.025,
+              bottom: SizeConfig.screenHeight * 0.015),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,

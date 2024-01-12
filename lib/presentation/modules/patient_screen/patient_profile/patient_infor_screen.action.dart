@@ -3,29 +3,33 @@ part of 'patient_infor_screen.dart';
 // ignore: library_private_types_in_public_api
 extension PatientInforScreenAction on _PatientInforScreenState {
   void _blocListener(BuildContext context, GetPatientState state) {
-    if (state is GetPatientInforState &&
-        state.status == BlocStatusState.loading) {
-      showToast(translation(context).loadingData);
+    //? Loading
+    if (state.status == BlocStatusState.loading) {
+      if (state is GetPatientInforState) {
+        showToast(translation(context).loadingData);
+      }
+      if (state is RemoveRelationshipRaPState) {
+        showToast(translation(context).deletingRelative);
+      }
     }
-
-    if (state is GetPatientInforState &&
-        state.status == BlocStatusState.success) {
-      showToast(translation(context).dataLoaded);
+    //? Success
+    if (state.status == BlocStatusState.success) {
+      if (state is GetPatientInforState) {
+        showToast(translation(context).dataLoaded);
+      }
+      if (state is RemoveRelationshipRaPState) {
+        showToast(translation(context).deleteRelativeSuccessfully);
+      }
     }
-
-    if (state is GetPatientInforState &&
-        state.status == BlocStatusState.failure) {
+    //? Failure
+    if (state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
-    }
-
-    if (state is RemoveRelationshipRaPState &&
-        state.status == BlocStatusState.loading) {
-      showToast(translation(context).deletingRelative);
-    }
-
-    if (state is RemoveRelationshipRaPState &&
-        state.status == BlocStatusState.success) {
-      showToast(translation(context).deleteRelativeSuccessfully);
+      if (state.viewModel.isWifiDisconnect == true) {
+        showExceptionDialog(
+            context: context,
+            message: translation(context).wifiDisconnect,
+            titleBtn: translation(context).exit);
+      }
     }
   }
 
@@ -61,214 +65,145 @@ extension PatientInforScreenAction on _PatientInforScreenState {
     int? pulse,
   }) {
     SizeConfig.init(context);
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.white,
-        borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.05),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 15,
-            color: Colors.black12,
-          )
-        ],
-      ),
-      height: SizeConfig.screenHeight * 0.15,
-      width: SizeConfig.screenWidth,
-      margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.04, 0, 12, 10),
-      padding: const EdgeInsets.only(top: 10, left: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-              padding: const EdgeInsets.all(5),
-              height: SizeConfig.screenWidth * 0.25,
-              width: SizeConfig.screenWidth * 0.25,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.fitWidth,
-              )),
-          const SizedBox(
-            width: 5,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: SizeConfig.screenWidth * 0.6,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(indicator,
-                            style: AppTextTheme.title3.copyWith(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.032,
-                              fontWeight: FontWeight.bold,
-                            )),
-                        Text(
-                          DateFormat('HH:mm dd/MM/yyyy')
-                              .format(dateTime ?? dateTime!),
-                          style: AppTextTheme.title5.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.025),
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                      child: Container(
-                        height: SizeConfig.screenHeight * 0.025,
-                        width: SizeConfig.screenWidth * 0.2,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 255, 205, 87),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Center(
-                          child: Text(translation(context).watchHistory,
-                              style: AppTextTheme.body5.copyWith(
-                                  color: Colors.white,
-                                  fontSize: SizeConfig.screenWidth * 0.03,
-                                  fontWeight: FontWeight.w600)),
-                        ),
-                      ),
-                      onTap: () {
-                        if (navigate == "bloodPressureHistory") {
-                          Navigator.pushNamed(
-                              context, RouteList.bloodPressureHistory,
-                              arguments: widget.patientId);
-                        }
-
-                        if (navigate == "bloodSugarHistory") {
-                          Navigator.pushNamed(
-                              context, RouteList.bloodSugarHistory,
-                              arguments: widget.patientId);
-                        }
-                        if (navigate == "oximeterHistory") {
-                          Navigator.pushNamed(context, RouteList.spo2History,
-                              arguments: widget.patientId);
-                        } else if (navigate == "bodyTemperatureColor") {
-                          Navigator.pushNamed(
-                              context, RouteList.temperatureHistory,
-                              arguments: widget.patientId);
-                        }
-                      },
-                    ),
-                  ],
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.white,
+          borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.05),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 15,
+              color: Colors.black12,
+            )
+          ],
+        ),
+        height: SizeConfig.screenHeight * 0.15,
+        width: SizeConfig.screenWidth * 0.92,
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(top: 10, left: 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+                padding: const EdgeInsets.all(5),
+                height: SizeConfig.screenWidth * 0.25,
+                width: SizeConfig.screenWidth * 0.25,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(15),
                 ),
-              ),
-              navigate == "bloodPressureHistory"
-                  ? Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      width: SizeConfig.screenWidth * 0.6,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.fitWidth,
+                )),
+            const SizedBox(
+              width: 5,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: SizeConfig.screenWidth * 0.6,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              SizedBox(width: SizeConfig.screenWidth * 0.20),
-                              RichText(
-                                textAlign: TextAlign.end,
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text: "SYS: ",
-                                        style: AppTextTheme.title3.copyWith(
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.05,
-                                            fontWeight: FontWeight.w500,
-                                            color: bloodPressureEntity
-                                                ?.statusColor)),
-                                    TextSpan(
-                                        text: "${bloodPressureEntity?.sys}",
-                                        style: AppTextTheme.title3.copyWith(
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.075,
-                                            fontWeight: FontWeight.w600,
-                                            color: bloodPressureEntity
-                                                ?.statusColor)),
-                                    TextSpan(
-                                        text: " mmHg",
-                                        style: AppTextTheme.title3.copyWith(
-                                            color: const Color(0xff615A5A),
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.04,
-                                            fontWeight: FontWeight.w500))
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeConfig.screenWidth * 0.20),
-                              RichText(
-                                textAlign: TextAlign.end,
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text: "PUL: ",
-                                        style: AppTextTheme.title3.copyWith(
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.05,
-                                            fontWeight: FontWeight.w500,
-                                            color: bloodPressureEntity
-                                                ?.statusColor)),
-                                    TextSpan(
-                                        text: "${bloodPressureEntity?.pulse}",
-                                        style: AppTextTheme.title3.copyWith(
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.075,
-                                            fontWeight: FontWeight.w600,
-                                            color: bloodPressureEntity
-                                                ?.statusColor)),
-                                    TextSpan(
-                                        text: " bpm",
-                                        style: AppTextTheme.title3.copyWith(
-                                            color: const Color(0xff615A5A),
-                                            fontSize:
-                                                SizeConfig.screenWidth * 0.04,
-                                            fontWeight: FontWeight.w500))
-                                  ],
-                                ),
-                              ),
-                            ],
+                          Text(indicator,
+                              style: AppTextTheme.title3.copyWith(
+                                color: Colors.black,
+                                fontSize: SizeConfig.screenWidth * 0.032,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text(
+                            DateFormat('HH:mm dd/MM/yyyy')
+                                .format(dateTime ?? dateTime!),
+                            style: AppTextTheme.title5.copyWith(
+                                fontSize: SizeConfig.screenWidth * 0.025),
                           ),
                         ],
                       ),
-                    )
-                  : navigate == "bloodSugarHistory"
-                      ? Container(
-                          margin: EdgeInsets.only(
-                            top: SizeConfig.screenHeight * 0.025,
+                      GestureDetector(
+                        child: Container(
+                          height: SizeConfig.screenHeight * 0.025,
+                          width: SizeConfig.screenWidth * 0.2,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 255, 205, 87),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Center(
+                            child: Text(translation(context).watchHistory,
+                                style: AppTextTheme.body5.copyWith(
+                                    color: Colors.white,
+                                    fontSize: SizeConfig.screenWidth * 0.03,
+                                    fontWeight: FontWeight.w600)),
                           ),
-                          width: SizeConfig.screenWidth * 0.6,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
+                        onTap: () {
+                          switch (navigate) {
+                            case "bloodPressureHistory":
+                              Navigator.pushNamed(
+                                  context, RouteList.bloodPressureHistory,
+                                  arguments: widget.patientId);
+                              break;
+                            case "bloodSugarHistory":
+                              Navigator.pushNamed(
+                                  context, RouteList.bloodSugarHistory,
+                                  arguments: widget.patientId);
+                              break;
+                            case "oximeterHistory":
+                              Navigator.pushNamed(
+                                  context, RouteList.spo2History,
+                                  arguments: widget.patientId);
+                              break;
+                            case "bodyTemperatureColor":
+                              Navigator.pushNamed(
+                                  context, RouteList.temperatureHistory,
+                                  arguments: widget.patientId);
+                              break;
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                navigate == "bloodPressureHistory"
+                    ? Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        width: SizeConfig.screenWidth * 0.6,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
                               children: [
+                                SizedBox(width: SizeConfig.screenWidth * 0.20),
                                 RichText(
-                                  textAlign: TextAlign.center,
+                                  textAlign: TextAlign.end,
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                          text:
-                                              "${bloodSugarEntity?.bloodSugar}",
+                                          text: "SYS: ",
                                           style: AppTextTheme.title3.copyWith(
-                                              color:
-                                                  bloodSugarEntity?.statusColor,
                                               fontSize:
-                                                  SizeConfig.screenWidth * 0.1,
-                                              fontWeight: FontWeight.w500)),
+                                                  SizeConfig.screenWidth * 0.05,
+                                              fontWeight: FontWeight.w500,
+                                              color: bloodPressureEntity
+                                                  ?.statusColor)),
                                       TextSpan(
-                                          text: " mg/dL",
+                                          text: "${bloodPressureEntity?.sys}",
+                                          style: AppTextTheme.title3.copyWith(
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.06,
+                                              fontWeight: FontWeight.w600,
+                                              color: bloodPressureEntity
+                                                  ?.statusColor)),
+                                      TextSpan(
+                                          text: " mmHg",
                                           style: AppTextTheme.title3.copyWith(
                                               color: const Color(0xff615A5A),
                                               fontSize:
@@ -276,95 +211,180 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                               fontWeight: FontWeight.w500))
                                     ],
                                   ),
-                                )
-                              ]))
-                      : navigate == "oximeterHistory"
-                          ? Container(
-                              margin: EdgeInsets.only(
-                                top: SizeConfig.screenHeight * 0.02,
-                              ),
-                              width: SizeConfig.screenWidth * 0.6,
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    RichText(
-                                      textAlign: TextAlign.end,
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                              text: "${spo2Entity?.spo2}",
-                                              style: AppTextTheme.title3
-                                                  .copyWith(
-                                                      color: spo2Entity
-                                                          ?.statusColor,
-                                                      //     spo2Entity?.statusColor,
-                                                      fontSize: SizeConfig
-                                                              .screenWidth *
-                                                          0.12,
-                                                      fontWeight:
-                                                          FontWeight.w500)),
-                                          TextSpan(
-                                              text: " %",
-                                              style: AppTextTheme.title3
-                                                  .copyWith(
-                                                      color: const Color(
-                                                          0xff615A5A),
-                                                      fontSize: SizeConfig
-                                                              .screenWidth *
-                                                          0.06,
-                                                      fontWeight:
-                                                          FontWeight.w500))
-                                        ],
-                                      ),
-                                    )
-                                  ]))
-                          : Container(
-                              margin: EdgeInsets.only(
-                                top: SizeConfig.screenHeight * 0.025,
-                              ),
-                              width: SizeConfig.screenWidth * 0.6,
-                              child: Row(
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(width: SizeConfig.screenWidth * 0.20),
+                                RichText(
+                                  textAlign: TextAlign.end,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "PUL: ",
+                                          style: AppTextTheme.title3.copyWith(
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.05,
+                                              fontWeight: FontWeight.w500,
+                                              color: bloodPressureEntity
+                                                  ?.statusColor)),
+                                      TextSpan(
+                                          text: "${bloodPressureEntity?.pulse}",
+                                          style: AppTextTheme.title3.copyWith(
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.055,
+                                              fontWeight: FontWeight.w600,
+                                              color: bloodPressureEntity
+                                                  ?.statusColor)),
+                                      TextSpan(
+                                          text: " bpm",
+                                          style: AppTextTheme.title3.copyWith(
+                                              color: const Color(0xff615A5A),
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.04,
+                                              fontWeight: FontWeight.w500))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : navigate == "bloodSugarHistory"
+                        ? Container(
+                            margin: EdgeInsets.only(
+                              top: SizeConfig.screenHeight * 0.025,
+                            ),
+                            width: SizeConfig.screenWidth * 0.6,
+                            child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   RichText(
-                                      textAlign: TextAlign.center,
-                                      text: TextSpan(children: [
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      children: [
                                         TextSpan(
                                             text:
-                                                "${temperatureEntity?.temperature}",
+                                                "${bloodSugarEntity?.bloodSugar}",
                                             style: AppTextTheme.title3.copyWith(
-                                                color: temperatureEntity
+                                                color: bloodSugarEntity
                                                     ?.statusColor,
                                                 fontSize:
                                                     SizeConfig.screenWidth *
                                                         0.1,
                                                 fontWeight: FontWeight.w500)),
                                         TextSpan(
-                                            text: "°",
+                                            text: " mg/dL",
                                             style: AppTextTheme.title3.copyWith(
                                                 color: const Color(0xff615A5A),
                                                 fontSize:
                                                     SizeConfig.screenWidth *
-                                                        0.1,
-                                                fontWeight: FontWeight.w500)),
-                                        TextSpan(
-                                            text: "C",
-                                            style: AppTextTheme.title3.copyWith(
-                                                color: const Color(0xff615A5A),
-                                                fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.08,
+                                                        0.04,
                                                 fontWeight: FontWeight.w500))
-                                      ]))
-                                ],
-                              ),
-                            )
-            ],
-          ),
-          const SizedBox(height: 2)
-        ],
+                                      ],
+                                    ),
+                                  )
+                                ]))
+                        : navigate == "oximeterHistory"
+                            ? Container(
+                                margin: EdgeInsets.only(
+                                  top: SizeConfig.screenHeight * 0.02,
+                                ),
+                                width: SizeConfig.screenWidth * 0.6,
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      RichText(
+                                        textAlign: TextAlign.end,
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                                text: "${spo2Entity?.spo2}",
+                                                style: AppTextTheme.title3
+                                                    .copyWith(
+                                                        color: spo2Entity
+                                                            ?.statusColor,
+                                                        //     spo2Entity?.statusColor,
+                                                        fontSize: SizeConfig
+                                                                .screenWidth *
+                                                            0.12,
+                                                        fontWeight:
+                                                            FontWeight.w500)),
+                                            TextSpan(
+                                                text: " %",
+                                                style: AppTextTheme.title3
+                                                    .copyWith(
+                                                        color:
+                                                            const Color(
+                                                                0xff615A5A),
+                                                        fontSize: SizeConfig
+                                                                .screenWidth *
+                                                            0.06,
+                                                        fontWeight:
+                                                            FontWeight.w500))
+                                          ],
+                                        ),
+                                      )
+                                    ]))
+                            : Container(
+                                margin: EdgeInsets.only(
+                                  top: SizeConfig.screenHeight * 0.025,
+                                ),
+                                width: SizeConfig.screenWidth * 0.6,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                        textAlign: TextAlign.center,
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                              text:
+                                                  "${temperatureEntity?.temperature}",
+                                              style: AppTextTheme.title3
+                                                  .copyWith(
+                                                      color: temperatureEntity
+                                                          ?.statusColor,
+                                                      fontSize: SizeConfig
+                                                              .screenWidth *
+                                                          0.1,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                          TextSpan(
+                                              text: "°",
+                                              style: AppTextTheme.title3
+                                                  .copyWith(
+                                                      color: const Color(
+                                                          0xff615A5A),
+                                                      fontSize: SizeConfig
+                                                              .screenWidth *
+                                                          0.1,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                          TextSpan(
+                                              text: "C",
+                                              style: AppTextTheme.title3
+                                                  .copyWith(
+                                                      color: const Color(
+                                                          0xff615A5A),
+                                                      fontSize: SizeConfig
+                                                              .screenWidth *
+                                                          0.08,
+                                                      fontWeight:
+                                                          FontWeight.w500))
+                                        ]))
+                                  ],
+                                ),
+                              )
+              ],
+            ),
+            const SizedBox(height: 2)
+          ],
+        ),
       ),
     );
   }

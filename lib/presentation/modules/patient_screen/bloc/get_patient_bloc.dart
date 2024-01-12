@@ -1,19 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
-
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_pass_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
-
 import '../../../../classes/language.dart';
-import '../../../../di/di.dart';
 import '../../../../domain/entities/login_entity_group/account_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
@@ -33,7 +29,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
   final NetworkInfo networkInfo;
 
   GetPatientBloc(
-       this.networkInfo,
+      this.networkInfo,
       this._patientUseCase,
       this._doctorInforUsecase,
       this._relativeInforUsecase,
@@ -54,7 +50,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     GetPatientListEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
     if (await networkInfo.isConnected == true) {
       emit(
         GetPatientListState(
@@ -68,41 +63,65 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         if (userDataData.getUser()?.role == UserRole.doctor) {
           final response =
               await _doctorInforUsecase.getDoctorInforEntity(event.userId);
-          final newViewModel = state.viewModel.copyWith(
+          final newViewModel = _ViewModel(
               doctorInforEntity: response,
               unreadCount: unreadNotificationsCount,
               patientEntities: response?.patients);
-          emit(GetPatientListState(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ));
+          if (response?.patients?.isEmpty == true) {
+            emit(GetPatientListState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .noPatient),
+            ));
+          }
+          if (response?.patients?.isNotEmpty == true) {
+            emit(GetPatientListState(
+              status: BlocStatusState.success,
+              viewModel: newViewModel,
+            ));
+          }
         } else if (userDataData.getUser()?.role == UserRole.relative) {
           final response =
               await _relativeInforUsecase.getRelativeInforEntity(event.userId);
-
-          final newViewModel = state.viewModel.copyWith(
+          final newViewModel = _ViewModel(
               relativeInforEntity: response,
               unreadCount: unreadNotificationsCount,
               patientEntities: response?.patients);
-
-          emit(GetPatientListState(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ));
+          if (response?.patients?.isEmpty == true) {
+            emit(GetPatientListState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .noPatient),
+            ));
+          }
+          if (response?.patients?.isNotEmpty == true) {
+            emit(GetPatientListState(
+              status: BlocStatusState.success,
+              viewModel: newViewModel,
+            ));
+          }
         }
       } catch (e) {
         emit(
-          state.copyWith(
+          GetPatientListState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetPatientListState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -116,8 +135,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     FilterPatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         SearchPatientState(
@@ -126,10 +143,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ),
       );
       try {
-        if (userDataData.getUser()!.role! == UserRole.doctor) {
+        if (userDataData.getUser()?.role! == UserRole.doctor) {
           final response =
               await _doctorInforUsecase.getDoctorInforEntity(event.id);
-          final allPatients = response!.patients;
+          final allPatients = response?.patients;
           // List<PatientEntity>? searchResult = [];
           final filteredPatients = allPatients
               ?.where((value) => value.name
@@ -139,15 +156,26 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           // searchResult = filteredPatients;
           final newViewModel =
               state.viewModel.copyWith(patientEntities: filteredPatients);
-          emit(SearchPatientState(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ));
+          if (filteredPatients?.isNotEmpty == true) {
+            emit(SearchPatientState(
+              status: BlocStatusState.success,
+              viewModel: newViewModel,
+            ));
+          }
+          if (filteredPatients?.isEmpty == true) {
+            emit(SearchPatientState(
+              status: BlocStatusState.failure,
+              viewModel: newViewModel.copyWith(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .wrongSearchPatient),
+            ));
+          }
         }
         if (userDataData.getUser()!.role! == UserRole.relative) {
           final response =
               await _relativeInforUsecase.getRelativeInforEntity(event.id);
-          final allPatients = response!.patients;
+          final allPatients = response?.patients;
           // List<PatientEntity>? searchResult = [];
           final filteredPatients = allPatients
               ?.where((value) => value.name
@@ -157,24 +185,39 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           // searchResult = filteredPatients;
           final newViewModel =
               state.viewModel.copyWith(patientEntities: filteredPatients);
-          emit(SearchPatientState(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ));
+          if (filteredPatients?.isNotEmpty == true) {
+            emit(SearchPatientState(
+              status: BlocStatusState.success,
+              viewModel: newViewModel,
+            ));
+          }
+          if (filteredPatients?.isEmpty == true) {
+            emit(SearchPatientState(
+              status: BlocStatusState.failure,
+              viewModel: newViewModel.copyWith(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .wrongSearchPatient),
+            ));
+          }
         }
       } catch (e) {
         emit(
-          state.copyWith(
+          SearchPatientState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        SearchPatientState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -188,8 +231,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistPatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RegistPatientState(
@@ -206,11 +247,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           RegistPatientState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyName:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterPatientName,
-            ),
+            viewModel: const _ViewModel(errorEmptyName: true),
           ),
         );
         return;
@@ -225,11 +262,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           RegistPatientState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyPhoneNumber:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .invalidPhonenumber,
-            ),
+            viewModel: const _ViewModel(errorEmptyPhoneNumber: true),
           ),
         );
         return;
@@ -244,14 +277,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           RegistPatientState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyName:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterPatientName,
-              errorEmptyPhoneNumber:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .invalidPhonenumber,
-            ),
+            viewModel: const _ViewModel(
+                errorEmptyName: true, errorEmptyPhoneNumber: true),
           ),
         );
         return;
@@ -260,11 +287,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       try {
         await _doctorInforUsecase.addPatientEntity(
             event.doctorId, event.accountEntity);
-        final newViewModel = state.viewModel;
         emit(
           RegistPatientState(
             status: BlocStatusState.success,
-            viewModel: newViewModel,
+            viewModel: state.viewModel,
           ),
         );
       } on DioException catch (e) {
@@ -272,25 +298,29 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "The relationship between these entities has been existed") {
           emit(state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
+                duplicatedRelationshipPAD: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .duplicatedRelationshipPAD),
           ));
         } else if (e.response?.data ==
             "This patient has been managed by another doctor") {
-          emit(state.copyWith(
+          emit(RegistPatientState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
+                hasDoctorBefore: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .hasDoctorBefore),
           ));
         }
-      } catch (response) {
+      } catch (response)
+      //! Lỗi server
+      {
         emit(RegistPatientState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .error),
@@ -298,9 +328,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       }
     } else {
       emit(
-        state.copyWith(
+        RegistPatientState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -314,8 +345,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RegistRelativeEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RegistRelativeState(
@@ -333,11 +362,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyName:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterRelativeName,
-            ),
+            viewModel: const _ViewModel(errorEmptyName: true),
           ),
         );
         return;
@@ -351,11 +376,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyPhoneNumber:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .invalidPhonenumber,
-            ),
+            viewModel: const _ViewModel(errorEmptyPhoneNumber: true),
           ),
         );
         return;
@@ -369,14 +390,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyName:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterRelativeName,
-              errorEmptyPhoneNumber:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .invalidPhonenumber,
-            ),
+            viewModel: const _ViewModel(
+                errorEmptyName: true, errorEmptyPhoneNumber: true),
           ),
         );
       }
@@ -389,9 +404,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       } on DioException catch (e) {
         if (e.response?.data ==
             "The relationship between these entities has been existed") {
-          emit(state.copyWith(
+          emit(RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
+                duplicatedRelationshipPAR: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .duplicatedRelationshipPAR),
@@ -399,9 +415,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         }
         if (e.response?.data ==
             "The number of relatives belonging to this patient is already maxium") {
-          emit(state.copyWith(
+          emit(RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
+                maximumRelativeCount: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .maximumRelativeCount),
@@ -410,7 +427,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       } catch (response) {
         emit(RegistRelativeState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .error),
@@ -418,9 +435,10 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       }
     } else {
       emit(
-        state.copyWith(
+        RegistRelativeState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -434,8 +452,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     GetPatientInforEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetPatientInforState(
@@ -454,15 +470,20 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ));
       } catch (e) {
         emit(
-          state.copyWith(
-              status: BlocStatusState.failure, viewModel: state.viewModel),
+          GetPatientInforState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .error)),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetPatientInforState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -475,8 +496,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     RemoveRelationshipRaPEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RemoveRelationshipRaPState(
@@ -494,17 +513,21 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ));
       } catch (e) {
         emit(
-          state.copyWith(
+          RemoveRelationshipRaPState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        RemoveRelationshipRaPState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -517,7 +540,6 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     DeletePatientEvent event,
     Emitter<GetPatientState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
     if (await networkInfo.isConnected == true) {
       emit(
         DeletePatientState(
@@ -533,17 +555,21 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         ));
       } catch (e) {
         emit(
-          state.copyWith(
+          DeletePatientState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        DeletePatientState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),

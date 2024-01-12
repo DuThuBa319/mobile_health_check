@@ -3,18 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/admin_infor_entity.dart';
 import 'package:mobile_health_check/domain/entities/cell_person_entity.dart';
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
-
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/domain/entities/login_entity_group/account_entity.dart';
 import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/admin_usecase/admin_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
-
 import '../../../../classes/language.dart';
-import '../../../../common/service/navigation/navigation_service.dart';
 import '../../../../common/singletons.dart';
-import '../../../../di/di.dart';
 import '../../../common_widget/enum_common.dart';
 part 'admin_event.dart';
 part 'admin_state.dart';
@@ -39,8 +35,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     GetDoctorListEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetDoctorListState(
@@ -49,29 +43,44 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         ),
       );
       try {
-       final response =
-              await _adminUsecase.getAdminInforEntity(adminId: event.admindId);
-          final newViewModel = state.viewModel.copyWith(
-              adminInforEntity: response,
-              allDoctorEntity:  response?.doctors
-             );
-        emit(GetDoctorListState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
+        final response =
+            await _adminUsecase.getAdminInforEntity(adminId: event.admindId);
+        final newViewModel = _ViewModel(adminInforEntity: response);
+
+        if (response?.doctors?.isNotEmpty == true) {
+          emit(GetDoctorListState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel.copyWith(
+                adminInforEntity: response, allDoctorEntity: response?.doctors),
+          ));
+        } else {
+          emit(
+            GetDoctorListState(
+              status: BlocStatusState.failure,
+              viewModel: newViewModel.copyWith(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .noDoctor),
+            ),
+          );
+        }
       } catch (e) {
         emit(
-          state.copyWith(
+          GetDoctorListState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetDoctorListState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -84,8 +93,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     FilterDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         SearchDoctorState(
@@ -95,32 +102,45 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       );
       try {
         final response =
-              await _adminUsecase.getAdminInforEntity(adminId: event.adminId);
-       
+            await _adminUsecase.getAdminInforEntity(adminId: event.adminId);
         // List<DoctorEntity>? searchResult = [];
-        final filteredDoctors =response?.doctors?.where((value) => value.name
+        final filteredDoctors = response?.doctors
+            ?.where((value) => value.name
                 .toLowerCase()
                 .contains(event.searchText.toLowerCase()))
             .toList();
-        final newViewModel =
-            state.viewModel.copyWith(allDoctorEntity: filteredDoctors);
-        emit(SearchDoctorState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
+        final newViewModel = _ViewModel(allDoctorEntity: filteredDoctors);
+        if (filteredDoctors?.isNotEmpty == true) {
+          emit(SearchDoctorState(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ));
+        } else {
+          emit(SearchDoctorState(
+            status: BlocStatusState.failure,
+            viewModel: newViewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .wrongSearchDoctor),
+          ));
+        }
       } catch (e) {
         emit(
-          state.copyWith(
+          SearchDoctorState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        SearchDoctorState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -133,7 +153,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     GetDoctorInforEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
     if (await networkInfo.isConnected == true) {
       emit(
         GetDoctorInforState(
@@ -144,25 +163,28 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       try {
         final doctorInforEntity =
             await _doctorInforUsecase.getDoctorInforEntity(event.doctorId);
-        final newViewModel =
-            state.viewModel.copyWith(doctorInforEntity: doctorInforEntity);
+        final newViewModel = _ViewModel(doctorInforEntity: doctorInforEntity);
         emit(GetDoctorInforState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
         ));
       } catch (e) {
         emit(
-          state.copyWith(
+          GetDoctorInforState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetDoctorInforState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -175,8 +197,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     RegistDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         RegistDoctorState(
@@ -184,61 +204,47 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
           viewModel: state.viewModel,
         ),
       );
-
-      if ((event.accountEntity!.name == null ||
-              event.accountEntity!.name?.trim() == '') &&
-          (event.accountEntity!.phoneNumber != null &&
-              event.accountEntity!.phoneNumber?.trim() != '' &&
+      if ((event.accountEntity?.name == null ||
+              event.accountEntity?.name?.trim() == '') &&
+          (event.accountEntity?.phoneNumber != null &&
+              event.accountEntity?.phoneNumber?.trim() != '' &&
               event.accountEntity!.phoneNumber!.length >= 10 &&
               event.accountEntity!.phoneNumber!.length <= 11)) {
         emit(
           RegistDoctorState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyName:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterDoctorName,
-            ),
+            viewModel: const _ViewModel(errorEmptyName: true),
           ),
         );
         return;
       }
 
-      if ((event.accountEntity!.name != null &&
-              event.accountEntity!.name?.trim() != '') &&
-          (event.accountEntity!.phoneNumber == null ||
-              event.accountEntity!.phoneNumber?.trim() == '' ||
+      if ((event.accountEntity?.name != null &&
+              event.accountEntity?.name?.trim() != '') &&
+          (event.accountEntity?.phoneNumber == null ||
+              event.accountEntity?.phoneNumber?.trim() == '' ||
               event.accountEntity!.phoneNumber!.length < 10 ||
               event.accountEntity!.phoneNumber!.length > 11)) {
         emit(
           RegistDoctorState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyPhoneNumber:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .invalidPhonenumber,
-            ),
+            viewModel: const _ViewModel(errorEmptyPhoneNumber: true),
           ),
         );
         return;
       }
-      if ((event.accountEntity!.name == null ||
-              event.accountEntity!.name?.trim() == '') &&
-          (event.accountEntity!.phoneNumber == null ||
-              event.accountEntity!.phoneNumber?.trim() == '' ||
+
+      if ((event.accountEntity?.name == null ||
+              event.accountEntity?.name?.trim() == '') &&
+          (event.accountEntity?.phoneNumber == null ||
+              event.accountEntity?.phoneNumber?.trim() == '' ||
               event.accountEntity!.phoneNumber!.length < 10 ||
               event.accountEntity!.phoneNumber!.length > 11)) {
         emit(
           RegistDoctorState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-              errorEmptyName:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .pleaseEnterDoctorName,
-              errorEmptyPhoneNumber:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .invalidPhonenumber,
-            ),
+            viewModel: const _ViewModel(
+                errorEmptyName: true, errorEmptyPhoneNumber: true),
           ),
         );
         return;
@@ -246,29 +252,27 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
 
       try {
         await _adminUsecase.createDoctorAccountEntity(
-            event.accountEntity!, userDataData.getUser()!.id);
-        final newViewModel = state.viewModel;
+            event.accountEntity!, userDataData.getUser()?.id);
         emit(
           RegistDoctorState(
-            status: BlocStatusState.success,
-            viewModel: newViewModel,
-          ),
+              status: BlocStatusState.success, viewModel: state.viewModel),
         );
       } on DioException catch (e) {
         if (e.response?.data ==
             "This phone number has been already registered by another account") {
-          emit(state.copyWith(
+          emit(RegistDoctorState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
+                duplicatedDoctorPhoneNumber: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .duplicatedDoctorPhoneNumber),
           ));
         }
       } catch (response) {
-        emit(state.copyWith(
+        emit(RegistDoctorState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .error),
@@ -276,9 +280,10 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       }
     } else {
       emit(
-        state.copyWith(
+        RegistDoctorState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -291,8 +296,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     DeleteDoctorEvent event,
     Emitter<GetDoctorState> emit,
   ) async {
-    NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         DeleteDoctorState(
@@ -313,9 +316,9 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       } on DioException catch (e) {
         if (e.response?.data ==
             "Cannot delete this account because it is still in a relationship with another account.") {
-          emit(state.copyWith(
+          emit(DeleteDoctorState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .cannotDeleteDoctor),
@@ -323,17 +326,21 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         }
       } catch (e) {
         emit(
-          state.copyWith(
+          DeleteDoctorState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        DeleteDoctorState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),

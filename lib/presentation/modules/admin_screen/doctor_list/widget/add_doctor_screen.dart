@@ -19,7 +19,6 @@ class AddDoctorScreen extends StatefulWidget {
 
 class _AddDoctorScreenState extends State<AddDoctorScreen> {
   GetDoctorBloc get bloc => BlocProvider.of(context);
-
   final TextEditingController _controllerDoctorName = TextEditingController();
   final TextEditingController _controllerDoctorPhoneNumber =
       TextEditingController();
@@ -42,43 +41,39 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
         child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
           listener: (context, state) {
             //! ADD Doctor SUCCESSFULLY
-            if (state is RegistDoctorState &&
-                state.status == BlocStatusState.success) {
-              showSuccessDialog(
-                  onClose: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteList.doctorList,
-                        arguments: userDataData.getUser()!.id,
-                        (route) => false);
-                  },
-                  context: context,
-                  message: translation(context).addDoctorSuccessText,
-                  title: translation(context).addDoctorSuccessfully,
-                  titleBtn: translation(context).exit);
+            if (state.status == BlocStatusState.success) {
+              if (state is RegistDoctorState) {
+                showSuccessDialog(
+                    onClose: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RouteList.doctorList,
+                          arguments: userDataData.getUser()!.id,
+                          (route) => false);
+                    },
+                    context: context,
+                    message: translation(context).addDoctorSuccessText,
+                    title: translation(context).addDoctorSuccessfully,
+                    titleBtn: translation(context).exit);
+              }
             }
 
-            //! EXCEPTION
-            if (state is RegistDoctorState &&
-                state.status == BlocStatusState.failure &&
-                (state.viewModel.errorMessage ==
-                        translation(context).duplicatedDoctorPhoneNumber ||
+            //! EXCEPTION, FAILURE
+            if (state.status == BlocStatusState.failure) {
+              if (state is RegistDoctorState) {
+                if (state.viewModel.duplicatedDoctorPhoneNumber == true ||
+                    state.viewModel.isWifiDisconnect == true ||
                     state.viewModel.errorMessage ==
-                        translation(context).error)) {
-              showExceptionDialog(
-                context: context,
-                message: state.viewModel.errorMessage!,
-                titleBtn: translation(context).exit,
-              );
-            }
-            //! WIFI DISCONNECT
-            if (state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).wifiDisconnect) {
-              showExceptionDialog(
-                  context: context,
-                  message: translation(context).wifiDisconnect,
-                  titleBtn: translation(context).exit);
+                        translation(context).error) {
+                  {
+                    showExceptionDialog(
+                      context: context,
+                      message: state.viewModel.errorMessage!,
+                      titleBtn: translation(context).exit,
+                    );
+                  }
+                }
+              }
             }
           },
           builder: (context, state) {
@@ -144,9 +139,8 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 3, top: 5),
-                          errorText: (state.viewModel.errorEmptyName ==
-                                  translation(context).pleaseEnterDoctorName)
-                              ? state.viewModel.errorEmptyName
+                          errorText: state.viewModel.errorEmptyName == true
+                              ? translation(context).pleaseEnterDoctorName
                               : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
@@ -185,10 +179,10 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 3, top: 5),
-                          errorText: (state.viewModel.errorEmptyPhoneNumber ==
-                                  translation(context).invalidPhonenumber)
-                              ? state.viewModel.errorEmptyPhoneNumber
-                              : null,
+                          errorText:
+                              state.viewModel.errorEmptyPhoneNumber == true
+                                  ? translation(context).invalidPhonenumber
+                                  : null,
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,

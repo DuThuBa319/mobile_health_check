@@ -3,18 +3,27 @@ part of 'doctor_infor_screen.dart';
 // ignore: library_private_types_in_public_api
 extension DoctorInforScreenAction on _DoctorInforScreenState {
   void _blocListener(BuildContext context, GetDoctorState state) {
-    if ((state is GetDoctorInforState &&
-            state.status == BlocStatusState.loading) ) {
-      showToast(translation(context).loadingData);
+    //? Loading
+    if (state.status == BlocStatusState.loading) {
+      if (state is GetDoctorInforState) {
+        showToast(translation(context).loadingData);
+      }
     }
-    if (state is GetDoctorInforState &&
-        state.status == BlocStatusState.success) {
-      showToast(translation(context).dataLoaded);
+    //? Success
+    if (state.status == BlocStatusState.success) {
+      if (state is GetDoctorInforState) {
+        showToast(translation(context).dataLoaded);
+      }
     }
-
-    if ((state is GetDoctorInforState &&
-            state.status == BlocStatusState.failure) ) {
+    //? Failure
+    if (state.status == BlocStatusState.failure) {
       showToast(translation(context).error);
+      if (state.viewModel.isWifiDisconnect == true) {
+        showExceptionDialog(
+            context: context,
+            message: translation(context).wifiDisconnect,
+            titleBtn: translation(context).exit);
+      }
     }
   }
 
@@ -32,30 +41,30 @@ extension DoctorInforScreenAction on _DoctorInforScreenState {
     );
   }
 
-  void showInfor(DoctorInforEntity patientInforEntity) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              translation(context).patientIn4,
-              style: TextStyle(
-                  color: AppColor.lineDecor,
-                  fontSize: SizeConfig.screenWidth * 0.06,
-                  fontWeight: FontWeight.bold),
-            ),
-            content: ListView(children: const []),
-            actions: [
-              TextButton(
-                child: Text(translation(context).back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
-  }
+  // void showInfor(DoctorInforEntity patientInforEntity) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text(
+  //             translation(context).patientIn4,
+  //             style: TextStyle(
+  //                 color: AppColor.lineDecor,
+  //                 fontSize: SizeConfig.screenWidth * 0.06,
+  //                 fontWeight: FontWeight.bold),
+  //           ),
+  //           content: ListView(children: const []),
+  //           actions: [
+  //             TextButton(
+  //               child: Text(translation(context).back),
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //               },
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 }
 
 

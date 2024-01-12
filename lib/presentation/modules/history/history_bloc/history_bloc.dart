@@ -1,11 +1,11 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/classes/language.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
-import 'package:mobile_health_check/di/di.dart';
+
 import 'package:mobile_health_check/domain/network/network_info.dart';
 import 'package:mobile_health_check/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../common/singletons.dart';
 import '../../../../domain/entities/blood_pressure_entity.dart';
 import '../../../../domain/entities/blood_sugar_entity.dart';
 import '../../../../domain/entities/spo2_entity.dart';
@@ -25,18 +25,17 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final Spo2Usecase spo2Usecase;
   final NetworkInfo networkInfo;
 
-  HistoryBloc(this.bloodPressureUseCase, this.bloodSugarUseCase,this.networkInfo,
-      this.temperatureUsecase, this.spo2Usecase, )
-      : super(HistoryInitialState()) {
+  HistoryBloc(
+    this.bloodPressureUseCase,
+    this.bloodSugarUseCase,
+    this.networkInfo,
+    this.temperatureUsecase,
+    this.spo2Usecase,
+  ) : super(HistoryInitialState()) {
     on<GetBloodPressureHistoryDataEvent>(_onGetBloodPressureHistoryData);
     on<GetBloodSugarHistoryDataEvent>(_onGetBloodSugarHistoryData);
     on<GetTemperatureHistoryDataEvent>(_onGetTemperatureHistoryData);
     on<GetSpo2HistoryDataEvent>(_onGetSpo2HistoryData);
-    // on<GetBloodPressureHistoryInitDataEvent>(
-    //     _onGetBloodPressureHistoryInitData);
-    // on<GetBloodSugarHistoryInitDataEvent>(_onGetBloodSugarHistoryInitData);
-    // on<GetTemperatureHistoryInitDataEvent>(_onGetTemperatureHistoryInitData);
-    // on<GetSpo2HistoryInitDataEvent>(_onGetSpo2HistoryInitData);
   }
 
   ///
@@ -44,8 +43,6 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     GetBloodPressureHistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
@@ -70,24 +67,28 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         final newViewModel =
             state.viewModel.copyWith(listBloodPressure: listBloodPressure);
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.success,
             viewModel: newViewModel,
           ),
         );
       } catch (e) {
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetHistoryDataState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+            isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -96,14 +97,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     }
   }
 
-
-
   Future<void> _onGetBloodSugarHistoryData(
     GetBloodSugarHistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
@@ -127,24 +124,28 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
           listBloodSugar: listBloodSugar,
         );
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.success,
             viewModel: newViewModel,
           ),
         );
       } catch (e) {
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetHistoryDataState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+            isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -157,8 +158,6 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     GetTemperatureHistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
@@ -181,24 +180,28 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         final newViewModel =
             state.viewModel.copyWith(listTemperature: listTemperature);
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.success,
             viewModel: newViewModel,
           ),
         );
       } catch (e) {
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetHistoryDataState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+          isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -207,13 +210,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     }
   }
 
-
   Future<void> _onGetSpo2HistoryData(
     GetSpo2HistoryDataEvent event,
     Emitter<HistoryState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         GetHistoryDataState(
@@ -237,24 +237,28 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
           listSpo2: listSpo2,
         );
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.success,
             viewModel: newViewModel,
           ),
         );
       } catch (e) {
         emit(
-          state.copyWith(
+          GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        GetHistoryDataState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+          isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),

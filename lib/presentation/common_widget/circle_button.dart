@@ -20,18 +20,19 @@ class CircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return Container(
-      width: size,
-      height: size,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: size,
+        height: size,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          shape: BoxShape.circle,
+        ),
+        child:
+            Center(child: Icon(iconData, size: size * 2 / 3, color: iconColor)),
       ),
-      child: IconButton(
-          padding: EdgeInsets.zero,
-          icon: Icon(iconData, size: size * 2 / 3, color: iconColor),
-          onPressed: onTap),
     );
   }
 }

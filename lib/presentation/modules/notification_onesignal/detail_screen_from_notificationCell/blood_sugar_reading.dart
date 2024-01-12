@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobile_health_check/domain/entities/notificaion_onesignal_entity.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/common_widget/rectangle_button.dart';
@@ -27,16 +28,21 @@ class BloodSugarNotificationReadingScreen extends StatefulWidget {
 
 class _BloodSugarNotificationReadingScreenState
     extends State<BloodSugarNotificationReadingScreen> {
-  // bool _isLoading = true;
-
+  bool isWifiAvailable = false;
+  bool is4GAvailable = false;
   @override
   void initState() {
     super.initState();
-    // Timer(const Duration(milliseconds: 3000), () {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
+    checkWifiAvailability();
+  }
+
+  void checkWifiAvailability() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      // ignore: unrelated_type_equality_checks
+      isWifiAvailable = connectivityResult == ConnectivityResult.wifi;
+      is4GAvailable = connectivityResult == ConnectivityResult.mobile;
+    });
   }
 
   @override
@@ -92,9 +98,12 @@ class _BloodSugarNotificationReadingScreenState
               SizedBox(
                 height: SizeConfig.screenWidth * 0.02,
               ),
-              CustomImagePicker(
-                imagePath:
-                    widget.notificationEntity!.bloodSugarEntity?.imageLink,
+             CustomImagePicker(
+                imagePath: (isWifiAvailable || is4GAvailable)
+                    ? widget.notificationEntity?.bloodSugarEntity
+                            ?.imageLink ??
+                        ""
+                    : null,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
@@ -127,7 +136,7 @@ class _BloodSugarNotificationReadingScreenState
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.notificationEntity!.bloodSugarEntity!.bloodSugar ?? widget.notificationEntity!.bloodSugarEntity!.bloodSugar!}",
+                                      "${widget.notificationEntity!.bloodSugarEntity!.bloodSugar!}",
                                   style: AppTextTheme.body0.copyWith(
                                     letterSpacing: -4,
                                     fontSize: SizeConfig.screenWidth * 0.2,

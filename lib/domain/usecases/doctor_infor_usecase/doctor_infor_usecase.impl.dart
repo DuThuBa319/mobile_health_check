@@ -10,7 +10,6 @@ class DoctorInforUsecaseImpl extends DoctorInforUsecase {
 
   @override
   Future<DoctorInforEntity?> getDoctorInforEntity(String? doctorId) async {
-    NavigationService navigationService = injector<NavigationService>();
     final response = await _repository.getDoctorInforModel(doctorId);
     if (userDataData.getUser()?.role == UserRole.doctor) {
       await userDataData.setUser(UserModel(

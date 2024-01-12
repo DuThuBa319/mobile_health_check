@@ -24,8 +24,8 @@ class TemperatureApiRepositoryImpl implements TemperatureApiRepository {
   }) {
     return restApi.getListTemperatureModels(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime,
+      startTime: startTime,
     );
   }
 

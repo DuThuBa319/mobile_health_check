@@ -26,8 +26,8 @@ class Spo2ApiRepositoryImpl implements Spo2ApiRepository {
   }) {
     return restApi.getListSpo2Models(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime,
+      startTime: startTime,
     );
   }
 

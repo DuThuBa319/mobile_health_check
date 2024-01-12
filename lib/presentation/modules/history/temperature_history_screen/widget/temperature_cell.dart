@@ -43,9 +43,10 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
               SizeConfig.screenWidth * 0.015,
               SizeConfig.screenWidth * 0.02),
           padding: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.02,
+              top: SizeConfig.screenHeight * 0.01,
               left: SizeConfig.screenWidth * 0.02,
-              right: SizeConfig.screenWidth * 0.02),
+              right: SizeConfig.screenWidth * 0.025,
+              bottom: SizeConfig.screenHeight * 0.015),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -118,30 +119,30 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
         ));
   }
 
-  Widget statusContainer({
-    double width = 61,
-    double height = 22,
-    String statusText = 'Cao',
-    EdgeInsetsGeometry margin = const EdgeInsets.only(bottom: 7, top: 8),
-    Color color = Colors.grey,
-  }) =>
-      Container(
-        width: width,
-        height: height,
-        margin: margin,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: color,
-        ),
-        child: Text(
-          statusText,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 12,
-            height: 1.6,
-          ),
-        ),
-      );
+  // Widget statusContainer({
+  //   double width = 61,
+  //   double height = 22,
+  //   String statusText = 'Cao',
+  //   EdgeInsetsGeometry margin = const EdgeInsets.only(bottom: 7, top: 8),
+  //   Color color = Colors.grey,
+  // }) =>
+  //     Container(
+  //       width: width,
+  //       height: height,
+  //       margin: margin,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(8),
+  //         color: color,
+  //       ),
+  //       child: Text(
+  //         statusText,
+  //         textAlign: TextAlign.center,
+  //         style: const TextStyle(
+  //           color: Colors.white,
+  //           fontWeight: FontWeight.w600,
+  //           fontSize: 12,
+  //           height: 1.6,
+  //         ),
+  //       ),
+  //     );
 }

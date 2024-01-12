@@ -55,22 +55,26 @@ class _PatientListCellState extends State<PatientListCell> {
             child: Icon(
               Icons.person_pin,
               color: AppColor.lineDecor,
-              size: SizeConfig.screenWidth * 0.105,
+              size: SizeConfig.screenWidth * 0.11,
             ),
           ),
           title: Transform.translate(
             offset: const Offset(-10, 0),
             child: Text(
-              widget.patientInforEntity?.name ?? '',
-              style: AppTextTheme.body2.copyWith(
-                fontSize: SizeConfig.screenWidth * 0.052,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+                softWrap: true,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                widget.patientInforEntity?.name ?? '',
+                style: AppTextTheme.body2.copyWith(
+                    fontSize: SizeConfig.screenWidth * 0.052,
+                    fontWeight: FontWeight.w500)),
           ),
           subtitle: Transform.translate(
             offset: const Offset(-10, 0),
             child: Text(
+              softWrap: true,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               widget.patientInforEntity?.phoneNumber == ""
                   ? translation(context).notUpdate
                   : widget.patientInforEntity!.phoneNumber,

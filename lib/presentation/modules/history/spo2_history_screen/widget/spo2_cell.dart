@@ -43,9 +43,10 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
               SizeConfig.screenWidth * 0.015,
               SizeConfig.screenWidth * 0.02),
           padding: EdgeInsets.only(
-              top: SizeConfig.screenWidth * 0.02,
+              top: SizeConfig.screenHeight * 0.01,
               left: SizeConfig.screenWidth * 0.02,
-              right: SizeConfig.screenWidth * 0.02),
+              right: SizeConfig.screenWidth * 0.025,
+              bottom: SizeConfig.screenHeight * 0.015),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -102,7 +103,7 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
                             text: " %",
                             style: AppTextTheme.title3.copyWith(
                                 color: const Color(0xff615A5A),
-                                fontSize: SizeConfig.screenWidth * 0.055,
+                                fontSize: SizeConfig.screenWidth * 0.07,
                                 fontWeight: FontWeight.w500))
                       ],
                     ),
@@ -114,30 +115,30 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
         ));
   }
 
-  Widget statusContainer({
-    double width = 61,
-    double height = 22,
-    String statusText = 'Cao',
-    EdgeInsetsGeometry margin = const EdgeInsets.only(bottom: 7, top: 8),
-    Color color = Colors.grey,
-  }) =>
-      Container(
-        width: width,
-        height: height,
-        margin: margin,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: color,
-        ),
-        child: Text(
-          statusText,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 12,
-            height: 1.6,
-          ),
-        ),
-      );
+  // Widget statusContainer({
+  //   double width = 61,
+  //   double height = 22,
+  //   String statusText = 'Cao',
+  //   EdgeInsetsGeometry margin = const EdgeInsets.only(bottom: 7, top: 8),
+  //   Color color = Colors.grey,
+  // }) =>
+  //     Container(
+  //       width: width,
+  //       height: height,
+  //       margin: margin,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(8),
+  //         color: color,
+  //       ),
+  //       child: Text(
+  //         statusText,
+  //         textAlign: TextAlign.center,
+  //         style: const TextStyle(
+  //           color: Colors.white,
+  //           fontWeight: FontWeight.w600,
+  //           fontSize: 12,
+  //           height: 1.6,
+  //         ),
+  //       ),
+  //     );
 }

@@ -26,13 +26,20 @@ class BloodSugarHistoryScreen extends StatefulWidget {
 
 class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
-  DateTime timeFrom =
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
-  DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
-  String strTimeFrom = DateFormat('dd/MM/yyyy').format(
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00)));
-  String strTimeTo = DateFormat('dd/MM/yyyy')
-      .format(DateTime.now().add(const Duration(hours: 23, minutes: 59)));
+  // ignore: sdk_version_since
+  DateTime timeFrom = DateTime.now().copyWith(hour: 0, minute: 1);
+  DateTime timeTo = DateTime.now()
+      .add(const Duration(days: 1))
+      // ignore: sdk_version_since
+      .copyWith(hour: 24, minute: 59);
+  // ignore: sdk_version_since
+  String strTimeFrom = DateFormat('dd/MM/yyyy')
+      // ignore: sdk_version_since
+      .format(DateTime.now().copyWith(hour: 0, minute: 1));
+  String strTimeTo = DateFormat('dd/MM/yyyy').format(DateTime.now()
+      .add(const Duration(days: 1))
+      // ignore: sdk_version_since
+      .copyWith(hour: 24, minute: 59));
   HistoryBloc get historyBloc => BlocProvider.of(context);
 
   @override
@@ -140,8 +147,19 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       context: context,
                       message: translation(context).selectError,
                       onClose: () {
-                        timeFrom = timeTo;
-                        strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
+                        setState(() {
+                          timeFrom =
+                              // ignore: sdk_version_since
+                              DateTime.now().copyWith(hour: 0, minute: 1);
+
+                          timeTo = timeFrom
+                              .add(const Duration(days: 1))
+                              // ignore: sdk_version_since
+                              .copyWith(hour: 23, minute: 59);
+                          strTimeFrom =
+                              DateFormat('dd/MM/yyyy').format(timeFrom);
+                          strTimeTo = DateFormat('dd/MM/yyyy').format(timeTo);
+                        });
                       },
                       titleBtn: translation(context).exit);
                 } else {
@@ -178,15 +196,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                   }
-                  if (state.status == BlocStatusState.failure &&
-                      state.viewModel.errorMessage ==
-                          translation(context).wifiDisconnect) {
-                    return Center(
-                        child: Text(translation(context).error,
-                            style: AppTextTheme.body2.copyWith(
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold)));
-                  }
+
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
                       child: Loading(
@@ -194,16 +204,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       ),
                     );
                   }
-                  if ((state.viewModel.listBloodSugar == null &&
-                          state is GetHistoryDataState &&
-                          state.status == BlocStatusState.success) ||
-                      state.status == BlocStatusState.failure) {
-                    return Center(
-                        child: Text(translation(context).error,
-                            style: AppTextTheme.body2.copyWith(
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold)));
-                  }
+
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodSugar!.isEmpty) {
@@ -211,6 +212,13 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                           child: Text(translation(context).noData,
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
+                    }
+                    if (state.viewModel.listBloodSugar == null) {
+                      return Center(
+                          child: Text(translation(context).error,
+                              style: AppTextTheme.body2.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold)));
                     } else {
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -225,6 +233,33 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                         },
                       );
                     }
+                  }
+                  //? Failure
+                  if (state.status == BlocStatusState.failure) {
+                    if (state.viewModel.isWifiDisconnect == true) {
+                      return Center(
+                        child: Text(
+                          translation(context).wifiDisconnect,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: AppTextTheme.body2.copyWith(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: SizeConfig.screenWidth * 0.05),
+                        ),
+                      );
+                    }
+                    return Center(
+                      child: Text(
+                        translation(context).error,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: AppTextTheme.body2.copyWith(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.screenWidth * 0.05),
+                      ),
+                    );
                   }
                   return Container();
                 },

@@ -127,7 +127,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.spo2Entity!.spo2 ?? widget.spo2Entity!.spo2!}",
+                                      "${widget.spo2Entity!.spo2!}",
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
                                       fontSize: SizeConfig.screenWidth * 0.25,

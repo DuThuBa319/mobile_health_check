@@ -245,10 +245,11 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   height: SizeConfig.screenWidth * 0.04,
                 ),
                 Text(cellTitle,
+                    textAlign: TextAlign.center,
                     softWrap: true,
                     style: AppTextTheme.title3.copyWith(
                         color: Colors.white,
-                        fontSize: SizeConfig.screenWidth * 0.040)),
+                        fontSize: SizeConfig.screenWidth * 0.037)),
               ],
             )),
       ),
@@ -263,8 +264,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
           context: context,
           message: translation(context).areYouSureToExitApp,
           title: translation(context).exitAppTitle,
-          titleBtn1: translation(context).no,
-          titleBtn2: translation(context).yes,
+   
           onClose1: () {},
           onClose2: () {
             SystemNavigator.pop();

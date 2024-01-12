@@ -3,7 +3,6 @@ import 'package:mobile_health_check/domain/entities/login_entity_group/account_e
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../../../classes/language.dart';
 
 import '../../../common_widget/common.dart';
@@ -45,45 +44,46 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
           listener: (context, state) {
 //! ADD RELATIVE SUCCESSFULLY
-            if (state is RegistRelativeState &&
-                state.status == BlocStatusState.success) {
-              showSuccessDialog(
-                  onClose: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      RouteList.patientInfor,
-                      arguments: widget.patientId,
-                    );
-                  },
-                  context: context,
-                  message: translation(context).addRelativeSuccessText,
-                  title: translation(context).addRelativeSuccessfully,
-                  titleBtn: translation(context).exit);
+            if (state.status == BlocStatusState.success) {
+              if (state is RegistRelativeState) {
+                showSuccessDialog(
+                    onClose: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RouteList.patientInfor,
+                        arguments: widget.patientId,
+                      );
+                    },
+                    context: context,
+                    message: translation(context).addRelativeSuccessText,
+                    title: translation(context).addRelativeSuccessfully,
+                    titleBtn: translation(context).exit);
+              }
             }
 
-//! EXCEPTION
-            if (state is RegistRelativeState &&
-                state.status == BlocStatusState.failure &&
-                (state.viewModel.errorMessage ==
-                        translation(context).duplicatedRelationshipPAR ||
+            //! EXCEPTION, FAILURE
+            if (state.status == BlocStatusState.failure) {
+              if (state is RegistRelativeState) {
+                if (state.viewModel.duplicatedRelationshipPAR == true ||
+                    state.viewModel.maximumRelativeCount == true ||
                     state.viewModel.errorMessage ==
-                        translation(context).maximumRelativeCount ||
-                    state.viewModel.errorMessage ==
-                        translation(context).error)) {
-              showExceptionDialog(
-                context: context,
-                message: state.viewModel.errorMessage!,
-                titleBtn: translation(context).exit,
-              );
-            }
-//! WIFI DISCONNECT
-            if (state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).wifiDisconnect) {
-              showExceptionDialog(
-                  context: context,
-                  message: translation(context).wifiDisconnect,
-                  titleBtn: translation(context).exit);
+                        translation(context).error) {
+                  {
+                    showExceptionDialog(
+                      context: context,
+                      message: state.viewModel.errorMessage!,
+                      titleBtn: translation(context).exit,
+                    );
+                  }
+                }
+              }
+              //! WIFI DISCONNECT
+              if (state.viewModel.isWifiDisconnect == true) {
+                showExceptionDialog(
+                    context: context,
+                    message: translation(context).wifiDisconnect,
+                    titleBtn: translation(context).exit);
+              }
             }
           },
           builder: (context, state) {
@@ -149,9 +149,8 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 3, top: 5),
-                          errorText: state.viewModel.errorEmptyName ==
-                                  translation(context).pleaseEnterRelativeName
-                              ? state.viewModel.errorEmptyName
+                          errorText: (state.viewModel.errorEmptyName == true)
+                              ? translation(context).pleaseEnterRelativeName
                               : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
@@ -190,10 +189,10 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 3, top: 5),
-                          errorText: state.viewModel.errorEmptyPhoneNumber ==
-                                  translation(context).invalidPhonenumber
-                              ? state.viewModel.errorEmptyPhoneNumber
-                              : null,
+                          errorText:
+                              (state.viewModel.errorEmptyPhoneNumber == true)
+                                  ? translation(context).invalidPhonenumber
+                                  : null,
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,

@@ -25,7 +25,6 @@ class PatientUsecaseImpl extends PatientUsecase {
   @override
   Future<PatientInforEntity?> getPatientInforEntityInPatientApp(
       String? patientId) async {
-    NavigationService navigationService = injector<NavigationService>();
     final response = await _repository.getPatientInforModel(patientId);
     await userDataData.setUser(UserModel(
         height: response.height,

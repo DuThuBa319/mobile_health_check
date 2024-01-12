@@ -2,32 +2,32 @@ part of 'blood_pressure_history_screen.dart';
 
 extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
   void blocListener(BuildContext context, HistoryState state) {
-    // logger.d('change state', state);
-    // _refreshController
-    //   ..refreshCompleted()
-    //   ..loadComplete();
-    if (state is GetHistoryDataState &&
-        state.status == BlocStatusState.loading) {
-      showToast(translation(context).loadingData);
-      //   );
+    //? Loading
+    if (state.status == BlocStatusState.loading) {
+      if (state is GetHistoryDataState) {
+        showToast(translation(context).loadingData);
+        //   );
+      }
     }
-    if (state is GetHistoryDataState &&
-        state.status == BlocStatusState.success) {
-      showToast(translation(context).dataLoaded);
-      // Navigator.of(context, rootNavigator: true).pop();
+    //? Success
+    if (state.status == BlocStatusState.success) {
+      if (state is GetHistoryDataState) {
+        showToast(translation(context).dataLoaded);
+        // Navigator.of(context, rootNavigator: true).pop();
+      }
     }
-    if (state is GetHistoryDataState &&
-        state.status == BlocStatusState.failure) {
-      showToast(translation(context).loadingError);
-      // Navigator.of(context, rootNavigator: true).pop();
-    }
-     if (state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).wifiDisconnect) {
-      showExceptionDialog(
-          context: context,
-          message: translation(context).wifiDisconnect,
-          titleBtn: translation(context).exit);
+    //? Failure
+    if (state.status == BlocStatusState.failure) {
+      if (state is GetHistoryDataState) {
+        showToast(translation(context).loadingError);
+        // Navigator.of(context, rootNavigator: true).pop();
+      }
+      if (state.viewModel.isWifiDisconnect == true) {
+        showExceptionDialog(
+            context: context,
+            message: translation(context).wifiDisconnect,
+            titleBtn: translation(context).exit);
+      }
     }
   }
 
@@ -65,7 +65,6 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
   //   historyBloc.add(GetBloodPressureHistoryInitDataEvent(
   //       endTime: timeTo, id: widget.id, startTime: timeFrom));
   // }
-
 
   Future<void> _onRefresh() async {
     // monitor network fetch

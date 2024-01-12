@@ -15,13 +15,13 @@ class NotificationCell extends StatefulWidget {
   final NotificationEntity? notificationEntity;
   final NotificationBloc? notificationBloc;
   final int? cellIndex;
-  final String? doctorId;
+  final String? userId;
   // final DoctorInforEntity? doctorInforEntity;
   const NotificationCell({
     Key? key,
     // this.doctorInforEntity,
     this.cellIndex,
-    this.doctorId,
+    this.userId,
     this.notificationBloc,
     this.notificationEntity,
   }) : super(key: key);

@@ -129,7 +129,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.bloodSugarEntity!.bloodSugar ?? widget.bloodSugarEntity!.bloodSugar!}",
+                                      "${widget.bloodSugarEntity!.bloodSugar!}",
                                   style: AppTextTheme.body0.copyWith(
                                     letterSpacing: -4,
                                     fontSize: SizeConfig.screenWidth * 0.2,

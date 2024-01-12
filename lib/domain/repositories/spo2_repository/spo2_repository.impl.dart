@@ -17,8 +17,8 @@ class Spo2RepositoryImpl extends Spo2Repository {
   }) {
     return spo2Api.getListSpo2Models(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime,
+      startTime: startTime,
     );
   }
 

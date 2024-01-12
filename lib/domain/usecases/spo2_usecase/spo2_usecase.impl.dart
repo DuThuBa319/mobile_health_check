@@ -16,8 +16,8 @@ class Spo2UsecaseImpl extends Spo2Usecase {
   }) async {
     final responses = await _repository.getListSpo2Models(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime ,
+      startTime: startTime,
     );
 
     var responseEntities = <Spo2Entity>[];

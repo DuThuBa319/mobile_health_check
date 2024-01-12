@@ -17,8 +17,8 @@ class BloodPressureRepositoryImpl extends BloodPressureRepository {
   }) {
     return bloodPressureApi.getListBloodPressureModels(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime,
+      startTime: startTime,
     );
   }
 

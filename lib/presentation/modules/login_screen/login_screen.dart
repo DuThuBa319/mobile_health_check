@@ -32,10 +32,14 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginState();
 }
 
+//! 1 => En
+//! 2 => Vi
 class _LoginState extends State<LoginScreen> {
   final List<bool> selectLanguage = <bool>[
     notificationData.localeId == 1 ? true : false,
-    notificationData.localeId == 2 ? true : false
+    (notificationData.localeId == 2 || notificationData.localeId == null)
+        ? true
+        : false
   ];
   LoginBloc get bloc => BlocProvider.of(context);
   final TextEditingController _usernameController = TextEditingController();
@@ -48,7 +52,6 @@ class _LoginState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    print(notificationData.localeId);
   }
 
   @override
@@ -83,6 +86,7 @@ class _LoginState extends State<LoginScreen> {
                             selectedLanguage = Language(1, ENGLISH, 'en');
                             Locale locale =
                                 await setLocale(selectedLanguage!.languageCode);
+                            notificationData.saveLocale(1);
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
                             showToast("Change language successfully");
@@ -94,6 +98,7 @@ class _LoginState extends State<LoginScreen> {
                             selectedLanguage = Language(2, VIETNAMESE, 'vi');
                             Locale locale =
                                 await setLocale(selectedLanguage!.languageCode);
+                            notificationData.saveLocale(2);
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
                             showToast("Đổi ngôn ngữ thành công");
@@ -295,7 +300,7 @@ class _LoginState extends State<LoginScreen> {
                             child: Text(
                               translation(context).signIn,
                               style: TextStyle(
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: AppColor.white,
                                 fontSize: SizeConfig.screenWidth * 0.055,
                               ),

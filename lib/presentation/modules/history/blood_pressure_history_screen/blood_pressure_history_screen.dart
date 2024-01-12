@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../../../../classes/language.dart';
-
 import '../../../common_widget/common.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../theme/theme_color.dart';
-
 import '../history_bloc/history_bloc.dart';
 import 'widget/blood_pressure_cell.dart';
-
 part 'blood_pressure_history_screen_action.dart';
 
 class BloodPressureHistoryScreen extends StatefulWidget {
@@ -34,13 +29,20 @@ class BloodPressureHistoryScreen extends StatefulWidget {
 class BloodPressureHistoryScreenState
     extends State<BloodPressureHistoryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
-  DateTime timeFrom =
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00));
-  DateTime timeTo = DateTime.now().add(const Duration(hours: 23, minutes: 59));
-  String strTimeFrom = DateFormat('dd/MM/yyyy').format(
-      DateTime.now().add(const Duration(days: -1, hours: 00, minutes: 00)));
-  String strTimeTo = DateFormat('dd/MM/yyyy')
-      .format(DateTime.now().add(const Duration(hours: 23, minutes: 59)));
+  // ignore: sdk_version_since
+  DateTime timeFrom = DateTime.now().copyWith(hour: 0, minute: 1);
+  DateTime timeTo = DateTime.now()
+      .add(const Duration(days: 1))
+      // ignore: sdk_version_since
+      .copyWith(hour: 24, minute: 59);
+  // ignore: sdk_version_since
+  String strTimeFrom = DateFormat('dd/MM/yyyy')
+      // ignore: sdk_version_since
+      .format(DateTime.now().copyWith(hour: 0, minute: 1));
+  String strTimeTo = DateFormat('dd/MM/yyyy').format(DateTime.now()
+      .add(const Duration(days: 1))
+      // ignore: sdk_version_since
+      .copyWith(hour: 24, minute: 59));
   HistoryBloc get historyBloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
@@ -148,8 +150,18 @@ class BloodPressureHistoryScreenState
                       context: context,
                       message: translation(context).selectError,
                       onClose: () {
-                        timeFrom = timeTo;
-                        strTimeFrom = DateFormat('dd/MM/yyyy').format(timeFrom);
+                        setState(() {
+                          timeFrom =
+                              // ignore: sdk_version_since
+                              DateTime.now().copyWith(hour: 0, minute: 1);
+                          timeTo = timeFrom
+                              .add(const Duration(days: 1))
+                              // ignore: sdk_version_since
+                              .copyWith(hour: 23, minute: 59);
+                          strTimeFrom =
+                              DateFormat('dd/MM/yyyy').format(timeFrom);
+                          strTimeTo = DateFormat('dd/MM/yyyy').format(timeTo);
+                        });
                       },
                       titleBtn: translation(context).exit);
                 } else {
@@ -180,20 +192,14 @@ class BloodPressureHistoryScreenState
               child: BlocConsumer<HistoryBloc, HistoryState>(
                 listener: blocListener,
                 builder: (context, state) {
+                  //? Init
                   if (state is HistoryInitialState) {
                     return Center(
                         child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2
                                 .copyWith(color: Colors.red)));
                   }
-                if (state.status == BlocStatusState.failure &&
-                state.viewModel.errorMessage ==
-                    translation(context).wifiDisconnect) {
-                    return Center(
-                        child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red, fontWeight: FontWeight.bold)));
-                  }
+                  //? Loading
                   if (state.status == BlocStatusState.loading) {
                     return const Center(
                       child: Loading(
@@ -201,15 +207,8 @@ class BloodPressureHistoryScreenState
                       ),
                     );
                   }
-                  if ((state.viewModel.listBloodPressure == null &&
-                          state is GetHistoryDataState &&
-                          state.status == BlocStatusState.success) ||
-                      state.status == BlocStatusState.failure) {
-                    return Center(
-                        child: Text(translation(context).error,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red,fontWeight: FontWeight.bold)));
-                  }
+
+                  //? Success
                   if (state.status == BlocStatusState.success &&
                       state is GetHistoryDataState) {
                     if (state.viewModel.listBloodPressure!.isEmpty) {
@@ -217,6 +216,13 @@ class BloodPressureHistoryScreenState
                           child: Text(translation(context).noData,
                               style: AppTextTheme.body2
                                   .copyWith(color: Colors.red)));
+                    }
+                    if (state.viewModel.listBloodPressure == null) {
+                      return Center(
+                          child: Text(translation(context).error,
+                              style: AppTextTheme.body2.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold)));
                     } else {
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -231,6 +237,33 @@ class BloodPressureHistoryScreenState
                         },
                       );
                     }
+                  }
+                  //? Failure
+                  if (state.status == BlocStatusState.failure) {
+                    if (state.viewModel.isWifiDisconnect == true) {
+                      return Center(
+                        child: Text(
+                          translation(context).wifiDisconnect,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: AppTextTheme.body2.copyWith(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: SizeConfig.screenWidth * 0.05),
+                        ),
+                      );
+                    }
+                    return Center(
+                      child: Text(
+                        translation(context).error,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: AppTextTheme.body2.copyWith(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.screenWidth * 0.05),
+                      ),
+                    );
                   }
                   return Container();
                 },

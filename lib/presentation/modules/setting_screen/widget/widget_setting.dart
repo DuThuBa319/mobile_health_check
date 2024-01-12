@@ -13,8 +13,8 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
     height: SizeConfig.screenWidth * 0.2,
     width: SizeConfig.screenWidth * 0.9,
     margin: EdgeInsets.only(
-        top: SizeConfig.screenWidth * 0.035,
-        bottom: SizeConfig.screenWidth * 0.035),
+        top: SizeConfig.screenWidth * 0.03,
+        bottom: SizeConfig.screenWidth * 0.03),
     decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),

@@ -5,31 +5,31 @@ abstract class NotificationEvent {}
 
 class GetNotificationListEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
-  final String? doctorId;
+  final String? userId;
   final int startIndex;
   final int lastIndex;
   GetNotificationListEvent(
-      {required this.doctorId,
+      {required this.userId,
       required this.startIndex,
       required this.lastIndex});
 }
 
 class RenewPageAfterActionEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
-  final String doctorId;
+  final String userId;
   final int startIndex;
   final int lastIndex;
   RenewPageAfterActionEvent(
-      {required this.doctorId,
+      {required this.userId,
       required this.startIndex,
       required this.lastIndex});
 }
 
 class RefreshNotificationListEvent extends NotificationEvent {
-  final String? doctorId;
+  final String? userId;
 
   RefreshNotificationListEvent({
-    required this.doctorId,
+    required this.userId,
   });
 }
 

@@ -137,7 +137,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                             children: [
                               TextSpan(
                                   text:
-                                      "${widget.temperatureEntity!.temperature ?? widget.temperatureEntity!.temperature!}°",
+                                      "${widget.temperatureEntity!.temperature!}°",
                                   style: AppTextTheme.body0.copyWith(
                                     letterSpacing: -4,
                                     fontSize: SizeConfig.screenWidth * 0.2,

@@ -16,8 +16,8 @@ class TemperatureUsecaseImpl extends TemperatureUsecase {
   }) async {
     final responses = await _repository.getListTemperatureModels(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime,
+      startTime:  startTime,
     );
 
     var responseEntities = <TemperatureEntity>[];

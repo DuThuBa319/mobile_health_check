@@ -1,13 +1,22 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:injectable/injectable.dart';
-import '../../../common_widget/enum_common.dart';
+
 import 'package:camera/camera.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image/image.dart' as img;
+import 'package:injectable/injectable.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../../common_widget/enum_common.dart';
+
 part 'camera_event.dart';
 part 'camera_state.dart';
+
+bool isPopupPermissionShow = false;
 
 @injectable
 class CameraBloc extends Bloc<CameraEvent, CameraState> {
@@ -43,6 +52,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     );
     try {
       await event.controller.dispose();
+
       emit(
         state.copyWith(
             status: BlocStatusState.success,
@@ -84,19 +94,28 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
         }
       });
       final controller = event.controller;
-      await controller.initialize();
-      await controller.setZoomLevel(event.zoomValue);
-      await controller.setFlashMode(
-        FlashMode.off,
-      );
-      final newViewModel =
-          state.viewModel.copyWith(cameraController: controller);
-      emit(
-        state.copyWith(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ),
-      );
+      try {
+        await controller.initialize();
+        await controller.setZoomLevel(event.zoomValue);
+        await controller.setFlashMode(
+          FlashMode.off,
+        );
+        final newViewModel =
+            state.viewModel.copyWith(cameraController: controller);
+        emit(
+          state.copyWith(
+            status: BlocStatusState.success,
+            viewModel: newViewModel,
+          ),
+        );
+      } catch (e) {
+        bool isCameraGranted = await Permission.camera.request().isGranted;
+        if (!isCameraGranted) {
+          checkPermission(event.context);
+        } else {
+          debugPrint("camera error $e");
+        }
+      }
     } on CameraException {
       event.controller.dispose();
       emit(
@@ -246,4 +265,49 @@ Future<File> cropImage(
 
   File temp = await File(pickedFile.path).writeAsBytes(img.encodePng(cropOne));
   return temp;
+}
+
+openSettingDialog(BuildContext context) => AlertDialog(
+      title: const Text("Camera permission not granted"),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: [
+            GestureDetector(
+              child: const Text("Open Setting"),
+              onTap: () async {
+                Navigator.pop(context, null);
+
+                await openAppSettings();
+              },
+            ),
+            const Padding(padding: EdgeInsets.all(10)),
+            GestureDetector(
+              child: const Text("Cancel"),
+              onTap: () async {
+                Navigator.pop(context, null);
+                return;
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+checkPermission(BuildContext context) async {
+  try {
+    bool isCameraGranted = await Permission.camera.request().isGranted;
+    if (!isCameraGranted) {
+      if (!isPopupPermissionShow) {
+        isPopupPermissionShow = true;
+
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return openSettingDialog(context);
+            });
+      }
+      isPopupPermissionShow = false;
+    }
+  } catch (e) {
+    debugPrint("camera error: $e");
+  }
 }

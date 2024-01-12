@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
-import 'package:mobile_health_check/di/di.dart';
+
 import 'package:mobile_health_check/domain/entities/spo2_entity.dart';
 import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
@@ -29,7 +28,6 @@ part 'patient_infor_screen.action.dart';
 
 class PatientInforScreen extends StatefulWidget {
   final String patientId;
-
   const PatientInforScreen({
     Key? key,
     required this.patientId,
@@ -58,12 +56,16 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         isShowBottomNayvigationBar: true,
         isShowLeadingButton: true,
         leadingButton: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            size: SizeConfig.screenWidth * 0.08,
+            color: AppColor.white,
+          ),
           onPressed: () {
             Navigator.pushNamedAndRemoveUntil(
                 context,
                 RouteList.patientList,
-                arguments: userDataData.getUser()!.id!,
+                arguments: userDataData.getUser()?.id!,
                 (route) => false);
           },
         ),
@@ -73,7 +75,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
-              if ((state is GetPatientInitialState) ||
+              if (state is GetPatientInitialState ||
                   (state is RemoveRelationshipRaPState &&
                       state.status == BlocStatusState.success)) {
                 patientBloc
@@ -89,8 +91,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                 );
               }
 
-              if ((state is GetPatientInforState &&
-                  state.status == BlocStatusState.success)) {
+              if (state is GetPatientInforState &&
+                  state.status == BlocStatusState.success) {
                 PatientInforEntity patient =
                     state.viewModel.patientInforEntity!;
                 return SmartRefresher(
@@ -105,6 +107,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           //! Infor
                           Container(
@@ -151,6 +154,11 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                       TextSpan(
                                         text: patient.name,
                                         children: [
+                                          const WidgetSpan(
+                                            child: SizedBox(
+                                              width: 5,
+                                            ),
+                                          ),
                                           WidgetSpan(
                                             child: GestureDetector(
                                                 onTap: () {
@@ -179,38 +187,24 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(patient.phoneNumber,
-                                      textAlign: TextAlign.center,
-                                      style: AppTextTheme.body3.copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: SizeConfig.screenWidth * 0.05,
-                                      ))
                                 ],
                               )),
                           //! Data
                           Container(
-                            padding: EdgeInsets.only(
+                            margin: EdgeInsets.only(
                               left: SizeConfig.screenWidth * 0.04,
                               top: SizeConfig.screenHeight * 0.03,
                               bottom: SizeConfig.screenWidth * 0.02,
-                              right: SizeConfig.screenWidth * 0.025,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      translation(context).lastUpdate,
-                                      style: AppTextTheme.body0.copyWith(
-                                          fontSize:
-                                              SizeConfig.screenHeight * 0.02,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                Text(
+                                  translation(context).lastUpdate,
+                                  style: AppTextTheme.body0.copyWith(
+                                      fontSize: SizeConfig.screenHeight * 0.02,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   height: 2,
@@ -228,98 +222,111 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   patient.spo2s!.isNotEmpty
                               ? Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    if (patient.bloodPressures!.isNotEmpty)
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(context,
-                                              RouteList.bloodPressuerDetail,
-                                              arguments:
-                                                  patient.bloodPressures?[0]);
-                                          showToast(translation(context)
-                                              .waitForSeconds);
-                                        },
-                                        child: homeCell(
-                                            context: context,
-                                            bloodPressureEntity:
-                                                patient.bloodPressures?[0],
-                                            dateTime: patient
-                                                .bloodPressures?[0].updatedDate,
-                                            navigate: "bloodPressureHistory",
-                                            imagePath:
-                                                Assets.bloodPressureMeter,
-                                            indicator: translation(context)
-                                                .bloodPressure,
-                                            color: AppColor.bloodPressureEquip),
-                                      ),
-                                    if (patient.bodyTemperatures!.isNotEmpty)
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(context,
-                                              RouteList.bodyTemperatureDetail,
-                                              arguments:
-                                                  patient.bodyTemperatures?[0]);
-                                          showToast(translation(context)
-                                              .waitForSeconds);
-                                        },
-                                        child: homeCell(
-                                            context: context,
-                                            temperatureEntity:
-                                                patient.bodyTemperatures?[0],
-                                            dateTime: patient
-                                                .bodyTemperatures?[0]
-                                                .updatedDate,
-                                            navigate: "bodyTemperatureColor",
-                                            imagePath:
-                                                Assets.bodyTemperatureMeter,
-                                            indicator: translation(context)
-                                                .bodyTemperature,
-                                            color:
-                                                AppColor.bodyTemperatureColor),
-                                      ),
-                                    if (patient.bloodSugars!.isNotEmpty)
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(context,
-                                              RouteList.bloodSugarDetail,
-                                              arguments:
-                                                  patient.bloodSugars?[0]);
-                                          showToast(translation(context)
-                                              .waitForSeconds);
-                                        },
-                                        child: homeCell(
-                                            context: context,
-                                            bloodSugarEntity:
-                                                patient.bloodSugars?[0],
-                                            dateTime: patient
-                                                .bloodSugars?[0].updatedDate,
-                                            navigate: "bloodSugarHistory",
-                                            imagePath: Assets.bloodGlucoseMeter,
-                                            indicator:
-                                                translation(context).bloodSugar,
-                                            color: AppColor.bloodGlucosColor),
-                                      ),
-                                    if (patient.spo2s!.isNotEmpty)
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, RouteList.spo2Detail,
-                                              arguments: patient.spo2s?[0]);
-                                          showToast(translation(context)
-                                              .waitForSeconds);
-                                        },
-                                        child: homeCell(
-                                            context: context,
-                                            spo2Entity: patient.spo2s?[0],
-                                            dateTime:
-                                                patient.spo2s?[0].updatedDate,
-                                            navigate: "oximeterHistory",
-                                            imagePath: Assets.oximeter,
-                                            indicator:
-                                                translation(context).oximeter,
-                                            color: AppColor.oximeterCell),
-                                      ),
+                                    (patient.bloodPressures!.isNotEmpty)
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  RouteList.bloodPressuerDetail,
+                                                  arguments: patient
+                                                      .bloodPressures?[0]);
+                                              showToast(translation(context)
+                                                  .waitForSeconds);
+                                            },
+                                            child: homeCell(
+                                                context: context,
+                                                bloodPressureEntity:
+                                                    patient.bloodPressures?[0],
+                                                dateTime: patient
+                                                    .bloodPressures?[0]
+                                                    .updatedDate,
+                                                navigate:
+                                                    "bloodPressureHistory",
+                                                imagePath:
+                                                    Assets.bloodPressureMeter,
+                                                indicator: translation(context)
+                                                    .bloodPressure,
+                                                color: AppColor
+                                                    .bloodPressureEquip),
+                                          )
+                                        : const SizedBox(),
+                                    (patient.bodyTemperatures!.isNotEmpty)
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                  context,
+                                                  RouteList
+                                                      .bodyTemperatureDetail,
+                                                  arguments: patient
+                                                      .bodyTemperatures?[0]);
+                                              showToast(translation(context)
+                                                  .waitForSeconds);
+                                            },
+                                            child: homeCell(
+                                                context: context,
+                                                temperatureEntity: patient
+                                                    .bodyTemperatures?[0],
+                                                dateTime: patient
+                                                    .bodyTemperatures?[0]
+                                                    .updatedDate,
+                                                navigate:
+                                                    "bodyTemperatureColor",
+                                                imagePath:
+                                                    Assets.bodyTemperatureMeter,
+                                                indicator: translation(context)
+                                                    .bodyTemperature,
+                                                color: AppColor
+                                                    .bodyTemperatureColor),
+                                          )
+                                        : const SizedBox(),
+                                    (patient.bloodSugars!.isNotEmpty)
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  RouteList.bloodSugarDetail,
+                                                  arguments:
+                                                      patient.bloodSugars?[0]);
+                                              showToast(translation(context)
+                                                  .waitForSeconds);
+                                            },
+                                            child: homeCell(
+                                                context: context,
+                                                bloodSugarEntity:
+                                                    patient.bloodSugars?[0],
+                                                dateTime: patient
+                                                    .bloodSugars?[0]
+                                                    .updatedDate,
+                                                navigate: "bloodSugarHistory",
+                                                imagePath:
+                                                    Assets.bloodGlucoseMeter,
+                                                indicator: translation(context)
+                                                    .bloodSugar,
+                                                color:
+                                                    AppColor.bloodGlucosColor),
+                                          )
+                                        : const SizedBox(),
+                                    (patient.spo2s!.isNotEmpty)
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                  context, RouteList.spo2Detail,
+                                                  arguments: patient.spo2s?[0]);
+                                              showToast(translation(context)
+                                                  .waitForSeconds);
+                                            },
+                                            child: homeCell(
+                                                context: context,
+                                                spo2Entity: patient.spo2s?[0],
+                                                dateTime: patient
+                                                    .spo2s?[0].updatedDate,
+                                                navigate: "oximeterHistory",
+                                                imagePath: Assets.oximeter,
+                                                indicator: translation(context)
+                                                    .oximeter,
+                                                color: AppColor.oximeterCell),
+                                          )
+                                        : const SizedBox(),
                                     const SizedBox(
                                       height: 10,
                                     ),
@@ -373,85 +380,92 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     shrinkWrap: true,
                                     itemCount: patient.relatives?.length ?? 0,
                                     itemBuilder:
-                                        (BuildContext context, int index) {
+                                        (BuildContext contxt, int index) {
                                       final relative =
                                           patient.relatives?[index];
 
+                                      final endDrawerWidgets =
+                                          <SlidableDrawerWidget>[
+                                        SlidableDrawerWidget(
+                                            backgroundColor:
+                                                AppColor.green9DEEB2,
+                                            foregroundColor: Colors.white,
+                                            iconData: Icons.phone,
+                                            labelText:
+                                                translation(context).call,
+                                            onPressed: (context) {
+                                              if (state.viewModel
+                                                      .isWifiDisconnect ==
+                                                  true) {
+                                              } else {
+                                                return FlutterPhoneDirectCaller
+                                                    .callNumber(
+                                                        relative!.phoneNumber);
+                                              }
+                                            }),
+                                        SlidableDrawerWidget(
+                                            backgroundColor: AppColor.lineDecor,
+                                            foregroundColor: Colors.white,
+                                            iconData:
+                                                Icons.delete_outline_outlined,
+                                            labelText:
+                                                translation(context).delete,
+                                            onPressed: (context) {
+                                              if (state.viewModel
+                                                      .isWifiDisconnect ==
+                                                  true) {
+                                              } else {
+                                                showWarningDialog(
+                                                    useRootNavigator: true,
+                                                    context: contxt,
+                                                    message:
+                                                        translation(context)
+                                                            .deletePatient,
+                                                    title: translation(context)
+                                                        .deletePatientWarningTitle,
+                                                    onClose1: () {
+                                                      //! Lỗi xảy ra khi xử dụng Navigator.pop(context)
+                                                      Navigator.pop(contxt);
+                                                    },
+                                                    onClose2: () {
+                                                      patientBloc.add(
+                                                          RemoveRelationshipRaPEvent(
+                                                              relativeId:
+                                                                  relative!.id,
+                                                              patientId:
+                                                                  patient.id));
+                                                      //! Lỗi xảy ra khi xử dụng Navigator.pop(context)
+                                                      Navigator.pop(contxt);
+                                                    });
+                                              }
+                                            })
+                                      ];
                                       //! SlideAbleForm
-                                      return SlideAbleForm(
-                                        lableAction1: translation(context).call,
-                                        lableAction2:
-                                            translation(context).delete,
-                                        iconAction1: Icons.phone,
-                                        iconAction2:
-                                            Icons.delete_outline_outlined,
+                                      return CustomSlidableWidget(
+                                        endDrawerWidgets: endDrawerWidgets,
                                         iconLeadingCell: Icon(
                                           Icons.account_box_rounded,
                                           color: AppColor.primaryColorLight,
                                           size: SizeConfig.screenWidth * 0.14,
                                         ),
                                         textLine1: Text(
-                                          relative?.name ?? '',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: true,
+                                          relative!.name,
                                           style: AppTextTheme.body2.copyWith(
-                                              fontSize:
-                                                  SizeConfig.screenWidth * 0.06,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.052,
                                               fontWeight: FontWeight.w500),
                                         ),
                                         textLine2: Text(
-                                            relative?.phoneNumber == ""
+                                            relative.phoneNumber == ""
                                                 ? translation(context).notUpdate
-                                                : relative!.phoneNumber,
-                                            style: AppTextTheme.body4.copyWith(
-                                                fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.05)),
-                                        widthLeadingIconCell:
-                                            SizeConfig.screenWidth * 0.13,
+                                                : relative.phoneNumber,
+                                            style: AppTextTheme.body3),
                                         onTapCell: () {},
-                                        onAction1: () {
-                                          return FlutterPhoneDirectCaller
-                                              .callNumber(
-                                                  relative!.phoneNumber);
-                                        },
-                                        onAction2: () {
-                                          NavigationService navigationService =
-                                              injector<NavigationService>();
-                                          showWarningDialog(
-                                              useRootNavigator: true,
-                                              //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
-                                              context: navigationService
-                                                      .navigatorKey
-                                                      .currentContext ??
-                                                  context,
-                                              message: translation(context)
-                                                  .deletePatient,
-                                              title: translation(context)
-                                                  .deletePatientWarningTitle,
-                                              titleBtn1:
-                                                  translation(context).no,
-                                              titleBtn2:
-                                                  translation(context).yes,
-                                              onClose1: () {
-                                                //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
-                                                Navigator.pop(navigationService
-                                                        .navigatorKey
-                                                        .currentContext ??
-                                                    context);
-                                              },
-                                              onClose2: () {
-                                                patientBloc.add(
-                                                    RemoveRelationshipRaPEvent(
-                                                        relativeId:
-                                                            relative?.id,
-                                                        patientId: patient.id));
-                                                //! Chỗ này lưu ý context có thể bị out khỏi stack trước đó rồi
-                                                Navigator.pop(navigationService
-                                                        .navigatorKey
-                                                        .currentContext ??
-                                                    context);
-                                              });
-                                        },
                                       );
+
                                       //? SlideAbleForm(
                                       //   isRelativeCell: true,
                                       //   patientBloc: patientBloc,
@@ -467,7 +481,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                       ? RectangleButton(
                                           width: SizeConfig.screenWidth * 0.4,
                                           height:
-                                              SizeConfig.screenHeight * 0.045,
+                                              SizeConfig.screenHeight * 0.05,
                                           title:
                                               translation(context).addRelative,
                                           buttonColor: AppColor.lineDecor,
@@ -486,20 +500,39 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                       ),
                     ));
               }
-              if (state.status == BlocStatusState.failure &&
-                  state.viewModel.errorMessage ==
-                      translation(context).wifiDisconnect) {
+
+              if (state.viewModel.isWifiDisconnect == true) {
                 return Center(
-                  child: Text(
-                    translation(context).error,
-                    style: TextStyle(
-                        fontSize: SizeConfig.screenWidth * 0.05,
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.red),
-                  ),
-                );
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                      Text(
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        state.viewModel.errorMessage!,
+                        style: AppTextTheme.body2.copyWith(color: Colors.red),
+                      ),
+                      const SizedBox(height: 10),
+                      RectangleButton(
+                          height: SizeConfig.screenHeight * 0.052,
+                          width: SizeConfig.screenWidth * 0.4,
+                          title: translation(context).loadAgain,
+                          onTap: () {
+                            patientBloc.add(GetPatientInforEvent(
+                                patientId: widget.patientId));
+                          })
+                    ]));
               }
-              return Container();
+              return Center(
+                child: Text(
+                  translation(context).error,
+                  style: TextStyle(
+                      fontSize: SizeConfig.screenWidth * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.red),
+                ),
+              );
             }));
   }
 }

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/change_password_entity.dart';
+import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/modules/setting_screen/setting_bloc/setting_bloc.dart';
@@ -34,7 +35,7 @@ class _SettingPasswordState extends State<SettingPassword> {
     SizeConfig.init(context);
 
     return CustomScreenForm(
-        title: translation(context).updatePassword,
+        title: translation(context).setting,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: false,
@@ -44,37 +45,35 @@ class _SettingPasswordState extends State<SettingPassword> {
         selectedIndex: 2,
         child:
             BlocConsumer<SettingBloc, SettingState>(listener: (context, state) {
-          if (state is ChangePassState &&
-              state.status == BlocStatusState.failure) {
-            //! ERROR CURRENT PASSWORD
-            if (state.viewModel.errorMessage ==
-                translation(context).currentPassWrong) {
-              showExceptionDialog(
-                  context: context,
-                  message: translation(context).currentPassWrong,
-                  titleBtn: translation(context).exit);
-            }
-            //! WIFI DISCONNECT
-            if (state.viewModel.errorMessage ==
-                translation(context).wifiDisconnect) {
-              showExceptionDialog(
-                  context: context,
-                  message: translation(context).wifiDisconnect,
-                  titleBtn: translation(context).exit);
-            }
-          }
-
           //! CHANGE PASS SUCCESSFULLY
-          if (state is ChangePassState &&
-              state.status == BlocStatusState.success) {
-            showSuccessDialog(
-                onClose: () {
-                  Navigator.pop(context);
-                },
-                context: context,
-                message: translation(context).changePassSuccessText,
-                title: translation(context).updatePasswordSuccessfullly,
-                titleBtn: translation(context).accept);
+          if (state is ChangePassState) {
+            if (state.status == BlocStatusState.success) {
+              showSuccessDialog(
+                  onClose: () {
+                    Navigator.pop(context);
+                  },
+                  context: context,
+                  message: translation(context).changePassSuccessText,
+                  title: translation(context).updatePasswordSuccessfullly,
+                  titleBtn: translation(context).accept);
+            }
+
+            if (state.status == BlocStatusState.failure) {
+              //! WIFI DISCONNECT
+              if (state.viewModel.isWifiDisconnect == true) {
+                showExceptionDialog(
+                    context: context,
+                    message: translation(context).wifiDisconnect,
+                    titleBtn: translation(context).exit);
+              }
+              //! ERROR CURRENT PASSWORD
+              if (state.viewModel.isCurrentPassWrong == true) {
+                showExceptionDialog(
+                    context: context,
+                    message: translation(context).currentPassWrong,
+                    titleBtn: translation(context).exit);
+              }
+            }
           }
         }, builder: (context, state) {
           if (state is ChangePassState &&
@@ -95,6 +94,10 @@ class _SettingPasswordState extends State<SettingPassword> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(height: SizeConfig.screenHeight * 0.05),
+                    Text(translation(context).updatePassword,
+                        style: AppTextTheme.body0.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.screenWidth * 0.06)),
                     lineDecor(),
                     SizedBox(height: SizeConfig.screenHeight * 0.02),
                     Container(
@@ -126,12 +129,12 @@ class _SettingPasswordState extends State<SettingPassword> {
                                 iconColor: AppColor.primaryColorLight,
                                 contentPadding:
                                     const EdgeInsets.only(bottom: 5, top: 5),
-                                errorText: state.viewModel
-                                            .errorEmptyCurrentPassword ==
-                                        translation(context)
+                                errorText:
+                                    state.viewModel.errorEmptyCurrentPassword ==
+                                            true
+                                        ? translation(context)
                                             .pleaseEnterYourCurrentPassword
-                                    ? state.viewModel.errorEmptyCurrentPassword
-                                    : null,
+                                        : null,
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                       showPass1
@@ -188,9 +191,9 @@ class _SettingPasswordState extends State<SettingPassword> {
                                     const EdgeInsets.only(bottom: 5, top: 5),
                                 errorText:
                                     state.viewModel.errorEmptyNewPassword ==
-                                            translation(context)
-                                                .pleaseEnterYourNewPassword
-                                        ? state.viewModel.errorEmptyNewPassword
+                                            true
+                                        ? translation(context)
+                                            .pleaseEnterYourNewPassword
                                         : null,
                                 suffixIcon: IconButton(
                                   icon: Icon(

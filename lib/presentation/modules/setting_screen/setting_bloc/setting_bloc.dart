@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_health_check/common/service/navigation/navigation_service.dart';
+
 import 'package:mobile_health_check/domain/entities/doctor_infor_entity.dart';
 
 import 'package:flutter/material.dart';
@@ -11,7 +11,8 @@ import 'package:mobile_health_check/domain/usecases/change_pass_usecase/change_p
 import 'package:mobile_health_check/domain/usecases/doctor_infor_usecase/doctor_infor_usecase.dart';
 
 import '../../../../classes/language.dart';
-import '../../../../di/di.dart';
+import '../../../../common/singletons.dart';
+
 import '../../../../domain/entities/change_password_entity.dart';
 import '../../../../domain/entities/relative_infor_entity.dart';
 import '../../../../domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
@@ -31,7 +32,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   final NetworkInfo networkInfo;
 
   SettingBloc(
-    this.networkInfo,
+      this.networkInfo,
       this._patientUseCase,
       this._doctorInforUsecase,
       this._relativeInforUsecase,
@@ -50,9 +51,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     ChangePassEvent event,
     Emitter<SettingState> emit,
   ) async {
-
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       if (event.changePassEntity.currentPassword == null ||
           event.changePassEntity.currentPassword?.trim() == '' ||
@@ -61,25 +59,19 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         if (event.changePassEntity.currentPassword == null ||
             event.changePassEntity.currentPassword?.trim() == '') {
           emit(
-            state.copyWith(
+            ChangePassState(
               status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyCurrentPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourCurrentPassword,
-              ),
+              viewModel: const _ViewModel(errorEmptyCurrentPassword: true),
             ),
           );
         }
         if (event.changePassEntity.newPassword == null ||
             event.changePassEntity.newPassword?.trim() == '') {
           emit(
-            state.copyWith(
+            ChangePassState(
               status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyNewPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourNewPassword,
+              viewModel: const _ViewModel(
+                errorEmptyNewPassword: true,
               ),
             ),
           );
@@ -89,22 +81,18 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
             (event.changePassEntity.currentPassword == null ||
                 event.changePassEntity.currentPassword?.trim() == '')) {
           emit(
-            state.copyWith(
+            ChangePassState(
               status: BlocStatusState.failure,
-              viewModel: _ViewModel(
-                errorEmptyCurrentPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourCurrentPassword,
-                errorEmptyNewPassword:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .pleaseEnterYourNewPassword,
+              viewModel: const _ViewModel(
+                errorEmptyCurrentPassword: true,
+                errorEmptyNewPassword: true,
               ),
             ),
           );
         }
         return;
       }
-      
+
       emit(
         ChangePassState(
           status: BlocStatusState.loading,
@@ -115,23 +103,22 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         await changePassUsecase.changePassEntity(
             event.changePassEntity, event.userId);
         final newViewModel = state.viewModel;
-        emit(state.copyWith(
+        emit(ChangePassState(
           status: BlocStatusState.success,
           viewModel: newViewModel,
         ));
       } on DioException catch (e) {
         if (e.response?.data == "Password is invalid") {
-          emit(state.copyWith(
+          emit(ChangePassState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-                errorMessage:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .currentPassWrong),
+            viewModel: const _ViewModel(
+              isCurrentPassWrong: true,
+            ),
           ));
         }
       } catch (response) {
         emit(
-          state.copyWith(
+          ChangePassState(
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
                 errorMessage:
@@ -142,9 +129,10 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     } else {
       emit(
-        state.copyWith(
+        ChangePassState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -157,8 +145,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdatePatientInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         UpdatePatientInforState(
@@ -169,22 +155,27 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       try {
         await _patientUseCase.updatePatientInforEntity(
             event.id, event.patientInforEntity);
-        final newViewModel = state.viewModel;
+
         emit(UpdatePatientInforState(
           status: BlocStatusState.success,
-          viewModel: newViewModel,
+          viewModel: state.viewModel,
         ));
       } catch (e) {
         emit(
-          state.copyWith(
-              status: BlocStatusState.failure, viewModel: state.viewModel),
+          UpdatePatientInforState(
+              status: BlocStatusState.failure,
+              viewModel: state.viewModel.copyWith(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .error)),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        UpdatePatientInforState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -197,8 +188,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdateRelativeInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         UpdateRelativeInforState(
@@ -209,22 +198,26 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       try {
         await _relativeInforUsecase.updateRelativeInforEntity(
             event.id, event.relativeInforEntity);
-        final newViewModel = state.viewModel;
         emit(UpdateRelativeInforState(
           status: BlocStatusState.success,
-          viewModel: newViewModel,
+          viewModel: state.viewModel,
         ));
       } catch (e) {
         emit(
-          state.copyWith(
-              status: BlocStatusState.failure, viewModel: state.viewModel),
+          UpdateRelativeInforState(
+              status: BlocStatusState.failure,
+              viewModel: state.viewModel.copyWith(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .error)),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        UpdateRelativeInforState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -238,8 +231,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     UpdateDoctorInforEvent event,
     Emitter<SettingState> emit,
   ) async {
-   NavigationService navigationService = injector<NavigationService>();
-
     if (await networkInfo.isConnected == true) {
       emit(
         UpdateDoctorInforState(
@@ -250,24 +241,27 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       try {
         await _doctorInforUsecase.updateDoctorInforEntity(
             event.id, event.doctorInforEntity);
-        final newViewModel = state.viewModel;
         emit(UpdateDoctorInforState(
           status: BlocStatusState.success,
-          viewModel: newViewModel,
+          viewModel: state.viewModel,
         ));
       } catch (e) {
         emit(
-          state.copyWith(
+          UpdateDoctorInforState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel,
+            viewModel: state.viewModel.copyWith(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ),
         );
       }
     } else {
       emit(
-        state.copyWith(
+        UpdateDoctorInforState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),

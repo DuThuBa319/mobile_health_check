@@ -64,14 +64,14 @@ class _SettingLanguageState extends State<SettingLanguage> {
                 Row(
                   children: [
                     Icon(Icons.language_outlined,
-                        size: SizeConfig.screenWidth * 0.12),
+                        size: SizeConfig.screenWidth * 0.1),
                     const SizedBox(
                       width: 5,
                     ),
                     Text(translation(context).selectLanguage,
                         style: AppTextTheme.body0.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: SizeConfig.screenWidth * 0.08)),
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.screenWidth * 0.06)),
                   ],
                 ),
                 lineDecor(
@@ -191,9 +191,10 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     onTap: () async {
                       if (selectEn) {
                         selectedLanguage = Language(1, ENGLISH, 'en');
+
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
-
+                        notificationData.saveLocale(1);
                         MyApp.setLocale(context, locale);
                         Navigator.pop(context);
                         return;
@@ -202,6 +203,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                         selectedLanguage = Language(2, VIETNAMESE, 'vi');
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
+                        notificationData.saveLocale(2);
                         MyApp.setLocale(context, locale);
                         Navigator.pop(context);
                         return;

@@ -16,8 +16,8 @@ class AppColor {
   static const Color primaryColor = Color(0xFF03a1e4);
   static const Color primaryColorLight = Color(0xFF43c8f5);
   static const Color cardBackground = Color.fromARGB(255, 215, 242, 255);
-  static const Color iconSelected = primaryColor; 
-  
+  static const Color iconSelected = primaryColor;
+
   static const Color iconUnselected = Colors.grey;
   static const Color lightGrey = Color(0xFFbebebe);
   static const Color greyDC = Color(0xFFdcdcdc);
@@ -61,7 +61,7 @@ class AppColor {
   static const Color blue03A1E4 = Color(0xFF03A1E4);
   static const Color blue4169E1 = Color(0xFF4169E1);
   static const Color green24A148 = Color(0xFF24A148);
-  static const Color green9DEEB2 = Color(0xFF9DEEB2);
+  static const Color green9DEEB2 = Color(0xFF62FF8E);
   static const Color redFB4B53 = Color(0xFFFB4B53);
   static const Color redFFF0F1 = Color(0xFFFFF0F1);
   static const Color blue001D37 = Color(0xFF001D37);

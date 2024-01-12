@@ -7,21 +7,24 @@ class _ViewModel {
   // final List<BloodPressureEntity>? listBloodPressure;
   // final List<BloodSugarEntity>? listBloodSugar;
   // final List<TemperatureEntity>? listTemperature;
-
+  final bool? isWifiDisconnect;
   final PatientInforEntity? patientInforEntity;
   final DoctorInforEntity? doctorInforEntity;
   final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
-  final String? errorEmptyName;
-  final String? errorEmptyPhoneNumber;
-  final String? errorEmptyCurrentPassword;
-  final String? errorEmptyNewPassword;
+  final bool? errorEmptyName;
+  final bool? errorEmptyPhoneNumber;
+  final bool? errorEmptyCurrentPassword;
+  final bool? errorEmptyNewPassword;
+  final bool? isCurrentPassWrong;
   final String? userName;
   final String? password;
   final String? errorMessage;
 
   const _ViewModel(
-      {this.errorEmptyCurrentPassword,
+      {this.isCurrentPassWrong,
+        this.isWifiDisconnect,
+      this.errorEmptyCurrentPassword,
       this.errorEmptyNewPassword,
       this.errorEmptyName,
       this.errorEmptyPhoneNumber,
@@ -35,10 +38,12 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
-      {final String? errorEmptyCurrentPassword,
-      final String? errorEmptyNewPassword,
-      final String? errorEmptyName,
-      final String? errorEmptyPhoneNumber,
+      {final bool? isCurrentPassWrong,
+      final bool? isWifiDisconnect,
+      final bool? errorEmptyCurrentPassword,
+      final bool? errorEmptyNewPassword,
+      final bool? errorEmptyName,
+      final bool? errorEmptyPhoneNumber,
       final RelativeInforEntity? relativeInforEntity,
       final DoctorInforEntity? doctorInforEntity,
       final List<PatientInforEntity>? patientEntities,
@@ -49,6 +54,8 @@ class _ViewModel {
       final String? errorMessage}) {
     // ignore: unnecessary_this
     return _ViewModel(
+      isCurrentPassWrong: isCurrentPassWrong??this.isCurrentPassWrong,
+        isWifiDisconnect: isWifiDisconnect ?? this.isWifiDisconnect,
         relativeInforEntity: relativeInforEntity ?? this.relativeInforEntity,
         relativeEntities: relativeEntities ?? this.relativeEntities,
         patientInforEntity: patientInforEntity ?? this.patientInforEntity,
@@ -87,9 +94,8 @@ abstract class SettingState {
   }
 }
 
-
 class SettingInitialState extends SettingState {
- SettingInitialState({
+  SettingInitialState({
     _ViewModel viewModel = const _ViewModel(),
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
@@ -124,24 +130,17 @@ class ChangePassState extends SettingState {
   }) : super(viewModel, status: status);
 }
 
-
-
-
-
-
-
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
   BlocStatusState status,
 )>{
- 
   // SettingListOfRelativeState: (viewModel, status) =>
   //     SettingListOfRelativeState(
   //       viewModel: viewModel,
   //       status: status,
   //     ),
- SettingInitialState: (viewModel, status) => SettingInitialState(
+  SettingInitialState: (viewModel, status) => SettingInitialState(
         viewModel: viewModel,
         status: status,
       ),
@@ -157,9 +156,8 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-       ChangePassState: (viewModel, status) => ChangePassState(
+  ChangePassState: (viewModel, status) => ChangePassState(
         viewModel: viewModel,
         status: status,
       ),
-
 };

@@ -9,22 +9,30 @@ class _ViewModel {
   final DoctorInforEntity? doctorInforEntity;
   final RelativeInforEntity? relativeInforEntity;
   final List<RelativeInforEntity>? relativeEntities;
-  final String? errorEmptyName;
-  final String? errorEmptyPhoneNumber;
-  final String? errorEmptyCurrentPassword;
-  final String? errorEmptyNewPassword;
+  final bool? errorEmptyName;
+  final bool? errorEmptyPhoneNumber;
+  final bool? errorEmptyCurrentPassword;
+  final bool? errorEmptyNewPassword;
+  final bool? duplicatedRelationshipPAR;
+  final bool? duplicatedRelationshipPAD;
+  final bool? hasDoctorBefore;
+  final bool? maximumRelativeCount;
+  final bool? isWifiDisconnect;
   final int? unreadCount;
   final String? userName;
   final String? password;
-  final List<PersonCellEntity>? allDoctorEntity;
   final String? errorMessage;
 
   const _ViewModel(
-      {this.errorEmptyCurrentPassword,
+      { this.isWifiDisconnect,
+        this.duplicatedRelationshipPAR,
+      this.maximumRelativeCount,
+      this.errorEmptyCurrentPassword,
       this.errorEmptyNewPassword,
       this.errorEmptyName,
       this.errorEmptyPhoneNumber,
-      this.allDoctorEntity,
+      this.duplicatedRelationshipPAD,
+      this.hasDoctorBefore,
       this.password,
       this.userName,
       this.unreadCount,
@@ -37,10 +45,15 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith(
-      {final String? errorEmptyCurrentPassword,
-      final String? errorEmptyNewPassword,
-      final String? errorEmptyName,
-      final String? errorEmptyPhoneNumber,
+      {final bool? isWifiDisconnect,
+        final bool? duplicatedRelationshipPAR,
+      final bool? maximumRelativeCount,
+      final bool? errorEmptyCurrentPassword,
+      final bool? errorEmptyNewPassword,
+      final bool? errorEmptyName,
+      final bool? errorEmptyPhoneNumber,
+      final bool? duplicatedRelationshipPAD,
+      final bool? hasDoctorBefore,
       final List<PersonCellEntity>? allDoctorEntity,
       final RelativeInforEntity? relativeInforEntity,
       final DoctorInforEntity? doctorInforEntity,
@@ -53,7 +66,13 @@ class _ViewModel {
       final String? errorMessage}) {
     // ignore: unnecessary_this
     return _ViewModel(
-        allDoctorEntity: allDoctorEntity ?? this.allDoctorEntity,
+      isWifiDisconnect: isWifiDisconnect??this.isWifiDisconnect,
+        duplicatedRelationshipPAR:
+            duplicatedRelationshipPAR ?? this.duplicatedRelationshipPAR,
+        maximumRelativeCount: maximumRelativeCount ?? this.maximumRelativeCount,
+        duplicatedRelationshipPAD:
+            duplicatedRelationshipPAD ?? this.duplicatedRelationshipPAD,
+        hasDoctorBefore: hasDoctorBefore ?? this.hasDoctorBefore,
         unreadCount: unreadCount ?? this.unreadCount,
         relativeInforEntity: relativeInforEntity ?? this.relativeInforEntity,
         relativeEntities: relativeEntities ?? this.relativeEntities,
@@ -116,8 +135,6 @@ class GetDoctorListState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-
-
 class SearchPatientState extends GetPatientState {
   SearchPatientState({
     _ViewModel viewModel = const _ViewModel(),
@@ -160,8 +177,6 @@ class DeletePatientState extends GetPatientState {
   }) : super(viewModel, status: status);
 }
 
-
-
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -203,6 +218,4 @@ final _factories = <Type,
         viewModel: viewModel,
         status: status,
       ),
-
- 
 };

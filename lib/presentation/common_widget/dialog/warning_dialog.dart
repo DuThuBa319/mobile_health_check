@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 
 import '../../../classes/language.dart';
 import '../../../utils/size_config.dart';
@@ -16,8 +14,6 @@ Future<dynamic> showWarningDialog({
   required BuildContext context,
   required String message,
   required String? title,
-  required String? titleBtn1,
-  required String? titleBtn2,
   bool barrierDismissible = false,
   Function()? onClose1,
   Function()? onClose2,
@@ -63,8 +59,8 @@ Future<dynamic> showWarningDialog({
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenWidth * 0.12,
-                          height: SizeConfig.screenWidth * 0.12,
+                          width: SizeConfig.screenWidth * 0.11,
+                          height: SizeConfig.screenWidth * 0.11,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: AppColor.white),
                           child: Icon(
@@ -73,7 +69,7 @@ Future<dynamic> showWarningDialog({
                             color: AppColor.warningDialogIconColor,
                           )),
                       const SizedBox(
-                        height: 3,
+                        height: 2,
                       ),
                       Text("$title?",
                           style: TextStyle(
@@ -95,7 +91,8 @@ Future<dynamic> showWarningDialog({
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize:contentDialogSize ?? SizeConfig.screenWidth * 0.04),
+                          fontSize: contentDialogSize ??
+                              SizeConfig.screenWidth * 0.04),
                     ),
                   ),
                   Positioned(
@@ -125,7 +122,7 @@ Future<dynamic> showWarningDialog({
                                       BorderRadius.all(Radius.circular(10))),
                               child: Center(
                                 child: Text(
-                                  titleBtn1 ?? translation(context).accept,
+                                  translation(context).no,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: SizeConfig.screenWidth * 0.05,
@@ -151,7 +148,7 @@ Future<dynamic> showWarningDialog({
                                       BorderRadius.all(Radius.circular(10))),
                               child: Center(
                                 child: Text(
-                                  titleBtn2 ?? translation(context).accept,
+                                  translation(context).yes,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: SizeConfig.screenWidth * 0.05,

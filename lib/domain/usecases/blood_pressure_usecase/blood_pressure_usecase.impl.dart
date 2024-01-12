@@ -16,8 +16,8 @@ class BloodPressureUsecaseImpl extends BloodPressureUsecase {
   }) async {
     final responses = await _repository.getListBloodPressureModels(
       patientId: patientId,
-      endTime: endTime ?? endTime!,
-      startTime: startTime ?? startTime!,
+      endTime: endTime ,
+      startTime: startTime,
     );
     var responseEntities = <BloodPressureEntity>[];
     for (final response in responses) {

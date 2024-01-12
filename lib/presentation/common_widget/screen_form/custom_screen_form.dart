@@ -70,7 +70,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       IconButton(
                         icon: Icon(
                           Icons.arrow_back,
-                          size: SizeConfig.screenWidth * 0.1,
+                          size: SizeConfig.screenWidth * 0.08,
                           color: widget.appComponentColor,
                         ),
                         onPressed: () {
