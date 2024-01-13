@@ -64,8 +64,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
             listBloodPressure.add(response);
           }
         }
-        final newViewModel =
-            state.viewModel.copyWith(listBloodPressure: listBloodPressure);
+        final newViewModel = _ViewModel(listBloodPressure: listBloodPressure);
         emit(
           GetHistoryDataState(
             status: BlocStatusState.success,
@@ -76,7 +75,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         emit(
           GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),
@@ -87,8 +86,8 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
-            isWifiDisconnect: true,
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -120,7 +119,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
             listBloodSugar.add(response);
           }
         }
-        final newViewModel = state.viewModel.copyWith(
+        final newViewModel = _ViewModel(
           listBloodSugar: listBloodSugar,
         );
         emit(
@@ -133,7 +132,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         emit(
           GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),
@@ -144,8 +143,8 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
-            isWifiDisconnect: true,
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -177,8 +176,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
             listTemperature.add(response);
           }
         }
-        final newViewModel =
-            state.viewModel.copyWith(listTemperature: listTemperature);
+        final newViewModel = _ViewModel(listTemperature: listTemperature);
         emit(
           GetHistoryDataState(
             status: BlocStatusState.success,
@@ -189,7 +187,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         emit(
           GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),
@@ -200,8 +198,8 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
-          isWifiDisconnect: true,
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -246,7 +244,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         emit(
           GetHistoryDataState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),
@@ -257,8 +255,8 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       emit(
         GetHistoryDataState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
-          isWifiDisconnect: true,
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),

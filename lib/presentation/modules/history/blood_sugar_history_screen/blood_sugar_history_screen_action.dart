@@ -18,16 +18,13 @@ extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      if (state is GetHistoryDataState) {
-        showToast(translation(context).loadingError);
+         showToast(translation(context).loadingError);
         // Navigator.of(context, rootNavigator: true).pop();
-      }
-      if (state.viewModel.isWifiDisconnect == true) {
+      
         showExceptionDialog(
             context: context,
-            message: translation(context).wifiDisconnect,
+            message: state.viewModel.errorMessage!,
             titleBtn: translation(context).exit);
-      }
     }
   }
 

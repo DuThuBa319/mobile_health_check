@@ -12,12 +12,14 @@ class _ViewModel {
   final int? count;
   final bool isLogin;
   final String? errorMessage;
+  final bool? isWifiDisconnect;
 
   final User? person;
 
   // final PatientInforEntity? patientInforEntity;
 
   const _ViewModel({
+    this.isWifiDisconnect,
     this.signInEntity,
     this.count,
     this.isLogin = false,
@@ -28,6 +30,7 @@ class _ViewModel {
 
   // Using copyWith function to retains the before data and just "update some specific props" instead of "update all props"
   _ViewModel copyWith({
+    bool? isWifiDisconnect,
     SignInEntity? signInEntity,
     int? count,
     bool? isLogin,
@@ -36,6 +39,7 @@ class _ViewModel {
     // PatientInforEntity? patientInforEntity
   }) {
     return _ViewModel(
+      isWifiDisconnect: isWifiDisconnect??this.isWifiDisconnect,
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
       signInEntity: signInEntity ?? this.signInEntity,
       count: count ?? this.count,

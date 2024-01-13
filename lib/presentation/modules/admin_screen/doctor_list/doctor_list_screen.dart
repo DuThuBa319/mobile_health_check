@@ -78,6 +78,7 @@ class _DoctorListState extends State<DoctorListScreen> {
               child: BlocConsumer<GetDoctorBloc, GetDoctorState>(
                   listener: _blocListener,
                   builder: (context, state) {
+                    //? Init
                     if (state is GetDoctorInitialState) {
                       getDoctorBloc
                           .add(GetDoctorListEvent(admindId: widget.id!));
@@ -144,16 +145,12 @@ class _DoctorListState extends State<DoctorListScreen> {
                                 ),
                               ),
                             ),
+
                             //? Loading
-                            ((state is GetDoctorListState &&
-                                        state.status ==
-                                            BlocStatusState.loading) ||
-                                    (state is SearchDoctorState &&
-                                        state.status ==
-                                            BlocStatusState.loading) ||
-                                    (state is DeleteDoctorState &&
-                                        state.status ==
-                                            BlocStatusState.loading) ||
+                            ((state.status == BlocStatusState.loading &&
+                                        (state is GetDoctorListState ||
+                                            state is SearchDoctorState ||
+                                            state is DeleteDoctorState)) ||
                                     (state is DeleteDoctorState &&
                                         state.status ==
                                             BlocStatusState.success &&
@@ -167,26 +164,12 @@ class _DoctorListState extends State<DoctorListScreen> {
                                   )
                                 : Container(),
 
-                            //? Get thành công hoặc Giữ nguyên trạng thái
-                            ((state is GetDoctorListState &&
-                                        state.status ==
-                                            BlocStatusState.success) ||
+                            //? Get thành công hoặc Giữ nguyên trạng thái khi Delete
+                            ((state.status == BlocStatusState.success &&
+                                        state is! DeleteDoctorState) ||
                                     (state is DeleteDoctorState &&
                                         state.status ==
-                                            BlocStatusState.failure &&
-                                        state.viewModel.errorMessage ==
-                                            translation(context)
-                                                .cannotDeleteDoctor))
-                                ? formDoctorListScreen(
-                                    contxt: context,
-                                    itemCount:
-                                        state.viewModel.allDoctorEntity?.length,
-                                    personCellEntities:
-                                        state.viewModel.allDoctorEntity!)
-                                : Container(),
-                            //? Thành công
-                            (state is SearchDoctorState &&
-                                    state.status == BlocStatusState.success)
+                                            BlocStatusState.failure))
                                 ? formDoctorListScreen(
                                     contxt: context,
                                     itemCount:
@@ -195,10 +178,11 @@ class _DoctorListState extends State<DoctorListScreen> {
                                         state.viewModel.allDoctorEntity!)
                                 : Container(),
 
-                            //? Failure
+                            //? Failure từ các trường hợp còn lại (kể cả trương hợp error do server), ngoại trừ Delete Error
                             (state.status == BlocStatusState.failure &&
-                                    (state is SearchDoctorState ||
-                                        state is GetDoctorListState||state.viewModel.isWifiDisconnect == true))
+                                    (state is! DeleteDoctorState ||
+                                        state.viewModel.isWifiDisconnect ==
+                                            true))
                                 ? Expanded(
                                     child: Center(
                                         child: Column(
@@ -235,7 +219,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                                       ],
                                     )),
                                   )
-                                : Container()
+                                : Container(),
                           ]),
                     );
                   }),

@@ -85,9 +85,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
       } catch (e) {
         emit(
-         ResetPasswordState(
+          ResetPasswordState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),
@@ -96,10 +96,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else {
       emit(
-         ResetPasswordState(
+        ResetPasswordState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
-            
+          viewModel: _ViewModel(  isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -108,6 +107,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
+//! Login
   Future<void> _onLogin(
     LoginUserEvent event,
     Emitter<LoginState> emit,
@@ -165,7 +165,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(
           LoginActionState(
             status: BlocStatusState.success,
-            viewModel: state.viewModel.copyWith(
+            viewModel: const _ViewModel(
               isLogin: true,
               //  person: User(uuid: userCredential.user!.uid),
             ),
@@ -207,7 +207,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(
         LoginActionState(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(
+            isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -216,6 +217,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
+//! Get UserData
   Future<void> _onGetUserData(
     GetUserDataEvent event,
     Emitter<LoginState> emit,
@@ -228,8 +230,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
       try {
-        if ((userDataData.getUser()!.role! == UserRole.doctor ||
-            userDataData.getUser()!.role! == UserRole.relative)) {
+        if ((userDataData.getUser()?.role! == UserRole.doctor ||
+            userDataData.getUser()?.role! == UserRole.relative)) {
           await OneSignalNotificationService.create();
           OneSignalNotificationService.subscribeNotification(
               userId: userDataData.getUser()!.id!);
@@ -239,14 +241,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
         }
         emit(
-           GetUserDataState(
+          GetUserDataState(
             status: BlocStatusState.success,
             viewModel: state.viewModel,
           ),
         );
       } catch (e) {
         emit(
-           GetUserDataState(
+          GetUserDataState(
             status: BlocStatusState.failure,
             viewModel: _ViewModel(
               isLogin: false,
@@ -261,7 +263,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(
         state.copyWith(
           status: BlocStatusState.failure,
-          viewModel: state.viewModel.copyWith(
+          viewModel: _ViewModel(  isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),

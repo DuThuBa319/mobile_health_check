@@ -5,7 +5,7 @@ extension PatientListScreenAction on _PatientListState {
   void _blocListener(context, GetPatientState state) {
     //? Loading
     if (state.status == BlocStatusState.loading) {
-      if (state is GetPatientListState) {
+      if (state is GetPatientListState || state is SearchPatientState) {
         showToast(translation(context).loadingData);
       }
       if (state is DeletePatientState) {
@@ -27,10 +27,11 @@ extension PatientListScreenAction on _PatientListState {
     //? Failure
     if (state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
-      if (state.viewModel.isWifiDisconnect == true) {
+      if (state.viewModel.isWifiDisconnect == true ||
+          state is DeletePatientState) {
         showExceptionDialog(
             context: context,
-            message: translation(context).wifiDisconnect,
+            message: state.viewModel.errorMessage!,
             titleBtn: translation(context).exit);
       }
     }

@@ -18,16 +18,14 @@ extension Spo2HistoryScreenAction on Spo2HistoryScreenState {
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      if (state is GetHistoryDataState) {
         showToast(translation(context).loadingError);
         // Navigator.of(context, rootNavigator: true).pop();
-      }
-      if (state.viewModel.errorMessage == translation(context).wifiDisconnect) {
+      
         showExceptionDialog(
             context: context,
-            message: translation(context).wifiDisconnect,
+            message: state.viewModel.errorMessage!,
             titleBtn: translation(context).exit);
-      }
+      
     }
   }
 

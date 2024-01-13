@@ -236,22 +236,9 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                   }
                   //? Failure
                   if (state.status == BlocStatusState.failure) {
-                    if (state.viewModel.isWifiDisconnect == true) {
-                      return Center(
-                        child: Text(
-                          translation(context).wifiDisconnect,
-                          softWrap: true,
-                          textAlign: TextAlign.center,
-                          style: AppTextTheme.body2.copyWith(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenWidth * 0.05),
-                        ),
-                      );
-                    }
                     return Center(
                       child: Text(
-                        translation(context).error,
+                        state.viewModel.errorMessage!,
                         softWrap: true,
                         textAlign: TextAlign.center,
                         style: AppTextTheme.body2.copyWith(

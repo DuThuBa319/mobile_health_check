@@ -4,8 +4,7 @@ part of 'forgot_password_screen.dart';
 
 // ignore: library_private_types_in_public_api
 extension ForgotPassAction on _ForgotPassState {
-  Future<void> _blocListener(
-      BuildContext context, LoginState state) async {
+  Future<void> _blocListener(BuildContext context, LoginState state) async {
     //? Loading
     if (state.status == BlocStatusState.loading) {
       if (state is ResetPasswordState) {
@@ -36,21 +35,10 @@ extension ForgotPassAction on _ForgotPassState {
             state.viewModel.errorMessage ==
                 translation(context).pleaseEnterPhoneNumber) {
           Navigator.pop(context);
-        }
-        if (state.viewModel.errorMessage !=
-                translation(context).wrongPhoneNumber &&
-            state.viewModel.errorMessage !=
-                translation(context).pleaseEnterPhoneNumber) {
+        } else {
           showExceptionDialog(
               context: context,
-              message: translation(context).error,
-              titleBtn: translation(context).exit);
-        }
-        if (state.viewModel.errorMessage ==
-            translation(context).wifiDisconnect) {
-          showExceptionDialog(
-              context: context,
-              message: translation(context).wifiDisconnect,
+              message: state.viewModel.errorMessage!,
               titleBtn: translation(context).exit);
         }
       }

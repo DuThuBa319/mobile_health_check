@@ -199,15 +199,10 @@ class _PatientListState extends State<PatientListScreen> {
                                 ),
                               ),
                               //? Loading
-                              ((state is GetPatientListState &&
-                                          state.status ==
-                                              BlocStatusState.loading) ||
-                                      (state is SearchPatientState &&
-                                          state.status ==
-                                              BlocStatusState.loading) ||
-                                      (state is DeletePatientState &&
-                                          state.status ==
-                                              BlocStatusState.loading) ||
+                              ((state.status == BlocStatusState.loading) &&
+                                          (state is GetPatientListState ||
+                                              State is SearchPatientState ||
+                                              state is DeletePatientState) ||
                                       (state is DeletePatientState &&
                                           state.status ==
                                               BlocStatusState.success &&
@@ -220,9 +215,13 @@ class _PatientListState extends State<PatientListScreen> {
                                       ),
                                     )
                                   : Container(),
-                              //? Get thành công hoặc Giữ nguyên trạng thái
-                              ((state is GetPatientListState &&
-                                      state.status == BlocStatusState.success))
+                              //? Get thành công hoặc Search thành công và giữ nguyên trạng thái list
+                              ((state.status == BlocStatusState.success &&
+                                          (state is GetPatientListState ||
+                                              state is SearchPatientState)) ||
+                                      (state.status ==
+                                              BlocStatusState.failure &&
+                                          state is DeletePatientState))
                                   ? formPatientListScreen(
                                       contxt: context,
                                       itemCount: state
@@ -230,19 +229,9 @@ class _PatientListState extends State<PatientListScreen> {
                                       patientInforEntities:
                                           state.viewModel.patientEntities!)
                                   : Container(),
-                              //? Thành công
-                              (state is SearchPatientState &&
-                                      state.status == BlocStatusState.success)
-                                  ? formPatientListScreen(
-                                      contxt: context,
-                                      itemCount: state
-                                          .viewModel.patientEntities?.length,
-                                      patientInforEntities:
-                                          state.viewModel.patientEntities!)
-                                  : Container(),
+                              //? Failure
                               (state.status == BlocStatusState.failure &&
-                                      (state is SearchPatientState ||
-                                          state is GetPatientListState ||
+                                      (state is! DeletePatientState ||
                                           state.viewModel.isWifiDisconnect ==
                                               true))
                                   ? Expanded(

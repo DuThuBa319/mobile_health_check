@@ -18,12 +18,10 @@ extension DoctorInforScreenAction on _DoctorInforScreenState {
     //? Failure
     if (state.status == BlocStatusState.failure) {
       showToast(translation(context).error);
-      if (state.viewModel.isWifiDisconnect == true) {
-        showExceptionDialog(
-            context: context,
-            message: translation(context).wifiDisconnect,
-            titleBtn: translation(context).exit);
-      }
+      showExceptionDialog(
+          context: context,
+          message: state.viewModel.errorMessage!,
+          titleBtn: translation(context).exit);
     }
   }
 

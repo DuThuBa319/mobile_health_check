@@ -31,6 +31,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     on<GetDoctorInforEvent>(_getDoctorInfor);
     on<RegistDoctorEvent>(_onRegistDoctor);
   }
+
+  //! GET DOCTOR LIST
   Future<void> _onGetDoctorList(
     GetDoctorListEvent event,
     Emitter<GetDoctorState> emit,
@@ -46,7 +48,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         final response =
             await _adminUsecase.getAdminInforEntity(adminId: event.admindId);
         final newViewModel = _ViewModel(adminInforEntity: response);
-
         if (response?.doctors?.isNotEmpty == true) {
           emit(GetDoctorListState(
             status: BlocStatusState.success,
@@ -89,6 +90,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     }
   }
 
+  //! SEARCH DOCTOR
   Future<void> _onSearchDoctor(
     FilterDoctorEvent event,
     Emitter<GetDoctorState> emit,
@@ -149,6 +151,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     }
   }
 
+  //! GET DOCTOR INFOR
   Future<void> _getDoctorInfor(
     GetDoctorInforEvent event,
     Emitter<GetDoctorState> emit,
@@ -193,6 +196,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     }
   }
 
+  //! ADD DOCTOR
   Future<void> _onRegistDoctor(
     RegistDoctorEvent event,
     Emitter<GetDoctorState> emit,
@@ -262,7 +266,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
             "This phone number has been already registered by another account") {
           emit(RegistDoctorState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            viewModel: state.viewModel.copyWith(
                 duplicatedDoctorPhoneNumber: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -292,6 +296,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
     }
   }
 
+  //! DELETE DOCTOR
   Future<void> _onDeleteDoctor(
     DeleteDoctorEvent event,
     Emitter<GetDoctorState> emit,
@@ -305,10 +310,6 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
       );
       try {
         await _adminUsecase.deleteDoctorEntity(event.doctorId);
-        // final response =
-        //       await _adminUsecase.getAdminInforEntity(adminId: event.adminId);
-        // final newViewModel =
-        //     state.viewModel.copyWith(allDoctorEntity: response?.doctors);
         emit(DeleteDoctorState(
           status: BlocStatusState.success,
           viewModel: state.viewModel,
@@ -318,7 +319,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
             "Cannot delete this account because it is still in a relationship with another account.") {
           emit(DeleteDoctorState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            //! Nếu ở đây không dùng copyWith thì sẽ mất dữ liệu danh sách ban đầu
+            viewModel: state.viewModel.copyWith(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .cannotDeleteDoctor),
@@ -328,7 +330,8 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
         emit(
           DeleteDoctorState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            //! Nếu ở đây không dùng copyWith thì sẽ mất dữ liệu danh sách ban đầu
+            viewModel: state.viewModel.copyWith(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),

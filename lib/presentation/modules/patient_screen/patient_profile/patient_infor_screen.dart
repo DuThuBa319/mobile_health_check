@@ -75,13 +75,14 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
         child: BlocConsumer<GetPatientBloc, GetPatientState>(
             listener: _blocListener,
             builder: (context, state) {
+              //? RemoveRelative Success & Init
               if (state is GetPatientInitialState ||
                   (state is RemoveRelationshipRaPState &&
                       state.status == BlocStatusState.success)) {
                 patientBloc
                     .add(GetPatientInforEvent(patientId: widget.patientId));
               }
-
+              //? Loading
               if (state is GetPatientInforState &&
                   state.status == BlocStatusState.loading) {
                 return const Center(
@@ -90,7 +91,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                   ),
                 );
               }
-
+              //? GetInfor Success
               if (state is GetPatientInforState &&
                   state.status == BlocStatusState.success) {
                 PatientInforEntity patient =
@@ -424,7 +425,6 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                     title: translation(context)
                                                         .deletePatientWarningTitle,
                                                     onClose1: () {
-                                                      //! Lỗi xảy ra khi xử dụng Navigator.pop(context)
                                                       Navigator.pop(contxt);
                                                     },
                                                     onClose2: () {
@@ -434,7 +434,6 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                                   relative!.id,
                                                               patientId:
                                                                   patient.id));
-                                                      //! Lỗi xảy ra khi xử dụng Navigator.pop(context)
                                                       Navigator.pop(contxt);
                                                     });
                                               }
@@ -465,13 +464,6 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                             style: AppTextTheme.body3),
                                         onTapCell: () {},
                                       );
-
-                                      //? SlideAbleForm(
-                                      //   isRelativeCell: true,
-                                      //   patientBloc: patientBloc,
-                                      //   relativeInforEntity: relatives,
-                                      //   patientInforEntity: patient,
-                                      // );
                                     },
                                   ),
                                   const SizedBox(
@@ -501,7 +493,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                     ));
               }
 
-              if (state.viewModel.isWifiDisconnect == true) {
+              if (state.status == BlocStatusState.failure) {
                 return Center(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -524,15 +516,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                           })
                     ]));
               }
-              return Center(
-                child: Text(
-                  translation(context).error,
-                  style: TextStyle(
-                      fontSize: SizeConfig.screenWidth * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: AppColor.red),
-                ),
-              );
+              return Container();
             }));
   }
 }

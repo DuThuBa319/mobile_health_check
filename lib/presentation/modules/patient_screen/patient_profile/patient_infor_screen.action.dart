@@ -29,6 +29,11 @@ extension PatientInforScreenAction on _PatientInforScreenState {
             context: context,
             message: translation(context).wifiDisconnect,
             titleBtn: translation(context).exit);
+      } else {
+        showExceptionDialog(
+            context: context,
+            message: state.viewModel.errorMessage!,
+            titleBtn: translation(context).exit);
       }
     }
   }

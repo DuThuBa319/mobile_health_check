@@ -28,24 +28,13 @@ extension DoctorListScreenAction on _DoctorListState {
     if (state.status == BlocStatusState.failure) {
       showToast(translation(context).loadingError);
 
-      if (state.viewModel.isWifiDisconnect == true) {
+      if (state.viewModel.isWifiDisconnect == true ||
+          state is DeleteDoctorState) {
         showExceptionDialog(
             context: context,
-            message: translation(context).wifiDisconnect,
+            message: state.viewModel.errorMessage!,
             titleBtn: translation(context).exit);
       }
-      
-      if (state is DeleteDoctorState) {
-        if (state.viewModel.errorMessage ==
-            translation(context).cannotDeleteDoctor) {
-          showExceptionDialog(
-              contentDialogSize: SizeConfig.screenWidth * 0.037,
-              context: context,
-              message: state.viewModel.errorMessage!,
-              titleBtn: translation(context).exit);
-        }
-      }
-     
     }
   }
 
@@ -127,7 +116,7 @@ extension DoctorListScreenAction on _DoctorListState {
                 iconLeadingCell: Icon(
                   Icons.person_pin,
                   color: AppColor.lineDecor,
-                  size: SizeConfig.screenWidth * 0.11,
+                  size: SizeConfig.screenDiagonal * 0.045,
                 ),
                 textLine1: Text(
                   maxLines: 1,

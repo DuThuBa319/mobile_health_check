@@ -26,6 +26,7 @@ class SizeConfig {
 
   static double ratioFont = 0;
   static double ratioRadius = 0;
+  static double screenDiagonal = 0;
 
   ///Hàm chạy để khởi tạo các giá trị tỉ lệ, dùng trong trang đầu tiên của ứng dụng
   static void init(BuildContext context) {
@@ -36,5 +37,7 @@ class SizeConfig {
     ratioHeight = screenHeight / screenHeightSample;
     ratioFont = min(ratioWidth, ratioHeight);
     ratioRadius = ratioFont;
+    screenDiagonal =
+        sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
   }
 }

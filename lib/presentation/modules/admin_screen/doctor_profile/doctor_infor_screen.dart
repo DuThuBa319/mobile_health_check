@@ -189,34 +189,31 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                       ),
                     ));
               }
-              if (state.status == BlocStatusState.failure) {
-                if (state.viewModel.errorMessage ==
-                        translation(context).error ||
-                    state.viewModel.isWifiDisconnect == true) {
-                  return Center(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                        state.viewModel.errorMessage!,
-                        style: AppTextTheme.body2.copyWith(color: Colors.red),
-                      ),
-                      const SizedBox(height: 10),
-                      RectangleButton(
-                        height: SizeConfig.screenHeight * 0.052,
-                        width: SizeConfig.screenWidth * 0.4,
-                        title: translation(context).loadAgain,
-                        onTap: () {
-                          doctorBloc.add(
-                              GetDoctorInforEvent(doctorId: widget.doctorId));
-                        },
-                      )
-                    ],
-                  ));
-                }
+              if (state is GetDoctorInforState &&
+                  state.status == BlocStatusState.failure) {
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      state.viewModel.errorMessage!,
+                      style: AppTextTheme.body2.copyWith(color: Colors.red),
+                    ),
+                    const SizedBox(height: 10),
+                    RectangleButton(
+                      height: SizeConfig.screenHeight * 0.052,
+                      width: SizeConfig.screenWidth * 0.4,
+                      title: translation(context).loadAgain,
+                      onTap: () {
+                        doctorBloc.add(
+                            GetDoctorInforEvent(doctorId: widget.doctorId));
+                      },
+                    )
+                  ],
+                ));
               }
 
               return Container();

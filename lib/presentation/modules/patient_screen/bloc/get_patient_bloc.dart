@@ -45,7 +45,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<DeletePatientEvent>(_onDeletePatient);
   }
 
-//! GET PATIENT LIST IN DOCTOR APP
+//! GET PATIENT LIST 
   Future<void> _onGetPatientList(
     GetPatientListEvent event,
     Emitter<GetPatientState> emit,
@@ -60,6 +60,8 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
       try {
         final unreadNotificationsCount = await notificationUsecase
             .getUnreadCountNotificationEntity(event.userId);
+
+        //! Doctor App
         if (userDataData.getUser()?.role == UserRole.doctor) {
           final response =
               await _doctorInforUsecase.getDoctorInforEntity(event.userId);
@@ -70,7 +72,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           if (response?.patients?.isEmpty == true) {
             emit(GetPatientListState(
               status: BlocStatusState.failure,
-              viewModel: _ViewModel(
+              viewModel: newViewModel.copyWith(
                   errorMessage: translation(
                           navigationService.navigatorKey.currentContext!)
                       .noPatient),
@@ -82,7 +84,9 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
               viewModel: newViewModel,
             ));
           }
-        } else if (userDataData.getUser()?.role == UserRole.relative) {
+        } 
+        //! Relative App
+        else if (userDataData.getUser()?.role == UserRole.relative) {
           final response =
               await _relativeInforUsecase.getRelativeInforEntity(event.userId);
           final newViewModel = _ViewModel(
@@ -92,7 +96,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
           if (response?.patients?.isEmpty == true) {
             emit(GetPatientListState(
               status: BlocStatusState.failure,
-              viewModel: _ViewModel(
+              viewModel: newViewModel.copyWith(
                   errorMessage: translation(
                           navigationService.navigatorKey.currentContext!)
                       .noPatient),
@@ -154,6 +158,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                   .contains(event.searchText.toLowerCase()))
               .toList();
           // searchResult = filteredPatients;
+          //! Nếu không có dòng dưới đây, không sử dụng copyWith chỗ này thì unreadCount sẽ mất
           final newViewModel =
               state.viewModel.copyWith(patientEntities: filteredPatients);
           if (filteredPatients?.isNotEmpty == true) {
@@ -183,6 +188,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                   .contains(event.searchText.toLowerCase()))
               .toList();
           // searchResult = filteredPatients;
+          //! Nếu không có dòng dưới đây, không sử dụng copyWith chỗ này thì unreadCount sẽ mất
           final newViewModel =
               state.viewModel.copyWith(patientEntities: filteredPatients);
           if (filteredPatients?.isNotEmpty == true) {
@@ -205,7 +211,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           SearchPatientState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),
@@ -298,7 +304,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "The relationship between these entities has been existed") {
           emit(state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            viewModel: state.viewModel.copyWith(
                 duplicatedRelationshipPAD: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -308,7 +314,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "This patient has been managed by another doctor") {
           emit(RegistPatientState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            viewModel: state.viewModel.copyWith(
                 hasDoctorBefore: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -406,7 +412,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "The relationship between these entities has been existed") {
           emit(RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            viewModel: state.viewModel.copyWith(
                 duplicatedRelationshipPAR: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -417,7 +423,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "The number of relatives belonging to this patient is already maxium") {
           emit(RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            viewModel: state.viewModel.copyWith(
                 maximumRelativeCount: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -492,6 +498,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
+//! DELETE RELATIONSHIP PATIENT & RELATIVE
   Future<void> _onRemoveRelationshipRaP(
     RemoveRelationshipRaPEvent event,
     Emitter<GetPatientState> emit,
@@ -536,6 +543,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     }
   }
 
+//! DELETE PATIENT
   Future<void> _onDeletePatient(
     DeletePatientEvent event,
     Emitter<GetPatientState> emit,
@@ -557,7 +565,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
         emit(
           DeletePatientState(
             status: BlocStatusState.failure,
-            viewModel: _ViewModel(
+            viewModel: state.viewModel.copyWith(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),

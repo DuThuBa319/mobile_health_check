@@ -5,6 +5,8 @@ part of 'login_screen.dart';
 // ignore: library_private_types_in_public_api
 extension LoginAction on _LoginState {
   Future<void> _blocListener(BuildContext context, LoginState state) async {
+    //? LOADING
+
     if (state.status == BlocStatusState.loading) {
       if (state is LoginInitialState) {
         showToast(translation(context).loadingData);
@@ -66,43 +68,7 @@ extension LoginAction on _LoginState {
         );
       }
     }
-    if (state.status == BlocStatusState.failure) {
-      if (state is GetUserDataState) {
-        Navigator.pop(context);
-        showExceptionDialog(
-            context: context,
-            message: translation(context).error,
-            titleBtn: translation(context).exit);
-        if (userDataData.getUser() != null) {
-          userDataData.localDataManager.preferencesHelper.remove('user');
-        }
-      }
-      if (state is LoginActionState) {
-        if (state.viewModel.errorMessage ==
-            translation(context).pleaseEnterYourAccount) {
-          Navigator.pop(context);
-        } else if (state.viewModel.errorMessage ==
-            translation(context).wrongAccount) {
-          showExceptionDialog(
-              onClose: () => Navigator.pop(context),
-              context: context,
-              message: translation(context).wrongAccount,
-              titleBtn: translation(context).exit);
-        } else if (state.viewModel.errorMessage ==
-            translation(context).wifiDisconnect) {
-          showExceptionDialog(
-              context: context,
-              message: translation(context).wifiDisconnect,
-              titleBtn: translation(context).exit);
-        } else {
-          showExceptionDialog(
-              onClose: () => Navigator.pop(context),
-              context: context,
-              message: translation(context).error,
-              titleBtn: translation(context).exit);
-        }
-      }
-    }
+    //? SUCCESS
     if (state.status == BlocStatusState.success) {
       if (state is LoginActionState) {
         userDataData.setLogin();
@@ -127,6 +93,59 @@ extension LoginAction on _LoginState {
 
         if (userDataData.getUser()!.role! == UserRole.patient) {
           Navigator.pushNamed(context, RouteList.selectEquip);
+        }
+      }
+    }
+
+    //? FAILURE
+    if (state.status == BlocStatusState.failure) {
+      if (state is GetUserDataState) {
+        if (state.viewModel.errorMessage == translation(context).error) {
+          Navigator.pop(context);
+          showExceptionDialog(
+              context: context,
+              message: translation(context).error,
+              titleBtn: translation(context).exit);
+          if (userDataData.getUser() != null) {
+            userDataData.localDataManager.preferencesHelper.remove('user');
+          }
+        }
+
+        if (state.viewModel.isWifiDisconnect == true) {
+          Navigator.pop(context);
+          showExceptionDialog(
+              onClose: () {
+                Navigator.pop(context);
+              },
+              context: context,
+              message: state.viewModel.errorMessage!,
+              titleBtn: translation(context).exit);
+        }
+      }
+      if (state is LoginActionState) {
+        if (state.viewModel.errorMessage ==
+            translation(context).pleaseEnterYourAccount) {
+          Navigator.pop(context);
+        }
+        if (state.viewModel.errorMessage == translation(context).wrongAccount) {
+          showExceptionDialog(
+              onClose: () => Navigator.pop(context),
+              context: context,
+              message: translation(context).wrongAccount,
+              titleBtn: translation(context).exit);
+          Navigator.pop(context);
+        }
+        if (state.viewModel.isWifiDisconnect == true) {
+          showExceptionDialog(
+              context: context,
+              message: state.viewModel.errorMessage!,
+              titleBtn: translation(context).exit);
+        } else {
+          showExceptionDialog(
+              onClose: () => Navigator.pop(context),
+              context: context,
+              message: translation(context).error,
+              titleBtn: translation(context).exit);
         }
       }
     }

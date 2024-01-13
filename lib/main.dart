@@ -53,15 +53,15 @@ class MyApp extends StatefulWidget {
     // ignore: unrelated_type_equality_checks
   }
 }
-class _MyAppState extends State<MyApp> {
 
+class _MyAppState extends State<MyApp> {
   Locale? _locale;
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
-         });
+    });
   }
-  
+
   @override
   void didChangeDependencies() {
     getLocale().then((locale) => {setLocale(locale)});
@@ -134,12 +134,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.white,
-      body: Center(
-        child: Image.asset(
-          Assets.teleHealth,
-          scale: 6,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {},
+      child: Scaffold(
+        backgroundColor: AppColor.white,
+        body: Center(
+          child: Image.asset(
+            Assets.teleHealth,
+            scale: 6,
+          ),
         ),
       ),
     );

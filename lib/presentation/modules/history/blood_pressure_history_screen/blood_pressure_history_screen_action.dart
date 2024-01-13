@@ -18,16 +18,13 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      if (state is GetHistoryDataState) {
-        showToast(translation(context).loadingError);
-        // Navigator.of(context, rootNavigator: true).pop();
-      }
-      if (state.viewModel.isWifiDisconnect == true) {
-        showExceptionDialog(
-            context: context,
-            message: translation(context).wifiDisconnect,
-            titleBtn: translation(context).exit);
-      }
+      showToast(translation(context).loadingError);
+      // Navigator.of(context, rootNavigator: true).pop();
+
+      showExceptionDialog(
+          context: context,
+          message: state.viewModel.errorMessage!,
+          titleBtn: translation(context).exit);
     }
   }
 

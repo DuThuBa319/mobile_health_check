@@ -63,8 +63,9 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
               if (state is RegistDoctorState) {
                 if (state.viewModel.duplicatedDoctorPhoneNumber == true ||
                     state.viewModel.isWifiDisconnect == true ||
-                    state.viewModel.errorMessage ==
-                        translation(context).error) {
+                    state.viewModel.errorMessage == translation(context).error)
+                //! không cần hiển thị dialog ở trường hợp lỗi ở việc điền thiếu, điền sai
+                {
                   {
                     showExceptionDialog(
                       context: context,
@@ -77,12 +78,14 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
             }
           },
           builder: (context, state) {
+            //? Loading
             if (state.status == BlocStatusState.loading) {
               return const Center(
                   child: Loading(
                 brightness: Brightness.light,
               ));
             }
+
             return SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.only(
