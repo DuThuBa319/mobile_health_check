@@ -59,7 +59,7 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                   style: AppTextTheme.body1.copyWith(
                       color: AppColor.black,
                       fontWeight: FontWeight.w400,
-                      fontSize: SizeConfig.screenWidth * 0.042),
+                      fontSize: SizeConfig.screenDiagonal * 0.0185),
                   TextSpan(
                     children: [
                       WidgetSpan(
@@ -104,7 +104,7 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                           // focusNode: _focusNode,
                           controller: _phoneNumberController,
                           style: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenDiagonal * 0.022,
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
@@ -148,7 +148,7 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: AppColor.white,
-                            fontSize: SizeConfig.screenWidth * 0.055,
+                            fontSize: SizeConfig.screenDiagonal * 0.023,
                           ),
                         ),
                       ),

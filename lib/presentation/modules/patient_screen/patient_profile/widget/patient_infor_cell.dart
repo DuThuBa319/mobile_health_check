@@ -126,7 +126,7 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
           left: SizeConfig.screenWidth * 0.025,
           top: SizeConfig.screenHeight * 0.015),
       height: title == "${translation(context).address}: "
-          ? SizeConfig.screenHeight * 0.15
+          ? SizeConfig.screenHeight * 0.16
           : SizeConfig.screenHeight * 0.1,
       decoration: BoxDecoration(
         color: AppColor.white,
@@ -143,12 +143,13 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                 text: title,
                 style: TextStyle(
                     color: AppColor.black,
-                    fontSize: SizeConfig.screenWidth * 0.055,
+                    fontSize: SizeConfig.screenDiagonal * 0.025,
                     fontWeight: FontWeight.w500)),
             TextSpan(
               text: text,
               style: TextStyle(
-                  color: Colors.black, fontSize: SizeConfig.screenWidth * 0.05),
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenDiagonal * 0.022),
             ),
             const WidgetSpan(child: SizedBox(width: 10)),
             WidgetSpan(

@@ -69,7 +69,7 @@ class BloodPressureHistoryScreenState
                 Text(
                   translation(context).selectTime,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenWidth * 0.06,
+                      fontSize: SizeConfig.screenDiagonal * 0.025,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -99,13 +99,16 @@ class BloodPressureHistoryScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5,
-                            size: SizeConfig.screenWidth * 0.08),
+                        Icon(
+                          Icons.calendar_month,
+                          color: AppColor.color43C8F5,
+                          size: SizeConfig.screenDiagonal * 0.035,
+                        ),
                         Text(strTimeFrom,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5,
-                                fontSize: SizeConfig.screenWidth * 0.05))
+                              color: AppColor.color43C8F5,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                            ))
                       ],
                     )),
               ),
@@ -127,13 +130,16 @@ class BloodPressureHistoryScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5,
-                            size: SizeConfig.screenWidth * 0.08),
+                        Icon(
+                          Icons.calendar_month,
+                          color: AppColor.color43C8F5,
+                          size: SizeConfig.screenDiagonal * 0.035,
+                        ),
                         Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5,
-                                fontSize: SizeConfig.screenWidth * 0.05))
+                              color: AppColor.color43C8F5,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                            ))
                       ],
                     )),
               )
@@ -178,12 +184,15 @@ class BloodPressureHistoryScreenState
                 ),
                 child: Text(
                   translation(context).search,
-                  style: AppTextTheme.title3.copyWith(color: Colors.white),
+                  style: AppTextTheme.title3.copyWith(
+                    color: Colors.white,
+                    fontSize: SizeConfig.screenDiagonal * 0.022,
+                  ),
                 ),
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.screenWidth * 0.05),
+          SizedBox(height: SizeConfig.screenHeight * 0.025),
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
@@ -214,15 +223,18 @@ class BloodPressureHistoryScreenState
                     if (state.viewModel.listBloodPressure!.isEmpty) {
                       return Center(
                           child: Text(translation(context).noData,
-                              style: AppTextTheme.body2
-                                  .copyWith(color: Colors.red)));
+                              style: AppTextTheme.body2.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold)));
+                                  
                     }
-                    if (state.viewModel.listBloodPressure == null) {
+                     if (state.viewModel.listBloodPressure!.isEmpty ) {
                       return Center(
                           child: Text(translation(context).error,
                               style: AppTextTheme.body2.copyWith(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold)));
+                                  
                     } else {
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -238,7 +250,7 @@ class BloodPressureHistoryScreenState
                       );
                     }
                   }
-               //? Failure
+                  //? Failure
                   if (state.status == BlocStatusState.failure) {
                     return Center(
                       child: Text(

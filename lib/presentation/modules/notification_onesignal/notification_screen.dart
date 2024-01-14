@@ -70,7 +70,7 @@ class _NotificationListState extends State<NotificationScreen> {
             icon: Icon(
               Icons.arrow_back,
               color: Colors.white,
-              size: SizeConfig.screenWidth * 0.08,
+              size: SizeConfig.screenDiagonal * 0.035,
             )),
         selectedIndex: 2,
         child: Container(
@@ -88,33 +88,26 @@ class _NotificationListState extends State<NotificationScreen> {
                       lastIndex: lastIndex));
                 }
                 //? Loading
-                if ((state is GetNotificationListState &&
-                        state.status == BlocStatusState.loading &&
-                        state.viewModel.notificationEntity == null) ||
-                    (state is RefreshNotificationListState &&
-                        state.status == BlocStatusState.loading)) {
+                if (state.status == BlocStatusState.loading &&
+                    ((state is GetNotificationListState &&
+                            state.viewModel.notificationEntity == null) ||
+                        state is RefreshNotificationListState)) {
                   return const Center(
                     child: Loading(brightness: Brightness.light),
                   );
                 }
                 //? Success & keep state
-                if (((state is SetReadedNotificationFromCellState &&
-                            state.status == BlocStatusState.loading) &&
-                        state.viewModel.notificationEntity != null) ||
-                    (state is GetNotificationListState &&
-                        state.status == BlocStatusState.loading) ||
-                    (state is DeleteNotificationState &&
-                        state.status == BlocStatusState.loading) ||
-                    (state is GetNotificationListState &&
-                        state.status == BlocStatusState.success) ||
-                    (state is RefreshNotificationListState &&
-                        state.status == BlocStatusState.success) ||
-                    (state is DeleteNotificationState &&
-                        state.status == BlocStatusState.success) ||
-                    (state is SetReadedNotificationFromCellState &&
-                        state.status == BlocStatusState.success) ||
-                    (state is SetReadedNotificationState &&
-                        state.status == BlocStatusState.success)) {
+                if ((state.status == BlocStatusState.loading &&
+                        ((state is SetReadedNotificationFromCellState &&
+                                state.viewModel.notificationEntity != null) ||
+                            (state is GetNotificationListState) ||
+                            (state is DeleteNotificationState))) ||
+                    (state.status == BlocStatusState.success &&
+                        (state is GetNotificationListState ||
+                            state is RefreshNotificationListState ||
+                            state is DeleteNotificationState ||
+                            state is SetReadedNotificationFromCellState ||
+                            state is SetReadedNotificationState))) {
                   if (state.viewModel.notificationEntity!.isEmpty) {
                     return Center(
                         child: Column(
@@ -123,7 +116,8 @@ class _NotificationListState extends State<NotificationScreen> {
                       children: [
                         Text(
                           translation(context).noNotification,
-                          style: AppTextTheme.body2.copyWith(color: Colors.red),
+                          style: AppTextTheme.body2.copyWith(
+                              color: Colors.red, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         RectangleButton(
@@ -131,8 +125,8 @@ class _NotificationListState extends State<NotificationScreen> {
                           width: SizeConfig.screenWidth * 0.3,
                           title: translation(context).loadAgain,
                           onTap: () {
-                            notificationBloc.add(RefreshNotificationListEvent(
-                                userId: userId));
+                            notificationBloc.add(
+                                RefreshNotificationListEvent(userId: userId));
                           },
                         )
                       ],
@@ -201,8 +195,8 @@ class _NotificationListState extends State<NotificationScreen> {
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColor.gray767676,
                                                 fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.04),
+                                                    SizeConfig.screenDiagonal *
+                                                        0.02),
                                           )),
                                         );
                                       }
@@ -224,42 +218,31 @@ class _NotificationListState extends State<NotificationScreen> {
                     );
                   }
                 } else if (state.status == BlocStatusState.failure) {
-                  if (state.viewModel.isWifiDisconnect == true) {
-                    return Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          softWrap: true,
-                          textAlign: TextAlign.center,
-                          translation(context).wifiDisconnect,
-                          style: AppTextTheme.body2.copyWith(color: Colors.red),
-                        ),
-                        const SizedBox(height: 10),
-                        RectangleButton(
-                          height: SizeConfig.screenHeight * 0.045,
-                          width: SizeConfig.screenWidth * 0.3,
-                          title: translation(context).loadAgain,
-                          onTap: () {
-                            notificationBloc.add(RefreshNotificationListEvent(
-                                userId: userId));
-                          },
-                        )
-                      ],
-                    ));
-                  } else {
-                    return Center(
-                      child: Text(
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
                         softWrap: true,
                         textAlign: TextAlign.center,
-                        translation(context).error,
-                        style: AppTextTheme.body2.copyWith(
-                            color: Colors.red, fontWeight: FontWeight.bold),
+                        state.viewModel.errorMessage!,
+                        style: AppTextTheme.body2.copyWith(color: Colors.red),
                       ),
-                    );
-                  }
+                      const SizedBox(height: 10),
+                      RectangleButton(
+                        height: SizeConfig.screenHeight * 0.045,
+                        width: SizeConfig.screenWidth * 0.3,
+                        title: translation(context).loadAgain,
+                        onTap: () {
+                          notificationBloc.add(
+                              RefreshNotificationListEvent(userId: userId));
+                        },
+                      )
+                    ],
+                  ));
                 }
+
                 return Container();
               }),
         ));

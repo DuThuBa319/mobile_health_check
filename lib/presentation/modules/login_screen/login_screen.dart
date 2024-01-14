@@ -139,7 +139,7 @@ class _LoginState extends State<LoginScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColor.topGradient,
-                          fontSize: SizeConfig.screenWidth * 0.1,
+                          fontSize: SizeConfig.screenDiagonal * 0.045,
                         ),
                       ),
                     ),
@@ -169,19 +169,14 @@ class _LoginState extends State<LoginScreen> {
                               // focusNode: _focusNode,
                               controller: _usernameController,
                               style: TextStyle(
-                                fontSize: SizeConfig.screenWidth * 0.05,
+                                fontSize: SizeConfig.screenDiagonal * 0.022,
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
                                 iconColor: AppColor.primaryColorLight,
-
                                 isDense:
                                     true, // Giữ khoảng cách cố định cho icon
 
-                                contentPadding: const EdgeInsets.only(
-                                  bottom: 5,
-                                  top: 5,
-                                ),
                                 errorText: (state.viewModel.errorMessage ==
                                         translation(context)
                                             .pleaseEnterYourAccount)
@@ -190,10 +185,11 @@ class _LoginState extends State<LoginScreen> {
                                 border: InputBorder.none,
                                 labelText: translation(context).phoneNumber,
                                 icon: Icon(Icons.account_box_rounded,
-                                    size: SizeConfig.screenWidth * 0.12),
+                                    size: SizeConfig.screenDiagonal * 0.05),
                                 labelStyle: TextStyle(
                                     color: AppColor.gray767676,
-                                    fontSize: SizeConfig.screenWidth * 0.05),
+                                    fontSize:
+                                        SizeConfig.screenDiagonal * 0.022),
                               ),
                             ),
                           ),
@@ -214,7 +210,7 @@ class _LoginState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: SizeConfig.screenWidth * 0.02,
+                            width: SizeConfig.screenWidth * 0.01,
                           ),
                           SizedBox(
                             width: SizeConfig.screenWidth * 0.8,
@@ -224,7 +220,7 @@ class _LoginState extends State<LoginScreen> {
                               controller: _passwordController,
                               obscureText: showPass,
                               style: TextStyle(
-                                fontSize: SizeConfig.screenWidth * 0.05,
+                                fontSize: SizeConfig.screenDiagonal * 0.022,
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
@@ -232,10 +228,6 @@ class _LoginState extends State<LoginScreen> {
                                 isDense:
                                     true, // Giữ khoảng cách cố định cho icon
 
-                                contentPadding: const EdgeInsets.only(
-                                  bottom: 5,
-                                  top: 5,
-                                ),
                                 errorText: (state.viewModel.errorMessage ==
                                         translation(context)
                                             .pleaseEnterYourAccount)
@@ -246,7 +238,7 @@ class _LoginState extends State<LoginScreen> {
                                       showPass
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      size: SizeConfig.screenWidth * 0.05),
+                                      size: SizeConfig.screenDiagonal * 0.025),
                                   onPressed: () {
                                     setState(() {
                                       showPass = !showPass;
@@ -254,12 +246,13 @@ class _LoginState extends State<LoginScreen> {
                                   },
                                 ),
                                 icon: Icon(Icons.lock,
-                                    size: SizeConfig.screenWidth * 0.1),
+                                    size: SizeConfig.screenDiagonal * 0.05),
                                 border: InputBorder.none,
                                 labelText: translation(context).password,
                                 labelStyle: TextStyle(
                                     color: AppColor.gray767676,
-                                    fontSize: SizeConfig.screenWidth * 0.05),
+                                    fontSize:
+                                        SizeConfig.screenDiagonal * 0.022),
                               ),
                             ),
                           ),
@@ -278,7 +271,7 @@ class _LoginState extends State<LoginScreen> {
                               letterSpacing: -0.5,
                               fontWeight: FontWeight.w400,
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.038,
+                              fontSize: SizeConfig.screenDiagonal * 0.018,
                             ),
                           ),
                         ),
@@ -302,7 +295,7 @@ class _LoginState extends State<LoginScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.white,
-                                fontSize: SizeConfig.screenWidth * 0.055,
+                                fontSize: SizeConfig.screenDiagonal * 0.023,
                               ),
                             ),
                           ),

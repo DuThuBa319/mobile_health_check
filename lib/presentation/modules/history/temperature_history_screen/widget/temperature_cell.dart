@@ -38,15 +38,16 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
           height: SizeConfig.screenHeight * 0.15,
           width: SizeConfig.screenWidth,
           margin: EdgeInsets.fromLTRB(
-              SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.015,
-              SizeConfig.screenWidth * 0.02),
+            SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.01,
+            SizeConfig.screenWidth * 0.015,
+            SizeConfig.screenHeight * 0.01,
+          ),
           padding: EdgeInsets.only(
               top: SizeConfig.screenHeight * 0.01,
               left: SizeConfig.screenWidth * 0.02,
               right: SizeConfig.screenWidth * 0.025,
-              bottom: SizeConfig.screenHeight * 0.015),
+              bottom: SizeConfig.screenHeight * 0.005),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -55,8 +56,8 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                   children: [
                     Container(
                         padding: const EdgeInsets.all(5),
-                        height: SizeConfig.screenWidth * 0.11,
-                        width: SizeConfig.screenWidth * 0.11,
+                        height: SizeConfig.screenDiagonal * 0.045,
+                        width: SizeConfig.screenDiagonal * 0.045,
                         decoration: const BoxDecoration(
                           color: AppColor.bodyTemperatureColor,
                           shape: BoxShape.circle,
@@ -73,13 +74,14 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                       children: [
                         Text(translation(context).bodyTemperature,
                             style: AppTextTheme.title4.copyWith(
-                                color: Colors.black,
-                                fontSize: SizeConfig.screenWidth * 0.045)),
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenDiagonal * 0.018,
+                            )),
                         Text(
                           DateFormat('hh:mm dd/MM/yyyy')
                               .format(widget.response!.updatedDate!),
                           style: AppTextTheme.title5.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.03),
+                              fontSize: SizeConfig.screenDiagonal * 0.015),
                         )
                       ],
                     )
@@ -97,19 +99,19 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                                 text: '${widget.response?.temperature}',
                                 style: AppTextTheme.body1.copyWith(
                                     color: widget.response?.statusColor,
-                                    fontSize: SizeConfig.screenWidth * 0.1,
+                                    fontSize: SizeConfig.screenDiagonal * 0.045,
                                     fontWeight: FontWeight.w400)),
                             TextSpan(
                                 text: "°",
                                 style: AppTextTheme.body1.copyWith(
                                     color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenWidth * 0.1,
+                                    fontSize: SizeConfig.screenDiagonal * 0.045,
                                     fontWeight: FontWeight.w500)),
                             TextSpan(
                                 text: 'C',
                                 style: AppTextTheme.body1.copyWith(
                                     color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenWidth * 0.08,
+                                    fontSize: SizeConfig.screenDiagonal * 0.04,
                                     fontWeight: FontWeight.w500))
                           ]))
                     ],

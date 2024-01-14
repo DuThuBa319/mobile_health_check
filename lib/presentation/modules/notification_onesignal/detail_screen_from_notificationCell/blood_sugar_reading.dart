@@ -68,7 +68,7 @@ class _BloodSugarNotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.035,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -82,7 +82,7 @@ class _BloodSugarNotificationReadingScreenState
                       Text(
                         "${widget.notificationEntity?.patientName}",
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenHeight * 0.022,
                             fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
@@ -91,24 +91,23 @@ class _BloodSugarNotificationReadingScreenState
                       Text(
                         " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
                         style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.04),
+                            .copyWith(fontSize: SizeConfig.screenHeight * 0.02),
                       ),
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.02,
+                height: SizeConfig.screenHeight * 0.045,
               ),
-             CustomImagePicker(
+              CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
-                    ? widget.notificationEntity?.bloodSugarEntity
-                            ?.imageLink ??
+                    ? widget.notificationEntity?.bloodSugarEntity?.imageLink ??
                         ""
                     : null,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.02,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
@@ -125,10 +124,10 @@ class _BloodSugarNotificationReadingScreenState
                     children: [
                       Text(translation(context).bloodSugar,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.075,
+                              fontSize: SizeConfig.screenHeight * 0.035,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
-                      SizedBox(height: SizeConfig.screenHeight * 0.005),
+                      SizedBox(height: SizeConfig.screenHeight * 0.015),
                       Center(
                         child: RichText(
                           textAlign: TextAlign.center,
@@ -139,14 +138,14 @@ class _BloodSugarNotificationReadingScreenState
                                       "${widget.notificationEntity!.bloodSugarEntity!.bloodSugar!}",
                                   style: AppTextTheme.body0.copyWith(
                                     letterSpacing: -4,
-                                    fontSize: SizeConfig.screenWidth * 0.2,
+                                    fontSize: SizeConfig.screenHeight * 0.1,
                                     color: widget.notificationEntity!
                                         .bloodSugarEntity!.statusColor,
                                   )),
                               TextSpan(
                                   text: ' mg/dL',
                                   style: AppTextTheme.body0.copyWith(
-                                    fontSize: SizeConfig.screenWidth * 0.08,
+                                    fontSize: SizeConfig.screenHeight * 0.05,
                                     color: widget.notificationEntity!
                                         .bloodSugarEntity!.statusColor,
                                   )),
@@ -154,7 +153,7 @@ class _BloodSugarNotificationReadingScreenState
                           ),
                         ),
                       ),
-                      SizedBox(height: SizeConfig.screenWidth * 0.05),
+                      SizedBox(height: SizeConfig.screenHeight * 0.01),
                       Center(
                         child: Text(
                             widget.notificationEntity!.bloodSugarEntity!
@@ -163,11 +162,11 @@ class _BloodSugarNotificationReadingScreenState
                                 color: widget.notificationEntity!
                                     .bloodSugarEntity!.statusColor,
                                 fontWeight: FontWeight.w700,
-                                fontSize: SizeConfig.screenWidth * 0.06)),
+                                fontSize: SizeConfig.screenHeight * 0.025)),
                       ),
                     ],
                   )),
-              SizedBox(height: SizeConfig.screenWidth * 0.05),
+              SizedBox(height: SizeConfig.screenHeight * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -207,7 +206,10 @@ class _BloodSugarNotificationReadingScreenState
                     },
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.035,
+              ),
             ],
           ),
         ),

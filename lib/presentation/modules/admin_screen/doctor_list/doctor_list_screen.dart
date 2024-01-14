@@ -95,7 +95,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                             Text(
                               translation(context).doctorList,
                               style: TextStyle(
-                                  fontSize: SizeConfig.screenWidth * 0.07,
+                                  fontSize: SizeConfig.screenDiagonal * 0.032,
                                   fontWeight: FontWeight.bold),
                             ),
                             lineDecor(
@@ -129,7 +129,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                                     hintStyle: TextStyle(
                                         color: Colors.black54,
                                         fontSize:
-                                            SizeConfig.screenWidth * 0.05),
+                                            SizeConfig.screenDiagonal * 0.022),
                                     suffixIcon: IconButton(
                                       icon: const Icon(Icons.search),
                                       color: Colors.black,
@@ -195,8 +195,9 @@ class _DoctorListState extends State<DoctorListScreen> {
                                           softWrap: true,
                                           textAlign: TextAlign.center,
                                           state.viewModel.errorMessage!,
-                                          style: AppTextTheme.body2
-                                              .copyWith(color: Colors.red),
+                                          style: AppTextTheme.body2.copyWith(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         const SizedBox(height: 10),
                                         RectangleButton(

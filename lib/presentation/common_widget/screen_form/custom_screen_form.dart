@@ -70,7 +70,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       IconButton(
                         icon: Icon(
                           Icons.arrow_back,
-                          size: SizeConfig.screenWidth * 0.08,
+                          size: SizeConfig.screenDiagonal * 0.035,
                           color: widget.appComponentColor,
                         ),
                         onPressed: () {
@@ -83,7 +83,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                 widget.title!,
                 style: AppTextTheme.title1.copyWith(
                     color: widget.appComponentColor,
-                    fontSize: SizeConfig.screenWidth * 0.065),
+                    fontSize: SizeConfig.screenDiagonal * 0.028),
               ),
               actions: [
                 (userDataData.getUser()?.role == UserRole.admin ||
@@ -161,7 +161,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       },
       child: Container(
         color: Colors.white,
-        height: SizeConfig.screenHeight * 0.05,
+        height: SizeConfig.screenHeight * 0.055,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -171,7 +171,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               color: isSelected
                   ? const Color.fromARGB(255, 123, 211, 255)
                   : AppColor.gray767676,
-              size: SizeConfig.screenHeight * 0.025,
+              size: SizeConfig.screenDiagonal * 0.022,
             ),
             label != null
                 ? Text(
@@ -180,7 +180,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                         color: isSelected
                             ? const Color.fromARGB(255, 123, 211, 255)
                             : AppColor.gray767676,
-                        fontSize: SizeConfig.screenWidth * 0.03,
+                        fontSize: SizeConfig.screenDiagonal * 0.013,
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal),
                   )

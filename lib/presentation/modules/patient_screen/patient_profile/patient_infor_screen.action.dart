@@ -92,8 +92,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
           children: [
             Container(
                 padding: const EdgeInsets.all(5),
-                height: SizeConfig.screenWidth * 0.25,
-                width: SizeConfig.screenWidth * 0.25,
+                height: SizeConfig.screenHeight * 0.12,
+                width: SizeConfig.screenHeight * 0.12,
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(15),
@@ -122,14 +122,15 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                           Text(indicator,
                               style: AppTextTheme.title3.copyWith(
                                 color: Colors.black,
-                                fontSize: SizeConfig.screenWidth * 0.032,
+                                fontSize: SizeConfig.screenDiagonal * 0.014,
                                 fontWeight: FontWeight.bold,
                               )),
                           Text(
                             DateFormat('HH:mm dd/MM/yyyy')
                                 .format(dateTime ?? dateTime!),
                             style: AppTextTheme.title5.copyWith(
-                                fontSize: SizeConfig.screenWidth * 0.025),
+                              fontSize: SizeConfig.screenDiagonal * 0.013,
+                            ),
                           ),
                         ],
                       ),
@@ -144,7 +145,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                             child: Text(translation(context).watchHistory,
                                 style: AppTextTheme.body5.copyWith(
                                     color: Colors.white,
-                                    fontSize: SizeConfig.screenWidth * 0.03,
+                                    fontSize: SizeConfig.screenDiagonal * 0.013,
                                     fontWeight: FontWeight.w600)),
                           ),
                         ),
@@ -186,7 +187,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: SizeConfig.screenWidth * 0.20),
+                                SizedBox(width: SizeConfig.screenWidth * 0.22),
                                 RichText(
                                   textAlign: TextAlign.end,
                                   text: TextSpan(
@@ -195,7 +196,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                           text: "SYS: ",
                                           style: AppTextTheme.title3.copyWith(
                                               fontSize:
-                                                  SizeConfig.screenWidth * 0.05,
+                                                  SizeConfig.screenDiagonal *
+                                                      0.022,
                                               fontWeight: FontWeight.w500,
                                               color: bloodPressureEntity
                                                   ?.statusColor)),
@@ -203,7 +205,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                           text: "${bloodPressureEntity?.sys}",
                                           style: AppTextTheme.title3.copyWith(
                                               fontSize:
-                                                  SizeConfig.screenWidth * 0.06,
+                                                  SizeConfig.screenDiagonal *
+                                                      0.025,
                                               fontWeight: FontWeight.w600,
                                               color: bloodPressureEntity
                                                   ?.statusColor)),
@@ -212,7 +215,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                           style: AppTextTheme.title3.copyWith(
                                               color: const Color(0xff615A5A),
                                               fontSize:
-                                                  SizeConfig.screenWidth * 0.04,
+                                                  SizeConfig.screenDiagonal *
+                                                      0.018,
                                               fontWeight: FontWeight.w500))
                                     ],
                                   ),
@@ -221,7 +225,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                             ),
                             Row(
                               children: [
-                                SizedBox(width: SizeConfig.screenWidth * 0.20),
+                                SizedBox(width: SizeConfig.screenWidth * 0.22),
                                 RichText(
                                   textAlign: TextAlign.end,
                                   text: TextSpan(
@@ -230,15 +234,17 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                           text: "PUL: ",
                                           style: AppTextTheme.title3.copyWith(
                                               fontSize:
-                                                  SizeConfig.screenWidth * 0.05,
+                                                  SizeConfig.screenDiagonal *
+                                                      0.022,
                                               fontWeight: FontWeight.w500,
                                               color: bloodPressureEntity
                                                   ?.statusColor)),
                                       TextSpan(
                                           text: "${bloodPressureEntity?.pulse}",
                                           style: AppTextTheme.title3.copyWith(
-                                              fontSize: SizeConfig.screenWidth *
-                                                  0.055,
+                                              fontSize:
+                                                  SizeConfig.screenDiagonal *
+                                                      0.0225,
                                               fontWeight: FontWeight.w600,
                                               color: bloodPressureEntity
                                                   ?.statusColor)),
@@ -247,7 +253,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                           style: AppTextTheme.title3.copyWith(
                                               color: const Color(0xff615A5A),
                                               fontSize:
-                                                  SizeConfig.screenWidth * 0.04,
+                                                  SizeConfig.screenDiagonal *
+                                                      0.018,
                                               fontWeight: FontWeight.w500))
                                     ],
                                   ),
@@ -278,16 +285,16 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                                 color: bloodSugarEntity
                                                     ?.statusColor,
                                                 fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.1,
+                                                    SizeConfig.screenDiagonal *
+                                                        0.045,
                                                 fontWeight: FontWeight.w500)),
                                         TextSpan(
                                             text: " mg/dL",
                                             style: AppTextTheme.title3.copyWith(
                                                 color: const Color(0xff615A5A),
                                                 fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.04,
+                                                    SizeConfig.screenDiagonal *
+                                                        0.018,
                                                 fontWeight: FontWeight.w500))
                                       ],
                                     ),
@@ -315,8 +322,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                                             ?.statusColor,
                                                         //     spo2Entity?.statusColor,
                                                         fontSize: SizeConfig
-                                                                .screenWidth *
-                                                            0.12,
+                                                                .screenDiagonal *
+                                                            0.048,
                                                         fontWeight:
                                                             FontWeight.w500)),
                                             TextSpan(
@@ -327,8 +334,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                                             const Color(
                                                                 0xff615A5A),
                                                         fontSize: SizeConfig
-                                                                .screenWidth *
-                                                            0.06,
+                                                                .screenDiagonal *
+                                                            0.03,
                                                         fontWeight:
                                                             FontWeight.w500))
                                           ],
@@ -355,8 +362,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                                       color: temperatureEntity
                                                           ?.statusColor,
                                                       fontSize: SizeConfig
-                                                              .screenWidth *
-                                                          0.1,
+                                                              .screenDiagonal *
+                                                          0.045,
                                                       fontWeight:
                                                           FontWeight.w500)),
                                           TextSpan(
@@ -366,8 +373,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                                       color: const Color(
                                                           0xff615A5A),
                                                       fontSize: SizeConfig
-                                                              .screenWidth *
-                                                          0.1,
+                                                              .screenDiagonal *
+                                                          0.045,
                                                       fontWeight:
                                                           FontWeight.w500)),
                                           TextSpan(
@@ -377,8 +384,8 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                                                       color: const Color(
                                                           0xff615A5A),
                                                       fontSize: SizeConfig
-                                                              .screenWidth *
-                                                          0.08,
+                                                              .screenDiagonal *
+                                                          0.035,
                                                       fontWeight:
                                                           FontWeight.w500))
                                         ]))
@@ -387,7 +394,7 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                               )
               ],
             ),
-            const SizedBox(height: 2)
+            const SizedBox()
           ],
         ),
       ),

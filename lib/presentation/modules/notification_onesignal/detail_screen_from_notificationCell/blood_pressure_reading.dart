@@ -67,7 +67,7 @@ class _BloodPressureNotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.1,
+                height: SizeConfig.screenHeight * 0.03,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -81,7 +81,7 @@ class _BloodPressureNotificationReadingScreenState
                       Text(
                         "${widget.notificationEntity?.patientName}",
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenDiagonal * 0.022,
                             fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
@@ -89,13 +89,13 @@ class _BloodPressureNotificationReadingScreenState
                       ),
                       Text(
                         " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.04),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.02),
                       ),
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.06,
+                height: SizeConfig.screenHeight * 0.035,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -107,7 +107,7 @@ class _BloodPressureNotificationReadingScreenState
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.06,
+                height: SizeConfig.screenHeight * 0.035,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
@@ -125,42 +125,50 @@ class _BloodPressureNotificationReadingScreenState
                             children: [
                               Text('SYS',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: 24, color: Colors.black)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.028,
+                                      color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'mmHg',
                                 style:
                                     AppTextTheme.title5.copyWith(fontSize: 15),
                               ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.04),
+                              SizedBox(
+                                  height: SizeConfig.screenDiagonal * 0.02),
                               Text(
                                   "${widget.notificationEntity?.bloodPressureEntity!.sys}",
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget.notificationEntity
                                           ?.bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: SizeConfig.screenWidth * 0.1)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.045)),
                             ],
                           ),
                           Column(
                             children: [
                               Text('PUL',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: 24, color: Colors.black)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.028,
+                                      color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'bpm',
                                 style:
                                     AppTextTheme.title5.copyWith(fontSize: 15),
                               ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.04),
+                              SizedBox(
+                                  height: SizeConfig.screenDiagonal * 0.02),
                               Text(
                                   "${widget.notificationEntity?.bloodPressureEntity!.pulse}",
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget.notificationEntity
                                           ?.bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: SizeConfig.screenWidth * 0.1)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.045)),
                             ],
                           )
                         ],
@@ -193,14 +201,14 @@ class _BloodPressureNotificationReadingScreenState
                               fontWeight: FontWeight.w700)),
                     ],
                   )),
-              SizedBox(height: SizeConfig.screenWidth * 0.05),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   RectangleButton(
                     editSizeText: true,
-                    sizeText: SizeConfig.screenWidth * 0.04,
+                    sizeText: SizeConfig.screenDiagonal * 0.018,
                     height: SizeConfig.screenHeight * 0.07,
                     width: SizeConfig.screenWidth * 0.45,
                     title: translation(context).goToPatientIn4Screen,
@@ -218,7 +226,7 @@ class _BloodPressureNotificationReadingScreenState
                   ),
                   RectangleButton(
                     editSizeText: true,
-                    sizeText: SizeConfig.screenWidth * 0.04,
+                    sizeText: SizeConfig.screenDiagonal * 0.018,
                     height: SizeConfig.screenHeight * 0.07,
                     width: SizeConfig.screenWidth * 0.45,
                     title: translation(context).goToNotificationScreen,
@@ -231,7 +239,10 @@ class _BloodPressureNotificationReadingScreenState
                     },
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 
@@ -63,12 +62,12 @@ Future<dynamic> showEditOneTextFieldDialog({
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenWidth * 0.12,
-                          height: SizeConfig.screenWidth * 0.12,
+                          width: SizeConfig.screenDiagonal * 0.04,
+                          height: SizeConfig.screenDiagonal * 0.04,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: AppColor.white),
                           child: Icon(
-                            size: SizeConfig.screenWidth * 0.11,
+                            size: SizeConfig.screenDiagonal * 0.04,
                             Icons.help,
                             color: AppColor.warningDialogIconColor,
                           )),
@@ -79,7 +78,7 @@ Future<dynamic> showEditOneTextFieldDialog({
                           style: TextStyle(
                               color: AppColor.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenWidth * 0.045),
+                              fontSize: SizeConfig.screenDiagonal * 0.018),
                           textAlign: TextAlign.center),
                     ],
                   )),
@@ -95,7 +94,8 @@ Future<dynamic> showEditOneTextFieldDialog({
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize:contentDialogSize ?? SizeConfig.screenWidth * 0.04),
+                          fontSize: contentDialogSize ??
+                              SizeConfig.screenDiagonal * 0.018),
                     ),
                   ),
                   Positioned(
@@ -128,7 +128,8 @@ Future<dynamic> showEditOneTextFieldDialog({
                                   titleBtn1 ?? translation(context).accept,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.02,
                                       color: AppColor.white,
                                       fontWeight: FontWeight.bold),
                                 ),

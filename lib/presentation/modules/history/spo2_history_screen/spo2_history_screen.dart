@@ -66,8 +66,8 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                 const SizedBox(height: 5),
                 Text(
                   translation(context).selectTime,
-                  style: const TextStyle(
-                      fontSize: 24,
+                  style: TextStyle(
+                      fontSize: SizeConfig.screenDiagonal * 0.025,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -97,12 +97,16 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5, size: 30),
+                        Icon(
+                          Icons.calendar_month,
+                          color: AppColor.color43C8F5,
+                          size: SizeConfig.screenDiagonal * 0.035,
+                        ),
                         Text(strTimeFrom,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5,
-                                fontSize: SizeConfig.screenWidth * 0.05))
+                              color: AppColor.color43C8F5,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                            ))
                       ],
                     )),
               ),
@@ -124,12 +128,16 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5, size: 30),
+                        Icon(
+                          Icons.calendar_month,
+                          color: AppColor.color43C8F5,
+                          size: SizeConfig.screenDiagonal * 0.035,
+                        ),
                         Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5,
-                                fontSize: SizeConfig.screenWidth * 0.05))
+                              color: AppColor.color43C8F5,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                            ))
                       ],
                     )),
               )
@@ -179,7 +187,7 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.screenWidth * 0.05),
+          SizedBox(height: SizeConfig.screenHeight * 0.025),
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
@@ -192,8 +200,9 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                   if (state is HistoryInitialState) {
                     return Center(
                         child: Text(translation(context).selectTime,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
 
                   //? Loading
@@ -210,8 +219,9 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                     if (state.viewModel.listSpo2!.isEmpty) {
                       return Center(
                           child: Text(translation(context).noData,
-                              style: AppTextTheme.body2
-                                  .copyWith(color: Colors.red)));
+                              style: AppTextTheme.body2.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold)));
                     }
                     if (state.viewModel.listSpo2 == null) {
                       return Center(

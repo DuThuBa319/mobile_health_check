@@ -59,12 +59,12 @@ Future<dynamic> showWarningDialog({
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenWidth * 0.11,
-                          height: SizeConfig.screenWidth * 0.11,
+                          width: SizeConfig.screenDiagonal * 0.04,
+                          height: SizeConfig.screenDiagonal * 0.04,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: AppColor.white),
                           child: Icon(
-                            size: SizeConfig.screenWidth * 0.11,
+                            size: SizeConfig.screenDiagonal * 0.04,
                             Icons.help,
                             color: AppColor.warningDialogIconColor,
                           )),
@@ -75,7 +75,7 @@ Future<dynamic> showWarningDialog({
                           style: TextStyle(
                               color: AppColor.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenWidth * 0.045),
+                              fontSize: SizeConfig.screenDiagonal * 0.02),
                           textAlign: TextAlign.center),
                     ],
                   )),
@@ -92,7 +92,7 @@ Future<dynamic> showWarningDialog({
                       style: TextStyle(
                           color: AppColor.black,
                           fontSize: contentDialogSize ??
-                              SizeConfig.screenWidth * 0.04),
+                              SizeConfig.screenDiagonal * 0.018),
                     ),
                   ),
                   Positioned(
@@ -125,7 +125,8 @@ Future<dynamic> showWarningDialog({
                                   translation(context).no,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.02,
                                       color: AppColor.white,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -151,7 +152,8 @@ Future<dynamic> showWarningDialog({
                                   translation(context).yes,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.02,
                                       color: AppColor.white,
                                       fontWeight: FontWeight.bold),
                                 ),

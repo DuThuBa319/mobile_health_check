@@ -60,8 +60,8 @@ class _SettingMenuState extends State<SettingMenu> {
                         decoration: const BoxDecoration(
                             color: AppColor.backgroundColor,
                             shape: BoxShape.circle),
-                        height: SizeConfig.screenWidth * 0.25,
-                        width: SizeConfig.screenWidth * 0.25,
+                        height: SizeConfig.screenDiagonal * 0.11,
+                        width: SizeConfig.screenDiagonal * 0.11,
                         child: ClipRect(
                             child: Image.asset(
                           (userDataData.getUser()?.role == UserRole.doctor)
@@ -79,9 +79,9 @@ class _SettingMenuState extends State<SettingMenu> {
                           : "${userDataData.getUser()?.name}",
                       style: AppTextTheme.body0.copyWith(
                           fontWeight: FontWeight.w500,
-                          fontSize: SizeConfig.screenWidth * 0.06)),
+                          fontSize: SizeConfig.screenDiagonal * 0.025)),
                 ),
-                SizedBox(height: SizeConfig.screenWidth * 0.05),
+                SizedBox(height: SizeConfig.screenHeight * 0.02),
                 //! ĐỔI MẬT KHẨU
                 GestureDetector(
                   child: settingMenuCell(
@@ -106,7 +106,7 @@ class _SettingMenuState extends State<SettingMenu> {
                   child:
                       settingMenuCell(translation(context).language, context),
                 ),
-                SizedBox(height: SizeConfig.screenWidth * 0.01),
+                SizedBox(height: SizeConfig.screenHeight * 0.005),
                 RectangleButton(
                     height: SizeConfig.screenHeight * 0.07,
                     title: translation(context).logOut,

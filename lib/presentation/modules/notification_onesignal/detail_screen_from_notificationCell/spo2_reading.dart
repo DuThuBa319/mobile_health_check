@@ -44,6 +44,7 @@ class _Spo2NotificationReadingScreenState
       is4GAvailable = connectivityResult == ConnectivityResult.mobile;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -81,7 +82,7 @@ class _Spo2NotificationReadingScreenState
                       Text(
                         "${widget.notificationEntity?.patientName}",
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenDiagonal * 0.022,
                             fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
@@ -89,28 +90,26 @@ class _Spo2NotificationReadingScreenState
                       ),
                       Text(
                         " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.04),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.02),
                       ),
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.045,
               ),
-               CustomImagePicker(
+              CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
-                    ? widget.notificationEntity?.spo2Entity
-                            ?.imageLink ??
-                        ""
+                    ? widget.notificationEntity?.spo2Entity?.imageLink ?? ""
                     : null,
                 isOnTapActive: true,
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
@@ -120,11 +119,11 @@ class _Spo2NotificationReadingScreenState
                       borderRadius: BorderRadius.circular(8)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(translation(context).oximeter,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.075,
+                              fontSize: SizeConfig.screenDiagonal * 0.03,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -138,21 +137,22 @@ class _Spo2NotificationReadingScreenState
                                       "${widget.notificationEntity!.spo2Entity!.spo2!}",
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
-                                      fontSize: SizeConfig.screenWidth * 0.25,
+                                      fontSize: SizeConfig.screenDiagonal * 0.1,
                                       // color: widget.notificationEntity!.spo2Entity!.statusColor,
                                       color: widget.notificationEntity
                                           ?.spo2Entity?.statusColor)),
                               TextSpan(
                                   text: ' %',
                                   style: AppTextTheme.body0.copyWith(
-                                      fontSize: SizeConfig.screenWidth * 0.08,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.05,
                                       // color: widget.notificationEntity!.spo2Entity!.statusColor,
-                                      color: Colors.black)),
+                                      color: widget.notificationEntity
+                                          ?.spo2Entity?.statusColor)),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: SizeConfig.screenWidth * 0.05),
                     ],
                   )),
               SizedBox(height: SizeConfig.screenWidth * 0.05),
@@ -162,7 +162,7 @@ class _Spo2NotificationReadingScreenState
                 children: [
                   RectangleButton(
                     editSizeText: true,
-                    sizeText: SizeConfig.screenWidth * 0.04,
+                    sizeText: SizeConfig.screenDiagonal * 0.016,
                     height: SizeConfig.screenHeight * 0.07,
                     width: SizeConfig.screenWidth * 0.45,
                     title: translation(context).goToPatientIn4Screen,
@@ -180,7 +180,7 @@ class _Spo2NotificationReadingScreenState
                   ),
                   RectangleButton(
                     editSizeText: true,
-                    sizeText: SizeConfig.screenWidth * 0.04,
+                    sizeText: SizeConfig.screenDiagonal * 0.016,
                     height: SizeConfig.screenHeight * 0.07,
                     width: SizeConfig.screenWidth * 0.45,
                     title: translation(context).goToNotificationScreen,
@@ -195,7 +195,9 @@ class _Spo2NotificationReadingScreenState
                     },
                   ),
                 ],
-              )
+              ), SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
             ],
           ),
         ),

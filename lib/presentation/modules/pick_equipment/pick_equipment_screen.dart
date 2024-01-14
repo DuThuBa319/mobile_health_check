@@ -57,7 +57,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                 Text(
                   translation(context).selectEquip,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenWidth * 0.08,
+                      fontSize: SizeConfig.screenDiagonal * 0.035,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -135,7 +135,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                 Text(
                   translation(context).contact,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenWidth * 0.08,
+                      fontSize: SizeConfig.screenDiagonal * 0.035,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -160,8 +160,8 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                           decoration: const BoxDecoration(
                               color: AppColor.backgroundColor,
                               shape: BoxShape.circle),
-                          height: SizeConfig.screenWidth * 0.15,
-                          width: SizeConfig.screenWidth * 0.15,
+                          height: SizeConfig.screenDiagonal * 0.065,
+                          width: SizeConfig.screenDiagonal * 0.065,
                           child: ClipRect(
                             child: Image.asset(Assets.doctor, fit: BoxFit.fill),
                           )),
@@ -170,14 +170,15 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                         child: Text(
                           userDataData.getUser()!.doctor!.name,
                           style: AppTextTheme.body2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.052,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
                               fontWeight: FontWeight.w500),
                         ),
                       ),
                       subtitle: Transform.translate(
                         offset: const Offset(-10, 0),
                         child: Text(userDataData.getUser()!.doctor!.phoneNumber,
-                            style: AppTextTheme.body3),
+                            style: AppTextTheme.body3.copyWith(
+                                fontSize: SizeConfig.screenDiagonal * 0.018)),
                       ),
                       trailing: InkWell(
                         onTap: () async {
@@ -186,7 +187,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                         },
                         child: CircleButton(
                             iconData: Icons.phone,
-                            size: SizeConfig.screenWidth * 0.15,
+                            size: SizeConfig.screenDiagonal * 0.075,
                             backgroundColor: Colors.red),
                       ),
                     ),
@@ -264,7 +265,6 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
           context: context,
           message: translation(context).areYouSureToExitApp,
           title: translation(context).exitAppTitle,
-   
           onClose1: () {},
           onClose2: () {
             SystemNavigator.pop();

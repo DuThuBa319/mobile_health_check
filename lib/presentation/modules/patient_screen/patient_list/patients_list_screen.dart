@@ -97,7 +97,7 @@ class _PatientListState extends State<PatientListScreen> {
                                       translation(context).patientList,
                                       style: TextStyle(
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.07,
+                                              SizeConfig.screenDiagonal * 0.032,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Container(
@@ -114,16 +114,11 @@ class _PatientListState extends State<PatientListScreen> {
                                       child: Center(
                                         child: InkWell(
                                             onTap: () {
-                                              if (state.viewModel
-                                                      .isWifiDisconnect ==
-                                                  true) {
-                                              } else {
-                                                Navigator.pushNamed(context,
-                                                    RouteList.notification,
-                                                    arguments: userDataData
-                                                        .getUser()!
-                                                        .id);
-                                              }
+                                              Navigator.pushNamed(context,
+                                                  RouteList.notification,
+                                                  arguments: userDataData
+                                                      .getUser()!
+                                                      .id);
                                             },
                                             child: badges.Badge(
                                               position:
@@ -136,11 +131,12 @@ class _PatientListState extends State<PatientListScreen> {
                                                           .unreadCount ==
                                                       null
                                                   ? null
-                                                  : Text("${state.viewModel.unreadCount}",
+                                                  : Text(
+                                                      "${state.viewModel.unreadCount}",
                                                       style: TextStyle(
                                                           fontSize: SizeConfig
-                                                                  .screenWidth *
-                                                              0.03,
+                                                                  .screenDiagonal *
+                                                              0.012,
                                                           color: Colors.white)),
                                               child: const Icon(
                                                   Icons
@@ -151,14 +147,15 @@ class _PatientListState extends State<PatientListScreen> {
                                     )
                                   ]),
                               lineDecor(
-                                  spaceBottom: SizeConfig.screenWidth * 0.03,
+                                  spaceBottom: SizeConfig.screenHeight * 0.01,
                                   spaceTop: 5),
+                              //! Search box
                               Container(
                                 margin: EdgeInsets.only(
                                   left: 2,
                                   right: 2,
-                                  top: SizeConfig.screenWidth * 0.01,
-                                  bottom: SizeConfig.screenWidth * 0.05,
+                                  top: SizeConfig.screenHeight * 0.005,
+                                  bottom: SizeConfig.screenHeight * 0.02,
                                 ),
                                 decoration: BoxDecoration(
                                   boxShadow: const [
@@ -181,8 +178,8 @@ class _PatientListState extends State<PatientListScreen> {
                                           translation(context).searchPatient,
                                       hintStyle: TextStyle(
                                           color: Colors.black54,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.05),
+                                          fontSize: SizeConfig.screenDiagonal *
+                                              0.022),
                                       suffixIcon: IconButton(
                                         icon: const Icon(Icons.search),
                                         color: Colors.black,

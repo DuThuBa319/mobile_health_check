@@ -67,8 +67,8 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                 const SizedBox(height: 5),
                 Text(
                   translation(context).selectTime,
-                  style: const TextStyle(
-                      fontSize: 24,
+                  style: TextStyle(
+                      fontSize: SizeConfig.screenDiagonal * 0.025,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -98,12 +98,16 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5, size: 30),
+                        Icon(
+                          Icons.calendar_month,
+                          color: AppColor.color43C8F5,
+                          size: SizeConfig.screenDiagonal * 0.035,
+                        ),
                         Text(strTimeFrom,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5,
-                                fontSize: SizeConfig.screenWidth * 0.05))
+                              color: AppColor.color43C8F5,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                            ))
                       ],
                     )),
               ),
@@ -125,12 +129,16 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.calendar_month,
-                            color: AppColor.color43C8F5, size: 30),
+                        Icon(
+                          Icons.calendar_month,
+                          color: AppColor.color43C8F5,
+                          size: SizeConfig.screenDiagonal * 0.035,
+                        ),
                         Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
-                                color: AppColor.color43C8F5,
-                                fontSize: SizeConfig.screenWidth * 0.05))
+                              color: AppColor.color43C8F5,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                            ))
                       ],
                     )),
               )
@@ -181,7 +189,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.screenWidth * 0.05),
+          SizedBox(height: SizeConfig.screenHeight * 0.025),
           Expanded(
             child: SmartRefresher(
               controller: _refreshController,
@@ -193,8 +201,9 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                   if (state is HistoryInitialState) {
                     return Center(
                         child: Text(translation(context).selectTime,
-                            style: AppTextTheme.body2
-                                .copyWith(color: Colors.red)));
+                            style: AppTextTheme.body2.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)));
                   }
 
                   if (state.status == BlocStatusState.loading) {
@@ -210,8 +219,9 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                     if (state.viewModel.listBloodSugar!.isEmpty) {
                       return Center(
                           child: Text(translation(context).noData,
-                              style: AppTextTheme.body2
-                                  .copyWith(color: Colors.red)));
+                              style: AppTextTheme.body2.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold)));
                     }
                     if (state.viewModel.listBloodSugar == null) {
                       return Center(
@@ -234,7 +244,7 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       );
                     }
                   }
-                //? Failure
+                  //? Failure
                   if (state.status == BlocStatusState.failure) {
                     return Center(
                       child: Text(

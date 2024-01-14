@@ -102,7 +102,7 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    height: SizeConfig.screenWidth * 0.025,
+                                    height: SizeConfig.screenHeight * 0.01,
                                   ),
                                   CustomImagePicker(
                                     age: doctor.age,
@@ -138,7 +138,7 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                             child: Text(
                               translation(context).doctorIn4,
                               style: AppTextTheme.body0.copyWith(
-                                  fontSize: SizeConfig.screenWidth * 0.06,
+                                  fontSize: SizeConfig.screenDiagonal * 0.025,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -200,7 +200,8 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                       softWrap: true,
                       textAlign: TextAlign.center,
                       state.viewModel.errorMessage!,
-                      style: AppTextTheme.body2.copyWith(color: Colors.red),
+                      style: AppTextTheme.body2.copyWith(
+                          color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     RectangleButton(
@@ -239,7 +240,7 @@ Widget doctorIn4Cell(BuildContext context, title, String text,
         borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
       ),
       child: RichText(
-        maxLines: title == "${translation(context).address}: " ? 3 : 2,
+        maxLines: title == "${translation(context).address}: " ? 5 : 3,
         overflow: TextOverflow.ellipsis,
         softWrap: true,
         textAlign: TextAlign.start,
@@ -249,12 +250,13 @@ Widget doctorIn4Cell(BuildContext context, title, String text,
                 text: title,
                 style: TextStyle(
                     color: AppColor.black,
-                    fontSize: SizeConfig.screenWidth * 0.055,
+                    fontSize: SizeConfig.screenDiagonal * 0.023,
                     fontWeight: FontWeight.w500)),
             TextSpan(
               text: text,
               style: TextStyle(
-                  color: Colors.black, fontSize: SizeConfig.screenWidth * 0.05),
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenDiagonal * 0.022),
             ),
             const WidgetSpan(child: SizedBox(width: 10)),
             WidgetSpan(
@@ -264,14 +266,6 @@ Widget doctorIn4Cell(BuildContext context, title, String text,
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
                         showToast(translation(context).copySuccessfully);
-                        // Clipboard.setData(ClipboardData(
-                        //         text: doctor.phoneNumber))
-                        //     .then((value) {
-                        //   ScaffoldMessenger.of(context)
-                        //       .showSnackBar(const SnackBar(
-                        //           title:
-                        //               Text('Đã sao chép')));
-                        // });
                       },
                     )
                   : emptySpace(5),

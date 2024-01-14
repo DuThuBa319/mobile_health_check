@@ -106,7 +106,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                           Text(
                             translation(context).doctorIn4,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenWidth * 0.06,
+                                fontSize: SizeConfig.screenDiagonal * 0.025,
                                 fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(
@@ -129,16 +129,14 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenWidth * 0.2,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         textAlign: TextAlign.start,
                         cursorColor: AppColor.gray767676,
                         controller: _controllerDoctorName,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.06),
+                            fontSize: SizeConfig.screenDiagonal * 0.025),
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 3, top: 5),
@@ -148,7 +146,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -168,9 +166,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenWidth * 0.2,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.start,
@@ -178,7 +174,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         controller: _controllerDoctorPhoneNumber,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.06),
+                            fontSize: SizeConfig.screenDiagonal * 0.025),
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 3, top: 5),
@@ -189,7 +185,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontSize: SizeConfig.screenDiagonal * 0.022,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

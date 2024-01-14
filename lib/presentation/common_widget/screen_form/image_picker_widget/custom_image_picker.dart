@@ -47,8 +47,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(left: 15),
-                        height: SizeConfig.screenWidth * 0.8,
-                        width: SizeConfig.screenWidth * 0.8,
+                        height: SizeConfig.screenDiagonal * 0.35,
+                        width: SizeConfig.screenDiagonal * 0.35,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: Image.asset(
                           fit: BoxFit.cover,
@@ -62,15 +62,15 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                         translation(context).wifiDisconnect,
                         style: TextStyle(
                             color: AppColor.red,
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenDiagonal * 0.022,
                             fontWeight: FontWeight.bold),
                       ))
                     ],
                   )
                 : Container(
                     margin: const EdgeInsets.only(left: 15),
-                    height: SizeConfig.screenWidth * 0.9,
-                    width: SizeConfig.screenWidth * 0.9,
+                    height: SizeConfig.screenDiagonal * 0.36,
+                    width: SizeConfig.screenDiagonal * 0.36,
                     child: FullScreenWidget(
                       disposeLevel: DisposeLevel.Medium,
                       child: Hero(
@@ -83,7 +83,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                                 errorBuilder: (context, error, stackTrace) {
                               showToast(translation(context).uploadPhotoError);
                               return Icon(Icons.image_not_supported_outlined,
-                                  size: SizeConfig.screenWidth / 2);
+                                  size: SizeConfig.screenDiagonal * 0.05);
                             }),
                           ),
                         ),
@@ -94,8 +94,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             ////////////////////////////
             ///
             : SizedBox(
-                height: SizeConfig.screenWidth * 0.25,
-                width: SizeConfig.screenWidth * 0.25,
+                height: SizeConfig.screenDiagonal * 0.12,
+                width: SizeConfig.screenDiagonal * 0.12,
                 child: Container(
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,

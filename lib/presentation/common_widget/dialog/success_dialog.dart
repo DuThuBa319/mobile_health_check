@@ -61,24 +61,23 @@ Future<dynamic> showSuccessDialog({
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenWidth * 0.1,
-                          height: SizeConfig.screenWidth * 0.1,
+                          width: SizeConfig.screenDiagonal * 0.035,
+                          height: SizeConfig.screenDiagonal * 0.035,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: AppColor.white),
                           child: Icon(
-                            size: SizeConfig.screenWidth * 0.09,
+                            size: SizeConfig.screenDiagonal * 0.035,
                             Icons.check_circle,
                             color: const Color.fromARGB(255, 118, 184, 255),
                           )),
                       const SizedBox(
-                        height: 3,
+                        height: 2,
                       ),
                       Text("$title!",
                           style: TextStyle(
                               color: AppColor.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 
-                                  SizeConfig.screenWidth * 0.045),
+                              fontSize: SizeConfig.screenDiagonal * 0.02),
                           textAlign: TextAlign.center),
                     ],
                   )),
@@ -94,7 +93,8 @@ Future<dynamic> showSuccessDialog({
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: contentDialogSize ?? SizeConfig.screenWidth * 0.04),
+                          fontSize: contentDialogSize ??
+                              SizeConfig.screenDiagonal * 0.018),
                     ),
                   ),
                   Positioned(
@@ -117,7 +117,7 @@ Future<dynamic> showSuccessDialog({
                             titleBtn ?? translation(context).accept,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenWidth * 0.04,
+                                fontSize: SizeConfig.screenDiagonal * 0.018,
                                 color: AppColor.white,
                                 fontWeight: FontWeight.bold),
                           ),

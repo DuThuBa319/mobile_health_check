@@ -62,16 +62,21 @@ class _SettingLanguageState extends State<SettingLanguage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Icon(Icons.language_outlined,
-                        size: SizeConfig.screenWidth * 0.1),
+                    Icon(
+                      Icons.language_outlined,
+                      size: SizeConfig.screenDiagonal * 0.045,
+                    ),
                     const SizedBox(
                       width: 5,
                     ),
                     Text(translation(context).selectLanguage,
                         style: AppTextTheme.body0.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.screenWidth * 0.06)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                        )),
                   ],
                 ),
                 lineDecor(

@@ -43,7 +43,8 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.08, 12, 10),
+        padding:
+            EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.045, 12, 10),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -62,7 +63,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.1,
+                height: SizeConfig.screenHeight * 0.03,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -75,27 +76,29 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                     children: [
                       Text(
                         translation(context).time,
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                        ),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy').format(
                             widget.bloodPressureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                        ),
                       ),
                       Text(
                         DateFormat('HH:mm').format(
                             widget.bloodPressureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.025),
                       )
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -105,7 +108,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
@@ -123,32 +126,40 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             children: [
                               Text('SYS',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: 24, color: Colors.black)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.028,
+                                      color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'mmHg',
-                                style:
-                                    AppTextTheme.title5.copyWith(fontSize: 15),
+                                style: AppTextTheme.title5.copyWith(
+                                  fontSize: SizeConfig.screenDiagonal * 0.022,
+                                ),
                               ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.04),
+                              SizedBox(
+                                  height: SizeConfig.screenDiagonal * 0.022),
                               Text(widget.bloodPressureEntity!.sys.toString(),
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget
                                           .bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: SizeConfig.screenWidth * 0.1)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.045)),
                             ],
                           ),
                           Column(
                             children: [
                               Text('PUL',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: 24, color: Colors.black)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.028,
+                                      color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'bpm',
-                                style:
-                                    AppTextTheme.title5.copyWith(fontSize: 15),
+                                style: AppTextTheme.title5.copyWith(
+                                    fontSize:
+                                        SizeConfig.screenDiagonal * 0.022),
                               ),
                               SizedBox(height: SizeConfig.screenWidth * 0.04),
                               Text(widget.bloodPressureEntity!.pulse.toString(),
@@ -156,7 +167,8 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                       color: widget
                                           .bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: SizeConfig.screenWidth * 0.1)),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.045)),
                             ],
                           )
                         ],
@@ -192,8 +204,6 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                 title: translation(context).back,
                 buttonColor: Colors.red,
                 onTap: () {
-                  // if (_isLoading == false) {
-
                   Navigator.pop(context);
                   // }
                 },

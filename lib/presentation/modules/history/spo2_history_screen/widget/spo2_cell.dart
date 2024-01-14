@@ -38,23 +38,24 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
           height: SizeConfig.screenHeight * 0.15,
           width: SizeConfig.screenWidth,
           margin: EdgeInsets.fromLTRB(
-              SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.015,
-              SizeConfig.screenWidth * 0.02),
+            SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.01,
+            SizeConfig.screenWidth * 0.015,
+            SizeConfig.screenHeight * 0.01,
+          ),
           padding: EdgeInsets.only(
               top: SizeConfig.screenHeight * 0.01,
               left: SizeConfig.screenWidth * 0.02,
               right: SizeConfig.screenWidth * 0.025,
-              bottom: SizeConfig.screenHeight * 0.015),
+              bottom: SizeConfig.screenHeight * 0.005),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                     padding: const EdgeInsets.all(5),
-                    height: SizeConfig.screenWidth * 0.1,
-                    width: SizeConfig.screenWidth * 0.1,
+                    height: SizeConfig.screenDiagonal * 0.045,
+                    width: SizeConfig.screenDiagonal * 0.045,
                     decoration: const BoxDecoration(
                         color: AppColor.bloodPressureColor,
                         shape: BoxShape.circle),
@@ -71,13 +72,14 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
                   children: [
                     Text(translation(context).oximeter,
                         style: AppTextTheme.title4.copyWith(
-                            color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.045)),
+                          color: Colors.black,
+                          fontSize: SizeConfig.screenDiagonal * 0.018,
+                        )),
                     Text(
                       DateFormat('HH:mm dd/MM/yyyy')
                           .format(widget.response!.updatedDate!),
-                      style: AppTextTheme.title5
-                          .copyWith(fontSize: SizeConfig.screenWidth * 0.03),
+                      style: AppTextTheme.title5.copyWith(
+                          fontSize: SizeConfig.screenDiagonal * 0.015),
                     )
                   ],
                 )
@@ -97,13 +99,13 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
                             style: AppTextTheme.title3.copyWith(
                                 // color: widget.response?.statusColor,
                                 color: widget.response?.statusColor,
-                                fontSize: SizeConfig.screenWidth * 0.12,
+                                fontSize: SizeConfig.screenDiagonal * 0.55,
                                 fontWeight: FontWeight.w500)),
                         TextSpan(
                             text: " %",
                             style: AppTextTheme.title3.copyWith(
                                 color: const Color(0xff615A5A),
-                                fontSize: SizeConfig.screenWidth * 0.07,
+                                fontSize: SizeConfig.screenDiagonal * 0.035,
                                 fontWeight: FontWeight.w500))
                       ],
                     ),

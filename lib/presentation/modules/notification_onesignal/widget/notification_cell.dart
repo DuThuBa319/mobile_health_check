@@ -173,7 +173,8 @@ class _NotificationCellState extends State<NotificationCell> {
                                   softWrap: true,
                                   style: AppTextTheme.body3.copyWith(
                                       color: AppColor.black,
-                                      fontSize: SizeConfig.screenWidth * 0.04,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.0165,
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
@@ -183,10 +184,9 @@ class _NotificationCellState extends State<NotificationCell> {
                                   .notificationEntity?.sendDate!
                                   .add(const Duration(hours: 7)))!),
                               style: AppTextTheme.body4.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                                fontSize: SizeConfig.screenWidth * 0.03,
-                              )),
+                                  color: AppColor.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: SizeConfig.screenDiagonal * 0.014)),
                         ],
                       )),
                   Expanded(
@@ -216,7 +216,7 @@ Widget contentCell(
                 text: translation(context).patient,
                 style: TextStyle(
                   color: AppColor.black,
-                  fontSize: SizeConfig.screenWidth * 0.045,
+                  fontSize: SizeConfig.screenDiagonal * 0.02,
                 )),
             const WidgetSpan(
                 child: SizedBox(
@@ -226,7 +226,7 @@ Widget contentCell(
               text: notificationEntity.patientName,
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: SizeConfig.screenWidth * 0.048,
+                  fontSize: SizeConfig.screenDiagonal * 0.021,
                   fontWeight: FontWeight.bold),
             ),
             const WidgetSpan(
@@ -237,7 +237,7 @@ Widget contentCell(
               text: translation(context).hasJustUpdated,
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: SizeConfig.screenWidth * 0.045),
+                  fontSize: SizeConfig.screenDiagonal * 0.02),
             ),
             const WidgetSpan(
                 child: SizedBox(
@@ -255,7 +255,7 @@ Widget contentCell(
                               : "",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: SizeConfig.screenWidth * 0.048,
+                  fontSize: SizeConfig.screenDiagonal * 0.021,
                   fontWeight: FontWeight.bold),
             ),
           ],

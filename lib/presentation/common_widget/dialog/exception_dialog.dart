@@ -53,12 +53,12 @@ Future<dynamic> showExceptionDialog({
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenWidth * 0.1,
-                          height: SizeConfig.screenWidth * 0.1,
+                          width: SizeConfig.screenDiagonal * 0.035,
+                          height: SizeConfig.screenDiagonal * 0.035,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: AppColor.white),
                           child: Icon(
-                            size: SizeConfig.screenWidth * 0.09,
+                            size: SizeConfig.screenDiagonal * 0.035,
                             Icons.error,
                             color: AppColor.exceptionDialogIconColor,
                           )),
@@ -69,7 +69,7 @@ Future<dynamic> showExceptionDialog({
                           style: TextStyle(
                               color: AppColor.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenWidth * 0.045),
+                              fontSize: SizeConfig.screenDiagonal * 0.02),
                           textAlign: TextAlign.center),
                     ],
                   )),
@@ -86,7 +86,7 @@ Future<dynamic> showExceptionDialog({
                       style: TextStyle(
                           color: AppColor.black,
                           fontSize: contentDialogSize ??
-                              SizeConfig.screenWidth * 0.04),
+                              SizeConfig.screenDiagonal * 0.018),
                     ),
                   ),
                   Positioned(
@@ -109,7 +109,7 @@ Future<dynamic> showExceptionDialog({
                             titleBtn ?? translation(context).accept,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenWidth * 0.04,
+                                fontSize: SizeConfig.screenDiagonal * 0.018,
                                 color: AppColor.white,
                                 fontWeight: FontWeight.bold),
                           ),

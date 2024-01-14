@@ -38,10 +38,11 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
           height: SizeConfig.screenHeight * 0.16,
           width: SizeConfig.screenWidth,
           margin: EdgeInsets.fromLTRB(
-              SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.02,
-              SizeConfig.screenWidth * 0.015,
-              SizeConfig.screenWidth * 0.02),
+            SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.01,
+            SizeConfig.screenWidth * 0.015,
+            SizeConfig.screenHeight * 0.01,
+          ),
           padding: EdgeInsets.only(
             top: SizeConfig.screenHeight * 0.01,
             left: SizeConfig.screenWidth * 0.02,
@@ -53,8 +54,8 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
               children: [
                 Container(
                     padding: const EdgeInsets.all(5),
-                    height: SizeConfig.screenWidth * 0.1,
-                    width: SizeConfig.screenWidth * 0.1,
+                    height: SizeConfig.screenDiagonal * 0.045,
+                    width: SizeConfig.screenDiagonal * 0.045,
                     decoration: const BoxDecoration(
                         color: AppColor.bloodPressureColor,
                         shape: BoxShape.circle),
@@ -72,13 +73,15 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                   children: [
                     Text(translation(context).bloodPressure,
                         style: AppTextTheme.title4.copyWith(
-                            color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.045)),
+                          color: Colors.black,
+                          fontSize: SizeConfig.screenDiagonal * 0.018,
+                        )),
                     Text(
                       DateFormat('HH:mm dd/MM/yyyy')
                           .format(widget.response!.updatedDate!),
-                      style: AppTextTheme.title5
-                          .copyWith(fontSize: SizeConfig.screenWidth * 0.03),
+                      style: AppTextTheme.title5.copyWith(
+                        fontSize: SizeConfig.screenDiagonal * 0.015,
+                      ),
                     )
                   ],
                 )
@@ -95,7 +98,6 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                       children: [
                         Row(
                           children: [
-                            SizedBox(width: SizeConfig.screenWidth * 0.20),
                             RichText(
                               textAlign: TextAlign.end,
                               text: TextSpan(
@@ -104,14 +106,14 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                                       text: "SYS: ",
                                       style: AppTextTheme.title3.copyWith(
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.05,
+                                              SizeConfig.screenDiagonal * 0.022,
                                           fontWeight: FontWeight.w500,
                                           color: widget.response?.statusColor)),
                                   TextSpan(
                                       text: "${widget.response?.sys}",
                                       style: AppTextTheme.title3.copyWith(
                                           fontSize:
-                                              SizeConfig.screenHeight * 0.028,
+                                              SizeConfig.screenDiagonal * 0.03,
                                           fontWeight: FontWeight.w600,
                                           color: widget.response?.statusColor)),
                                   TextSpan(
@@ -119,7 +121,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: const Color(0xff615A5A),
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.04,
+                                              SizeConfig.screenDiagonal * 0.02,
                                           fontWeight: FontWeight.w500))
                                 ],
                               ),
@@ -128,7 +130,6 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                         ),
                         Row(
                           children: [
-                            SizedBox(width: SizeConfig.screenWidth * 0.20),
                             RichText(
                               textAlign: TextAlign.end,
                               text: TextSpan(
@@ -137,14 +138,14 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                                       text: "PUL: ",
                                       style: AppTextTheme.title3.copyWith(
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.05,
+                                              SizeConfig.screenDiagonal * 0.022,
                                           fontWeight: FontWeight.w500,
                                           color: widget.response?.statusColor)),
                                   TextSpan(
                                       text: "${widget.response?.pulse}",
                                       style: AppTextTheme.title3.copyWith(
                                           fontSize:
-                                              SizeConfig.screenHeight * 0.025,
+                                              SizeConfig.screenDiagonal * 0.03,
                                           fontWeight: FontWeight.w600,
                                           color: widget.response?.statusColor)),
                                   TextSpan(
@@ -152,7 +153,7 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
                                       style: AppTextTheme.title3.copyWith(
                                           color: const Color(0xff615A5A),
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.04,
+                                              SizeConfig.screenDiagonal * 0.02,
                                           fontWeight: FontWeight.w500))
                                 ],
                               ),

@@ -28,6 +28,7 @@ extension LoginAction on _LoginState {
                   type: MaterialType.transparency,
                   child: Text(
                     translation(context).verifying,
+                    //! Đang xác thực, vui lòng chờ...
                     style: AppTextTheme.body3.copyWith(
                       color: Colors.white,
                       decoration: null,
@@ -99,7 +100,30 @@ extension LoginAction on _LoginState {
 
     //? FAILURE
     if (state.status == BlocStatusState.failure) {
-      if (state is GetUserDataState) {
+      if (state is LoginActionState) {
+        //! Lỗi do LoginAction => ko cần Navigator.Pop trước hoặc sau hiện Dialog
+        if (state.viewModel.errorMessage ==
+            translation(context).pleaseEnterYourAccount) {
+          Navigator.pop(context);
+        } else if (state.viewModel.isWrongAccount == true) {
+          showExceptionDialog(
+              onClose: () => Navigator.pop(context),
+              context: context,
+              message: translation(context).wrongAccount,
+              titleBtn: translation(context).exit);
+        } else if (state.viewModel.isWifiDisconnect == true) {
+          showExceptionDialog(
+              context: context,
+              message: state.viewModel.errorMessage!,
+              titleBtn: translation(context).exit);
+        } else if (state.viewModel.errorMessage == translation(context).error) {
+          showExceptionDialog(
+              onClose: () => Navigator.pop(context),
+              context: context,
+              message: translation(context).error,
+              titleBtn: translation(context).exit);
+        }
+      } else if (state is GetUserDataState) {
         if (state.viewModel.errorMessage == translation(context).error) {
           Navigator.pop(context);
           showExceptionDialog(
@@ -109,9 +133,7 @@ extension LoginAction on _LoginState {
           if (userDataData.getUser() != null) {
             userDataData.localDataManager.preferencesHelper.remove('user');
           }
-        }
-
-        if (state.viewModel.isWifiDisconnect == true) {
+        } else if (state.viewModel.isWifiDisconnect == true) {
           Navigator.pop(context);
           showExceptionDialog(
               onClose: () {
@@ -119,32 +141,6 @@ extension LoginAction on _LoginState {
               },
               context: context,
               message: state.viewModel.errorMessage!,
-              titleBtn: translation(context).exit);
-        }
-      }
-      if (state is LoginActionState) {
-        if (state.viewModel.errorMessage ==
-            translation(context).pleaseEnterYourAccount) {
-          Navigator.pop(context);
-        }
-        if (state.viewModel.errorMessage == translation(context).wrongAccount) {
-          showExceptionDialog(
-              onClose: () => Navigator.pop(context),
-              context: context,
-              message: translation(context).wrongAccount,
-              titleBtn: translation(context).exit);
-          Navigator.pop(context);
-        }
-        if (state.viewModel.isWifiDisconnect == true) {
-          showExceptionDialog(
-              context: context,
-              message: state.viewModel.errorMessage!,
-              titleBtn: translation(context).exit);
-        } else {
-          showExceptionDialog(
-              onClose: () => Navigator.pop(context),
-              context: context,
-              message: translation(context).error,
               titleBtn: translation(context).exit);
         }
       }

@@ -42,7 +42,8 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.06, 12, 10),
+        padding:
+            EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.04, 12, 10),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -60,7 +61,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.03,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -73,25 +74,28 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                     children: [
                       Text(
                         translation(context).time,
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                        ),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy')
                             .format(widget.bloodSugarEntity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                        ),
                       ),
                       Text(
                         DateFormat('HH:mm')
                             .format(widget.bloodSugarEntity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                        ),
                       )
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.035,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -101,7 +105,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.035,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
@@ -118,7 +122,7 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                     children: [
                       Text(translation(context).bloodSugar,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.075,
+                              fontSize: SizeConfig.screenDiagonal * 0.03,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -132,13 +136,13 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                                       "${widget.bloodSugarEntity!.bloodSugar!}",
                                   style: AppTextTheme.body0.copyWith(
                                     letterSpacing: -4,
-                                    fontSize: SizeConfig.screenWidth * 0.2,
+                                    fontSize: SizeConfig.screenDiagonal * 0.08,
                                     color: widget.bloodSugarEntity!.statusColor,
                                   )),
                               TextSpan(
                                   text: ' mg/dL',
                                   style: AppTextTheme.body0.copyWith(
-                                    fontSize: SizeConfig.screenWidth * 0.08,
+                                    fontSize: SizeConfig.screenDiagonal * 0.05,
                                     color: widget.bloodSugarEntity!.statusColor,
                                   )),
                             ],
@@ -167,14 +171,15 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                       //         )),
                       //   ],
                       // ),
-                      SizedBox(height: SizeConfig.screenWidth * 0.05),
+                      SizedBox(height: SizeConfig.screenHeight * 0.01),
                       Center(
                         child: Text(
                             widget.bloodSugarEntity!.statusComment(context),
                             style: AppTextTheme.body2.copyWith(
-                                color: widget.bloodSugarEntity!.statusColor,
-                                fontWeight: FontWeight.w700,
-                                fontSize: SizeConfig.screenWidth * 0.06)),
+                              color: widget.bloodSugarEntity!.statusColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: SizeConfig.screenDiagonal * 0.025,
+                            )),
                       ),
                     ],
                   )),

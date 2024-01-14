@@ -116,7 +116,7 @@ extension DoctorListScreenAction on _DoctorListState {
                 iconLeadingCell: Icon(
                   Icons.person_pin,
                   color: AppColor.lineDecor,
-                  size: SizeConfig.screenDiagonal * 0.045,
+                  size: SizeConfig.screenDiagonal * 0.05,
                 ),
                 textLine1: Text(
                   maxLines: 1,
@@ -124,14 +124,15 @@ extension DoctorListScreenAction on _DoctorListState {
                   softWrap: true,
                   personCellEntity.name,
                   style: AppTextTheme.body2.copyWith(
-                      fontSize: SizeConfig.screenWidth * 0.052,
+                      fontSize: SizeConfig.screenDiagonal * 0.025,
                       fontWeight: FontWeight.w500),
                 ),
                 textLine2: Text(
                     personCellEntity.phoneNumber == ""
                         ? translation(context).notUpdate
                         : personCellEntity.phoneNumber,
-                    style: AppTextTheme.body3),
+                    style: AppTextTheme.body3
+                        .copyWith(fontSize: SizeConfig.screenDiagonal * 0.018)),
                 onTapCell: () {
                   Navigator.pushNamed(
                     context,

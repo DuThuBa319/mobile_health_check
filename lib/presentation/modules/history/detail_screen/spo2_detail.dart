@@ -40,7 +40,8 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.06, 12, 10),
+        padding:             EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.04, 12, 10),
+
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -58,7 +59,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.03,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -71,25 +72,25 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                     children: [
                       Text(
                         translation(context).time,
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.025),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy')
                             .format(widget.spo2Entity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.025),
                       ),
                       Text(
                         DateFormat('HH:mm')
                             .format(widget.spo2Entity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.06),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.025),
                       )
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.04,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -99,10 +100,11 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.04,
+                height: SizeConfig.screenHeight * 0.045,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(
+                      left: 10, right: 10, top: SizeConfig.screenHeight * 0.02),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
@@ -112,11 +114,11 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                       borderRadius: BorderRadius.circular(8)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(translation(context).oximeter,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.075,
+                              fontSize: SizeConfig.screenDiagonal * 0.03,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -126,24 +128,23 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                  text:
-                                      "${widget.spo2Entity!.spo2!}",
+                                  text: "${widget.spo2Entity!.spo2!}",
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
-                                      fontSize: SizeConfig.screenWidth * 0.25,
+                                      fontSize: SizeConfig.screenDiagonal * 0.1,
                                       // color: widget.spo2Entity!.statusColor,
                                       color: widget.spo2Entity?.statusColor)),
                               TextSpan(
                                   text: ' %',
                                   style: AppTextTheme.body0.copyWith(
-                                      fontSize: SizeConfig.screenWidth * 0.08,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.05,
                                       // color: widget.spo2Entity!.statusColor,
-                                      color: Colors.black)),
+                                      color: widget.spo2Entity?.statusColor)),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: SizeConfig.screenWidth * 0.05),
                     ],
                   )),
               SizedBox(height: SizeConfig.screenWidth * 0.05),

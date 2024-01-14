@@ -149,7 +149,7 @@ class _SettingProfileState extends State<SettingProfile> {
           textAlign: TextAlign.start,
           style: TextStyle(
               color: AppColor.gray767676,
-              fontSize: SizeConfig.screenWidth * 0.065),
+              fontSize: SizeConfig.screenDiagonal * 0.025),
           controller: controller,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -157,7 +157,7 @@ class _SettingProfileState extends State<SettingProfile> {
             labelText: label,
             labelStyle: TextStyle(
                 color: const Color.fromARGB(255, 48, 48, 48),
-                fontSize: SizeConfig.screenWidth * 0.05,
+                fontSize: SizeConfig.screenDiagonal * 0.025,
                 fontWeight: FontWeight.w500),
             errorText:
                 controller.text.isEmpty ? _errorMessages[controller] : null,
@@ -181,11 +181,11 @@ class _SettingProfileState extends State<SettingProfile> {
         // selectedIndex: 2,
         child:
             BlocConsumer<SettingBloc, SettingState>(listener: (context, state) {
+          //! UPDATE PROFILE SUCCESSFULLY
           if ((state is UpdateDoctorInforState ||
                   state is UpdateRelativeInforState ||
                   state is UpdatePatientInforState) &&
               state.status == BlocStatusState.success) {
-            //! UPDATE PROFILE SUCCESSFULLY
             showSuccessDialog(
                 onClose: () {
                   Navigator.pop(context);
@@ -234,7 +234,7 @@ class _SettingProfileState extends State<SettingProfile> {
                     child: Text(translation(context).updateProfile,
                         style: AppTextTheme.body0.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.screenWidth * 0.06)),
+                            fontSize: SizeConfig.screenDiagonal * 0.025)),
                   ),
                   lineDecor(
                       spaceLeft: SizeConfig.screenWidth * 0.03,

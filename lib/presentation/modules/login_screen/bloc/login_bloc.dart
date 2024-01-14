@@ -98,7 +98,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(
         ResetPasswordState(
           status: BlocStatusState.failure,
-          viewModel: _ViewModel(  isWifiDisconnect: true,
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -182,13 +183,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               status: BlocStatusState.failure,
               viewModel: _ViewModel(
                 isLogin: false,
+                isWrongAccount: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .wrongAccount,
               ),
             ),
           );
-          return;
         }
       } catch (e) {
         emit(
@@ -208,7 +209,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         LoginActionState(
           status: BlocStatusState.failure,
           viewModel: _ViewModel(
-            isWifiDisconnect: true,
+              isLogin: false,
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
@@ -261,9 +263,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else {
       emit(
-        state.copyWith(
+        GetUserDataState(
           status: BlocStatusState.failure,
-          viewModel: _ViewModel(  isWifiDisconnect: true,
+          viewModel: _ViewModel(
+              isWifiDisconnect: true,
               errorMessage:
                   translation(navigationService.navigatorKey.currentContext!)
                       .wifiDisconnect),
