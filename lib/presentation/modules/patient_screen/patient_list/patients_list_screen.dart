@@ -243,8 +243,9 @@ class _PatientListState extends State<PatientListScreen> {
                                             softWrap: true,
                                             textAlign: TextAlign.center,
                                             state.viewModel.errorMessage!,
-                                            style: AppTextTheme.body2
-                                                .copyWith(color: Colors.red),
+                                            style: AppTextTheme.body2.copyWith(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                           const SizedBox(height: 10),
                                           RectangleButton(

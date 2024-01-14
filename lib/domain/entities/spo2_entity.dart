@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/classes/language.dart';
 
 import '../../data/models/spo2_model/spo2_model.dart';
 
@@ -33,6 +34,22 @@ class Spo2Entity {
         return Colors.red;
       }
     }
-    return null;  
+    return null;
+  }
+
+  String statusComment(BuildContext context) {
+    if (spo2 != null) {
+      if (spo2! < 90) {
+        return translation(context).emergencySpo2;
+      } else if (97 <= spo2! && spo2! <= 99) {
+        return translation(context).goodSpo2;
+      } else if (spo2! >= 94 && spo2! <= 96) {
+        return translation(context).averageSpo2;
+      } else if (spo2! >= 93 && spo2! <= 90) {
+        return translation(context).lowSpo2;
+      }
+    }
+
+    return '--';
   }
 }

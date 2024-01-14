@@ -18,6 +18,11 @@
 "hypoglycemia":"Hypoglycemia",
 "hypotension":"hypotension",
 "hypothermia":"Hypothermia",
+"goodSpo2":"Good blood oxygen saturation",
+"averageSpo2":"Average blood oxygen saturation",
+"lowSpo2":"Low blood oxygen saturation",
+"emergencySpo2":"Sign of severe respiratory distress",
+
 "language":"language",
 "lastUpdate":"LAST READING",
 "logOut":"Log Out",

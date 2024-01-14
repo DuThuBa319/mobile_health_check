@@ -19,6 +19,12 @@
     "hypoglycemia":"Đường huyết thấp",
     "hypotension":"Huyết áp thấp",
     "hypothermia":"Nhiệt độ thấp",
+
+    "goodSpo2":"Chỉ số Oxy trong máu tốt",
+    "averageSpo2":"Chỉ số Oxy trong máu trung bình",
+    "lowSpo2":"Chỉ số Oxy trong máu thấp",
+    "emergencySpo2":"Dấu hiệu suy hô hấp",
+
     "language":"Ngôn ngữ",
     "lastUpdate":"CẬP NHẬT GẦN NHẤT",
     "logOut":"Đăng xuất",

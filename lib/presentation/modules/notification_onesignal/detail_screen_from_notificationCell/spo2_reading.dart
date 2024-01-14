@@ -113,7 +113,7 @@ class _Spo2NotificationReadingScreenState
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.23,
+                  height: SizeConfig.screenHeight * 0.25,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),
@@ -137,7 +137,8 @@ class _Spo2NotificationReadingScreenState
                                       "${widget.notificationEntity!.spo2Entity!.spo2!}",
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
-                                      fontSize: SizeConfig.screenDiagonal * 0.1,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.085,
                                       // color: widget.notificationEntity!.spo2Entity!.statusColor,
                                       color: widget.notificationEntity
                                           ?.spo2Entity?.statusColor)),
@@ -152,6 +153,18 @@ class _Spo2NotificationReadingScreenState
                             ],
                           ),
                         ),
+                      ),
+                      SizedBox(height: SizeConfig.screenHeight * 0.005),
+                      Center(
+                        child: Text(
+                            widget.notificationEntity!.spo2Entity!
+                                .statusComment(context),
+                            style: AppTextTheme.body2.copyWith(
+                              color: widget
+                                  .notificationEntity!.spo2Entity!.statusColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: SizeConfig.screenDiagonal * 0.025,
+                            )),
                       ),
                     ],
                   )),
@@ -195,7 +208,8 @@ class _Spo2NotificationReadingScreenState
                     },
                   ),
                 ],
-              ), SizedBox(
+              ),
+              SizedBox(
                 height: SizeConfig.screenHeight * 0.03,
               ),
             ],

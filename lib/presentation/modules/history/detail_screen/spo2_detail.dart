@@ -40,8 +40,8 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding:             EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.04, 12, 10),
-
+        padding:
+            EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.04, 12, 10),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -108,7 +108,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.23,
+                  height: SizeConfig.screenHeight * 0.25,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),
@@ -131,7 +131,8 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                                   text: "${widget.spo2Entity!.spo2!}",
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
-                                      fontSize: SizeConfig.screenDiagonal * 0.1,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.085,
                                       // color: widget.spo2Entity!.statusColor,
                                       color: widget.spo2Entity?.statusColor)),
                               TextSpan(
@@ -144,6 +145,15 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                             ],
                           ),
                         ),
+                      ),
+                      SizedBox(height: SizeConfig.screenHeight * 0.005),
+                      Center(
+                        child: Text(widget.spo2Entity!.statusComment(context),
+                            style: AppTextTheme.body2.copyWith(
+                              color: widget.spo2Entity!.statusColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: SizeConfig.screenDiagonal * 0.025,
+                            )),
                       ),
                     ],
                   )),
