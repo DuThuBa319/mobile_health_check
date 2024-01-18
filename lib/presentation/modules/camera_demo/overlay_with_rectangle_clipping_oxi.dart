@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OverlayWithRectangleClipping extends StatelessWidget {
-  const OverlayWithRectangleClipping({super.key});
+class OverlayRectangleForOxi extends StatelessWidget {
+  const OverlayRectangleForOxi({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +31,10 @@ class RectanglePainter extends CustomPainter {
           Path()
             ..addRRect(RRect.fromRectAndRadius(
                 Rect.fromCenter(
-                    center: Offset(size.width * 0.5, size.height * 0.5),
-                    width: size.width * 0.85,
-                    height: size.height * 0.3),
-                const Radius.circular(15)))
+                    center: const Offset(205, 217),
+                    width: size.width * 0.54,
+                    height: size.height * 0.165),
+                const Radius.circular(0)))
             ..close(),
         ),
         paint);
