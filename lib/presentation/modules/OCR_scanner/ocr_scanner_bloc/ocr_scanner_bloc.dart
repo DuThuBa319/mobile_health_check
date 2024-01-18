@@ -101,7 +101,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         List<int?> dataList = [];
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.bloodPressure) as CroppedImage?;
@@ -236,7 +235,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         double? glucose;
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.bloodSugar) as CroppedImage?;
@@ -364,7 +362,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         double? temperature;
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.temperature) as CroppedImage?;
@@ -489,7 +486,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         int? spo2;
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.oximeter) as CroppedImage?;

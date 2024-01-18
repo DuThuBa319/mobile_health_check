@@ -18,13 +18,13 @@ extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-         showToast(translation(context).loadingError);
-        // Navigator.of(context, rootNavigator: true).pop();
-      
-        showExceptionDialog(
-            context: context,
-            message: state.viewModel.errorMessage!,
-            titleBtn: translation(context).exit);
+      showToast(translation(context).loadingError);
+      // Navigator.of(context, rootNavigator: true).pop();
+
+      showExceptionDialog(
+          context: context,
+          message: state.viewModel.errorMessage!,
+          titleBtn: translation(context).exit);
     }
   }
 
