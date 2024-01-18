@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile_health_check/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image/full_screen_image.dart';
+import 'package:mobile_health_check/presentation/modules/camera_demo/overlay_with_rectangle_clipping_blood_sugar.dart';
+import 'package:mobile_health_check/presentation/modules/camera_demo/overlay_with_rectangle_clipping_oxi.dart';
+import 'package:mobile_health_check/presentation/modules/camera_demo/overlay_with_rectangle_clipping_temp.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../classes/language.dart';
@@ -13,7 +16,7 @@ import '../../../utils/size_config.dart';
 import '../../common_widget/common.dart';
 import '../../theme/theme_color.dart';
 import 'camera_bloc/camera_bloc.dart';
-import 'overlay_with_rectangle_clipping.dart';
+import 'overlay_with_rectangle_clipping_blood_pressure.dart';
 part 'camera_demo_screen.action.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -181,7 +184,8 @@ class CameraScreenState extends State<CameraScreen>
                                   fontSize: 20, color: Colors.white)),
                         ),
                       ),
-                    const OverlayWithRectangleClipping(),
+
+                    overlayRectangle(context, task: widget.task),
                     Stack(alignment: Alignment.topCenter, children: [
                       if (state is GetImageState &&
                           state.status == BlocStatusState.loading)
@@ -483,5 +487,18 @@ class CameraScreenState extends State<CameraScreen>
             color: Colors.black,
           )),
     );
+  }
+
+  Widget overlayRectangle(BuildContext context, {required MeasuringTask task}) {
+    if (task == MeasuringTask.bloodPressure) {
+      return const OverlayRectangleForBloodPressure();
+    }
+    if (task == MeasuringTask.bloodSugar) {
+      return const OverlayRectangleForBloodSugar();
+    }
+    if (task == MeasuringTask.oximeter) {
+      return const OverlayRectangleForOxi();
+    }
+    return const OverlayRectangleForTemperature();
   }
 }
