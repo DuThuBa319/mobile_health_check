@@ -107,8 +107,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           Text(
                             translation(context).patientIn4,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.025,
-                                fontWeight: FontWeight.w500),
+                                fontSize: SizeConfig.screenWidth * 0.06,
+                                fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 2,
@@ -130,19 +130,17 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenHeight * 0.09,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         textAlign: TextAlign.start,
                         cursorColor: AppColor.gray767676,
                         controller: _controllerPatientName,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                            fontSize: SizeConfig.screenWidth * 0.05),
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(top: 5, bottom: 5),
+                              const EdgeInsets.only(top: 2, bottom: 2),
 
                           errorText: (state.viewModel.errorEmptyName == true)
                               ? translation(context).pleaseEnterPatientName
@@ -150,7 +148,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -170,9 +168,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenHeight * 0.09,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.start,
@@ -180,7 +176,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         controller: _controllerPatientPhoneNumber,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                            fontSize: SizeConfig.screenWidth * 0.05),
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(top: 5, bottom: 5),
@@ -191,7 +187,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

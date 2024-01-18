@@ -115,22 +115,22 @@ extension PatientListScreenAction on _PatientListState {
                   endDrawerWidgets: endDrawerWidgets,
                   iconLeadingCell: Icon(Icons.person_pin,
                       color: AppColor.lineDecor,
-                      size: SizeConfig.screenDiagonal * 0.05),
+                      size: SizeConfig.screenDiagonal * 0.045),
                   textLine1: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
                     personCellEntity.name,
                     style: AppTextTheme.body2.copyWith(
-                        fontSize: SizeConfig.screenDiagonal * 0.0225,
+                        fontSize: SizeConfig.screenWidth * 0.055,
                         fontWeight: FontWeight.w500),
                   ),
                   textLine2: Text(
                       personCellEntity.phoneNumber == ""
                           ? translation(context).notUpdate
                           : personCellEntity.phoneNumber,
-                      style: AppTextTheme.body3.copyWith(
-                          fontSize: SizeConfig.screenDiagonal * 0.018)),
+                      style: AppTextTheme.body3
+                          .copyWith(fontSize: SizeConfig.screenWidth * 0.04)),
                   onTapCell: () {
                     Navigator.pushNamed(
                       context,

@@ -145,13 +145,15 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   SizedBox(
                                     width: SizeConfig.screenWidth * 0.8,
                                     child: Text.rich(
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
                                       softWrap: true,
                                       textAlign: TextAlign.center,
                                       style: AppTextTheme.body1.copyWith(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
-                                          fontSize: SizeConfig.screenDiagonal *
-                                              0.025),
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.06),
                                       TextSpan(
                                         text: patient.name,
                                         children: [
@@ -193,7 +195,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                           //! Data
                           Container(
                             margin: EdgeInsets.only(
-                              left: SizeConfig.screenWidth * 0.04,
+                              left: SizeConfig.screenWidth * 0.03,
                               top: SizeConfig.screenHeight * 0.03,
                               bottom: SizeConfig.screenWidth * 0.02,
                             ),
@@ -204,8 +206,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 Text(
                                   translation(context).lastUpdate,
                                   style: AppTextTheme.body0.copyWith(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.02,
+                                      fontSize: SizeConfig.screenWidth * 0.045,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
@@ -213,7 +214,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 ),
                                 lineDecor(),
                                 SizedBox(
-                                  height: SizeConfig.screenWidth * 0.02,
+                                  height: SizeConfig.screenHeight * 0.01,
                                 ),
                               ],
                             ),
@@ -361,7 +362,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     translation(context).relative,
                                     style: AppTextTheme.body0.copyWith(
                                         fontSize:
-                                            SizeConfig.screenDiagonal * 0.02,
+                                            SizeConfig.screenWidth * 0.045,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
@@ -448,7 +449,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           Icons.account_box_rounded,
                                           color: AppColor.primaryColorLight,
                                           size:
-                                              SizeConfig.screenDiagonal * 0.06,
+                                              SizeConfig.screenDiagonal * 0.048,
                                         ),
                                         textLine1: Text(
                                           maxLines: 1,
@@ -456,9 +457,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           softWrap: true,
                                           relative!.name,
                                           style: AppTextTheme.body2.copyWith(
-                                              fontSize:
-                                                  SizeConfig.screenDiagonal *
-                                                      0.023,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.055,
                                               fontWeight: FontWeight.w500),
                                         ),
                                         textLine2: Text(
@@ -467,8 +467,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                 : relative.phoneNumber,
                                             style: AppTextTheme.body3.copyWith(
                                               fontSize:
-                                                  SizeConfig.screenDiagonal *
-                                                      0.02,
+                                                  SizeConfig.screenWidth * 0.04,
                                             )),
                                         onTapCell: () {},
                                       );
@@ -490,9 +489,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                 context, RouteList.addRelative,
                                                 arguments: widget.patientId);
                                           })
-                                      : const SizedBox(
-                                        
-                                        ),
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),

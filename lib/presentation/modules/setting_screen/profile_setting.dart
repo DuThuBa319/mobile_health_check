@@ -149,7 +149,7 @@ class _SettingProfileState extends State<SettingProfile> {
           textAlign: TextAlign.start,
           style: TextStyle(
               color: AppColor.gray767676,
-              fontSize: SizeConfig.screenDiagonal * 0.025),
+              fontSize: SizeConfig.screenWidth * 0.055),
           controller: controller,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -157,7 +157,7 @@ class _SettingProfileState extends State<SettingProfile> {
             labelText: label,
             labelStyle: TextStyle(
                 color: const Color.fromARGB(255, 48, 48, 48),
-                fontSize: SizeConfig.screenDiagonal * 0.025,
+                fontSize: SizeConfig.screenWidth * 0.055,
                 fontWeight: FontWeight.w500),
             errorText:
                 controller.text.isEmpty ? _errorMessages[controller] : null,

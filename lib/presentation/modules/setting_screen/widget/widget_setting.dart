@@ -34,26 +34,26 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
           selectSetting == translation(context).updatePassword
               ? Icon(
                   Icons.lock_outline_rounded,
-                  size: SizeConfig.screenDiagonal * 0.045,
+                  size: SizeConfig.screenDiagonal * 0.04,
                 )
               : selectSetting == translation(context).updateProfile
                   ? Icon(
                       Icons.account_box_rounded,
-                      size: SizeConfig.screenDiagonal * 0.045,
+                      size: SizeConfig.screenDiagonal * 0.04,
                     )
                   : Icon(
                       Icons.language,
-                      size: SizeConfig.screenDiagonal * 0.045,
+                      size: SizeConfig.screenDiagonal * 0.04,
                     ),
           const SizedBox(
             width: 10,
           ),
           Text(selectSetting,
               style: AppTextTheme.body1
-                  .copyWith(fontSize: SizeConfig.screenDiagonal * 0.025)),
+                  .copyWith(fontSize: SizeConfig.screenWidth * 0.06)),
         ]),
         Icon(Icons.arrow_forward_ios_rounded,
-            size: SizeConfig.screenDiagonal * 0.03),
+            size: SizeConfig.screenDiagonal * 0.025),
       ],
     ),
   );

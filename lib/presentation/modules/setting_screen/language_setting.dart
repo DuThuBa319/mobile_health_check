@@ -67,7 +67,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                   children: [
                     Icon(
                       Icons.language_outlined,
-                      size: SizeConfig.screenDiagonal * 0.045,
+                      size: SizeConfig.screenDiagonal * 0.04,
                     ),
                     const SizedBox(
                       width: 5,
@@ -75,7 +75,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     Text(translation(context).selectLanguage,
                         style: AppTextTheme.body0.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                          fontSize: SizeConfig.screenWidth * 0.06,
                         )),
                   ],
                 ),
@@ -124,13 +124,11 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                 ),
                                 onTap: () async {
                                   selectedLanguage = Language(1, ENGLISH, 'en');
-                                  // await notificationData
-                                  //     .saveLocale(selectedLanguage!.id);
+
                                   setState(() {
                                     selectEn = true;
                                     selectVn = false;
                                   });
-                                  // print(notificationData.localeId);
                                 }),
                           ],
                         ),
@@ -174,9 +172,6 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                   onTap: () async {
                                     selectedLanguage =
                                         Language(2, VIETNAMESE, 'vi');
-                                    // await notificationData
-                                    //     .saveLocale(selectedLanguage!.id);
-                                    // print(notificationData.localeId);
                                     setState(() {
                                       selectEn = false;
                                       selectVn = true;

@@ -52,11 +52,9 @@ class _PatientListCellState extends State<PatientListCell> {
           contentPadding: const EdgeInsets.only(left: 10),
           leading: SizedBox(
             width: SizeConfig.screenWidth * 0.11,
-            child: Icon(
-              Icons.person_pin,
-              color: AppColor.lineDecor,
-              size: SizeConfig.screenWidth * 0.11,
-            ),
+            child: Icon(Icons.person_pin,
+                color: AppColor.lineDecor,
+                size: SizeConfig.screenDiagonal * 0.045),
           ),
           title: Transform.translate(
             offset: const Offset(-10, 0),
@@ -66,7 +64,7 @@ class _PatientListCellState extends State<PatientListCell> {
                 overflow: TextOverflow.ellipsis,
                 widget.patientInforEntity?.name ?? '',
                 style: AppTextTheme.body2.copyWith(
-                    fontSize: SizeConfig.screenWidth * 0.052,
+                    fontSize: SizeConfig.screenWidth * 0.055,
                     fontWeight: FontWeight.w500)),
           ),
           subtitle: Transform.translate(
@@ -78,7 +76,8 @@ class _PatientListCellState extends State<PatientListCell> {
               widget.patientInforEntity?.phoneNumber == ""
                   ? translation(context).notUpdate
                   : widget.patientInforEntity!.phoneNumber,
-              style: AppTextTheme.body3,
+              style: AppTextTheme.body3
+                  .copyWith(fontSize: SizeConfig.screenWidth * 0.04),
             ),
           ),
         ),

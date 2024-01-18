@@ -79,7 +79,7 @@ class _SettingMenuState extends State<SettingMenu> {
                           : "${userDataData.getUser()?.name}",
                       style: AppTextTheme.body0.copyWith(
                           fontWeight: FontWeight.w500,
-                          fontSize: SizeConfig.screenDiagonal * 0.025)),
+                          fontSize: SizeConfig.screenWidth * 0.06)),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
                 //! ĐỔI MẬT KHẨU

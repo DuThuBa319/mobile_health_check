@@ -80,10 +80,11 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   : null,
               centerTitle: true,
               title: Text(
+                overflow: TextOverflow.ellipsis,
                 widget.title!,
                 style: AppTextTheme.title1.copyWith(
                     color: widget.appComponentColor,
-                    fontSize: SizeConfig.screenDiagonal * 0.028),
+                    fontSize: SizeConfig.screenWidth * 0.065),
               ),
               actions: [
                 (userDataData.getUser()?.role == UserRole.admin ||
@@ -91,16 +92,16 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                     ? widget.isShowRightButon
                         ? widget.rightButton ??
                             SizedBox(
-                              height: SizeConfig.screenWidth * 0.05,
-                              width: SizeConfig.screenWidth * 0.05,
+                              height: SizeConfig.screenWidth * 0.005,
+                              width: SizeConfig.screenWidth * 0.005,
                             )
                         : SizedBox(
-                            height: SizeConfig.screenWidth * 0.05,
-                            width: SizeConfig.screenWidth * 0.05,
+                            height: SizeConfig.screenWidth * 0.005,
+                            width: SizeConfig.screenWidth * 0.005,
                           )
                     : SizedBox(
-                        height: SizeConfig.screenWidth * 0.05,
-                        width: SizeConfig.screenWidth * 0.05,
+                        height: SizeConfig.screenWidth * 0.005,
+                        width: SizeConfig.screenWidth * 0.005,
                       )
               ],
             )
@@ -171,7 +172,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
               color: isSelected
                   ? const Color.fromARGB(255, 123, 211, 255)
                   : AppColor.gray767676,
-              size: SizeConfig.screenDiagonal * 0.022,
+              size: SizeConfig.screenHeight * 0.02,
             ),
             label != null
                 ? Text(
@@ -180,7 +181,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                         color: isSelected
                             ? const Color.fromARGB(255, 123, 211, 255)
                             : AppColor.gray767676,
-                        fontSize: SizeConfig.screenDiagonal * 0.013,
+                        fontSize: SizeConfig.screenHeight * 0.018,
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal),
                   )

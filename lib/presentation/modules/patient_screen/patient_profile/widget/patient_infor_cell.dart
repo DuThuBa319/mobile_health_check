@@ -143,13 +143,12 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                 text: title,
                 style: TextStyle(
                     color: AppColor.black,
-                    fontSize: SizeConfig.screenDiagonal * 0.025,
+                    fontSize: SizeConfig.screenWidth * 0.055,
                     fontWeight: FontWeight.w500)),
             TextSpan(
               text: text,
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: SizeConfig.screenDiagonal * 0.022),
+                  color: Colors.black, fontSize: SizeConfig.screenWidth * 0.05),
             ),
             const WidgetSpan(child: SizedBox(width: 10)),
             WidgetSpan(
@@ -159,14 +158,6 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
                         showToast(translation(context).copySuccessfully);
-                        // Clipboard.setData(ClipboardData(
-                        //         text: doctor.phoneNumber))
-                        //     .then((value) {
-                        //   ScaffoldMessenger.of(context)
-                        //       .showSnackBar(const SnackBar(
-                        //           title:
-                        //               Text('Đã sao chép')));
-                        // });
                       },
                     )
                   : emptySpace(5),

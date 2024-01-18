@@ -47,8 +47,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(left: 15),
-                        height: SizeConfig.screenDiagonal * 0.35,
-                        width: SizeConfig.screenDiagonal * 0.35,
+                        height: SizeConfig.screenDiagonal * 0.25,
+                        width: SizeConfig.screenDiagonal * 0.25,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: Image.asset(
                           fit: BoxFit.cover,
@@ -62,7 +62,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                         translation(context).wifiDisconnect,
                         style: TextStyle(
                             color: AppColor.red,
-                            fontSize: SizeConfig.screenDiagonal * 0.022,
+                            fontSize: SizeConfig.screenWidth * 0.05,
                             fontWeight: FontWeight.bold),
                       ))
                     ],
@@ -83,7 +83,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                                 errorBuilder: (context, error, stackTrace) {
                               showToast(translation(context).uploadPhotoError);
                               return Icon(Icons.image_not_supported_outlined,
-                                  size: SizeConfig.screenDiagonal * 0.05);
+                                  size: SizeConfig.screenDiagonal * 0.045);
                             }),
                           ),
                         ),
@@ -94,8 +94,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             ////////////////////////////
             ///
             : SizedBox(
-                height: SizeConfig.screenDiagonal * 0.12,
-                width: SizeConfig.screenDiagonal * 0.12,
+                height: SizeConfig.screenDiagonal * 0.1,
+                width: SizeConfig.screenDiagonal * 0.1,
                 child: Container(
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,

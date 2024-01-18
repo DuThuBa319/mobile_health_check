@@ -98,6 +98,7 @@ class SlideAbleForm extends StatelessWidget {
     );
   }
 }
+
 //! Tùy chỉnh các slidableCell
 class SlidableDrawerWidget {
   IconData? iconData;
@@ -145,6 +146,7 @@ class SlidableCell extends StatelessWidget {
                 children: List.generate(
                     endDrawerWidgets!.length,
                     (index) => SlidableAction(
+                          icon: endDrawerWidgets![index].iconData,
                           autoClose: true,
                           backgroundColor:
                               endDrawerWidgets![index].backgroundColor,
@@ -163,6 +165,7 @@ class SlidableCell extends StatelessWidget {
                 children: List.generate(
                     startDrawerWidgets!.length,
                     (index) => SlidableAction(
+                          icon: startDrawerWidgets![index].iconData,
                           autoClose: true,
                           backgroundColor:
                               startDrawerWidgets![index].backgroundColor,
