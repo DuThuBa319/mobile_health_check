@@ -99,7 +99,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 child: ListView(children: [
                   Container(
                       margin: EdgeInsets.only(
-                        top: SizeConfig.screenWidth * 0.01,
+                        top:  SizeConfig.screenHeight * 0.02,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,8 +120,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         ],
                       )),
                   Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                    margin: EdgeInsets.only(
+                        bottom:   SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
                     height: SizeConfig.screenHeight * 0.09,
@@ -141,7 +141,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(top: 2, bottom: 2),
-
                           errorText: (state.viewModel.errorEmptyName == true)
                               ? translation(context).pleaseEnterPatientName
                               : null,
@@ -159,7 +158,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   ),
                   Container(
                     margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                        EdgeInsets.only(bottom:   SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
                     height: SizeConfig.screenHeight * 0.09,

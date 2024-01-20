@@ -232,6 +232,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
       try {
+        
         if ((userDataData.getUser()?.role! == UserRole.doctor ||
             userDataData.getUser()?.role! == UserRole.relative)) {
           await OneSignalNotificationService.create();
@@ -242,6 +243,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await _patientUseCase
               .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
         }
+
+        
         emit(
           GetUserDataState(
             status: BlocStatusState.success,

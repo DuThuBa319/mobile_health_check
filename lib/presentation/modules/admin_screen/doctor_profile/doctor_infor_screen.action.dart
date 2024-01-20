@@ -24,46 +24,4 @@ extension DoctorInforScreenAction on _DoctorInforScreenState {
           titleBtn: translation(context).exit);
     }
   }
-
-  Widget infoText({required String? title, required String? content}) {
-    return Column(
-      children: [
-        Text(title ?? "--",
-            style: AppTextTheme.body4
-                .copyWith(color: Colors.black, fontWeight: FontWeight.w400)),
-        const SizedBox(height: 5),
-        Text(content ?? "--",
-            style: AppTextTheme.body1
-                .copyWith(color: Colors.black, fontWeight: FontWeight.w500)),
-      ],
-    );
-  }
-
-  // void showInfor(DoctorInforEntity patientInforEntity) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: Text(
-  //             translation(context).patientIn4,
-  //             style: TextStyle(
-  //                 color: AppColor.lineDecor,
-  //                 fontSize: SizeConfig.screenWidth * 0.06,
-  //                 fontWeight: FontWeight.bold),
-  //           ),
-  //           content: ListView(children: const []),
-  //           actions: [
-  //             TextButton(
-  //               child: Text(translation(context).back),
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
 }
-
-
-// ignore_for_file: public_member_api_docs, sort_constructors_first

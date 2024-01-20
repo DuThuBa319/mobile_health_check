@@ -156,13 +156,14 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
       required IconData iconData,
       required bool isSelected,
       required int iconIndex}) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         _onItemTapped(iconIndex);
       },
       child: Container(
         color: Colors.white,
         height: SizeConfig.screenHeight * 0.055,
+        width: SizeConfig.screenWidth * 0.45,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,

@@ -31,7 +31,8 @@ class _SettingLanguageState extends State<SettingLanguage> {
         selectEn = true;
         selectVn = false;
       });
-    } else if (notificationData.localeId == 2) {
+    } else if (notificationData.localeId == 2 ||
+        notificationData.localeId == null) {
       setState(() {
         selectEn = false;
         selectVn = true;

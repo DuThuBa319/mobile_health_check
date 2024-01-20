@@ -121,6 +121,8 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                                         "Dr. ${doctor.name}",
                                         textAlign: TextAlign.center,
                                         style: AppTextTheme.body1.copyWith(
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.06,
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -138,7 +140,7 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                             child: Text(
                               translation(context).doctorIn4,
                               style: AppTextTheme.body0.copyWith(
-                                  fontSize: SizeConfig.screenDiagonal * 0.025,
+                                  fontSize: SizeConfig.screenWidth * 0.065,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -250,13 +252,14 @@ Widget doctorIn4Cell(BuildContext context, title, String text,
                 text: title,
                 style: TextStyle(
                     color: AppColor.black,
-                    fontSize: SizeConfig.screenDiagonal * 0.023,
+                    fontSize: SizeConfig.screenWidth * 0.06,
                     fontWeight: FontWeight.w500)),
             TextSpan(
               text: text,
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: SizeConfig.screenDiagonal * 0.022),
+                color: Colors.black,
+                fontSize: SizeConfig.screenWidth * 0.055,
+              ),
             ),
             const WidgetSpan(child: SizedBox(width: 10)),
             WidgetSpan(
