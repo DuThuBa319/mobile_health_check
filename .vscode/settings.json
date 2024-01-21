@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "C:/khang/mobile_health_check/build/windows/_deps/nuget-subbuild",
+    "cmake.sourceDirectory": "C:/Users/ADMIN/Desktop/mobile_health_check/linux",
     "C_Cpp.default.compilerPath": "",
     "java.configuration.updateBuildConfiguration": "automatic",
     "bloc.newBlocTemplate.useSealedClasses": false

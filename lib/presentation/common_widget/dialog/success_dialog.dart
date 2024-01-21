@@ -77,7 +77,7 @@ Future<dynamic> showSuccessDialog({
                           style: TextStyle(
                               color: AppColor.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenDiagonal * 0.02),
+                              fontSize: SizeConfig.screenWidth * 0.04),
                           textAlign: TextAlign.center),
                     ],
                   )),
@@ -89,12 +89,15 @@ Future<dynamic> showSuccessDialog({
                     height: SizeConfig.screenHeight * 0.15,
                     width: SizeConfig.screenWidth * 0.72,
                     child: Text(
+                      softWrap: true,
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
                       message,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColor.black,
                           fontSize: contentDialogSize ??
-                              SizeConfig.screenDiagonal * 0.018),
+                              SizeConfig.screenWidth * 0.045),
                     ),
                   ),
                   Positioned(
@@ -114,10 +117,11 @@ Future<dynamic> showSuccessDialog({
                                 BorderRadius.all(Radius.circular(10))),
                         child: Center(
                           child: Text(
+                            overflow: TextOverflow.ellipsis,
                             titleBtn ?? translation(context).accept,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.018,
+                                fontSize: SizeConfig.screenWidth * 0.045,
                                 color: AppColor.white,
                                 fontWeight: FontWeight.bold),
                           ),

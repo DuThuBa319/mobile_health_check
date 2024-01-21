@@ -46,18 +46,15 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
 //! ADD RELATIVE SUCCESSFULLY
             if (state.status == BlocStatusState.success) {
               if (state is RegistRelativeState) {
-                showSuccessDialog(
-                    onClose: () {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        RouteList.patientInfor,
-                        arguments: widget.patientId,
-                      );
-                    },
+                showToast(
                     context: context,
-                    message: translation(context).addRelativeSuccessText,
-                    title: translation(context).addRelativeSuccessfully,
-                    titleBtn: translation(context).exit);
+                    status: ToastStatus.success,
+                    toastString: translation(context).addRelativeSuccessfully);
+                Navigator.pushReplacementNamed(
+                  context,
+                  RouteList.patientInfor,
+                  arguments: widget.patientId,
+                );
               }
             }
 
@@ -79,10 +76,10 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
               }
               //! WIFI DISCONNECT
               if (state.viewModel.isWifiDisconnect == true) {
-                showExceptionDialog(
+                showToast(
                     context: context,
-                    message: translation(context).wifiDisconnect,
-                    titleBtn: translation(context).exit);
+                    status: ToastStatus.success,
+                    toastString: state.viewModel.errorMessage!);
               }
             }
           },
@@ -115,7 +112,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                             translation(context).relativeIn4,
                             style: TextStyle(
                                 fontSize: SizeConfig.screenWidth * 0.06,
-                                fontWeight: FontWeight.w500),
+                                fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 2,
@@ -137,9 +134,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenWidth * 0.2,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         textAlign: TextAlign.start,
                         cursorColor: AppColor.gray767676,
@@ -149,14 +144,14 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                             fontSize: SizeConfig.screenWidth * 0.06),
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(bottom: 3, top: 5),
+                              const EdgeInsets.only(bottom: 2, top: 2),
                           errorText: (state.viewModel.errorEmptyName == true)
                               ? translation(context).pleaseEnterRelativeName
                               : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -176,9 +171,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenWidth * 0.2,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.start,
@@ -189,7 +182,7 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                             fontSize: SizeConfig.screenWidth * 0.06),
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(bottom: 3, top: 5),
+                              const EdgeInsets.only(bottom: 2, top: 2),
                           errorText:
                               (state.viewModel.errorEmptyPhoneNumber == true)
                                   ? translation(context).invalidPhonenumber
@@ -197,11 +190,9 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.05,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
-                          // icon: Icon(Icons.account_box_rounded,
-                          //     size: SizeConfig.screenWidth * 0.12),
                         ),
                       ),
                     ),

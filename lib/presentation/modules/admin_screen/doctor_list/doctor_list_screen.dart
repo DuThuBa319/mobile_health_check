@@ -65,6 +65,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                   borderRadius: BorderRadius.circular(30)),
               child: IconButton(
                   onPressed: () {
+                    // showSuccessfullToast();
                     Navigator.pushNamed(context, RouteList.addDoctor);
                     filterKeyword = TextEditingController(text: "");
                   },
@@ -95,17 +96,14 @@ class _DoctorListState extends State<DoctorListScreen> {
                             Text(
                               translation(context).doctorList,
                               style: TextStyle(
-                                  fontSize: SizeConfig.screenDiagonal * 0.032,
+                                  fontSize: SizeConfig.screenWidth * 0.075,
                                   fontWeight: FontWeight.bold),
                             ),
                             lineDecor(
-                                spaceBottom: SizeConfig.screenWidth * 0.03,
+                                spaceBottom: SizeConfig.screenHeight * 0.02,
                                 spaceTop: 5),
                             Container(
                               margin: EdgeInsets.only(
-                                left: 2,
-                                right: 2,
-                                top: SizeConfig.screenWidth * 0.01,
                                 bottom: SizeConfig.screenWidth * 0.05,
                               ),
                               decoration: BoxDecoration(
@@ -115,7 +113,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
                               ),
-                              child: SizedBox(
+                              child: Center(
                                 child: TextField(
                                   controller: filterKeyword,
                                   decoration: InputDecoration(
@@ -129,7 +127,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                                     hintStyle: TextStyle(
                                         color: Colors.black54,
                                         fontSize:
-                                            SizeConfig.screenDiagonal * 0.022),
+                                            SizeConfig.screenWidth * 0.055),
                                     suffixIcon: IconButton(
                                       icon: const Icon(Icons.search),
                                       color: Colors.black,

@@ -102,12 +102,13 @@ class BloodPressureHistoryScreenState
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenDiagonal * 0.035,
+                          size: SizeConfig.screenWidth * 0.092,
                         ),
-                        Text(strTimeFrom,
+                        emptySpace(SizeConfig.screenWidth * 0.01),
+                        Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
                               color: AppColor.color43C8F5,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.044,
                             ))
                       ],
                     )),
@@ -133,12 +134,13 @@ class BloodPressureHistoryScreenState
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenDiagonal * 0.035,
+                          size: SizeConfig.screenWidth * 0.092,
                         ),
+                        emptySpace(SizeConfig.screenWidth * 0.01),
                         Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
                               color: AppColor.color43C8F5,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.044,
                             ))
                       ],
                     )),
@@ -226,15 +228,13 @@ class BloodPressureHistoryScreenState
                               style: AppTextTheme.body2.copyWith(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold)));
-                                  
                     }
-                     if (state.viewModel.listBloodPressure!.isEmpty ) {
+                    if (state.viewModel.listBloodPressure!.isEmpty) {
                       return Center(
                           child: Text(translation(context).error,
                               style: AppTextTheme.body2.copyWith(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold)));
-                                  
                     } else {
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),

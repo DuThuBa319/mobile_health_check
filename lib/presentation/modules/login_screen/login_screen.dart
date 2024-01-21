@@ -89,7 +89,11 @@ class _LoginState extends State<LoginScreen> {
                             notificationData.saveLocale(1);
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
-                            showToast("Change language successfully");
+                            // ignore: use_build_context_synchronously
+                            showToast(
+                                context: context,
+                                status: ToastStatus.success,
+                                toastString: "Change language successfully");
                             //? await notificationData
                             //?     .saveLocale(selectedLanguage!.id);
                             setState(() {});
@@ -101,7 +105,11 @@ class _LoginState extends State<LoginScreen> {
                             notificationData.saveLocale(2);
                             // ignore: use_build_context_synchronously
                             MyApp.setLocale(context, locale);
-                            showToast("Đổi ngôn ngữ thành công");
+                            // ignore: use_build_context_synchronously
+                            showToast(
+                                context: context,
+                                status: ToastStatus.success,
+                                toastString: "Đổi ngôn ngữ thành công");
                             //? await notificationData
                             // ?    .saveLocale(selectedLanguage!.id);
                             setState(() {});
@@ -131,7 +139,7 @@ class _LoginState extends State<LoginScreen> {
                     ),
 
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.04,
+                      height: SizeConfig.screenHeight * 0.03,
                     ),
                     Center(
                       child: Text(
@@ -139,14 +147,16 @@ class _LoginState extends State<LoginScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColor.topGradient,
-                          fontSize: SizeConfig.screenDiagonal * 0.045,
+                          fontSize: SizeConfig.screenWidth * 0.11,
                         ),
                       ),
                     ),
 
                     //Text Field Username
                     Container(
-                      height: SizeConfig.screenWidth * 0.2,
+                      padding:
+                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
+                      height: SizeConfig.screenHeight * 0.1,
                       width: SizeConfig.screenWidth * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -155,50 +165,39 @@ class _LoginState extends State<LoginScreen> {
                       margin: EdgeInsets.only(
                           top: SizeConfig.screenWidth * 0.03,
                           bottom: SizeConfig.screenWidth * 0.025),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: SizeConfig.screenWidth * 0.01,
+                      child: Center(
+                        child: TextField(
+                          cursorColor: AppColor.gray767676,
+                          keyboardType: TextInputType.number,
+                          // focusNode: _focusNode,
+                          controller: _usernameController,
+                          style: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.055,
+                            color: Colors.black,
                           ),
-                          SizedBox(
-                            width: SizeConfig.screenWidth * 0.8,
-                            child: TextField(
-                              cursorColor: AppColor.gray767676,
-                              keyboardType: TextInputType.number,
-                              // focusNode: _focusNode,
-                              controller: _usernameController,
-                              style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.022,
-                                color: Colors.black,
-                              ),
-                              decoration: InputDecoration(
-                                iconColor: AppColor.primaryColorLight,
-                                isDense:
-                                    true, // Giữ khoảng cách cố định cho icon
-
-                                errorText: (state.viewModel.errorMessage ==
-                                        translation(context)
-                                            .pleaseEnterYourAccount)
-                                    ? state.viewModel.errorMessage
-                                    : null,
-                                border: InputBorder.none,
-                                labelText: translation(context).phoneNumber,
-                                icon: Icon(Icons.account_box_rounded,
-                                    size: SizeConfig.screenDiagonal * 0.05),
-                                labelStyle: TextStyle(
-                                    color: AppColor.gray767676,
-                                    fontSize:
-                                        SizeConfig.screenDiagonal * 0.022),
-                              ),
-                            ),
+                          decoration: InputDecoration(
+                            iconColor: AppColor.primaryColorLight,
+                            isDense: true, // Giữ khoảng cách cố định cho icon
+                            errorText: (state.viewModel.errorMessage ==
+                                    translation(context).pleaseEnterYourAccount)
+                                ? state.viewModel.errorMessage
+                                : null,
+                            border: InputBorder.none,
+                            labelText: translation(context).phoneNumber,
+                            icon: Icon(Icons.account_box_rounded,
+                                size: SizeConfig.screenDiagonal * 0.05),
+                            labelStyle: TextStyle(
+                                color: AppColor.gray767676,
+                                fontSize: SizeConfig.screenWidth * 0.055),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                     //Text field Password
                     Container(
-                      height: SizeConfig.screenWidth * 0.2,
+                      height: SizeConfig.screenHeight * 0.1,
+                      padding:
+                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
                       width: SizeConfig.screenWidth * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -206,57 +205,45 @@ class _LoginState extends State<LoginScreen> {
                       ),
                       margin: EdgeInsets.only(
                           bottom: SizeConfig.screenWidth * 0.04),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: SizeConfig.screenWidth * 0.01,
+                      child: Center(
+                        child: TextField(
+                          // focusNode: _focusNode,
+                          cursorColor: AppColor.gray767676,
+                          controller: _passwordController,
+                          obscureText: showPass,
+                          style: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.055,
+                            color: Colors.black,
                           ),
-                          SizedBox(
-                            width: SizeConfig.screenWidth * 0.8,
-                            child: TextField(
-                              // focusNode: _focusNode,
-                              cursorColor: AppColor.gray767676,
-                              controller: _passwordController,
-                              obscureText: showPass,
-                              style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.022,
-                                color: Colors.black,
-                              ),
-                              decoration: InputDecoration(
-                                iconColor: AppColor.primaryColorLight,
-                                isDense:
-                                    true, // Giữ khoảng cách cố định cho icon
+                          decoration: InputDecoration(
+                            iconColor: AppColor.primaryColorLight,
+                            isDense: true, // Giữ khoảng cách cố định cho icon
 
-                                errorText: (state.viewModel.errorMessage ==
-                                        translation(context)
-                                            .pleaseEnterYourAccount)
-                                    ? state.viewModel.errorMessage
-                                    : null,
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                      showPass
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                      size: SizeConfig.screenDiagonal * 0.025),
-                                  onPressed: () {
-                                    setState(() {
-                                      showPass = !showPass;
-                                    });
-                                  },
-                                ),
-                                icon: Icon(Icons.lock,
-                                    size: SizeConfig.screenDiagonal * 0.05),
-                                border: InputBorder.none,
-                                labelText: translation(context).password,
-                                labelStyle: TextStyle(
-                                    color: AppColor.gray767676,
-                                    fontSize:
-                                        SizeConfig.screenDiagonal * 0.022),
-                              ),
+                            errorText: (state.viewModel.errorMessage ==
+                                    translation(context).pleaseEnterYourAccount)
+                                ? state.viewModel.errorMessage
+                                : null,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                  showPass
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  size: SizeConfig.screenDiagonal * 0.025),
+                              onPressed: () {
+                                setState(() {
+                                  showPass = !showPass;
+                                });
+                              },
                             ),
+                            icon: Icon(Icons.lock,
+                                size: SizeConfig.screenDiagonal * 0.05),
+                            border: InputBorder.none,
+                            labelText: translation(context).password,
+                            labelStyle: TextStyle(
+                                color: AppColor.gray767676,
+                                fontSize: SizeConfig.screenWidth * 0.055),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                     Row(
@@ -271,7 +258,7 @@ class _LoginState extends State<LoginScreen> {
                               letterSpacing: -0.5,
                               fontWeight: FontWeight.w400,
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenDiagonal * 0.018,
+                              fontSize: SizeConfig.screenWidth * 0.045,
                             ),
                           ),
                         ),
@@ -281,7 +268,7 @@ class _LoginState extends State<LoginScreen> {
                         onTap: login,
                         child: Container(
                           margin: EdgeInsets.only(
-                              top: SizeConfig.screenWidth * 0.04,
+                              top: SizeConfig.screenHeight * 0.005,
                               bottom: SizeConfig.screenWidth * 0.2),
                           decoration: BoxDecoration(
                               color: AppColor.topGradient,
@@ -295,7 +282,7 @@ class _LoginState extends State<LoginScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.white,
-                                fontSize: SizeConfig.screenDiagonal * 0.023,
+                                fontSize: SizeConfig.screenWidth * 0.055,
                               ),
                             ),
                           ),

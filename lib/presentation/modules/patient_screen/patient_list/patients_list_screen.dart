@@ -97,7 +97,7 @@ class _PatientListState extends State<PatientListScreen> {
                                       translation(context).patientList,
                                       style: TextStyle(
                                           fontSize:
-                                              SizeConfig.screenDiagonal * 0.032,
+                                              SizeConfig.screenWidth * 0.065,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Container(
@@ -178,8 +178,8 @@ class _PatientListState extends State<PatientListScreen> {
                                           translation(context).searchPatient,
                                       hintStyle: TextStyle(
                                           color: Colors.black54,
-                                          fontSize: SizeConfig.screenDiagonal *
-                                              0.022),
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.05),
                                       suffixIcon: IconButton(
                                         icon: const Icon(Icons.search),
                                         color: Colors.black,
@@ -198,7 +198,7 @@ class _PatientListState extends State<PatientListScreen> {
                               //? Loading
                               ((state.status == BlocStatusState.loading) &&
                                           (state is GetPatientListState ||
-                                              State is SearchPatientState ||
+                                              state is SearchPatientState ||
                                               state is DeletePatientState) ||
                                       (state is DeletePatientState &&
                                           state.status ==

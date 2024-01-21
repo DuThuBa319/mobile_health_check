@@ -101,12 +101,13 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenDiagonal * 0.035,
+                          size: SizeConfig.screenWidth * 0.092,
                         ),
-                        Text(strTimeFrom,
+                        emptySpace(SizeConfig.screenWidth * 0.01),
+                        Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
                               color: AppColor.color43C8F5,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.044,
                             ))
                       ],
                     )),
@@ -132,12 +133,13 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenDiagonal * 0.035,
+                          size: SizeConfig.screenWidth * 0.092,
                         ),
+                        emptySpace(SizeConfig.screenWidth * 0.01),
                         Text(strTimeTo,
                             style: AppTextTheme.body4.copyWith(
                               color: AppColor.color43C8F5,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.044,
                             ))
                       ],
                     )),

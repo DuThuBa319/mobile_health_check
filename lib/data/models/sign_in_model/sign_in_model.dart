@@ -12,7 +12,6 @@ class SignInModel {
   TokenModel? token;
   @JsonKey(name: 'user')
   AccountModel? accountInfor;
-
   List<String>? roles;
 
   SignInModel({this.accountInfor, this.roles, this.token});
@@ -23,10 +22,10 @@ class SignInModel {
 
   SignInEntity converToSignInEntity() {
     const map = {
-      'Doctor': UserRole.doctor,
-      'Admin': UserRole.admin,
-      'Patient': UserRole.patient,
-      'Relative': UserRole.relative
+      'doctor': UserRole.doctor,
+      'admin': UserRole.admin,
+      'patient': UserRole.patient,
+      'relative': UserRole.relative
     };
 
     return SignInEntity(

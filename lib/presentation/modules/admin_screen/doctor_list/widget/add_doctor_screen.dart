@@ -31,7 +31,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        title: translation(context).doctorIn4,
+        title: translation(context).addDoctor,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: false,
@@ -62,17 +62,20 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
             if (state.status == BlocStatusState.failure) {
               if (state is RegistDoctorState) {
                 if (state.viewModel.duplicatedDoctorPhoneNumber == true ||
-                    state.viewModel.isWifiDisconnect == true ||
                     state.viewModel.errorMessage == translation(context).error)
                 //! không cần hiển thị dialog ở trường hợp lỗi ở việc điền thiếu, điền sai
                 {
-                  {
-                    showExceptionDialog(
+                  showExceptionDialog(
+                    context: context,
+                    message: state.viewModel.errorMessage!,
+                    titleBtn: translation(context).exit,
+                  );
+                }
+                if (state.viewModel.isWifiDisconnect == true) {
+                  showToast(
                       context: context,
-                      message: state.viewModel.errorMessage!,
-                      titleBtn: translation(context).exit,
-                    );
-                  }
+                      status: ToastStatus.error,
+                      toastString: state.viewModel.errorMessage!);
                 }
               }
             }
@@ -98,7 +101,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 child: ListView(children: [
                   Container(
                       margin: EdgeInsets.only(
-                        top: SizeConfig.screenWidth * 0.01,
+                        top: SizeConfig.screenHeight * 0.02,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +109,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                           Text(
                             translation(context).doctorIn4,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.025,
+                                fontSize: SizeConfig.screenWidth * 0.06,
                                 fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(
@@ -119,8 +122,8 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         ],
                       )),
                   Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                    margin: EdgeInsets.only(
+                        bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
                     height: SizeConfig.screenWidth * 0.2,
@@ -136,17 +139,17 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         controller: _controllerDoctorName,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                            fontSize: SizeConfig.screenWidth * 0.05),
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(bottom: 3, top: 5),
+                              const EdgeInsets.only(bottom: 2, top: 2),
                           errorText: state.viewModel.errorEmptyName == true
                               ? translation(context).pleaseEnterDoctorName
                               : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -156,8 +159,8 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                     ),
                   ),
                   Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                    margin: EdgeInsets.only(
+                        bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
                     height: SizeConfig.screenWidth * 0.2,
@@ -174,10 +177,10 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         controller: _controllerDoctorPhoneNumber,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                            fontSize: SizeConfig.screenWidth * 0.05),
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(bottom: 3, top: 5),
+                              const EdgeInsets.only(bottom: 2, top: 2),
                           errorText:
                               state.viewModel.errorEmptyPhoneNumber == true
                                   ? translation(context).invalidPhonenumber
@@ -185,7 +188,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

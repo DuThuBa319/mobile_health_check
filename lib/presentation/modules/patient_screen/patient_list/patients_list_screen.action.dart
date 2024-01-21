@@ -5,35 +5,37 @@ extension PatientListScreenAction on _PatientListState {
   void _blocListener(context, GetPatientState state) {
     //? Loading
     if (state.status == BlocStatusState.loading) {
-      if (state is GetPatientListState || state is SearchPatientState) {
-        showToast(translation(context).loadingData);
-      }
       if (state is DeletePatientState) {
-        showToast(translation(context).deletingPatient);
+        showToast(
+            context: context,
+            status: ToastStatus.loading,
+            toastString: translation(context).deletingPatient);
       }
     }
 
     //? success
     if (state.status == BlocStatusState.success) {
-      if (state is GetPatientListState) {
-        showToast(translation(context).dataLoaded);
+      if (state is GetPatientListState || state is SearchPatientState) {
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
       }
       if (state is DeletePatientState) {
-        showToast(translation(context).deletePatientSuccessfully);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).deletePatientSuccessfully);
         patientBloc.add(GetPatientListEvent(userId: widget.id));
       }
     }
 
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      showToast(translation(context).loadingError);
-      if (state.viewModel.isWifiDisconnect == true ||
-          state is DeletePatientState) {
-        showExceptionDialog(
-            context: context,
-            message: state.viewModel.errorMessage!,
-            titleBtn: translation(context).exit);
-      }
+      showToast(
+          context: context,
+          status: ToastStatus.error,
+          toastString: state.viewModel.errorMessage!);
     }
   }
 
@@ -115,22 +117,22 @@ extension PatientListScreenAction on _PatientListState {
                   endDrawerWidgets: endDrawerWidgets,
                   iconLeadingCell: Icon(Icons.person_pin,
                       color: AppColor.lineDecor,
-                      size: SizeConfig.screenDiagonal * 0.05),
+                      size: SizeConfig.screenDiagonal * 0.045),
                   textLine1: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
                     personCellEntity.name,
                     style: AppTextTheme.body2.copyWith(
-                        fontSize: SizeConfig.screenDiagonal * 0.0225,
+                        fontSize: SizeConfig.screenWidth * 0.055,
                         fontWeight: FontWeight.w500),
                   ),
                   textLine2: Text(
                       personCellEntity.phoneNumber == ""
                           ? translation(context).notUpdate
                           : personCellEntity.phoneNumber,
-                      style: AppTextTheme.body3.copyWith(
-                          fontSize: SizeConfig.screenDiagonal * 0.018)),
+                      style: AppTextTheme.body3
+                          .copyWith(fontSize: SizeConfig.screenWidth * 0.04)),
                   onTapCell: () {
                     Navigator.pushNamed(
                       context,

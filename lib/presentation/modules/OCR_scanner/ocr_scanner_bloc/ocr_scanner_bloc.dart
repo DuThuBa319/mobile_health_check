@@ -63,7 +63,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         ),
       );
       try {
-        //    http.get(Uri.parse(url['testURL'] ?? ''));
+        http.get(Uri.parse(url['testURL'] ?? ''));
         emit(state.copyWith(
           status: BlocStatusState.success,
           viewModel: state.viewModel,
@@ -235,7 +235,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         double? glucose;
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.bloodSugar) as CroppedImage?;
@@ -363,7 +362,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         double? temperature;
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.temperature) as CroppedImage?;
@@ -488,7 +486,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         int? spo2;
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.oximeter) as CroppedImage?;

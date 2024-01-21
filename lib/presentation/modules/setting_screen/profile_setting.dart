@@ -149,7 +149,7 @@ class _SettingProfileState extends State<SettingProfile> {
           textAlign: TextAlign.start,
           style: TextStyle(
               color: AppColor.gray767676,
-              fontSize: SizeConfig.screenDiagonal * 0.025),
+              fontSize: SizeConfig.screenWidth * 0.055),
           controller: controller,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -157,7 +157,7 @@ class _SettingProfileState extends State<SettingProfile> {
             labelText: label,
             labelStyle: TextStyle(
                 color: const Color.fromARGB(255, 48, 48, 48),
-                fontSize: SizeConfig.screenDiagonal * 0.025,
+                fontSize: SizeConfig.screenWidth * 0.055,
                 fontWeight: FontWeight.w500),
             errorText:
                 controller.text.isEmpty ? _errorMessages[controller] : null,
@@ -186,29 +186,32 @@ class _SettingProfileState extends State<SettingProfile> {
                   state is UpdateRelativeInforState ||
                   state is UpdatePatientInforState) &&
               state.status == BlocStatusState.success) {
-            showSuccessDialog(
-                onClose: () {
-                  Navigator.pop(context);
-                },
+            showToast(
                 context: context,
-                message: translation(context).updateProfileSuccessText,
-                title: translation(context).updateProfileSuccessfully,
-                titleBtn: translation(context).exit);
+                status: ToastStatus.success,
+                toastString: translation(context).updateProfileSuccessfully);
+            Navigator.pop(context);
+
+            // showSuccessDialog(
+            //     onClose: () {
+            //       Navigator.pop(context);
+            //     },
+            //     context: context,
+            //     message: translation(context).updateProfileSuccessText,
+            //     title: translation(context).updateProfileSuccessfully,
+            //     titleBtn: translation(context).exit);
           }
           //! WIFI DISCONNECT
           if (state.status == BlocStatusState.failure &&
               state.viewModel.isWifiDisconnect == true) {
-            showExceptionDialog(
+            showToast(
                 context: context,
-                message: translation(context).wifiDisconnect,
-                titleBtn: translation(context).accept);
-          }
-          // //! LOADING
-          if (((state is UpdateDoctorInforState) ||
-                  (state is UpdateRelativeInforState) ||
-                  (state is UpdatePatientInforState)) &&
-              state.status == BlocStatusState.loading) {
-            showToast(translation(context).loadingData);
+                status: ToastStatus.error,
+                toastString: translation(context).wifiDisconnect);
+            // showExceptionDialog(
+            //     context: context,
+            //     message: translation(context).wifiDisconnect,
+            //     titleBtn: translation(context).accept);
           }
         }, builder: (context, state) {
           if (((state is UpdateDoctorInforState) ||
@@ -265,7 +268,7 @@ class _SettingProfileState extends State<SettingProfile> {
                       ? const SizedBox(height: 0.1)
                       : _buildTextField(
                           _controllerAddress, translation(context).address),
-                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  SizedBox(height: SizeConfig.screenHeight * 0.005),
                   Center(
                     child: userDataData.getUser()?.role == UserRole.admin
                         ? const SizedBox(height: 0.1)
@@ -282,8 +285,11 @@ class _SettingProfileState extends State<SettingProfile> {
                                   _controllerPhoneNumber.text.isEmpty ||
                                   _controllerWeight.text.isEmpty ||
                                   _controllerName.text.isEmpty) {
-                                showToast(translation(context)
-                                    .pleaseEnterCompleteInformation);
+                                showToast(
+                                    context: context,
+                                    status: ToastStatus.error,
+                                    toastString: translation(context)
+                                        .pleaseEnterCompleteInformation);
                               } else {
                                 final int gender;
                                 int? newAge = int.parse(_controllerAge.text);

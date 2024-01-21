@@ -48,23 +48,34 @@ class _SettingPasswordState extends State<SettingPassword> {
           //! CHANGE PASS SUCCESSFULLY
           if (state is ChangePassState) {
             if (state.status == BlocStatusState.success) {
-              showSuccessDialog(
-                  onClose: () {
-                    Navigator.pop(context);
-                  },
+              showToast(
                   context: context,
-                  message: translation(context).changePassSuccessText,
-                  title: translation(context).updatePasswordSuccessfullly,
-                  titleBtn: translation(context).accept);
+                  status: ToastStatus.success,
+                  toastString:
+                      translation(context).updatePasswordSuccessfullly);
+              Navigator.pop(context);
+              // showSuccessDialog(
+              //     onClose: () {
+              //       Navigator.pop(context);
+              //     },
+              //     context: context,
+              //     message: translation(context).changePassSuccessText,
+              //     title: translation(context).updatePasswordSuccessfullly,
+              //     titleBtn: translation(context).accept);
             }
 
             if (state.status == BlocStatusState.failure) {
               //! WIFI DISCONNECT
               if (state.viewModel.isWifiDisconnect == true) {
-                showExceptionDialog(
-                    context: context,
-                    message: translation(context).wifiDisconnect,
-                    titleBtn: translation(context).exit);
+                showToast(
+                  context: context,
+                  status: ToastStatus.error,
+                  toastString: translation(context).wifiDisconnect,
+                );
+                // showExceptionDialog(
+                //     context: context,
+                //     message: translation(context).wifiDisconnect,
+                //     titleBtn: translation(context).exit);
               }
               //! ERROR CURRENT PASSWORD
               if (state.viewModel.isCurrentPassWrong == true) {
@@ -97,7 +108,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                     Text(translation(context).updatePassword,
                         style: AppTextTheme.body0.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.screenDiagonal * 0.025)),
+                            fontSize: SizeConfig.screenWidth * 0.06)),
                     lineDecor(),
                     SizedBox(height: SizeConfig.screenHeight * 0.02),
                     Container(
@@ -122,7 +133,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                               controller: _controllerCurrentPassword,
                               obscureText: showPass1,
                               style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.022,
+                                fontSize: SizeConfig.screenWidth * 0.055,
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
@@ -140,7 +151,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                                       showPass1
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      size: SizeConfig.screenDiagonal * 0.025),
+                                      size: SizeConfig.screenDiagonal * 0.022),
                                   onPressed: () {
                                     setState(() {
                                       showPass1 = !showPass1;
@@ -148,12 +159,12 @@ class _SettingPasswordState extends State<SettingPassword> {
                                   },
                                 ),
                                 icon: Icon(Icons.lock,
-                                    size: SizeConfig.screenDiagonal * 0.045),
+                                    size: SizeConfig.screenDiagonal * 0.035),
                                 border: InputBorder.none,
                                 labelText: translation(context).oldPassword,
                                 labelStyle: TextStyle(
                                     color: AppColor.gray767676,
-                                    fontSize: SizeConfig.screenDiagonal * 0.02),
+                                    fontSize: SizeConfig.screenWidth * 0.055),
                               ),
                             ),
                           ),
@@ -182,7 +193,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                               controller: _controllerNewPassword,
                               obscureText: showPass2,
                               style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.022,
+                                fontSize: SizeConfig.screenWidth * 0.055,
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
@@ -208,12 +219,12 @@ class _SettingPasswordState extends State<SettingPassword> {
                                   },
                                 ),
                                 icon: Icon(Icons.lock,
-                                    size: SizeConfig.screenDiagonal * 0.045),
+                                    size: SizeConfig.screenDiagonal * 0.035),
                                 border: InputBorder.none,
                                 labelText: translation(context).newPassword,
                                 labelStyle: TextStyle(
                                     color: AppColor.gray767676,
-                                    fontSize: SizeConfig.screenDiagonal * 0.02),
+                                    fontSize: SizeConfig.screenWidth * 0.055),
                               ),
                             ),
                           ),

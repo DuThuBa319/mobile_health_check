@@ -46,19 +46,27 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
             //! ADD PATIENT SUCCESSFULLY
             if (state.status == BlocStatusState.success) {
               if (state is RegistPatientState) {
-                showToast(translation(context).addPatientSuccessfully);
-                showSuccessDialog(
-                    onClose: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          RouteList.patientList,
-                          arguments: userDataData.getUser()!.id!,
-                          (route) => false);
-                    },
+                showToast(
+                    status: ToastStatus.success,
                     context: context,
-                    message: translation(context).addPatientSuccessText,
-                    title: translation(context).addPatientSuccessfully,
-                    titleBtn: translation(context).exit);
+                    toastString: translation(context).addPatientSuccessfully);
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteList.patientList,
+                    arguments: userDataData.getUser()!.id!,
+                    (route) => false);
+                // showSuccessDialog(
+                //     onClose: () {
+                //       Navigator.pushNamedAndRemoveUntil(
+                //           context,
+                //           RouteList.patientList,
+                //           arguments: userDataData.getUser()!.id!,
+                //           (route) => false);
+                //     },
+                //     context: context,
+                //     message: translation(context).addPatientSuccessText,
+                //     title: translation(context).addPatientSuccessfully,
+                //     titleBtn: translation(context).exit);
               }
             }
 
@@ -68,7 +76,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               if (state is RegistPatientState) {
                 if (state.viewModel.duplicatedRelationshipPAD == true ||
                     state.viewModel.hasDoctorBefore == true ||
-                    state.viewModel.isWifiDisconnect == true ||
                     state.viewModel.errorMessage ==
                         translation(context).error) {
                   showExceptionDialog(
@@ -76,6 +83,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     message: state.viewModel.errorMessage!,
                     titleBtn: translation(context).exit,
                   );
+                }
+                if (state.viewModel.isWifiDisconnect == true) {
+                  showToast(
+                      context: context,
+                      toastString: state.viewModel.errorMessage,
+                      status: ToastStatus.error);
                 }
               }
             }
@@ -99,7 +112,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 child: ListView(children: [
                   Container(
                       margin: EdgeInsets.only(
-                        top: SizeConfig.screenWidth * 0.01,
+                        top: SizeConfig.screenHeight * 0.02,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,8 +120,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           Text(
                             translation(context).patientIn4,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.025,
-                                fontWeight: FontWeight.w500),
+                                fontSize: SizeConfig.screenWidth * 0.06,
+                                fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 2,
@@ -120,8 +133,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         ],
                       )),
                   Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                    margin: EdgeInsets.only(
+                        bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
                     height: SizeConfig.screenHeight * 0.09,
@@ -130,27 +143,24 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenHeight * 0.09,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         textAlign: TextAlign.start,
                         cursorColor: AppColor.gray767676,
                         controller: _controllerPatientName,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                            fontSize: SizeConfig.screenWidth * 0.05),
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(top: 5, bottom: 5),
-
+                              const EdgeInsets.only(top: 2, bottom: 2),
                           errorText: (state.viewModel.errorEmptyName == true)
                               ? translation(context).pleaseEnterPatientName
                               : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -160,8 +170,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     ),
                   ),
                   Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                    margin: EdgeInsets.only(
+                        bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
                     height: SizeConfig.screenHeight * 0.09,
@@ -170,9 +180,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                     ),
-                    child: SizedBox(
-                      height: SizeConfig.screenHeight * 0.09,
-                      width: SizeConfig.screenWidth * 0.9,
+                    child: Center(
                       child: TextField(
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.start,
@@ -180,7 +188,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         controller: _controllerPatientPhoneNumber,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                            fontSize: SizeConfig.screenWidth * 0.05),
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(top: 5, bottom: 5),
@@ -191,7 +199,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

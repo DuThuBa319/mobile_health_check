@@ -266,7 +266,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
             "This phone number has been already registered by another account") {
           emit(RegistDoctorState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 duplicatedDoctorPhoneNumber: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)

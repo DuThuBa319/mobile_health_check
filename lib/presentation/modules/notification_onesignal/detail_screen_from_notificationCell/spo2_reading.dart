@@ -68,7 +68,7 @@ class _Spo2NotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.08,
+                height: SizeConfig.screenHeight * 0.025,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -123,7 +123,7 @@ class _Spo2NotificationReadingScreenState
                     children: [
                       Text(translation(context).oximeter,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenDiagonal * 0.03,
+                              fontSize: SizeConfig.screenWidth * 0.065,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -157,13 +157,15 @@ class _Spo2NotificationReadingScreenState
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
                       Center(
                         child: Text(
+                            softWrap: true,
+                            maxLines: 2,
                             widget.notificationEntity!.spo2Entity!
                                 .statusComment(context),
                             style: AppTextTheme.body2.copyWith(
                               color: widget
                                   .notificationEntity!.spo2Entity!.statusColor,
                               fontWeight: FontWeight.w700,
-                              fontSize: SizeConfig.screenDiagonal * 0.025,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                             )),
                       ),
                     ],

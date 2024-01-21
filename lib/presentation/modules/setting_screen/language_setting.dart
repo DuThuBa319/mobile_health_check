@@ -31,7 +31,8 @@ class _SettingLanguageState extends State<SettingLanguage> {
         selectEn = true;
         selectVn = false;
       });
-    } else if (notificationData.localeId == 2) {
+    } else if (notificationData.localeId == 2 ||
+        notificationData.localeId == null) {
       setState(() {
         selectEn = false;
         selectVn = true;
@@ -67,7 +68,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                   children: [
                     Icon(
                       Icons.language_outlined,
-                      size: SizeConfig.screenDiagonal * 0.045,
+                      size: SizeConfig.screenDiagonal * 0.04,
                     ),
                     const SizedBox(
                       width: 5,
@@ -75,7 +76,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     Text(translation(context).selectLanguage,
                         style: AppTextTheme.body0.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                          fontSize: SizeConfig.screenWidth * 0.06,
                         )),
                   ],
                 ),
@@ -124,13 +125,11 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                 ),
                                 onTap: () async {
                                   selectedLanguage = Language(1, ENGLISH, 'en');
-                                  // await notificationData
-                                  //     .saveLocale(selectedLanguage!.id);
+
                                   setState(() {
                                     selectEn = true;
                                     selectVn = false;
                                   });
-                                  // print(notificationData.localeId);
                                 }),
                           ],
                         ),
@@ -174,9 +173,6 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                   onTap: () async {
                                     selectedLanguage =
                                         Language(2, VIETNAMESE, 'vi');
-                                    // await notificationData
-                                    //     .saveLocale(selectedLanguage!.id);
-                                    // print(notificationData.localeId);
                                     setState(() {
                                       selectEn = false;
                                       selectVn = true;
@@ -196,11 +192,14 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     onTap: () async {
                       if (selectEn) {
                         selectedLanguage = Language(1, ENGLISH, 'en');
-
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
                         notificationData.saveLocale(1);
                         MyApp.setLocale(context, locale);
+                        showToast(
+                            context: context,
+                            status: ToastStatus.success,
+                            toastString: "Change language successfully");
                         Navigator.pop(context);
                         return;
                       }
@@ -210,6 +209,10 @@ class _SettingLanguageState extends State<SettingLanguage> {
                             await setLocale(selectedLanguage!.languageCode);
                         notificationData.saveLocale(2);
                         MyApp.setLocale(context, locale);
+                        showToast(
+                            context: context,
+                            status: ToastStatus.success,
+                            toastString: "Đổi ngôn ngữ thành công");
                         Navigator.pop(context);
                         return;
                       }

@@ -146,8 +146,6 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   decoration: BoxDecoration(
                       color: Colors.red[100],
                       borderRadius: BorderRadius.circular(10)),
-                  padding: EdgeInsets.only(
-                      bottom: 7, right: SizeConfig.screenWidth * 0.02),
                   margin: EdgeInsets.only(
                       right: SizeConfig.screenWidth * 0.02,
                       left: 2,
@@ -155,13 +153,14 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   height: SizeConfig.screenHeight * 0.1,
                   child: Center(
                     child: ListTile(
-                      contentPadding: const EdgeInsets.only(left: 10),
+                      contentPadding:
+                          const EdgeInsets.only(left: 10, right: 10),
                       leading: Container(
                           decoration: const BoxDecoration(
                               color: AppColor.backgroundColor,
                               shape: BoxShape.circle),
-                          height: SizeConfig.screenDiagonal * 0.065,
-                          width: SizeConfig.screenDiagonal * 0.065,
+                          height: SizeConfig.screenDiagonal * 0.06,
+                          width: SizeConfig.screenDiagonal * 0.06,
                           child: ClipRect(
                             child: Image.asset(Assets.doctor, fit: BoxFit.fill),
                           )),
@@ -170,15 +169,15 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                         child: Text(
                           userDataData.getUser()!.doctor!.name,
                           style: AppTextTheme.body2.copyWith(
-                              fontSize: SizeConfig.screenDiagonal * 0.022,
-                              fontWeight: FontWeight.w500),
+                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                       subtitle: Transform.translate(
                         offset: const Offset(-10, 0),
                         child: Text(userDataData.getUser()!.doctor!.phoneNumber,
                             style: AppTextTheme.body3.copyWith(
-                                fontSize: SizeConfig.screenDiagonal * 0.018)),
+                                fontSize: SizeConfig.screenWidth * 0.04)),
                       ),
                       trailing: InkWell(
                         onTap: () async {
@@ -187,7 +186,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                         },
                         child: CircleButton(
                             iconData: Icons.phone,
-                            size: SizeConfig.screenDiagonal * 0.075,
+                            size: SizeConfig.screenDiagonal * 0.065,
                             backgroundColor: Colors.red),
                       ),
                     ),

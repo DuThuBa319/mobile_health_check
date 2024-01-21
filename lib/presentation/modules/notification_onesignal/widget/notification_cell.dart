@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../classes/language.dart';
@@ -46,7 +47,9 @@ class _NotificationCellState extends State<NotificationCell> {
         }
 
         if (widget.notificationEntity?.bloodPressureEntity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bloodPressuerNotificationReading, arguments: {
             "notificationEntity": widget.notificationEntity,
@@ -54,7 +57,9 @@ class _NotificationCellState extends State<NotificationCell> {
           });
         }
         if (widget.notificationEntity?.bloodSugarEntity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
 
           Navigator.pushNamed(context, RouteList.bloodSugarNotificationReading,
               arguments: {
@@ -63,7 +68,9 @@ class _NotificationCellState extends State<NotificationCell> {
               });
         }
         if (widget.notificationEntity?.bodyTemperatureEntity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bodyTemperatureNotificationReading,
               arguments: {
@@ -72,7 +79,9 @@ class _NotificationCellState extends State<NotificationCell> {
               });
         }
         if (widget.notificationEntity?.spo2Entity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
           Navigator.pushNamed(context, RouteList.spo2NotificationReading,
               arguments: {
                 "notificationEntity": widget.notificationEntity,
@@ -173,8 +182,7 @@ class _NotificationCellState extends State<NotificationCell> {
                                   softWrap: true,
                                   style: AppTextTheme.body3.copyWith(
                                       color: AppColor.black,
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.0165,
+                                      fontSize: SizeConfig.screenWidth * 0.038,
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
@@ -185,8 +193,8 @@ class _NotificationCellState extends State<NotificationCell> {
                                   .add(const Duration(hours: 7)))!),
                               style: AppTextTheme.body4.copyWith(
                                   color: AppColor.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: SizeConfig.screenDiagonal * 0.014)),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: SizeConfig.screenWidth * 0.03)),
                         ],
                       )),
                   Expanded(
@@ -208,6 +216,8 @@ Widget contentCell(
       width: SizeConfig.screenWidth * 0.92,
       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
       child: RichText(
+        maxLines: 4,
+        overflow: TextOverflow.ellipsis,
         softWrap: true,
         textAlign: TextAlign.start,
         text: TextSpan(
@@ -216,7 +226,7 @@ Widget contentCell(
                 text: translation(context).patient,
                 style: TextStyle(
                   color: AppColor.black,
-                  fontSize: SizeConfig.screenDiagonal * 0.02,
+                  fontSize: SizeConfig.screenDiagonal * 0.018,
                 )),
             const WidgetSpan(
                 child: SizedBox(
@@ -226,7 +236,7 @@ Widget contentCell(
               text: notificationEntity.patientName,
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: SizeConfig.screenDiagonal * 0.021,
+                  fontSize: SizeConfig.screenDiagonal * 0.019,
                   fontWeight: FontWeight.bold),
             ),
             const WidgetSpan(
@@ -237,7 +247,7 @@ Widget contentCell(
               text: translation(context).hasJustUpdated,
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: SizeConfig.screenDiagonal * 0.02),
+                  fontSize: SizeConfig.screenDiagonal * 0.018),
             ),
             const WidgetSpan(
                 child: SizedBox(
@@ -255,7 +265,7 @@ Widget contentCell(
                               : "",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: SizeConfig.screenDiagonal * 0.021,
+                  fontSize: SizeConfig.screenDiagonal * 0.019,
                   fontWeight: FontWeight.bold),
             ),
           ],

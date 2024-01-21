@@ -72,20 +72,20 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                     children: [
                       Text(
                         translation(context).time,
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                        style: AppTextTheme.body1
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy')
                             .format(widget.spo2Entity!.updatedDate!),
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                        style: AppTextTheme.body1
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
                       ),
                       Text(
                         DateFormat('HH:mm')
                             .format(widget.spo2Entity!.updatedDate!),
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                        style: AppTextTheme.body1
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
                       )
                     ],
                   )),
@@ -118,7 +118,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                     children: [
                       Text(translation(context).oximeter,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenDiagonal * 0.03,
+                              fontSize: SizeConfig.screenWidth * 0.065,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -132,7 +132,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                                   style: AppTextTheme.body0.copyWith(
                                       letterSpacing: -4,
                                       fontSize:
-                                          SizeConfig.screenDiagonal * 0.085,
+                                          SizeConfig.screenDiagonal * 0.08,
                                       // color: widget.spo2Entity!.statusColor,
                                       color: widget.spo2Entity?.statusColor)),
                               TextSpan(
@@ -149,15 +149,18 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
                       Center(
                         child: Text(widget.spo2Entity!.statusComment(context),
+                            softWrap: true,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
                             style: AppTextTheme.body2.copyWith(
                               color: widget.spo2Entity!.statusColor,
                               fontWeight: FontWeight.w700,
-                              fontSize: SizeConfig.screenDiagonal * 0.025,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                             )),
                       ),
                     ],
                   )),
-              SizedBox(height: SizeConfig.screenWidth * 0.05),
+              SizedBox(height: SizeConfig.screenHeight * 0.02),
               RectangleButton(
                 height: SizeConfig.screenHeight * 0.07,
                 title: translation(context).back,
@@ -167,7 +170,8 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                   Navigator.pop(context);
                   // }
                 },
-              )
+              ),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
             ],
           ),
         ),

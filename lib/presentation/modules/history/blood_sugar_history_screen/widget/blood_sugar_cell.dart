@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 
 import '../../../../../classes/language.dart';
@@ -28,7 +29,9 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
         onTap: () {
           Navigator.pushNamed(context, RouteList.bloodSugarDetail,
               arguments: widget.response);
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(

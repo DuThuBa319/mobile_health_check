@@ -228,14 +228,16 @@ class _NotificationListState extends State<NotificationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
+                        maxLines: 2,
                         softWrap: true,
                         textAlign: TextAlign.center,
                         state.viewModel.errorMessage!,
-                        style: AppTextTheme.body2.copyWith(color: Colors.red),
+                        style: AppTextTheme.body2.copyWith(
+                            color: Colors.red, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 10),
                       RectangleButton(
-                        height: SizeConfig.screenHeight * 0.045,
+                        height: SizeConfig.screenHeight * 0.05,
                         width: SizeConfig.screenWidth * 0.3,
                         title: translation(context).loadAgain,
                         onTap: () {

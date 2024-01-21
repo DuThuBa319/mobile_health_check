@@ -11,6 +11,10 @@ class AppColor {
   static const Color bloodPressureEquip = Color(0xffFFBC97);
   static const Color topGradient = Color(0xff7BD4FF);
   static const Color mainColor = Color(0xff4169e1);
+  static const Color successToastColor = Color(0xff57D9A3);
+  static const Color loadingToastColor = Color(0xff00C7E6);
+  static const Color errorToastColor = Color(0xffFF7171);
+
   static const Color white = Colors.white;
   static const Color black = Colors.black;
   static const Color primaryColor = Color(0xFF03a1e4);

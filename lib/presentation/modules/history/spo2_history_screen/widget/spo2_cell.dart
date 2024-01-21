@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
@@ -28,7 +29,9 @@ class _Spo2CellWidgetState extends State<Spo2CellWidget> {
         onTap: () {
           Navigator.pushNamed(context, RouteList.spo2Detail,
               arguments: widget.response);
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(

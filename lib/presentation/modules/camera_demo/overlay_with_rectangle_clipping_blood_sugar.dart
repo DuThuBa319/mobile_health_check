@@ -31,7 +31,7 @@ class RectanglePainter extends CustomPainter {
           Path()
             ..addRRect(RRect.fromRectAndRadius(
                 Rect.fromCenter(
-                    center: const Offset(205, 255),
+                    center: Offset(size.width * 0.5, size.height * 0.315),
                     width: size.width * 0.8,
                     height: size.height * 0.255),
                 const Radius.circular(0)))

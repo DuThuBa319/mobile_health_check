@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 
 import '../../../../../classes/language.dart';
 import '../../../../../domain/entities/blood_pressure_entity.dart';
@@ -28,7 +29,9 @@ class _BloodPressureCellWidgetState extends State<BloodPressureCellWidget> {
         onTap: () {
           Navigator.pushNamed(context, RouteList.bloodPressuerDetail,
               arguments: widget.response);
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(

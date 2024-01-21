@@ -184,7 +184,6 @@ class CameraScreenState extends State<CameraScreen>
                                   fontSize: 20, color: Colors.white)),
                         ),
                       ),
-
                     overlayRectangle(context, task: widget.task),
                     Stack(alignment: Alignment.topCenter, children: [
                       if (state is GetImageState &&
@@ -209,52 +208,6 @@ class CameraScreenState extends State<CameraScreen>
                         ),
                     ]),
                     cropStroke(context, task: widget.task),
-                    // Positioned(
-                    //   bottom: 280,
-                    //   child: Row(
-                    //     children: [
-                    //       Container(
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           borderRadius: BorderRadius.circular(10.0),
-                    //         ),
-                    //         child: const Padding(
-                    //             padding: EdgeInsets.all(8.0),
-                    //             child: Icon(Icons.zoom_in)),
-                    //       ),
-                    //       Container(
-                    //         width: MediaQuery.of(context).size.width * 0.70,
-                    //         padding: const EdgeInsets.only(left: 10),
-                    //         child: Slider(
-                    //           value: currentZoomLevel,
-                    //           min: minAvailableZoom,
-                    //           max: maxAvailableZoom,
-                    //           activeColor: Colors.white,
-                    //           inactiveColor: Colors.white30,
-                    //           onChanged: (value) async {
-                    //             setState(() {
-                    //               currentZoomLevel = value;
-                    //             });
-                    //             await controller!.setZoomLevel(value);
-                    //           },
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           borderRadius: BorderRadius.circular(10.0),
-                    //         ),
-                    //         child: Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Text(
-                    //             '${currentZoomLevel.toStringAsFixed(1)}x',
-                    //             style: const TextStyle(color: Colors.black),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     Positioned(
                       bottom: 220,
                       child: Row(
@@ -394,7 +347,7 @@ class CameraScreenState extends State<CameraScreen>
   Widget cropStroke(BuildContext context, {required MeasuringTask task}) {
     if (task == MeasuringTask.bloodPressure) {
       return Positioned(
-        top: 120,
+        top: MediaQuery.of(context).size.height * 0.13,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.55,
           height: MediaQuery.of(context).size.height * 0.27,
@@ -407,7 +360,7 @@ class CameraScreenState extends State<CameraScreen>
     }
     if (task == MeasuringTask.bloodSugar) {
       return Positioned(
-        top: 150,
+        top: MediaQuery.of(context).size.height * 0.17,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.23,
@@ -420,7 +373,7 @@ class CameraScreenState extends State<CameraScreen>
     }
     if (task == MeasuringTask.oximeter) {
       return Positioned(
-        top: 150,
+        top: MediaQuery.of(context).size.height * 0.17,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.54,
           height: MediaQuery.of(context).size.height * 0.15,
@@ -432,7 +385,7 @@ class CameraScreenState extends State<CameraScreen>
       );
     }
     return Positioned(
-      top: 200,
+      top: MediaQuery.of(context).size.height * 0.22,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.6,
         height: MediaQuery.of(context).size.height * 0.12,
@@ -441,51 +394,6 @@ class CameraScreenState extends State<CameraScreen>
             shape: RoundedRectangleBorder(
                 side: BorderSide(width: 2, color: Colors.white))),
       ),
-    );
-  }
-
-  Widget cropArea(BuildContext context, {required MeasuringTask task}) {
-    if (task == MeasuringTask.bloodPressure) {
-      return Positioned(
-        top: 120,
-        child: Container(
-            width: MediaQuery.of(context).size.width * 0.55,
-            height: MediaQuery.of(context).size.height * 0.27,
-            decoration: const BoxDecoration(
-              color: Colors.transparent,
-            )),
-      );
-    }
-    if (task == MeasuringTask.bloodSugar) {
-      return Positioned(
-        top: 150,
-        child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.23,
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            )),
-      );
-    }
-    if (task == MeasuringTask.oximeter) {
-      return Positioned(
-        top: 150,
-        child: Container(
-            width: MediaQuery.of(context).size.width * 0.54,
-            height: MediaQuery.of(context).size.height * 0.15,
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            )),
-      );
-    }
-    return Positioned(
-      top: 200,
-      child: Container(
-          width: MediaQuery.of(context).size.width * 0.6,
-          height: MediaQuery.of(context).size.height * 0.12,
-          decoration: const BoxDecoration(
-            color: Colors.black,
-          )),
     );
   }
 

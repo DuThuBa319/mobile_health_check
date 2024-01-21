@@ -77,7 +77,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                       Text(
                         translation(context).time,
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                          fontSize: SizeConfig.screenWidth * 0.055,
                         ),
                       ),
                       Text(
@@ -85,15 +85,15 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             widget.bloodPressureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: SizeConfig.screenDiagonal * 0.025,
+                          fontSize: SizeConfig.screenWidth * 0.055,
                         ),
                       ),
                       Text(
                         DateFormat('HH:mm').format(
                             widget.bloodPressureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenDiagonal * 0.025),
+                        style: AppTextTheme.body1
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
                       )
                     ],
                   )),
@@ -126,14 +126,13 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             children: [
                               Text('SYS',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.028,
+                                      fontSize: SizeConfig.screenHeight * 0.028,
                                       color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'mmHg',
                                 style: AppTextTheme.title5.copyWith(
-                                  fontSize: SizeConfig.screenDiagonal * 0.022,
+                                  fontSize: SizeConfig.screenHeight * 0.022,
                                 ),
                               ),
                               SizedBox(
@@ -144,22 +143,21 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                           .bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize:
-                                          SizeConfig.screenDiagonal * 0.045)),
+                                          SizeConfig.screenDiagonal * 0.04)),
                             ],
                           ),
                           Column(
                             children: [
                               Text('PUL',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.028,
+                                      fontSize: SizeConfig.screenHeight * 0.028,
                                       color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'bpm',
                                 style: AppTextTheme.title5.copyWith(
-                                    fontSize:
-                                        SizeConfig.screenDiagonal * 0.022),
+                                  fontSize: SizeConfig.screenHeight * 0.022,
+                                ),
                               ),
                               SizedBox(height: SizeConfig.screenWidth * 0.04),
                               Text(widget.bloodPressureEntity!.pulse.toString(),
@@ -168,7 +166,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                           .bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize:
-                                          SizeConfig.screenDiagonal * 0.045)),
+                                          SizeConfig.screenDiagonal * 0.04)),
                             ],
                           )
                         ],
@@ -191,14 +189,18 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                         ],
                       ),
                       Text(
+                          softWrap: true,
+                          maxLines: 2,
                           // ignore: unrelated_type_equality_checks
                           widget.bloodPressureEntity!.statusComment(context),
+                          textAlign: TextAlign.center,
                           style: AppTextTheme.body2.copyWith(
                               color: widget.bloodPressureEntity!.statusColor,
-                              fontWeight: FontWeight.w700)),
+                              fontWeight: FontWeight.w700,
+                              fontSize: SizeConfig.screenWidth * 0.055)),
                     ],
                   )),
-              SizedBox(height: SizeConfig.screenWidth * 0.05),
+              SizedBox(height: SizeConfig.screenHeight * 0.015),
               RectangleButton(
                 height: SizeConfig.screenHeight * 0.07,
                 title: translation(context).back,
@@ -207,7 +209,8 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                   Navigator.pop(context);
                   // }
                 },
-              )
+              ),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
             ],
           ),
         ),

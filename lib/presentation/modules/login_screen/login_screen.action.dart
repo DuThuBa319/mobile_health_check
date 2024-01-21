@@ -9,7 +9,10 @@ extension LoginAction on _LoginState {
 
     if (state.status == BlocStatusState.loading) {
       if (state is LoginInitialState) {
-        showToast(translation(context).loadingData);
+        showToast(
+            context: context,
+            status: ToastStatus.loading,
+            toastString: translation(context).loadingData);
       }
       if (state is LoginActionState) {
         showDialog(
@@ -74,7 +77,10 @@ extension LoginAction on _LoginState {
       if (state is LoginActionState) {
         userDataData.setLogin();
         Navigator.pop(context);
-        showToast(translation(context).verifySuccessfully);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).verifySuccessfully);
         bloc.add(GetUserDataEvent(doctorId: userDataData.getUser()!.id!));
       }
       if (state is GetUserDataState) {
@@ -112,36 +118,36 @@ extension LoginAction on _LoginState {
               message: translation(context).wrongAccount,
               titleBtn: translation(context).exit);
         } else if (state.viewModel.isWifiDisconnect == true) {
-          showExceptionDialog(
-              context: context,
-              message: state.viewModel.errorMessage!,
-              titleBtn: translation(context).exit);
+          showToast(
+            context: context,
+            status: ToastStatus.error,
+            toastString: state.viewModel.errorMessage!,
+          );
         } else if (state.viewModel.errorMessage == translation(context).error) {
-          showExceptionDialog(
-              onClose: () => Navigator.pop(context),
-              context: context,
-              message: translation(context).error,
-              titleBtn: translation(context).exit);
+          showToast(
+            context: context,
+            status: ToastStatus.error,
+            toastString: state.viewModel.errorMessage!,
+          );
         }
       } else if (state is GetUserDataState) {
         if (state.viewModel.errorMessage == translation(context).error) {
           Navigator.pop(context);
-          showExceptionDialog(
-              context: context,
-              message: translation(context).error,
-              titleBtn: translation(context).exit);
+          showToast(
+            context: context,
+            status: ToastStatus.error,
+            toastString: state.viewModel.errorMessage!,
+          );
           if (userDataData.getUser() != null) {
             userDataData.localDataManager.preferencesHelper.remove('user');
           }
         } else if (state.viewModel.isWifiDisconnect == true) {
           Navigator.pop(context);
-          showExceptionDialog(
-              onClose: () {
-                Navigator.pop(context);
-              },
-              context: context,
-              message: state.viewModel.errorMessage!,
-              titleBtn: translation(context).exit);
+          showToast(
+            context: context,
+            status: ToastStatus.error,
+            toastString: state.viewModel.errorMessage!,
+          );
         }
       }
     }

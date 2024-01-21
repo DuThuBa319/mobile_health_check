@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:intl/intl.dart';
@@ -145,13 +146,15 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                   SizedBox(
                                     width: SizeConfig.screenWidth * 0.8,
                                     child: Text.rich(
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
                                       softWrap: true,
                                       textAlign: TextAlign.center,
                                       style: AppTextTheme.body1.copyWith(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
-                                          fontSize: SizeConfig.screenDiagonal *
-                                              0.025),
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.06),
                                       TextSpan(
                                         text: patient.name,
                                         children: [
@@ -193,7 +196,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                           //! Data
                           Container(
                             margin: EdgeInsets.only(
-                              left: SizeConfig.screenWidth * 0.04,
+                              left: SizeConfig.screenWidth * 0.03,
                               top: SizeConfig.screenHeight * 0.03,
                               bottom: SizeConfig.screenWidth * 0.02,
                             ),
@@ -204,8 +207,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 Text(
                                   translation(context).lastUpdate,
                                   style: AppTextTheme.body0.copyWith(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.02,
+                                      fontSize: SizeConfig.screenWidth * 0.045,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
@@ -213,7 +215,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 ),
                                 lineDecor(),
                                 SizedBox(
-                                  height: SizeConfig.screenWidth * 0.02,
+                                  height: SizeConfig.screenHeight * 0.01,
                                 ),
                               ],
                             ),
@@ -233,8 +235,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                   RouteList.bloodPressuerDetail,
                                                   arguments: patient
                                                       .bloodPressures?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -262,8 +268,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                       .bodyTemperatureDetail,
                                                   arguments: patient
                                                       .bodyTemperatures?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -289,8 +299,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                   RouteList.bloodSugarDetail,
                                                   arguments:
                                                       patient.bloodSugars?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -314,8 +328,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               Navigator.pushNamed(
                                                   context, RouteList.spo2Detail,
                                                   arguments: patient.spo2s?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -361,7 +379,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                     translation(context).relative,
                                     style: AppTextTheme.body0.copyWith(
                                         fontSize:
-                                            SizeConfig.screenDiagonal * 0.02,
+                                            SizeConfig.screenWidth * 0.045,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
@@ -448,7 +466,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           Icons.account_box_rounded,
                                           color: AppColor.primaryColorLight,
                                           size:
-                                              SizeConfig.screenDiagonal * 0.06,
+                                              SizeConfig.screenDiagonal * 0.048,
                                         ),
                                         textLine1: Text(
                                           maxLines: 1,
@@ -456,20 +474,31 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           softWrap: true,
                                           relative!.name,
                                           style: AppTextTheme.body2.copyWith(
-                                              fontSize:
-                                                  SizeConfig.screenDiagonal *
-                                                      0.023,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.055,
                                               fontWeight: FontWeight.w500),
                                         ),
-                                        textLine2: Text(
-                                            relative.phoneNumber == ""
-                                                ? translation(context).notUpdate
-                                                : relative.phoneNumber,
-                                            style: AppTextTheme.body3.copyWith(
-                                              fontSize:
-                                                  SizeConfig.screenDiagonal *
-                                                      0.02,
-                                            )),
+                                        textLine2: Row(
+                                          children: [
+                                            Text(relative.phoneNumber,
+                                                style:
+                                                    AppTextTheme.body3.copyWith(
+                                                  fontSize:
+                                                      SizeConfig.screenWidth *
+                                                          0.04,
+                                                )),
+                                            emptySpace(5),
+                                            InkWell(
+                                              child: const Icon(Icons.copy,
+                                                  color: AppColor.gray767676),
+                                              onTap: () {
+                                                Clipboard.setData(ClipboardData(
+                                                    text:
+                                                        relative.phoneNumber));
+                                              },
+                                            )
+                                          ],
+                                        ),
                                         onTapCell: () {},
                                       );
                                     },
@@ -490,9 +519,7 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                 context, RouteList.addRelative,
                                                 arguments: widget.patientId);
                                           })
-                                      : const SizedBox(
-                                        
-                                        ),
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),
@@ -511,7 +538,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                         softWrap: true,
                         textAlign: TextAlign.center,
                         state.viewModel.errorMessage!,
-                        style: AppTextTheme.body2.copyWith(color: Colors.red),
+                        style: AppTextTheme.body2.copyWith(
+                            color: Colors.red, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 10),
                       RectangleButton(

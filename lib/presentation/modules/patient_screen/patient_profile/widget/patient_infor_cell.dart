@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/empty_space.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
 
 import '../../../../../classes/language.dart';
-import '../../../../common_widget/rectangle_button.dart';
 import '../../../../theme/theme_color.dart';
 
 class PatientInforCell extends StatefulWidget {
@@ -102,14 +102,6 @@ class _PatientInforCellState extends State<PatientInforCell> {
                       : widget.patientInforEntity.address!,
                   isSelectable: true),
               SizedBox(height: SizeConfig.screenHeight * 0.03),
-              RectangleButton(
-                  width: SizeConfig.screenWidth * 0.9,
-                  height: SizeConfig.screenHeight * 0.07,
-                  title: translation(context).back,
-                  buttonColor: AppColor.saveSetting,
-                  onTap: () {
-                    Navigator.pop(context);
-                  })
             ]),
           ),
         ));
@@ -143,13 +135,12 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                 text: title,
                 style: TextStyle(
                     color: AppColor.black,
-                    fontSize: SizeConfig.screenDiagonal * 0.025,
+                    fontSize: SizeConfig.screenWidth * 0.055,
                     fontWeight: FontWeight.w500)),
             TextSpan(
               text: text,
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: SizeConfig.screenDiagonal * 0.022),
+                  color: Colors.black, fontSize: SizeConfig.screenWidth * 0.05),
             ),
             const WidgetSpan(child: SizedBox(width: 10)),
             WidgetSpan(
@@ -158,15 +149,9 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                       child: const Icon(Icons.copy, color: Colors.black54),
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
-                        showToast(translation(context).copySuccessfully);
-                        // Clipboard.setData(ClipboardData(
-                        //         text: doctor.phoneNumber))
-                        //     .then((value) {
-                        //   ScaffoldMessenger.of(context)
-                        //       .showSnackBar(const SnackBar(
-                        //           title:
-                        //               Text('Đã sao chép')));
-                        // });
+                        showToast( context: context,
+                            status: ToastStatus.success,
+                            toastString:translation(context).copySuccessfully);
                       },
                     )
                   : emptySpace(5),

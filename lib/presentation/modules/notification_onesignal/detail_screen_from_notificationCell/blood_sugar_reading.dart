@@ -68,7 +68,7 @@ class _BloodSugarNotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenHeight * 0.035,
+                height: SizeConfig.screenHeight * 0.025,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -124,10 +124,10 @@ class _BloodSugarNotificationReadingScreenState
                     children: [
                       Text(translation(context).bloodSugar,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenHeight * 0.035,
+                              fontSize: SizeConfig.screenWidth * 0.065,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
-                      SizedBox(height: SizeConfig.screenHeight * 0.015),
+                      SizedBox(height: SizeConfig.screenHeight * 0.005),
                       Center(
                         child: RichText(
                           textAlign: TextAlign.center,
@@ -156,13 +156,16 @@ class _BloodSugarNotificationReadingScreenState
                       SizedBox(height: SizeConfig.screenHeight * 0.01),
                       Center(
                         child: Text(
+                            softWrap: true,
+                            maxLines: 2,
                             widget.notificationEntity!.bloodSugarEntity!
                                 .statusComment(context),
                             style: AppTextTheme.body2.copyWith(
-                                color: widget.notificationEntity!
-                                    .bloodSugarEntity!.statusColor,
-                                fontWeight: FontWeight.w700,
-                                fontSize: SizeConfig.screenHeight * 0.025)),
+                              color: widget.notificationEntity!
+                                  .bloodSugarEntity!.statusColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: SizeConfig.screenWidth * 0.055,
+                            )),
                       ),
                     ],
                   )),

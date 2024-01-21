@@ -4,7 +4,9 @@ part of 'blood_pressure_reading_screen.dart';
 extension BloodPressureReadingScreenAction on _BloodPressureReadingScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
     if (state.status == BlocStatusState.loading) {
-      showToast(translation(context).loadingData);
+      showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).loadingData);
     }
     if (state.status == BlocStatusState.success) {
       if (state is UploadBloodPressureDataState) {
@@ -17,7 +19,9 @@ extension BloodPressureReadingScreenAction on _BloodPressureReadingScreenState {
             context, RouteList.selectEquip, (Route<dynamic> route) => false);}
             );
       }
-      showToast(translation(context).dataLoaded);
+      showToast( context: context,
+                            status: ToastStatus.success,
+                            toastString:translation(context).dataLoaded);
     }
     if (state.status == BlocStatusState.failure) {
       showExceptionDialog(

@@ -75,7 +75,7 @@ Future<dynamic> showWarningDialog({
                           style: TextStyle(
                               color: AppColor.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenDiagonal * 0.02),
+                              fontSize: SizeConfig.screenWidth * 0.05),
                           textAlign: TextAlign.center),
                     ],
                   )),
@@ -83,16 +83,19 @@ Future<dynamic> showWarningDialog({
                 children: [
                   Container(
                     padding:
-                        EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
+                        EdgeInsets.only(top: SizeConfig.screenHeight * 0.015),
                     height: SizeConfig.screenHeight * 0.15,
                     width: SizeConfig.screenWidth * 0.72,
                     child: Text(
+                      maxLines: 4,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
                       message,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColor.black,
                           fontSize: contentDialogSize ??
-                              SizeConfig.screenDiagonal * 0.018),
+                              SizeConfig.screenWidth * 0.045),
                     ),
                   ),
                   Positioned(
@@ -122,11 +125,11 @@ Future<dynamic> showWarningDialog({
                                       BorderRadius.all(Radius.circular(10))),
                               child: Center(
                                 child: Text(
+                                  overflow: TextOverflow.ellipsis,
                                   translation(context).no,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.02,
+                                      fontSize: SizeConfig.screenWidth * 0.045,
                                       color: AppColor.white,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -149,11 +152,11 @@ Future<dynamic> showWarningDialog({
                                       BorderRadius.all(Radius.circular(10))),
                               child: Center(
                                 child: Text(
+                                  overflow: TextOverflow.ellipsis,
                                   translation(context).yes,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.02,
+                                      fontSize: SizeConfig.screenWidth * 0.045,
                                       color: AppColor.white,
                                       fontWeight: FontWeight.bold),
                                 ),

@@ -34,6 +34,8 @@ class RectangleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8), color: buttonColor),
         child: Center(
           child: Text(
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             title,
             style: editSizeText == true
                 ? TextStyle(

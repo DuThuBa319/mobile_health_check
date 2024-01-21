@@ -146,7 +146,8 @@ class SlidableCell extends StatelessWidget {
                 children: List.generate(
                     endDrawerWidgets!.length,
                     (index) => SlidableAction(
-                          autoClose: false,
+                          icon: endDrawerWidgets![index].iconData,
+                          autoClose: true,
                           backgroundColor:
                               endDrawerWidgets![index].backgroundColor,
                           onPressed: endDrawerWidgets![index].onPressed,
@@ -164,6 +165,7 @@ class SlidableCell extends StatelessWidget {
                 children: List.generate(
                     startDrawerWidgets!.length,
                     (index) => SlidableAction(
+                          icon: startDrawerWidgets![index].iconData,
                           autoClose: true,
                           backgroundColor:
                               startDrawerWidgets![index].backgroundColor,
@@ -193,7 +195,7 @@ class CustomSlidableWidget extends StatelessWidget {
   final List<SlidableDrawerWidget>? endDrawerWidgets;
   final List<SlidableDrawerWidget>? startDrawerWidgets;
   final Text? textLine1;
-  final Text? textLine2;
+  final Widget? textLine2;
   final Icon? iconLeadingCell;
   final Function() onTapCell;
   const CustomSlidableWidget(
@@ -212,10 +214,14 @@ class CustomSlidableWidget extends StatelessWidget {
       endDrawerWidgets: endDrawerWidgets,
       contentWidget: Center(
         child: ListTile(
+          trailing: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 15,
+          ),
           onTap: () {
             onTapCell.call();
           },
-          contentPadding: const EdgeInsets.only(left: 10, right: 10),
+          contentPadding: const EdgeInsets.only(left: 10, right: 5),
           leading: SizedBox(
             width: SizeConfig.screenHeight * 0.05,
             child: iconLeadingCell,
@@ -228,7 +234,6 @@ class CustomSlidableWidget extends StatelessWidget {
             offset: const Offset(0, 0),
             child: textLine2,
           ),
-          trailing: const Icon(Icons.chevron_left_outlined),
         ),
       ),
     );

@@ -4,30 +4,31 @@ part of 'notification_screen.dart';
 extension NotificationScreenAction on _NotificationListState {
   void _blocListener(BuildContext context, NotificationState state) {
     //? loading
-    if (state.status == BlocStatusState.loading) {
-      if (state is GetNotificationListState) {
-        showToast(translation(context).loadingData);
-      }
-    }
+    if (state.status == BlocStatusState.loading) {}
 
     //? success
     if (state.status == BlocStatusState.success) {
-      if (state is GetNotificationListState) {
-        showToast(translation(context).dataLoaded);
+      if (state is GetNotificationListState ||
+          state is RefreshNotificationListState) {
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
       }
       if (state is DeleteNotificationState) {
-        showToast(translation(context).deleteNotificationSuccessfully);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).deleteNotificationSuccessfully);
       }
     }
 
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      if (state.viewModel.isWifiDisconnect == true) {
-        showExceptionDialog(
-            context: context,
-            message: translation(context).wifiDisconnect,
-            titleBtn: translation(context).exit);
-      }
+      showToast(
+          context: context,
+          status: ToastStatus.error,
+          toastString: state.viewModel.errorMessage!);
     }
   }
 }

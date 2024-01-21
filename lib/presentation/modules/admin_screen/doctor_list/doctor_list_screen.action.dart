@@ -6,30 +6,46 @@ extension DoctorListScreenAction on _DoctorListState {
     //? loading
     if (state.status == BlocStatusState.loading) {
       if (state is GetDoctorListState) {
-        showToast(translation(context).loadingData);
+        // showToast(
+        //     context: context,
+        //     status: ToastStatus.loading,
+        //     toastString: translation(context).loadingData);
       }
       if (state is DeleteDoctorState) {
-        showToast(translation(context).deletingDoctoc);
+        showToast(
+            context: context,
+            status: ToastStatus.loading,
+            toastString: translation(context).deletingDoctoc);
       }
     }
 
     //? Success
     if (state.status == BlocStatusState.success) {
       if (state is GetDoctorListState) {
-        showToast(translation(context).dataLoaded);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
       }
       if (state is DeleteDoctorState) {
-        showToast(translation(context).deleteDoctorSuccessfully);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).deleteDoctorSuccessfully);
         getDoctorBloc.add(GetDoctorListEvent(admindId: widget.id!));
       }
     }
 
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      showToast(translation(context).loadingError);
+      if (state is! DeleteDoctorState && state is! RegistDoctorState) {
+        showToast(
+            context: context,
+            status: ToastStatus.error,
+            toastString: state.viewModel.errorMessage);
+      }
 
-      if (state.viewModel.isWifiDisconnect == true ||
-          state is DeleteDoctorState) {
+      if (state is DeleteDoctorState) {
         showExceptionDialog(
             context: context,
             message: state.viewModel.errorMessage!,
@@ -116,7 +132,7 @@ extension DoctorListScreenAction on _DoctorListState {
                 iconLeadingCell: Icon(
                   Icons.person_pin,
                   color: AppColor.lineDecor,
-                  size: SizeConfig.screenDiagonal * 0.05,
+                  size: SizeConfig.screenDiagonal * 0.045,
                 ),
                 textLine1: Text(
                   maxLines: 1,
@@ -124,7 +140,7 @@ extension DoctorListScreenAction on _DoctorListState {
                   softWrap: true,
                   personCellEntity.name,
                   style: AppTextTheme.body2.copyWith(
-                      fontSize: SizeConfig.screenDiagonal * 0.025,
+                      fontSize: SizeConfig.screenWidth * 0.055,
                       fontWeight: FontWeight.w500),
                 ),
                 textLine2: Text(
@@ -132,7 +148,7 @@ extension DoctorListScreenAction on _DoctorListState {
                         ? translation(context).notUpdate
                         : personCellEntity.phoneNumber,
                     style: AppTextTheme.body3
-                        .copyWith(fontSize: SizeConfig.screenDiagonal * 0.018)),
+                        .copyWith(fontSize: SizeConfig.screenWidth * 0.04)),
                 onTapCell: () {
                   Navigator.pushNamed(
                     context,
