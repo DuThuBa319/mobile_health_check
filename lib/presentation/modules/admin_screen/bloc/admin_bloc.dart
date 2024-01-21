@@ -272,6 +272,14 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
                     translation(navigationService.navigatorKey.currentContext!)
                         .duplicatedDoctorPhoneNumber),
           ));
+        } else {
+          emit(RegistDoctorState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
+          ));
         }
       } catch (response) {
         emit(RegistDoctorState(
@@ -325,6 +333,16 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
                     translation(navigationService.navigatorKey.currentContext!)
                         .cannotDeleteDoctor),
           ));
+        } else {
+          emit(
+            DeleteDoctorState(
+              status: BlocStatusState.failure,
+              viewModel: state.viewModel.copyWith(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .error),
+            ),
+          );
         }
       } catch (e) {
         emit(

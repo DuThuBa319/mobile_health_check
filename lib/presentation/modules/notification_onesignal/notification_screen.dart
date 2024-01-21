@@ -210,8 +210,7 @@ class _NotificationListState extends State<NotificationScreen> {
                                             EdgeInsets.symmetric(vertical: 32),
                                         child: Center(
                                           child: CircularProgressIndicator(
-                                            color: AppColor.white,
-                                          ),
+                                              color: AppColor.gray767676),
                                         ),
                                       );
                                     }

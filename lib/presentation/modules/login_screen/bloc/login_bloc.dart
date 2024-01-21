@@ -82,6 +82,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ),
           );
           return;
+        } else {
+          emit(
+            ResetPasswordState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .error),
+            ),
+          );
         }
       } catch (e) {
         emit(
@@ -190,6 +200,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               ),
             ),
           );
+        } else {
+          emit(
+            LoginActionState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                isLogin: false,
+                isWrongAccount: true,
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error,
+              ),
+            ),
+          );
         }
       } catch (e) {
         emit(
@@ -232,7 +255,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ),
       );
       try {
-        
         if ((userDataData.getUser()?.role! == UserRole.doctor ||
             userDataData.getUser()?.role! == UserRole.relative)) {
           await OneSignalNotificationService.create();
@@ -244,7 +266,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               .getPatientInforEntityInPatientApp(userDataData.getUser()!.id!);
         }
 
-        
         emit(
           GetUserDataState(
             status: BlocStatusState.success,

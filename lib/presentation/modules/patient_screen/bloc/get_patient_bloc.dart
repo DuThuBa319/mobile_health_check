@@ -320,6 +320,16 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                     translation(navigationService.navigatorKey.currentContext!)
                         .hasDoctorBefore),
           ));
+        } else {
+          {
+            emit(RegistPatientState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .error),
+            ));
+          }
         }
       } catch (response)
       //! Lỗi server
@@ -428,6 +438,14 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .maximumRelativeCount),
+          ));
+        } else {
+          emit(RegistRelativeState(
+            status: BlocStatusState.failure,
+            viewModel: _ViewModel(
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error),
           ));
         }
       } catch (response) {

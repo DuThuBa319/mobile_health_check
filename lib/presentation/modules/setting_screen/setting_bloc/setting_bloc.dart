@@ -115,6 +115,16 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
               isCurrentPassWrong: true,
             ),
           ));
+        } else {
+          emit(
+            ChangePassState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                  errorMessage: translation(
+                          navigationService.navigatorKey.currentContext!)
+                      .error),
+            ),
+          );
         }
       } catch (response) {
         emit(

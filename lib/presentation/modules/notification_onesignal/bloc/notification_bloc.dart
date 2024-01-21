@@ -46,7 +46,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         final unreadCount = await notificationUsecase
             .getUnreadCountNotificationEntity(event.userId);
         numberOfNotificationEntity ??= 0;
-      _ViewModel newViewModel = _ViewModel(
+        _ViewModel newViewModel = _ViewModel(
             unreadCount: unreadCount,
             totalCount: numberOfNotificationEntity,
             notificationEntity: []);
@@ -58,12 +58,13 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           ));
           return;
         }
-
         if (numberOfNotificationEntity <= event.lastIndex) {
           requestLastIndex = numberOfNotificationEntity - 1;
+          
         } else {
           requestLastIndex = event.lastIndex;
         }
+      
         final response = await notificationUsecase.getNotificationListEntity(
             userId: event.userId,
             startIndex: event.startIndex,
@@ -72,6 +73,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         List<NotificationEntity> newNotificationList =
             state.viewModel.notificationEntity ?? [];
         newNotificationList.addAll(response!);
+
         newViewModel = _ViewModel(
             notificationEntity: newNotificationList,
             unreadCount: unreadCount,
@@ -277,7 +279,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         emit(
           SetReadedNotificationFromCellState(
             status: BlocStatusState.failure,
-            viewModel:_ViewModel(
+            viewModel: _ViewModel(
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error),
