@@ -176,7 +176,7 @@
 "goToNotificationScreen":"Trang thông báo",
 "endOfList":"Không còn thông báo",
 "noData":"Chưa có thông tin",
-"wifiDisconnect":"Không có kết nối Wifi. Vui lòng kiểm tra lại kết nối!",
+"wifiDisconnect":"Vui lòng kiểm tra kết nối Wifi!",
 "notUpdate":"Chưa cập nhật",
 "userName":"Tài khoản",
 "errorTryAgain":"Đã xảy ra lỗi. Vui lòng thử lại!",
@@ -189,8 +189,8 @@
 "copySuccessfully":"Sao chép thành công",
 "noPatient":"Chưa có bệnh nhân",
 "noDoctor":"Chưa có bác sĩ",
-"wrongSearchPatient":"Không tìm thấy bệnh nhân trong danh sách",
-"wrongSearchDoctor":"Không tìm thấy bác sĩ trong danh sách",
+"wrongSearchPatient":"Không tìm thấy bệnh nhân",
+"wrongSearchDoctor":"Không tìm thấy bác sĩ",
 "phoneNumberCountError":"Số điện thoại không chính xác, phải từ 10-11 ký tự",
 
 
@@ -218,7 +218,7 @@
 "call":"Liên hệ",
 "reset":"Cấp lại mật khẩu",
 "pleaseEnterPhoneNumber":"Vui lòng hãy nhập số điện thoại",
-"resetPasswordSuccessfully":"Cập nhật lại mật khẩu thành công",
+"resetPasswordSuccessfully":"Cấp lại mật khẩu thành công",
 "noNotification":"Chưa có thông báo",
 "doNotHaveInformation":"chưa có thông tin",
 "loadAgain":"Tải lại",

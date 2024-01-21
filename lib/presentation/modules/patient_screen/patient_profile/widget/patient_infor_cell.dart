@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_health_check/domain/entities/patient_infor_entity.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/empty_space.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/presentation/common_widget/screen_form/custom_screen_form.dart';
@@ -148,7 +149,9 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                       child: const Icon(Icons.copy, color: Colors.black54),
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
-                        showToast(translation(context).copySuccessfully);
+                        showToast( context: context,
+                            status: ToastStatus.success,
+                            toastString:translation(context).copySuccessfully);
                       },
                     )
                   : emptySpace(5),

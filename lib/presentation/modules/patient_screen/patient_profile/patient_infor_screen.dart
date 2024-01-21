@@ -234,8 +234,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                   RouteList.bloodPressuerDetail,
                                                   arguments: patient
                                                       .bloodPressures?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -263,8 +267,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                       .bodyTemperatureDetail,
                                                   arguments: patient
                                                       .bodyTemperatures?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -290,8 +298,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                   RouteList.bloodSugarDetail,
                                                   arguments:
                                                       patient.bloodSugars?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -315,8 +327,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                               Navigator.pushNamed(
                                                   context, RouteList.spo2Detail,
                                                   arguments: patient.spo2s?[0]);
-                                              showToast(translation(context)
-                                                  .waitForSeconds);
+                                              showToast(
+                                                  context: context,
+                                                  status: ToastStatus.loading,
+                                                  toastString:
+                                                      translation(context)
+                                                          .waitForSeconds);
                                             },
                                             child: homeCell(
                                                 context: context,
@@ -508,7 +524,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                         softWrap: true,
                         textAlign: TextAlign.center,
                         state.viewModel.errorMessage!,
-                        style: AppTextTheme.body2.copyWith(color: Colors.red),
+                        style: AppTextTheme.body2.copyWith(
+                            color: Colors.red, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 10),
                       RectangleButton(

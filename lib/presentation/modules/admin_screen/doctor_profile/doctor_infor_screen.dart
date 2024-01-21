@@ -268,7 +268,10 @@ Widget doctorIn4Cell(BuildContext context, title, String text,
                       child: const Icon(Icons.copy, color: Colors.black54),
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
-                        showToast(translation(context).copySuccessfully);
+                        showToast(
+                            context: context,
+                            status: ToastStatus.success,
+                            toastString: translation(context).copySuccessfully);
                       },
                     )
                   : emptySpace(5),

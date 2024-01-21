@@ -149,7 +149,8 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       ),
                       SizedBox(height: SizeConfig.screenHeight * 0.01),
                       Center(
-                        child: Text(
+                        child: Text(    softWrap: true,
+                            maxLines: 2,
                             textAlign: TextAlign.center,
                             widget.temperatureEntity!.statusComment(context),
                             style: AppTextTheme.body2.copyWith(

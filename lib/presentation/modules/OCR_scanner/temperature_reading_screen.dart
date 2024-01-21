@@ -213,40 +213,40 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
               ),
               Expanded(
                 child: state.viewModel.temperatureEntity?.temperature != null
-                      ?  Center(
-                  child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text:
-                                    "${state.viewModel.temperatureEntity?.temperature}",
-                                style: AppTextTheme.title3.copyWith(
-                                    color: state.viewModel.temperatureEntity
-                                        ?.statusColor,
-                                    fontSize: SizeConfig.screenWidth * 0.16,
-                                    fontWeight: FontWeight.w500)),
-                            TextSpan(
-                                text: "°",
-                                style: AppTextTheme.title3.copyWith(
-                                    color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenWidth * 0.16,
-                                    fontWeight: FontWeight.w500)),
-                            TextSpan(
-                                text: "C",
-                                style: AppTextTheme.title3.copyWith(
-                                    color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenWidth * 0.11,
-                                    fontWeight: FontWeight.w500))
-                          ]))
-                     
-                ) : Center(
-                  child: Text(translation(context).unableToRecognizeReading,
+                    ? Center(
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text:
+                                      "${state.viewModel.temperatureEntity?.temperature}",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: state.viewModel.temperatureEntity
+                                          ?.statusColor,
+                                      fontSize: SizeConfig.screenWidth * 0.16,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: "°",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize: SizeConfig.screenWidth * 0.16,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: "C",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize: SizeConfig.screenWidth * 0.11,
+                                      fontWeight: FontWeight.w500))
+                            ])))
+                    : Center(
+                        child: Text(
+                            translation(context).unableToRecognizeReading,
                             textAlign: TextAlign.center,
                             style: AppTextTheme.title3.copyWith(
                                 color: AppColor.exceptionDialogIconColor,
                                 fontSize: SizeConfig.screenWidth * 0.055,
                                 fontWeight: FontWeight.w500)),
-                ),
+                      ),
               )
             ],
           ),

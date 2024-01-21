@@ -45,7 +45,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
     on<DeletePatientEvent>(_onDeletePatient);
   }
 
-//! GET PATIENT LIST 
+//! GET PATIENT LIST
   Future<void> _onGetPatientList(
     GetPatientListEvent event,
     Emitter<GetPatientState> emit,
@@ -84,7 +84,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
               viewModel: newViewModel,
             ));
           }
-        } 
+        }
         //! Relative App
         else if (userDataData.getUser()?.role == UserRole.relative) {
           final response =
@@ -304,7 +304,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "The relationship between these entities has been existed") {
           emit(state.copyWith(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 duplicatedRelationshipPAD: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -314,7 +314,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "This patient has been managed by another doctor") {
           emit(RegistPatientState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 hasDoctorBefore: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -412,7 +412,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "The relationship between these entities has been existed") {
           emit(RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 duplicatedRelationshipPAR: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
@@ -423,7 +423,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
             "The number of relatives belonging to this patient is already maxium") {
           emit(RegistRelativeState(
             status: BlocStatusState.failure,
-            viewModel: state.viewModel.copyWith(
+            viewModel: _ViewModel(
                 maximumRelativeCount: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)

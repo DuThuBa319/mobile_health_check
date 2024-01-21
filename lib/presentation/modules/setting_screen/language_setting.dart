@@ -192,11 +192,14 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     onTap: () async {
                       if (selectEn) {
                         selectedLanguage = Language(1, ENGLISH, 'en');
-
                         Locale locale =
                             await setLocale(selectedLanguage!.languageCode);
                         notificationData.saveLocale(1);
                         MyApp.setLocale(context, locale);
+                        showToast(
+                            context: context,
+                            status: ToastStatus.success,
+                            toastString: "Change language successfully");
                         Navigator.pop(context);
                         return;
                       }
@@ -206,6 +209,10 @@ class _SettingLanguageState extends State<SettingLanguage> {
                             await setLocale(selectedLanguage!.languageCode);
                         notificationData.saveLocale(2);
                         MyApp.setLocale(context, locale);
+                        showToast(
+                            context: context,
+                            status: ToastStatus.success,
+                            toastString: "Đổi ngôn ngữ thành công");
                         Navigator.pop(context);
                         return;
                       }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_health_check/classes/language.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 
 import '../../../../utils/size_config.dart';
 import '../../../../assets/assets.dart';
@@ -81,7 +82,11 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             child: Image.network(widget.imagePath!,
                                 fit: BoxFit.fill,
                                 errorBuilder: (context, error, stackTrace) {
-                              showToast(translation(context).uploadPhotoError);
+                              showToast(
+                                  context: context,
+                                  status: ToastStatus.error,
+                                  toastString:
+                                      translation(context).uploadPhotoError);
                               return Icon(Icons.image_not_supported_outlined,
                                   size: SizeConfig.screenDiagonal * 0.045);
                             }),

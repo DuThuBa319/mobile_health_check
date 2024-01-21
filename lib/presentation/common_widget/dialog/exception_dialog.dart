@@ -69,7 +69,7 @@ Future<dynamic> showExceptionDialog({
                           style: TextStyle(
                               color: AppColor.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenDiagonal * 0.02),
+                              fontSize: SizeConfig.screenWidth * 0.05),
                           textAlign: TextAlign.center),
                     ],
                   )),
@@ -81,12 +81,16 @@ Future<dynamic> showExceptionDialog({
                     height: SizeConfig.screenHeight * 0.15,
                     width: SizeConfig.screenWidth * 0.72,
                     child: Text(
+                      softWrap: true,
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
                       message,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: contentDialogSize ??
-                              SizeConfig.screenDiagonal * 0.018),
+                        color: AppColor.black,
+                        fontSize:
+                            contentDialogSize ?? SizeConfig.screenWidth * 0.045,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -106,10 +110,11 @@ Future<dynamic> showExceptionDialog({
                                 BorderRadius.all(Radius.circular(10))),
                         child: Center(
                           child: Text(
+                            overflow: TextOverflow.ellipsis,
                             titleBtn ?? translation(context).accept,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: SizeConfig.screenDiagonal * 0.018,
+                                fontSize: SizeConfig.screenWidth * 0.045,
                                 color: AppColor.white,
                                 fontWeight: FontWeight.bold),
                           ),

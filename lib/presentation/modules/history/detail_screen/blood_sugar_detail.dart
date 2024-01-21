@@ -151,7 +151,10 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                       ),
                       SizedBox(height: SizeConfig.screenHeight * 0.01),
                       Center(
-                        child: Text(         textAlign: TextAlign.center,
+                        child: Text(
+                            softWrap: true,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
                             widget.bloodSugarEntity!.statusComment(context),
                             style: AppTextTheme.body2.copyWith(
                               color: widget.bloodSugarEntity!.statusColor,

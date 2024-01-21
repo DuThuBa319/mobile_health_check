@@ -198,7 +198,7 @@ class _PatientListState extends State<PatientListScreen> {
                               //? Loading
                               ((state.status == BlocStatusState.loading) &&
                                           (state is GetPatientListState ||
-                                              State is SearchPatientState ||
+                                              state is SearchPatientState ||
                                               state is DeletePatientState) ||
                                       (state is DeletePatientState &&
                                           state.status ==

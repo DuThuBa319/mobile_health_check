@@ -42,6 +42,7 @@ class _PatientListCellState extends State<PatientListCell> {
       ),
       child: Center(
         child: ListTile(
+         
           onTap: () {
             Navigator.pushNamed(
               context,

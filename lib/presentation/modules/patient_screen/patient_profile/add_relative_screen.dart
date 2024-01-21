@@ -46,18 +46,15 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
 //! ADD RELATIVE SUCCESSFULLY
             if (state.status == BlocStatusState.success) {
               if (state is RegistRelativeState) {
-                showSuccessDialog(
-                    onClose: () {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        RouteList.patientInfor,
-                        arguments: widget.patientId,
-                      );
-                    },
+                showToast(
                     context: context,
-                    message: translation(context).addRelativeSuccessText,
-                    title: translation(context).addRelativeSuccessfully,
-                    titleBtn: translation(context).exit);
+                    status: ToastStatus.success,
+                    toastString: translation(context).addRelativeSuccessfully);
+                Navigator.pushReplacementNamed(
+                  context,
+                  RouteList.patientInfor,
+                  arguments: widget.patientId,
+                );
               }
             }
 
@@ -79,10 +76,10 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
               }
               //! WIFI DISCONNECT
               if (state.viewModel.isWifiDisconnect == true) {
-                showExceptionDialog(
+                showToast(
                     context: context,
-                    message: translation(context).wifiDisconnect,
-                    titleBtn: translation(context).exit);
+                    status: ToastStatus.success,
+                    toastString: state.viewModel.errorMessage!);
               }
             }
           },

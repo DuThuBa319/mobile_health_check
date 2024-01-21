@@ -6,18 +6,27 @@ extension DoctorInforScreenAction on _DoctorInforScreenState {
     //? Loading
     if (state.status == BlocStatusState.loading) {
       if (state is GetDoctorInforState) {
-        showToast(translation(context).loadingData);
+        showToast(
+            context: context,
+            status: ToastStatus.loading,
+            toastString: translation(context).loadingData);
       }
     }
     //? Success
     if (state.status == BlocStatusState.success) {
       if (state is GetDoctorInforState) {
-        showToast(translation(context).dataLoaded);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
       }
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      showToast(translation(context).error);
+      showToast(
+          context: context,
+          status: ToastStatus.error,
+          toastString: translation(context).error);
       showExceptionDialog(
           context: context,
           message: state.viewModel.errorMessage!,

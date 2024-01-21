@@ -4,28 +4,35 @@ extension Spo2HistoryScreenAction on Spo2HistoryScreenState {
   void blocListener(BuildContext context, HistoryState state) {
     //? Loading
     if (state.status == BlocStatusState.loading) {
-      if (state is GetHistoryDataState) {
-        showToast(translation(context).loadingData);
-        //   );
-      }
+      // if (state is GetHistoryDataState) {
+      //   showToast( context: context,
+      //                       status: ToastStatus.loading,
+      //                       toastString:translation(context).loadingData);
+      //   //   );
+      // }
     }
     //? Success
     if (state.status == BlocStatusState.success) {
       if (state is GetHistoryDataState) {
-        showToast(translation(context).dataLoaded);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
         // Navigator.of(context, rootNavigator: true).pop();
       }
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-        showToast(translation(context).loadingError);
-        // Navigator.of(context, rootNavigator: true).pop();
-      
-        showExceptionDialog(
-            context: context,
-            message: state.viewModel.errorMessage!,
-            titleBtn: translation(context).exit);
-      
+      showToast(
+          context: context,
+          status: ToastStatus.error,
+          toastString: state.viewModel.errorMessage);
+      // Navigator.of(context, rootNavigator: true).pop();
+
+      // showExceptionDialog(
+      //     context: context,
+      //     message: state.viewModel.errorMessage!,
+      //     titleBtn: translation(context).exit);
     }
   }
 

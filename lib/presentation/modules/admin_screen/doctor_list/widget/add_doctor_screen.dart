@@ -31,7 +31,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return CustomScreenForm(
-        title: translation(context).doctorIn4,
+        title: translation(context).addDoctor,
         isShowRightButon: false,
         isShowAppBar: true,
         isShowBottomNayvigationBar: false,
@@ -62,17 +62,20 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
             if (state.status == BlocStatusState.failure) {
               if (state is RegistDoctorState) {
                 if (state.viewModel.duplicatedDoctorPhoneNumber == true ||
-                    state.viewModel.isWifiDisconnect == true ||
                     state.viewModel.errorMessage == translation(context).error)
                 //! không cần hiển thị dialog ở trường hợp lỗi ở việc điền thiếu, điền sai
                 {
-                  {
-                    showExceptionDialog(
+                  showExceptionDialog(
+                    context: context,
+                    message: state.viewModel.errorMessage!,
+                    titleBtn: translation(context).exit,
+                  );
+                }
+                if (state.viewModel.isWifiDisconnect == true) {
+                  showToast(
                       context: context,
-                      message: state.viewModel.errorMessage!,
-                      titleBtn: translation(context).exit,
-                    );
-                  }
+                      status: ToastStatus.error,
+                      toastString: state.viewModel.errorMessage!);
                 }
               }
             }

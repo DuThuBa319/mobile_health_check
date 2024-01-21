@@ -48,23 +48,34 @@ class _SettingPasswordState extends State<SettingPassword> {
           //! CHANGE PASS SUCCESSFULLY
           if (state is ChangePassState) {
             if (state.status == BlocStatusState.success) {
-              showSuccessDialog(
-                  onClose: () {
-                    Navigator.pop(context);
-                  },
+              showToast(
                   context: context,
-                  message: translation(context).changePassSuccessText,
-                  title: translation(context).updatePasswordSuccessfullly,
-                  titleBtn: translation(context).accept);
+                  status: ToastStatus.success,
+                  toastString:
+                      translation(context).updatePasswordSuccessfullly);
+              Navigator.pop(context);
+              // showSuccessDialog(
+              //     onClose: () {
+              //       Navigator.pop(context);
+              //     },
+              //     context: context,
+              //     message: translation(context).changePassSuccessText,
+              //     title: translation(context).updatePasswordSuccessfullly,
+              //     titleBtn: translation(context).accept);
             }
 
             if (state.status == BlocStatusState.failure) {
               //! WIFI DISCONNECT
               if (state.viewModel.isWifiDisconnect == true) {
-                showExceptionDialog(
-                    context: context,
-                    message: translation(context).wifiDisconnect,
-                    titleBtn: translation(context).exit);
+                showToast(
+                  context: context,
+                  status: ToastStatus.error,
+                  toastString: translation(context).wifiDisconnect,
+                );
+                // showExceptionDialog(
+                //     context: context,
+                //     message: translation(context).wifiDisconnect,
+                //     titleBtn: translation(context).exit);
               }
               //! ERROR CURRENT PASSWORD
               if (state.viewModel.isCurrentPassWrong == true) {

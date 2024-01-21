@@ -148,7 +148,10 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                       ),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
                       Center(
-                        child: Text(widget.spo2Entity!.statusComment(context),         textAlign: TextAlign.center,
+                        child: Text(widget.spo2Entity!.statusComment(context),
+                            softWrap: true,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
                             style: AppTextTheme.body2.copyWith(
                               color: widget.spo2Entity!.statusColor,
                               fontWeight: FontWeight.w700,

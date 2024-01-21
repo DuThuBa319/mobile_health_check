@@ -4,7 +4,9 @@ part of 'spo2_reading_screen.dart';
 extension Spo2ReadingScreenAction on _Spo2ReadingScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
     if (state.status == BlocStatusState.loading) {
-      showToast(translation(context).loadingData);
+      showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).loadingData);
     }
     if (state.status == BlocStatusState.success) {
       if (state is UploadSpo2DataState) {
@@ -17,7 +19,9 @@ extension Spo2ReadingScreenAction on _Spo2ReadingScreenState {
             context, RouteList.selectEquip, (Route<dynamic> route) => false);}
             );
       }
-      showToast(translation(context).dataLoaded);
+      showToast( context: context,
+                            status: ToastStatus.success,
+                            toastString:translation(context).dataLoaded);
     }
     if (state.status == BlocStatusState.failure) {
       showExceptionDialog(

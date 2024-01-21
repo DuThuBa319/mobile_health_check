@@ -5,35 +5,37 @@ extension PatientListScreenAction on _PatientListState {
   void _blocListener(context, GetPatientState state) {
     //? Loading
     if (state.status == BlocStatusState.loading) {
-      if (state is GetPatientListState || state is SearchPatientState) {
-        showToast(translation(context).loadingData);
-      }
       if (state is DeletePatientState) {
-        showToast(translation(context).deletingPatient);
+        showToast(
+            context: context,
+            status: ToastStatus.loading,
+            toastString: translation(context).deletingPatient);
       }
     }
 
     //? success
     if (state.status == BlocStatusState.success) {
-      if (state is GetPatientListState) {
-        showToast(translation(context).dataLoaded);
+      if (state is GetPatientListState || state is SearchPatientState) {
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
       }
       if (state is DeletePatientState) {
-        showToast(translation(context).deletePatientSuccessfully);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).deletePatientSuccessfully);
         patientBloc.add(GetPatientListEvent(userId: widget.id));
       }
     }
 
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      showToast(translation(context).loadingError);
-      if (state.viewModel.isWifiDisconnect == true ||
-          state is DeletePatientState) {
-        showExceptionDialog(
-            context: context,
-            message: state.viewModel.errorMessage!,
-            titleBtn: translation(context).exit);
-      }
+      showToast(
+          context: context,
+          status: ToastStatus.error,
+          toastString: state.viewModel.errorMessage!);
     }
   }
 

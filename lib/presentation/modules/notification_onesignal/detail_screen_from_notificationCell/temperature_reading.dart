@@ -68,7 +68,7 @@ class _TemperatureNotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenWidth * 0.1,
+                height: SizeConfig.screenHeight * 0.025,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -82,7 +82,7 @@ class _TemperatureNotificationReadingScreenState
                       Text(
                         "${widget.notificationEntity?.patientName}",
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenDiagonal * 0.022,
+                            fontSize: SizeConfig.screenWidth * 0.055,
                             fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
@@ -90,8 +90,8 @@ class _TemperatureNotificationReadingScreenState
                       ),
                       Text(
                         " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
-                        style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenDiagonal * 0.02),
+                        style: AppTextTheme.body1
+                            .copyWith(fontSize: SizeConfig.screenWidth * 0.05),
                       ),
                     ],
                   )),
@@ -128,7 +128,7 @@ class _TemperatureNotificationReadingScreenState
                     children: [
                       Text(translation(context).bodyTemperature,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenDiagonal * 0.028,
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -157,15 +157,21 @@ class _TemperatureNotificationReadingScreenState
                           ),
                         ),
                       ),
-                      SizedBox(height: SizeConfig.screenHeight * 0.02),
+                      SizedBox(height: SizeConfig.screenHeight * 0.01),
                       Center(
-                        child: Text(
-                            "${widget.notificationEntity?.bodyTemperatureEntity!.statusComment(context)}",
-                            style: AppTextTheme.body2.copyWith(
+                        child: Center(
+                          child: Text(
+                            softWrap: true,
+                            maxLines: 2,
+                              textAlign: TextAlign.center,
+                              "${widget.notificationEntity?.bodyTemperatureEntity!.statusComment(context)}",
+                              style: AppTextTheme.body2.copyWith(
                                 color: widget.notificationEntity
                                     ?.bodyTemperatureEntity!.statusColor,
                                 fontWeight: FontWeight.w700,
-                                fontSize: SizeConfig.screenDiagonal * 0.022)),
+                                fontSize: SizeConfig.screenWidth * 0.055,
+                              )),
+                        ),
                       ),
                     ],
                   )),

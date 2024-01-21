@@ -65,6 +65,7 @@ class _DoctorListState extends State<DoctorListScreen> {
                   borderRadius: BorderRadius.circular(30)),
               child: IconButton(
                   onPressed: () {
+                    // showSuccessfullToast();
                     Navigator.pushNamed(context, RouteList.addDoctor);
                     filterKeyword = TextEditingController(text: "");
                   },

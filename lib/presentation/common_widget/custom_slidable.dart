@@ -214,10 +214,14 @@ class CustomSlidableWidget extends StatelessWidget {
       endDrawerWidgets: endDrawerWidgets,
       contentWidget: Center(
         child: ListTile(
+          trailing: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 15,
+          ),
           onTap: () {
             onTapCell.call();
           },
-          contentPadding: const EdgeInsets.only(left: 10),
+          contentPadding: const EdgeInsets.only(left: 10, right: 5),
           leading: SizedBox(
             width: SizeConfig.screenHeight * 0.05,
             child: iconLeadingCell,

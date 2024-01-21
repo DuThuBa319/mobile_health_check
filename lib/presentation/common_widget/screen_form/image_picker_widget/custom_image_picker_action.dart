@@ -39,7 +39,10 @@ extension ImagePickerAction on _CustomImagePickerState {
                       // ignore: invalid_use_of_protected_member
                       setState(() {
                         image = pickedFile;
-                        showToast('Pick image successfully');
+                        showToast(
+                            context: context,
+                            status: ToastStatus.success,
+                            toastString: 'Pick image successfully');
                       });
                     }
                   }
@@ -57,7 +60,10 @@ extension ImagePickerAction on _CustomImagePickerState {
                       // ignore: invalid_use_of_protected_member
                       setState(() {
                         image = pickedFile;
-                        showToast('Pick image successfully');
+                        showToast(
+                            context: context,
+                            status: ToastStatus.success,
+                            toastString: 'Pick image successfully');
                       });
                     }
                   }
@@ -79,6 +85,9 @@ extension ImagePickerAction on _CustomImagePickerState {
         image = null;
       });
     }
-    showToast("Delete Image Successfully");
+    showToast(
+        context: context,
+        status: ToastStatus.success,
+        toastString: "Delete Image Successfully");
   }
 }

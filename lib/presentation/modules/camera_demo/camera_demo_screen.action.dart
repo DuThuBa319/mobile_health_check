@@ -6,17 +6,25 @@ part of 'camera_demo_screen.dart';
 extension CameraScreenAction on CameraScreenState {
   void blocListener(BuildContext context, CameraState state) async {
     if (state is GetImageState && state.status == BlocStatusState.loading) {
-      showToast(translation(context).processing);
+      showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).processing);
     }
     if (state is GetImageState && state.status == BlocStatusState.success) {
-      showToast(translation(context).processSuccessfully);
+      showToast( context: context,
+                            status: ToastStatus.success,
+                            toastString:translation(context).processSuccessfully);
       await imageDialog(context, imageFile: state.viewModel.imageFile!);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.loading) {
-      showToast(translation(context).processing);
+      showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).processing);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.success) {
-      showToast(translation(context).processSuccessfully);
+      showToast( context: context,
+                            status: ToastStatus.success,
+                            toastString:translation(context).processSuccessfully);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.failure) {
       showExceptionDialog(

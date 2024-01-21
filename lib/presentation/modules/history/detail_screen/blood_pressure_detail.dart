@@ -189,12 +189,12 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                         ],
                       ),
                       Text(
-                        
+                          softWrap: true,
+                          maxLines: 2,
                           // ignore: unrelated_type_equality_checks
                           widget.bloodPressureEntity!.statusComment(context),
                           textAlign: TextAlign.center,
                           style: AppTextTheme.body2.copyWith(
-                            
                               color: widget.bloodPressureEntity!.statusColor,
                               fontWeight: FontWeight.w700,
                               fontSize: SizeConfig.screenWidth * 0.055)),

@@ -67,7 +67,7 @@ class _BloodPressureNotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenHeight * 0.03,
+                height: SizeConfig.screenHeight * 0.025,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -125,14 +125,14 @@ class _BloodPressureNotificationReadingScreenState
                             children: [
                               Text('SYS',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.028,
+                                      fontSize: SizeConfig.screenHeight * 0.028,
                                       color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'mmHg',
-                                style:
-                                    AppTextTheme.title5.copyWith(fontSize: 15),
+                                style: AppTextTheme.title5.copyWith(
+                                  fontSize: SizeConfig.screenHeight * 0.022,
+                                ),
                               ),
                               SizedBox(
                                   height: SizeConfig.screenDiagonal * 0.02),
@@ -143,21 +143,21 @@ class _BloodPressureNotificationReadingScreenState
                                           ?.bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize:
-                                          SizeConfig.screenDiagonal * 0.045)),
+                                          SizeConfig.screenDiagonal * 0.04)),
                             ],
                           ),
                           Column(
                             children: [
                               Text('PUL',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize:
-                                          SizeConfig.screenDiagonal * 0.028,
+                                      fontSize: SizeConfig.screenHeight * 0.028,
                                       color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
                                 'bpm',
-                                style:
-                                    AppTextTheme.title5.copyWith(fontSize: 15),
+                                style: AppTextTheme.title5.copyWith(
+                                  fontSize: SizeConfig.screenHeight * 0.022,
+                                ),
                               ),
                               SizedBox(
                                   height: SizeConfig.screenDiagonal * 0.02),
@@ -168,7 +168,7 @@ class _BloodPressureNotificationReadingScreenState
                                           ?.bloodPressureEntity!.statusColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize:
-                                          SizeConfig.screenDiagonal * 0.045)),
+                                          SizeConfig.screenDiagonal * 0.04)),
                             ],
                           )
                         ],
@@ -193,9 +193,12 @@ class _BloodPressureNotificationReadingScreenState
                         ],
                       ),
                       Text(
+                          softWrap: true,
+                          maxLines: 2,
                           // ignore: unrelated_type_equality_checks
                           "${widget.notificationEntity?.bloodPressureEntity!.statusComment(context)}",
                           style: AppTextTheme.body2.copyWith(
+                              fontSize: SizeConfig.screenWidth * 0.055,
                               color: widget.notificationEntity
                                   ?.bloodPressureEntity!.statusColor,
                               fontWeight: FontWeight.w700)),

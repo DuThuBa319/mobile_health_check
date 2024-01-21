@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
+import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 
 import '../../../../classes/language.dart';
@@ -46,7 +47,9 @@ class _NotificationCellState extends State<NotificationCell> {
         }
 
         if (widget.notificationEntity?.bloodPressureEntity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bloodPressuerNotificationReading, arguments: {
             "notificationEntity": widget.notificationEntity,
@@ -54,7 +57,9 @@ class _NotificationCellState extends State<NotificationCell> {
           });
         }
         if (widget.notificationEntity?.bloodSugarEntity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
 
           Navigator.pushNamed(context, RouteList.bloodSugarNotificationReading,
               arguments: {
@@ -63,7 +68,9 @@ class _NotificationCellState extends State<NotificationCell> {
               });
         }
         if (widget.notificationEntity?.bodyTemperatureEntity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bodyTemperatureNotificationReading,
               arguments: {
@@ -72,7 +79,9 @@ class _NotificationCellState extends State<NotificationCell> {
               });
         }
         if (widget.notificationEntity?.spo2Entity != null) {
-          showToast(translation(context).waitForSeconds);
+          showToast( context: context,
+                            status: ToastStatus.loading,
+                            toastString:translation(context).waitForSeconds);
           Navigator.pushNamed(context, RouteList.spo2NotificationReading,
               arguments: {
                 "notificationEntity": widget.notificationEntity,

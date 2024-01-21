@@ -5,36 +5,34 @@ extension PatientInforScreenAction on _PatientInforScreenState {
   void _blocListener(BuildContext context, GetPatientState state) {
     //? Loading
     if (state.status == BlocStatusState.loading) {
-      if (state is GetPatientInforState) {
-        showToast(translation(context).loadingData);
-      }
       if (state is RemoveRelationshipRaPState) {
-        showToast(translation(context).deletingRelative);
+        showToast(
+            context: context,
+            status: ToastStatus.loading,
+            toastString: translation(context).deletingRelative);
       }
     }
     //? Success
     if (state.status == BlocStatusState.success) {
       if (state is GetPatientInforState) {
-        showToast(translation(context).dataLoaded);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
       }
       if (state is RemoveRelationshipRaPState) {
-        showToast(translation(context).deleteRelativeSuccessfully);
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).deleteRelativeSuccessfully);
       }
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      showToast(translation(context).loadingError);
-      if (state.viewModel.isWifiDisconnect == true) {
-        showExceptionDialog(
-            context: context,
-            message: translation(context).wifiDisconnect,
-            titleBtn: translation(context).exit);
-      } else {
-        showExceptionDialog(
-            context: context,
-            message: state.viewModel.errorMessage!,
-            titleBtn: translation(context).exit);
-      }
+      showToast(
+          context: context,
+          status: ToastStatus.error,
+          toastString: translation(context).wifiDisconnect);
     }
   }
 
