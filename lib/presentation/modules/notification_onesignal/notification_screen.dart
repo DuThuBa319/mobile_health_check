@@ -165,9 +165,13 @@ class _NotificationListState extends State<NotificationScreen> {
                                       1,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    loadMore = state.viewModel
-                                                .notificationEntity!.length <
-                                            state.viewModel.totalCount!
+                                    loadMore = (state
+                                                    .viewModel
+                                                    .notificationEntity!
+                                                    .length <
+                                                state.viewModel.totalCount! &&
+                                            state.status !=
+                                                BlocStatusState.loading)
                                         ? true
                                         : false;
                                     if (index <
@@ -206,7 +210,7 @@ class _NotificationListState extends State<NotificationScreen> {
                                             EdgeInsets.symmetric(vertical: 32),
                                         child: Center(
                                           child: CircularProgressIndicator(
-                                            color: AppColor.white,
+                                            color: AppColor.gray767676,
                                           ),
                                         ),
                                       );

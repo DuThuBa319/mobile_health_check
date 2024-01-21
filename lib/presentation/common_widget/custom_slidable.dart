@@ -98,6 +98,7 @@ class SlideAbleForm extends StatelessWidget {
     );
   }
 }
+
 //! Tùy chỉnh các slidableCell
 class SlidableDrawerWidget {
   IconData? iconData;
@@ -145,7 +146,7 @@ class SlidableCell extends StatelessWidget {
                 children: List.generate(
                     endDrawerWidgets!.length,
                     (index) => SlidableAction(
-                          autoClose: true,
+                          autoClose: false,
                           backgroundColor:
                               endDrawerWidgets![index].backgroundColor,
                           onPressed: endDrawerWidgets![index].onPressed,
@@ -214,7 +215,7 @@ class CustomSlidableWidget extends StatelessWidget {
           onTap: () {
             onTapCell.call();
           },
-          contentPadding: const EdgeInsets.only(left: 10),
+          contentPadding: const EdgeInsets.only(left: 10, right: 10),
           leading: SizedBox(
             width: SizeConfig.screenHeight * 0.05,
             child: iconLeadingCell,
@@ -227,6 +228,7 @@ class CustomSlidableWidget extends StatelessWidget {
             offset: const Offset(0, 0),
             child: textLine2,
           ),
+          trailing: const Icon(Icons.chevron_left_outlined),
         ),
       ),
     );

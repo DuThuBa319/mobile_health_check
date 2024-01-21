@@ -190,6 +190,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               ),
             ),
           );
+        } else {
+          emit(
+            LoginActionState(
+              status: BlocStatusState.failure,
+              viewModel: _ViewModel(
+                isLogin: false,
+                errorMessage:
+                    translation(navigationService.navigatorKey.currentContext!)
+                        .error,
+              ),
+            ),
+          );
         }
       } catch (e) {
         emit(

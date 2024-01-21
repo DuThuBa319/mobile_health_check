@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 import 'dart:convert';
 import 'dart:io';
@@ -101,7 +101,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       try {
         List<int?> dataList = [];
         var newViewModel = state.viewModel;
-        // ignore: use_build_context_synchronously
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
             arguments: MeasuringTask.bloodPressure) as CroppedImage?;
