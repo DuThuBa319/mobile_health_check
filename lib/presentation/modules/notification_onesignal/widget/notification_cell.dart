@@ -97,7 +97,7 @@ class _NotificationCellState extends State<NotificationCell> {
             children: [
               SlidableAction(
                 label: translation(context).delete,
-                autoClose: true,
+                autoClose: false,
                 borderRadius: BorderRadius.circular(10),
                 onPressed: (context) {
                   if (widget.notificationEntity?.read == true) {

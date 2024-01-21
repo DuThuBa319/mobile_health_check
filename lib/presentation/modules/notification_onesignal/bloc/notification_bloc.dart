@@ -25,7 +25,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<SetReadedNotificationFromCellEvent>(_setReadedNotificationFromCell);
     on<DeleteNotificationEvent>(_deleteNotification);
     on<RefreshNotificationListEvent>(_onRefreshNotificationList);
-    on<RenewPageAfterActionEvent>(_onRenewPageAfterAction);
+  
   }
 
   Future<void> _onGetNotificationList(
@@ -108,59 +108,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     }
   }
 
-  Future<void> _onRenewPageAfterAction(
-    RenewPageAfterActionEvent event,
-    Emitter<NotificationState> emit,
-  ) async {
-    if (await networkInfo.isConnected == true) {
-      emit(
-        RenewPageAfterActionState(
-          status: BlocStatusState.loading,
-          viewModel: state.viewModel,
-        ),
-      );
-      try {
-        final response = await notificationUsecase.getNotificationListEntity(
-            userId: event.userId,
-            startIndex: event.startIndex,
-            lastIndex: event.lastIndex);
-
-        final unreadCount = await notificationUsecase
-            .getUnreadCountNotificationEntity(event.userId);
-        final totalCount = await notificationUsecase
-            .getNumberOfNotificationEntity(event.userId);
-        final newViewModel = state.viewModel.copyWith(
-            notificationEntity: response,
-            unreadCount: unreadCount,
-            totalCount: totalCount);
-        emit(RenewPageAfterActionState(
-          status: BlocStatusState.success,
-          viewModel: newViewModel,
-        ));
-      } catch (e) {
-        emit(
-          RenewPageAfterActionState(
-            status: BlocStatusState.failure,
-            viewModel: _ViewModel(
-                errorMessage:
-                    translation(navigationService.navigatorKey.currentContext!)
-                        .error),
-          ),
-        );
-      }
-    } else {
-      emit(
-        RenewPageAfterActionState(
-          status: BlocStatusState.failure,
-          viewModel: _ViewModel(
-              isWifiDisconnect: true,
-              errorMessage:
-                  translation(navigationService.navigatorKey.currentContext!)
-                      .wifiDisconnect),
-        ),
-      );
-    }
-  }
 
   Future<void> _onRefreshNotificationList(
     RefreshNotificationListEvent event,

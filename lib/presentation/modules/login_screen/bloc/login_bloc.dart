@@ -206,7 +206,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               status: BlocStatusState.failure,
               viewModel: _ViewModel(
                 isLogin: false,
-                isWrongAccount: true,
                 errorMessage:
                     translation(navigationService.navigatorKey.currentContext!)
                         .error,

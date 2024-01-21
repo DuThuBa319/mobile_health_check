@@ -30,14 +30,15 @@ const baseUrl = 'https://mobilehealthcareapplication.azurewebsites.net/';
 Map<String, String> url = {
   'baseUrl': 'https://mobilehealthcareapplication.azurewebsites.net/',
   'bloodPressureURL':
-      'https://flask-server.azurewebsites.net/api/bloodpressure?code=VsvpcH9u0z8Wlo4EBEqBg9LlUE0x37h65w5QZdu2Pb74AzFux8d7gQ%3D%3D',
-  'testURL': '',
+      'https://healthcareflaskserver.azurewebsites.net/api/bloodpressure?code=Y_yOotpq8N47XkQt72U3YbXsCpYswimJyD53RdfK9QyqAzFuh9FZmw%3D%3D',
+  'testURL':
+      'https://healthcareflaskserver.azurewebsites.net/api/bloodglucose?code=ThrTxAvwncnoT4Oom96r9PfautLJmWE3aj9oWJ3CoZ7SAzFucK_3sg%3D%3D',
   'bloodSugarURL':
-      'https://flask-server.azurewebsites.net/api/bloodglucose?code=7s34g-FdGx_VRWYQHkCvb55Zv4mkXOgECRhsqmnzqtBrAzFua74kWA%3D%3D',
+      'https://healthcareflaskserver.azurewebsites.net/api/bloodglucose?code=ThrTxAvwncnoT4Oom96r9PfautLJmWE3aj9oWJ3CoZ7SAzFucK_3sg%3D%3D',
   'tempURL':
-      'https://flask-server.azurewebsites.net/api/bodytemperature?code=Za4DcoO9bc5IMMUnBDMqWR8QY8r9dvg4VoMD_tdph7xrAzFuE31tfA%3D%3D',
+      'https://healthcareflaskserver.azurewebsites.net/api/bodytemperature?code=Z78LX0hzvK6Xwo-ZXzuKBbhqMXPMMKkQ3wQvsshTnQQVAzFucGdW1g%3D%3D',
   'oxiURL':
-      'https://flask-server.azurewebsites.net/api/oxygen?code=dbUecZAtJzt_snPDrNohMJr27Tj5u0y5LvDodmFlnFxtAzFukHuD_w%3D%3D'
+      'https://healthcareflaskserver.azurewebsites.net/api/oxygen?code=IZw7K5c8YQRodIXKkZRCpwtitnOQMYsNfhbKZNzNWg3iAzFuOithlA%3D%3D'
 };
 
 enum UserRole { doctor, patient, relative, admin }

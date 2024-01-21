@@ -17,9 +17,9 @@ import 'package:mobile_health_check/utils/size_config.dart';
 //   );
 // }
 
-Widget iconStatusToast(ToastStatus? status, context) {
+void showToast({String? toastString, ToastStatus? status, context}) {
   SizeConfig.init(context);
-  return Container(
+  Widget toastIcon = Container(
     width: SizeConfig.screenDiagonal * 0.03,
     height: SizeConfig.screenDiagonal * 0.03,
     decoration:
@@ -37,10 +37,6 @@ Widget iconStatusToast(ToastStatus? status, context) {
                 ? const Color.fromARGB(255, 3, 169, 194)
                 : AppColor.exceptionDialogIconColor),
   );
-}
-
-void showToast({String? toastString, ToastStatus? status, context}) {
-  SizeConfig.init(context);
   Widget toastStatus = Container(
     padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
     decoration: BoxDecoration(
@@ -53,7 +49,7 @@ void showToast({String? toastString, ToastStatus? status, context}) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        iconStatusToast(status, context),
+        toastIcon,
         SizedBox(
           width: SizeConfig.screenWidth * 0.02,
         ),
@@ -70,7 +66,7 @@ void showToast({String? toastString, ToastStatus? status, context}) {
   fToast.removeCustomToast();
   fToast.showToast(
       child: toastStatus,
-      toastDuration: const Duration(milliseconds: 2000),
+      toastDuration: const Duration(milliseconds: 1000),
       positionedToastBuilder: (context, child) {
         return Positioned(
           bottom: SizeConfig.screenHeight * 0.1,

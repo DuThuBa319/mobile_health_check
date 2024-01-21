@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 import 'dart:convert';
 import 'dart:io';
@@ -63,7 +63,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         ),
       );
       try {
-        //    http.get(Uri.parse(url['testURL'] ?? ''));
+        http.get(Uri.parse(url['testURL'] ?? ''));
         emit(state.copyWith(
           status: BlocStatusState.success,
           viewModel: state.viewModel,

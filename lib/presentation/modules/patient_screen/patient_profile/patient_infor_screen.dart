@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:intl/intl.dart';
@@ -477,14 +478,27 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                   0.055,
                                               fontWeight: FontWeight.w500),
                                         ),
-                                        textLine2: Text(
-                                            relative.phoneNumber == ""
-                                                ? translation(context).notUpdate
-                                                : relative.phoneNumber,
-                                            style: AppTextTheme.body3.copyWith(
-                                              fontSize:
-                                                  SizeConfig.screenWidth * 0.04,
-                                            )),
+                                        textLine2: Row(
+                                          children: [
+                                            Text(relative.phoneNumber,
+                                                style:
+                                                    AppTextTheme.body3.copyWith(
+                                                  fontSize:
+                                                      SizeConfig.screenWidth *
+                                                          0.04,
+                                                )),
+                                            emptySpace(5),
+                                            InkWell(
+                                              child: const Icon(Icons.copy,
+                                                  color: AppColor.gray767676),
+                                              onTap: () {
+                                                Clipboard.setData(ClipboardData(
+                                                    text:
+                                                        relative.phoneNumber));
+                                              },
+                                            )
+                                          ],
+                                        ),
                                         onTapCell: () {},
                                       );
                                     },

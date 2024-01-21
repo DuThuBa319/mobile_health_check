@@ -14,17 +14,6 @@ class GetNotificationListEvent extends NotificationEvent {
       required this.lastIndex});
 }
 
-class RenewPageAfterActionEvent extends NotificationEvent {
-  // final List<NotificationEntity>? notificationEntiry;
-  final String userId;
-  final int startIndex;
-  final int lastIndex;
-  RenewPageAfterActionEvent(
-      {required this.userId,
-      required this.startIndex,
-      required this.lastIndex});
-}
-
 class RefreshNotificationListEvent extends NotificationEvent {
   final String? userId;
 

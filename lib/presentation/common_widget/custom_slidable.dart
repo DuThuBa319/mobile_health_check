@@ -195,7 +195,7 @@ class CustomSlidableWidget extends StatelessWidget {
   final List<SlidableDrawerWidget>? endDrawerWidgets;
   final List<SlidableDrawerWidget>? startDrawerWidgets;
   final Text? textLine1;
-  final Text? textLine2;
+  final Widget? textLine2;
   final Icon? iconLeadingCell;
   final Function() onTapCell;
   const CustomSlidableWidget(
