@@ -95,9 +95,12 @@ class CameraScreenState extends State<CameraScreen>
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
+    double height = SizeConfig.screenHeight;
+    double width = SizeConfig.screenWidth;
     return CustomScreenForm(
         backgroundColor: backgroundColor,
-        appBarColor: Colors.blue,
+        appBarColor: AppColor.appBarColor,
         isShowLeadingButton: true,
         isShowAppBar: true,
         title: translation(context).cameraScreen,
@@ -141,15 +144,15 @@ class CameraScreenState extends State<CameraScreen>
                   state is GetImageState) {
                 backgroundColor = Colors.black;
                 return Stack(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.topLeft,
                   fit: StackFit.expand,
                   children: [
                     Positioned(
                         top: 0,
                         child: FittedBox(
                           child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.67,
+                              width: width,
+                              height: height * 0.67,
                               child: CameraPreview(
                                 state.viewModel.cameraController!,
                                 child: LayoutBuilder(builder:
@@ -167,14 +170,16 @@ class CameraScreenState extends State<CameraScreen>
                     if (state is GetImageState &&
                         state.status == BlocStatusState.loading)
                       Positioned(
-                        top: 80,
+                        top: height * 0.0877,
+                        left: width * 0.315,
                         child: Text(translation(context).holdForFewSec,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white)),
                       )
                     else
                       Positioned(
-                        top: 80,
+                        top: height * 0.0877,
+                        left: width * 0.315,
                         child: Container(
                           decoration: const BoxDecoration(
                             color: Colors.transparent,
@@ -189,14 +194,16 @@ class CameraScreenState extends State<CameraScreen>
                       if (state is GetImageState &&
                           state.status == BlocStatusState.loading)
                         Positioned(
-                          top: 80,
+                          top: height * 0.0877,
+                          left: width * 0.315,
                           child: Text(translation(context).holdForFewSec,
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white)),
                         )
                       else
                         Positioned(
-                          top: 80,
+                          top: height * 0.0877,
+                          left: width * 0.315,
                           child: Container(
                             decoration: const BoxDecoration(
                               color: Colors.transparent,
@@ -209,8 +216,10 @@ class CameraScreenState extends State<CameraScreen>
                     ]),
                     cropStroke(context, task: widget.task),
                     Positioned(
-                      bottom: 220,
+                      bottom: height * 0.26,
+                      left: width * 0.036,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
                             decoration: BoxDecoration(
@@ -222,9 +231,8 @@ class CameraScreenState extends State<CameraScreen>
                               child: Icon(Icons.sunny),
                             ),
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            padding: const EdgeInsets.only(left: 20),
+                          SizedBox(
+                            width: width * 0.7,
                             child: Slider(
                               value: currentExposureOffset,
                               min: minAvailableExposureOffset,
@@ -232,10 +240,8 @@ class CameraScreenState extends State<CameraScreen>
                               activeColor: Colors.white,
                               inactiveColor: Colors.white30,
                               onChanged: (value) async {
-                                // setState(() {
                                 currentExposureOffset = value;
-                                // });
-                                // await controller!.setExposureOffset(value);
+
                                 cameraBloc.add(
                                     CameraUpdateUiEvent(exposureValue: value));
                               },
@@ -247,7 +253,7 @@ class CameraScreenState extends State<CameraScreen>
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(width * 0.02),
                               child: Text(
                                 '${currentExposureOffset.toStringAsFixed(1)}x',
                                 style: const TextStyle(color: Colors.black),
@@ -270,22 +276,23 @@ class CameraScreenState extends State<CameraScreen>
                                   context: context));
                               // await imageDialog(context, imageFile: imageFile);
                             },
-                            child: const Stack(
+                            child: Stack(
                               alignment: Alignment.center,
                               children: [
                                 Icon(Icons.circle,
-                                    color: Colors.white, size: 80),
-                                Icon(Icons.circle, color: Colors.red, size: 65),
+                                    color: Colors.white, size: width * 0.2),
+                                Icon(Icons.circle,
+                                    color: Colors.red, size: width * 0.16),
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: height * 0.05,
                           ),
                           Container(
-                            height: 50,
+                            height: height * 0.06,
                             padding: const EdgeInsets.only(right: 10, left: 10),
-                            color: Colors.blue,
+                            color: AppColor.appBarColor,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -299,8 +306,7 @@ class CameraScreenState extends State<CameraScreen>
                                     );
                                   },
                                   child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.45,
+                                    width: width * 0.45,
                                     child: Icon(
                                       Icons.flash_off,
                                       color: currentFlashMode == FlashMode.off
@@ -319,8 +325,7 @@ class CameraScreenState extends State<CameraScreen>
                                     );
                                   },
                                   child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.45,
+                                    width: width * 0.45,
                                     child: Icon(
                                       Icons.highlight,
                                       color: currentFlashMode == FlashMode.torch
@@ -347,7 +352,8 @@ class CameraScreenState extends State<CameraScreen>
   Widget cropStroke(BuildContext context, {required MeasuringTask task}) {
     if (task == MeasuringTask.bloodPressure) {
       return Positioned(
-        top: MediaQuery.of(context).size.height * 0.13,
+        top: MediaQuery.of(context).size.height * 0.144,
+        left: MediaQuery.of(context).size.width * 0.23,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.55,
           height: MediaQuery.of(context).size.height * 0.27,
@@ -360,7 +366,8 @@ class CameraScreenState extends State<CameraScreen>
     }
     if (task == MeasuringTask.bloodSugar) {
       return Positioned(
-        top: MediaQuery.of(context).size.height * 0.17,
+        top: MediaQuery.of(context).size.height * 0.179,
+        left: MediaQuery.of(context).size.width * 0.105,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.23,
@@ -373,7 +380,8 @@ class CameraScreenState extends State<CameraScreen>
     }
     if (task == MeasuringTask.oximeter) {
       return Positioned(
-        top: MediaQuery.of(context).size.height * 0.17,
+        top: MediaQuery.of(context).size.height * 0.179,
+        left: MediaQuery.of(context).size.width * 0.23,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.54,
           height: MediaQuery.of(context).size.height * 0.15,
@@ -385,7 +393,8 @@ class CameraScreenState extends State<CameraScreen>
       );
     }
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.22,
+      top: MediaQuery.of(context).size.height * 0.23,
+      left: MediaQuery.of(context).size.width * 0.20,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.6,
         height: MediaQuery.of(context).size.height * 0.12,
