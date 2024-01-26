@@ -226,7 +226,7 @@ class CameraScreenState extends State<CameraScreen>
                           ),
                         ),
                     ]),
-                    cropStroke(context, task: widget.task),
+                    //cropStroke(context, task: widget.task),
                     Positioned(
                       bottom: height * 0.3,
                       left: width * 0.036,
