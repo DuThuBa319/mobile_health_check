@@ -27,10 +27,12 @@ class SizeConfig {
   static double ratioFont = 0;
   static double ratioRadius = 0;
   static double screenDiagonal = 0;
+  static Size size = Size.zero;
 
   ///Hàm chạy để khởi tạo các giá trị tỉ lệ, dùng trong trang đầu tiên của ứng dụng
   static void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
+    size = MediaQuery.of(context).size;
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
     ratioWidth = screenWidth / screenWidthSample;

@@ -102,7 +102,7 @@ class CameraScreenState extends State<CameraScreen>
         backgroundColor: backgroundColor,
         appBarColor: AppColor.appBarColor,
         isShowLeadingButton: true,
-        isShowAppBar: true,
+        isShowAppBar: false,
         title: translation(context).cameraScreen,
         leadingButton: IconButton(
           icon: Icon(
@@ -191,6 +191,18 @@ class CameraScreenState extends State<CameraScreen>
                       ),
                     overlayRectangle(context, task: widget.task),
                     Stack(alignment: Alignment.topCenter, children: [
+                      Positioned(
+                          top: 15,
+                          left: 15,
+                          child: CircleButton(
+                            size: SizeConfig.screenDiagonal * 0.04,
+                            iconData: Icons.arrow_back_outlined,
+                            iconColor: AppColor.white,
+                            backgroundColor: AppColor.appBarColor,
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          )),
                       if (state is GetImageState &&
                           state.status == BlocStatusState.loading)
                         Positioned(
@@ -216,7 +228,7 @@ class CameraScreenState extends State<CameraScreen>
                     ]),
                     cropStroke(context, task: widget.task),
                     Positioned(
-                      bottom: height * 0.26,
+                      bottom: height * 0.3,
                       left: width * 0.036,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -280,14 +292,16 @@ class CameraScreenState extends State<CameraScreen>
                               alignment: Alignment.center,
                               children: [
                                 Icon(Icons.circle,
-                                    color: Colors.white, size: width * 0.2),
+                                    color: Colors.white,
+                                    size: SizeConfig.screenDiagonal * 0.1),
                                 Icon(Icons.circle,
-                                    color: Colors.red, size: width * 0.16),
+                                    color: Colors.red,
+                                    size: SizeConfig.screenDiagonal * 0.08),
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: height * 0.05,
+                            height: height * 0.062,
                           ),
                           Container(
                             height: height * 0.06,

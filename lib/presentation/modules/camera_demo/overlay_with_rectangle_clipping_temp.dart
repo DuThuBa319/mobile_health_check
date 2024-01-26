@@ -30,8 +30,8 @@ class RectanglePainter extends CustomPainter {
           //bellow clips out the circular rectangle with center as offset and dimensions you need to set
           Path()
             ..addRRect(RRect.fromRectAndRadius(
-                Rect.fromLTWH(size.width * 0.202, size.height * 0.258,
-                    size.width * 0.6, size.height * 0.13),
+                Rect.fromLTWH(size.width * 0.202, size.height * 0.24,
+                    size.width * 0.6, size.height * 0.122),
                 const Radius.circular(0)))
             ..close(),
         ),
