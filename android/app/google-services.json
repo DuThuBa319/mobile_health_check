@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:570191014591:android:518802ba628cc9dacd340a",
         "android_client_info": {
-          "package_name": "com.example.mobile_health_check"
+          "package_name": "com.fablab.mobileHealthCheck"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "570191014591-5q2css210dfvr2j87f9fmae1f9sil341.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.mobileHealthCheck"
+                "bundle_id": "com.fablab.mobileHealthCheck"
               }
             }
           ]
