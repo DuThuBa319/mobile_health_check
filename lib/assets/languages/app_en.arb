@@ -217,7 +217,8 @@
 "duplicatedPatientPhoneNumber":"This phone number has been registered by another person",
 "duplicatedRelationshipPAR":"The relationship between these entities has been existed",
 "maximumRelativeCount":"The number of relatives belonging to this patient is already maxium",
-"contact":"Contact"
+"contact":"Contact",
+"permissionWarning":"Please allow camera and microphone access"
 }
 
 

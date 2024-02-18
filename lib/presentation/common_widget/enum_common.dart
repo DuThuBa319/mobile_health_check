@@ -44,3 +44,8 @@ Map<String, String> url = {
 enum UserRole { doctor, patient, relative, admin }
 
 enum ToastStatus { loading, success, error }
+
+List<String> bloodPressureEquipModel = ['Pa','Pb','Pc','Pd'];
+List<String> bloodSugarEquipModel = ['Sa','Sb'];
+List<String> temperatureEquipModel = ['Ta','Tb','Tc'];
+List<String> spo2EquipModel = ['Oa','Ob'];

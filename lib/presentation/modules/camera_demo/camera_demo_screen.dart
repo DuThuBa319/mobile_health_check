@@ -11,6 +11,8 @@ import 'package:mobile_health_check/presentation/modules/camera_demo/overlay_wit
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../classes/language.dart';
+
+import '../../../common/singletons.dart';
 import '../../../utils/size_config.dart';
 
 import '../../common_widget/common.dart';

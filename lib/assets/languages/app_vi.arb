@@ -116,7 +116,7 @@
 "photoLoading":"Đang lấy hình ảnh",
 "verifying":"Đang xác thực, vui lòng chờ...",
 "verifySuccessfully":"Xác thực thành công",
-"pleaseEnterYourAccount":"Vui lòng nhập đủ số sđt và mật khẩu",
+"pleaseEnterYourAccount":"Vui lòng nhập đủ thông tin",
 "pleaseEnterRelativeName":"Vui lòng nhập tên người thân",
 "pleaseEnterPatientName":"Vui lòng nhập tên bệnh nhân",
 "pleaseEnterDoctorName":"Vui lòng nhập tên bác sĩ",
@@ -146,7 +146,7 @@
 "pleaseEnterYourCurrentPassword":"Vui lòng nhập mật khẩu hiện tại",
 "pleaseEnterYourNewPassword":"Vui lòng nhập mật khẩu mới",
 "pleaseEnterCompleteInformation":"Vui lòng nhập đủ thông tin",
-"pleaseEnterCompleteLogin":"Vui lòng nhập đủ sđt và mật khẩu",
+"pleaseEnterCompleteLogin":"Vui lòng nhập đủ thông tin",
 "invalidPhonenumber":"Số điện thoại không chính xác, phải từ 10-11 ký tự",
 "addPatient":"Thêm bệnh nhân",
 "addDoctor":"Thêm bác sĩ",
@@ -231,5 +231,6 @@
 "hasDoctorBefore":"Bệnh nhân đã đăng ký với bác sĩ khác",
 "maximumRelativeCount":"Số người thân đã đạt tối đa",
 "wrongAccount":"Số điện thoại hoặc mật khẩu không đúng. Vui lòng đăng nhập lại!",
-"contact":"Liên hệ"
+"contact":"Liên hệ",
+"permissionWarning":"Vui lòng cho phép truy cập camera và microphone"
 }

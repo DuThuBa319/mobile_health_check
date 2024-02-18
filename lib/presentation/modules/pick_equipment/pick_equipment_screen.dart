@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -7,12 +9,14 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../classes/language.dart';
 import '../../../utils/size_config.dart';
 
 import '../../common_widget/common.dart';
 import '../../route/route_list.dart';
 import '../OCR_scanner/ocr_scanner_bloc/ocr_scanner_bloc.dart';
+
 part 'pick_equipment_screen.action.dart';
 
 class PickEquipmentScreen extends StatefulWidget {
@@ -28,6 +32,16 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
   void initState() {
     super.initState();
     scannerBloc.add(StartUpEvent());
+  }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    await [
+      // Request camera and microphone permissions
+      Permission.camera,
+      Permission.microphone,
+    ].request();
   }
 
   @override

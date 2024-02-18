@@ -1,5 +1,7 @@
-import 'dart:io';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:mobile_health_check/classes/language.dart';
@@ -8,6 +10,7 @@ import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 
 import '../../../../utils/size_config.dart';
 import '../../../../assets/assets.dart';
+import '../../../common_widget/dialog/warning_dialog.dart';
 import '../ocr_scanner_bloc/ocr_scanner_bloc.dart';
 
 Widget imagePickerCell(BuildContext context,
@@ -34,7 +37,20 @@ Widget imagePickerCell(BuildContext context,
             child: imageFile == null
                 ? GestureDetector(
                     onTap: () async {
-                      scanBloc.add(event);
+                      if (await Permission.camera.status ==
+                              PermissionStatus.granted &&
+                          await Permission.microphone.status ==
+                              PermissionStatus.granted) {
+                        scanBloc.add(event);
+                      } else {
+                        await showWarningDialog(
+                            context: context,
+                            message: translation(context).permissionWarning,
+                            onClose1: () {},
+                            onClose2: () async {
+                              await openAppSettings();
+                            });
+                      }
                     },
                     child: Image.asset(
                       Assets.icCameraAdd,

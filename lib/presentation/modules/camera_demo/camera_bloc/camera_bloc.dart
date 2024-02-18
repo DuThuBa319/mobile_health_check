@@ -11,6 +11,9 @@ import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../classes/language.dart';
+import '../../../../common/singletons.dart';
+import '../../../common_widget/common.dart';
 import '../../../common_widget/enum_common.dart';
 
 part 'camera_event.dart';
@@ -84,7 +87,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       ),
     );
     try {
-      Future.delayed(const Duration(seconds: 5), () {
+      Future.delayed(const Duration(seconds: 5)).whenComplete(() {
         if (state.status == BlocStatusState.loading) {
           emit(
             state.copyWith(
@@ -109,9 +112,22 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
           ),
         );
       } catch (e) {
-        bool isCameraGranted = await Permission.camera.request().isGranted;
-        if (!isCameraGranted) {
-          checkPermission(event.context);
+        await [
+          // Request camera and microphone permissions
+          Permission.camera,
+          Permission.microphone,
+        ].request();
+        if (await Permission.camera.status != PermissionStatus.granted ||
+            await Permission.microphone.status != PermissionStatus.granted) {
+          await showWarningDialog(
+              context: navigationService.navigatorKey.currentContext!,
+              message:
+                  translation(navigationService.navigatorKey.currentContext!)
+                      .permissionWarning,
+              onClose1: () {},
+              onClose2: () async {
+                await openAppSettings();
+              });
         } else {
           debugPrint("camera error $e");
         }
@@ -292,22 +308,3 @@ openSettingDialog(BuildContext context) => AlertDialog(
         ),
       ),
     );
-checkPermission(BuildContext context) async {
-  try {
-    bool isCameraGranted = await Permission.camera.request().isGranted;
-    if (!isCameraGranted) {
-      if (!isPopupPermissionShow) {
-        isPopupPermissionShow = true;
-
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return openSettingDialog(context);
-            });
-      }
-      isPopupPermissionShow = false;
-    }
-  } catch (e) {
-    debugPrint("camera error: $e");
-  }
-}

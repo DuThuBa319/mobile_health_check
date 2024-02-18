@@ -13,7 +13,7 @@ import '../../theme/theme_color.dart';
 Future<dynamic> showWarningDialog({
   required BuildContext context,
   required String message,
-  required String? title,
+  String? title,
   bool barrierDismissible = false,
   Function()? onClose1,
   Function()? onClose2,
@@ -71,12 +71,13 @@ Future<dynamic> showWarningDialog({
                       const SizedBox(
                         height: 2,
                       ),
-                      Text("$title?",
-                          style: TextStyle(
-                              color: AppColor.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenWidth * 0.05),
-                          textAlign: TextAlign.center),
+                      if (title != null)
+                        Text("$title?",
+                            style: TextStyle(
+                                color: AppColor.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: SizeConfig.screenWidth * 0.05),
+                            textAlign: TextAlign.center),
                     ],
                   )),
               Stack(
