@@ -1,16 +1,20 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+import 'package:gap/gap.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:mobile_health_check/classes/language.dart';
-import 'package:mobile_health_check/presentation/common_widget/loading_widget.dart';
-import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 
+import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
+import 'package:material_symbols_icons/symbols.dart';
+import '../../../../common/singletons.dart';
 import '../../../../utils/size_config.dart';
-import '../../../../assets/assets.dart';
-import '../../../common_widget/dialog/warning_dialog.dart';
+import '../../../common_widget/common.dart';
+import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equipment_screen.dart';
+import '../../../theme/theme_color.dart';
 import '../ocr_scanner_bloc/ocr_scanner_bloc.dart';
 
 Widget imagePickerCell(BuildContext context,
@@ -37,6 +41,11 @@ Widget imagePickerCell(BuildContext context,
             child: imageFile == null
                 ? GestureDetector(
                     onTap: () async {
+                      await [
+                        // Request camera and microphone permissions
+                        Permission.camera,
+                        Permission.microphone,
+                      ].request();
                       if (await Permission.camera.status ==
                               PermissionStatus.granted &&
                           await Permission.microphone.status ==
@@ -52,8 +61,10 @@ Widget imagePickerCell(BuildContext context,
                             });
                       }
                     },
-                    child: Image.asset(
-                      Assets.icCameraAdd,
+                    child: Icon(
+                      Symbols.linked_camera_rounded,
+                      weight: 100,
+                      size: SizeConfig.screenDiagonal * 0.3,
                     ),
                   )
                 : ClipRRect(
@@ -120,4 +131,181 @@ Widget processingLoading(BuildContext context) {
       ],
     ),
   );
+}
+
+class InstructionScanner extends StatefulWidget {
+  final MeasuringTask measuringTask;
+
+  const InstructionScanner({super.key, required this.measuringTask});
+
+  @override
+  State<InstructionScanner> createState() => _InstructionScannerState();
+}
+
+class _InstructionScannerState extends State<InstructionScanner> {
+  @override
+  Widget build(BuildContext context) {
+    String assetString = "";
+    if (widget.measuringTask == MeasuringTask.bloodPressure) {
+      assetString = bloodPressureEquipModel[userDataData
+          .localDataManager.preferencesHelper
+          .getData('BloodPressureEquipModel')];
+    } else if (widget.measuringTask == MeasuringTask.bloodSugar) {
+      assetString = bloodSugarEquipModel[userDataData
+          .localDataManager.preferencesHelper
+          .getData('BloodSugarEquipModel')];
+    }
+    if (widget.measuringTask == MeasuringTask.temperature) {
+      assetString = temperatureEquipModel[userDataData
+          .localDataManager.preferencesHelper
+          .getData('TempEquipModel')];
+    }
+    return Container(
+      width: SizeConfig.screenWidth,
+      height: SizeConfig.screenHeight * 0.16,
+      padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+      decoration: const BoxDecoration(color: Colors.white),
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Expanded(
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Gap(15),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.warning,
+                        color: Colors.orange.shade400,
+                        size: 30,
+                      ),
+                      const Gap(10),
+                      Text('Máy đo phải như hình bên',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenDiagonal * 0.018,
+                              fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                  const Gap(10),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.info,
+                        color: Colors.blue.shade400,
+                        size: 30,
+                      ),
+                      const Gap(10),
+                      Text('Nhấn ',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenDiagonal * 0.018,
+                              fontWeight: FontWeight.w500)),
+                      Icon(
+                        Icons.autorenew,
+                        color: Colors.blue.shade400,
+                        size: 30,
+                      ),
+                      Text(' để đổi thiết bị',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenDiagonal * 0.018,
+                              fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                  const Gap(10),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.info,
+                        color: Color.fromARGB(255, 106, 247, 111),
+                        size: 30,
+                      ),
+                      const Gap(10),
+                      Text('Nhấn ',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenDiagonal * 0.018,
+                              fontWeight: FontWeight.w500)),
+                      Icon(
+                        Icons.linked_camera_outlined,
+                        color: Colors.blue.shade400,
+                        size: 30,
+                      ),
+                      Text(' để chụp kết quả',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenDiagonal * 0.018,
+                              fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ]),
+        ),
+        Stack(children: [
+          Container(
+            width: SizeConfig.screenWidth * 0.27,
+            height: SizeConfig.screenHeight * 0.13,
+            margin: const EdgeInsets.only(right: 10, bottom: 10),
+            decoration: BoxDecoration(
+                color: AppColor.appBarColor,
+                borderRadius: BorderRadius.circular(8)),
+            child: FullScreenWidget(
+              disposeLevel: DisposeLevel.Medium,
+              child: Image.asset(assetString, fit: BoxFit.contain),
+            ),
+          ),
+          Positioned(
+            bottom: SizeConfig.screenWidth * 0.001,
+            right: SizeConfig.screenWidth * 0.001,
+            child: InkWell(
+              child: Container(
+                  height: SizeConfig.screenWidth * 0.08,
+                  width: SizeConfig.screenWidth * 0.08,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(width: 1, color: Colors.blue),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.08)),
+                  child: Icon(
+                    Icons.autorenew_rounded,
+                    size: SizeConfig.screenWidth * 0.07,
+                    color: Colors.blue,
+                  )),
+              onTap: () async {
+                if (widget.measuringTask == MeasuringTask.bloodPressure) {
+                  await selectModelDialog(
+                    context,
+                    modelAssets: bloodPressureEquipModel,
+                    measuringTask: MeasuringTask.bloodPressure,
+                  );
+                  setState(() {});
+                } else if (widget.measuringTask == MeasuringTask.bloodSugar) {
+                  await selectModelDialog(
+                    context,
+                    modelAssets: bloodSugarEquipModel,
+                    measuringTask: MeasuringTask.bloodSugar,
+                  );
+                } else if (widget.measuringTask == MeasuringTask.temperature) {
+                  await selectModelDialog(
+                    context,
+                    modelAssets: temperatureEquipModel,
+                    measuringTask: MeasuringTask.temperature,
+                  );
+                }
+                setState(() {});
+              },
+            ),
+          )
+        ]),
+        emptySpace(SizeConfig.screenHeight * 0.003),
+      ]),
+    );
+  }
 }

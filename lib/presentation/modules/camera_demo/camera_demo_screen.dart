@@ -125,10 +125,26 @@ class CameraScreenState extends State<CameraScreen>
             builder: (context, state) {
               if (state is CameraReadyState &&
                   state.status == BlocStatusState.loading) {
-                return const Center(
-                    child: Loading(
-                  brightness: Brightness.light,
-                ));
+                return Stack(
+                  children: [
+                    Positioned(
+                        top: 15,
+                        left: 15,
+                        child: CircleButton(
+                          size: SizeConfig.screenDiagonal * 0.04,
+                          iconData: Icons.arrow_back_outlined,
+                          iconColor: AppColor.white,
+                          backgroundColor: AppColor.appBarColor,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        )),
+                    const Center(
+                        child: Loading(
+                      brightness: Brightness.light,
+                    ))
+                  ],
+                );
               }
               if (state.status == BlocStatusState.failure) {
                 return Center(

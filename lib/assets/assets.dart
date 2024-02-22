@@ -47,4 +47,14 @@ class Assets {
   static const String oxi = 'lib/assets/images/oxi.png';
   static const String family = 'lib/assets/images/family.png';
   static const String detail = 'lib/assets/images/detail.png';
+  // model
+  static const String modelBP1 = 'lib/assets/images/model/BP1.png';
+  static const String modelBP2 = 'lib/assets/images/model/BP2.png';
+  static const String modelBP3 = 'lib/assets/images/model/BP3.png';
+  static const String modelBP4 = 'lib/assets/images/model/BP4.png';
+  static const String modelBS1 = 'lib/assets/images/model/BS1.png';
+  static const String modelBS2 = 'lib/assets/images/model/BS2.png';
+  static const String modelT1 = 'lib/assets/images/model/T1.png';
+  static const String modelT2 = 'lib/assets/images/model/T2.png';
+  static const String modelT3 = 'lib/assets/images/model/T3.png';
 }

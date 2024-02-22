@@ -133,6 +133,8 @@ class _SettingMenuState extends State<SettingMenu> {
                             await notificationData.clearData();
                           }
                           await userDataData.clearData();
+                          await userDataData.localDataManager.preferencesHelper
+                              .clear();
                           await userDataData.setLogout();
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamedAndRemoveUntil(context,

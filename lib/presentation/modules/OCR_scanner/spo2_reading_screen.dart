@@ -207,25 +207,28 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                 ],
               ),
               Expanded(
-                child:  state.viewModel.spo2Entity?.spo2 != null ? Center(
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(children: [
-                        TextSpan(
-                            text: "${state.viewModel.spo2Entity?.spo2}",
-                            style: AppTextTheme.title3.copyWith(
-                                color: state.viewModel.spo2Entity?.statusColor,
-                                fontSize: SizeConfig.screenWidth * 0.175,
-                                fontWeight: FontWeight.w500)),
-                        TextSpan(
-                            text: "%",
-                            style: AppTextTheme.title3.copyWith(
-                                color: const Color(0xff615A5A),
-                                fontSize: SizeConfig.screenWidth * 0.155,
-                                fontWeight: FontWeight.w500))
-                      ]))
-                ): Center(
-                        child: Text(translation(context).unableToRecognizeReading,
+                child: state.viewModel.spo2Entity?.spo2 != null
+                    ? Center(
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: "${state.viewModel.spo2Entity?.spo2}",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: state
+                                          .viewModel.spo2Entity?.statusColor,
+                                      fontSize: SizeConfig.screenWidth * 0.175,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: "%",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize: SizeConfig.screenWidth * 0.155,
+                                      fontWeight: FontWeight.w500))
+                            ])))
+                    : Center(
+                        child: Text(
+                            translation(context).unableToRecognizeReading,
                             textAlign: TextAlign.center,
                             style: AppTextTheme.title3.copyWith(
                                 color: AppColor.exceptionDialogIconColor,

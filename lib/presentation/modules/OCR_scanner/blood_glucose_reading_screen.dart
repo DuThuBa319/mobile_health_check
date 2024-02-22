@@ -7,11 +7,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
+
 import '../../../utils/size_config.dart';
 import '../../../assets/assets.dart';
 
 import '../../common_widget/common.dart';
 import '../../theme/app_text_theme.dart';
+
 import 'ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'widget/OCR_scanner_widget.dart';
 part 'blood_glucose_reading_screen.action.dart';
@@ -58,7 +60,10 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //! Blood Glucose Meter
-                    SizedBox(height: SizeConfig.screenHeight * 0.025),
+                    const InstructionScanner(
+                      measuringTask: MeasuringTask.bloodSugar,
+                    ),
+                    emptySpace(SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
                         scanBloc: scanBloc,
                         state: scanState,
@@ -74,10 +79,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                             height: SizeConfig.screenWidth * 0.18,
                             width: SizeConfig.screenWidth * 0.8,
                             title: translation(context).upload,
-                            onTap: () {
-                              // scanBloc.add(
-                              //     UploadBloodPressureDataEvent());
-                            },
+                            onTap: () {},
                           )),
                   ]),
             );
