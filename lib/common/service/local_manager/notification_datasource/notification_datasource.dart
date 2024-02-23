@@ -8,11 +8,9 @@ abstract class NotificationDataSource extends BaseDataSource {
   int? get delayTime;
   int? get localeId;
 
-
   //! Id =1 => en
   //! Id =2 => vi
 
   Future<void> saveDelayTime(int delayTime);
   Future<void> saveLocale(int localeId);
-  
 }

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import '../../assets/assets.dart';
+
 enum BlocStatusState { initial, loading, success, failure }
 
 enum WeatherStatus { sunny, rainy, foggy, thunderStorm, undefine }
@@ -44,3 +46,17 @@ Map<String, String> url = {
 enum UserRole { doctor, patient, relative, admin }
 
 enum ToastStatus { loading, success, error }
+
+List<String> bloodPressureEquipModel = [
+  Assets.modelBP1,
+  Assets.modelBP2,
+  Assets.modelBP3,
+  Assets.modelBP4
+];
+List<String> bloodSugarEquipModel = [Assets.modelBS1, Assets.modelBS2];
+List<String> temperatureEquipModel = [
+  Assets.modelT1,
+  Assets.modelT2,
+  Assets.modelT3
+];
+// List<String> spo2EquipModel = ['Oa','Ob'];

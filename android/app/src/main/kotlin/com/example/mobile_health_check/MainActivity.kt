@@ -1,4 +1,4 @@
-package com.example.mobile_health_check
+package com.fablab.mobileHealthCheck
 
 import io.flutter.embedding.android.FlutterActivity
 

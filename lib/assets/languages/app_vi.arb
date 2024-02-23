@@ -7,7 +7,7 @@
     "pulseOximeter":"ĐO NỒNG ĐỘ OXI",
     "changeLanguageSuccess":"Đổi ngôn ngữ thành công",
     "confirmNewPass":"Xác nhận lại mật khẩu mới",
-    "confirmPass":"Xác nhận lại mật khẩu",
+
     "waitForSeconds":"Xin hãy đợi vài giây",
     "dontHaveAccount":"Bạn chưa có tài khoản?",
     "forgotPass":"Quên mật khẩu?",
@@ -28,7 +28,7 @@
     "language":"Ngôn ngữ",
     "lastUpdate":"CẬP NHẬT GẦN NHẤT",
     "logOut":"Đăng xuất",
-    "areYouSureToLogOut":"Bạn có chắc muốn đăng xuất khỏi ứng dụng chứ?",
+    "areYouSureToLogOut":"Bạn có chắc muốn đăng xuất?",
     "notification":"Thông báo",
     "updateIndicator":"Bệnh nhân cập nhật chỉ số mới.",
     "updateBloodPressure":"Cập nhật huyết áp.",
@@ -93,7 +93,7 @@
 
 "editIndicatore":"Điền số liệu chính xác theo thiết bị",
 "confirm":"Xác nhận",
-"titileForgetPass":"  Đừng lo lắng! Hãy nhập số điện thoại đã đăng ký tài khoản để nhận lại mật khẩu mới nhé.",
+"titileForgetPass":"  Đừng lo lắng! Hãy nhập số điện thoại đã đăng ký để nhận lại mật khẩu mới nhé.",
 "wrongPhoneNumber":"Số điện thoại này chưa được đăng ký",
 "name":"Họ và tên",
 "street":"Tên đường",
@@ -116,7 +116,7 @@
 "photoLoading":"Đang lấy hình ảnh",
 "verifying":"Đang xác thực, vui lòng chờ...",
 "verifySuccessfully":"Xác thực thành công",
-"pleaseEnterYourAccount":"Vui lòng nhập đủ tài khoản và mật khẩu",
+"pleaseEnterYourAccount":"Vui lòng nhập đủ thông tin",
 "pleaseEnterRelativeName":"Vui lòng nhập tên người thân",
 "pleaseEnterPatientName":"Vui lòng nhập tên bệnh nhân",
 "pleaseEnterDoctorName":"Vui lòng nhập tên bác sĩ",
@@ -146,7 +146,7 @@
 "pleaseEnterYourCurrentPassword":"Vui lòng nhập mật khẩu hiện tại",
 "pleaseEnterYourNewPassword":"Vui lòng nhập mật khẩu mới",
 "pleaseEnterCompleteInformation":"Vui lòng nhập đủ thông tin",
-"pleaseEnterCompleteLogin":"Vui lòng nhập đủ tài khoản và mật khẩu",
+"pleaseEnterCompleteLogin":"Vui lòng nhập đủ thông tin",
 "invalidPhonenumber":"Số điện thoại không chính xác, phải từ 10-11 ký tự",
 "addPatient":"Thêm bệnh nhân",
 "addDoctor":"Thêm bác sĩ",
@@ -183,7 +183,7 @@
 "selectError":"Ngày bắt đầu phải trước ngày kết thúc",
 
 "exitAppTitle":"Thoát ứng dụng",
-"areYouSureToExitApp":"Bạn có chắc muốn thoát khỏi ứng dụng chứ?",
+"areYouSureToExitApp":"Bạn có chắc muốn thoát khỏi ứng dụng",
 "no":"Không",
 "yes":"Đồng ý",
 "copySuccessfully":"Sao chép thành công",
@@ -194,9 +194,9 @@
 "phoneNumberCountError":"Số điện thoại không chính xác, phải từ 10-11 ký tự",
 
 
-"deleteRelative":"Bạn chắc chắn muốn xóa người thân này của bệnh nhân?",
-"deletePatient":"Bạn chắc chắn muốn xóa bệnh nhân này khỏi danh sách?",
-"deleteDoctor":"Bạn chắc chắn muốn xóa bác sĩ này khỏi danh sách?",
+"deleteRelative":"Bạn chắc chắn muốn xóa người thân này?",
+"deletePatient":"Bạn chắc chắn muốn xóa bệnh nhân này?",
+"deleteDoctor":"Bạn chắc chắn muốn xóa bác sĩ này?",
 "deleteRelativeWarningTitle":"Xóa người thân bệnh nhân",
 "deletePatientWarningTitle":"Xóa bệnh nhân",
 "deleteDoctorWarningTitle":"Xóa bác sĩ",
@@ -210,11 +210,16 @@
 "deleteNotificationSuccessfully":"Xóa thông báo thành công",
 "delete":"Xóa",
 "cannotDeleteDoctor":"Không thể xóa bác sĩ còn liên kết với các tài khoản bệnh nhân",
+"select":"Chọn",
+"deviceMatchImage":"Máy đo phải như hình bên",
+"press":"Nhấn ",
+"toChangeTheDevice":" để đổi thiết bị",
+"toCaptureTheResult":" để chụp kết quả",
 
 "deletingPatient":"Đang xóa bệnh nhân",
 "deletingDoctoc":"Đang xóa bác sĩ",
 "deletingRelative":"Đang xóa người thân",
-
+"selectProduct":"Chọn sản phẩm",
 "call":"Liên hệ",
 "reset":"Cấp lại mật khẩu",
 "pleaseEnterPhoneNumber":"Vui lòng hãy nhập số điện thoại",
@@ -230,6 +235,7 @@
 "duplicatedRelationshipPAD":"Bệnh nhân đã đăng ký với bác sĩ này rồi",
 "hasDoctorBefore":"Bệnh nhân đã đăng ký với bác sĩ khác",
 "maximumRelativeCount":"Số người thân đã đạt tối đa",
-"wrongAccount":"Tài khoản hoặc mật khẩu không đúng. Vui lòng đăng nhập lại!",
-"contact":"Liên hệ"
+"wrongAccount":"Tài khoản đăng nhập không đúng. Vui lòng đăng nhập lại!",
+"contact":"Liên hệ",
+"permissionWarning":"Vui lòng cho phép truy cập camera và microphone"
 }

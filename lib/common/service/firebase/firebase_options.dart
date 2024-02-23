@@ -66,8 +66,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '570191014591',
     projectId: 'mobilehealthcarecheck',
     storageBucket: 'mobilehealthcarecheck.appspot.com',
-    iosClientId: '570191014591-5q2css210dfvr2j87f9fmae1f9sil341.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mobileHealthCheck',
+    iosClientId:
+        '570191014591-5q2css210dfvr2j87f9fmae1f9sil341.apps.googleusercontent.com',
+    iosBundleId: 'com.fablab.mobileHealthCheck',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '570191014591',
     projectId: 'mobilehealthcarecheck',
     storageBucket: 'mobilehealthcarecheck.appspot.com',
-    iosClientId: '570191014591-5q2css210dfvr2j87f9fmae1f9sil341.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mobileHealthCheck',
+    iosClientId:
+        '570191014591-5q2css210dfvr2j87f9fmae1f9sil341.apps.googleusercontent.com',
+    iosBundleId: 'com.fablab.mobileHealthCheck',
   );
 }

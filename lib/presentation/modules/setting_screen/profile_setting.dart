@@ -190,16 +190,6 @@ class _SettingProfileState extends State<SettingProfile> {
                 context: context,
                 status: ToastStatus.success,
                 toastString: translation(context).updateProfileSuccessfully);
-            Navigator.pop(context);
-
-            // showSuccessDialog(
-            //     onClose: () {
-            //       Navigator.pop(context);
-            //     },
-            //     context: context,
-            //     message: translation(context).updateProfileSuccessText,
-            //     title: translation(context).updateProfileSuccessfully,
-            //     titleBtn: translation(context).exit);
           }
           //! WIFI DISCONNECT
           if (state.status == BlocStatusState.failure &&

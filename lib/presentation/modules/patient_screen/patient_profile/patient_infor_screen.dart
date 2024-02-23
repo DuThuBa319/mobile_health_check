@@ -441,9 +441,9 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                     context: contxt,
                                                     message:
                                                         translation(context)
-                                                            .deletePatient,
+                                                            .deleteRelative,
                                                     title: translation(context)
-                                                        .deletePatientWarningTitle,
+                                                        .deleteRelativeWarningTitle,
                                                     onClose1: () {
                                                       Navigator.pop(contxt);
                                                     },
@@ -495,6 +495,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                 Clipboard.setData(ClipboardData(
                                                     text:
                                                         relative.phoneNumber));
+                                                showToast(
+                                                    context: context,
+                                                    status: ToastStatus.success,
+                                                    toastString:
+                                                        translation(context)
+                                                            .copySuccessfully);
                                               },
                                             )
                                           ],

@@ -6,25 +6,29 @@ part of 'camera_demo_screen.dart';
 extension CameraScreenAction on CameraScreenState {
   void blocListener(BuildContext context, CameraState state) async {
     if (state is GetImageState && state.status == BlocStatusState.loading) {
-      showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).processing);
+      showToast(
+          context: context,
+          status: ToastStatus.loading,
+          toastString: translation(context).processing);
     }
     if (state is GetImageState && state.status == BlocStatusState.success) {
-      showToast( context: context,
-                            status: ToastStatus.success,
-                            toastString:translation(context).processSuccessfully);
+      showToast(
+          context: context,
+          status: ToastStatus.success,
+          toastString: translation(context).processSuccessfully);
       await imageDialog(context, imageFile: state.viewModel.imageFile!);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.loading) {
-      showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).processing);
+      showToast(
+          context: context,
+          status: ToastStatus.loading,
+          toastString: translation(context).processing);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.success) {
-      showToast( context: context,
-                            status: ToastStatus.success,
-                            toastString:translation(context).processSuccessfully);
+      showToast(
+          context: context,
+          status: ToastStatus.success,
+          toastString: translation(context).processSuccessfully);
     }
     if (state is CameraReadyState && state.status == BlocStatusState.failure) {
       showExceptionDialog(
@@ -63,9 +67,16 @@ extension CameraScreenAction on CameraScreenState {
           task: widget.task,
           zoomValue: currentZoomLevel));
     } else {
-      bool isCameraGranted = await Permission.camera.request().isGranted;
-      if (!isCameraGranted) {
-        checkPermission(context);
+      if (await Permission.camera.status != PermissionStatus.granted ||
+          await Permission.microphone.status != PermissionStatus.granted) {
+        await showWarningDialog(
+            context: navigationService.navigatorKey.currentContext!,
+            message: translation(navigationService.navigatorKey.currentContext!)
+                .permissionWarning,
+            onClose1: () {},
+            onClose2: () async {
+              await openAppSettings();
+            });
       } else {
         debugPrint("camera not available");
       }
@@ -220,23 +231,4 @@ extension CameraScreenAction on CameraScreenState {
           ),
         ),
       );
-  checkPermission(BuildContext context) async {
-    try {
-      bool isCameraGranted = await Permission.camera.request().isGranted;
-      if (!isCameraGranted) {
-        if (!isPopupPermissionShow) {
-          isPopupPermissionShow = true;
-
-          await showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return openSettingDialog(context);
-              });
-        }
-        isPopupPermissionShow = false;
-      }
-    } catch (e) {
-      debugPrint("camera error: $e");
-    }
-  }
 }

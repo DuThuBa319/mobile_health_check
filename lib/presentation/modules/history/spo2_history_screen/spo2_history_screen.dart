@@ -103,7 +103,7 @@ class Spo2HistoryScreenState extends State<Spo2HistoryScreen> {
                           size: SizeConfig.screenWidth * 0.092,
                         ),
                         emptySpace(SizeConfig.screenWidth * 0.01),
-                        Text(strTimeTo,
+                        Text(strTimeFrom,
                             style: AppTextTheme.body4.copyWith(
                               color: AppColor.color43C8F5,
                               fontSize: SizeConfig.screenWidth * 0.044,

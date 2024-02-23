@@ -130,6 +130,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                     selectEn = true;
                                     selectVn = false;
                                   });
+                                  
                                 }),
                           ],
                         ),

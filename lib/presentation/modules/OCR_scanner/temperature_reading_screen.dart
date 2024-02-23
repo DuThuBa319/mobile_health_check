@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
+
 import '../../../utils/size_config.dart';
 import '../../../assets/assets.dart';
 
@@ -54,7 +55,10 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //! Thermometer
-                    SizedBox(height: SizeConfig.screenHeight * 0.05),
+                    const InstructionScanner(
+                      measuringTask: MeasuringTask.temperature,
+                    ),
+                    emptySpace(SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
                         scanBloc: scanBloc,
                         state: scanState,
