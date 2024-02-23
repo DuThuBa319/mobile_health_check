@@ -54,14 +54,13 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //! Thermometer
-                    SizedBox(height: SizeConfig.screenHeight * 0.035),
+                    SizedBox(height: SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
                         scanBloc: scanBloc,
                         state: scanState,
                         imageFile: scanState.viewModel.temperatureImageFile,
                         event: GetTemperatureDataEvent(context: context)),
-                    SizedBox(height: SizeConfig.screenHeight * 0.035),
-
+                    SizedBox(height: SizeConfig.screenHeight * 0.04),
                     scanState.viewModel.temperatureImageFile != null
                         ? temperatureCell(scanState)
                         : RectangleButton(

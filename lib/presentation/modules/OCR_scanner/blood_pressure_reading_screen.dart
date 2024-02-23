@@ -57,15 +57,13 @@ class _BloodPressureReadingScreenState
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: SizeConfig.screenWidth * 0.05),
+                    SizedBox(height: SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
                         scanBloc: scanBloc,
                         state: scanState,
                         imageFile: scanState.viewModel.bloodPressureImageFile,
                         event: GetBloodPressureDataEvent(context: context)),
-                    SizedBox(
-                      height: SizeConfig.screenWidth * 0.08,
-                    ),
+                    SizedBox(height: SizeConfig.screenHeight * 0.04),
                     scanState.viewModel.bloodPressureImageFile != null
                         ? bloodPressureCell(scanState)
                         : Center(
@@ -273,56 +271,62 @@ class _BloodPressureReadingScreenState
                   ],
                 ),
                 Expanded(
-                  child:(state.viewModel.bloodPressureEntity?.pulse != null && state.viewModel.bloodPressureEntity?.sys != null ) ? Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text("${state.viewModel.bloodPressureEntity?.sys}",
+                  child: (state.viewModel.bloodPressureEntity?.pulse != null &&
+                          state.viewModel.bloodPressureEntity?.sys != null)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                    "${state.viewModel.bloodPressureEntity?.sys}",
+                                    style: AppTextTheme.title3.copyWith(
+                                        fontSize: SizeConfig.screenWidth * 0.12,
+                                        fontWeight: FontWeight.w500,
+                                        color: state.viewModel
+                                            .bloodPressureEntity?.statusColor)),
+                                Text("mmHg",
+                                    style: AppTextTheme.title3.copyWith(
+                                        color: const Color(0xff615A5A),
+                                        fontSize: SizeConfig.screenWidth * 0.05,
+                                        fontWeight: FontWeight.w500))
+                              ],
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenWidth * 0.05,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                    "${state.viewModel.bloodPressureEntity?.pulse}",
+                                    style: AppTextTheme.title3.copyWith(
+                                        color: state.viewModel
+                                            .bloodPressureEntity?.statusColor,
+                                        fontSize: SizeConfig.screenWidth * 0.08,
+                                        fontWeight: FontWeight.w500)),
+                                Text("bpm",
+                                    style: AppTextTheme.title3.copyWith(
+                                        color: const Color(0xff615A5A),
+                                        fontSize: SizeConfig.screenWidth * 0.05,
+                                        fontWeight: FontWeight.w500))
+                              ],
+                            ),
+                          ],
+                        )
+                      : Center(
+                          child: Text(
+                              translation(context).unableToRecognizeReading,
+                              textAlign: TextAlign.center,
                               style: AppTextTheme.title3.copyWith(
-                                  fontSize: SizeConfig.screenWidth * 0.12,
-                                  fontWeight: FontWeight.w500,
-                                  color: state.viewModel.bloodPressureEntity
-                                      ?.statusColor)),
-                          Text("mmHg",
-                              style: AppTextTheme.title3.copyWith(
-                                  color: const Color(0xff615A5A),
-                                  fontSize: SizeConfig.screenWidth * 0.05,
-                                  fontWeight: FontWeight.w500))
-                        ],
-                      ),
-                      SizedBox(
-                        width: SizeConfig.screenWidth * 0.05,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text("${state.viewModel.bloodPressureEntity?.pulse}",
-                              style: AppTextTheme.title3.copyWith(
-                                  color: state.viewModel.bloodPressureEntity
-                                      ?.statusColor,
-                                  fontSize: SizeConfig.screenWidth * 0.08,
+                                  color: AppColor.exceptionDialogIconColor,
+                                  fontSize: SizeConfig.screenWidth * 0.055,
                                   fontWeight: FontWeight.w500)),
-                          Text("bpm",
-                              style: AppTextTheme.title3.copyWith(
-                                  color: const Color(0xff615A5A),
-                                  fontSize: SizeConfig.screenWidth * 0.05,
-                                  fontWeight: FontWeight.w500))
-                        ],
-                      ),
-                    ],
-                  ):Center(
-                    child: Text(translation(context).unableToRecognizeReading,
-                            textAlign: TextAlign.center,
-                            style: AppTextTheme.title3.copyWith(
-                                color: AppColor.exceptionDialogIconColor,
-                                fontSize: SizeConfig.screenWidth * 0.055,
-                                fontWeight: FontWeight.w500)),
-                  ),
+                        ),
                 )
               ],
             ),

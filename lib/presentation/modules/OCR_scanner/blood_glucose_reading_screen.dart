@@ -58,7 +58,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //! Blood Glucose Meter
-                    SizedBox(height: SizeConfig.screenHeight * 0.025),
+                      SizedBox(height: SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
                         scanBloc: scanBloc,
                         state: scanState,

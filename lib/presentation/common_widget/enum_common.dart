@@ -26,9 +26,9 @@ class CroppedImage {
   CroppedImage(this.croppedImage, this.flashOn);
 }
 
-const baseUrl = 'https://mobilehealthcareapplication.azurewebsites.net/';
+const baseUrl = 'https://mobilehealthcareapplication.azurewebsites.net';
 Map<String, String> url = {
-  'baseUrl': 'https://mobilehealthcareapplication.azurewebsites.net/',
+  'baseUrl': 'https://mobilehealthcareapplication.azurewebsites.net',
   'bloodPressureURL':
       'https://healthcareflaskserver.azurewebsites.net/api/bloodpressure?code=Y_yOotpq8N47XkQt72U3YbXsCpYswimJyD53RdfK9QyqAzFuh9FZmw%3D%3D',
   'testURL':

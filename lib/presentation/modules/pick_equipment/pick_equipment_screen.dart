@@ -57,7 +57,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                 Text(
                   translation(context).selectEquip,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenDiagonal * 0.035,
+                      fontSize: SizeConfig.screenWidth * 0.075,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -135,7 +135,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                 Text(
                   translation(context).contact,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenDiagonal * 0.035,
+                      fontSize: SizeConfig.screenWidth * 0.075,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -186,7 +186,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                         },
                         child: CircleButton(
                             iconData: Icons.phone,
-                            size: SizeConfig.screenDiagonal * 0.065,
+                            size: SizeConfig.screenDiagonal * 0.06,
                             backgroundColor: Colors.red),
                       ),
                     ),
@@ -242,11 +242,12 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: SizeConfig.screenWidth * 0.04,
+                  height: SizeConfig.screenHeight * 0.015,
                 ),
                 Text(cellTitle,
                     textAlign: TextAlign.center,
                     softWrap: true,
+                    overflow: TextOverflow.ellipsis,
                     style: AppTextTheme.title3.copyWith(
                         color: Colors.white,
                         fontSize: SizeConfig.screenWidth * 0.037)),

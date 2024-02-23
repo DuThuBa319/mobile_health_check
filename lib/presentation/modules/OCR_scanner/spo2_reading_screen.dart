@@ -53,15 +53,13 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height: SizeConfig.screenHeight * 0.035),
+                      SizedBox(height: SizeConfig.screenHeight * 0.05),
                       imagePickerCell(context,
                           scanBloc: scanBloc,
                           state: scanState,
                           imageFile: scanState.viewModel.spo2ImageFile,
                           event: GetSpo2DataEvent(context: context)),
-                      SizedBox(
-                        height: SizeConfig.screenHeight * 0.038,
-                      ),
+                      SizedBox(height: SizeConfig.screenHeight * 0.04),
                       scanState.viewModel.spo2ImageFile != null
                           ? spo2Cell(scanState)
                           : RectangleButton(
