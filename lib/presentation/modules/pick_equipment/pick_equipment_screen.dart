@@ -10,6 +10,7 @@ import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../../../classes/language.dart';
 import '../../../utils/size_config.dart';
 
@@ -280,7 +281,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     ),
                     child: Image.asset(
                       imagePath,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -339,7 +340,7 @@ Future<dynamic> selectModelDialog(BuildContext context,
               margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.015),
               padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
               height: SizeConfig.screenHeight * 0.3,
-              width: SizeConfig.screenWidth * 0.84,
+              width: SizeConfig.screenWidth * 0.85,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: AppColor.cardBackgroundColor,
@@ -350,40 +351,81 @@ Future<dynamic> selectModelDialog(BuildContext context,
                 children: [
                   Container(
                     height: SizeConfig.screenHeight * 0.2,
-                    width: SizeConfig.screenWidth * 0.84,
+                    width: SizeConfig.screenWidth * 0.85,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: AppColor.cardBackgroundColor,
                     ),
-                    child: PageView.builder(
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                        controller: PageController(viewportFraction: 0.7),
-                        itemCount: modelAssets.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(10),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(
-                                right: SizeConfig.screenWidth * 0.05),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  SizeConfig.screenWidth * 0.05),
-                              color: selectedIndex == index
-                                  ? AppColor.lineDecor
-                                  : AppColor.appBarColor,
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                    modelAssets[index],
-                                  ),
-                                  fit: BoxFit.fitWidth),
+                    child: ScrollSnapList(
+                      scrollDirection: Axis.horizontal,
+                      listController: ScrollController(),
+                      onItemFocus: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      itemSize: SizeConfig.screenWidth * 0.45,
+                      focusOnItemTap: true,
+                      dynamicItemSize: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: SizeConfig.screenWidth * 0.85 / 1.85,
+                          height: SizeConfig.screenHeight * 0.2 / 1.85,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: selectedIndex == index
+                                ? AppColor.lineDecor
+                                : AppColor.appBarColor,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                modelAssets[index],
+                              ),
+                              fit: BoxFit.contain,
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                      itemCount: modelAssets.length,
+                    ),
                   ),
+
+                  // Container(
+                  //   height: SizeConfig.screenHeight * 0.2,
+                  //   width: SizeConfig.screenWidth * 0.84,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(15),
+                  //     color: AppColor.cardBackgroundColor,
+                  //   ),
+                  //   child: PageView.builder(
+                  //       onPageChanged: (index) {
+                  //         setState(() {
+                  //           selectedIndex = index;
+                  //         });
+                  //       },
+                  //       controller: PageController(viewportFraction: 0.7),
+                  //       itemCount: modelAssets.length,
+                  //       itemBuilder: (context, index) {
+                  //         return Container(
+                  //           padding: const EdgeInsets.all(10),
+                  //           alignment: Alignment.center,
+                  //           margin: EdgeInsets.only(
+                  //               right: SizeConfig.screenWidth * 0.05),
+                  //           decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(
+                  //                 SizeConfig.screenWidth * 0.05),
+                  //             color: selectedIndex == index
+                  //                 ? AppColor.lineDecor
+                  //                 : AppColor.appBarColor,
+                  //             image: DecorationImage(
+                  //                 image: AssetImage(
+                  //                   modelAssets[index],
+                  //                 ),
+                  //                 fit: BoxFit.fitWidth),
+                  //           ),
+                  //         );
+                  //       }),
+                  // ),
+
                   Gap(SizeConfig.screenHeight * 0.03),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
