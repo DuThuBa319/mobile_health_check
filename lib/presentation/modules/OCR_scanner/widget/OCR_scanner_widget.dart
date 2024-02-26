@@ -187,7 +187,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Text(translation(context).deviceMatchImage,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
+                              fontSize: SizeConfig.screenWidth * 0.038,
                               fontWeight: FontWeight.w500)),
                     ],
                   ),
@@ -204,7 +204,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Text(translation(context).press,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
+                              fontSize: SizeConfig.screenWidth * 0.038,
                               fontWeight: FontWeight.w500)),
                       Icon(
                         Icons.autorenew,
@@ -214,7 +214,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Text(translation(context).toChangeTheDevice,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
+                              fontSize: SizeConfig.screenWidth * 0.038,
                               fontWeight: FontWeight.w500)),
                     ],
                   ),
@@ -231,7 +231,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Text(translation(context).press,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
+                              fontSize: SizeConfig.screenWidth * 0.038,
                               fontWeight: FontWeight.w500)),
                       Icon(
                         Icons.linked_camera_outlined,
@@ -241,7 +241,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Text(translation(context).toCaptureTheResult,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
+                              fontSize: SizeConfig.screenWidth * 0.038,
                               fontWeight: FontWeight.w500)),
                     ],
                   ),

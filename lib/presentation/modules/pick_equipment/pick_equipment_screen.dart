@@ -364,7 +364,7 @@ Future<dynamic> selectModelDialog(BuildContext context,
                           selectedIndex = index;
                         });
                       },
-                      itemSize: SizeConfig.screenWidth * 0.45,
+                      itemSize: SizeConfig.screenWidth * 0.457,
                       focusOnItemTap: true,
                       dynamicItemSize: true,
                       itemBuilder: (context, index) {
