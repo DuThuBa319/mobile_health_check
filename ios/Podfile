@@ -43,7 +43,7 @@ post_install do |installer|
     flutter_additional_ios_build_settings(target)
     # Start of the permission_handler configuration
     target.build_configurations.each do |config|
-   
+      
       # You can enable the permissions needed here. For example to enable camera
       # permission, just remove the `#` character in front so it looks like this:
       #
@@ -103,5 +103,5 @@ post_install do |installer|
 end
 target 'OneSignalNotificationServiceExtension' do
   use_frameworks!
-  pod 'OneSignalXCFramework', '>= 3.0.0', '< 4.0'
+  pod 'OneSignalXCFramework', '>= 3.4.3', '< 4.0'
 end
