@@ -215,7 +215,8 @@
 "press":"Nhấn ",
 "toChangeTheDevice":" để đổi thiết bị",
 "toCaptureTheResult":" để chụp kết quả",
-
+"imagesTakenToday":"Số lần chụp còn lại hôm nay:",
+"overImagesCountPermission":"Đã dùng hết số lần chụp hôm nay",
 "deletingPatient":"Đang xóa bệnh nhân",
 "deletingDoctoc":"Đang xóa bác sĩ",
 "deletingRelative":"Đang xóa người thân",

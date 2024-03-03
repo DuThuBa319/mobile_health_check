@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 
 class OverlayRectangleForTemperature extends StatelessWidget {
   const OverlayRectangleForTemperature({super.key});
@@ -21,7 +22,50 @@ class RectanglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Colors.black54;
-
+    List<double> sizeFrame = [
+      size.width * 0.25,
+      size.height * 0.15,
+      size.width * 0.55,
+      size.height * 0.28,
+      0
+    ];
+    //? sizeFrame[0]: left
+    //? sizeFrame[1]: top
+    //? sizeFrame[2]: width
+    //? sizeFrame[3]: height
+    //? sizeFrame[4]: radius
+    //? initial => BP1
+    switch (userDataData.localDataManager.preferencesHelper
+        .getData('TempEquipModel')) {
+      case 0:
+        sizeFrame[0] = size.width * 0.25;
+        sizeFrame[1] = size.height * 0.15;
+        sizeFrame[2] = size.width * 0.55;
+        sizeFrame[3] = size.height * 0.28;
+        sizeFrame[4] = 0;
+        break;
+      case 1:
+        sizeFrame[0] = size.width * 0.25;
+        sizeFrame[1] = size.height * 0.15;
+        sizeFrame[2] = size.width * 0.55;
+        sizeFrame[3] = size.height * 0.28;
+        sizeFrame[4] = 0;
+        break;
+      case 2:
+        sizeFrame[0] = size.width * 0.155;
+        sizeFrame[1] = size.height * 0.16;
+        sizeFrame[2] = size.width * 0.75;
+        sizeFrame[3] = size.height * 0.3;
+        sizeFrame[4] = 40;
+        break;
+      case 3:
+        sizeFrame[0] = size.width * 0.2;
+        sizeFrame[1] = size.height * 0.15;
+        sizeFrame[2] = size.width * 0.65;
+        sizeFrame[3] = size.height * 0.285;
+        sizeFrame[4] = 47;
+        break;
+    }
     canvas.drawPath(
         Path.combine(
           PathOperation.difference, //simple difference of following operations

@@ -187,9 +187,7 @@ class CameraScreenState extends State<CameraScreen>
                         )),
                     if (state is GetImageState &&
                         state.status == BlocStatusState.loading)
-                      Positioned(
-                        top: height * 0.0877,
-                        left: width * 0.315,
+                      Center(
                         child: Text(translation(context).holdForFewSec,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white)),
@@ -223,9 +221,7 @@ class CameraScreenState extends State<CameraScreen>
                           )),
                       if (state is GetImageState &&
                           state.status == BlocStatusState.loading)
-                        Positioned(
-                          top: height * 0.0877,
-                          left: width * 0.315,
+                        Center(
                           child: Text(translation(context).holdForFewSec,
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white)),
@@ -381,6 +377,7 @@ class CameraScreenState extends State<CameraScreen>
         ));
   }
 
+//! cropStroke ko sử dụng nữa
   Widget cropStroke(BuildContext context, {required MeasuringTask task}) {
     if (task == MeasuringTask.bloodPressure) {
       return Positioned(

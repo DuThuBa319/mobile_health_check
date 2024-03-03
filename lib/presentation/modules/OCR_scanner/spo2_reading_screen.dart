@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,6 +56,7 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                     children: [
                       SizedBox(height: SizeConfig.screenHeight * 0.05),
                       imagePickerCell(context,
+                          imagesTakenToday: userDataData.getUser()!.spO2ImagesTakenToday,
                           scanBloc: scanBloc,
                           state: scanState,
                           imageFile: scanState.viewModel.spo2ImageFile,

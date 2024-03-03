@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -59,11 +60,15 @@ class _BloodPressureReadingScreenState
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const InstructionScanner(
+                    InstructionScanner(
+                      imagesTakenToday: userDataData.getUser()!.bloodPressureImagesTakenToday,
+
                       measuringTask: MeasuringTask.bloodPressure,
                     ),
                     emptySpace(SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
+                        imagesTakenToday:
+                             userDataData.getUser()!.bloodPressureImagesTakenToday,
                         scanBloc: scanBloc,
                         state: scanState,
                         imageFile: scanState.viewModel.bloodPressureImageFile,

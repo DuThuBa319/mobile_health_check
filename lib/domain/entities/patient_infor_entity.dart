@@ -9,6 +9,11 @@ import 'blood_pressure_entity.dart';
 import 'blood_sugar_entity.dart';
 
 class PatientInforEntity {
+  int? imagesTakenToday;
+  int? bloodPressureImagesTakenToday;
+  int? bloodSugarImagesTakenToday;
+  int? bodyTemperatureImagesTakenToday;
+  int? spO2ImagesTakenToday;
   String? id;
   String name;
   int? age;
@@ -26,6 +31,11 @@ class PatientInforEntity {
   List<Spo2Entity>? spo2s;
 
   PatientInforEntity({
+    this.imagesTakenToday,
+    this.bloodPressureImagesTakenToday,
+    this.bloodSugarImagesTakenToday,
+    this.bodyTemperatureImagesTakenToday,
+    this.spO2ImagesTakenToday,
     this.doctor,
     this.relatives,
     this.gender,
@@ -45,28 +55,37 @@ class PatientInforEntity {
 
   PatientInforModel get convertToPatientInforModel {
     return PatientInforModel(
-      gender: gender,
-      id: id,
-      name: name,
-      phoneNumber: phoneNumber,
-      age: age,
-      address: address,
-      height: height,
-      weight: weight,
-    );
+        gender: gender,
+        id: id,
+        name: name,
+        phoneNumber: phoneNumber,
+        age: age,
+        address: address,
+        height: height,
+        weight: weight,
+        // imagesTakenToday: imagesTakenToday??0
+        bloodPressureImagesTakenToday: bloodPressureImagesTakenToday ?? 0,
+        bloodSugarImagesTakenToday: bloodSugarImagesTakenToday ?? 0,
+        bodyTemperatureImagesTakenToday: bodyTemperatureImagesTakenToday ?? 0,
+        spO2ImagesTakenToday: spO2ImagesTakenToday ?? 0);
   }
 
   User convertUser({required User user}) {
     return user.copyWith(
-      gender: gender,
-      id: id,
-      name: name,
-      phoneNumber: phoneNumber,
-      age: age,
-      address: address,
-      height: height,
-      weight: weight,
-    );
+        gender: gender,
+        id: id,
+        name: name,
+        phoneNumber: phoneNumber,
+        age: age,
+        address: address,
+        height: height,
+        weight: weight,
+        imagesTakenToday: imagesTakenToday ?? 0,
+         bloodPressureImagesTakenToday:bloodPressureImagesTakenToday??0,
+         bloodSugarImagesTakenToday:bloodSugarImagesTakenToday??0,
+         bodyTemperatureImagesTakenToday:bodyTemperatureImagesTakenToday??0,
+         spO2ImagesTakenToday:spO2ImagesTakenToday??0,
+        );
   }
 }
 //cái gì mà repo ko cung cấp thì mình sẽ cung cấp trong entity

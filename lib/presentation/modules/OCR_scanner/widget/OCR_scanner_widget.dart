@@ -17,11 +17,14 @@ import 'package:mobile_health_check/presentation/modules/pick_equipment/pick_equ
 import '../../../theme/theme_color.dart';
 import '../ocr_scanner_bloc/ocr_scanner_bloc.dart';
 
-Widget imagePickerCell(BuildContext context,
-    {File? imageFile,
-    required OCRScannerEvent event,
-    required OCRScannerState state,
-    required OCRScannerBloc scanBloc}) {
+Widget imagePickerCell(
+  BuildContext context, {
+  File? imageFile,
+  required OCRScannerEvent event,
+  required OCRScannerState state,
+  required OCRScannerBloc scanBloc,
+  required int? imagesTakenToday,
+}) {
   return Stack(
     clipBehavior: Clip.none,
     children: [
@@ -41,30 +44,41 @@ Widget imagePickerCell(BuildContext context,
             child: imageFile == null
                 ? GestureDetector(
                     onTap: () async {
-                      await [
-                        // Request camera and microphone permissions
-                        Permission.camera,
-                        Permission.microphone,
-                      ].request();
-                      if (await Permission.camera.status ==
-                              PermissionStatus.granted &&
-                          await Permission.microphone.status ==
-                              PermissionStatus.granted) {
-                        scanBloc.add(event);
-                      } else {
-                        await showWarningDialog(
+                      if (imagesTakenToday > 5 || imagesTakenToday == 5) {
+                        showExceptionDialog(
                             context: context,
-                            message: translation(context).permissionWarning,
-                            onClose1: () {},
-                            onClose2: () async {
-                              await openAppSettings();
-                            });
+                            message:
+                                translation(context).overImagesCountPermission,
+                            titleBtn: translation(context).exit);
+                      } else {
+                        await [
+                          // Request camera and microphone permissions
+                          Permission.camera,
+                          Permission.microphone,
+                        ].request();
+                        if (await Permission.camera.status ==
+                                PermissionStatus.granted &&
+                            await Permission.microphone.status ==
+                                PermissionStatus.granted) {
+                          scanBloc.add(event);
+                        } else {
+                          await showWarningDialog(
+                              context: context,
+                              message: translation(context).permissionWarning,
+                              onClose1: () {},
+                              onClose2: () async {
+                                await openAppSettings();
+                              });
+                        }
                       }
                     },
                     child: Icon(
                       Symbols.linked_camera_rounded,
                       weight: 100,
                       size: SizeConfig.screenDiagonal * 0.3,
+                      color: (imagesTakenToday! > 5 || imagesTakenToday == 5)
+                          ? AppColor.gray767676
+                          : AppColor.black,
                     ),
                   )
                 : ClipRRect(
@@ -135,8 +149,9 @@ Widget processingLoading(BuildContext context) {
 
 class InstructionScanner extends StatefulWidget {
   final MeasuringTask measuringTask;
-
-  const InstructionScanner({super.key, required this.measuringTask});
+  final int? imagesTakenToday;
+  const InstructionScanner(
+      {super.key, required this.measuringTask, required this.imagesTakenToday});
 
   @override
   State<InstructionScanner> createState() => _InstructionScannerState();
@@ -151,6 +166,13 @@ class _InstructionScannerState extends State<InstructionScanner> {
       assetString = bloodPressureEquipModel[userDataData
           .localDataManager.preferencesHelper
           .getData('BloodPressureEquipModel')];
+      //!
+      /*
+     userDataData.localDataManager.preferencesHelper.getData('BloodPressureEquipModel') = selectedIndex
+     => BP1 =0, BP2=1, BP3=2, BP4=3
+     bloodPressureEquipModel[userDataData.localDataManager.preferencesHelper.getData('BloodPressureEquipModel')] = lib/assets/images/model/BP...png
+     */
+      //!
     } else if (widget.measuringTask == MeasuringTask.bloodSugar) {
       assetString = bloodSugarEquipModel[userDataData
           .localDataManager.preferencesHelper
@@ -163,7 +185,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
     }
     return Container(
       width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight * 0.16,
+      height: SizeConfig.screenHeight * 0.18,
       padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
       decoration: const BoxDecoration(color: Colors.white),
       child: Row(
@@ -181,7 +203,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Icon(
                         Icons.warning,
                         color: Colors.orange.shade400,
-                        size: SizeConfig.screenDiagonal * 0.03,
+                        size: SizeConfig.screenDiagonal * 0.023,
                       ),
                       const Gap(5),
                       Text(translation(context).deviceMatchImage,
@@ -198,7 +220,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Icon(
                         Icons.info,
                         color: Colors.blue.shade400,
-                        size: SizeConfig.screenDiagonal * 0.03,
+                        size: SizeConfig.screenDiagonal * 0.023,
                       ),
                       const Gap(5),
                       Text(translation(context).press,
@@ -209,7 +231,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Icon(
                         Icons.autorenew,
                         color: Colors.blue.shade400,
-                        size: SizeConfig.screenDiagonal * 0.03,
+                        size: SizeConfig.screenDiagonal * 0.023,
                       ),
                       Text(translation(context).toChangeTheDevice,
                           style: TextStyle(
@@ -225,7 +247,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Icon(
                         Icons.info,
                         color: const Color.fromARGB(255, 106, 247, 111),
-                        size: SizeConfig.screenDiagonal * 0.03,
+                        size: SizeConfig.screenDiagonal * 0.023,
                       ),
                       const Gap(5),
                       Text(translation(context).press,
@@ -236,9 +258,31 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       Icon(
                         Icons.linked_camera_outlined,
                         color: Colors.blue.shade400,
-                        size: SizeConfig.screenDiagonal * 0.03,
+                        size: SizeConfig.screenDiagonal * 0.023,
                       ),
                       Text(translation(context).toCaptureTheResult,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenWidth * 0.041,
+                              fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.upload,
+                        color: const Color.fromARGB(255, 106, 247, 111),
+                        size: SizeConfig.screenDiagonal * 0.023,
+                      ),
+                      const Gap(5),
+                      Text(translation(context).imagesTakenToday,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: SizeConfig.screenWidth * 0.041,
+                              fontWeight: FontWeight.w500)),
+                      Text(" ${(widget.imagesTakenToday! - 5).abs()}",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: SizeConfig.screenWidth * 0.041,
@@ -306,7 +350,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                 ),
               )
             ]),
-            emptySpace(SizeConfig.screenWidth * 0.015),
+            emptySpace(SizeConfig.screenWidth * 0.01),
           ]),
     );
   }

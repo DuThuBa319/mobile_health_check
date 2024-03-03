@@ -30,6 +30,11 @@ class PatientInforModel {
   double? height;
   int? gender;
   String phoneNumber;
+  // int? imagesTakenToday;
+  int? bloodPressureImagesTakenToday;
+  int? bloodSugarImagesTakenToday;
+  int? bodyTemperatureImagesTakenToday;
+  int? spO2ImagesTakenToday;
   String? address;
   List<RelativeInforModel>? relatives;
   DoctorInforModel? doctor;
@@ -37,23 +42,29 @@ class PatientInforModel {
   List<BloodSugarModel>? bloodSugars;
   List<BloodPressureModel>? bloodPressures;
   List<Spo2Model>? spO2s;
-  PatientInforModel({
-    this.doctor,
-    this.relatives,
-    this.bloodPressures,
-    this.bloodSugars,
-    this.bodyTemperatures,
-    this.spO2s,
-    this.address,
-    this.id,
-    required this.name,
-    this.age,
-    this.personType,
-    this.weight,
-    this.height,
-    required this.phoneNumber,
-    this.gender,
-  });
+
+  PatientInforModel(
+      {this.doctor,
+      this.relatives,
+      this.bloodPressures,
+      this.bloodSugars,
+      this.bodyTemperatures,
+      this.spO2s,
+      this.address,
+      this.id,
+      required this.name,
+      this.age,
+      this.personType,
+      this.weight,
+      this.height,
+      required this.phoneNumber,
+      this.gender,
+      // this.imagesTakenToday
+       this.bloodPressureImagesTakenToday,
+       this.bloodSugarImagesTakenToday,
+       this.bodyTemperatureImagesTakenToday,
+       this.spO2ImagesTakenToday,
+      });
 
   factory PatientInforModel.fromJson(Map<String, dynamic> json) =>
       _$PatientInforModelFromJson(json);
@@ -93,22 +104,27 @@ class PatientInforModel {
     }
     DoctorInforEntity? doctorEntity = doctor?.getDoctorEntity();
     return PatientInforEntity(
-      id: id ?? "",
-      age: age,
-      name: name,
-      phoneNumber: phoneNumber,
-      address: address,
-      bloodPressures: bloodPressureEntities,
-      bloodSugars: bloodSugarEntities,
-      height: height,
-      gender: gender, //! Nam ==0==false
-      personType: personType,
-      bodyTemperatures: temperatureEntities,
-      spo2s: spo2Entities,
-      weight: weight,
-      doctor: doctorEntity,
-      relatives: relativeEntities,
-    );
+        id: id ?? "",
+        age: age,
+        name: name,
+        phoneNumber: phoneNumber,
+        address: address,
+        bloodPressures: bloodPressureEntities,
+        bloodSugars: bloodSugarEntities,
+        height: height,
+        gender: gender, //! Nam ==0==false
+        personType: personType,
+        bodyTemperatures: temperatureEntities,
+        spo2s: spo2Entities,
+        weight: weight,
+        doctor: doctorEntity,
+        relatives: relativeEntities,
+        // imagesTakenToday: imagesTakenToday ?? 0
+        bloodPressureImagesTakenToday:bloodPressureImagesTakenToday ??0,
+        bloodSugarImagesTakenToday:bloodSugarImagesTakenToday??0,
+        bodyTemperatureImagesTakenToday:bodyTemperatureImagesTakenToday??0,
+        spO2ImagesTakenToday:spO2ImagesTakenToday??0,
+        );
   }
 
   PatientInforEntity getPatientInforEntityForList() {
@@ -129,18 +145,23 @@ class PatientInforModel {
     // }
     // DoctorInforEntity? doctorEntity = doctor?.getDoctorInforEntity();
     return PatientInforEntity(
-      id: id ?? "",
-      age: age,
-      name: name,
-      phoneNumber: phoneNumber,
-      address: address,
-      height: height,
-      gender: gender,
-      personType: personType,
-      weight: weight,
-      // doctor: doctorEntity,
-      // relatives: relativeEntities,
-    );
+        id: id ?? "",
+        age: age,
+        name: name,
+        phoneNumber: phoneNumber,
+        address: address,
+        height: height,
+        gender: gender,
+        personType: personType,
+        weight: weight,
+        // imagesTakenToday: imagesTakenToday ?? 0
+         bloodPressureImagesTakenToday:bloodPressureImagesTakenToday ??0,
+         bloodSugarImagesTakenToday:bloodSugarImagesTakenToday??0,
+         bodyTemperatureImagesTakenToday:bodyTemperatureImagesTakenToday??0,
+         spO2ImagesTakenToday : spO2ImagesTakenToday??0
+        // doctor: doctorEntity,
+        // relatives: relativeEntities,
+        );
   }
 
   PatientInforEntity addPatientEntity() {
@@ -152,17 +173,22 @@ class PatientInforModel {
     }
     DoctorInforEntity? doctorEntity = doctor?.getDoctorEntity();
     return PatientInforEntity(
-      id: id ?? "",
-      age: age,
-      name: name,
-      phoneNumber: phoneNumber,
-      address: address ?? "",
-      height: height,
-      gender: gender,
-      personType: personType,
-      weight: weight,
-      doctor: doctorEntity,
-      relatives: relativeEntities,
-    );
+        id: id ?? "",
+        age: age,
+        name: name,
+        phoneNumber: phoneNumber,
+        address: address ?? "",
+        height: height,
+        gender: gender,
+        personType: personType,
+        weight: weight,
+        doctor: doctorEntity,
+        relatives: relativeEntities,
+        // imagesTakenToday: imagesTakenToday ?? 0
+         bloodPressureImagesTakenToday:bloodPressureImagesTakenToday ??0,
+         bloodSugarImagesTakenToday:bloodSugarImagesTakenToday??0,
+         bodyTemperatureImagesTakenToday:bodyTemperatureImagesTakenToday??0,
+         spO2ImagesTakenToday: spO2ImagesTakenToday??0
+        );
   }
 }

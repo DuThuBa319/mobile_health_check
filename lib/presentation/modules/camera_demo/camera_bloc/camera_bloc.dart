@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:io';
 
@@ -208,27 +208,93 @@ Future<XFile?> takePicture({required CameraController controller}) async {
   }
 }
 
+//
 Future<File> cropImage(
     {required File pickedFile,
     required BuildContext context,
     required MeasuringTask task}) async {
+  print(
+      "######${userDataData.localDataManager.preferencesHelper.getData('BloodPressureEquipModel')}");
   double screenWidth = MediaQuery.of(context).size.width;
   double screenHeight = MediaQuery.of(context).size.height;
+  List<double> sizeFrame = [
+    screenWidth * 0.25,
+    screenHeight * 0.15,
+    screenWidth * 0.55,
+    screenHeight * 0.28,
+    0
+  ];
+  //? sizeFrame[0]: left
+  //? sizeFrame[1]: top
+  //? sizeFrame[2]: width
+  //? sizeFrame[3]: height
+  //? sizeFrame[4]: radius
+  //? initial => BP1
+
   double desiredLeft = 0, desiredTop = 0, desiredWidth = 0, desiredHeight = 0;
   switch (task) {
     case MeasuringTask.bloodPressure:
-      desiredLeft = 75; // Set the left position of the desired area (in pixels)
-      desiredTop = 160; // Set the top position of the desired area (in pixels)
+      switch (userDataData.localDataManager.preferencesHelper
+          .getData('BloodPressureEquipModel')) {
+        case 0:
+          sizeFrame[0] = screenWidth * 0.25;
+          sizeFrame[1] = screenHeight * 0.1985;
+          sizeFrame[2] = screenWidth * 0.64;
+          sizeFrame[3] = screenHeight * 0.46;
+          break;
+        case 1:
+          sizeFrame[0] = screenWidth * 0.25;
+          sizeFrame[1] = screenHeight * 0.15;
+          sizeFrame[2] = screenWidth * 0.55;
+          sizeFrame[3] = screenHeight * 0.28;
+          break;
+        case 2:
+          sizeFrame[0] = screenWidth * 0.175;
+          sizeFrame[1] = screenHeight * 0.1985;
+          sizeFrame[2] = screenWidth * 0.82;
+          sizeFrame[3] = screenHeight * 0.5;
+          break;
+        case 3:
+          sizeFrame[0] = screenWidth * 0.165;
+          sizeFrame[1] = screenHeight * 0.19;
+          sizeFrame[2] = screenWidth * 0.77;
+          sizeFrame[3] = screenHeight * 0.48;
+          break;
+      }
+
+      desiredLeft =
+          sizeFrame[0]; // Set the left position of the desired area (in pixels)
+      desiredTop =
+          sizeFrame[1]; // Set the top position of the desired area (in pixels)
       desiredWidth =
-          screenWidth * 0.64; // Set the width of the desired area (in pixels)
-      desiredHeight = screenHeight * 0.46;
+          sizeFrame[2]; // Set the width of the desired area (in pixels)
+      desiredHeight = sizeFrame[3];
+
       break;
     case MeasuringTask.bloodSugar:
-      desiredLeft = 30; // Set the left position of the desired area (in pixels)
-      desiredTop = 200; // Set the top position of the desired area (in pixels)
+      switch (userDataData.localDataManager.preferencesHelper
+          .getData('BloodSugarEquipModel')) {
+        case 0:
+          sizeFrame[0] = screenWidth * 1 / 12;
+          sizeFrame[1] = screenHeight * 0.248;
+          sizeFrame[2] = screenWidth * 0.6;
+          sizeFrame[3] = screenHeight * 0.28;
+          break;
+
+        case 1:
+          sizeFrame[0] = screenWidth * 1 / 12;
+          sizeFrame[1] = screenHeight * 0.248;
+          sizeFrame[2] = screenWidth * 0.78;
+          sizeFrame[3] = screenHeight * 0.35;
+          break;
+      }
+      desiredLeft =
+          sizeFrame[0]; // Set the left position of the desired area (in pixels)
+      desiredTop =
+          sizeFrame[1]; // Set the top position of the desired area (in pixels)
       desiredWidth =
-          screenWidth * 0.87; // Set the width of the desired area (in pixels)
-      desiredHeight = screenHeight * 0.41;
+          sizeFrame[2]; // Set the width of the desired area (in pixels)
+      desiredHeight = sizeFrame[3];
       break;
     case MeasuringTask.oximeter:
       desiredLeft = 80; // Set the left position of the desired area (in pixels)
@@ -238,6 +304,30 @@ Future<File> cropImage(
       desiredHeight = screenHeight * 0.28;
       break;
     case MeasuringTask.temperature:
+      switch (userDataData.localDataManager.preferencesHelper
+          .getData('TempEquipModel')) {
+        case 0:
+          sizeFrame[0] = screenWidth * 0.25;
+          sizeFrame[1] = screenHeight * 0.15;
+          sizeFrame[2] = screenWidth * 0.55;
+          sizeFrame[3] = screenHeight * 0.28;
+          sizeFrame[4] = 0;
+          break;
+        case 1:
+          sizeFrame[0] = screenWidth * 0.25;
+          sizeFrame[1] = screenHeight * 0.15;
+          sizeFrame[2] = screenWidth * 0.55;
+          sizeFrame[3] = screenHeight * 0.28;
+          sizeFrame[4] = 0;
+          break;
+        case 2:
+          sizeFrame[0] = screenWidth * 0.155;
+          sizeFrame[1] = screenHeight * 0.16;
+          sizeFrame[2] = screenWidth * 0.75;
+          sizeFrame[3] = screenHeight * 0.3;
+          sizeFrame[4] = 40;
+          break;
+      }
       desiredLeft = 60; // Set the left position of the desired area (in pixels)
       desiredTop = 300; // Set the top position of the desired area (in pixels)
       desiredWidth =
@@ -252,6 +342,7 @@ Future<File> cropImage(
   // Set the height of the desired area (in pixels)
   var decodedImage =
       await decodeImageFromList(File(pickedFile.path).readAsBytesSync());
+  print("####${decodedImage.width}");
   double imageWidth = decodedImage.width.toDouble();
   double imageHeight = decodedImage.height.toDouble();
   debugPrint('${decodedImage.width}');

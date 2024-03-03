@@ -21,10 +21,8 @@ class UserModel extends User {
   final String? name;
   @override
   final String? phoneNumber;
-
   @override
   final String? currentPass;
-
   @override
   final UserRole? role;
   @override
@@ -37,44 +35,67 @@ class UserModel extends User {
   final String? address;
   @override
   final int? gender;
+  // @override
+  // final int? imagesTakenToday;
+  @override
+  final int? bloodPressureImagesTakenToday;
+  @override
+  final int? bloodSugarImagesTakenToday;
+  @override
+  final int? bodyTemperatureImagesTakenToday;
+  @override
+  final int? spO2ImagesTakenToday;
+
   @override
   final List<PatientInforModel>? patients;
   @override
   final List<RelativeInforModel>? relatives;
   @override
   final DoctorInforModel? doctor;
-  UserModel(
-      {this.currentPass,
-      this.age,
-      this.address,
-      this.height,
-      this.weight,
-      this.unreadCount,
-      this.email,
-      this.id,
-      this.name,
-      this.phoneNumber,
-      this.role,
-      this.gender,
-      this.patients,
-      this.doctor,
-      this.relatives})
-      : super(
-            currentPass: currentPass,
-            unreadCount: unreadCount,
-            email: email,
-            id: id,
-            name: name,
-            phoneNumber: phoneNumber,
-            role: role,
-            age: age,
-            address: address,
-            height: height,
-            weight: weight,
-            gender: gender,
-            patients: patients,
-            doctor: doctor,
-            relatives: relatives);
+
+  UserModel({
+    this.currentPass,
+    this.age,
+    this.address,
+    this.height,
+    this.weight,
+    this.unreadCount,
+    this.email,
+    this.id,
+    this.name,
+    this.phoneNumber,
+    this.role,
+    this.gender,
+    this.patients,
+    this.doctor,
+    this.relatives,
+    // this.imagesTakenToday,
+    this.bloodPressureImagesTakenToday,
+    this.bloodSugarImagesTakenToday,
+    this.bodyTemperatureImagesTakenToday,
+    this.spO2ImagesTakenToday,
+  }) : super(
+          currentPass: currentPass,
+          unreadCount: unreadCount,
+          email: email,
+          id: id,
+          name: name,
+          phoneNumber: phoneNumber,
+          role: role,
+          age: age,
+          address: address,
+          height: height,
+          weight: weight,
+          gender: gender,
+          patients: patients,
+          doctor: doctor,
+          relatives: relatives,
+          // imagesTakenToday: imagesTakenToday
+          bloodPressureImagesTakenToday: bloodPressureImagesTakenToday,
+          bloodSugarImagesTakenToday: bloodSugarImagesTakenToday,
+          bodyTemperatureImagesTakenToday: bodyTemperatureImagesTakenToday,
+          spO2ImagesTakenToday: spO2ImagesTakenToday,
+        );
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

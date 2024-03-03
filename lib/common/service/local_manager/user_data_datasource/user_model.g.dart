@@ -28,6 +28,12 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       relatives: (json['relatives'] as List<dynamic>?)
           ?.map((e) => RelativeInforModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      bloodPressureImagesTakenToday:
+          json['bloodPressureImagesTakenToday'] as int?,
+      bloodSugarImagesTakenToday: json['bloodSugarImagesTakenToday'] as int?,
+      bodyTemperatureImagesTakenToday:
+          json['bodyTemperatureImagesTakenToday'] as int?,
+      spO2ImagesTakenToday: json['spO2ImagesTakenToday'] as int?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) {
@@ -51,6 +57,13 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   writeNotNull('height', instance.height);
   writeNotNull('address', instance.address);
   writeNotNull('gender', instance.gender);
+  writeNotNull(
+      'bloodPressureImagesTakenToday', instance.bloodPressureImagesTakenToday);
+  writeNotNull(
+      'bloodSugarImagesTakenToday', instance.bloodSugarImagesTakenToday);
+  writeNotNull('bodyTemperatureImagesTakenToday',
+      instance.bodyTemperatureImagesTakenToday);
+  writeNotNull('spO2ImagesTakenToday', instance.spO2ImagesTakenToday);
   writeNotNull('patients', instance.patients?.map((e) => e.toJson()).toList());
   writeNotNull(
       'relatives', instance.relatives?.map((e) => e.toJson()).toList());

@@ -328,6 +328,10 @@ Future<dynamic> selectModelDialog(BuildContext context,
     required MeasuringTask measuringTask,
     bool isInHomeScreen = false}) {
   int selectedIndex = 0;
+  //? BP1: selectedIndex =0
+  //? BP2: selectedIndex =1
+  //? BP3: selectedIndex =2
+  //? BP4: selectedIndex =3
   return showDialog(
       context: context,
       builder: (context) {
@@ -388,44 +392,6 @@ Future<dynamic> selectModelDialog(BuildContext context,
                       itemCount: modelAssets.length,
                     ),
                   ),
-
-                  // Container(
-                  //   height: SizeConfig.screenHeight * 0.2,
-                  //   width: SizeConfig.screenWidth * 0.84,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(15),
-                  //     color: AppColor.cardBackgroundColor,
-                  //   ),
-                  //   child: PageView.builder(
-                  //       onPageChanged: (index) {
-                  //         setState(() {
-                  //           selectedIndex = index;
-                  //         });
-                  //       },
-                  //       controller: PageController(viewportFraction: 0.7),
-                  //       itemCount: modelAssets.length,
-                  //       itemBuilder: (context, index) {
-                  //         return Container(
-                  //           padding: const EdgeInsets.all(10),
-                  //           alignment: Alignment.center,
-                  //           margin: EdgeInsets.only(
-                  //               right: SizeConfig.screenWidth * 0.05),
-                  //           decoration: BoxDecoration(
-                  //             borderRadius: BorderRadius.circular(
-                  //                 SizeConfig.screenWidth * 0.05),
-                  //             color: selectedIndex == index
-                  //                 ? AppColor.lineDecor
-                  //                 : AppColor.appBarColor,
-                  //             image: DecorationImage(
-                  //                 image: AssetImage(
-                  //                   modelAssets[index],
-                  //                 ),
-                  //                 fit: BoxFit.fitWidth),
-                  //           ),
-                  //         );
-                  //       }),
-                  // ),
-
                   Gap(SizeConfig.screenHeight * 0.03),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

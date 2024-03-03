@@ -266,6 +266,7 @@ _i1.GetIt $initGetIt(
   gh.factory<_i69.OCRScannerBloc>(() => _i69.OCRScannerBloc(
         gh<_i14.NetworkInfo>(),
         gh<_i55.BloodPressureUsecase>(),
+        gh<_i25.PatientUsecase>(),
         gh<_i59.BloodSugarUsecase>(),
         gh<_i41.TemperatureUsecase>(),
         gh<_i37.Spo2Usecase>(),
