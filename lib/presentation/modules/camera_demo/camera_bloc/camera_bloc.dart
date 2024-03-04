@@ -236,32 +236,31 @@ Future<File> cropImage(
     case MeasuringTask.bloodPressure:
       switch (userDataData.localDataManager.preferencesHelper
           .getData('BloodPressureEquipModel')) {
-        case 0:
+        case 0: //?BP1 => DONE
           sizeFrame[0] = screenWidth * 0.25;
           sizeFrame[1] = screenHeight * 0.1985;
           sizeFrame[2] = screenWidth * 0.64;
           sizeFrame[3] = screenHeight * 0.46;
           break;
-        case 1:
+        case 1: //!BP2
           sizeFrame[0] = screenWidth * 0.25;
           sizeFrame[1] = screenHeight * 0.15;
           sizeFrame[2] = screenWidth * 0.55;
           sizeFrame[3] = screenHeight * 0.28;
           break;
-        case 2:
+        case 2: //?BP3 => DONE
           sizeFrame[0] = screenWidth * 0.175;
           sizeFrame[1] = screenHeight * 0.1985;
           sizeFrame[2] = screenWidth * 0.82;
           sizeFrame[3] = screenHeight * 0.5;
           break;
-        case 3:
+        case 3: //?BP4 => DONE
           sizeFrame[0] = screenWidth * 0.165;
           sizeFrame[1] = screenHeight * 0.19;
           sizeFrame[2] = screenWidth * 0.77;
           sizeFrame[3] = screenHeight * 0.48;
           break;
       }
-
       desiredLeft =
           sizeFrame[0]; // Set the left position of the desired area (in pixels)
       desiredTop =
@@ -274,18 +273,18 @@ Future<File> cropImage(
     case MeasuringTask.bloodSugar:
       switch (userDataData.localDataManager.preferencesHelper
           .getData('BloodSugarEquipModel')) {
-        case 0:
+        case 0: //?BS1 => DONE
           sizeFrame[0] = screenWidth * 1 / 12;
-          sizeFrame[1] = screenHeight * 0.248;
-          sizeFrame[2] = screenWidth * 0.6;
-          sizeFrame[3] = screenHeight * 0.28;
+          sizeFrame[1] = screenHeight * 0.25;
+          sizeFrame[2] = screenWidth * 0.87;
+          sizeFrame[3] = screenHeight * 0.41;
           break;
+        case 1: //?BS2 => DONE
+          sizeFrame[0] = screenWidth * 1 / 7.5;
+          sizeFrame[1] = screenHeight * 0.265;
+          sizeFrame[2] = screenWidth * 0.7;
+          sizeFrame[3] = screenHeight * 0.2;
 
-        case 1:
-          sizeFrame[0] = screenWidth * 1 / 12;
-          sizeFrame[1] = screenHeight * 0.248;
-          sizeFrame[2] = screenWidth * 0.78;
-          sizeFrame[3] = screenHeight * 0.35;
           break;
       }
       desiredLeft =

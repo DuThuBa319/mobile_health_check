@@ -23,10 +23,10 @@ class RectanglePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Colors.black54;
     List<double> sizeFrame = [
-      size.width * 0.25,
-      size.height * 0.15,
-      size.width * 0.55,
-      size.height * 0.28,
+      size.width * 0.202,
+      size.height * 0.24,
+      size.width * 0.6,
+      size.height * 0.122,
       0
     ];
     //? sizeFrame[0]: left
@@ -34,36 +34,29 @@ class RectanglePainter extends CustomPainter {
     //? sizeFrame[2]: width
     //? sizeFrame[3]: height
     //? sizeFrame[4]: radius
-    //? initial => BP1
+    //? initial => T1
     switch (userDataData.localDataManager.preferencesHelper
         .getData('TempEquipModel')) {
-      case 0:
+      case 0: //?T1 => DONE
+        sizeFrame[0] = size.width * 0.202;
+        sizeFrame[1] = size.height * 0.24;
+        sizeFrame[2] = size.width * 0.6;
+        sizeFrame[3] = size.height * 0.122;
+        sizeFrame[4] = 0;
+        break;
+      case 1: //? T2
         sizeFrame[0] = size.width * 0.25;
         sizeFrame[1] = size.height * 0.15;
         sizeFrame[2] = size.width * 0.55;
         sizeFrame[3] = size.height * 0.28;
         sizeFrame[4] = 0;
         break;
-      case 1:
+      case 2: //? T3
         sizeFrame[0] = size.width * 0.25;
         sizeFrame[1] = size.height * 0.15;
         sizeFrame[2] = size.width * 0.55;
         sizeFrame[3] = size.height * 0.28;
         sizeFrame[4] = 0;
-        break;
-      case 2:
-        sizeFrame[0] = size.width * 0.155;
-        sizeFrame[1] = size.height * 0.16;
-        sizeFrame[2] = size.width * 0.75;
-        sizeFrame[3] = size.height * 0.3;
-        sizeFrame[4] = 40;
-        break;
-      case 3:
-        sizeFrame[0] = size.width * 0.2;
-        sizeFrame[1] = size.height * 0.15;
-        sizeFrame[2] = size.width * 0.65;
-        sizeFrame[3] = size.height * 0.285;
-        sizeFrame[4] = 47;
         break;
     }
     canvas.drawPath(
@@ -74,9 +67,9 @@ class RectanglePainter extends CustomPainter {
           //bellow clips out the circular rectangle with center as offset and dimensions you need to set
           Path()
             ..addRRect(RRect.fromRectAndRadius(
-                Rect.fromLTWH(size.width * 0.202, size.height * 0.24,
-                    size.width * 0.6, size.height * 0.122),
-                const Radius.circular(0)))
+                Rect.fromLTWH(
+                    sizeFrame[0], sizeFrame[1], sizeFrame[2], sizeFrame[3]),
+                Radius.circular(sizeFrame[4])))
             ..close(),
         ),
         paint);

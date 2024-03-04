@@ -57,14 +57,16 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                   children: [
                     //! Thermometer
                     InstructionScanner(
-               
-                          imagesTakenToday: userDataData.getUser()!.bodyTemperatureImagesTakenToday,
-
+                      imagesTakenToday: userDataData
+                          .getUser()!
+                          .bodyTemperatureImagesTakenToday,
                       measuringTask: MeasuringTask.temperature,
                     ),
                     emptySpace(SizeConfig.screenHeight * 0.1),
                     imagePickerCell(context,
-                     imagesTakenToday: userDataData.getUser()!.bodyTemperatureImagesTakenToday,
+                        imagesTakenToday: userDataData
+                            .getUser()!
+                            .bodyTemperatureImagesTakenToday,
                         scanBloc: scanBloc,
                         state: scanState,
                         imageFile: scanState.viewModel.temperatureImageFile,
@@ -151,8 +153,10 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                             context: context,
                             barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
+                              double? tempValue = state
+                                  .viewModel.temperatureEntity?.temperature;
                               editBodyTemperatureController.text =
-                                  "${state.viewModel.temperatureEntity?.temperature}";
+                                  tempValue != null ? "$tempValue" : "--";
                               return AlertDialog(
                                 title:
                                     Text(translation(context).editIndicatore),

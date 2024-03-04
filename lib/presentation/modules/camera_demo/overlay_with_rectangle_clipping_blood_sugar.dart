@@ -23,32 +23,32 @@ class RectanglePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Colors.black54;
     List<double> sizeFrame = [
-      size.width * 0.25,
-      size.height * 0.15,
-      size.width * 0.55,
-      size.height * 0.28,
-      0
+      size.width * 0.105,
+      size.height * 0.185,
+      size.width * 0.8,
+      size.height * 0.24,
+      0,
     ];
     //? sizeFrame[0]: left
     //? sizeFrame[1]: top
     //? sizeFrame[2]: width
     //? sizeFrame[3]: height
     //? sizeFrame[4]: radius
-    //? initial => BP1
+    //? initial => BS1
     switch (userDataData.localDataManager.preferencesHelper
         .getData('BloodSugarEquipModel')) {
-      case 0:
+      case 0: //?BS1 => Done
         sizeFrame[0] = size.width * 0.105;
         sizeFrame[1] = size.height * 0.185;
         sizeFrame[2] = size.width * 0.8;
         sizeFrame[3] = size.height * 0.24;
         sizeFrame[4] = 0;
         break;
-      case 1:
-        sizeFrame[0] = size.width * 0.105;
+      case 1: //?BS2 => Done
+        sizeFrame[0] = size.width * 0.16;
         sizeFrame[1] = size.height * 0.185;
         sizeFrame[2] = size.width * 0.7;
-        sizeFrame[3] = size.height * 0.23;
+        sizeFrame[3] = size.height * 0.138;
         sizeFrame[4] = 0;
         break;
     }

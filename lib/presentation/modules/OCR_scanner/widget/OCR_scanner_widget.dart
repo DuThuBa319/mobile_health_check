@@ -183,175 +183,206 @@ class _InstructionScannerState extends State<InstructionScanner> {
           .localDataManager.preferencesHelper
           .getData('TempEquipModel')];
     }
-    return Container(
-      width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight * 0.18,
-      padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-      decoration: const BoxDecoration(color: Colors.white),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return (widget.measuringTask != MeasuringTask.oximeter)
+        ? Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.18,
+            padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+            decoration: const BoxDecoration(color: Colors.white),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.warning,
-                        color: Colors.orange.shade400,
-                        size: SizeConfig.screenDiagonal * 0.023,
-                      ),
-                      const Gap(5),
-                      Text(translation(context).deviceMatchImage,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
-                              fontWeight: FontWeight.w500)),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Icon(
+                              Icons.warning,
+                              color: Colors.orange.shade400,
+                              size: SizeConfig.screenDiagonal * 0.023,
+                            ),
+                            const Gap(5),
+                            Text(translation(context).deviceMatchImage,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.041,
+                                    fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.info,
+                              color: Colors.blue.shade400,
+                              size: SizeConfig.screenDiagonal * 0.023,
+                            ),
+                            const Gap(5),
+                            Text(translation(context).press,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.041,
+                                    fontWeight: FontWeight.w500)),
+                            Icon(
+                              Icons.autorenew,
+                              color: Colors.blue.shade400,
+                              size: SizeConfig.screenDiagonal * 0.023,
+                            ),
+                            Text(translation(context).toChangeTheDevice,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.041,
+                                    fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.info,
+                              color: const Color.fromARGB(255, 106, 247, 111),
+                              size: SizeConfig.screenDiagonal * 0.023,
+                            ),
+                            const Gap(5),
+                            Text(translation(context).press,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.041,
+                                    fontWeight: FontWeight.w500)),
+                            Icon(
+                              Icons.linked_camera_outlined,
+                              color: Colors.blue.shade400,
+                              size: SizeConfig.screenDiagonal * 0.023,
+                            ),
+                            Text(translation(context).toCaptureTheResult,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.041,
+                                    fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.upload,
+                              color: const Color.fromARGB(255, 106, 247, 111),
+                              size: SizeConfig.screenDiagonal * 0.023,
+                            ),
+                            const Gap(5),
+                            Text(translation(context).imagesTakenToday,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.041,
+                                    fontWeight: FontWeight.w500)),
+                            Text(" ${(widget.imagesTakenToday! - 5).abs()}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.041,
+                                    fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.info,
-                        color: Colors.blue.shade400,
-                        size: SizeConfig.screenDiagonal * 0.023,
-                      ),
-                      const Gap(5),
-                      Text(translation(context).press,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
-                              fontWeight: FontWeight.w500)),
-                      Icon(
-                        Icons.autorenew,
-                        color: Colors.blue.shade400,
-                        size: SizeConfig.screenDiagonal * 0.023,
-                      ),
-                      Text(translation(context).toChangeTheDevice,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.info,
-                        color: const Color.fromARGB(255, 106, 247, 111),
-                        size: SizeConfig.screenDiagonal * 0.023,
-                      ),
-                      const Gap(5),
-                      Text(translation(context).press,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
-                              fontWeight: FontWeight.w500)),
-                      Icon(
-                        Icons.linked_camera_outlined,
-                        color: Colors.blue.shade400,
-                        size: SizeConfig.screenDiagonal * 0.023,
-                      ),
-                      Text(translation(context).toCaptureTheResult,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.upload,
-                        color: const Color.fromARGB(255, 106, 247, 111),
-                        size: SizeConfig.screenDiagonal * 0.023,
-                      ),
-                      const Gap(5),
-                      Text(translation(context).imagesTakenToday,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
-                              fontWeight: FontWeight.w500)),
-                      Text(" ${(widget.imagesTakenToday! - 5).abs()}",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: SizeConfig.screenWidth * 0.041,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Stack(children: [
-              Container(
-                width: SizeConfig.screenWidth * 0.23,
-                height: SizeConfig.screenHeight * 0.12,
-                margin: const EdgeInsets.only(right: 10, bottom: 10),
-                decoration: BoxDecoration(
-                    color: AppColor.appBarColor,
-                    borderRadius: BorderRadius.circular(8)),
-                child: FullScreenWidget(
-                  disposeLevel: DisposeLevel.Medium,
-                  child: Image.asset(assetString, fit: BoxFit.contain),
-                ),
-              ),
-              Positioned(
-                bottom: SizeConfig.screenWidth * 0.001,
-                right: SizeConfig.screenWidth * 0.001,
-                child: InkWell(
-                  child: Container(
-                      height: SizeConfig.screenWidth * 0.08,
-                      width: SizeConfig.screenWidth * 0.08,
+                  Stack(children: [
+                    Container(
+                      width: SizeConfig.screenWidth * 0.23,
+                      height: SizeConfig.screenHeight * 0.12,
+                      margin: const EdgeInsets.only(right: 10, bottom: 10),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(width: 1, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(
-                              SizeConfig.screenWidth * 0.08)),
-                      child: Icon(
-                        Icons.autorenew_rounded,
-                        size: SizeConfig.screenWidth * 0.07,
-                        color: Colors.blue,
-                      )),
-                  onTap: () async {
-                    if (widget.measuringTask == MeasuringTask.bloodPressure) {
-                      await selectModelDialog(
-                        context,
-                        modelAssets: bloodPressureEquipModel,
-                        measuringTask: MeasuringTask.bloodPressure,
-                      );
-                      setState(() {});
-                    } else if (widget.measuringTask ==
-                        MeasuringTask.bloodSugar) {
-                      await selectModelDialog(
-                        context,
-                        modelAssets: bloodSugarEquipModel,
-                        measuringTask: MeasuringTask.bloodSugar,
-                      );
-                    } else if (widget.measuringTask ==
-                        MeasuringTask.temperature) {
-                      await selectModelDialog(
-                        context,
-                        modelAssets: temperatureEquipModel,
-                        measuringTask: MeasuringTask.temperature,
-                      );
-                    }
-                    setState(() {});
-                  },
+                          color: AppColor.appBarColor,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: FullScreenWidget(
+                        disposeLevel: DisposeLevel.Medium,
+                        child: Image.asset(assetString, fit: BoxFit.contain),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: SizeConfig.screenWidth * 0.001,
+                      right: SizeConfig.screenWidth * 0.001,
+                      child: InkWell(
+                        child: Container(
+                            height: SizeConfig.screenWidth * 0.08,
+                            width: SizeConfig.screenWidth * 0.08,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border:
+                                    Border.all(width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(
+                                    SizeConfig.screenWidth * 0.08)),
+                            child: Icon(
+                              Icons.autorenew_rounded,
+                              size: SizeConfig.screenWidth * 0.07,
+                              color: Colors.blue,
+                            )),
+                        onTap: () async {
+                          if (widget.measuringTask ==
+                              MeasuringTask.bloodPressure) {
+                            await selectModelDialog(
+                              context,
+                              modelAssets: bloodPressureEquipModel,
+                              measuringTask: MeasuringTask.bloodPressure,
+                            );
+                            setState(() {});
+                          } else if (widget.measuringTask ==
+                              MeasuringTask.bloodSugar) {
+                            await selectModelDialog(
+                              context,
+                              modelAssets: bloodSugarEquipModel,
+                              measuringTask: MeasuringTask.bloodSugar,
+                            );
+                          } else if (widget.measuringTask ==
+                              MeasuringTask.temperature) {
+                            await selectModelDialog(
+                              context,
+                              modelAssets: temperatureEquipModel,
+                              measuringTask: MeasuringTask.temperature,
+                            );
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    )
+                  ]),
+                  emptySpace(SizeConfig.screenWidth * 0.01),
+                ]),
+          )
+        : Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.065,
+            padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+            decoration: const BoxDecoration(color: Colors.white),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.upload,
+                  color: const Color.fromARGB(255, 106, 247, 111),
+                  size: SizeConfig.screenDiagonal * 0.03,
                 ),
-              )
-            ]),
-            emptySpace(SizeConfig.screenWidth * 0.01),
-          ]),
-    );
+                const Gap(5),
+                Text(translation(context).imagesTakenToday,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: SizeConfig.screenWidth * 0.05,
+                        fontWeight: FontWeight.w500)),
+                Text(" ${(widget.imagesTakenToday! - 5).abs()}",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: SizeConfig.screenWidth * 0.05,
+                        fontWeight: FontWeight.w500)),
+              ],
+            ),
+          );
   }
 }

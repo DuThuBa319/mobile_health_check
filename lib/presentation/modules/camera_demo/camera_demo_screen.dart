@@ -296,10 +296,13 @@ class CameraScreenState extends State<CameraScreen>
                         children: [
                           InkWell(
                             onTap: () async {
-                              cameraBloc.add(GetImageEvent(
-                                  task: widget.task,
-                                  controller: controller!,
-                                  context: context));
+                              if (state.status != BlocStatusState.loading) {
+                                cameraBloc.add(GetImageEvent(
+                                    task: widget.task,
+                                    controller: controller!,
+                                    context: context));
+                              }
+
                               // await imageDialog(context, imageFile: imageFile);
                             },
                             child: Stack(
