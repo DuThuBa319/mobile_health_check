@@ -161,8 +161,8 @@ class _TemperatureNotificationReadingScreenState
                       Center(
                         child: Center(
                           child: Text(
-                            softWrap: true,
-                            maxLines: 2,
+                              softWrap: true,
+                              maxLines: 2,
                               textAlign: TextAlign.center,
                               "${widget.notificationEntity?.bodyTemperatureEntity!.statusComment(context)}",
                               style: AppTextTheme.body2.copyWith(

@@ -110,10 +110,10 @@ extension CameraScreenAction on CameraScreenState {
   }
 
   Future<dynamic> imageDialog(BuildContext context, {required File imageFile}) {
-    return showAdaptiveDialog(
+    return showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (context) => AlertDialog.adaptive(
+        builder: (context) => AlertDialog(
               iconPadding: EdgeInsets.zero,
               content: Container(
                 height: SizeConfig.screenHeight * 0.53,

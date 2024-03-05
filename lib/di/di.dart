@@ -50,8 +50,6 @@ abstract class AppModule {
   Future<LocalDataManager> get localDataManager async =>
       LocalDataManager()..init();
 
-  
-  
   @singleton
   Connectivity get connectivity => Connectivity();
 }
