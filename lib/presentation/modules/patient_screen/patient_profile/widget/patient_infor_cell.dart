@@ -149,9 +149,10 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                       child: const Icon(Icons.copy, color: Colors.black54),
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
-                        showToast( context: context,
+                        showToast(
+                            context: context,
                             status: ToastStatus.success,
-                            toastString:translation(context).copySuccessfully);
+                            toastString: translation(context).copySuccessfully);
                       },
                     )
                   : emptySpace(5),
