@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 
 class OverlayRectangleForBloodSugar extends StatelessWidget {
   const OverlayRectangleForBloodSugar({super.key});
@@ -21,7 +22,36 @@ class RectanglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Colors.black54;
-
+    List<double> sizeFrame = [
+      size.width * 0.105,
+      size.height * 0.185,
+      size.width * 0.8,
+      size.height * 0.24,
+      0,
+    ];
+    //? sizeFrame[0]: left
+    //? sizeFrame[1]: top
+    //? sizeFrame[2]: width
+    //? sizeFrame[3]: height
+    //? sizeFrame[4]: radius
+    //? initial => BS1
+    switch (userDataData.localDataManager.preferencesHelper
+        .getData('BloodSugarEquipModel')) {
+      case 0: //?BS1 => Done
+        sizeFrame[0] = size.width * 0.1;
+        sizeFrame[1] = size.height * 0.2;
+        sizeFrame[2] = size.width * 0.8;
+        sizeFrame[3] = size.height * 0.143;
+        sizeFrame[4] = 0;
+        break;
+      case 1: //?BS2 => Done
+        sizeFrame[0] = size.width * 0.16;
+        sizeFrame[1] = size.height * 0.185;
+        sizeFrame[2] = size.width * 0.7;
+        sizeFrame[3] = size.height * 0.138;
+        sizeFrame[4] = 0;
+        break;
+    }
     canvas.drawPath(
         Path.combine(
           PathOperation.difference, //simple difference of following operations
@@ -30,9 +60,9 @@ class RectanglePainter extends CustomPainter {
           //bellow clips out the circular rectangle with center as offset and dimensions you need to set
           Path()
             ..addRRect(RRect.fromRectAndRadius(
-                Rect.fromLTWH(size.width * 0.105, size.height * 0.185,
-                    size.width * 0.8, size.height * 0.24),
-                const Radius.circular(0)))
+                Rect.fromLTWH(
+                    sizeFrame[0], sizeFrame[1], sizeFrame[2], sizeFrame[3]),
+                Radius.circular(sizeFrame[4])))
             ..close(),
         ),
         paint);

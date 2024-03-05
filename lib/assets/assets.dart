@@ -1,6 +1,5 @@
 class Assets {
   Assets._();
-
   static const String icSunny = 'lib/assets/images/ic_sunny.png';
   static const String icRainy = 'lib/assets/images/ic_rainy.png';
   static const String icThunderstorm = 'lib/assets/images/ic_thunderstorm.png';
@@ -16,8 +15,7 @@ class Assets {
   static const String bloodSugar = 'lib/assets/images/blood_sugar_icon.png';
   static const String bloodPressureicon =
       'lib/assets/images/blood_pressure_icon.png';
-  static const String teleHealth = 'lib/assets/images/TeleHealth.jpg';
-
+  static const String teleHealth = 'lib/assets/images/TeleHealth.png';
   static const String temperature = 'lib/assets/images/thermometer_icon.png';
   static const String thermometer = 'lib/assets/images/thermometer_img.png';
   static const String bloodGlucoseMeter =
@@ -39,12 +37,21 @@ class Assets {
   static const String manDoctor = 'lib/assets/images/manDoctor.png';
   static const String womenDoctor = 'lib/assets/images/womenDoctor.png';
   static const String doctor = 'lib/assets/images/doctor.png';
-  static const String vnFlag = 'lib/assets/images/vietnam.png';
-  static const String enFlag = 'lib/assets/images/usa.png';
+
   static const String edit = 'lib/assets/images/edit.png';
   static const String relative = 'lib/assets/images/relative.png';
   static const String oximeter = 'lib/assets/images/oximeter.png';
   static const String oxi = 'lib/assets/images/oxi.png';
   static const String family = 'lib/assets/images/family.png';
   static const String detail = 'lib/assets/images/detail.png';
+  // model
+  static const String modelBP1 = 'lib/assets/images/model/BP1.png';
+  static const String modelBP2 = 'lib/assets/images/model/BP2.png';
+  static const String modelBP3 = 'lib/assets/images/model/BP3.png';
+  static const String modelBP4 = 'lib/assets/images/model/BP4.png';
+  static const String modelBS1 = 'lib/assets/images/model/BS1.png';
+  static const String modelBS2 = 'lib/assets/images/model/BS2.png';
+  static const String modelT1 = 'lib/assets/images/model/T1.png';
+  static const String modelT2 = 'lib/assets/images/model/T2.png';
+  static const String modelT3 = 'lib/assets/images/model/T3.png';
 }

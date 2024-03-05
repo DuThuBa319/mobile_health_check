@@ -3,6 +3,10 @@ part of 'notification_bloc.dart';
 @immutable
 abstract class NotificationEvent {}
 
+class InitializeNotificationScreenEvent extends NotificationEvent {
+  InitializeNotificationScreenEvent();
+}
+
 class GetNotificationListEvent extends NotificationEvent {
   // final List<NotificationEntity>? notificationEntiry;
   final String? userId;

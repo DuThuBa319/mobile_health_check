@@ -134,7 +134,7 @@ class _LoginState extends State<LoginScreen> {
                     Center(
                       child: Image.asset(
                         Assets.teleHealth,
-                        scale: 6,
+                        scale: 3,
                       ),
                     ),
 

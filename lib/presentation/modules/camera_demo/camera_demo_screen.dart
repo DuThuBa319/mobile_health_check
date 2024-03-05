@@ -125,10 +125,26 @@ class CameraScreenState extends State<CameraScreen>
             builder: (context, state) {
               if (state is CameraReadyState &&
                   state.status == BlocStatusState.loading) {
-                return const Center(
-                    child: Loading(
-                  brightness: Brightness.light,
-                ));
+                return Stack(
+                  children: [
+                    Positioned(
+                        top: 15,
+                        left: 15,
+                        child: CircleButton(
+                          size: SizeConfig.screenDiagonal * 0.04,
+                          iconData: Icons.arrow_back_outlined,
+                          iconColor: AppColor.white,
+                          backgroundColor: AppColor.appBarColor,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        )),
+                    const Center(
+                        child: Loading(
+                      brightness: Brightness.light,
+                    ))
+                  ],
+                );
               }
               if (state.status == BlocStatusState.failure) {
                 return Center(
@@ -171,9 +187,7 @@ class CameraScreenState extends State<CameraScreen>
                         )),
                     if (state is GetImageState &&
                         state.status == BlocStatusState.loading)
-                      Positioned(
-                        top: height * 0.0877,
-                        left: width * 0.315,
+                      Center(
                         child: Text(translation(context).holdForFewSec,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white)),
@@ -207,9 +221,7 @@ class CameraScreenState extends State<CameraScreen>
                           )),
                       if (state is GetImageState &&
                           state.status == BlocStatusState.loading)
-                        Positioned(
-                          top: height * 0.0877,
-                          left: width * 0.315,
+                        Center(
                           child: Text(translation(context).holdForFewSec,
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white)),
@@ -284,10 +296,13 @@ class CameraScreenState extends State<CameraScreen>
                         children: [
                           InkWell(
                             onTap: () async {
-                              cameraBloc.add(GetImageEvent(
-                                  task: widget.task,
-                                  controller: controller!,
-                                  context: context));
+                              if (state.status != BlocStatusState.loading) {
+                                cameraBloc.add(GetImageEvent(
+                                    task: widget.task,
+                                    controller: controller!,
+                                    context: context));
+                              }
+
                               // await imageDialog(context, imageFile: imageFile);
                             },
                             child: Stack(
@@ -365,6 +380,7 @@ class CameraScreenState extends State<CameraScreen>
         ));
   }
 
+//! cropStroke ko sử dụng nữa
   Widget cropStroke(BuildContext context, {required MeasuringTask task}) {
     if (task == MeasuringTask.bloodPressure) {
       return Positioned(

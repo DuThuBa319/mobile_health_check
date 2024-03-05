@@ -4,12 +4,17 @@ part of 'temperature_reading_screen.dart';
 extension TemperatureReadingScreenAction on _TemperatureReadingScreenState {
   void blocListener(BuildContext context, OCRScannerState state) async {
     if (state.status == BlocStatusState.loading) {
-      showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).loadingData);
+      showToast(
+          context: context,
+          status: ToastStatus.loading,
+          toastString: translation(context).loadingData);
     }
     if (state.status == BlocStatusState.success) {
       if (state is UploadTemperatureDataState) {
+        scanBloc.add(
+            GetPatientImageTakenEvent(patientId: userDataData.getUser()!.id!));
+      }
+      if (state is GetImagesTakenState) {
         showSuccessDialog(
             context: context,
             message: translation(context).uploadBodyTemperatureSuccessfully,
@@ -20,9 +25,10 @@ extension TemperatureReadingScreenAction on _TemperatureReadingScreenState {
                   (Route<dynamic> route) => false);
             });
       }
-      showToast( context: context,
-                            status: ToastStatus.success,
-                            toastString:translation(context).dataLoaded);
+      showToast(
+          context: context,
+          status: ToastStatus.success,
+          toastString: translation(context).dataLoaded);
     }
     if (state.status == BlocStatusState.failure) {
       showExceptionDialog(

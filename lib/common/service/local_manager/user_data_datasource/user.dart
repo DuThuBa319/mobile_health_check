@@ -20,26 +20,36 @@ class User extends Equatable {
   final double? height;
   final int? gender;
   final String? address;
+  // final int? imagesTakenToday;
+  final  int? bloodPressureImagesTakenToday;
+  final int? bloodSugarImagesTakenToday;
+   final int? bodyTemperatureImagesTakenToday;
+   final int? spO2ImagesTakenToday;
   List<PatientInforModel>? patients;
   final List<RelativeInforModel>? relatives;
   final DoctorInforModel? doctor;
-  User({
-    this.currentPass,
-    this.age,
-    this.address,
-    this.height,
-    this.weight,
-    this.unreadCount,
-    this.email,
-    this.id,
-    this.name,
-    this.phoneNumber,
-    this.role,
-    this.gender,
-    this.patients,
-    this.relatives,
-    this.doctor,
-  });
+  User(
+      {this.currentPass,
+      this.age,
+      this.address,
+      this.height,
+      this.weight,
+      this.unreadCount,
+      this.email,
+      this.id,
+      this.name,
+      this.phoneNumber,
+      this.role,
+      this.gender,
+      this.patients,
+      this.relatives,
+      this.doctor,
+      // this.imagesTakenToday,
+       this.bloodPressureImagesTakenToday,
+       this.bloodSugarImagesTakenToday,
+       this.bodyTemperatureImagesTakenToday,
+       this.spO2ImagesTakenToday,
+      });
 
   @override
   List<Object?> get props => [
@@ -60,6 +70,11 @@ class User extends Equatable {
         patients,
         relatives,
         doctor,
+        // imagesTakenToday
+         bloodPressureImagesTakenToday,
+         bloodSugarImagesTakenToday,
+         bodyTemperatureImagesTakenToday,
+         spO2ImagesTakenToday
       ];
 
   UserModel convertToModel() {
@@ -78,7 +93,13 @@ class User extends Equatable {
         weight: weight,
         patients: patients,
         relatives: relatives,
-        doctor: doctor);
+        doctor: doctor,
+        // imagesTakenToday: imagesTakenToday
+         bloodPressureImagesTakenToday:bloodPressureImagesTakenToday,
+         bloodSugarImagesTakenToday:bloodSugarImagesTakenToday,
+         bodyTemperatureImagesTakenToday:bodyTemperatureImagesTakenToday,
+         spO2ImagesTakenToday:spO2ImagesTakenToday,
+        );
   }
 
   User copyWith(
@@ -95,11 +116,21 @@ class User extends Equatable {
       double? weight,
       double? height,
       int? gender,
+      int? imagesTakenToday,
+       int? bloodPressureImagesTakenToday,
+       int? bloodSugarImagesTakenToday,
+       int? bodyTemperatureImagesTakenToday,
+       int? spO2ImagesTakenToday,
       List<PatientInforModel>? patients,
       List<RelativeInforModel>? relatives,
       DoctorInforModel? doctor}) {
     return User(
       // patientInforEntity: patientInforEntity?? this.patientInforEntity,
+      // imagesTakenToday: imagesTakenToday ?? this.imagesTakenToday,
+      bloodPressureImagesTakenToday:bloodPressureImagesTakenToday??this.bloodPressureImagesTakenToday,
+      bloodSugarImagesTakenToday:bloodSugarImagesTakenToday??this.bloodSugarImagesTakenToday,
+      bodyTemperatureImagesTakenToday:bodyTemperatureImagesTakenToday?? this.bodyTemperatureImagesTakenToday,
+      spO2ImagesTakenToday:spO2ImagesTakenToday?? this.spO2ImagesTakenToday,
       currentPass: currentPass ?? this.currentPass,
       unreadCount: unreadCount ?? this.unreadCount,
       age: age ?? this.age,

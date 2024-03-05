@@ -188,19 +188,23 @@
 "no":"No",
 "yes":"Yes",
 "phoneNumberCountError":"Incorrect phone number, must be 10-11 characters",
-
+"selectProduct":"Select your product",
 "deleteRelative":"Are you sure you want to remove this relative?",
 "deletePatient":"Are you sure you want to remove this patient?",
 "deleteDoctor":"Are you sure you want to remove this doctor?",
 "deleteRelativeWarningTitle":"Delete relative",
 "deletePatientWarningTitle":"Delete patient",
 "deleteDoctorWarningTitle":"Delete doctor",
-
+"select":"Select",
+"deviceMatchImage":"Device must match the image",
 "deletingPatient":"Deleting patient",
 "deletingDoctoc":"Deleting doctor",
 "deletingRelative":"Deleting relative",
-
+"press":"Press ",
 "loadAgain":"Load again",
+"toChangeTheDevice":" to exchange",
+"toCaptureTheResult":" to capture result",
+"overImagesCountPermission":"Exceeded today's photo limit",
 "pleaseEnterPhoneNumber":"Please enter your phoneNumber",
 "resetPasswordSuccessfully":"Reset password successfully",
 "reset":"Reset password",
@@ -218,7 +222,9 @@
 "duplicatedRelationshipPAR":"The relationship between these entities has been existed",
 "maximumRelativeCount":"The number of relatives belonging to this patient is already maxium",
 "contact":"Contact",
-"permissionWarning":"Please allow camera and microphone access"
+"permissionCameraWarning":"Please allow camera and microphone access",
+"permissionNotificationWarning":"Please grant permission to receive notifications",
+"imagesTakenToday":"Remaining shots today:"
 }
 
 

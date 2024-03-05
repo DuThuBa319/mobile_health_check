@@ -210,11 +210,17 @@
 "deleteNotificationSuccessfully":"Xóa thông báo thành công",
 "delete":"Xóa",
 "cannotDeleteDoctor":"Không thể xóa bác sĩ còn liên kết với các tài khoản bệnh nhân",
-
+"select":"Chọn",
+"deviceMatchImage":"Máy đo phải như hình bên",
+"press":"Nhấn ",
+"toChangeTheDevice":" để đổi thiết bị",
+"toCaptureTheResult":" để chụp kết quả",
+"imagesTakenToday":"Số lần chụp còn lại hôm nay:",
+"overImagesCountPermission":"Đã dùng hết số lần chụp hôm nay",
 "deletingPatient":"Đang xóa bệnh nhân",
 "deletingDoctoc":"Đang xóa bác sĩ",
 "deletingRelative":"Đang xóa người thân",
-
+"selectProduct":"Chọn sản phẩm",
 "call":"Liên hệ",
 "reset":"Cấp lại mật khẩu",
 "pleaseEnterPhoneNumber":"Vui lòng hãy nhập số điện thoại",
@@ -230,7 +236,8 @@
 "duplicatedRelationshipPAD":"Bệnh nhân đã đăng ký với bác sĩ này rồi",
 "hasDoctorBefore":"Bệnh nhân đã đăng ký với bác sĩ khác",
 "maximumRelativeCount":"Số người thân đã đạt tối đa",
-"wrongAccount":"Số điện thoại hoặc mật khẩu không đúng. Vui lòng đăng nhập lại!",
+"wrongAccount":"Tài khoản đăng nhập không đúng. Vui lòng đăng nhập lại!",
 "contact":"Liên hệ",
-"permissionWarning":"Vui lòng cho phép truy cập camera và microphone"
+"permissionCameraWarning":"Vui lòng cho phép truy cập camera và microphone",
+"permissionNotificationWarning":"Vui lòng cho phép nhận thông báo"
 }

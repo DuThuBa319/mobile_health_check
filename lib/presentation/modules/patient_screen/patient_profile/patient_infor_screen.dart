@@ -495,6 +495,12 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                 Clipboard.setData(ClipboardData(
                                                     text:
                                                         relative.phoneNumber));
+                                                showToast(
+                                                    context: context,
+                                                    status: ToastStatus.success,
+                                                    toastString:
+                                                        translation(context)
+                                                            .copySuccessfully);
                                               },
                                             )
                                           ],

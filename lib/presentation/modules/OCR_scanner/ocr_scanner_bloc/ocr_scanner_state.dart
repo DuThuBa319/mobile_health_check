@@ -104,7 +104,6 @@ class UploadBloodPressureDataState extends OCRScannerState {
 
 //?--- Blood Sugar ---------------
 
-
 class GetBloodGlucoseDataState extends OCRScannerState {
   GetBloodGlucoseDataState({
     // ignore: library_private_types_in_public_api
@@ -122,7 +121,6 @@ class UploadBloodGlucoseDataState extends OCRScannerState {
 }
 
 //? --------Temperature ---------
-
 
 class GetTemperatureDataState extends OCRScannerState {
   GetTemperatureDataState({
@@ -157,7 +155,13 @@ class UploadSpo2DataState extends OCRScannerState {
     BlocStatusState status = BlocStatusState.initial,
   }) : super(viewModel, status: status);
 }
-
+ class GetImagesTakenState extends OCRScannerState {
+ GetImagesTakenState({
+    // ignore: library_private_types_in_public_api
+    _ViewModel viewModel = const _ViewModel(),
+    BlocStatusState status = BlocStatusState.initial,
+  }) : super(viewModel, status: status);
+}
 final _factories = <Type,
     Function(
   _ViewModel viewModel,
@@ -168,8 +172,7 @@ final _factories = <Type,
         status: status,
       ),
   //? ----------- Blood Pressure -----------
-  StartUpState: (viewModel, status) =>
-      StartUpState(
+  StartUpState: (viewModel, status) => StartUpState(
         viewModel: viewModel,
         status: status,
       ),
@@ -194,7 +197,7 @@ final _factories = <Type,
         status: status,
       ),
   //? ----------- Temperature --------------
-  
+
   GetTemperatureDataState: (viewModel, status) => GetTemperatureDataState(
         viewModel: viewModel,
         status: status,
@@ -204,12 +207,16 @@ final _factories = <Type,
         status: status,
       ),
   //? ----------- Spo2 ---------------------
-  
+
   GetSpo2DataState: (viewModel, status) => GetSpo2DataState(
         viewModel: viewModel,
         status: status,
       ),
   UploadSpo2DataState: (viewModel, status) => UploadSpo2DataState(
+        viewModel: viewModel,
+        status: status,
+      ),
+      GetImagesTakenState: (viewModel, status) => GetImagesTakenState(
         viewModel: viewModel,
         status: status,
       ),

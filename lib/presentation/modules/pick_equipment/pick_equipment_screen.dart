@@ -10,6 +10,7 @@ import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../../../classes/language.dart';
 import '../../../utils/size_config.dart';
 
@@ -71,7 +72,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                 Text(
                   translation(context).selectEquip,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenDiagonal * 0.035,
+                      fontSize: SizeConfig.screenWidth * 0.075,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -98,10 +99,20 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                             cellColor: Colors.red[400],
                             subCellColor: Colors.red[100],
                             onTapFunction: () {
-                              Navigator.pushNamed(
-                                context,
-                                RouteList.bloodGlucoseScreen,
-                              );
+                              if (userDataData
+                                      .localDataManager.preferencesHelper
+                                      .getData('BloodSugarEquipModel') ==
+                                  null) {
+                                selectModelDialog(context,
+                                    modelAssets: bloodSugarEquipModel,
+                                    measuringTask: MeasuringTask.bloodSugar,
+                                    isInHomeScreen: true);
+                              } else {
+                                Navigator.pushNamed(
+                                  context,
+                                  RouteList.bloodGlucoseScreen,
+                                );
+                              }
                             });
                       }
                       if (index == 2) {
@@ -111,10 +122,20 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                             cellColor: Colors.blue[400],
                             subCellColor: Colors.blue[100],
                             onTapFunction: () {
-                              Navigator.pushNamed(
-                                context,
-                                RouteList.temperatureScreen,
-                              );
+                              if (userDataData
+                                      .localDataManager.preferencesHelper
+                                      .getData('TempEquipModel') ==
+                                  null) {
+                                selectModelDialog(context,
+                                    modelAssets: temperatureEquipModel,
+                                    measuringTask: MeasuringTask.temperature,
+                                    isInHomeScreen: true);
+                              } else {
+                                Navigator.pushNamed(
+                                  context,
+                                  RouteList.temperatureScreen,
+                                );
+                              }
                             });
                       }
                       if (index == 3) {
@@ -137,10 +158,19 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                           subCellColor:
                               const Color.fromARGB(255, 255, 188, 151),
                           onTapFunction: () {
-                            Navigator.pushNamed(
-                              context,
-                              RouteList.bloodPressureScreen,
-                            );
+                            if (userDataData.localDataManager.preferencesHelper
+                                    .getData('BloodPressureEquipModel') ==
+                                null) {
+                              selectModelDialog(context,
+                                  modelAssets: bloodPressureEquipModel,
+                                  measuringTask: MeasuringTask.bloodPressure,
+                                  isInHomeScreen: true);
+                            } else {
+                              Navigator.pushNamed(
+                                context,
+                                RouteList.bloodPressureScreen,
+                              );
+                            }
                           });
                     },
                   ),
@@ -149,7 +179,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                 Text(
                   translation(context).contact,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenDiagonal * 0.035,
+                      fontSize: SizeConfig.screenWidth * 0.075,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -200,7 +230,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                         },
                         child: CircleButton(
                             iconData: Icons.phone,
-                            size: SizeConfig.screenDiagonal * 0.065,
+                            size: SizeConfig.screenDiagonal * 0.06,
                             backgroundColor: Colors.red),
                       ),
                     ),
@@ -251,16 +281,17 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     ),
                     child: Image.asset(
                       imagePath,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: SizeConfig.screenWidth * 0.04,
+                  height: SizeConfig.screenHeight * 0.015,
                 ),
                 Text(cellTitle,
                     textAlign: TextAlign.center,
                     softWrap: true,
+                    overflow: TextOverflow.ellipsis,
                     style: AppTextTheme.title3.copyWith(
                         color: Colors.white,
                         fontSize: SizeConfig.screenWidth * 0.037)),
@@ -269,19 +300,183 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
       ),
     );
   }
+}
 
-  _onWillPop(bool didPop) async {
-    bool enableToPop = true;
+class BannerIndicator extends StatelessWidget {
+  final bool isActive;
+  const BannerIndicator({
+    super.key,
+    this.isActive = true,
+  });
 
-    if (enableToPop == true) {
-      await showWarningDialog(
-          context: context,
-          message: translation(context).areYouSureToExitApp,
-          title: translation(context).exitAppTitle,
-          onClose1: () {},
-          onClose2: () {
-            SystemNavigator.pop();
-          });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: isActive
+            ? SizeConfig.screenWidth * 0.04
+            : SizeConfig.screenWidth * 0.02,
+        height: SizeConfig.screenWidth * 0.02,
+        margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.01),
+        decoration: BoxDecoration(
+            color: isActive ? AppColor.appBarColor : Colors.grey,
+            borderRadius: BorderRadius.circular(20)));
+  }
+}
+
+Future<dynamic> selectModelDialog(BuildContext context,
+    {required List<String> modelAssets,
+    required MeasuringTask measuringTask,
+    bool isInHomeScreen = false,
+    bool isReset = false}) {
+  int selectedIndex = 0;
+  if (isReset == true) {
+    if (measuringTask == MeasuringTask.bloodPressure) {
+      selectedIndex = userDataData.localDataManager.preferencesHelper
+          .getData('BloodPressureEquipModel');
+    } else if (measuringTask == MeasuringTask.bloodSugar) {
+      selectedIndex = userDataData.localDataManager.preferencesHelper
+          .getData('BloodSugarEquipModel');
+    } else if (measuringTask == MeasuringTask.temperature) {
+      selectedIndex = userDataData.localDataManager.preferencesHelper
+          .getData('TempEquipModel');
     }
   }
+
+  //? BP1: selectedIndex =0
+  //? BP2: selectedIndex =1
+  //? BP3: selectedIndex =2
+  //? BP4: selectedIndex =3
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: Text(translation(context).selectProduct,
+                style: const TextStyle(
+                    color: AppColor.black, fontWeight: FontWeight.w500)),
+            content: Container(
+              margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.015),
+              padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
+              height: SizeConfig.screenHeight * 0.3,
+              width: SizeConfig.screenWidth * 0.85,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: AppColor.cardBackgroundColor,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: SizeConfig.screenHeight * 0.2,
+                    width: SizeConfig.screenWidth * 0.85,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: AppColor.cardBackgroundColor,
+                    ),
+                    child: ScrollSnapList(
+                      scrollDirection: Axis.horizontal,
+                      listController: ScrollController(),
+                      initialIndex: selectedIndex.toDouble(),
+                      onItemFocus: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      itemSize: SizeConfig.screenWidth * 0.457,
+                      focusOnItemTap: true,
+                      dynamicItemSize: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: SizeConfig.screenWidth * 0.85 / 1.85,
+                          height: SizeConfig.screenHeight * 0.2 / 1.85,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: selectedIndex == index
+                                ? AppColor.lineDecor
+                                : AppColor.appBarColor,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                modelAssets[index],
+                              ),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: modelAssets.length,
+                    ),
+                  ),
+                  Gap(SizeConfig.screenHeight * 0.03),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...List.generate(
+                          modelAssets.length,
+                          (index) => BannerIndicator(
+                                isActive: index == selectedIndex,
+                              )),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    translation(context).back,
+                    style: const TextStyle(
+                        color: AppColor.black, fontWeight: FontWeight.w500),
+                  )),
+              TextButton(
+                child: Text(translation(context).select,
+                    style: const TextStyle(
+                        color: AppColor.black, fontWeight: FontWeight.w500)),
+                onPressed: () {
+                  Navigator.pop(context);
+                  switch (measuringTask) {
+                    case MeasuringTask.bloodPressure:
+                      userDataData.localDataManager.preferencesHelper
+                          .saveData('BloodPressureEquipModel', selectedIndex);
+                      if (isInHomeScreen) {
+                        Navigator.pushNamed(
+                          context,
+                          RouteList.bloodPressureScreen,
+                        );
+                      }
+                      break;
+                    case MeasuringTask.temperature:
+                      userDataData.localDataManager.preferencesHelper
+                          .saveData('TempEquipModel', selectedIndex);
+                      if (isInHomeScreen) {
+                        Navigator.pushNamed(
+                          context,
+                          RouteList.temperatureScreen,
+                        );
+                      }
+                      break;
+                    case MeasuringTask.bloodSugar:
+                      userDataData.localDataManager.preferencesHelper
+                          .saveData('BloodSugarEquipModel', selectedIndex);
+
+                      if (isInHomeScreen) {
+                        Navigator.pushNamed(
+                          context,
+                          RouteList.bloodGlucoseScreen,
+                        );
+                      }
+                      break;
+
+                    default:
+                      break;
+                  }
+                },
+              ),
+            ],
+          );
+        });
+      });
 }

@@ -41,6 +41,7 @@ class _NotificationListState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
+
     expandingController.addListener(() {
       if ((expandingController.position.maxScrollExtent ==
               expandingController.offset) &&
@@ -51,11 +52,13 @@ class _NotificationListState extends State<NotificationScreen> {
             userId: userId, startIndex: startIndex, lastIndex: lastIndex));
       }
     });
+    notificationBloc.add(InitializeNotificationScreenEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
+
     return CustomScreenForm(
         isShowAppBar: true,
         isShowLeadingButton: true,

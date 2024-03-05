@@ -169,7 +169,7 @@ _i1.GetIt $initGetIt(
           gh<_i15.NotificationApiRepository>()));
   gh.factory<_i20.NotificationUsecase>(
       () => _i20.NotificationUsecaseImpl(gh<_i19.NotificationRepository>()));
-  gh.singletonAsync<_i21.OneSignalNotificationService>(
+  gh.lazySingletonAsync<_i21.OneSignalNotificationService>(
       () => _i21.OneSignalNotificationService.create());
   gh.factory<_i22.PatientApiRepository>(
       () => _i23.PatientApiRepositoryImpl(dio: gh<_i6.Dio>()));
@@ -266,6 +266,7 @@ _i1.GetIt $initGetIt(
   gh.factory<_i69.OCRScannerBloc>(() => _i69.OCRScannerBloc(
         gh<_i14.NetworkInfo>(),
         gh<_i55.BloodPressureUsecase>(),
+        gh<_i25.PatientUsecase>(),
         gh<_i59.BloodSugarUsecase>(),
         gh<_i41.TemperatureUsecase>(),
         gh<_i37.Spo2Usecase>(),

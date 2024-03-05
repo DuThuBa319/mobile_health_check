@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +8,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import '../../../classes/language.dart';
+
 import '../../../utils/size_config.dart';
 import '../../../assets/assets.dart';
 
 import '../../common_widget/common.dart';
 import '../../theme/app_text_theme.dart';
+
 import 'ocr_scanner_bloc/ocr_scanner_bloc.dart';
 import 'widget/OCR_scanner_widget.dart';
 part 'blood_glucose_reading_screen.action.dart';
@@ -58,8 +61,16 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //! Blood Glucose Meter
-                    SizedBox(height: SizeConfig.screenHeight * 0.025),
+                    InstructionScanner(
+                      imagesTakenToday:
+                          // userDataData.getUser()!.imagesTakenToday,
+                          userDataData.getUser()!.bloodSugarImagesTakenToday,
+                      measuringTask: MeasuringTask.bloodSugar,
+                    ),
+                    emptySpace(SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
+                        imagesTakenToday:
+                            userDataData.getUser()!.bloodSugarImagesTakenToday,
                         scanBloc: scanBloc,
                         state: scanState,
                         imageFile: scanState.viewModel.bloodGlucoseImageFile,
@@ -67,18 +78,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                     SizedBox(height: SizeConfig.screenHeight * 0.04),
                     scanState.viewModel.bloodGlucoseImageFile != null
                         ? bloodGlucoseCell(scanState)
-                        : Center(
-                            child: RectangleButton(
-                            buttonColor: AppColor.greyD9,
-                            textColor: Colors.white,
-                            height: SizeConfig.screenWidth * 0.18,
-                            width: SizeConfig.screenWidth * 0.8,
-                            title: translation(context).upload,
-                            onTap: () {
-                              // scanBloc.add(
-                              //     UploadBloodPressureDataEvent());
-                            },
-                          )),
+                        : const SizedBox()
                   ]),
             );
           }),
@@ -169,8 +169,12 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                 barrierDismissible:
                                     false, // user must tap button!
                                 builder: (BuildContext context) {
+                                  double? bloodSugarValue = state
+                                      .viewModel.bloodSugarEntity?.bloodSugar;
                                   editBloogSugarController.text =
-                                      "${state.viewModel.bloodSugarEntity?.bloodSugar}";
+                                      bloodSugarValue != null
+                                          ? "$bloodSugarValue"
+                                          : "--";
 
                                   return AlertDialog(
                                     title: Text(

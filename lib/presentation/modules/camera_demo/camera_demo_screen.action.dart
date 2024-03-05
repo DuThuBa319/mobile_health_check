@@ -72,7 +72,7 @@ extension CameraScreenAction on CameraScreenState {
         await showWarningDialog(
             context: navigationService.navigatorKey.currentContext!,
             message: translation(navigationService.navigatorKey.currentContext!)
-                .permissionWarning,
+                .permissionCameraWarning,
             onClose1: () {},
             onClose2: () async {
               await openAppSettings();
@@ -206,29 +206,4 @@ extension CameraScreenAction on CameraScreenState {
             ));
   }
 
-  openSettingDialog(BuildContext context) => AlertDialog(
-        title: const Text("Camera permission not granted"),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: [
-              GestureDetector(
-                child: const Text("Open Setting"),
-                onTap: () async {
-                  Navigator.pop(context, null);
-                  controller?.dispose();
-                  await openAppSettings();
-                },
-              ),
-              const Padding(padding: EdgeInsets.all(10)),
-              GestureDetector(
-                child: const Text("Cancel"),
-                onTap: () async {
-                  Navigator.pop(context, null);
-                  return;
-                },
-              ),
-            ],
-          ),
-        ),
-      );
 }

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import '../../assets/assets.dart';
+
 enum BlocStatusState { initial, loading, success, failure }
 
 enum WeatherStatus { sunny, rainy, foggy, thunderStorm, undefine }
@@ -26,9 +28,9 @@ class CroppedImage {
   CroppedImage(this.croppedImage, this.flashOn);
 }
 
-const baseUrl = 'https://mobilehealthcareapplication.azurewebsites.net/';
+const baseUrl = 'https://mobilehealthcareapplication.azurewebsites.net';
 Map<String, String> url = {
-  'baseUrl': 'https://mobilehealthcareapplication.azurewebsites.net/',
+  'baseUrl': 'https://mobilehealthcareapplication.azurewebsites.net',
   'bloodPressureURL':
       'https://healthcareflaskserver.azurewebsites.net/api/bloodpressure?code=Y_yOotpq8N47XkQt72U3YbXsCpYswimJyD53RdfK9QyqAzFuh9FZmw%3D%3D',
   'testURL':
@@ -45,7 +47,16 @@ enum UserRole { doctor, patient, relative, admin }
 
 enum ToastStatus { loading, success, error }
 
-List<String> bloodPressureEquipModel = ['Pa','Pb','Pc','Pd'];
-List<String> bloodSugarEquipModel = ['Sa','Sb'];
-List<String> temperatureEquipModel = ['Ta','Tb','Tc'];
-List<String> spo2EquipModel = ['Oa','Ob'];
+List<String> bloodPressureEquipModel = [
+  Assets.modelBP1,
+  Assets.modelBP2,
+  Assets.modelBP3,
+  Assets.modelBP4
+];
+List<String> bloodSugarEquipModel = [Assets.modelBS1, Assets.modelBS2];
+List<String> temperatureEquipModel = [
+  Assets.modelT1,
+  Assets.modelT2,
+  Assets.modelT3
+];
+// List<String> spo2EquipModel = ['Oa','Ob'];

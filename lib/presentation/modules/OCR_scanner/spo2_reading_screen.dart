@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,28 +54,23 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height: SizeConfig.screenHeight * 0.035),
+                      InstructionScanner(
+                        imagesTakenToday:
+                            userDataData.getUser()!.spO2ImagesTakenToday,
+                        measuringTask: MeasuringTask.oximeter,
+                      ),
+                      SizedBox(height: SizeConfig.screenHeight * 0.15),
                       imagePickerCell(context,
+                          imagesTakenToday:
+                              userDataData.getUser()!.spO2ImagesTakenToday,
                           scanBloc: scanBloc,
                           state: scanState,
                           imageFile: scanState.viewModel.spo2ImageFile,
                           event: GetSpo2DataEvent(context: context)),
-                      SizedBox(
-                        height: SizeConfig.screenHeight * 0.038,
-                      ),
+                      SizedBox(height: SizeConfig.screenHeight * 0.04),
                       scanState.viewModel.spo2ImageFile != null
                           ? spo2Cell(scanState)
-                          : RectangleButton(
-                              buttonColor: AppColor.greyD9,
-                              textColor: Colors.white,
-                              height: SizeConfig.screenWidth * 0.18,
-                              width: SizeConfig.screenWidth * 0.8,
-                              title: translation(context).upload,
-                              onTap: () {
-                                // scanBloc.add(
-                                //     UploadBloodPressureDataEvent());
-                              },
-                            ),
+                          : const SizedBox()
                     ]),
               ),
             );
@@ -150,8 +146,9 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                             context: context,
                             barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
+                              int? spO2Value = state.viewModel.spo2Entity?.spo2;
                               editSpo2Controller.text =
-                                  "${state.viewModel.spo2Entity?.spo2}";
+                                  spO2Value != null ? "$spO2Value" : "--";
                               return AlertDialog(
                                 title:
                                     Text(translation(context).editIndicatore),
@@ -207,25 +204,28 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                 ],
               ),
               Expanded(
-                child:  state.viewModel.spo2Entity?.spo2 != null ? Center(
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(children: [
-                        TextSpan(
-                            text: "${state.viewModel.spo2Entity?.spo2}",
-                            style: AppTextTheme.title3.copyWith(
-                                color: state.viewModel.spo2Entity?.statusColor,
-                                fontSize: SizeConfig.screenWidth * 0.175,
-                                fontWeight: FontWeight.w500)),
-                        TextSpan(
-                            text: "%",
-                            style: AppTextTheme.title3.copyWith(
-                                color: const Color(0xff615A5A),
-                                fontSize: SizeConfig.screenWidth * 0.155,
-                                fontWeight: FontWeight.w500))
-                      ]))
-                ): Center(
-                        child: Text(translation(context).unableToRecognizeReading,
+                child: state.viewModel.spo2Entity?.spo2 != null
+                    ? Center(
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: "${state.viewModel.spo2Entity?.spo2}",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: state
+                                          .viewModel.spo2Entity?.statusColor,
+                                      fontSize: SizeConfig.screenWidth * 0.175,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: "%",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize: SizeConfig.screenWidth * 0.155,
+                                      fontWeight: FontWeight.w500))
+                            ])))
+                    : Center(
+                        child: Text(
+                            translation(context).unableToRecognizeReading,
                             textAlign: TextAlign.center,
                             style: AppTextTheme.title3.copyWith(
                                 color: AppColor.exceptionDialogIconColor,
