@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
@@ -59,11 +60,16 @@ class _BloodPressureReadingScreenState
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const InstructionScanner(
+                    InstructionScanner(
+                      imagesTakenToday:
+                          userDataData.getUser()!.bloodPressureImagesTakenToday,
                       measuringTask: MeasuringTask.bloodPressure,
                     ),
                     emptySpace(SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
+                        imagesTakenToday: userDataData
+                            .getUser()!
+                            .bloodPressureImagesTakenToday,
                         scanBloc: scanBloc,
                         state: scanState,
                         imageFile: scanState.viewModel.bloodPressureImageFile,
@@ -71,25 +77,7 @@ class _BloodPressureReadingScreenState
                     SizedBox(height: SizeConfig.screenHeight * 0.04),
                     scanState.viewModel.bloodPressureImageFile != null
                         ? bloodPressureCell(scanState)
-                        : Center(
-                            child: Column(
-                            children: [
-                              // SizedBox(
-                              //     height:
-                              //         SizeConfig.screenHeight * 0.33),
-                              RectangleButton(
-                                buttonColor: AppColor.greyD9,
-                                textColor: Colors.white,
-                                height: SizeConfig.screenWidth * 0.18,
-                                width: SizeConfig.screenWidth * 0.8,
-                                title: translation(context).upload,
-                                onTap: () {
-                                  // scanBloc.add(
-                                  //     UploadBloodPressureDataEvent());
-                                },
-                              ),
-                            ],
-                          )),
+                        : const SizedBox()
                   ]),
             );
           }),
@@ -169,11 +157,15 @@ class _BloodPressureReadingScreenState
                             context: context,
                             barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
+                              int? sysValue =
+                                  state.viewModel.bloodPressureEntity?.sys;
                               editSys.text =
-                                  "${state.viewModel.bloodPressureEntity?.sys}";
-
+                                  sysValue != null ? sysValue.toString() : "--";
+                              int? pulValue =
+                                  state.viewModel.bloodPressureEntity?.pulse;
                               editPul.text =
-                                  "${state.viewModel.bloodPressureEntity?.pulse}";
+                                  pulValue != null ? sysValue.toString() : "--";
+
                               return AlertDialog(
                                 title:
                                     Text(translation(context).editIndicatore),

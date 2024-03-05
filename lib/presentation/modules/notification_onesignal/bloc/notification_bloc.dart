@@ -5,11 +5,13 @@ import 'package:injectable/injectable.dart';
 import 'package:mobile_health_check/classes/language.dart';
 import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/domain/usecases/notification_onesignal_usecase/notification_onesignal_usecase.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../domain/entities/notificaion_onesignal_entity.dart';
 
 import '../../../../domain/network/network_info.dart';
-import '../../../../presentation/common_widget/enum_common.dart';
+
+import '../../../common_widget/common.dart';
 part 'notification_event.dart';
 part 'notification_state.dart';
 
@@ -20,12 +22,27 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
   NotificationBloc(this.notificationUsecase, this.networkInfo)
       : super(NotificationInitialState()) {
+    on<InitializeNotificationScreenEvent>(_onInitializeNotificationScreen);
     on<GetNotificationListEvent>(_onGetNotificationList);
     on<SetReadedNotificationEvent>(_setReadedNotification);
     on<SetReadedNotificationFromCellEvent>(_setReadedNotificationFromCell);
     on<DeleteNotificationEvent>(_deleteNotification);
     on<RefreshNotificationListEvent>(_onRefreshNotificationList);
-  
+  }
+  Future<void> _onInitializeNotificationScreen(
+    InitializeNotificationScreenEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    if (await Permission.notification.status != PermissionStatus.granted) {
+      await showWarningDialog(
+          context: navigationService.navigatorKey.currentContext!,
+          message: translation(navigationService.navigatorKey.currentContext!)
+              .permissionNotificationWarning,
+          onClose1: () {},
+          onClose2: () async {
+            await openAppSettings();
+          });
+    }
   }
 
   Future<void> _onGetNotificationList(
@@ -60,11 +77,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         }
         if (numberOfNotificationEntity <= event.lastIndex) {
           requestLastIndex = numberOfNotificationEntity - 1;
-          
         } else {
           requestLastIndex = event.lastIndex;
         }
-      
+
         final response = await notificationUsecase.getNotificationListEntity(
             userId: event.userId,
             startIndex: event.startIndex,
@@ -107,7 +123,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       );
     }
   }
-
 
   Future<void> _onRefreshNotificationList(
     RefreshNotificationListEvent event,

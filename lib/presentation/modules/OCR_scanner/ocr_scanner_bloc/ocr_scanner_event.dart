@@ -21,6 +21,12 @@ class UploadBloodGlucoseDataEvent extends OCRScannerEvent {
   UploadBloodGlucoseDataEvent();
 }
 
+class GetPatientImageTakenEvent extends OCRScannerEvent {
+   final String patientId;
+ GetPatientImageTakenEvent({required this.patientId}) : super();
+
+}
+
 class EditBloodPressureDataEvent extends OCRScannerEvent {
   final int? editedSys;
 

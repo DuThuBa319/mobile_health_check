@@ -215,7 +215,8 @@
 "press":"Nhấn ",
 "toChangeTheDevice":" để đổi thiết bị",
 "toCaptureTheResult":" để chụp kết quả",
-
+"imagesTakenToday":"Số lần chụp còn lại hôm nay:",
+"overImagesCountPermission":"Đã dùng hết số lần chụp hôm nay",
 "deletingPatient":"Đang xóa bệnh nhân",
 "deletingDoctoc":"Đang xóa bác sĩ",
 "deletingRelative":"Đang xóa người thân",
@@ -237,5 +238,6 @@
 "maximumRelativeCount":"Số người thân đã đạt tối đa",
 "wrongAccount":"Tài khoản đăng nhập không đúng. Vui lòng đăng nhập lại!",
 "contact":"Liên hệ",
-"permissionWarning":"Vui lòng cho phép truy cập camera và microphone"
+"permissionCameraWarning":"Vui lòng cho phép truy cập camera và microphone",
+"permissionNotificationWarning":"Vui lòng cho phép nhận thông báo"
 }

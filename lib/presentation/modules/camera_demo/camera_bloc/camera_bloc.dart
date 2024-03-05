@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:io';
 
@@ -123,7 +123,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
               context: navigationService.navigatorKey.currentContext!,
               message:
                   translation(navigationService.navigatorKey.currentContext!)
-                      .permissionWarning,
+                      .permissionCameraWarning,
               onClose1: () {},
               onClose2: () async {
                 await openAppSettings();
@@ -208,27 +208,80 @@ Future<XFile?> takePicture({required CameraController controller}) async {
   }
 }
 
+//
 Future<File> cropImage(
     {required File pickedFile,
     required BuildContext context,
     required MeasuringTask task}) async {
+  print(
+      "######${userDataData.localDataManager.preferencesHelper.getData('BloodPressureEquipModel')}");
   double screenWidth = MediaQuery.of(context).size.width;
   double screenHeight = MediaQuery.of(context).size.height;
+  List<double> sizeFrame = [
+    screenWidth * 0.25,
+    screenHeight * 0.15,
+    screenWidth * 0.55,
+    screenHeight * 0.28,
+    0
+  ];
+  //? sizeFrame[0]: left
+  //? sizeFrame[1]: top
+  //? sizeFrame[2]: width
+  //? sizeFrame[3]: height
+  //? sizeFrame[4]: radius
+  //? initial => BP1
+
   double desiredLeft = 0, desiredTop = 0, desiredWidth = 0, desiredHeight = 0;
   switch (task) {
     case MeasuringTask.bloodPressure:
-      desiredLeft = 75; // Set the left position of the desired area (in pixels)
-      desiredTop = 160; // Set the top position of the desired area (in pixels)
-      desiredWidth =
-          screenWidth * 0.64; // Set the width of the desired area (in pixels)
-      desiredHeight = screenHeight * 0.46;
+      switch (userDataData.localDataManager.preferencesHelper
+          .getData('BloodPressureEquipModel')) {
+        case 0: //?BP1 => DONE
+          sizeFrame[0] = screenWidth * 0.25;
+          sizeFrame[1] = screenHeight * 0.1985;
+          sizeFrame[2] = screenWidth * 0.64;
+          sizeFrame[3] = screenHeight * 0.46;
+          break;
+        case 1: //!BP2
+          sizeFrame[0] = screenWidth * 0.16;
+          sizeFrame[1] = screenHeight * 0.202;
+          sizeFrame[2] = screenWidth * 0.66;
+          sizeFrame[3] = screenHeight * 0.5;
+
+          break;
+        case 2: //?BP3 => DONE
+          sizeFrame[0] = screenWidth * 0.175;
+          sizeFrame[1] = screenHeight * 0.1985;
+          sizeFrame[2] = screenWidth * 0.82;
+          sizeFrame[3] = screenHeight * 0.5;
+          break;
+        case 3: //?BP4 => DONE
+          sizeFrame[0] = screenWidth * 0.165;
+          sizeFrame[1] = screenHeight * 0.19;
+          sizeFrame[2] = screenWidth * 0.77;
+          sizeFrame[3] = screenHeight * 0.48;
+          break;
+      }
+
       break;
     case MeasuringTask.bloodSugar:
-      desiredLeft = 30; // Set the left position of the desired area (in pixels)
-      desiredTop = 200; // Set the top position of the desired area (in pixels)
-      desiredWidth =
-          screenWidth * 0.87; // Set the width of the desired area (in pixels)
-      desiredHeight = screenHeight * 0.41;
+      switch (userDataData.localDataManager.preferencesHelper
+          .getData('BloodSugarEquipModel')) {
+        case 0: //?BS1 => DONE
+          sizeFrame[0] = screenWidth * 0.1;
+          sizeFrame[1] = screenHeight * 0.277;
+          sizeFrame[2] = screenWidth * 0.8;
+          sizeFrame[3] = screenHeight * 0.21;
+          break;
+        case 1: //?BS2 => DONE
+          sizeFrame[0] = screenWidth * 1 / 7.5;
+          sizeFrame[1] = screenHeight * 0.265;
+          sizeFrame[2] = screenWidth * 0.7;
+          sizeFrame[3] = screenHeight * 0.2;
+
+          break;
+      }
+
       break;
     case MeasuringTask.oximeter:
       desiredLeft = 80; // Set the left position of the desired area (in pixels)
@@ -238,20 +291,46 @@ Future<File> cropImage(
       desiredHeight = screenHeight * 0.28;
       break;
     case MeasuringTask.temperature:
-      desiredLeft = 60; // Set the left position of the desired area (in pixels)
-      desiredTop = 300; // Set the top position of the desired area (in pixels)
-      desiredWidth =
-          screenWidth * 0.65; // Set the width of the desired area (in pixels)
-      desiredHeight = screenHeight * 0.18;
+      switch (userDataData.localDataManager.preferencesHelper
+          .getData('TempEquipModel')) {
+        case 0:
+          sizeFrame[0] = screenWidth * 0.25;
+          sizeFrame[1] = screenHeight * 0.15;
+          sizeFrame[2] = screenWidth * 0.55;
+          sizeFrame[3] = screenHeight * 0.28;
+          sizeFrame[4] = 0;
+          break;
+        case 1:
+          sizeFrame[0] = screenWidth * 0.24;
+          sizeFrame[1] = screenHeight * 0.435;
+          sizeFrame[2] = screenWidth * 0.51;
+          sizeFrame[3] = screenHeight * 0.20;
+          sizeFrame[4] = 0;
+          break;
+        case 2:
+          sizeFrame[0] = screenWidth * 0.24;
+          sizeFrame[1] = screenHeight * 0.435;
+          sizeFrame[2] = screenWidth * 0.51;
+          sizeFrame[3] = screenHeight * 0.20;
+          sizeFrame[4] = 0;
+          break;
+      }
+
       break;
     default:
       break;
   }
-
+  desiredLeft =
+      sizeFrame[0]; // Set the left position of the desired area (in pixels)
+  desiredTop =
+      sizeFrame[1]; // Set the top position of the desired area (in pixels)
+  desiredWidth = sizeFrame[2]; // Set the width of the desired area (in pixels)
+  desiredHeight = sizeFrame[3];
   // Calculate the desired area coordinates and size based on the image dimensions
   // Set the height of the desired area (in pixels)
   var decodedImage =
       await decodeImageFromList(File(pickedFile.path).readAsBytesSync());
+  print("####${decodedImage.width}");
   double imageWidth = decodedImage.width.toDouble();
   double imageHeight = decodedImage.height.toDouble();
   debugPrint('${decodedImage.width}');
@@ -283,28 +362,3 @@ Future<File> cropImage(
   return temp;
 }
 
-openSettingDialog(BuildContext context) => AlertDialog(
-      title: const Text("Camera permission not granted"),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: [
-            GestureDetector(
-              child: const Text("Open Setting"),
-              onTap: () async {
-                Navigator.pop(context, null);
-
-                await openAppSettings();
-              },
-            ),
-            const Padding(padding: EdgeInsets.all(10)),
-            GestureDetector(
-              child: const Text("Cancel"),
-              onTap: () async {
-                Navigator.pop(context, null);
-                return;
-              },
-            ),
-          ],
-        ),
-      ),
-    );

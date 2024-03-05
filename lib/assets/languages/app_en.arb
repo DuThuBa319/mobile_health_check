@@ -204,6 +204,7 @@
 "loadAgain":"Load again",
 "toChangeTheDevice":" to exchange",
 "toCaptureTheResult":" to capture result",
+"overImagesCountPermission":"Exceeded today's photo limit",
 "pleaseEnterPhoneNumber":"Please enter your phoneNumber",
 "resetPasswordSuccessfully":"Reset password successfully",
 "reset":"Reset password",
@@ -221,7 +222,9 @@
 "duplicatedRelationshipPAR":"The relationship between these entities has been existed",
 "maximumRelativeCount":"The number of relatives belonging to this patient is already maxium",
 "contact":"Contact",
-"permissionWarning":"Please allow camera and microphone access"
+"permissionCameraWarning":"Please allow camera and microphone access",
+"permissionNotificationWarning":"Please grant permission to receive notifications",
+"imagesTakenToday":"Remaining shots today:"
 }
 
 

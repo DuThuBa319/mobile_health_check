@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
@@ -12,6 +12,7 @@ import 'package:mobile_health_check/domain/entities/temperature_entity.dart';
 import 'package:mobile_health_check/domain/usecases/blood_pressure_usecase/blood_pressure_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mobile_health_check/domain/usecases/patient_usecase/patient_usecase.dart';
 import 'package:mobile_health_check/domain/usecases/temperature_usecase/temperature_usecase.dart';
 import '../../../../domain/entities/spo2_entity.dart';
 import '../../../../domain/network/network_info.dart';
@@ -28,10 +29,17 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
   BloodPressureUsecase bloodPressureUseCase;
   BloodSugarUsecase bloodSugarUseCase;
   TemperatureUsecase temperatureUseCase;
+  final PatientUsecase _patientUsecase;
   Spo2Usecase spo2UseCase;
+
   final NetworkInfo networkInfo;
-  OCRScannerBloc(this.networkInfo, this.bloodPressureUseCase,
-      this.bloodSugarUseCase, this.temperatureUseCase, this.spo2UseCase)
+  OCRScannerBloc(
+      this.networkInfo,
+      this.bloodPressureUseCase,
+      this._patientUsecase,
+      this.bloodSugarUseCase,
+      this.temperatureUseCase,
+      this.spo2UseCase)
       : super(OCRScannerInitialState()) {
     on<StartUpEvent>(_onStartUpAction);
     //?--- Blood pressure------------
@@ -50,6 +58,8 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
     on<GetSpo2DataEvent>(_onGetSpo2Data);
     on<UploadSpo2DataEvent>(_onUploadSpo2Data);
     on<EditSpo2DataEvent>(_onEditSpo2Data);
+    //? -----getPatientImagesTaken------
+    on<GetPatientImageTakenEvent>(_onGetPatientImageTaken);
   }
   Future<void> _onStartUpAction(
     StartUpEvent event,
@@ -155,7 +165,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       );
       try {
         String? imageUrl = " ";
-
         final result = await FirebaseStorageService.uploadFile(
             file: state.viewModel.bloodPressureImageFile!,
             fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
@@ -171,6 +180,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         await bloodPressureUseCase.createBloodPressureEntity(
             patientId: userDataData.getUser()!.id!,
             bloodPressureEntity: entity ?? BloodPressureEntity());
+
         emit(
           state.copyWith(
             status: BlocStatusState.success,
@@ -234,6 +244,10 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       );
       try {
         double? glucose;
+        int? selectedIndexEquip = userDataData
+            .localDataManager.preferencesHelper
+            .getData('BloodSugarEquipModel');
+        print("####$selectedIndexEquip");
         var newViewModel = state.viewModel;
         final selectedImage = await Navigator.pushNamed(
             event.context, RouteList.camera,
@@ -242,7 +256,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
           glucose = await uploadBloodGlucoseImage(
               croppedImage: selectedImage.croppedImage,
               flashOn: selectedImage.flashOn);
-
           newViewModel = state.viewModel.copyWith(
               bloodGlucoseImageFile: selectedImage.croppedImage,
               bloodSugarEntity: BloodSugarEntity(
@@ -447,14 +460,15 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         await temperatureUseCase.createTemperatureEntity(
             patientId: userDataData.getUser()!.id!,
             temperatureEntity: entity ?? TemperatureEntity());
+
         emit(
-          state.copyWith(
+          UploadTemperatureDataState(
             status: BlocStatusState.success,
           ),
         );
       } catch (e) {
         emit(
-          state.copyWith(
+          UploadTemperatureDataState(
             status: BlocStatusState.failure,
             viewModel: state.viewModel,
           ),
@@ -462,7 +476,7 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       }
     } else {
       emit(
-        state.copyWith(
+        UploadTemperatureDataState(
           status: BlocStatusState.failure,
           viewModel: state.viewModel.copyWith(),
         ),
@@ -591,6 +605,24 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       state.copyWith(
         status: BlocStatusState.success,
         viewModel: newViewModel,
+      ),
+    );
+  }
+
+  Future<void> _onGetPatientImageTaken(
+    GetPatientImageTakenEvent event,
+    Emitter<OCRScannerState> emit,
+  ) async {
+    emit(GetImagesTakenState(
+      status: BlocStatusState.loading,
+      viewModel: state.viewModel,
+    ));
+    // );
+    // emit()
+    _patientUsecase.getPatientInforEntityInPatientApp(event.patientId);
+    emit(
+      GetImagesTakenState(
+        status: BlocStatusState.success,
       ),
     );
   }

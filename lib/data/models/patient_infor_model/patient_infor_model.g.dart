@@ -35,6 +35,12 @@ PatientInforModel _$PatientInforModelFromJson(Map<String, dynamic> json) =>
       height: (json['height'] as num?)?.toDouble(),
       phoneNumber: json['phoneNumber'] as String,
       gender: json['gender'] as int?,
+      bloodPressureImagesTakenToday:
+          json['bloodPressureImagesTakenToday'] as int?,
+      bloodSugarImagesTakenToday: json['bloodSugarImagesTakenToday'] as int?,
+      bodyTemperatureImagesTakenToday:
+          json['bodyTemperatureImagesTakenToday'] as int?,
+      spO2ImagesTakenToday: json['spO2ImagesTakenToday'] as int?,
     );
 
 Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
@@ -54,6 +60,13 @@ Map<String, dynamic> _$PatientInforModelToJson(PatientInforModel instance) {
   writeNotNull('height', instance.height);
   writeNotNull('gender', instance.gender);
   val['phoneNumber'] = instance.phoneNumber;
+  writeNotNull(
+      'bloodPressureImagesTakenToday', instance.bloodPressureImagesTakenToday);
+  writeNotNull(
+      'bloodSugarImagesTakenToday', instance.bloodSugarImagesTakenToday);
+  writeNotNull('bodyTemperatureImagesTakenToday',
+      instance.bodyTemperatureImagesTakenToday);
+  writeNotNull('spO2ImagesTakenToday', instance.spO2ImagesTakenToday);
   writeNotNull('address', instance.address);
   writeNotNull(
       'relatives', instance.relatives?.map((e) => e.toJson()).toList());

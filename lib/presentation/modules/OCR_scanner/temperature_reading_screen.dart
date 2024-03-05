@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/common/singletons.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/theme_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,11 +56,17 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //! Thermometer
-                    const InstructionScanner(
+                    InstructionScanner(
+                      imagesTakenToday: userDataData
+                          .getUser()!
+                          .bodyTemperatureImagesTakenToday,
                       measuringTask: MeasuringTask.temperature,
                     ),
-                    emptySpace(SizeConfig.screenHeight * 0.05),
+                    emptySpace(SizeConfig.screenHeight * 0.1),
                     imagePickerCell(context,
+                        imagesTakenToday: userDataData
+                            .getUser()!
+                            .bodyTemperatureImagesTakenToday,
                         scanBloc: scanBloc,
                         state: scanState,
                         imageFile: scanState.viewModel.temperatureImageFile,
@@ -67,17 +74,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                     SizedBox(height: SizeConfig.screenHeight * 0.04),
                     scanState.viewModel.temperatureImageFile != null
                         ? temperatureCell(scanState)
-                        : RectangleButton(
-                            buttonColor: AppColor.greyD9,
-                            textColor: Colors.white,
-                            height: SizeConfig.screenWidth * 0.18,
-                            width: SizeConfig.screenWidth * 0.8,
-                            title: translation(context).upload,
-                            onTap: () {
-                              // scanBloc.add(
-                              //     UploadBloodPressureDataEvent());
-                            },
-                          ),
+                        : const SizedBox()
                   ]),
             );
           }),
@@ -156,8 +153,10 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                             context: context,
                             barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
+                              double? tempValue = state
+                                  .viewModel.temperatureEntity?.temperature;
                               editBodyTemperatureController.text =
-                                  "${state.viewModel.temperatureEntity?.temperature}";
+                                  tempValue != null ? "$tempValue" : "--";
                               return AlertDialog(
                                 title:
                                     Text(translation(context).editIndicatore),
