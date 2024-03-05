@@ -20,6 +20,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   //! Phải gọi function configureDependencies() trước khi run App để sử dụng được DI
   configureDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -144,7 +145,7 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Center(
           child: Image.asset(
             Assets.teleHealth,
-            scale: 6,
+            scale: 3,
           ),
         ),
       ),

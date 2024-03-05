@@ -27,12 +27,12 @@ Future<dynamic> showWarningDialog({
     }
   }
 
-  return showAdaptiveDialog(
+  return showDialog(
       context: context,
       barrierDismissible: barrierDismissible,
       useRootNavigator: useRootNavigator,
       builder: (context) {
-        return AlertDialog.adaptive(
+        return AlertDialog(
           // shape: const RoundedRectangleBorder(
           //     borderRadius: BorderRadius.all(Radius.circular(2))),
           backgroundColor: AppColor.white,
