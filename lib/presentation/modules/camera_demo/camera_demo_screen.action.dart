@@ -133,6 +133,81 @@ extension CameraScreenAction on CameraScreenState {
                             File(imageFile.path),
                           )),
                     ),
+                    // Column(
+                    //   children: [
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         SizedBox(
+                    //             width: SizeConfig.screenWidth * 0.45,
+                    //             height: SizeConfig.screenHeight * 0.25,
+                    //             child: const Column(
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               mainAxisAlignment: MainAxisAlignment.start,
+                    //               children: [
+                    //                 Row(
+                    //                   children: [
+                    //                     Text("Nếu kết quả đo là"),
+                    //                     Text(
+                    //                       "HI",
+                    //                       style: TextStyle(
+                    //                           color: AppColor.redFB4B53),
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //                 Text("thì nhấn vào nút sau")
+                    //               ],
+                    //             )),
+                    //         InkWell(
+                    //           child: Container(
+                    //             decoration: const BoxDecoration(
+                    //                 color: AppColor.redFB4B53),
+                    //             height: SizeConfig.screenHeight * 0.05,
+                    //             width: SizeConfig.screenWidth * 0.15,
+                    //             child:const Center(child: const Text("HIGH")),
+                    //           ),
+                    //         )
+                    //       ],
+                    //     ),
+                    //     // Row(
+                    //     //   children: [
+                    //     //     Text.rich(
+                    //     //       maxLines: 3,
+                    //     //       overflow: TextOverflow.ellipsis,
+                    //     //       softWrap: true,
+                    //     //       TextSpan(
+                    //     //           text: "Nếu kết quả đo của bạn là",
+                    //     //           children: [
+                    //     //             const WidgetSpan(
+                    //     //                 child: Text(
+                    //     //               "Lo",
+                    //     //               style: TextStyle(
+                    //     //                   color: AppColor.blue03A1E4,
+                    //     //                   fontWeight: FontWeight.bold),
+                    //     //             )),
+                    //     //             const WidgetSpan(
+                    //     //                 child: Text(
+                    //     //               "thì nhấn vào nút sau",
+                    //     //             )),
+                    //     //             WidgetSpan(
+                    //     //                 child: InkWell(
+                    //     //               child: Container(
+                    //     //                 decoration: BoxDecoration(
+                    //     //                     color: AppColor.blue03A1E4,
+                    //     //                     borderRadius:
+                    //     //                         BorderRadius.circular(20)),
+                    //     //                 width: SizeConfig.screenWidth * 0.2,
+                    //     //                 height: SizeConfig.screenHeight * 0.1,
+                    //     //                 child: const Text("LOW"),
+                    //     //               ),
+                    //     //             ))
+                    //     //           ]),
+                    //     //     )
+                    //     //   ],
+                    //     // )
+                    //   ],
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

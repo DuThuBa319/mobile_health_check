@@ -44,34 +44,34 @@ Widget imagePickerCell(
             child: imageFile == null
                 ? GestureDetector(
                     onTap: () async {
-                      if (imagesTakenToday > 5 || imagesTakenToday == 5) {
-                        showExceptionDialog(
-                            context: context,
-                            message:
-                                translation(context).overImagesCountPermission,
-                            titleBtn: translation(context).exit);
+                      //! if (imagesTakenToday > 5 || imagesTakenToday == 5) {
+                      //!  showExceptionDialog(
+                      //!     context: context,
+                      //!       message:
+                      //!           translation(context).overImagesCountPermission,
+                      //!       titleBtn: translation(context).exit);
+                      //! } else {
+                      await [
+                        // Request camera and microphone permissions
+                        Permission.camera,
+                        Permission.microphone,
+                      ].request();
+                      if (await Permission.camera.status ==
+                              PermissionStatus.granted &&
+                          await Permission.microphone.status ==
+                              PermissionStatus.granted) {
+                        scanBloc.add(event);
                       } else {
-                        await [
-                          // Request camera and microphone permissions
-                          Permission.camera,
-                          Permission.microphone,
-                        ].request();
-                        if (await Permission.camera.status ==
-                                PermissionStatus.granted &&
-                            await Permission.microphone.status ==
-                                PermissionStatus.granted) {
-                          scanBloc.add(event);
-                        } else {
-                          await showWarningDialog(
-                              context: context,
-                              message: translation(context).permissionWarning,
-                              onClose1: () {},
-                              onClose2: () async {
-                                await openAppSettings();
-                              });
-                        }
+                        await showWarningDialog(
+                            context: context,
+                            message: translation(context).permissionWarning,
+                            onClose1: () {},
+                            onClose2: () async {
+                              await openAppSettings();
+                            });
                       }
                     },
+                    // },
                     child: Icon(
                       Symbols.linked_camera_rounded,
                       weight: 100,

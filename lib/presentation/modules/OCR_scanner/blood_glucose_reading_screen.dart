@@ -158,6 +158,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                               ]),
                         ],
                       ),
+                      //! Edit indicator
                       GestureDetector(
                           child: SizedBox(
                               width: SizeConfig.screenWidth * 0.075,
