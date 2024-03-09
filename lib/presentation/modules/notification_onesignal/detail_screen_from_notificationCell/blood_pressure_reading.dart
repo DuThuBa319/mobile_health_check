@@ -97,7 +97,9 @@ class _BloodPressureNotificationReadingScreenState
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.035,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.035
+                    : SizeConfig.screenHeight * 0.015,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -109,12 +111,19 @@ class _BloodPressureNotificationReadingScreenState
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.035,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.035
+                    : SizeConfig.screenHeight * 0.015,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.02,
+                      right: SizeConfig.screenWidth * 0.02,
+                      top: SizeConfig.screenHeight * 0.01),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.26,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.26
+                      : SizeConfig.screenHeight * 0.3,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:
@@ -128,7 +137,7 @@ class _BloodPressureNotificationReadingScreenState
                             children: [
                               Text('SYS',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: SizeConfig.screenHeight * 0.028,
+                                      fontSize: SizeConfig.screenHeight * 0.03,
                                       color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
@@ -153,7 +162,7 @@ class _BloodPressureNotificationReadingScreenState
                             children: [
                               Text('PUL',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: SizeConfig.screenHeight * 0.028,
+                                      fontSize: SizeConfig.screenHeight * 0.03,
                                       color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(

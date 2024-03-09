@@ -105,7 +105,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.045
+                    : SizeConfig.screenHeight * 0.025,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -115,7 +117,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.045
+                    : SizeConfig.screenHeight * 0.025,
               ),
               Container(
                   padding: EdgeInsets.only(
@@ -123,7 +127,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                       right: SizeConfig.screenWidth * 0.006,
                       top: SizeConfig.screenHeight * 0.01),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.26,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.26
+                      : SizeConfig.screenHeight * 0.3,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(

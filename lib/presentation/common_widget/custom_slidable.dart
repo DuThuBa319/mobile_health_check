@@ -157,16 +157,7 @@ class SlidableCell extends StatelessWidget {
                       icon: endDrawerWidgets![index].iconData,
                       label: endDrawerWidgets![index].labelText,
                       onPressed: endDrawerWidgets![index].onPressed),
-                  //  SlidableAction(
-                  //   icon: endDrawerWidgets![index].iconData,
-                  //   autoClose: true,
-                  //   backgroundColor: endDrawerWidgets![index].backgroundColor,
-                  //   onPressed: endDrawerWidgets![index].onPressed,
-                  //   foregroundColor: endDrawerWidgets![index].foregroundColor,
-                  //   label: endDrawerWidgets![index].labelText,
-                  //   borderRadius:
-                  //       BorderRadius.circular(SizeConfig.screenWidth * 0.015),
-                  // ),
+                 
                 ),
               ),
         startActionPane: (startDrawerWidgets == null)

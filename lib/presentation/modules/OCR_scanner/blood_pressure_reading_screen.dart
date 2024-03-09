@@ -94,7 +94,7 @@ class _BloodPressureReadingScreenState
           Container(
             height: SizeConfig.screenDiagonal < 1350
                 ? SizeConfig.screenHeight * 0.24
-                : SizeConfig.screenHeight * 0.33,
+                : SizeConfig.screenHeight * 0.37,
             width: SizeConfig.screenWidth * 0.8,
             padding: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth * 0.04,
@@ -119,19 +119,25 @@ class _BloodPressureReadingScreenState
                         Container(
                           padding:
                               EdgeInsets.all(SizeConfig.screenWidth * 0.03),
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          height: MediaQuery.of(context).size.width * 0.2,
+                          width: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.2
+                              : SizeConfig.screenWidth * 0.15,
+                          height: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.2
+                              : SizeConfig.screenWidth * 0.15,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
-                                  SizeConfig.screenWidth * 0.05),
+                                  SizeConfig.screenDiagonal < 1350
+                                      ? SizeConfig.screenWidth * 0.05
+                                      : SizeConfig.screenWidth * 0.035),
                               color: AppColor.yellowFFF59D),
                           child: Image.asset(
                             Assets.bloodPressureicon,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        const SizedBox(
-                          width: 5,
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.015,
                         ),
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

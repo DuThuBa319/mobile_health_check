@@ -48,6 +48,17 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
       title: translation(context).bloodGlucoseMeter,
       isShowAppBar: true,
       isShowLeadingButton: true,
+      leadingButton: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          size: SizeConfig.screenHeight * 0.04,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          userDataData.localDataManager.preferencesHelper.remove("Indicator");
+          Navigator.pop(context);
+        },
+      ),
       appComponentColor: Colors.white,
       backgroundColor: AppColor.blueD0F7FF,
       appBarColor: AppColor.topGradient,
@@ -95,7 +106,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
           Container(
             height: SizeConfig.screenDiagonal < 1350
                 ? SizeConfig.screenHeight * 0.24
-                : SizeConfig.screenHeight * 0.32,
+                : SizeConfig.screenHeight * 0.35,
             width: SizeConfig.screenWidth * 0.8,
             padding: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth * 0.04,
@@ -126,11 +137,17 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                           Container(
                             padding:
                                 EdgeInsets.all(SizeConfig.screenWidth * 0.03),
-                            width: SizeConfig.screenWidth * 0.2,
-                            height: SizeConfig.screenWidth * 0.2,
+                            width: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.2
+                                : SizeConfig.screenWidth * 0.15,
+                            height: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.2
+                                : SizeConfig.screenWidth * 0.15,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
-                                    SizeConfig.screenWidth * 0.05),
+                                  SizeConfig.screenDiagonal < 1350
+                                      ? SizeConfig.screenWidth * 0.05
+                                      : SizeConfig.screenWidth * 0.035),
                                 color: AppColor.bodyTemperatureColor),
                             child: Image.asset(
                               Assets.bloodSugar,
@@ -303,19 +320,26 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                                           ?.statusColor,
                                               fontSize: SizeConfig.screenWidth * 0.15,
                                               fontWeight: FontWeight.w500)),
-                                      "${userDataData.localDataManager.preferencesHelper.getData("Indicator")}" ==
-                                              ""
+                                      (userDataData.localDataManager
+                                                      .preferencesHelper
+                                                      .getData("Indicator") !=
+                                                  20 &&
+                                              userDataData.localDataManager
+                                                      .preferencesHelper
+                                                      .getData("Indicator") !=
+                                                  600)
                                           ? TextSpan(
                                               text: " mg/dL",
-                                              style: AppTextTheme.title3
-                                                  .copyWith(
-                                                      color: const Color(
-                                                          0xff615A5A),
-                                                      fontSize: SizeConfig
-                                                              .screenWidth *
-                                                          0.05,
-                                                      fontWeight:
-                                                          FontWeight.w500))
+                                              style:
+                                                  AppTextTheme.title3
+                                                      .copyWith(
+                                                          color: const Color(
+                                                              0xff615A5A),
+                                                          fontSize: SizeConfig
+                                                                  .screenWidth *
+                                                              0.05,
+                                                          fontWeight:
+                                                              FontWeight.w500))
                                           : const TextSpan()
                                     ],
                                   ),

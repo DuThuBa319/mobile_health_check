@@ -69,7 +69,9 @@ class _TemperatureNotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenHeight * 0.025,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.025
+                    : SizeConfig.screenHeight * 0.005,
               ),
               Container(
                   width: SizeConfig.screenWidth,
@@ -97,7 +99,9 @@ class _TemperatureNotificationReadingScreenState
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.015,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.025
+                    : SizeConfig.screenHeight * 0.005,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -112,14 +116,16 @@ class _TemperatureNotificationReadingScreenState
                 height: SizeConfig.screenHeight * 0.015,
               ),
               Container(
-                  padding: const EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                    top: 15,
+                  padding: EdgeInsets.only(
+                    left: SizeConfig.screenWidth * 0.025,
+                    right: SizeConfig.screenWidth * 0.025,
+                    top: SizeConfig.screenHeight * 0.015,
                   ),
                   margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.1),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.26,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.26
+                      : SizeConfig.screenHeight * 0.3,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),

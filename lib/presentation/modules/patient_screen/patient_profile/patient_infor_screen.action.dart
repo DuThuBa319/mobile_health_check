@@ -84,7 +84,9 @@ extension PatientInforScreenAction on _PatientInforScreenState {
           ],
         ),
         width: SizeConfig.screenWidth,
-        height: SizeConfig.screenHeight * 0.15,
+        height: SizeConfig.screenDiagonal < 1350
+            ? SizeConfig.screenHeight * 0.15
+            : SizeConfig.screenHeight * 0.18,
         margin: EdgeInsets.only(
           bottom: 10,
           left: SizeConfig.screenWidth * 0.03,
@@ -97,8 +99,12 @@ extension PatientInforScreenAction on _PatientInforScreenState {
             const SizedBox(),
             Container(
                 padding: EdgeInsets.all(SizeConfig.screenWidth * 0.008),
-                height: SizeConfig.screenHeight * 0.125,
-                width: SizeConfig.screenHeight * 0.125,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.125
+                    : SizeConfig.screenHeight * 0.135,
+                width: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.125
+                    : SizeConfig.screenHeight * 0.135,
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius:
@@ -109,7 +115,13 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                   fit: BoxFit.fitWidth,
                 )),
             Transform.translate(
-              offset: Offset(0, SizeConfig.screenHeight * 0.005),
+              offset: Offset(
+                  SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.005
+                      : SizeConfig.screenHeight * 0.002,
+                  SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.005
+                      : SizeConfig.screenHeight * 0.01),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,18 +140,16 @@ extension PatientInforScreenAction on _PatientInforScreenState {
                             Text(indicator,
                                 style: AppTextTheme.title3.copyWith(
                                   color: Colors.black,
-                                  fontSize: SizeConfig.screenDiagonal > 1350
-                                      ? SizeConfig.screenHeight * 0.02
-                                      : SizeConfig.screenHeight * 0.017,
+                                  fontSize: SizeConfig.screenDiagonal < 1350
+                                      ? SizeConfig.screenHeight * 0.017
+                                      : SizeConfig.screenHeight * 0.022,
                                   fontWeight: FontWeight.bold,
                                 )),
                             Text(
                               DateFormat('HH:mm dd/MM/yyyy')
                                   .format(dateTime ?? dateTime!),
                               style: AppTextTheme.title5.copyWith(
-                                  fontSize: SizeConfig.screenDiagonal > 1350
-                                      ? SizeConfig.screenHeight * 0.014
-                                      : SizeConfig.screenHeight * 0.015),
+                                  fontSize: SizeConfig.screenHeight * 0.018),
                             ),
                           ],
                         ),
