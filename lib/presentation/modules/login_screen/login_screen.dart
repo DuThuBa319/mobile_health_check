@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -13,7 +15,6 @@ import '../../../classes/language_constant.dart';
 
 import '../../common_widget/common.dart';
 import '../../route/route_list.dart';
-import '../../theme/app_text_theme.dart';
 
 import '../../theme/theme_color.dart';
 import 'bloc/login_bloc.dart';
@@ -93,9 +94,9 @@ class _LoginState extends State<LoginScreen> {
                             Locale locale =
                                 await setLocale(selectedLanguage!.languageCode);
                             notificationData.saveLocale(1);
-                            // ignore: use_build_context_synchronously
+
                             MyApp.setLocale(context, locale);
-                            // ignore: use_build_context_synchronously
+
                             showToast(
                                 context: context,
                                 status: ToastStatus.success,
@@ -109,9 +110,9 @@ class _LoginState extends State<LoginScreen> {
                             Locale locale =
                                 await setLocale(selectedLanguage!.languageCode);
                             notificationData.saveLocale(2);
-                            // ignore: use_build_context_synchronously
+
                             MyApp.setLocale(context, locale);
-                            // ignore: use_build_context_synchronously
+
                             showToast(
                                 context: context,
                                 status: ToastStatus.success,

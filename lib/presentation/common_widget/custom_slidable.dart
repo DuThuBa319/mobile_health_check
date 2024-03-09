@@ -1,8 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobile_health_check/classes/language.dart';
-import 'package:mobile_health_check/presentation/common_widget/common.dart';
+
 import '../../utils/size_config.dart';
 import '../theme/theme_color.dart';
 
@@ -140,7 +140,6 @@ class SlidableCell extends StatelessWidget {
     return Slidable(
         key: UniqueKey(),
         closeOnScroll: true,
-        
         endActionPane: (endDrawerWidgets == null)
             ? null
             : ActionPane(
