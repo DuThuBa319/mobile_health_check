@@ -62,6 +62,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 //app bar ---------------------------------------
       appBar: widget.isShowAppBar
           ? AppBar(
+            
               backgroundColor: widget.appBarColor,
               elevation: 0,
               automaticallyImplyLeading: false,

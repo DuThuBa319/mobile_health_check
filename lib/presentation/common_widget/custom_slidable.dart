@@ -138,6 +138,7 @@ class SlidableCell extends StatelessWidget {
     return Slidable(
         key: UniqueKey(),
         closeOnScroll: true,
+        
         endActionPane: (endDrawerWidgets == null)
             ? null
             : ActionPane(
