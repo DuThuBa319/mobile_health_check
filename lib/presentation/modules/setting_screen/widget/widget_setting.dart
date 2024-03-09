@@ -11,47 +11,53 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
   SizeConfig.init(context);
   return Container(
     height: SizeConfig.screenWidth * 0.2,
-    width: SizeConfig.screenWidth * 0.9,
+    width: SizeConfig.screenWidth,
     margin: EdgeInsets.only(
-        top: SizeConfig.screenWidth * 0.03,
-        bottom: SizeConfig.screenWidth * 0.03),
+        top: SizeConfig.screenWidth * 0.025,
+        bottom: SizeConfig.screenWidth * 0.025),
     decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
         boxShadow: [
           BoxShadow(
-            blurRadius: SizeConfig.screenWidth * 0.035,
+            blurRadius: SizeConfig.screenWidth * 0.03,
             color: Colors.black12,
           )
         ]),
     child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          const SizedBox(
-            width: 10,
-          ),
-          selectSetting == translation(context).updatePassword
-              ? Icon(
-                  Icons.lock_outline_rounded,
-                  size: SizeConfig.screenDiagonal * 0.04,
-                )
-              : selectSetting == translation(context).updateProfile
+        Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: SizeConfig.screenWidth * 0.012),
+              selectSetting == translation(context).updatePassword
                   ? Icon(
-                      Icons.account_box_rounded,
-                      size: SizeConfig.screenDiagonal * 0.04,
+                      Icons.lock_outline_rounded,
+                      size: SizeConfig.screenDiagonal < 1350
+                          ? SizeConfig.screenDiagonal * 0.04
+                          : SizeConfig.screenDiagonal * 0.045,
                     )
-                  : Icon(
-                      Icons.language,
-                      size: SizeConfig.screenDiagonal * 0.04,
-                    ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(selectSetting,
-              style: AppTextTheme.body1
-                  .copyWith(fontSize: SizeConfig.screenWidth * 0.06)),
-        ]),
+                  : selectSetting == translation(context).updateProfile
+                      ? Icon(
+                          Icons.account_box_rounded,
+                          size: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenDiagonal * 0.04
+                              : SizeConfig.screenDiagonal * 0.045,
+                        )
+                      : Icon(
+                          Icons.language,
+                          size: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenDiagonal * 0.04
+                              : SizeConfig.screenDiagonal * 0.045,
+                        ),
+              SizedBox(width: SizeConfig.screenWidth * 0.012),
+              Text(selectSetting,
+                  style: AppTextTheme.body1
+                      .copyWith(fontSize: SizeConfig.screenWidth * 0.06)),
+            ]),
         Icon(Icons.arrow_forward_ios_rounded,
             size: SizeConfig.screenDiagonal * 0.025),
       ],

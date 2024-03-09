@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 
 class Loading extends StatelessWidget {
   final Brightness brightness;
-  final double radius;
 
   const Loading({
     Key? key,
     this.brightness = Brightness.dark,
-    this.radius = 15,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return CupertinoTheme(
       data: CupertinoTheme.of(context).copyWith(brightness: brightness),
       child: CupertinoActivityIndicator(
-        radius: radius,
+        radius: SizeConfig.screenWidth * 0.035,
       ),
     );
   }

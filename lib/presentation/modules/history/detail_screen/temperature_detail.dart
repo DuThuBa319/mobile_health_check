@@ -41,8 +41,8 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding:
-            EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.04, 12, 10),
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -67,28 +67,38 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                   height: SizeConfig.screenHeight * 0.07,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         translation(context).time,
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
+                        ),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy').format(
                             widget.temperatureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
+                        ),
                       ),
                       Text(
                         DateFormat('HH:mm').format(
                             widget.temperatureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
+                        ),
                       )
                     ],
                   )),
@@ -106,12 +116,16 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                 height: SizeConfig.screenHeight * 0.025,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.01,
+                      right: SizeConfig.screenWidth * 0.01,
+                      top: SizeConfig.screenHeight * 0.01),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight * 0.26,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -149,7 +163,8 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       ),
                       SizedBox(height: SizeConfig.screenHeight * 0.01),
                       Center(
-                        child: Text(    softWrap: true,
+                        child: Text(
+                            softWrap: true,
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             widget.temperatureEntity!.statusComment(context),

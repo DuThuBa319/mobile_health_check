@@ -114,13 +114,10 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                                 fontSize: SizeConfig.screenWidth * 0.06,
                                 fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(
-                            height: 2,
+                          lineDecor(
+                            spaceTop: 2,
+                            spaceBottom: SizeConfig.screenHeight * 0.015,
                           ),
-                          lineDecor(),
-                          SizedBox(
-                            height: SizeConfig.screenWidth * 0.03,
-                          )
                         ],
                       )),
                   Container(
@@ -145,6 +142,10 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 2, top: 2),
+                          errorStyle: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.03,
+                            color: Colors.red,
+                          ),
                           errorText: (state.viewModel.errorEmptyName == true)
                               ? translation(context).pleaseEnterRelativeName
                               : null,
@@ -154,8 +155,6 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                               fontSize: SizeConfig.screenWidth * 0.055,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
-                          // icon: Icon(Icons.account_box_rounded,
-                          //     size: SizeConfig.screenWidth * 0.12),
                         ),
                       ),
                     ),
@@ -183,6 +182,10 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.only(bottom: 2, top: 2),
+                          errorStyle: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.03,
+                            color: Colors.red,
+                          ),
                           errorText:
                               (state.viewModel.errorEmptyPhoneNumber == true)
                                   ? translation(context).invalidPhonenumber

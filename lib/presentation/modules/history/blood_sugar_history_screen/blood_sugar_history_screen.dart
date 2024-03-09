@@ -57,14 +57,16 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(height: 15),
+          SizedBox(height: SizeConfig.screenHeight * 0.005),
           Container(
-            margin: const EdgeInsets.only(left: 15),
+            margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.02),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 5),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.025,
+                ),
                 Text(
                   translation(context).selectTime,
                   style: TextStyle(
@@ -72,13 +74,12 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                const SizedBox(height: 5),
-                lineDecor(),
+                lineDecor(
+                  spaceTop: SizeConfig.screenHeight * 0.0025,
+                  spaceBottom: SizeConfig.screenHeight * 0.025,
+                ),
               ],
             ),
-          ),
-          const SizedBox(
-            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -91,17 +92,20 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                     width: SizeConfig.screenWidth * 0.40,
                     height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        border: Border.all(
+                            width: SizeConfig.screenDiagonal < 1350 ? 2 : 5,
+                            color: AppColor.color43C8F5),
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(
+                            SizeConfig.screenWidth * 0.015)),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenWidth * 0.092,
+                          size: SizeConfig.screenHeight * 0.046,
                         ),
                         emptySpace(SizeConfig.screenWidth * 0.01),
                         Text(strTimeFrom,
@@ -123,17 +127,20 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                     width: SizeConfig.screenWidth * 0.40,
                     height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        border: Border.all(
+                            width: SizeConfig.screenDiagonal < 1350 ? 2 : 5,
+                            color: AppColor.color43C8F5),
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(
+                            SizeConfig.screenWidth * 0.015)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenWidth * 0.092,
+                          size: SizeConfig.screenHeight * 0.046,
                         ),
                         emptySpace(SizeConfig.screenWidth * 0.01),
                         Text(strTimeTo,
@@ -146,8 +153,8 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
               )
             ],
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.015,
           ),
           Center(
             child: InkWell(
@@ -161,7 +168,6 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                           timeFrom =
                               // ignore: sdk_version_since
                               DateTime.now().copyWith(hour: 0, minute: 1);
-
                           timeTo = timeFrom
                               .add(const Duration(days: 1))
                               // ignore: sdk_version_since
@@ -181,12 +187,16 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                 width: SizeConfig.screenWidth * 0.4,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius:
+                      BorderRadius.circular(SizeConfig.screenWidth * 0.015),
                   color: const Color.fromARGB(255, 71, 200, 255),
                 ),
                 child: Text(
                   translation(context).search,
-                  style: AppTextTheme.title3.copyWith(color: Colors.white),
+                  style: AppTextTheme.title3.copyWith(
+                    color: Colors.white,
+                    fontSize: SizeConfig.screenDiagonal * 0.022,
+                  ),
                 ),
               ),
             ),
@@ -204,8 +214,9 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                     return Center(
                         child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2.copyWith(
+                                fontWeight: FontWeight.bold,
                                 color: Colors.red,
-                                fontWeight: FontWeight.bold)));
+                                fontSize: SizeConfig.screenDiagonal * 0.025)));
                   }
 
                   if (state.status == BlocStatusState.loading) {
@@ -222,8 +233,10 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                       return Center(
                           child: Text(translation(context).noData,
                               style: AppTextTheme.body2.copyWith(
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold)));
+                                  fontSize:
+                                      SizeConfig.screenDiagonal * 0.025)));
                     }
                     if (state.viewModel.listBloodSugar == null) {
                       return Center(
@@ -254,9 +267,9 @@ class BloodSugarHistoryScreenState extends State<BloodSugarHistoryScreen> {
                         softWrap: true,
                         textAlign: TextAlign.center,
                         style: AppTextTheme.body2.copyWith(
-                            color: Colors.red,
                             fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.screenWidth * 0.05),
+                            color: Colors.red,
+                            fontSize: SizeConfig.screenDiagonal * 0.025),
                       ),
                     );
                   }

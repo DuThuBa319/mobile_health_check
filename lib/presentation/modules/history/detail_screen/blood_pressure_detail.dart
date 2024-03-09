@@ -43,8 +43,8 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding:
-            EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.045, 12, 10),
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -70,14 +70,17 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                   height: SizeConfig.screenHeight * 0.07,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenWidth * 0.005)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         translation(context).time,
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: SizeConfig.screenWidth * 0.055,
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
                         ),
                       ),
                       Text(
@@ -85,15 +88,19 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             widget.bloodPressureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: SizeConfig.screenWidth * 0.055,
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
                         ),
                       ),
                       Text(
                         DateFormat('HH:mm').format(
                             widget.bloodPressureEntity?.updatedDate ??
                                 DateTime(2023, 9, 16, 12, 00)),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.055
+                                : SizeConfig.screenWidth * 0.048),
                       )
                     ],
                   )),
@@ -111,12 +118,16 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                 height: SizeConfig.screenHeight * 0.045,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.006,
+                      right: SizeConfig.screenWidth * 0.006,
+                      top: SizeConfig.screenHeight * 0.01),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.245,
+                  height: SizeConfig.screenHeight * 0.26,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenWidth * 0.005)),
                   child: Column(
                     children: [
                       Row(
@@ -128,7 +139,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                   style: AppTextTheme.title2.copyWith(
                                       fontSize: SizeConfig.screenHeight * 0.028,
                                       color: Colors.black)),
-                              const SizedBox(height: 5),
+                              SizedBox(
+                                height: SizeConfig.screenHeight * 0.005,
+                              ),
                               Text(
                                 'mmHg',
                                 style: AppTextTheme.title5.copyWith(
@@ -176,16 +189,21 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Icon(Icons.favorite,
-                              color: widget.bloodPressureEntity!.statusColor),
+                              color: widget.bloodPressureEntity!.statusColor,
+                              size: SizeConfig.screenWidth * 0.035),
                           Container(
                               decoration: BoxDecoration(
                                   color:
                                       widget.bloodPressureEntity!.statusColor,
-                                  borderRadius: BorderRadius.circular(5)),
-                              height: 8,
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.screenWidth * 0.0065)),
+                              height: SizeConfig.screenHeight * 0.0065,
                               width: SizeConfig.screenWidth * 0.72),
-                          Icon(Icons.favorite,
-                              color: widget.bloodPressureEntity!.statusColor),
+                          Icon(
+                            Icons.favorite,
+                            size: SizeConfig.screenWidth * 0.035,
+                            color: widget.bloodPressureEntity!.statusColor,
+                          ),
                         ],
                       ),
                       Text(

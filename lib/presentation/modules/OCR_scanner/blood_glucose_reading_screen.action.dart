@@ -12,6 +12,7 @@ extension BloodGlucoseReadingScreenAction on _BloodGlucoseReadingScreenState {
 
     if (state.status == BlocStatusState.success) {
       if (state is UploadBloodGlucoseDataState) {
+        userDataData.localDataManager.preferencesHelper.remove("Indicator");
         scanBloc.add(
             GetPatientImageTakenEvent(patientId: userDataData.getUser()!.id!));
       }

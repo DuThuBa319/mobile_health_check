@@ -7,7 +7,8 @@
 "pulseOximeter":"Pulse oximeter",
 "changeLanguageSuccess":"Change language success",
 "confirmNewPass":"Confirm new password",
-
+"ifTheResultIs":"If the result is",
+"pressTheButton":"press the nearby button",
 "dontHaveAccount":"Don't have an account?",
 "forgotPass":"Forgot password?",
 "height":"Height",
@@ -202,8 +203,8 @@
 "deletingRelative":"Deleting relative",
 "press":"Press ",
 "loadAgain":"Load again",
-"toChangeTheDevice":" for device exchange",
-"toCaptureTheResult":" to capture the result",
+"toChangeTheDevice":" to exchange",
+"toCaptureTheResult":" to capture result",
 "overImagesCountPermission":"Exceeded today's photo limit",
 "pleaseEnterPhoneNumber":"Please enter your phoneNumber",
 "resetPasswordSuccessfully":"Reset password successfully",
@@ -222,7 +223,8 @@
 "duplicatedRelationshipPAR":"The relationship between these entities has been existed",
 "maximumRelativeCount":"The number of relatives belonging to this patient is already maxium",
 "contact":"Contact",
-"permissionWarning":"Please allow camera and microphone access",
+"permissionCameraWarning":"Please allow camera and microphone access",
+"permissionNotificationWarning":"Please grant permission to receive notifications",
 "imagesTakenToday":"Remaining shots today:"
 }
 

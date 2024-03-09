@@ -43,6 +43,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return CustomScreenForm(
       title: translation(context).bloodGlucoseMeter,
       isShowAppBar: true,
@@ -67,7 +68,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                           userDataData.getUser()!.bloodSugarImagesTakenToday,
                       measuringTask: MeasuringTask.bloodSugar,
                     ),
-                    emptySpace(SizeConfig.screenHeight * 0.05),
+                    SizedBox(height: SizeConfig.screenHeight * 0.055),
                     imagePickerCell(context,
                         imagesTakenToday:
                             userDataData.getUser()!.bloodSugarImagesTakenToday,
@@ -75,7 +76,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                         state: scanState,
                         imageFile: scanState.viewModel.bloodGlucoseImageFile,
                         event: GetBloodGlucoseDataEvent(context: context)),
-                    SizedBox(height: SizeConfig.screenHeight * 0.04),
+                    SizedBox(height: SizeConfig.screenHeight * 0.055),
                     scanState.viewModel.bloodGlucoseImageFile != null
                         ? bloodGlucoseCell(scanState)
                         : const SizedBox()
@@ -92,7 +93,9 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: SizeConfig.screenHeight * 0.24,
+            height: SizeConfig.screenDiagonal < 1350
+                ? SizeConfig.screenHeight * 0.24
+                : SizeConfig.screenHeight * 0.32,
             width: SizeConfig.screenWidth * 0.8,
             padding: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth * 0.04,
@@ -134,8 +137,8 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                               fit: BoxFit.fitWidth,
                             ),
                           ),
-                          const SizedBox(
-                            width: 5,
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.01,
                           ),
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,14 +182,19 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
 
                                   return AlertDialog(
                                     title: Text(
+                                        style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.03,
+                                        ),
                                         translation(context).editIndicatore),
                                     content: Container(
+                                      width: SizeConfig.screenWidth * 0.5,
+                                      height: SizeConfig.screenHeight * 0.1,
                                       margin: EdgeInsets.only(
                                           bottom:
                                               SizeConfig.screenWidth * 0.025),
                                       padding: EdgeInsets.only(
                                           left: SizeConfig.screenWidth * 0.025),
-                                      height: SizeConfig.screenWidth * 0.2,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
                                         color: AppColor.cardBackgroundColor,
@@ -214,10 +222,22 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          child:
-                                              Text(translation(context).back)),
+                                          child: Text(
+                                            translation(context).back,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.03),
+                                          )),
                                       TextButton(
-                                        child: Text(translation(context).save),
+                                        child: Text(
+                                          translation(context).save,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.03),
+                                        ),
                                         onPressed: () {
                                           double? editedBloodSugar =
                                               double.parse(
@@ -242,9 +262,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                   Expanded(
                       child: state.viewModel.bloodSugarEntity?.bloodSugar !=
                               null
-                          ? Container(
-                              margin: EdgeInsets.only(
-                                  left: SizeConfig.screenWidth * 0.1),
+                          ? SizedBox(
                               width: SizeConfig.screenWidth * 0.7,
                               child: Center(
                                 child: RichText(
@@ -252,36 +270,95 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                          text:
-                                              "${state.viewModel.bloodSugarEntity?.bloodSugar}",
+                                          text: (userDataData.localDataManager.preferencesHelper
+                                                      .getData("Indicator") ==
+                                                  null)
+                                              ? "${state.viewModel.bloodSugarEntity?.bloodSugar}"
+                                              : (userDataData.localDataManager
+                                                          .preferencesHelper
+                                                          .getData(
+                                                              "Indicator") ==
+                                                      20)
+                                                  ? "LO"
+                                                  : "HI",
                                           style: AppTextTheme.title3.copyWith(
-                                              color: state
-                                                  .viewModel
-                                                  .bloodSugarEntity
-                                                  ?.statusColor,
-                                              fontSize:
-                                                  SizeConfig.screenWidth * 0.15,
+                                              color: (userDataData
+                                                          .localDataManager
+                                                          .preferencesHelper
+                                                          .getData(
+                                                              "Indicator") ==
+                                                      20)
+                                                  ? AppColor.blue0089D7
+                                                  : (userDataData
+                                                              .localDataManager
+                                                              .preferencesHelper
+                                                              .getData(
+                                                                  "Indicator") ==
+                                                          600)
+                                                      ? AppColor
+                                                          .exceptionDialogIconColor
+                                                      : state
+                                                          .viewModel
+                                                          .bloodSugarEntity
+                                                          ?.statusColor,
+                                              fontSize: SizeConfig.screenWidth * 0.15,
                                               fontWeight: FontWeight.w500)),
-                                      TextSpan(
-                                          text: " mg/dL",
-                                          style: AppTextTheme.title3.copyWith(
-                                              color: const Color(0xff615A5A),
-                                              fontSize:
-                                                  SizeConfig.screenWidth * 0.05,
-                                              fontWeight: FontWeight.w500))
+                                      "${userDataData.localDataManager.preferencesHelper.getData("Indicator")}" ==
+                                              ""
+                                          ? TextSpan(
+                                              text: " mg/dL",
+                                              style: AppTextTheme.title3
+                                                  .copyWith(
+                                                      color: const Color(
+                                                          0xff615A5A),
+                                                      fontSize: SizeConfig
+                                                              .screenWidth *
+                                                          0.05,
+                                                      fontWeight:
+                                                          FontWeight.w500))
+                                          : const TextSpan()
                                     ],
                                   ),
                                 ),
                               ))
-                          : Center(
-                              child: Text(
-                                  translation(context).unableToRecognizeReading,
-                                  textAlign: TextAlign.center,
-                                  style: AppTextTheme.title3.copyWith(
-                                      color: AppColor.exceptionDialogIconColor,
-                                      fontSize: SizeConfig.screenWidth * 0.055,
-                                      fontWeight: FontWeight.w500)),
-                            ))
+                          : (userDataData.localDataManager.preferencesHelper
+                                      .getData("Indicator") ==
+                                  20)
+                              ? Center(
+                                  child: Text(
+                                      textAlign: TextAlign.center,
+                                      "LOW",
+                                      style: AppTextTheme.title3.copyWith(
+                                          color: AppColor.blue0089D7,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.18,
+                                          fontWeight: FontWeight.w500)),
+                                )
+                              : (userDataData.localDataManager.preferencesHelper
+                                          .getData("Indicator") ==
+                                      600)
+                                  ? Center(
+                                      child: Text(
+                                          textAlign: TextAlign.center,
+                                          "HI",
+                                          style: AppTextTheme.title3.copyWith(
+                                              color: AppColor.blue0089D7,
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.18,
+                                              fontWeight: FontWeight.w500)),
+                                    )
+                                  : Center(
+                                      child: Text(
+                                          translation(context)
+                                              .unableToRecognizeReading,
+                                          textAlign: TextAlign.center,
+                                          style: AppTextTheme.title3.copyWith(
+                                              color: AppColor
+                                                  .exceptionDialogIconColor,
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.04,
+                                              fontWeight: FontWeight.w500)),
+                                    ))
                 ],
               ),
             ),

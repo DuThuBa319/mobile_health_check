@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../classes/language.dart';
@@ -22,14 +21,14 @@ Future<dynamic> showNoticeDialogTwoButton({
     }
   }
 
-  return showAdaptiveDialog(
+  return showDialog(
     context: context,
     barrierDismissible: barrierDismissible,
     useRootNavigator: useRootNavigator,
     builder: (context) {
       final theme = Theme.of(context);
 
-      return AlertDialog.adaptive(
+      return AlertDialog(
         title: Text(
           title ?? translation(context).notification,
           style: theme.textTheme.headlineSmall,

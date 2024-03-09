@@ -50,7 +50,8 @@ class _Spo2NotificationReadingScreenState
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.06, 12, 10),
+       padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [

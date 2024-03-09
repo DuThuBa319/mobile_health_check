@@ -118,6 +118,9 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                                     width: SizeConfig.screenWidth * 0.7,
                                     child: Center(
                                       child: Text(
+                                        softWrap: true,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
                                         "Dr. ${doctor.name}",
                                         textAlign: TextAlign.center,
                                         style: AppTextTheme.body1.copyWith(
@@ -203,7 +206,9 @@ class _DoctorInforScreenState extends State<DoctorInforScreen> {
                       textAlign: TextAlign.center,
                       state.viewModel.errorMessage!,
                       style: AppTextTheme.body2.copyWith(
-                          color: Colors.red, fontWeight: FontWeight.bold),
+                          fontSize: SizeConfig.screenWidth * 0.05,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     RectangleButton(
@@ -252,20 +257,28 @@ Widget doctorIn4Cell(BuildContext context, title, String text,
                 text: title,
                 style: TextStyle(
                     color: AppColor.black,
-                    fontSize: SizeConfig.screenWidth * 0.06,
+                    fontSize: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenWidth * 0.06
+                        : SizeConfig.screenWidth * 0.05,
                     fontWeight: FontWeight.w500)),
             TextSpan(
               text: text,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: SizeConfig.screenWidth * 0.055,
+                fontSize: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenWidth * 0.055
+                    : SizeConfig.screenWidth * 0.048,
               ),
             ),
             const WidgetSpan(child: SizedBox(width: 10)),
             WidgetSpan(
               child: isSelectable
                   ? InkWell(
-                      child: const Icon(Icons.copy, color: Colors.black54),
+                      child: Icon(
+                        Icons.copy,
+                        color: Colors.black54,
+                        size: SizeConfig.screenDiagonal * 0.025,
+                      ),
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
                         showToast(

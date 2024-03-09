@@ -62,7 +62,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                           .bodyTemperatureImagesTakenToday,
                       measuringTask: MeasuringTask.temperature,
                     ),
-                    emptySpace(SizeConfig.screenHeight * 0.1),
+                    SizedBox(height: SizeConfig.screenHeight * 0.055),
                     imagePickerCell(context,
                         imagesTakenToday: userDataData
                             .getUser()!
@@ -71,7 +71,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                         state: scanState,
                         imageFile: scanState.viewModel.temperatureImageFile,
                         event: GetTemperatureDataEvent(context: context)),
-                    SizedBox(height: SizeConfig.screenHeight * 0.04),
+                    SizedBox(height: SizeConfig.screenHeight * 0.055),
                     scanState.viewModel.temperatureImageFile != null
                         ? temperatureCell(scanState)
                         : const SizedBox()
@@ -87,7 +87,9 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          height: SizeConfig.screenHeight * 0.24,
+          height: SizeConfig.screenDiagonal < 1350
+              ? SizeConfig.screenHeight * 0.24
+              : SizeConfig.screenHeight * 0.32,
           width: SizeConfig.screenWidth * 0.8,
           padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.04,
               SizeConfig.screenWidth * 0.03, SizeConfig.screenWidth * 0.04, 0),
@@ -121,8 +123,8 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
+                      SizedBox(
+                        width: SizeConfig.screenWidth * 0.01,
                       ),
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,7 +133,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                             Text(translation(context).bodyTemperature,
                                 style: AppTextTheme.title3.copyWith(
                                     color: Colors.black,
-                                    fontSize: SizeConfig.screenWidth * 0.04,
+                                    fontSize: SizeConfig.screenWidth * 0.035,
                                     fontWeight: FontWeight.bold)),
                             Text(
                                 DateFormat('HH:mm dd/MM/yyyy').format(state
@@ -146,7 +148,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                   GestureDetector(
                       child: SizedBox(
                           width: SizeConfig.screenWidth * 0.075,
-                          height: SizeConfig.screenWidth * 0.075,
+                          height: SizeConfig.screenHeight * 0.075,
                           child: Image.asset(Assets.edit)),
                       onTap: () {
                         showDialog<void>(
@@ -158,16 +160,21 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                               editBodyTemperatureController.text =
                                   tempValue != null ? "$tempValue" : "--";
                               return AlertDialog(
-                                title:
-                                    Text(translation(context).editIndicatore),
+                                title: Text(
+                                  translation(context).editIndicatore,
+                                  style: TextStyle(
+                                      fontSize: SizeConfig.screenWidth * 0.03),
+                                ),
                                 content: Container(
+                                  width: SizeConfig.screenWidth * 0.5,
                                   margin: EdgeInsets.only(
                                       bottom: SizeConfig.screenWidth * 0.025),
                                   padding: EdgeInsets.only(
                                       left: SizeConfig.screenWidth * 0.025),
-                                  height: SizeConfig.screenWidth * 0.2,
+                                  height: SizeConfig.screenHeight * 0.1,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: BorderRadius.circular(
+                                        SizeConfig.screenWidth * 0.01),
                                     color: AppColor.cardBackgroundColor,
                                   ),
                                   child: TextField(
@@ -192,9 +199,21 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Text(translation(context).back)),
+                                      child: Text(
+                                        translation(context).back,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.03),
+                                      )),
                                   TextButton(
-                                    child: Text(translation(context).save),
+                                    child: Text(
+                                      translation(context).save,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.03),
+                                    ),
                                     onPressed: () {
                                       double? editedTemperature = double.parse(
                                           editBodyTemperatureController.text);
@@ -246,7 +265,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                             textAlign: TextAlign.center,
                             style: AppTextTheme.title3.copyWith(
                                 color: AppColor.exceptionDialogIconColor,
-                                fontSize: SizeConfig.screenWidth * 0.055,
+                                fontSize: SizeConfig.screenWidth * 0.04,
                                 fontWeight: FontWeight.w500)),
                       ),
               )

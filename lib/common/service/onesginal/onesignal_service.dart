@@ -15,7 +15,7 @@ import '../../../presentation/common_widget/enum_common.dart';
 import '../../../presentation/modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../../presentation/route/route_list.dart';
 
-@lazySingleton
+@singleton
 class OneSignalNotificationService {
   OneSignalNotificationService._();
 
@@ -101,7 +101,6 @@ class OneSignalNotificationService {
     // if (user.id == null) {
     //   return;
     // }
-
     OneSignal.shared.setExternalUserId(userId);
 
     if (userDataData.getUser()!.role! == UserRole.doctor) {

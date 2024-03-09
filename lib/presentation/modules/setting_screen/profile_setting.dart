@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_health_check/domain/entities/relative_infor_entity.dart';
+import 'package:mobile_health_check/presentation/route/route_list.dart';
 import 'package:mobile_health_check/presentation/theme/app_text_theme.dart';
 import 'package:mobile_health_check/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +136,9 @@ class _SettingProfileState extends State<SettingProfile> {
       height: SizeConfig.screenHeight * 0.1, // You can adjust this padding
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(SizeConfig.screenDiagonal < 1350
+            ? SizeConfig.screenWidth * 0.025
+            : SizeConfig.screenWidth * 0.02),
       ),
       child: Center(
         child: TextField(
@@ -149,16 +152,26 @@ class _SettingProfileState extends State<SettingProfile> {
           textAlign: TextAlign.start,
           style: TextStyle(
               color: AppColor.gray767676,
-              fontSize: SizeConfig.screenWidth * 0.055),
+              fontSize: SizeConfig.screenDiagonal < 1350
+                  ? SizeConfig.screenWidth * 0.055
+                  : SizeConfig.screenWidth * 0.045),
           controller: controller,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(top: 5, bottom: 5),
+            contentPadding: EdgeInsets.only(
+                top: SizeConfig.screenHeight * 0.005,
+                bottom: SizeConfig.screenHeight * 0.005),
             border: InputBorder.none,
             labelText: label,
             labelStyle: TextStyle(
                 color: const Color.fromARGB(255, 48, 48, 48),
-                fontSize: SizeConfig.screenWidth * 0.055,
+                fontSize: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenWidth * 0.055
+                    : SizeConfig.screenWidth * 0.045,
                 fontWeight: FontWeight.w500),
+            errorStyle: TextStyle(
+              fontSize: SizeConfig.screenWidth * 0.03,
+              color: Colors.red,
+            ),
             errorText:
                 controller.text.isEmpty ? _errorMessages[controller] : null,
           ),
@@ -186,10 +199,14 @@ class _SettingProfileState extends State<SettingProfile> {
                   state is UpdateRelativeInforState ||
                   state is UpdatePatientInforState) &&
               state.status == BlocStatusState.success) {
-            showToast(
-                context: context,
-                status: ToastStatus.success,
-                toastString: translation(context).updateProfileSuccessfully);
+            Navigator.pushNamed(context, RouteList.settingMenu);
+
+            Future.delayed(const Duration(milliseconds: 1000)).then((value) {
+              showToast(
+                  context: context,
+                  status: ToastStatus.success,
+                  toastString: translation(context).updateProfileSuccessfully);
+            });
           }
           //! WIFI DISCONNECT
           if (state.status == BlocStatusState.failure &&
@@ -198,10 +215,6 @@ class _SettingProfileState extends State<SettingProfile> {
                 context: context,
                 status: ToastStatus.error,
                 toastString: translation(context).wifiDisconnect);
-            // showExceptionDialog(
-            //     context: context,
-            //     message: translation(context).wifiDisconnect,
-            //     titleBtn: translation(context).accept);
           }
         }, builder: (context, state) {
           if (((state is UpdateDoctorInforState) ||

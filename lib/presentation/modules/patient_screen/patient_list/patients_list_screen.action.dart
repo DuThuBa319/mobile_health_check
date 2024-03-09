@@ -68,8 +68,8 @@ extension PatientListScreenAction on _PatientListState {
             patientBloc.add(GetPatientListEvent(userId: widget.id));
           },
           child: ListView.separated(
-            separatorBuilder: (context, int index) => const Divider(
-              height: 8,
+            separatorBuilder: (context, int index) => Divider(
+              height: SizeConfig.screenHeight * 0.01,
               color: AppColor.backgroundColor,
             ),
             physics: const BouncingScrollPhysics(),
@@ -115,24 +115,36 @@ extension PatientListScreenAction on _PatientListState {
                 //! SlideAbleForm
                 return CustomSlidableWidget(
                   endDrawerWidgets: endDrawerWidgets,
-                  iconLeadingCell: Icon(Icons.person_pin,
-                      color: AppColor.lineDecor,
-                      size: SizeConfig.screenDiagonal * 0.045),
+                  iconLeadingCell: Transform.translate(
+                    offset: Offset(
+                        0,
+                        SizeConfig.screenDiagonal < 1350
+                            ? 0
+                            : -SizeConfig.screenHeight * 0.0055),
+                    child: Icon(Icons.person_pin,
+                        color: AppColor.lineDecor,
+                        size: SizeConfig.screenDiagonal * 0.045),
+                  ),
                   textLine1: Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
                     personCellEntity.name,
                     style: AppTextTheme.body2.copyWith(
-                        fontSize: SizeConfig.screenWidth * 0.055,
+                        fontSize: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.055
+                            : SizeConfig.screenWidth * 0.045,
                         fontWeight: FontWeight.w500),
                   ),
                   textLine2: Text(
                       personCellEntity.phoneNumber == ""
                           ? translation(context).notUpdate
                           : personCellEntity.phoneNumber,
-                      style: AppTextTheme.body3
-                          .copyWith(fontSize: SizeConfig.screenWidth * 0.04)),
+                      style: AppTextTheme.body3.copyWith(
+                        fontSize: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.04
+                            : SizeConfig.screenWidth * 0.035,
+                      )),
                   onTapCell: () {
                     Navigator.pushNamed(
                       context,

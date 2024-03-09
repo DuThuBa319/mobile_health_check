@@ -48,7 +48,8 @@ class _BloodPressureNotificationReadingScreenState
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.08, 12, 10),
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -67,14 +68,15 @@ class _BloodPressureNotificationReadingScreenState
           child: Column(
             children: [
               SizedBox(
-                height: SizeConfig.screenHeight * 0.025,
+                height: SizeConfig.screenHeight * 0.015,
               ),
               Container(
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight * 0.08,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -112,10 +114,11 @@ class _BloodPressureNotificationReadingScreenState
               Container(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.245,
+                  height: SizeConfig.screenHeight * 0.26,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
                   child: Column(
                     children: [
                       Row(
@@ -179,17 +182,22 @@ class _BloodPressureNotificationReadingScreenState
                         children: [
                           Icon(Icons.favorite,
                               color: widget.notificationEntity
-                                  ?.bloodPressureEntity!.statusColor),
+                                  ?.bloodPressureEntity!.statusColor,
+                              size: SizeConfig.screenWidth * 0.035),
                           Container(
                               decoration: BoxDecoration(
                                   color: widget.notificationEntity
                                       ?.bloodPressureEntity!.statusColor,
-                                  borderRadius: BorderRadius.circular(5)),
-                              height: 8,
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.screenWidth * 0.0065)),
+                              height: SizeConfig.screenHeight * 0.0065,
                               width: SizeConfig.screenWidth * 0.72),
-                          Icon(Icons.favorite,
-                              color: widget.notificationEntity
-                                  ?.bloodPressureEntity!.statusColor),
+                          Icon(
+                            Icons.favorite,
+                            size: SizeConfig.screenWidth * 0.035,
+                            color: widget.notificationEntity
+                                ?.bloodPressureEntity!.statusColor,
+                          ),
                         ],
                       ),
                       Text(

@@ -27,31 +27,47 @@ Future<dynamic> showWarningDialog({
     }
   }
 
-  return showAdaptiveDialog(
+  return showDialog(
       context: context,
       barrierDismissible: barrierDismissible,
       useRootNavigator: useRootNavigator,
       builder: (context) {
-        return AlertDialog.adaptive(
+        return AlertDialog(
           // shape: const RoundedRectangleBorder(
           //     borderRadius: BorderRadius.all(Radius.circular(2))),
           backgroundColor: AppColor.white,
           contentPadding: EdgeInsets.zero,
           content: Container(
-            height: SizeConfig.screenHeight * 0.25,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(28)),
+            height: SizeConfig.screenDiagonal < 1350
+                ? SizeConfig.screenHeight * 0.25
+                : SizeConfig.screenHeight * 0.35,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(
+                SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenWidth * 0.04
+                    : SizeConfig.screenWidth * 0.025,
+              )),
               color: AppColor.white,
             ),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               Container(
-                  height: SizeConfig.screenHeight * 0.1,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.1
+                      : SizeConfig.screenHeight * 0.15,
                   width: SizeConfig.screenWidth,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(28),
-                        topRight: Radius.circular(28)),
+                        topLeft: Radius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.04
+                              : SizeConfig.screenWidth * 0.02,
+                        ),
+                        topRight: Radius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.04
+                              : SizeConfig.screenWidth * 0.02,
+                        )),
                     color: AppColor.warningDialogColor,
                   ),
                   child: Column(
@@ -96,11 +112,15 @@ Future<dynamic> showWarningDialog({
                       style: TextStyle(
                           color: AppColor.black,
                           fontSize: contentDialogSize ??
-                              SizeConfig.screenWidth * 0.045),
+                              (SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.045
+                                  : SizeConfig.screenWidth * 0.038)),
                     ),
                   ),
                   Positioned(
-                    top: SizeConfig.screenHeight * 0.085,
+                    bottom: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenHeight * 0.015
+                        : SizeConfig.screenHeight * 0.001,
                     left: SizeConfig.screenWidth * 0.04,
                     right: SizeConfig.screenWidth * 0.04,
                     child: SizedBox(

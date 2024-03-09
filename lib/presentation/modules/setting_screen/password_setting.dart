@@ -54,14 +54,6 @@ class _SettingPasswordState extends State<SettingPassword> {
                   toastString:
                       translation(context).updatePasswordSuccessfullly);
               Navigator.pop(context);
-              // showSuccessDialog(
-              //     onClose: () {
-              //       Navigator.pop(context);
-              //     },
-              //     context: context,
-              //     message: translation(context).changePassSuccessText,
-              //     title: translation(context).updatePasswordSuccessfullly,
-              //     titleBtn: translation(context).accept);
             }
 
             if (state.status == BlocStatusState.failure) {
@@ -72,10 +64,6 @@ class _SettingPasswordState extends State<SettingPassword> {
                   status: ToastStatus.error,
                   toastString: translation(context).wifiDisconnect,
                 );
-                // showExceptionDialog(
-                //     context: context,
-                //     message: translation(context).wifiDisconnect,
-                //     titleBtn: translation(context).exit);
               }
               //! ERROR CURRENT PASSWORD
               if (state.viewModel.isCurrentPassWrong == true) {
@@ -109,13 +97,16 @@ class _SettingPasswordState extends State<SettingPassword> {
                         style: AppTextTheme.body0.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: SizeConfig.screenWidth * 0.06)),
-                    lineDecor(),
-                    SizedBox(height: SizeConfig.screenHeight * 0.02),
+                    lineDecor(spaceBottom: SizeConfig.screenHeight * 0.02),
                     Container(
                       height: SizeConfig.screenWidth * 0.2,
                       width: SizeConfig.screenWidth * 0.9,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.015
+                              : SizeConfig.screenWidth * 0.025,
+                        ),
                         color: AppColor.white,
                       ),
                       child: Row(
@@ -138,8 +129,13 @@ class _SettingPasswordState extends State<SettingPassword> {
                               ),
                               decoration: InputDecoration(
                                 iconColor: AppColor.primaryColorLight,
-                                contentPadding:
-                                    const EdgeInsets.only(bottom: 5, top: 5),
+                                contentPadding: EdgeInsets.only(
+                                    bottom: SizeConfig.screenHeight * 0.005,
+                                    top: SizeConfig.screenHeight * 0.005),
+                                errorStyle: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.03,
+                                  color: Colors.red,
+                                ),
                                 errorText:
                                     state.viewModel.errorEmptyCurrentPassword ==
                                             true
@@ -176,7 +172,11 @@ class _SettingPasswordState extends State<SettingPassword> {
                       height: SizeConfig.screenWidth * 0.2,
                       width: SizeConfig.screenWidth * 0.9,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.015
+                              : SizeConfig.screenWidth * 0.025,
+                        ),
                         color: AppColor.white,
                       ),
                       child: Row(
@@ -198,8 +198,13 @@ class _SettingPasswordState extends State<SettingPassword> {
                               ),
                               decoration: InputDecoration(
                                 iconColor: AppColor.primaryColorLight,
-                                contentPadding:
-                                    const EdgeInsets.only(bottom: 5, top: 5),
+                                contentPadding: EdgeInsets.only(
+                                    bottom: SizeConfig.screenHeight * 0.005,
+                                    top: SizeConfig.screenHeight * 0.005),
+                                errorStyle: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.03,
+                                  color: Colors.red,
+                                ),
                                 errorText:
                                     state.viewModel.errorEmptyNewPassword ==
                                             true
@@ -219,7 +224,7 @@ class _SettingPasswordState extends State<SettingPassword> {
                                   },
                                 ),
                                 icon: Icon(Icons.lock,
-                                    size: SizeConfig.screenDiagonal * 0.035),
+                                    size: SizeConfig.screenDiagonal * 0.038),
                                 border: InputBorder.none,
                                 labelText: translation(context).newPassword,
                                 labelStyle: TextStyle(

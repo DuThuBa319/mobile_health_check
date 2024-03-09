@@ -52,7 +52,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                         width: SizeConfig.screenDiagonal * 0.25,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: Image.asset(
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitWidth,
                           Assets.photo,
                           color: Colors.white,
                         ),

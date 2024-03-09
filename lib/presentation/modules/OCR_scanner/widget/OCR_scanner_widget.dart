@@ -44,13 +44,13 @@ Widget imagePickerCell(
             child: imageFile == null
                 ? GestureDetector(
                     onTap: () async {
-                      //! if (imagesTakenToday > 5 || imagesTakenToday == 5) {
-                      //!  showExceptionDialog(
-                      //!     context: context,
-                      //!       message:
-                      //!           translation(context).overImagesCountPermission,
-                      //!       titleBtn: translation(context).exit);
-                      //! } else {
+                      //  if (imagesTakenToday > 5 || imagesTakenToday == 5) {
+                      //   showExceptionDialog(
+                      //      context: context,
+                      //        message:
+                      //            translation(context).overImagesCountPermission,
+                      //        titleBtn: translation(context).exit);
+                      //  } else {
                       await [
                         // Request camera and microphone permissions
                         Permission.camera,
@@ -62,19 +62,32 @@ Widget imagePickerCell(
                               PermissionStatus.granted) {
                         scanBloc.add(event);
                       } else {
-                        await showWarningDialog(
-                            context: context,
-                            message: translation(context).permissionWarning,
-                            onClose1: () {},
-                            onClose2: () async {
-                              await openAppSettings();
-                            });
+                        await [
+                          // Request camera and microphone permissions
+                          Permission.camera,
+                          Permission.microphone,
+                        ].request();
+                        if (await Permission.camera.status ==
+                                PermissionStatus.granted &&
+                            await Permission.microphone.status ==
+                                PermissionStatus.granted) {
+                          scanBloc.add(event);
+                        } else {
+                          await showWarningDialog(
+                              context: context,
+                              message:
+                                  translation(context).permissionCameraWarning,
+                              onClose1: () {},
+                              onClose2: () async {
+                                await openAppSettings();
+                              });
+                        }
                       }
                     },
                     // },
                     child: Icon(
                       Symbols.linked_camera_rounded,
-                      weight: 100,
+                      weight: SizeConfig.screenHeight * 0.08,
                       size: SizeConfig.screenDiagonal * 0.3,
                       color: (imagesTakenToday! > 5 || imagesTakenToday == 5)
                           ? AppColor.gray767676
@@ -85,9 +98,9 @@ Widget imagePickerCell(
                     borderRadius: BorderRadiusDirectional.circular(
                         SizeConfig.screenWidth * 0.05),
                     child: FullScreenWidget(
-                        disposeLevel: DisposeLevel.High,
-                        child:
-                            Image.file(File(imageFile.path), fit: BoxFit.fill)),
+                        disposeLevel: DisposeLevel.Medium,
+                        child: Image.file(File(imageFile.path),
+                            fit: BoxFit.fitWidth)),
                   ),
           ),
         ),
@@ -98,6 +111,9 @@ Widget imagePickerCell(
               right: SizeConfig.screenWidth * 0.01,
               child: InkWell(
                 onTap: () {
+                  userDataData.localDataManager.preferencesHelper
+                      .remove("Indicator");
+
                   scanBloc.add(event);
                 },
                 child: Container(
@@ -136,10 +152,8 @@ Widget processingLoading(BuildContext context) {
           type: MaterialType.transparency,
           child: Text(
             translation(context).processing,
-            style: AppTextTheme.body3.copyWith(
-              color: Colors.black,
-              decoration: null,
-            ),
+            style: AppTextTheme.body3
+                .copyWith(fontSize: SizeConfig.screenWidth * 0.04),
           ),
         ),
       ],
@@ -274,7 +288,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                           children: [
                             Icon(
                               Icons.upload,
-                              color: const Color.fromARGB(255, 106, 247, 111),
+                              color: const Color.fromARGB(255, 0, 255, 242),
                               size: SizeConfig.screenDiagonal * 0.023,
                             ),
                             const Gap(5),
@@ -329,6 +343,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                               MeasuringTask.bloodPressure) {
                             await selectModelDialog(
                               context,
+                              isReset: true,
                               modelAssets: bloodPressureEquipModel,
                               measuringTask: MeasuringTask.bloodPressure,
                             );
@@ -337,6 +352,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                               MeasuringTask.bloodSugar) {
                             await selectModelDialog(
                               context,
+                              isReset: true,
                               modelAssets: bloodSugarEquipModel,
                               measuringTask: MeasuringTask.bloodSugar,
                             );
@@ -344,6 +360,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                               MeasuringTask.temperature) {
                             await selectModelDialog(
                               context,
+                              isReset: true,
                               modelAssets: temperatureEquipModel,
                               measuringTask: MeasuringTask.temperature,
                             );
@@ -358,29 +375,62 @@ class _InstructionScannerState extends State<InstructionScanner> {
           )
         : Container(
             width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.065,
-            padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+            height: SizeConfig.screenHeight * 0.12,
+            padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
             decoration: const BoxDecoration(color: Colors.white),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Icon(
-                  Icons.upload,
-                  color: const Color.fromARGB(255, 106, 247, 111),
-                  size: SizeConfig.screenDiagonal * 0.03,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.info,
+                      color: const Color.fromARGB(255, 106, 247, 111),
+                      size: SizeConfig.screenDiagonal * 0.03,
+                    ),
+                    Gap(SizeConfig.screenWidth * 0.005),
+                    Text(translation(context).press,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontWeight: FontWeight.w500)),
+                    Icon(
+                      Icons.linked_camera_outlined,
+                      color: Colors.blue.shade400,
+                      size: SizeConfig.screenDiagonal * 0.03,
+                    ),
+                    Text(translation(context).toCaptureTheResult,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontWeight: FontWeight.w500)),
+                  ],
                 ),
-                const Gap(5),
-                Text(translation(context).imagesTakenToday,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: SizeConfig.screenWidth * 0.05,
-                        fontWeight: FontWeight.w500)),
-                Text(" ${(widget.imagesTakenToday! - 5).abs()}",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: SizeConfig.screenWidth * 0.05,
-                        fontWeight: FontWeight.w500)),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.upload,
+                      color: const Color.fromARGB(255, 0, 255, 242),
+                      size: SizeConfig.screenDiagonal * 0.03,
+                    ),
+                    Gap(SizeConfig.screenWidth * 0.005),
+                    Text(translation(context).imagesTakenToday,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontWeight: FontWeight.w500)),
+                    Text(" ${(widget.imagesTakenToday! - 5).abs()}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontWeight: FontWeight.w500)),
+                  ],
+                ),
               ],
             ),
           );

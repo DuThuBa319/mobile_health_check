@@ -42,8 +42,8 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding:
-            EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.04, 12, 10),
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -68,28 +68,35 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                   height: SizeConfig.screenHeight * 0.07,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenWidth * 0.0065)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         translation(context).time,
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: SizeConfig.screenWidth * 0.055,
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
                         ),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy')
                             .format(widget.bloodSugarEntity!.updatedDate!),
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: SizeConfig.screenWidth * 0.055,
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
                         ),
                       ),
                       Text(
                         DateFormat('HH:mm')
                             .format(widget.bloodSugarEntity!.updatedDate!),
                         style: AppTextTheme.body1.copyWith(
-                          fontSize: SizeConfig.screenWidth * 0.055,
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
                         ),
                       )
                     ],
@@ -108,14 +115,18 @@ class _BloodSugarDetailScreenState extends State<BloodSugarDetailScreen> {
                 height: SizeConfig.screenHeight * 0.045,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.01,
+                      right: SizeConfig.screenWidth * 0.01,
+                      top: SizeConfig.screenHeight * 0.008),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight * 0.26,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenWidth * 0.0065)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,

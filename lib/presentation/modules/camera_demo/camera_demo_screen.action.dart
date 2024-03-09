@@ -72,7 +72,7 @@ extension CameraScreenAction on CameraScreenState {
         await showWarningDialog(
             context: navigationService.navigatorKey.currentContext!,
             message: translation(navigationService.navigatorKey.currentContext!)
-                .permissionWarning,
+                .permissionCameraWarning,
             onClose1: () {},
             onClose2: () async {
               await openAppSettings();
@@ -116,98 +116,252 @@ extension CameraScreenAction on CameraScreenState {
         builder: (context) => AlertDialog.adaptive(
               iconPadding: EdgeInsets.zero,
               content: Container(
-                height: SizeConfig.screenHeight * 0.53,
-                width: SizeConfig.screenWidth,
+                height: (widget.task != MeasuringTask.bloodSugar)
+                    ? SizeConfig.screenHeight * 0.53
+                    : SizeConfig.screenHeight * 0.65,
+                width: (widget.task != MeasuringTask.bloodSugar)
+                    ? SizeConfig.screenWidth * 0.85
+                    : SizeConfig.screenWidth,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius:
+                      BorderRadius.circular(SizeConfig.screenWidth * 0.01),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.035),
                       child: FullScreenWidget(
-                          disposeLevel: DisposeLevel.High,
+                          disposeLevel: DisposeLevel.Medium,
                           child: Image.file(
+                            height: SizeConfig.screenHeight * 0.3,
+                            fit: BoxFit.fitWidth,
                             File(imageFile.path),
                           )),
                     ),
-                    // Column(
-                    //   children: [
-                    //     Row(
-                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       children: [
-                    //         SizedBox(
-                    //             width: SizeConfig.screenWidth * 0.45,
-                    //             height: SizeConfig.screenHeight * 0.25,
-                    //             child: const Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               mainAxisAlignment: MainAxisAlignment.start,
-                    //               children: [
-                    //                 Row(
-                    //                   children: [
-                    //                     Text("Nếu kết quả đo là"),
-                    //                     Text(
-                    //                       "HI",
-                    //                       style: TextStyle(
-                    //                           color: AppColor.redFB4B53),
-                    //                     ),
-                    //                   ],
-                    //                 ),
-                    //                 Text("thì nhấn vào nút sau")
-                    //               ],
-                    //             )),
-                    //         InkWell(
-                    //           child: Container(
-                    //             decoration: const BoxDecoration(
-                    //                 color: AppColor.redFB4B53),
-                    //             height: SizeConfig.screenHeight * 0.05,
-                    //             width: SizeConfig.screenWidth * 0.15,
-                    //             child:const Center(child: const Text("HIGH")),
-                    //           ),
-                    //         )
-                    //       ],
-                    //     ),
-                    //     // Row(
-                    //     //   children: [
-                    //     //     Text.rich(
-                    //     //       maxLines: 3,
-                    //     //       overflow: TextOverflow.ellipsis,
-                    //     //       softWrap: true,
-                    //     //       TextSpan(
-                    //     //           text: "Nếu kết quả đo của bạn là",
-                    //     //           children: [
-                    //     //             const WidgetSpan(
-                    //     //                 child: Text(
-                    //     //               "Lo",
-                    //     //               style: TextStyle(
-                    //     //                   color: AppColor.blue03A1E4,
-                    //     //                   fontWeight: FontWeight.bold),
-                    //     //             )),
-                    //     //             const WidgetSpan(
-                    //     //                 child: Text(
-                    //     //               "thì nhấn vào nút sau",
-                    //     //             )),
-                    //     //             WidgetSpan(
-                    //     //                 child: InkWell(
-                    //     //               child: Container(
-                    //     //                 decoration: BoxDecoration(
-                    //     //                     color: AppColor.blue03A1E4,
-                    //     //                     borderRadius:
-                    //     //                         BorderRadius.circular(20)),
-                    //     //                 width: SizeConfig.screenWidth * 0.2,
-                    //     //                 height: SizeConfig.screenHeight * 0.1,
-                    //     //                 child: const Text("LOW"),
-                    //     //               ),
-                    //     //             ))
-                    //     //           ]),
-                    //     //     )
-                    //     //   ],
-                    //     // )
-                    //   ],
-                    // ),
+                    (widget.task == MeasuringTask.bloodSugar)
+                        ? Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: SizeConfig.screenWidth * 0.45,
+                                      height: SizeConfig.screenHeight * 0.1,
+                                      child: RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 5,
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: "Nếu kết quả đo là",
+                                              style: TextStyle(
+                                                fontSize: SizeConfig
+                                                            .screenDiagonal <
+                                                        1350
+                                                    ? SizeConfig.screenWidth *
+                                                        0.045
+                                                    : SizeConfig.screenWidth *
+                                                        0.04,
+                                                color: AppColor.black,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: " Lo",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05,
+                                                color: AppColor.blue0089D7,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: " thì nhấn vào nút sau",
+                                              style: TextStyle(
+                                                fontSize: SizeConfig
+                                                            .screenDiagonal <
+                                                        1350
+                                                    ? SizeConfig.screenWidth *
+                                                        0.045
+                                                    : SizeConfig.screenWidth *
+                                                        0.04,
+                                                color: AppColor.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        userDataData
+                                            .localDataManager.preferencesHelper
+                                            .saveData("Indicator", 20);
+                                        showToast(
+                                            status: ToastStatus.success,
+                                            context: context,
+                                            toastString:
+                                                "Lưu kết quả thành công");
+                                        final CroppedImage croppedImage =
+                                            CroppedImage(
+                                                imageFile,
+                                                currentFlashMode ==
+                                                        FlashMode.off
+                                                    ? false
+                                                    : true);
+                                        controller!.dispose();
+                                        cameraBloc.add(CameraStoppedEvent(
+                                            controller: controller!,
+                                            context: context,
+                                            task: MeasuringTask.oximeter));
+                                        Navigator.pop(context);
+
+                                        Navigator.pop(context, croppedImage);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(SizeConfig
+                                                            .screenDiagonal <
+                                                        1350
+                                                    ? SizeConfig.screenWidth *
+                                                        0.03
+                                                    : SizeConfig.screenWidth *
+                                                        0.01)),
+                                            color: AppColor.blue0089D7),
+                                        height: SizeConfig.screenHeight * 0.05,
+                                        width: SizeConfig.screenWidth * 0.16,
+                                        child: Center(
+                                            child: Text(
+                                          "LOW",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColor.white,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.04),
+                                        )),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: SizeConfig.screenWidth * 0.45,
+                                      height: SizeConfig.screenHeight * 0.1,
+                                      child: RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 5,
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: "Nếu kết quả đo là",
+                                              style: TextStyle(
+                                                fontSize: SizeConfig
+                                                            .screenDiagonal <
+                                                        1350
+                                                    ? SizeConfig.screenWidth *
+                                                        0.045
+                                                    : SizeConfig.screenWidth *
+                                                        0.04,
+                                                color: AppColor.black,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: " Hi",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05,
+                                                color: AppColor.redFB4B53,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: " thì nhấn vào nút sau",
+                                              style: TextStyle(
+                                                fontSize: SizeConfig
+                                                            .screenDiagonal <
+                                                        1350
+                                                    ? SizeConfig.screenWidth *
+                                                        0.045
+                                                    : SizeConfig.screenWidth *
+                                                        0.04,
+                                                color: AppColor.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        userDataData
+                                            .localDataManager.preferencesHelper
+                                            .saveData("Indicator", 600);
+                                        showToast(
+                                            status: ToastStatus.success,
+                                            context: context,
+                                            toastString:
+                                                "Lưu kết quả thành công");
+
+                                        final CroppedImage croppedImage =
+                                            CroppedImage(
+                                                imageFile,
+                                                currentFlashMode ==
+                                                        FlashMode.off
+                                                    ? false
+                                                    : true);
+                                        controller!.dispose();
+                                        cameraBloc.add(CameraStoppedEvent(
+                                            controller: controller!,
+                                            context: context,
+                                            task: MeasuringTask.oximeter));
+                                        Navigator.pop(context);
+
+                                        Navigator.pop(context, croppedImage);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(SizeConfig
+                                                            .screenDiagonal <
+                                                        1350
+                                                    ? SizeConfig.screenWidth *
+                                                        0.03
+                                                    : SizeConfig.screenWidth *
+                                                        0.01)),
+                                            color: AppColor.redFB4B53),
+                                        height: SizeConfig.screenHeight * 0.05,
+                                        width: SizeConfig.screenWidth * 0.16,
+                                        child: Center(
+                                            child: Text(
+                                          "HIGH",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColor.white,
+                                              fontSize: SizeConfig.screenWidth *
+                                                  0.04),
+                                        )),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        : const SizedBox(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -228,15 +382,17 @@ extension CameraScreenAction on CameraScreenState {
                                 translation(context).takePhotoAgain,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: SizeConfig.screenWidth * 0.035,
+                                    fontSize: SizeConfig.screenDiagonal < 1350
+                                        ? SizeConfig.screenWidth * 0.04
+                                        : SizeConfig.screenWidth * 0.028,
                                     color: AppColor.white,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.02,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -257,10 +413,10 @@ extension CameraScreenAction on CameraScreenState {
                           child: Container(
                             width: SizeConfig.screenWidth * 0.28,
                             height: SizeConfig.screenHeight * 0.053,
-                            decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 143, 217, 253),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 143, 217, 253),
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    SizeConfig.screenWidth * 0.01))),
                             child: Center(
                               child: Text(
                                 translation(context).accept,
@@ -280,30 +436,4 @@ extension CameraScreenAction on CameraScreenState {
               ),
             ));
   }
-
-  openSettingDialog(BuildContext context) => AlertDialog(
-        title: const Text("Camera permission not granted"),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: [
-              GestureDetector(
-                child: const Text("Open Setting"),
-                onTap: () async {
-                  Navigator.pop(context, null);
-                  controller?.dispose();
-                  await openAppSettings();
-                },
-              ),
-              const Padding(padding: EdgeInsets.all(10)),
-              GestureDetector(
-                child: const Text("Cancel"),
-                onTap: () async {
-                  Navigator.pop(context, null);
-                  return;
-                },
-              ),
-            ],
-          ),
-        ),
-      );
 }

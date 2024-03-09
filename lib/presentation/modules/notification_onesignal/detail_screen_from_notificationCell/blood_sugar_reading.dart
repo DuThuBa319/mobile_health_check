@@ -50,7 +50,8 @@ class _BloodSugarNotificationReadingScreenState
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.06, 12, 10),
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -82,7 +83,7 @@ class _BloodSugarNotificationReadingScreenState
                       Text(
                         "${widget.notificationEntity?.patientName}",
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenHeight * 0.022,
+                            fontSize: SizeConfig.screenDiagonal * 0.022,
                             fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
@@ -90,8 +91,8 @@ class _BloodSugarNotificationReadingScreenState
                       ),
                       Text(
                         " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenHeight * 0.02),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.02),
                       ),
                     ],
                   )),

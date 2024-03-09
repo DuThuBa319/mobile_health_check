@@ -41,6 +41,7 @@ class _NotificationListState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
+
     expandingController.addListener(() {
       if ((expandingController.position.maxScrollExtent ==
               expandingController.offset) &&
@@ -51,11 +52,13 @@ class _NotificationListState extends State<NotificationScreen> {
             userId: userId, startIndex: startIndex, lastIndex: lastIndex));
       }
     });
+    notificationBloc.add(InitializeNotificationScreenEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
+
     return CustomScreenForm(
         isShowAppBar: true,
         isShowLeadingButton: true,
@@ -117,9 +120,11 @@ class _NotificationListState extends State<NotificationScreen> {
                         Text(
                           translation(context).noNotification,
                           style: AppTextTheme.body2.copyWith(
-                              color: Colors.red, fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                              fontSize: SizeConfig.screenDiagonal * 0.025),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.01),
                         RectangleButton(
                           height: SizeConfig.screenHeight * 0.045,
                           width: SizeConfig.screenWidth * 0.3,

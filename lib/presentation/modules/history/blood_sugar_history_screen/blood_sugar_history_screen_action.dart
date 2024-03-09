@@ -4,12 +4,7 @@ extension BloodSugarHistoryScreenAction on BloodSugarHistoryScreenState {
   void blocListener(BuildContext context, HistoryState state) {
     //? Loading
     if (state.status == BlocStatusState.loading) {
-      // if (state is GetHistoryDataState) {
-      //   showToast( context: context,
-      //                       status: ToastStatus.loading,
-      //                       toastString:translation(context).loadingData);
-      //   //   );
-      // }
+    
     }
     //? Success
     if (state.status == BlocStatusState.success) {

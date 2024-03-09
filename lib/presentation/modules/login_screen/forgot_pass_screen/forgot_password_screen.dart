@@ -64,8 +64,8 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                     children: [
                       WidgetSpan(
                         child: SizedBox(
-                            height: SizeConfig.screenWidth * 0.1,
-                            width: SizeConfig.screenWidth * 0.1,
+                            height: SizeConfig.screenWidth * 0.08,
+                            width: SizeConfig.screenWidth * 0.08,
                             child: Image.asset(
                               Assets.forgotPassword,
                               fit: BoxFit.fill,
@@ -82,7 +82,9 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                     spaceBottom: SizeConfig.screenHeight * 0.015),
                 //Text Field phoneNumber
                 Container(
-                  height: SizeConfig.screenWidth * 0.2,
+                  padding:
+                      EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
+                  height: SizeConfig.screenHeight * 0.1,
                   width: SizeConfig.screenWidth * 0.9,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -90,42 +92,36 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                   ),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.035),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: SizeConfig.screenWidth * 0.01,
+                  child: Center(
+                    child: TextField(
+                      cursorColor: AppColor.gray767676,
+                      keyboardType: TextInputType.phone,
+                      controller: _phoneNumberController,
+                      style: TextStyle(
+                        fontSize: SizeConfig.screenWidth * 0.05,
+                        color: Colors.black,
                       ),
-                      SizedBox(
-                        width: SizeConfig.screenWidth * 0.8,
-                        child: TextField(
-                          cursorColor: AppColor.gray767676,
-                          keyboardType: TextInputType.phone,
-                          // focusNode: _focusNode,
-                          controller: _phoneNumberController,
-                          style: TextStyle(
-                            fontSize: SizeConfig.screenDiagonal * 0.022,
-                            color: Colors.black,
-                          ),
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                bottom: 5, top: 5, left: 5),
-                            errorText: (state.viewModel.errorMessage ==
-                                    translation(context).pleaseEnterPhoneNumber)
-                                ? state.viewModel.errorMessage
-                                : (state.viewModel.errorMessage ==
-                                        translation(context).wrongPhoneNumber)
-                                    ? translation(context).wrongPhoneNumber
-                                    : null,
-                            border: InputBorder.none,
-                            labelText: translation(context).phoneNumber,
-                            labelStyle: const TextStyle(
-                                color: AppColor.gray767676,
-                                fontWeight: FontWeight.w400),
-                          ),
+                      decoration: InputDecoration(
+                        errorStyle: TextStyle(
+                          fontSize: SizeConfig.screenWidth * 0.035,
+                          color: Colors.red,
                         ),
+                        contentPadding:
+                            const EdgeInsets.only(bottom: 2, top: 2),
+                        errorText: (state.viewModel.errorMessage ==
+                                translation(context).pleaseEnterPhoneNumber)
+                            ? state.viewModel.errorMessage
+                            : (state.viewModel.errorMessage ==
+                                    translation(context).wrongPhoneNumber)
+                                ? translation(context).wrongPhoneNumber
+                                : null,
+                        border: InputBorder.none,
+                        labelText: translation(context).phoneNumber,
+                        labelStyle: TextStyle(
+                            color: AppColor.gray767676,
+                            fontSize: SizeConfig.screenWidth * 0.055),
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 //Text field Password

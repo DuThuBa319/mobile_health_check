@@ -50,7 +50,8 @@ class _TemperatureNotificationReadingScreenState
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, SizeConfig.screenWidth * 0.08, 12, 10),
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -82,7 +83,7 @@ class _TemperatureNotificationReadingScreenState
                       Text(
                         "${widget.notificationEntity?.patientName}",
                         style: AppTextTheme.body1.copyWith(
-                            fontSize: SizeConfig.screenWidth * 0.055,
+                            fontSize: SizeConfig.screenDiagonal * 0.022,
                             fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
@@ -90,8 +91,8 @@ class _TemperatureNotificationReadingScreenState
                       ),
                       Text(
                         " ${DateFormat('HH:mm').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}  ${DateFormat('dd/MM/yyyy').format(widget.notificationEntity?.sendDate ?? DateTime(2023, 9, 16, 12, 00))}",
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.05),
+                        style: AppTextTheme.body1.copyWith(
+                            fontSize: SizeConfig.screenDiagonal * 0.02),
                       ),
                     ],
                   )),
@@ -161,8 +162,8 @@ class _TemperatureNotificationReadingScreenState
                       Center(
                         child: Center(
                           child: Text(
-                            softWrap: true,
-                            maxLines: 2,
+                              softWrap: true,
+                              maxLines: 2,
                               textAlign: TextAlign.center,
                               "${widget.notificationEntity?.bodyTemperatureEntity!.statusComment(context)}",
                               style: AppTextTheme.body2.copyWith(

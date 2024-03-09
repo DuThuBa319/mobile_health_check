@@ -21,8 +21,14 @@ import 'bloc/login_bloc.dart';
 part 'login_screen.action.dart';
 
 List<Widget> language = <Widget>[
-  const Text('EN', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15)),
-  const Text('VN', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15)),
+  Text('EN',
+      style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: SizeConfig.screenWidth * 0.045)),
+  Text('VN',
+      style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: SizeConfig.screenWidth * 0.045)),
 ];
 
 class LoginScreen extends StatefulWidget {
@@ -129,17 +135,20 @@ class _LoginState extends State<LoginScreen> {
                       children: language,
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.03,
+                      height: SizeConfig.screenHeight * 0.035,
                     ),
                     Center(
-                      child: Image.asset(
-                        Assets.teleHealth,
-                        scale: 6,
+                      child: SizedBox(
+                        width: SizeConfig.screenWidth * 0.35,
+                        height: SizeConfig.screenWidth * 0.35,
+                        child: Image.asset(
+                          Assets.teleHealth,
+                        ),
                       ),
                     ),
 
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.03,
+                      height: SizeConfig.screenHeight * 0.025,
                     ),
                     Center(
                       child: Text(
@@ -172,10 +181,14 @@ class _LoginState extends State<LoginScreen> {
                           // focusNode: _focusNode,
                           controller: _usernameController,
                           style: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.055,
+                            fontSize: SizeConfig.screenWidth * 0.05,
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
+                            errorStyle: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.035,
+                              color: Colors.red,
+                            ),
                             iconColor: AppColor.primaryColorLight,
                             isDense: true, // Giữ khoảng cách cố định cho icon
                             errorText: (state.viewModel.errorMessage ==
@@ -196,8 +209,11 @@ class _LoginState extends State<LoginScreen> {
                     //Text field Password
                     Container(
                       height: SizeConfig.screenHeight * 0.1,
-                      padding:
-                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
+                      padding: EdgeInsets.only(
+                          right: 5,
+                          left: SizeConfig.screenWidth * 0.015,
+                          top: 2,
+                          bottom: 2),
                       width: SizeConfig.screenWidth * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -212,12 +228,16 @@ class _LoginState extends State<LoginScreen> {
                           controller: _passwordController,
                           obscureText: showPass,
                           style: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.055,
+                            fontSize: SizeConfig.screenWidth * 0.05,
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             iconColor: AppColor.primaryColorLight,
                             isDense: true, // Giữ khoảng cách cố định cho icon
+                            errorStyle: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.035,
+                              color: Colors.red,
+                            ),
 
                             errorText: (state.viewModel.errorMessage ==
                                     translation(context).pleaseEnterYourAccount)
@@ -268,7 +288,7 @@ class _LoginState extends State<LoginScreen> {
                         onTap: login,
                         child: Container(
                           margin: EdgeInsets.only(
-                              top: SizeConfig.screenHeight * 0.005,
+                              top: SizeConfig.screenHeight * 0.01,
                               bottom: SizeConfig.screenWidth * 0.2),
                           decoration: BoxDecoration(
                               color: AppColor.topGradient,
@@ -280,9 +300,9 @@ class _LoginState extends State<LoginScreen> {
                             child: Text(
                               translation(context).signIn,
                               style: TextStyle(
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.bold,
                                 color: AppColor.white,
-                                fontSize: SizeConfig.screenWidth * 0.055,
+                                fontSize: SizeConfig.screenWidth * 0.06,
                               ),
                             ),
                           ),

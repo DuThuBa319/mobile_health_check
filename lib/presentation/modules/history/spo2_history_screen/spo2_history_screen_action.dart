@@ -3,14 +3,7 @@ part of 'spo2_history_screen.dart';
 extension Spo2HistoryScreenAction on Spo2HistoryScreenState {
   void blocListener(BuildContext context, HistoryState state) {
     //? Loading
-    if (state.status == BlocStatusState.loading) {
-      // if (state is GetHistoryDataState) {
-      //   showToast( context: context,
-      //                       status: ToastStatus.loading,
-      //                       toastString:translation(context).loadingData);
-      //   //   );
-      // }
-    }
+    if (state.status == BlocStatusState.loading) {}
     //? Success
     if (state.status == BlocStatusState.success) {
       if (state is GetHistoryDataState) {
@@ -37,7 +30,40 @@ extension Spo2HistoryScreenAction on Spo2HistoryScreenState {
   }
 
   void selectedDate({bool isSelectedDateFrom = true}) async {
-    final timePicker = await showDatePicker(
+    final timePicker = await showRoundedDatePicker(
+      styleDatePicker: MaterialRoundedDatePickerStyle(
+          backgroundHeader: AppColor.appBarColor,
+          decorationDateSelected: BoxDecoration(
+              color: AppColor.topGradient, shape: BoxShape.circle),
+          backgroundPicker: AppColor.white,
+          backgroundActionBar: AppColor.white,
+          backgroundHeaderMonth: AppColor.white,
+          colorArrowNext: Colors.black,
+          colorArrowPrevious: Colors.black,
+          textStyleDayOnCalendarDisabled:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.035),
+          textStyleYearButton:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.035),
+          textStyleButtonNegative:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.03),
+          textStyleButtonPositive:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.03),
+          textStyleDayOnCalendarSelected:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
+          textStyleMonthYearHeader:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
+          textStyleCurrentDayOnCalendar:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.035),
+          textStyleDayButton:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.035),
+          textStyleDayHeader:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.038),
+          textStyleButtonAction:
+              TextStyle(fontSize: SizeConfig.screenWidth * 0.03),
+          textStyleDayOnCalendar: TextStyle(
+            fontSize: SizeConfig.screenWidth * 0.035,
+          )),
+      height: SizeConfig.screenHeight * 0.45,
       context: context,
       initialDate: isSelectedDateFrom ? timeFrom : timeTo,
       firstDate: DateTime(2000),

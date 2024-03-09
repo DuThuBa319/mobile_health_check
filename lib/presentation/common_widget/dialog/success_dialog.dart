@@ -29,20 +29,21 @@ Future<dynamic> showSuccessDialog({
     }
   }
 
-  return showAdaptiveDialog(
+  return showDialog(
       context: context,
       barrierDismissible: barrierDismissible,
       useRootNavigator: useRootNavigator,
       builder: (context) {
-        return AlertDialog.adaptive(
-          // shape: const RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.all(Radius.circular(2))),
+        return AlertDialog(
           backgroundColor: AppColor.white,
           contentPadding: EdgeInsets.zero,
           content: Container(
-            height: SizeConfig.screenHeight * 0.25,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(28)),
+            height: SizeConfig.screenDiagonal < 1350
+                ? SizeConfig.screenHeight * 0.25
+                : SizeConfig.screenHeight * 0.3,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(SizeConfig.screenWidth * 0.02)),
               color: AppColor.white,
             ),
             child:
@@ -50,10 +51,11 @@ Future<dynamic> showSuccessDialog({
               Container(
                   height: SizeConfig.screenHeight * 0.1,
                   width: SizeConfig.screenWidth,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(28),
-                        topRight: Radius.circular(28)),
+                        topLeft: Radius.circular(SizeConfig.screenWidth * 0.02),
+                        topRight:
+                            Radius.circular(SizeConfig.screenWidth * 0.022)),
                     color: AppColor.successDialog,
                   ),
                   child: Column(
@@ -86,7 +88,9 @@ Future<dynamic> showSuccessDialog({
                   Container(
                     padding:
                         EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
-                    height: SizeConfig.screenHeight * 0.15,
+                    height: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenHeight * 0.15
+                        : SizeConfig.screenHeight * 0.2,
                     width: SizeConfig.screenWidth * 0.72,
                     child: Text(
                       softWrap: true,
@@ -101,7 +105,9 @@ Future<dynamic> showSuccessDialog({
                     ),
                   ),
                   Positioned(
-                    top: SizeConfig.screenHeight * 0.085,
+                    top: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenHeight * 0.08
+                        : SizeConfig.screenHeight * 0.12,
                     left: SizeConfig.screenWidth * 0.51,
                     child: GestureDetector(
                       onTap: () {
