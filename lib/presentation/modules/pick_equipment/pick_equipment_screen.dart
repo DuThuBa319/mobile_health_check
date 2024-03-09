@@ -195,7 +195,9 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                           BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.01),
-                  height: SizeConfig.screenHeight * 0.1,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.1
+                      : SizeConfig.screenHeight * 0.125,
                   width: SizeConfig.screenWidth,
                   child: Center(
                     child: Row(
@@ -218,7 +220,9 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                               Gap(SizeConfig.screenWidth * 0.025),
                               SizedBox(
                                 width: SizeConfig.screenWidth * 0.3,
-                                height: SizeConfig.screenHeight * 0.075,
+                                height: SizeConfig.screenDiagonal < 1350
+                                    ? SizeConfig.screenHeight * 0.075
+                                    : SizeConfig.screenHeight * 0.1,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,

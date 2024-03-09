@@ -103,7 +103,9 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.025,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.025
+                    : SizeConfig.screenHeight * 0.015,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -113,7 +115,9 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.025,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.025
+                    : SizeConfig.screenHeight * 0.015,
               ),
               Container(
                   padding: EdgeInsets.only(
@@ -121,7 +125,9 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                       right: SizeConfig.screenWidth * 0.01,
                       top: SizeConfig.screenHeight * 0.01),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.26,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.26
+                      : SizeConfig.screenHeight * 0.3,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:

@@ -30,9 +30,11 @@ extension LoginAction on _LoginState {
                 Material(
                   type: MaterialType.transparency,
                   child: Text(translation(context).verifying,
+
                       //! Đang xác thực, vui lòng chờ...
-                      style:
-                          TextStyle(fontSize: SizeConfig.screenWidth * 0.05)),
+                      style: TextStyle(
+                          fontSize: SizeConfig.screenWidth * 0.05,
+                          fontWeight: FontWeight.w500)),
                 ),
               ],
             ),

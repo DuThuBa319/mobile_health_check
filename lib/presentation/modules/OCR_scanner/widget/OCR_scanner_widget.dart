@@ -200,7 +200,9 @@ class _InstructionScannerState extends State<InstructionScanner> {
     return (widget.measuringTask != MeasuringTask.oximeter)
         ? Container(
             width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.18,
+            height: SizeConfig.screenDiagonal < 1350
+                ? SizeConfig.screenHeight * 0.18
+                : SizeConfig.screenHeight * 0.23,
             padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
             decoration: const BoxDecoration(color: Colors.white),
             child: Row(

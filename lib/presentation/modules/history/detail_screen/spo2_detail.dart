@@ -100,7 +100,9 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.045
+                    : SizeConfig.screenHeight * 0.025,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -110,7 +112,9 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.045
+                    : SizeConfig.screenHeight * 0.025,
               ),
               Container(
                   padding: EdgeInsets.only(
@@ -120,7 +124,9 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.25,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.25
+                      : SizeConfig.screenHeight * 0.3,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:

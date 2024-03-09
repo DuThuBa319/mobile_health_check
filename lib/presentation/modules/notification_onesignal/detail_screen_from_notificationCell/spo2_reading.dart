@@ -50,7 +50,7 @@ class _Spo2NotificationReadingScreenState
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-       padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
             SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -97,7 +97,9 @@ class _Spo2NotificationReadingScreenState
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.035
+                    : SizeConfig.screenHeight * 0.015,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -107,14 +109,21 @@ class _Spo2NotificationReadingScreenState
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.035
+                    : SizeConfig.screenHeight * 0.015,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.025,
+                      right: SizeConfig.screenWidth * 0.025,
+                      top: SizeConfig.screenHeight * 0.015),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.25,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.25
+                      : SizeConfig.screenHeight * 0.3,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),

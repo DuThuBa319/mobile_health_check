@@ -89,7 +89,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
         Container(
           height: SizeConfig.screenDiagonal < 1350
               ? SizeConfig.screenHeight * 0.24
-              : SizeConfig.screenHeight * 0.32,
+              : SizeConfig.screenHeight * 0.35,
           width: SizeConfig.screenWidth * 0.8,
           padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.04,
               SizeConfig.screenWidth * 0.03, SizeConfig.screenWidth * 0.04, 0),
@@ -111,11 +111,17 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                     children: [
                       Container(
                         padding: EdgeInsets.all(SizeConfig.screenWidth * 0.01),
-                        width: SizeConfig.screenWidth * 0.17,
-                        height: SizeConfig.screenWidth * 0.17,
+                        width: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.17
+                            : SizeConfig.screenWidth * 0.15,
+                        height: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.17
+                            : SizeConfig.screenWidth * 0.15,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                              SizeConfig.screenWidth * 0.04),
+                              SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.035),
                           color: AppColor.bodyTemperatureColor,
                         ),
                         child: Image.asset(

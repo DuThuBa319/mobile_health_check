@@ -84,7 +84,7 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
         Container(
           height: SizeConfig.screenDiagonal < 1350
               ? SizeConfig.screenHeight * 0.24
-              : SizeConfig.screenHeight * 0.32,
+              : SizeConfig.screenHeight * 0.35,
           width: SizeConfig.screenWidth * 0.8,
           padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.04,
               SizeConfig.screenWidth * 0.03, SizeConfig.screenWidth * 0.04, 0),
@@ -105,11 +105,17 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        width: SizeConfig.screenWidth * 0.2,
-                        height: SizeConfig.screenWidth * 0.2,
+                        width: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.2
+                            : SizeConfig.screenWidth * 0.15,
+                        height: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.2
+                            : SizeConfig.screenWidth * 0.15,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                              SizeConfig.screenWidth * 0.05),
+                          SizeConfig.screenDiagonal < 1350
+                                      ? SizeConfig.screenWidth * 0.05
+                                      : SizeConfig.screenWidth * 0.035),
                           color: AppColor.bloodPressureColor,
                         ),
                         child: Image.asset(

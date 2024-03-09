@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_health_check/presentation/common_widget/custom_slidable.dart';
 import 'package:mobile_health_check/presentation/common_widget/dialog/show_toast.dart';
 import 'package:mobile_health_check/presentation/common_widget/enum_common.dart';
 import 'package:mobile_health_check/presentation/route/route_list.dart';
@@ -99,27 +100,25 @@ class _NotificationCellState extends State<NotificationCell> {
             motion: const StretchMotion(),
             extentRatio: 0.4,
             children: [
-              SlidableAction(
-                label: translation(context).delete,
-                autoClose: false,
-                borderRadius: BorderRadius.circular(
-                    SizeConfig.screenDiagonal < 1350
-                        ? SizeConfig.screenWidth * 0.03
-                        : SizeConfig.screenWidth * 0.025),
-                onPressed: (context) {
-                  if (widget.notificationEntity?.read == true) {
-                    widget.notificationBloc?.add(DeleteNotificationEvent(
-                        index: widget.cellIndex,
-                        notificationId:
-                            widget.notificationEntity?.notificaitonId));
-                  }
-                },
-                backgroundColor: (widget.notificationEntity?.read == true)
-                    ? AppColor.lineDecor
-                    : AppColor.lightGrey,
-                foregroundColor: Colors.white,
-                icon: Icons.delete_outline_outlined,
-              ),
+              SlidableButton(
+                  contentRadius: SizeConfig.screenWidth * 0.01,
+                  fontSize: SizeConfig.screenWidth * 0.03,
+                  autoClose: true,
+                  foregroundColor: Colors.white,
+                  iconSize: SizeConfig.screenWidth * 0.08,
+                  backgroundColor: (widget.notificationEntity?.read == true)
+                      ? AppColor.lineDecor
+                      : AppColor.lightGrey,
+                  icon: Icons.delete_outline_outlined,
+                  label: translation(context).delete,
+                  onPressed: (context) {
+                    if (widget.notificationEntity?.read == true) {
+                      widget.notificationBloc?.add(DeleteNotificationEvent(
+                          index: widget.cellIndex,
+                          notificationId:
+                              widget.notificationEntity?.notificaitonId));
+                    }
+                  }),
             ]),
         child: Center(
           child: Container(

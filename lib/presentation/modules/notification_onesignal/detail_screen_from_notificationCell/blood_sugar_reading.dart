@@ -97,7 +97,9 @@ class _BloodSugarNotificationReadingScreenState
                     ],
                   )),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.035
+                    : SizeConfig.screenHeight * 0.015,
               ),
               CustomImagePicker(
                 imagePath: (isWifiAvailable || is4GAvailable)
@@ -108,14 +110,21 @@ class _BloodSugarNotificationReadingScreenState
                 isforAvatar: false,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.045,
+                height: SizeConfig.screenDiagonal < 1350
+                    ? SizeConfig.screenHeight * 0.035
+                    : SizeConfig.screenHeight * 0.015,
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
-                  margin:
+ padding: EdgeInsets.only(
+                    left: SizeConfig.screenWidth * 0.025,
+                    right: SizeConfig.screenWidth * 0.025,
+                    top: SizeConfig.screenHeight * 0.015,
+                  ),                  margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.26,
+                  height: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenHeight * 0.26
+                      : SizeConfig.screenHeight * 0.3,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)),

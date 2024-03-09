@@ -101,7 +101,9 @@ Future<dynamic> showWarningDialog({
                   Container(
                     padding:
                         EdgeInsets.only(top: SizeConfig.screenHeight * 0.015),
-                    height: SizeConfig.screenHeight * 0.15,
+                    height: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenHeight * 0.15
+                        : SizeConfig.screenHeight * 0.185,
                     width: SizeConfig.screenWidth * 0.72,
                     child: Text(
                       maxLines: 4,
