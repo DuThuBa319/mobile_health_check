@@ -139,8 +139,14 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         controller: _controllerDoctorName,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.05),
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
+                          errorStyle: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.03,
+                            color: Colors.red,
+                          ),
                           contentPadding:
                               const EdgeInsets.only(bottom: 2, top: 2),
                           errorText: state.viewModel.errorEmptyName == true
@@ -149,7 +155,9 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.0455,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -177,8 +185,14 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         controller: _controllerDoctorPhoneNumber,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.05),
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
+                          errorStyle: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.03,
+                            color: Colors.red,
+                          ),
                           contentPadding:
                               const EdgeInsets.only(bottom: 2, top: 2),
                           errorText:
@@ -188,7 +202,9 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.045,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

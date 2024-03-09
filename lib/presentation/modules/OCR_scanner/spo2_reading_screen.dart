@@ -59,7 +59,7 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                             userDataData.getUser()!.spO2ImagesTakenToday,
                         measuringTask: MeasuringTask.oximeter,
                       ),
-                      SizedBox(height: SizeConfig.screenHeight * 0.15),
+                      SizedBox(height: SizeConfig.screenHeight * 0.045),
                       imagePickerCell(context,
                           imagesTakenToday:
                               userDataData.getUser()!.spO2ImagesTakenToday,
@@ -67,7 +67,7 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                           state: scanState,
                           imageFile: scanState.viewModel.spo2ImageFile,
                           event: GetSpo2DataEvent(context: context)),
-                      SizedBox(height: SizeConfig.screenHeight * 0.04),
+                      SizedBox(height: SizeConfig.screenHeight * 0.045),
                       scanState.viewModel.spo2ImageFile != null
                           ? spo2Cell(scanState)
                           : const SizedBox()
@@ -82,7 +82,9 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
     return Column(
       children: [
         Container(
-          height: SizeConfig.screenHeight * 0.24,
+          height: SizeConfig.screenDiagonal < 1350
+              ? SizeConfig.screenHeight * 0.24
+              : SizeConfig.screenHeight * 0.32,
           width: SizeConfig.screenWidth * 0.8,
           padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.04,
               SizeConfig.screenWidth * 0.03, SizeConfig.screenWidth * 0.04, 0),
@@ -115,8 +117,8 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
+                      SizedBox(
+                        width: SizeConfig.screenWidth * 0.01,
                       ),
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +231,7 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                             textAlign: TextAlign.center,
                             style: AppTextTheme.title3.copyWith(
                                 color: AppColor.exceptionDialogIconColor,
-                                fontSize: SizeConfig.screenWidth * 0.055,
+                                fontSize: SizeConfig.screenWidth * 0.04,
                                 fontWeight: FontWeight.w500)),
                       ),
               )

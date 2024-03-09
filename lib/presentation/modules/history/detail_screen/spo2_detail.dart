@@ -40,8 +40,8 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
     SizeConfig.init(context);
     return SingleChildScrollView(
       child: Container(
-        padding:
-            EdgeInsets.fromLTRB(12, SizeConfig.screenHeight * 0.04, 12, 10),
+        padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
+            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -66,26 +66,36 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                   height: SizeConfig.screenHeight * 0.07,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         translation(context).time,
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
+                        ),
                       ),
                       Text(
                         DateFormat('dd/MM/yyyy')
                             .format(widget.spo2Entity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
+                        ),
                       ),
                       Text(
                         DateFormat('HH:mm')
                             .format(widget.spo2Entity!.updatedDate!),
-                        style: AppTextTheme.body1
-                            .copyWith(fontSize: SizeConfig.screenWidth * 0.055),
+                        style: AppTextTheme.body1.copyWith(
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.055
+                              : SizeConfig.screenWidth * 0.048,
+                        ),
                       )
                     ],
                   )),
@@ -104,14 +114,17 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
               ),
               Container(
                   padding: EdgeInsets.only(
-                      left: 10, right: 10, top: SizeConfig.screenHeight * 0.02),
+                      left: SizeConfig.screenWidth * 0.01,
+                      right: SizeConfig.screenWidth * 0.01,
+                      top: SizeConfig.screenHeight * 0.02),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight * 0.25,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,

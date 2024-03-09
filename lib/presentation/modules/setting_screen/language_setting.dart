@@ -57,14 +57,15 @@ class _SettingLanguageState extends State<SettingLanguage> {
         child: Container(
           margin: EdgeInsets.only(
               top: SizeConfig.screenHeight * 0.05,
-              left: SizeConfig.screenWidth * 0.05),
+              left: SizeConfig.screenWidth * 0.05,
+              right: SizeConfig.screenWidth * 0.05),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.language_outlined,
@@ -88,7 +89,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * 0.05,
+                            left: SizeConfig.screenWidth * 0.04,
                             right: SizeConfig.screenWidth * 0.04),
                         margin: EdgeInsets.only(
                             top: SizeConfig.screenWidth * 0.04,
@@ -96,7 +97,9 @@ class _SettingLanguageState extends State<SettingLanguage> {
                         decoration: BoxDecoration(
                           color: AppColor.white,
                           borderRadius: BorderRadius.circular(
-                              SizeConfig.screenWidth * 0.05),
+                              SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.035),
                         ),
                         height: SizeConfig.screenHeight * 0.1,
                         width: SizeConfig.screenWidth * 0.7,
@@ -104,7 +107,9 @@ class _SettingLanguageState extends State<SettingLanguage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(Language.languageList()[0].name,
-                                style: AppTextTheme.body1.copyWith()),
+                                style: AppTextTheme.body1.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: SizeConfig.screenWidth * 0.055)),
                             GestureDetector(
                                 child: Container(
                                   height: SizeConfig.screenHeight * 0.05,
@@ -125,12 +130,11 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                 ),
                                 onTap: () async {
                                   selectedLanguage = Language(1, ENGLISH, 'en');
-
+                        
                                   setState(() {
                                     selectEn = true;
                                     selectVn = false;
                                   });
-                                  
                                 }),
                           ],
                         ),
@@ -144,7 +148,9 @@ class _SettingLanguageState extends State<SettingLanguage> {
                         decoration: BoxDecoration(
                           color: AppColor.white,
                           borderRadius: BorderRadius.circular(
-                              SizeConfig.screenWidth * 0.05),
+                              SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.035),
                         ),
                         height: SizeConfig.screenHeight * 0.1,
                         width: SizeConfig.screenWidth * 0.7,
@@ -152,7 +158,10 @@ class _SettingLanguageState extends State<SettingLanguage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(Language.languageList()[1].name,
-                                  style: AppTextTheme.body1.copyWith()),
+                                  style: AppTextTheme.body1.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize:
+                                          SizeConfig.screenWidth * 0.055)),
                               GestureDetector(
                                   child: Container(
                                     height: SizeConfig.screenHeight * 0.05,

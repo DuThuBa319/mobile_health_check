@@ -16,7 +16,6 @@ class NotificationDataSourceImpl extends BaseDataSource
     await localDataManager.preferencesHelper.remove('delayTime');
   }
 
-
   @override
   int? get delayTime => localDataManager.preferencesHelper.getData("delayTime");
   @override

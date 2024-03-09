@@ -55,14 +55,16 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(height: 15),
+          SizedBox(height: SizeConfig.screenHeight * 0.005),
           Container(
-            margin: const EdgeInsets.only(left: 15),
+            margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.02),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 5),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.025,
+                ),
                 Text(
                   translation(context).selectTime,
                   style: TextStyle(
@@ -70,14 +72,12 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                const SizedBox(height: 5),
-                lineDecor(),
-                // lineDecor(),
+                lineDecor(
+                  spaceTop: SizeConfig.screenHeight * 0.0025,
+                  spaceBottom: SizeConfig.screenHeight * 0.025,
+                ),
               ],
             ),
-          ),
-          const SizedBox(
-            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -90,17 +90,20 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                     width: SizeConfig.screenWidth * 0.40,
                     height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        border: Border.all(
+                            width: SizeConfig.screenDiagonal < 1350 ? 2 : 5,
+                            color: AppColor.color43C8F5),
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(
+                            SizeConfig.screenWidth * 0.015)),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenWidth * 0.092,
+                          size: SizeConfig.screenHeight * 0.046,
                         ),
                         emptySpace(SizeConfig.screenWidth * 0.01),
                         Text(strTimeFrom,
@@ -112,7 +115,7 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                     )),
               ),
               SizedBox(
-                width: SizeConfig.screenWidth * 0.08,
+                width: SizeConfig.screenWidth * 0.05,
               ),
               InkWell(
                 onTap: () {
@@ -122,17 +125,20 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                     width: SizeConfig.screenWidth * 0.40,
                     height: SizeConfig.screenHeight * 0.055,
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 2, color: AppColor.color43C8F5),
+                        border: Border.all(
+                            width: SizeConfig.screenDiagonal < 1350 ? 2 : 5,
+                            color: AppColor.color43C8F5),
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(
+                            SizeConfig.screenWidth * 0.015)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.calendar_month,
                           color: AppColor.color43C8F5,
-                          size: SizeConfig.screenWidth * 0.092,
+                          size: SizeConfig.screenHeight * 0.046,
                         ),
                         emptySpace(SizeConfig.screenWidth * 0.01),
                         Text(strTimeTo,
@@ -145,8 +151,8 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
               )
             ],
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.015,
           ),
           Center(
             child: InkWell(
@@ -179,12 +185,16 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                 width: SizeConfig.screenWidth * 0.4,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius:
+                      BorderRadius.circular(SizeConfig.screenWidth * 0.015),
                   color: const Color.fromARGB(255, 71, 200, 255),
                 ),
                 child: Text(
                   translation(context).search,
-                  style: AppTextTheme.title3.copyWith(color: Colors.white),
+                  style: AppTextTheme.title3.copyWith(
+                    color: Colors.white,
+                    fontSize: SizeConfig.screenDiagonal * 0.022,
+                  ),
                 ),
               ),
             ),
@@ -203,8 +213,9 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                     return Center(
                         child: Text(translation(context).selectTime,
                             style: AppTextTheme.body2.copyWith(
+                                fontWeight: FontWeight.bold,
                                 color: Colors.red,
-                                fontWeight: FontWeight.bold)));
+                                fontSize: SizeConfig.screenDiagonal * 0.025)));
                   }
 
                   //? Loading
@@ -223,15 +234,19 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                       return Center(
                           child: Text(translation(context).noData,
                               style: AppTextTheme.body2.copyWith(
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold)));
+                                  fontSize:
+                                      SizeConfig.screenDiagonal * 0.025)));
                     }
                     if (state.viewModel.listTemperature == null) {
                       return Center(
                           child: Text(translation(context).error,
                               style: AppTextTheme.body2.copyWith(
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold)));
+                                  fontSize:
+                                      SizeConfig.screenDiagonal * 0.025)));
                     } else {
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -255,9 +270,10 @@ class TemperatureHistoryScreenState extends State<TemperatureHistoryScreen> {
                         softWrap: true,
                         textAlign: TextAlign.center,
                         style: AppTextTheme.body2.copyWith(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.screenWidth * 0.05),
+                          fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                  fontSize:
+                                      SizeConfig.screenDiagonal * 0.025),
                       ),
                     );
                   }

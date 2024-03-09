@@ -63,32 +63,31 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
         child: Padding(
           padding: EdgeInsets.only(
               left: SizeConfig.screenWidth * 0.03,
-              right: SizeConfig.screenWidth * 0.02),
+              right: SizeConfig.screenWidth * 0.03),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(SizeConfig.screenWidth * 0.02),
+                Gap(SizeConfig.screenHeight * 0.015),
                 Text(
                   translation(context).selectEquip,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenWidth * 0.075,
+                      fontSize: SizeConfig.screenWidth * 0.065,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                const SizedBox(height: 5),
-                lineDecor(),
+                lineDecor(spaceTop: SizeConfig.screenHeight * 0.002),
                 Container(
                   padding: EdgeInsets.only(
-                      top: SizeConfig.screenWidth * 0.05,
-                      right: SizeConfig.screenWidth * 0.03),
+                    top: SizeConfig.screenWidth * 0.05,
+                  ),
                   child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisSpacing: SizeConfig.screenWidth * 0.04,
                         mainAxisSpacing: SizeConfig.screenWidth * 0.05,
                         crossAxisCount: 2,
-                        childAspectRatio: 1 / 1.2),
+                        childAspectRatio: 1 / 1.1),
                     shrinkWrap: true,
                     itemCount: 4,
                     itemBuilder: (context, index) {
@@ -175,65 +174,92 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     },
                   ),
                 ),
-                Gap(SizeConfig.screenWidth * 0.05),
+                Gap(SizeConfig.screenHeight * 0.025),
                 Text(
                   translation(context).contact,
                   style: TextStyle(
-                      fontSize: SizeConfig.screenWidth * 0.075,
+                      fontSize: SizeConfig.screenWidth * 0.065,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                const Gap(5),
-                lineDecor(),
-                Gap(SizeConfig.screenWidth * 0.03),
+                lineDecor(
+                    spaceTop: SizeConfig.screenHeight * 0.002,
+                    spaceBottom: SizeConfig.screenHeight * 0.015),
                 Container(
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.025,
+                      right: SizeConfig.screenWidth * 0.025),
                   decoration: BoxDecoration(
                       color: Colors.red[100],
-                      borderRadius: BorderRadius.circular(10)),
-                  margin: EdgeInsets.only(
-                      right: SizeConfig.screenWidth * 0.02,
-                      left: 2,
-                      bottom: 10),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.screenWidth * 0.01)),
+                  margin:
+                      EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.01),
                   height: SizeConfig.screenHeight * 0.1,
+                  width: SizeConfig.screenWidth,
                   child: Center(
-                    child: ListTile(
-                      contentPadding:
-                          const EdgeInsets.only(left: 10, right: 10),
-                      leading: Container(
-                          decoration: const BoxDecoration(
-                              color: AppColor.backgroundColor,
-                              shape: BoxShape.circle),
-                          height: SizeConfig.screenDiagonal * 0.06,
-                          width: SizeConfig.screenDiagonal * 0.06,
-                          child: ClipRect(
-                            child: Image.asset(Assets.doctor, fit: BoxFit.fill),
-                          )),
-                      title: Transform.translate(
-                        offset: const Offset(-10, 0),
-                        child: Text(
-                          userDataData.getUser()!.doctor!.name,
-                          style: AppTextTheme.body2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.055,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      subtitle: Transform.translate(
-                        offset: const Offset(-10, 0),
-                        child: Text(userDataData.getUser()!.doctor!.phoneNumber,
-                            style: AppTextTheme.body3.copyWith(
-                                fontSize: SizeConfig.screenWidth * 0.04)),
-                      ),
-                      trailing: InkWell(
-                        onTap: () async {
-                          await FlutterPhoneDirectCaller.callNumber(
-                              userDataData.getUser()!.doctor!.phoneNumber);
-                        },
-                        child: CircleButton(
-                            iconData: Icons.phone,
-                            size: SizeConfig.screenDiagonal * 0.06,
-                            backgroundColor: Colors.red),
-                      ),
-                    ),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  width: SizeConfig.screenHeight * 0.075,
+                                  height: SizeConfig.screenHeight * 0.075,
+                                  child: ClipRect(
+                                    child: Image.asset(
+                                      Assets.doctor,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )),
+                              Gap(SizeConfig.screenWidth * 0.025),
+                              SizedBox(
+                                width: SizeConfig.screenWidth * 0.3,
+                                height: SizeConfig.screenHeight * 0.075,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      userDataData.getUser()!.doctor!.name,
+                                      style: AppTextTheme.body2.copyWith(
+                                          fontSize: SizeConfig.screenDiagonal <
+                                                  1350
+                                              ? SizeConfig.screenWidth * 0.055
+                                              : SizeConfig.screenWidth * 0.045,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                        userDataData
+                                            .getUser()!
+                                            .doctor!
+                                            .phoneNumber,
+                                        style: AppTextTheme.body3.copyWith(
+                                            fontSize:
+                                                SizeConfig.screenDiagonal < 1350
+                                                    ? SizeConfig.screenWidth *
+                                                        0.04
+                                                    : SizeConfig.screenWidth *
+                                                        0.03)),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              await FlutterPhoneDirectCaller.callNumber(
+                                  userDataData.getUser()!.doctor!.phoneNumber);
+                            },
+                            child: CircleButton(
+                                iconData: Icons.phone,
+                                size: SizeConfig.screenHeight * 0.065,
+                                backgroundColor: Colors.red),
+                          ),
+                        ]),
                   ),
                 ),
               ],
@@ -259,7 +285,7 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
         borderRadius:
             BorderRadius.all(Radius.circular(SizeConfig.screenWidth * 0.05)),
         child: Container(
-            padding: const EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.015),
             decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(SizeConfig.screenWidth * 0.05),
@@ -272,8 +298,8 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                       Radius.circular(SizeConfig.screenWidth * 0.05)),
                   child: Container(
                     padding: const EdgeInsets.all(10),
-                    width: SizeConfig.screenWidth * 0.35,
-                    height: SizeConfig.screenWidth * 0.36,
+                    width: SizeConfig.screenWidth * 0.34,
+                    height: SizeConfig.screenWidth * 0.34 * 1.1,
                     decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.circular(SizeConfig.screenWidth * 0.05),
@@ -281,15 +307,16 @@ class _PickEquipmentScreenState extends State<PickEquipmentScreen> {
                     ),
                     child: Image.asset(
                       imagePath,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: SizeConfig.screenHeight * 0.015,
+                  height: SizeConfig.screenHeight * 0.008,
                 ),
                 Text(cellTitle,
                     textAlign: TextAlign.center,
+                    maxLines: 2,
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextTheme.title3.copyWith(
@@ -352,15 +379,18 @@ Future<dynamic> selectModelDialog(BuildContext context,
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(
             title: Text(translation(context).selectProduct,
-                style: const TextStyle(
-                    color: AppColor.black, fontWeight: FontWeight.w500)),
+                style: TextStyle(
+                    color: AppColor.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: SizeConfig.screenWidth * 0.05)),
             content: Container(
               margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.015),
               padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
               height: SizeConfig.screenHeight * 0.3,
               width: SizeConfig.screenWidth * 0.85,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.screenWidth * 0.015),
                 color: AppColor.cardBackgroundColor,
               ),
               child: Column(
@@ -428,13 +458,17 @@ Future<dynamic> selectModelDialog(BuildContext context,
                   },
                   child: Text(
                     translation(context).back,
-                    style: const TextStyle(
-                        color: AppColor.black, fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: SizeConfig.screenWidth * 0.035),
                   )),
               TextButton(
                 child: Text(translation(context).select,
-                    style: const TextStyle(
-                        color: AppColor.black, fontWeight: FontWeight.w500)),
+                    style: TextStyle(
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: SizeConfig.screenWidth * 0.035)),
                 onPressed: () {
                   Navigator.pop(context);
                   switch (measuringTask) {

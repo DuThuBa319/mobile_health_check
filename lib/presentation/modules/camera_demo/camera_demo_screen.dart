@@ -128,8 +128,8 @@ class CameraScreenState extends State<CameraScreen>
                 return Stack(
                   children: [
                     Positioned(
-                        top: 15,
-                        left: 15,
+                        top: SizeConfig.screenWidth * 0.02,
+                        left: SizeConfig.screenWidth * 0.02,
                         child: CircleButton(
                           size: SizeConfig.screenDiagonal * 0.04,
                           iconData: Icons.arrow_back_outlined,
@@ -170,7 +170,7 @@ class CameraScreenState extends State<CameraScreen>
                         child: FittedBox(
                           child: SizedBox(
                               width: width,
-                              height: height * 0.67,
+                              height: height * 0.65,
                               child: CameraPreview(
                                 state.viewModel.cameraController!,
                                 child: LayoutBuilder(builder:
@@ -189,27 +189,32 @@ class CameraScreenState extends State<CameraScreen>
                         state.status == BlocStatusState.loading)
                       Center(
                         child: Text(translation(context).holdForFewSec,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white)),
+                            style: TextStyle(
+                                fontSize: SizeConfig.screenWidth * 0.045,
+                                color: Colors.white)),
                       )
                     else
                       Positioned(
-                        top: height * 0.0877,
-                        left: width * 0.315,
+                        top: height * 0.09,
+                        left: width * 0.3,
                         child: Container(
+                          width: SizeConfig.screenWidth * 0.4,
                           decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
-                          child: Text(translation(context).cameraScreen,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.white)),
+                          child: Center(
+                            child: Text(translation(context).cameraScreen,
+                                style: TextStyle(
+                                    fontSize: SizeConfig.screenWidth * 0.045,
+                                    color: Colors.white)),
+                          ),
                         ),
                       ),
                     overlayRectangle(context, task: widget.task),
                     Stack(alignment: Alignment.topCenter, children: [
                       Positioned(
-                          top: 15,
-                          left: 15,
+                          top: SizeConfig.screenWidth * 0.03,
+                          left: SizeConfig.screenWidth * 0.03,
                           child: CircleButton(
                             size: SizeConfig.screenDiagonal * 0.04,
                             iconData: Icons.arrow_back_outlined,
@@ -223,39 +228,46 @@ class CameraScreenState extends State<CameraScreen>
                           state.status == BlocStatusState.loading)
                         Center(
                           child: Text(translation(context).holdForFewSec,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.white)),
+                              style: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.045,
+                                  color: Colors.white)),
                         )
                       else
                         Positioned(
-                          top: height * 0.0877,
-                          left: width * 0.315,
+                          top: height * 0.09,
+                          left: width * 0.3,
                           child: Container(
+                            width: SizeConfig.screenWidth * 0.4,
                             decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
-                            child: Text(translation(context).cameraScreen,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.white)),
+                            child: Center(
+                              child: Text(translation(context).cameraScreen,
+                                  style: TextStyle(
+                                      fontSize: SizeConfig.screenWidth * 0.045,
+                                      color: Colors.white)),
+                            ),
                           ),
                         ),
                     ]),
                     //cropStroke(context, task: widget.task),
                     Positioned(
-                      bottom: height * 0.3,
-                      left: width * 0.036,
+                      top: height * 0.68,
+                      left: width * 0.0825,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            decoration: BoxDecoration(
+                            height: SizeConfig.screenHeight * 0.035,
+                            width: SizeConfig.screenHeight * 0.035,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.sunny),
-                            ),
+                            child: Center(
+                                child: Icon(Icons.sunny,
+                                    size: SizeConfig.screenHeight * 0.025)),
                           ),
                           SizedBox(
                             width: width * 0.7,
@@ -274,15 +286,19 @@ class CameraScreenState extends State<CameraScreen>
                             ),
                           ),
                           Container(
+                            width: SizeConfig.screenWidth * 0.1,
+                            height: SizeConfig.screenHeight * 0.035,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenWidth * 0.015),
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.all(width * 0.02),
+                            child: Center(
                               child: Text(
                                 '${currentExposureOffset.toStringAsFixed(1)}x',
-                                style: const TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: SizeConfig.screenWidth * 0.03),
                               ),
                             ),
                           ),
@@ -318,7 +334,7 @@ class CameraScreenState extends State<CameraScreen>
                             ),
                           ),
                           SizedBox(
-                            height: height * 0.062,
+                            height: height * 0.045,
                           ),
                           Container(
                             height: height * 0.06,
@@ -339,6 +355,7 @@ class CameraScreenState extends State<CameraScreen>
                                   child: SizedBox(
                                     width: width * 0.45,
                                     child: Icon(
+                                      size: height * 0.03,
                                       Icons.flash_off,
                                       color: currentFlashMode == FlashMode.off
                                           ? Colors.amber
@@ -358,6 +375,7 @@ class CameraScreenState extends State<CameraScreen>
                                   child: SizedBox(
                                     width: width * 0.45,
                                     child: Icon(
+                                      size: height * 0.03,
                                       Icons.highlight,
                                       color: currentFlashMode == FlashMode.torch
                                           ? Colors.amber
@@ -426,7 +444,7 @@ class CameraScreenState extends State<CameraScreen>
     }
     return Positioned(
       top: MediaQuery.of(context).size.height * 0.23,
-      left: MediaQuery.of(context).size.width * 0.20,
+      left: MediaQuery.of(context).size.width * 0.2,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.6,
         height: MediaQuery.of(context).size.height * 0.12,

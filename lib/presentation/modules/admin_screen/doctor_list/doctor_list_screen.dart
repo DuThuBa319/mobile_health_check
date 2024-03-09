@@ -60,16 +60,20 @@ class _DoctorListState extends State<DoctorListScreen> {
             title: " ",
             selectedIndex: 0,
             floatActionButton: Container(
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 244, 51, 51),
-                  borderRadius: BorderRadius.circular(30)),
+              width: SizeConfig.screenDiagonal * 0.06,
+              height: SizeConfig.screenDiagonal * 0.06,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromARGB(255, 244, 51, 51),
+              ),
               child: IconButton(
                   onPressed: () {
                     // showSuccessfullToast();
                     Navigator.pushNamed(context, RouteList.addDoctor);
                     filterKeyword = TextEditingController(text: "");
                   },
-                  icon: const Icon(
+                  icon: Icon(
+                    size: SizeConfig.screenDiagonal * 0.03,
                     Icons.group_add_outlined,
                     color: Colors.white,
                   )),
@@ -103,33 +107,43 @@ class _DoctorListState extends State<DoctorListScreen> {
                                 spaceBottom: SizeConfig.screenHeight * 0.02,
                                 spaceTop: 5),
                             Container(
+                              height: SizeConfig.screenHeight * 0.075,
+                              width: SizeConfig.screenWidth,
                               margin: EdgeInsets.only(
-                                bottom: SizeConfig.screenWidth * 0.05,
+                                top: SizeConfig.screenHeight * 0.005,
+                                bottom: SizeConfig.screenHeight * 0.02,
                               ),
                               decoration: BoxDecoration(
                                 boxShadow: const [
                                   BoxShadow(color: Colors.black26)
                                 ],
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(
+                                    SizeConfig.screenWidth * 0.015),
                                 color: Colors.white,
                               ),
                               child: Center(
                                 child: TextField(
+                                  style: TextStyle(
+                                      color: AppColor.gray767676,
+                                      fontSize: SizeConfig.screenDiagonal < 1350
+                                          ? SizeConfig.screenWidth * 0.05
+                                          : SizeConfig.screenWidth * 0.045),
                                   controller: filterKeyword,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
-                                          SizeConfig.screenWidth * 0.03),
+                                          SizeConfig.screenWidth * 0.015),
                                       borderSide: BorderSide.none,
                                     ),
                                     hintText: translation(context).searchDoctor,
                                     hintStyle: TextStyle(
-                                        color: Colors.black54,
+                                        color: AppColor.gray767676,
                                         fontSize:
-                                            SizeConfig.screenWidth * 0.055),
+                                            SizeConfig.screenWidth * 0.04),
                                     suffixIcon: IconButton(
-                                      icon: const Icon(Icons.search),
+                                      icon: Icon(Icons.search,
+                                          size: SizeConfig.screenHeight * 0.03),
                                       color: Colors.black,
                                       onPressed: () {
                                         getDoctorBloc.add(
@@ -143,7 +157,6 @@ class _DoctorListState extends State<DoctorListScreen> {
                                 ),
                               ),
                             ),
-
                             //? Loading
                             ((state.status == BlocStatusState.loading &&
                                         (state is GetDoctorListState ||
@@ -194,8 +207,11 @@ class _DoctorListState extends State<DoctorListScreen> {
                                           textAlign: TextAlign.center,
                                           state.viewModel.errorMessage!,
                                           style: AppTextTheme.body2.copyWith(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
+                                               fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold),
                                         ),
                                         const SizedBox(height: 10),
                                         RectangleButton(

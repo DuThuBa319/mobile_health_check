@@ -299,7 +299,6 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
       );
       try {
         String? imageUrl = " ";
-
         final result = await FirebaseStorageService.uploadFile(
             file: state.viewModel.bloodGlucoseImageFile!,
             fileName: DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now()),
@@ -307,13 +306,22 @@ class OCRScannerBloc extends Bloc<OCRScannerEvent, OCRScannerState> {
         if (result != null) {
           imageUrl = result.url;
         }
-
-        final entity =
-            state.viewModel.bloodSugarEntity?.copywith(imageLink: imageUrl);
-
-        await bloodSugarUseCase.createBloodSugarEntity(
-            patientId: userDataData.getUser()!.id!,
-            bloodSugarEntity: entity ?? BloodSugarEntity());
+        final BloodSugarEntity? entity;
+        int? localValue = userDataData.localDataManager.preferencesHelper
+            .getData("Indicator");
+        if (localValue == 20 || localValue == 600) {
+          entity = state.viewModel.bloodSugarEntity?.copywith(
+              imageLink: imageUrl, bloodSugar: localValue!.toDouble());
+          await bloodSugarUseCase.createBloodSugarEntity(
+              patientId: userDataData.getUser()!.id!,
+              bloodSugarEntity: entity ?? BloodSugarEntity());
+        } else {
+          entity =
+              state.viewModel.bloodSugarEntity?.copywith(imageLink: imageUrl);
+          await bloodSugarUseCase.createBloodSugarEntity(
+              patientId: userDataData.getUser()!.id!,
+              bloodSugarEntity: entity ?? BloodSugarEntity());
+        }
         emit(
           state.copyWith(
             status: BlocStatusState.success,
@@ -637,7 +645,12 @@ Future<List<int?>> uploadBloodPressureImage(
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
       filename: croppedImage.path.split("/").last));
-  request.fields['flashOn'] = flashOn.toString();
+  // request.fields['flashOn'] = flashOn.toString();
+  int equipIndex = userDataData.localDataManager.preferencesHelper
+          .getData("BloodPressureEquipModel") +
+      1;
+
+  request.fields['BP'] = "BP$equipIndex";
   request.headers.addAll(headers);
   final response = await request.send();
   http.Response res = await http.Response.fromStream(response);
@@ -658,11 +671,11 @@ Future<double?> uploadBloodGlucoseImage(
 
   final request =
       http.MultipartRequest("POST", Uri.parse(url['bloodSugarURL'] ?? ''));
-  final headers = {"Content-type": "multipart/form-data"};
+  final headers = {"Content-Type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
       filename: croppedImage.path.split("/").last));
-  request.fields['flashOn'] = flashOn.toString();
+  // request.fields['flashOn'] = flashOn.toString();
   request.headers.addAll(headers);
   final response = await request.send();
   http.Response res = await http.Response.fromStream(response);
@@ -670,11 +683,10 @@ Future<double?> uploadBloodGlucoseImage(
   try {
     final resJson = jsonDecode(res.body);
     // String message = resJson['message'];
-
     // debugPrint(message);
     glucose = double.parse(resJson['glucose']);
   } catch (e) {
-    debugPrint('$e');
+    debugPrint('##########$e');
   }
   return glucose;
 }
@@ -688,17 +700,19 @@ Future<double?> uploadTemperatureImage(
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
       filename: croppedImage.path.split("/").last));
-  request.fields['flashOn'] = flashOn.toString();
+  int tempIndex = userDataData.localDataManager.preferencesHelper
+          .getData("TempEquipModel") +
+      1;
+  String flashStatus = (flashOn == true) ? "on" : "off";
+  request.fields['flash'] = flashStatus;
+  request.fields['T'] = "t$tempIndex";
   request.headers.addAll(headers);
   final response = await request.send();
-  http.Response res = await http.Response.fromStream(response);
-
   try {
-    final resJson = jsonDecode(res.body);
-    // String message = resJson['message'];
+    http.Response res = await http.Response.fromStream(response);
 
-    // debugPrint(message);
-    temperature = double.parse(resJson['temperature']);
+    final resJson = jsonDecode(res.body);
+    temperature = resJson["temperature"];
   } catch (e) {
     debugPrint('$e');
   }

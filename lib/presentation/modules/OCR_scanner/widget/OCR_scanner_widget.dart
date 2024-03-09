@@ -44,12 +44,23 @@ Widget imagePickerCell(
             child: imageFile == null
                 ? GestureDetector(
                     onTap: () async {
-                      if (imagesTakenToday > 5 || imagesTakenToday == 5) {
-                        showExceptionDialog(
-                            context: context,
-                            message:
-                                translation(context).overImagesCountPermission,
-                            titleBtn: translation(context).exit);
+                      //  if (imagesTakenToday > 5 || imagesTakenToday == 5) {
+                      //   showExceptionDialog(
+                      //      context: context,
+                      //        message:
+                      //            translation(context).overImagesCountPermission,
+                      //        titleBtn: translation(context).exit);
+                      //  } else {
+                      await [
+                        // Request camera and microphone permissions
+                        Permission.camera,
+                        Permission.microphone,
+                      ].request();
+                      if (await Permission.camera.status ==
+                              PermissionStatus.granted &&
+                          await Permission.microphone.status ==
+                              PermissionStatus.granted) {
+                        scanBloc.add(event);
                       } else {
                         await [
                           // Request camera and microphone permissions
@@ -64,7 +75,8 @@ Widget imagePickerCell(
                         } else {
                           await showWarningDialog(
                               context: context,
-                              message: translation(context).permissionCameraWarning,
+                              message:
+                                  translation(context).permissionCameraWarning,
                               onClose1: () {},
                               onClose2: () async {
                                 await openAppSettings();
@@ -72,9 +84,10 @@ Widget imagePickerCell(
                         }
                       }
                     },
+                    // },
                     child: Icon(
                       Symbols.linked_camera_rounded,
-                      weight: 100,
+                      weight: SizeConfig.screenHeight * 0.08,
                       size: SizeConfig.screenDiagonal * 0.3,
                       color: (imagesTakenToday! > 5 || imagesTakenToday == 5)
                           ? AppColor.gray767676
@@ -98,6 +111,9 @@ Widget imagePickerCell(
               right: SizeConfig.screenWidth * 0.01,
               child: InkWell(
                 onTap: () {
+                  userDataData.localDataManager.preferencesHelper
+                      .remove("Indicator");
+
                   scanBloc.add(event);
                 },
                 child: Container(
@@ -136,10 +152,8 @@ Widget processingLoading(BuildContext context) {
           type: MaterialType.transparency,
           child: Text(
             translation(context).processing,
-            style: AppTextTheme.body3.copyWith(
-              color: Colors.black,
-              decoration: null,
-            ),
+            style: AppTextTheme.body3
+                .copyWith(fontSize: SizeConfig.screenWidth * 0.04),
           ),
         ),
       ],
@@ -361,12 +375,13 @@ class _InstructionScannerState extends State<InstructionScanner> {
           )
         : Container(
             width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.082,
-            padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+            height: SizeConfig.screenHeight * 0.12,
+            padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Gap(5),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -376,7 +391,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       color: const Color.fromARGB(255, 106, 247, 111),
                       size: SizeConfig.screenDiagonal * 0.03,
                     ),
-                    const Gap(5),
+                    Gap(SizeConfig.screenWidth * 0.005),
                     Text(translation(context).press,
                         style: TextStyle(
                             color: Colors.black,
@@ -403,7 +418,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                       color: const Color.fromARGB(255, 0, 255, 242),
                       size: SizeConfig.screenDiagonal * 0.03,
                     ),
-                    const Gap(5),
+                    Gap(SizeConfig.screenWidth * 0.005),
                     Text(translation(context).imagesTakenToday,
                         style: TextStyle(
                             color: Colors.black,

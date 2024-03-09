@@ -29,9 +29,10 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
         onTap: () {
           Navigator.pushNamed(context, RouteList.bloodSugarDetail,
               arguments: widget.response);
-          showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).waitForSeconds);
+          showToast(
+              context: context,
+              status: ToastStatus.loading,
+              toastString: translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -43,14 +44,14 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
           margin: EdgeInsets.fromLTRB(
             SizeConfig.screenWidth * 0.02,
             SizeConfig.screenHeight * 0.01,
-            SizeConfig.screenWidth * 0.015,
+            SizeConfig.screenWidth * 0.02,
             SizeConfig.screenHeight * 0.01,
           ),
           padding: EdgeInsets.only(
-              top: SizeConfig.screenHeight * 0.01,
-              left: SizeConfig.screenWidth * 0.02,
-              right: SizeConfig.screenWidth * 0.025,
-              bottom: SizeConfig.screenHeight * 0.005),
+            top: SizeConfig.screenHeight * 0.01,
+            left: SizeConfig.screenWidth * 0.02,
+            right: SizeConfig.screenWidth * 0.025,
+          ),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -59,7 +60,7 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                        padding: const EdgeInsets.all(5),
+                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.01),
                         height: SizeConfig.screenDiagonal * 0.045,
                         width: SizeConfig.screenDiagonal * 0.045,
                         decoration: const BoxDecoration(
@@ -67,7 +68,7 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                             shape: BoxShape.circle),
                         child: Image.asset(
                           Assets.bloodSugar,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitWidth,
                         )),
                     SizedBox(
                       width: SizeConfig.screenWidth * 0.01,
@@ -93,60 +94,38 @@ class _BloodSugarCellWidgetState extends State<BloodSugarCellWidget> {
                   ],
                 ),
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: '${widget.response!.bloodSugar}',
-                                style: AppTextTheme.title3.copyWith(
-                                    color: widget.response?.statusColor,
-                                    fontSize: SizeConfig.screenDiagonal * 0.05,
-                                    fontWeight: FontWeight.w500)),
-                            TextSpan(
-                                text: " mg/dL",
-                                style: AppTextTheme.title3.copyWith(
-                                    color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenDiagonal * 0.022,
-                                    fontWeight: FontWeight.w500))
-                          ],
-                        ),
-                      )
-                    ],
+                  child: Transform.translate(
+                    offset: Offset(0, -SizeConfig.screenHeight * 0.005),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: '${widget.response!.bloodSugar}',
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: widget.response?.statusColor,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.05,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: " mg/dL",
+                                  style: AppTextTheme.title3.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.022,
+                                      fontWeight: FontWeight.w500))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ]),
         ));
   }
-
-  // Widget statusContainer({
-  //   double width = 61,
-  //   double height = 22,
-  //   String statusText = 'Cao',
-  //   EdgeInsetsGeometry margin = const EdgeInsets.only(bottom: 7, top: 8),
-  //   Color color = Colors.grey,
-  // }) =>
-  //     Container(
-  //       width: width,
-  //       height: height,
-  //       margin: margin,
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(8),
-  //         color: color,
-  //       ),
-  //       child: Text(
-  //         statusText,
-  //         textAlign: TextAlign.center,
-  //         style: const TextStyle(
-  //           color: Colors.white,
-  //           fontWeight: FontWeight.w600,
-  //           fontSize: 12,
-  //           height: 1.6,
-  //         ),
-  //       ),
-  //     );
 }

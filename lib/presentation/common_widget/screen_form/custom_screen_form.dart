@@ -62,7 +62,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
 //app bar ---------------------------------------
       appBar: widget.isShowAppBar
           ? AppBar(
-            
+              toolbarHeight: SizeConfig.screenHeight * 0.055,
               backgroundColor: widget.appBarColor,
               elevation: 0,
               automaticallyImplyLeading: false,
@@ -71,7 +71,7 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                       IconButton(
                         icon: Icon(
                           Icons.arrow_back,
-                          size: SizeConfig.screenDiagonal * 0.035,
+                          size: SizeConfig.screenHeight * 0.04,
                           color: widget.appComponentColor,
                         ),
                         onPressed: () {
@@ -81,11 +81,14 @@ class _CustomScreenFormState extends State<CustomScreenForm> {
                   : null,
               centerTitle: true,
               title: Text(
+                textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 widget.title!,
                 style: AppTextTheme.title1.copyWith(
                     color: widget.appComponentColor,
-                    fontSize: SizeConfig.screenWidth * 0.065),
+                    fontSize: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenWidth * 0.065
+                        : SizeConfig.screenWidth * 0.058),
               ),
               actions: [
                 (userDataData.getUser()?.role == UserRole.admin ||

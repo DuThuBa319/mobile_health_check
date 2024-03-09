@@ -120,9 +120,11 @@ class _NotificationListState extends State<NotificationScreen> {
                         Text(
                           translation(context).noNotification,
                           style: AppTextTheme.body2.copyWith(
-                              color: Colors.red, fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                              fontSize: SizeConfig.screenDiagonal * 0.025),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.01),
                         RectangleButton(
                           height: SizeConfig.screenHeight * 0.045,
                           width: SizeConfig.screenWidth * 0.3,

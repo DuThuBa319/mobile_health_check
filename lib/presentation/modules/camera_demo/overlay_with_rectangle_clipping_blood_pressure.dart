@@ -55,7 +55,7 @@ class RectanglePainter extends CustomPainter {
         sizeFrame[1] = size.height * 0.16;
         sizeFrame[2] = size.width * 0.75;
         sizeFrame[3] = size.height * 0.3;
-        sizeFrame[4] = 40;
+        sizeFrame[4] = size.width * 0.1;
         break;
       case 3: //?BP4 => Done
         sizeFrame[0] = size.width * 0.2;

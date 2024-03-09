@@ -58,21 +58,27 @@ class _PatientListState extends State<PatientListScreen> {
             title: " ",
             selectedIndex: 0,
             floatActionButton: Container(
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 244, 51, 51),
-                  borderRadius: BorderRadius.circular(30)),
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RouteList.addPatient);
-                    filterKeyword = TextEditingController(text: "");
-                  },
-                  icon: const Icon(
-                    Icons.group_add_outlined,
-                    color: Colors.white,
-                  )),
+              width: SizeConfig.screenDiagonal * 0.06,
+              height: SizeConfig.screenDiagonal * 0.06,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromARGB(255, 244, 51, 51),
+              ),
+              child: Center(
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, RouteList.addPatient);
+                      filterKeyword = TextEditingController(text: "");
+                    },
+                    icon: Icon(
+                      size: SizeConfig.screenDiagonal * 0.03,
+                      Icons.group_add_outlined,
+                      color: Colors.white,
+                    )),
+              ),
             ),
             child: Padding(
-              padding: EdgeInsets.only(top: SizeConfig.screenWidth * 0.03),
+              padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
               child: BlocConsumer<GetPatientBloc, GetPatientState>(
                   listener: _blocListener,
                   builder: (context, state) {
@@ -110,7 +116,7 @@ class _PatientListState extends State<PatientListScreen> {
                                           color: const Color.fromARGB(
                                               100, 22, 44, 33),
                                           borderRadius: BorderRadius.circular(
-                                              SizeConfig.screenWidth * 0.030)),
+                                              SizeConfig.screenWidth * 0.025)),
                                       child: Center(
                                         child: InkWell(
                                             onTap: () {
@@ -121,12 +127,14 @@ class _PatientListState extends State<PatientListScreen> {
                                                       .id);
                                             },
                                             child: badges.Badge(
-                                              position:
-                                                  badges.BadgePosition.topEnd(
-                                                      top: -8,
+                                              position: badges.BadgePosition
+                                                  .topEnd(
+                                                      top: -SizeConfig
+                                                              .screenHeight *
+                                                          0.018,
                                                       end: -SizeConfig
-                                                              .screenWidth *
-                                                          0.035),
+                                                              .screenHeight *
+                                                          0.018),
                                               badgeContent: state.viewModel
                                                           .unreadCount ==
                                                       null
@@ -138,7 +146,9 @@ class _PatientListState extends State<PatientListScreen> {
                                                                   .screenDiagonal *
                                                               0.012,
                                                           color: Colors.white)),
-                                              child: const Icon(
+                                              child: Icon(
+                                                  size: SizeConfig.screenWidth *
+                                                      0.05,
                                                   Icons
                                                       .notifications_none_rounded,
                                                   color: Colors.white),
@@ -151,9 +161,9 @@ class _PatientListState extends State<PatientListScreen> {
                                   spaceTop: 5),
                               //! Search box
                               Container(
+                                height: SizeConfig.screenHeight * 0.075,
+                                width: SizeConfig.screenWidth,
                                 margin: EdgeInsets.only(
-                                  left: 2,
-                                  right: 2,
                                   top: SizeConfig.screenHeight * 0.005,
                                   bottom: SizeConfig.screenHeight * 0.02,
                                 ),
@@ -161,27 +171,36 @@ class _PatientListState extends State<PatientListScreen> {
                                   boxShadow: const [
                                     BoxShadow(color: Colors.black26)
                                   ],
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.screenWidth * 0.015),
                                   color: Colors.white,
                                 ),
-                                child: SizedBox(
+                                child: Center(
                                   child: TextField(
+                                    style: TextStyle(
+                                        color: AppColor.gray767676,
+                                        fontSize: SizeConfig.screenDiagonal <
+                                                1350
+                                            ? SizeConfig.screenWidth * 0.05
+                                            : SizeConfig.screenWidth * 0.045),
                                     controller: filterKeyword,
                                     decoration: InputDecoration(
                                       fillColor: Colors.white,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(
-                                            SizeConfig.screenWidth * 0.03),
+                                            SizeConfig.screenWidth * 0.015),
                                         borderSide: BorderSide.none,
                                       ),
                                       hintText:
                                           translation(context).searchPatient,
                                       hintStyle: TextStyle(
-                                          color: Colors.black54,
+                                          color: AppColor.gray767676,
                                           fontSize:
-                                              SizeConfig.screenWidth * 0.05),
+                                              SizeConfig.screenWidth * 0.04),
                                       suffixIcon: IconButton(
-                                        icon: const Icon(Icons.search),
+                                        icon: Icon(Icons.search,
+                                            size:
+                                                SizeConfig.screenHeight * 0.03),
                                         color: Colors.black,
                                         onPressed: () {
                                           patientBloc.add(
@@ -244,10 +263,15 @@ class _PatientListState extends State<PatientListScreen> {
                                             textAlign: TextAlign.center,
                                             state.viewModel.errorMessage!,
                                             style: AppTextTheme.body2.copyWith(
+                                                fontSize:
+                                                    SizeConfig.screenWidth *
+                                                        0.05,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          const SizedBox(height: 10),
+                                          SizedBox(
+                                              height: SizeConfig.screenHeight *
+                                                  0.01),
                                           RectangleButton(
                                             height:
                                                 SizeConfig.screenHeight * 0.052,

@@ -24,7 +24,8 @@
     "averageSpo2":"Chỉ số Oxy trong máu trung bình",
     "lowSpo2":"Chỉ số Oxy trong máu thấp",
     "emergencySpo2":"Dấu hiệu suy hô hấp",
-
+    "ifTheResultIs":"Nếu kết quả là",
+    "pressTheButton":"thì hãy nhấn nút sau:",
     "language":"Ngôn ngữ",
     "lastUpdate":"CẬP NHẬT GẦN NHẤT",
     "logOut":"Đăng xuất",
@@ -91,7 +92,7 @@
 "uploadSpo2Successfully":"Bạn đã cập nhật chỉ số nồng độ oxi mới thành công",
 
 
-"editIndicatore":"Điền số liệu chính xác theo thiết bị",
+"editIndicatore":"Chỉnh sửa đúng giá trị",
 "confirm":"Xác nhận",
 "titileForgetPass":"  Đừng lo lắng! Hãy nhập số điện thoại đã đăng ký để nhận lại mật khẩu mới nhé.",
 "wrongPhoneNumber":"Số điện thoại này chưa được đăng ký",

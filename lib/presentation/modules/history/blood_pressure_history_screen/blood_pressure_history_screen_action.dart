@@ -4,12 +4,6 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
   void blocListener(BuildContext context, HistoryState state) {
     //? Loading
     if (state.status == BlocStatusState.loading) {
-      // if (state is GetHistoryDataState) {
-      //   showToast( context: context,
-      //                       status: ToastStatus.loading,
-      //                       toastString:translation(context).loadingData);
-      //   //   );
-      // }
     }
     //? Success
     if (state.status == BlocStatusState.success) {
@@ -17,7 +11,7 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
         showToast( context: context,
                             status: ToastStatus.success,
                             toastString:translation(context).dataLoaded);
-        // Navigator.of(context, rootNavigator: true).pop();
+        
       }
     }
     //? Failure
@@ -25,17 +19,12 @@ extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
       showToast( context: context,
                             status: ToastStatus.error,
                             toastString:state.viewModel.errorMessage);
-      // Navigator.of(context, rootNavigator: true).pop();
-
-      // showExceptionDialog(
-      //     context: context,
-      //     message: state.viewModel.errorMessage!,
-      //     titleBtn: translation(context).exit);
     }
   }
 
   void selectedDate({bool isSelectedDateFrom = true}) async {
     final timePicker = await showDatePicker(
+      
       context: context,
       initialDate: isSelectedDateFrom ? timeFrom : timeTo,
       firstDate: DateTime(2000),

@@ -33,11 +33,8 @@ class _SettingMenuState extends State<SettingMenu> {
         selectedIndex: 1,
         isScrollable: true,
         child: Container(
-          padding: EdgeInsets.only(
-            top: SizeConfig.screenWidth * 0.1,
-          ),
           margin: EdgeInsets.only(
-            top: SizeConfig.screenWidth * 0.02,
+            top: SizeConfig.screenHeight * 0.05,
             left: SizeConfig.screenWidth * 0.05,
             right: SizeConfig.screenWidth * 0.05,
           ),
@@ -67,7 +64,7 @@ class _SettingMenuState extends State<SettingMenu> {
                           (userDataData.getUser()?.role == UserRole.doctor)
                               ? Assets.doctor
                               : Assets.family,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.fitWidth,
                         )),
                       ),
                 SizedBox(

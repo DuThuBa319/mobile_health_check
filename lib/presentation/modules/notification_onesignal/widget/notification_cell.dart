@@ -47,9 +47,10 @@ class _NotificationCellState extends State<NotificationCell> {
         }
 
         if (widget.notificationEntity?.bloodPressureEntity != null) {
-          showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).waitForSeconds);
+          showToast(
+              context: context,
+              status: ToastStatus.loading,
+              toastString: translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bloodPressuerNotificationReading, arguments: {
             "notificationEntity": widget.notificationEntity,
@@ -57,9 +58,10 @@ class _NotificationCellState extends State<NotificationCell> {
           });
         }
         if (widget.notificationEntity?.bloodSugarEntity != null) {
-          showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).waitForSeconds);
+          showToast(
+              context: context,
+              status: ToastStatus.loading,
+              toastString: translation(context).waitForSeconds);
 
           Navigator.pushNamed(context, RouteList.bloodSugarNotificationReading,
               arguments: {
@@ -68,9 +70,10 @@ class _NotificationCellState extends State<NotificationCell> {
               });
         }
         if (widget.notificationEntity?.bodyTemperatureEntity != null) {
-          showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).waitForSeconds);
+          showToast(
+              context: context,
+              status: ToastStatus.loading,
+              toastString: translation(context).waitForSeconds);
           Navigator.pushNamed(
               context, RouteList.bodyTemperatureNotificationReading,
               arguments: {
@@ -79,9 +82,10 @@ class _NotificationCellState extends State<NotificationCell> {
               });
         }
         if (widget.notificationEntity?.spo2Entity != null) {
-          showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).waitForSeconds);
+          showToast(
+              context: context,
+              status: ToastStatus.loading,
+              toastString: translation(context).waitForSeconds);
           Navigator.pushNamed(context, RouteList.spo2NotificationReading,
               arguments: {
                 "notificationEntity": widget.notificationEntity,
@@ -98,7 +102,10 @@ class _NotificationCellState extends State<NotificationCell> {
               SlidableAction(
                 label: translation(context).delete,
                 autoClose: false,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(
+                    SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenWidth * 0.03
+                        : SizeConfig.screenWidth * 0.025),
                 onPressed: (context) {
                   if (widget.notificationEntity?.read == true) {
                     widget.notificationBloc?.add(DeleteNotificationEvent(
@@ -114,97 +121,108 @@ class _NotificationCellState extends State<NotificationCell> {
                 icon: Icons.delete_outline_outlined,
               ),
             ]),
-        child: Container(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.15,
-            decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                    blurRadius: 5,
-                    color: Colors.black12,
-                  )
-                ],
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                border: Border.all(
-                    color: (widget.notificationEntity?.read == false)
-                        ? AppColor.topGradient
-                        : AppColor.lightGrey,
-                    width: 3)),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      width: (SizeConfig.screenWidth - 5),
-                      height: SizeConfig.screenHeight * 0.04,
-                      padding: const EdgeInsets.only(left: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5)),
-                        color: (widget.notificationEntity?.read == false)
-                            ? AppColor.topGradient
-                            : AppColor.lightGrey,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColor.white),
-                                child: const Icon(
-                                    Icons.circle_notifications_sharp,
-                                    color: AppColor.lineDecor),
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth * 0.02,
-                              ),
-                              Text(
-                                  widget.notificationEntity?.type == 0
-                                      ? translation(context).updateBloodPressure
-                                      : widget.notificationEntity?.type == 1
-                                          ? translation(context)
-                                              .updateBloodSugar
-                                          : widget.notificationEntity?.type == 2
-                                              ? translation(context)
-                                                  .updateBodytemperature
-                                              : widget.notificationEntity
-                                                          ?.type ==
-                                                      3
-                                                  ? translation(context)
-                                                      .updateSpo2
-                                                  : "",
-                                  softWrap: true,
-                                  style: AppTextTheme.body3.copyWith(
-                                      color: AppColor.black,
-                                      fontSize: SizeConfig.screenWidth * 0.038,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                          Text(
-                              softWrap: true,
-                              DateFormat('HH:mm dd/MM/yyyy').format((widget
-                                  .notificationEntity?.sendDate!
-                                  .add(const Duration(hours: 7)))!),
-                              style: AppTextTheme.body4.copyWith(
-                                  color: AppColor.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: SizeConfig.screenWidth * 0.03)),
-                        ],
-                      )),
-                  Expanded(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      contentCell(widget.notificationEntity!, context),
-                    ],
-                  ))
-                ])),
+        child: Center(
+          child: Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight * 0.15,
+              decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 5,
+                      color: Colors.black12,
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(
+                      SizeConfig.screenDiagonal < 1350
+                          ? SizeConfig.screenWidth * 0.03
+                          : SizeConfig.screenWidth * 0.02),
+                  color: Colors.white,
+                  border: Border.all(
+                      color: (widget.notificationEntity?.read == false)
+                          ? AppColor.topGradient
+                          : AppColor.lightGrey,
+                      width: SizeConfig.screenDiagonal < 1350 ? 3 : 5)),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: (SizeConfig.screenWidth - 5),
+                        height: SizeConfig.screenHeight * 0.04,
+                        padding: const EdgeInsets.only(left: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5)),
+                          color: (widget.notificationEntity?.read == false)
+                              ? AppColor.topGradient
+                              : AppColor.lightGrey,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: AppColor.white),
+                                  child: Center(
+                                    child: Icon(
+                                        size: SizeConfig.screenHeight * 0.035,
+                                        Icons.circle_notifications_sharp,
+                                        color: AppColor.lineDecor),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: SizeConfig.screenWidth * 0.02,
+                                ),
+                                Text(
+                                    widget.notificationEntity?.type == 0
+                                        ? translation(context)
+                                            .updateBloodPressure
+                                        : widget.notificationEntity?.type == 1
+                                            ? translation(context)
+                                                .updateBloodSugar
+                                            : widget.notificationEntity?.type ==
+                                                    2
+                                                ? translation(context)
+                                                    .updateBodytemperature
+                                                : widget.notificationEntity
+                                                            ?.type ==
+                                                        3
+                                                    ? translation(context)
+                                                        .updateSpo2
+                                                    : "",
+                                    softWrap: true,
+                                    style: AppTextTheme.body3.copyWith(
+                                        color: AppColor.black,
+                                        fontSize:
+                                            SizeConfig.screenWidth * 0.038,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                            Text(
+                                softWrap: true,
+                                DateFormat('HH:mm dd/MM/yyyy').format((widget
+                                    .notificationEntity?.sendDate!
+                                    .add(const Duration(hours: 7)))!),
+                                style: AppTextTheme.body4.copyWith(
+                                    color: AppColor.black,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: SizeConfig.screenWidth * 0.03)),
+                          ],
+                        )),
+                    Expanded(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        contentCell(widget.notificationEntity!, context),
+                      ],
+                    ))
+                  ])),
+        ),
       ),
     );
   }

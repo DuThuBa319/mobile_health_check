@@ -55,18 +55,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     RouteList.patientList,
                     arguments: userDataData.getUser()!.id!,
                     (route) => false);
-                // showSuccessDialog(
-                //     onClose: () {
-                //       Navigator.pushNamedAndRemoveUntil(
-                //           context,
-                //           RouteList.patientList,
-                //           arguments: userDataData.getUser()!.id!,
-                //           (route) => false);
-                //     },
-                //     context: context,
-                //     message: translation(context).addPatientSuccessText,
-                //     title: translation(context).addPatientSuccessfully,
-                //     titleBtn: translation(context).exit);
               }
             }
 
@@ -123,13 +111,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 fontSize: SizeConfig.screenWidth * 0.06,
                                 fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(
-                            height: 2,
-                          ),
-                          lineDecor(),
-                          SizedBox(
-                            height: SizeConfig.screenHeight * 0.015,
-                          )
+                          lineDecor(
+                              spaceBottom: SizeConfig.screenHeight * 0.015,
+                              spaceTop: SizeConfig.screenHeight * 0.005),
                         ],
                       )),
                   Container(
@@ -140,8 +124,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     height: SizeConfig.screenHeight * 0.09,
                     decoration: BoxDecoration(
                       color: AppColor.white,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.035
+                              : SizeConfig.screenWidth * 0.025),
                     ),
                     child: Center(
                       child: TextField(
@@ -150,17 +136,26 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         controller: _controllerPatientName,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.05),
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.only(top: 2, bottom: 2),
+                          contentPadding: EdgeInsets.only(
+                              top: SizeConfig.screenHeight * 0.005,
+                              bottom: SizeConfig.screenHeight * 0.005),
+                          errorStyle: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.03,
+                            color: Colors.red,
+                          ),
                           errorText: (state.viewModel.errorEmptyName == true)
                               ? translation(context).pleaseEnterPatientName
                               : null,
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.045,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -177,8 +172,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     height: SizeConfig.screenHeight * 0.09,
                     decoration: BoxDecoration(
                       color: AppColor.white,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.035
+                              : SizeConfig.screenWidth * 0.025),
                     ),
                     child: Center(
                       child: TextField(
@@ -188,10 +185,17 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         controller: _controllerPatientPhoneNumber,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.05),
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.only(top: 5, bottom: 5),
+                          contentPadding: EdgeInsets.only(
+                              top: SizeConfig.screenHeight * 0.005,
+                              bottom: SizeConfig.screenHeight * 0.005),
+                          errorStyle: TextStyle(
+                            fontSize: SizeConfig.screenWidth * 0.03,
+                            color: Colors.red,
+                          ),
                           errorText:
                               (state.viewModel.errorEmptyPhoneNumber == true)
                                   ? translation(context).invalidPhonenumber
@@ -199,7 +203,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.045,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

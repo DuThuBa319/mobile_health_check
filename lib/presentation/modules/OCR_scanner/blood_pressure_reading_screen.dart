@@ -43,6 +43,7 @@ class _BloodPressureReadingScreenState
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return CustomScreenForm(
       title: translation(context).bloodPressureMeter,
       isShowAppBar: true,
@@ -91,7 +92,9 @@ class _BloodPressureReadingScreenState
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: SizeConfig.screenHeight * 0.24,
+            height: SizeConfig.screenDiagonal < 1350
+                ? SizeConfig.screenHeight * 0.24
+                : SizeConfig.screenHeight * 0.33,
             width: SizeConfig.screenWidth * 0.8,
             padding: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth * 0.04,
@@ -164,15 +167,19 @@ class _BloodPressureReadingScreenState
                               int? pulValue =
                                   state.viewModel.bloodPressureEntity?.pulse;
                               editPul.text =
-                                  pulValue != null ? sysValue.toString() : "--";
+                                  pulValue != null ? pulValue.toString() : "--";
 
                               return AlertDialog(
-                                title:
-                                    Text(translation(context).editIndicatore),
+                                title: Text(
+                                  translation(context).editIndicatore,
+                                  style: TextStyle(
+                                      fontSize: SizeConfig.screenWidth * 0.035),
+                                ),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
                                       Container(
+                                        width: SizeConfig.screenWidth * 0.5,
                                         margin: EdgeInsets.only(
                                             bottom:
                                                 SizeConfig.screenWidth * 0.025),
@@ -242,9 +249,21 @@ class _BloodPressureReadingScreenState
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Text(translation(context).back)),
+                                      child: Text(
+                                        translation(context).back,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize:
+                                                SizeConfig.screenWidth * 0.035),
+                                      )),
                                   TextButton(
-                                    child: Text(translation(context).save),
+                                    child: Text(
+                                      translation(context).save,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.035),
+                                    ),
                                     onPressed: () {
                                       int? editedSys = int.parse(editSys.text);
                                       int? editedPul = int.parse(editPul.text);

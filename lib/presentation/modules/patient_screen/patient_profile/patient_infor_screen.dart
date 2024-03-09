@@ -213,9 +213,8 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 const SizedBox(
                                   height: 2,
                                 ),
-                                lineDecor(),
-                                SizedBox(
-                                  height: SizeConfig.screenHeight * 0.01,
+                                lineDecor(
+                                  spaceBottom: SizeConfig.screenHeight * 0.01,
                                 ),
                               ],
                             ),
@@ -366,11 +365,11 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                 ),
                           if (userDataData.getUser()?.role == UserRole.doctor)
                             Container(
-                              padding: EdgeInsets.only(
+                              margin: EdgeInsets.only(
                                 top: SizeConfig.screenWidth * 0.02,
-                                left: SizeConfig.screenWidth * 0.04,
+                                left: SizeConfig.screenWidth * 0.03,
                                 bottom: SizeConfig.screenWidth * 0.02,
-                                right: SizeConfig.screenWidth * 0.025,
+                                right: SizeConfig.screenWidth * 0.03,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,18 +381,15 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                             SizeConfig.screenWidth * 0.045,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  lineDecor(),
-                                  SizedBox(
-                                    height: SizeConfig.screenHeight * 0.01,
-                                  ),
+                                  lineDecor(
+                                      spaceBottom:
+                                          SizeConfig.screenHeight * 0.01,
+                                      spaceTop: 2),
                                   ListView.separated(
                                     separatorBuilder:
                                         (BuildContext context, int index) =>
-                                            const Divider(
-                                      height: 8,
+                                            Divider(
+                                      height: SizeConfig.screenHeight * 0.005,
                                       color: AppColor.backgroundColor,
                                     ),
                                     physics: const BouncingScrollPhysics(),
@@ -462,11 +458,17 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                       //! SlideAbleForm
                                       return CustomSlidableWidget(
                                         endDrawerWidgets: endDrawerWidgets,
-                                        iconLeadingCell: Icon(
-                                          Icons.account_box_rounded,
-                                          color: AppColor.primaryColorLight,
-                                          size:
-                                              SizeConfig.screenDiagonal * 0.048,
+                                        iconLeadingCell: Transform.translate(
+                                          offset: Offset(
+                                              SizeConfig.screenWidth * 0.01,
+                                              SizeConfig.screenDiagonal < 1350
+                                                  ? 0
+                                                  : -SizeConfig.screenHeight *
+                                                      0.0065),
+                                          child: Icon(Icons.account_box_rounded,
+                                              color: AppColor.blue03A1E4,
+                                              size: SizeConfig.screenDiagonal *
+                                                  0.045),
                                         ),
                                         textLine1: Text(
                                           maxLines: 1,
@@ -474,8 +476,13 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                           softWrap: true,
                                           relative!.name,
                                           style: AppTextTheme.body2.copyWith(
-                                              fontSize: SizeConfig.screenWidth *
-                                                  0.055,
+                                              fontSize:
+                                                  SizeConfig.screenDiagonal <
+                                                          1350
+                                                      ? SizeConfig.screenWidth *
+                                                          0.055
+                                                      : SizeConfig.screenWidth *
+                                                          0.045,
                                               fontWeight: FontWeight.w500),
                                         ),
                                         textLine2: Row(
@@ -483,14 +490,23 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                             Text(relative.phoneNumber,
                                                 style:
                                                     AppTextTheme.body3.copyWith(
-                                                  fontSize:
-                                                      SizeConfig.screenWidth *
-                                                          0.04,
+                                                  fontSize: SizeConfig
+                                                              .screenDiagonal <
+                                                          1350
+                                                      ? SizeConfig.screenWidth *
+                                                          0.035
+                                                      : SizeConfig.screenWidth *
+                                                          0.032,
                                                 )),
                                             emptySpace(5),
                                             InkWell(
-                                              child: const Icon(Icons.copy,
-                                                  color: AppColor.gray767676),
+                                              child: Icon(
+                                                Icons.copy,
+                                                color: AppColor.gray767676,
+                                                size:
+                                                    SizeConfig.screenDiagonal *
+                                                        0.025,
+                                              ),
                                               onTap: () {
                                                 Clipboard.setData(ClipboardData(
                                                     text:

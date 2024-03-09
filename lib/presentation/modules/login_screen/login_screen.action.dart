@@ -29,14 +29,10 @@ extension LoginAction on _LoginState {
                 ),
                 Material(
                   type: MaterialType.transparency,
-                  child: Text(
-                    translation(context).verifying,
-                    //! Đang xác thực, vui lòng chờ...
-                    style: AppTextTheme.body3.copyWith(
-                      color: Colors.white,
-                      decoration: null,
-                    ),
-                  ),
+                  child: Text(translation(context).verifying,
+                      //! Đang xác thực, vui lòng chờ...
+                      style:
+                          TextStyle(fontSize: SizeConfig.screenWidth * 0.05)),
                 ),
               ],
             ),
@@ -58,13 +54,9 @@ extension LoginAction on _LoginState {
                 ),
                 Material(
                   type: MaterialType.transparency,
-                  child: Text(
-                    "${translation(context).loadingData}...",
-                    style: AppTextTheme.body3.copyWith(
-                      color: Colors.white,
-                      decoration: null,
-                    ),
-                  ),
+                  child: Text("${translation(context).loadingData}...",
+                      style:
+                          TextStyle(fontSize: SizeConfig.screenWidth * 0.045)),
                 ),
               ],
             ),

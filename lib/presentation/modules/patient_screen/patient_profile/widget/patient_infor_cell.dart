@@ -112,7 +112,7 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
     {bool isSelectable = false}) {
   return Container(
       margin: EdgeInsets.only(
-        bottom: SizeConfig.screenWidth * 0.03,
+        bottom: SizeConfig.screenHeight * 0.02,
       ),
       padding: EdgeInsets.only(
           left: SizeConfig.screenWidth * 0.025,
@@ -122,7 +122,7 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
           : SizeConfig.screenHeight * 0.1,
       decoration: BoxDecoration(
         color: AppColor.white,
-        borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+        borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.022),
       ),
       child: RichText(
         maxLines: title == "${translation(context).address}: " ? 3 : 2,
@@ -135,18 +135,27 @@ Widget patientIn4Cell(BuildContext context, String title, String text,
                 text: title,
                 style: TextStyle(
                     color: AppColor.black,
-                    fontSize: SizeConfig.screenWidth * 0.055,
+                    fontSize: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenWidth * 0.055
+                        : SizeConfig.screenWidth * 0.048,
                     fontWeight: FontWeight.w500)),
             TextSpan(
               text: text,
               style: TextStyle(
-                  color: Colors.black, fontSize: SizeConfig.screenWidth * 0.05),
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenWidth * 0.05
+                      : SizeConfig.screenWidth * 0.045),
             ),
             const WidgetSpan(child: SizedBox(width: 10)),
             WidgetSpan(
               child: isSelectable
                   ? InkWell(
-                      child: const Icon(Icons.copy, color: Colors.black54),
+                      child: Icon(
+                        Icons.copy,
+                        color: Colors.black54,
+                        size: SizeConfig.screenDiagonal * 0.025,
+                      ),
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: text));
                         showToast(

@@ -20,6 +20,7 @@ class SizeConfig {
 
   ///Tỉ lệ chiều ngang của điện thoại chạy ứng dụng/điện thoại tham chiếu Pixel 3
   static double ratioWidth = 0;
+  static double ratioScreen = 1;
 
   ///Tỉ lệ chiều dọc của điện thoại chạy ứng dụng/điện thoại tham chiếu Pixel 3
   static double ratioHeight = 0;
@@ -39,6 +40,7 @@ class SizeConfig {
     ratioHeight = screenHeight / screenHeightSample;
     ratioFont = min(ratioWidth, ratioHeight);
     ratioRadius = ratioFont;
+    ratioScreen = screenWidth / screenHeight;
     screenDiagonal =
         sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
   }

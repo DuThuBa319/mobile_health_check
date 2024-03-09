@@ -29,9 +29,10 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
         onTap: () {
           Navigator.pushNamed(context, RouteList.bodyTemperatureDetail,
               arguments: widget.response);
-          showToast( context: context,
-                            status: ToastStatus.loading,
-                            toastString:translation(context).waitForSeconds);
+          showToast(
+              context: context,
+              status: ToastStatus.loading,
+              toastString: translation(context).waitForSeconds);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -43,14 +44,14 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
           margin: EdgeInsets.fromLTRB(
             SizeConfig.screenWidth * 0.02,
             SizeConfig.screenHeight * 0.01,
-            SizeConfig.screenWidth * 0.015,
+            SizeConfig.screenWidth * 0.02,
             SizeConfig.screenHeight * 0.01,
           ),
           padding: EdgeInsets.only(
-              top: SizeConfig.screenHeight * 0.01,
-              left: SizeConfig.screenWidth * 0.02,
-              right: SizeConfig.screenWidth * 0.025,
-              bottom: SizeConfig.screenHeight * 0.005),
+            top: SizeConfig.screenHeight * 0.01,
+            left: SizeConfig.screenWidth * 0.02,
+            right: SizeConfig.screenWidth * 0.025,
+          ),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -58,7 +59,7 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                 Row(
                   children: [
                     Container(
-                        padding: const EdgeInsets.all(5),
+                        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.01),
                         height: SizeConfig.screenDiagonal * 0.045,
                         width: SizeConfig.screenDiagonal * 0.045,
                         decoration: const BoxDecoration(
@@ -67,7 +68,7 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                         ),
                         child: Image.asset(
                           Assets.temperature,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitWidth,
                         )),
                     SizedBox(
                       width: SizeConfig.screenWidth * 0.02,
@@ -91,33 +92,40 @@ class _TemperatureCellWidgetState extends State<TemperatureCellWidget> {
                   ],
                 ),
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text: '${widget.response?.temperature}',
-                                style: AppTextTheme.body1.copyWith(
-                                    color: widget.response?.statusColor,
-                                    fontSize: SizeConfig.screenDiagonal * 0.045,
-                                    fontWeight: FontWeight.w400)),
-                            TextSpan(
-                                text: "°",
-                                style: AppTextTheme.body1.copyWith(
-                                    color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenDiagonal * 0.045,
-                                    fontWeight: FontWeight.w500)),
-                            TextSpan(
-                                text: 'C',
-                                style: AppTextTheme.body1.copyWith(
-                                    color: const Color(0xff615A5A),
-                                    fontSize: SizeConfig.screenDiagonal * 0.04,
-                                    fontWeight: FontWeight.w500))
-                          ]))
-                    ],
+                  child: Transform.translate(
+                    offset: Offset(-SizeConfig.screenWidth * 0.005,
+                        -SizeConfig.screenHeight * 0.005),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: '${widget.response?.temperature}',
+                                  style: AppTextTheme.body1.copyWith(
+                                      color: widget.response?.statusColor,
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.045,
+                                      fontWeight: FontWeight.w400)),
+                              TextSpan(
+                                  text: "°",
+                                  style: AppTextTheme.body1.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.045,
+                                      fontWeight: FontWeight.w500)),
+                              TextSpan(
+                                  text: 'C',
+                                  style: AppTextTheme.body1.copyWith(
+                                      color: const Color(0xff615A5A),
+                                      fontSize:
+                                          SizeConfig.screenDiagonal * 0.04,
+                                      fontWeight: FontWeight.w500))
+                            ]))
+                      ],
+                    ),
                   ),
                 )
               ]),
