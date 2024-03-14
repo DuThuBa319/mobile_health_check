@@ -3,27 +3,29 @@ part of 'blood_pressure_history_screen.dart';
 extension BloodPressureHistoryScreenAction on BloodPressureHistoryScreenState {
   void blocListener(BuildContext context, HistoryState state) {
     //? Loading
-    if (state.status == BlocStatusState.loading) {
-    }
+    if (state.status == BlocStatusState.loading) {}
     //? Success
     if (state.status == BlocStatusState.success) {
       if (state is GetHistoryDataState) {
-        showToast( context: context,
-                            status: ToastStatus.success,
-                            toastString:translation(context).dataLoaded);
-        
+        showToast(
+            context: context,
+            status: ToastStatus.success,
+            toastString: translation(context).dataLoaded);
       }
     }
     //? Failure
     if (state.status == BlocStatusState.failure) {
-      showToast( context: context,
-                            status: ToastStatus.error,
-                            toastString:state.viewModel.errorMessage);
+      showToast(
+          context: context,
+          status: ToastStatus.error,
+          toastString: state.viewModel.errorMessage);
     }
   }
 
   void selectedDate({bool isSelectedDateFrom = true}) async {
     final timePicker = await showRoundedDatePicker(
+      textNegativeButton: translation(context).back,
+      textPositiveButton: translation(context).accept,
       styleYearPicker: MaterialRoundedYearPickerStyle(
         textStyleYear: TextStyle(
             fontSize: SizeConfig.screenWidth * 0.05, color: Colors.grey),

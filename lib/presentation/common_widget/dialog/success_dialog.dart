@@ -40,7 +40,7 @@ Future<dynamic> showSuccessDialog({
           content: Container(
             height: SizeConfig.screenDiagonal < 1350
                 ? SizeConfig.screenHeight * 0.25
-                : SizeConfig.screenHeight * 0.3,
+                : SizeConfig.screenHeight * 0.32,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(
                   Radius.circular(SizeConfig.screenWidth * 0.02)),
@@ -94,7 +94,7 @@ Future<dynamic> showSuccessDialog({
                     width: SizeConfig.screenWidth * 0.72,
                     child: Text(
                       softWrap: true,
-                      maxLines: 4,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       message,
                       textAlign: TextAlign.center,
@@ -106,7 +106,7 @@ Future<dynamic> showSuccessDialog({
                   ),
                   Positioned(
                     top: SizeConfig.screenDiagonal < 1350
-                        ? SizeConfig.screenHeight * 0.08
+                        ? SizeConfig.screenHeight * 0.085
                         : SizeConfig.screenHeight * 0.12,
                     left: SizeConfig.screenWidth * 0.51,
                     child: GestureDetector(
@@ -116,7 +116,9 @@ Future<dynamic> showSuccessDialog({
                       },
                       child: Container(
                         width: SizeConfig.screenWidth * 0.2,
-                        height: SizeConfig.screenHeight * 0.05,
+                        height: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenHeight * 0.04
+                            : SizeConfig.screenHeight * 0.05,
                         decoration: const BoxDecoration(
                             color: AppColor.lineDecor,
                             borderRadius:

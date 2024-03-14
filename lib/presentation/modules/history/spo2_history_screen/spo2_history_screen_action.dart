@@ -30,7 +30,8 @@ extension Spo2HistoryScreenAction on Spo2HistoryScreenState {
   }
 
   void selectedDate({bool isSelectedDateFrom = true}) async {
-    final timePicker = await showRoundedDatePicker(
+    final timePicker = await showRoundedDatePicker(textNegativeButton: translation(context).back,
+      textPositiveButton: translation(context).accept,
       styleYearPicker: MaterialRoundedYearPickerStyle(
         textStyleYear: TextStyle(
             fontSize: SizeConfig.screenWidth * 0.05, color: Colors.grey),

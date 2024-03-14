@@ -51,7 +51,7 @@ class _TemperatureNotificationReadingScreenState
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
-            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
+            SizeConfig.screenHeight * 0.04, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -117,8 +117,8 @@ class _TemperatureNotificationReadingScreenState
               ),
               Container(
                   padding: EdgeInsets.only(
-                    left: SizeConfig.screenWidth * 0.025,
-                    right: SizeConfig.screenWidth * 0.025,
+                    left: SizeConfig.screenWidth * 0.035,
+                    right: SizeConfig.screenWidth * 0.035,
                     top: SizeConfig.screenHeight * 0.015,
                   ),
                   margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.1),
@@ -135,7 +135,7 @@ class _TemperatureNotificationReadingScreenState
                     children: [
                       Text(translation(context).bodyTemperature,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenWidth * 0.06,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -183,7 +183,7 @@ class _TemperatureNotificationReadingScreenState
                     ],
                   )),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   RectangleButton(
@@ -200,9 +200,6 @@ class _TemperatureNotificationReadingScreenState
                           arguments: widget.notificationEntity?.patientId);
                       // }
                     },
-                  ),
-                  const SizedBox(
-                    width: 5,
                   ),
                   RectangleButton(
                     editSizeText: true,
@@ -223,7 +220,7 @@ class _TemperatureNotificationReadingScreenState
                 ],
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.03,
+                height: SizeConfig.screenHeight * 0.15,
               ),
             ],
           ),

@@ -98,28 +98,28 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                       keyboardType: TextInputType.phone,
                       controller: _phoneNumberController,
                       style: TextStyle(
-                        fontSize: SizeConfig.screenWidth * 0.05,
+                        fontSize: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.05
+                            : SizeConfig.screenWidth * 0.045,
                         color: Colors.black,
                       ),
                       decoration: InputDecoration(
                         errorStyle: TextStyle(
-                          fontSize: SizeConfig.screenWidth * 0.035,
+                          fontSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.033
+                              : SizeConfig.screenWidth * 0.02,
                           color: Colors.red,
                         ),
-                        contentPadding:
-                            const EdgeInsets.only(bottom: 2, top: 2),
-                        errorText: (state.viewModel.errorMessage ==
-                                translation(context).pleaseEnterPhoneNumber)
-                            ? state.viewModel.errorMessage
-                            : (state.viewModel.errorMessage ==
-                                    translation(context).wrongPhoneNumber)
-                                ? translation(context).wrongPhoneNumber
-                                : null,
+                        contentPadding: EdgeInsets.only(
+                            bottom: SizeConfig.screenHeight * 0.002),
+                        errorText: state.viewModel.errorMessage,
                         border: InputBorder.none,
                         labelText: translation(context).phoneNumber,
                         labelStyle: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.055),
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.032),
                       ),
                     ),
                   ),
@@ -144,7 +144,7 @@ class _ForgotPassState extends State<ForgotPassScreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: AppColor.white,
-                            fontSize: SizeConfig.screenDiagonal * 0.023,
+                            fontSize: SizeConfig.screenWidth * 0.05,
                           ),
                         ),
                       ),

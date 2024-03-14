@@ -66,6 +66,9 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 //! không cần hiển thị dialog ở trường hợp lỗi ở việc điền thiếu, điền sai
                 {
                   showExceptionDialog(
+                    contentDialogSize: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenWidth * 0.05
+                        : SizeConfig.screenWidth * 0.045,
                     context: context,
                     message: state.viewModel.errorMessage!,
                     titleBtn: translation(context).exit,
@@ -126,11 +129,13 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
-                    height: SizeConfig.screenWidth * 0.2,
+                    height: SizeConfig.screenHeight * 0.09,
                     decoration: BoxDecoration(
                       color: AppColor.white,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.035
+                              : SizeConfig.screenWidth * 0.025),
                     ),
                     child: Center(
                       child: TextField(
@@ -144,11 +149,13 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                 : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
                           errorStyle: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.03,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.03
+                                : SizeConfig.screenWidth * 0.02,
                             color: Colors.red,
                           ),
-                          contentPadding:
-                              const EdgeInsets.only(bottom: 2, top: 2),
+                          contentPadding: EdgeInsets.only(
+                              bottom: SizeConfig.screenHeight * 0.005),
                           errorText: state.viewModel.errorEmptyName == true
                               ? translation(context).pleaseEnterDoctorName
                               : null,
@@ -157,7 +164,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                               color: AppColor.gray767676,
                               fontSize: SizeConfig.screenDiagonal < 1350
                                   ? SizeConfig.screenWidth * 0.05
-                                  : SizeConfig.screenWidth * 0.0455,
+                                  : SizeConfig.screenWidth * 0.032,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -171,11 +178,13 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
-                    height: SizeConfig.screenWidth * 0.2,
+                    height: SizeConfig.screenHeight * 0.09,
                     decoration: BoxDecoration(
                       color: AppColor.white,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.035
+                              : SizeConfig.screenWidth * 0.025),
                     ),
                     child: Center(
                       child: TextField(
@@ -190,11 +199,13 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                 : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
                           errorStyle: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.03,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.03
+                                : SizeConfig.screenWidth * 0.02,
                             color: Colors.red,
                           ),
-                          contentPadding:
-                              const EdgeInsets.only(bottom: 2, top: 2),
+                          contentPadding: EdgeInsets.only(
+                              bottom: SizeConfig.screenHeight * 0.005),
                           errorText:
                               state.viewModel.errorEmptyPhoneNumber == true
                                   ? translation(context).invalidPhonenumber
@@ -204,7 +215,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                               color: AppColor.gray767676,
                               fontSize: SizeConfig.screenDiagonal < 1350
                                   ? SizeConfig.screenWidth * 0.05
-                                  : SizeConfig.screenWidth * 0.045,
+                                  : SizeConfig.screenWidth * 0.032,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

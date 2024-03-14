@@ -671,20 +671,20 @@ Future<double?> uploadBloodGlucoseImage(
 
   final request =
       http.MultipartRequest("POST", Uri.parse(url['bloodSugarURL'] ?? ''));
-  final headers = {"Content-Type": "multipart/form-data"};
+  final headers = {"Content-type": "multipart/form-data"};
   request.files.add(http.MultipartFile(
       'image', croppedImage.readAsBytes().asStream(), croppedImage.lengthSync(),
       filename: croppedImage.path.split("/").last));
   // request.fields['flashOn'] = flashOn.toString();
   request.headers.addAll(headers);
   final response = await request.send();
-  http.Response res = await http.Response.fromStream(response);
 
   try {
+    http.Response res = await http.Response.fromStream(response);
     final resJson = jsonDecode(res.body);
-    // String message = resJson['message'];
-    // debugPrint(message);
-    glucose = double.parse(resJson['glucose']);
+    debugPrint('@@@@@$resJson');
+
+    glucose = double.parse(resJson['glucose'].toString());
   } catch (e) {
     debugPrint('##########$e');
   }

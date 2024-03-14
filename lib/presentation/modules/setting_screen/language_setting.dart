@@ -121,7 +121,9 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                             : Colors.white,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                        width: 3,
+                                        width: SizeConfig.screenDiagonal < 1350
+                                            ? 3
+                                            : 8,
                                         color: (selectEn == true &&
                                                 selectVn == false)
                                             ? AppColor.backgroundColor
@@ -130,7 +132,7 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                 ),
                                 onTap: () async {
                                   selectedLanguage = Language(1, ENGLISH, 'en');
-                        
+
                                   setState(() {
                                     selectEn = true;
                                     selectVn = false;
@@ -173,7 +175,10 @@ class _SettingLanguageState extends State<SettingLanguage> {
                                           : Colors.white,
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                          width: 3,
+                                          width:
+                                              SizeConfig.screenDiagonal < 1350
+                                                  ? 3
+                                                  : 8,
                                           color: (selectEn == false &&
                                                   selectVn == true)
                                               ? AppColor.backgroundColor

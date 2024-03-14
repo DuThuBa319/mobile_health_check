@@ -67,6 +67,9 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         translation(context).error) {
                   {
                     showExceptionDialog(
+                      contentDialogSize: SizeConfig.screenDiagonal < 1350
+                          ? SizeConfig.screenWidth * 0.045
+                          : SizeConfig.screenWidth * 0.042,
                       context: context,
                       message: state.viewModel.errorMessage!,
                       titleBtn: translation(context).exit,
@@ -121,15 +124,17 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         ],
                       )),
                   Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                    margin: EdgeInsets.only(
+                        bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
-                    height: SizeConfig.screenWidth * 0.2,
+                    height: SizeConfig.screenHeight * 0.09,
                     decoration: BoxDecoration(
                       color: AppColor.white,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.035
+                              : SizeConfig.screenWidth * 0.025),
                     ),
                     child: Center(
                       child: TextField(
@@ -138,12 +143,17 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         controller: _controllerRelativeName,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.06),
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.only(bottom: 2, top: 2),
+                          contentPadding: EdgeInsets.only(
+                              top: SizeConfig.screenHeight * 0.005,
+                             ),
                           errorStyle: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.03,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.03
+                                : SizeConfig.screenWidth * 0.02,
                             color: Colors.red,
                           ),
                           errorText: (state.viewModel.errorEmptyName == true)
@@ -152,7 +162,9 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                           labelText: translation(context).name,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.032,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                         ),
@@ -160,15 +172,17 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                     ),
                   ),
                   Container(
-                    margin:
-                        EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.03),
+                    margin: EdgeInsets.only(
+                        bottom: SizeConfig.screenHeight * 0.015),
                     padding:
                         EdgeInsets.only(left: SizeConfig.screenWidth * 0.04),
-                    height: SizeConfig.screenWidth * 0.2,
+                    height: SizeConfig.screenHeight * 0.09,
                     decoration: BoxDecoration(
                       color: AppColor.white,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.screenWidth * 0.035),
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.035
+                              : SizeConfig.screenWidth * 0.025),
                     ),
                     child: Center(
                       child: TextField(
@@ -178,12 +192,17 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                         controller: _controllerRelativePhoneNumber,
                         style: TextStyle(
                             color: AppColor.gray767676,
-                            fontSize: SizeConfig.screenWidth * 0.06),
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.only(bottom: 2, top: 2),
+                          contentPadding: EdgeInsets.only(
+                           
+                              bottom: SizeConfig.screenHeight * 0.005),
                           errorStyle: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.03,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.03
+                                : SizeConfig.screenWidth * 0.02,
                             color: Colors.red,
                           ),
                           errorText:
@@ -193,7 +212,9 @@ class _AddRelativeScreenState extends State<AddRelativeScreen> {
                           labelText: translation(context).phoneNumber,
                           labelStyle: TextStyle(
                               color: AppColor.gray767676,
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.032,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                         ),

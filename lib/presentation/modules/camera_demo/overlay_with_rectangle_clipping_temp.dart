@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_health_check/common/singletons.dart';
+import 'package:mobile_health_check/utils/size_config.dart';
 
 class OverlayRectangleForTemperature extends StatelessWidget {
   const OverlayRectangleForTemperature({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: _getCustomPaintOverlay(context));
@@ -38,24 +40,36 @@ class RectanglePainter extends CustomPainter {
     switch (userDataData.localDataManager.preferencesHelper
         .getData('TempEquipModel')) {
       case 0: //?T1 => DONE
-        sizeFrame[0] = size.width * 0.202;
-        sizeFrame[1] = size.height * 0.24;
-        sizeFrame[2] = size.width * 0.6;
-        sizeFrame[3] = size.height * 0.122;
+        sizeFrame[0] = size.width * 0.125;
+        sizeFrame[1] = size.height * 0.2;
+        sizeFrame[2] = size.width * 0.75;
+        sizeFrame[3] = size.height * 0.135;
         sizeFrame[4] = 0;
         break;
       case 1: //? T2 => Done
-        sizeFrame[0] = size.width * 0.26;
-        sizeFrame[1] = size.height * 0.3;
-        sizeFrame[2] = size.width * 0.48;
-        sizeFrame[3] = size.height * 0.14;
+        sizeFrame[0] = size.width * 0.175;
+        sizeFrame[1] = SizeConfig.screenDiagonal > 1350
+            ? size.height * 0.235
+            : size.height * 0.27;
+        sizeFrame[2] = size.width * 0.65;
+        sizeFrame[3] = SizeConfig.screenDiagonal > 1350
+            ? size.height * 0.16
+            : size.height * 0.145;
         sizeFrame[4] = 0;
         break;
       case 2: //? T3 => Done
-        sizeFrame[0] = size.width * 0.26;
-        sizeFrame[1] = size.height * 0.3;
-        sizeFrame[2] = size.width * 0.48;
-        sizeFrame[3] = size.height * 0.14;
+        sizeFrame[0] = SizeConfig.screenDiagonal > 1350
+            ? size.width * 0.175
+            : size.width * 0.15;
+        sizeFrame[1] = SizeConfig.screenDiagonal > 1350
+            ? size.height * 0.25
+            : size.height * 0.28;
+        sizeFrame[2] = SizeConfig.screenDiagonal > 1350
+            ? size.width * 0.65
+            : size.width * 0.7;
+        sizeFrame[3] = SizeConfig.screenDiagonal > 1350
+            ? size.height * 0.16
+            : size.height * 0.14;
         sizeFrame[4] = 0;
         break;
     }

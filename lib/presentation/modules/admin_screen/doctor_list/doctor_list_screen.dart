@@ -106,52 +106,64 @@ class _DoctorListState extends State<DoctorListScreen> {
                             lineDecor(
                                 spaceBottom: SizeConfig.screenHeight * 0.02,
                                 spaceTop: 5),
-                            Container(
-                              height: SizeConfig.screenHeight * 0.075,
-                              width: SizeConfig.screenWidth,
-                              margin: EdgeInsets.only(
-                                top: SizeConfig.screenHeight * 0.005,
-                                bottom: SizeConfig.screenHeight * 0.02,
-                              ),
-                              decoration: BoxDecoration(
-                                boxShadow: const [
-                                  BoxShadow(color: Colors.black26)
-                                ],
-                                borderRadius: BorderRadius.circular(
-                                    SizeConfig.screenWidth * 0.015),
-                                color: Colors.white,
-                              ),
-                              child: Center(
-                                child: TextField(
-                                  style: TextStyle(
-                                      color: AppColor.gray767676,
-                                      fontSize: SizeConfig.screenDiagonal < 1350
-                                          ? SizeConfig.screenWidth * 0.05
-                                          : SizeConfig.screenWidth * 0.045),
-                                  controller: filterKeyword,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          SizeConfig.screenWidth * 0.015),
-                                      borderSide: BorderSide.none,
-                                    ),
-                                    hintText: translation(context).searchDoctor,
-                                    hintStyle: TextStyle(
+                            Center(
+                              child: Container(
+                                height: SizeConfig.screenHeight * 0.075,
+                                width: SizeConfig.screenWidth * 0.925,
+                                margin: EdgeInsets.only(
+                                  top: SizeConfig.screenHeight * 0.005,
+                                  bottom: SizeConfig.screenHeight * 0.02,
+                                ),
+                                decoration: BoxDecoration(
+                                  boxShadow: const [
+                                    BoxShadow(color: Colors.black26)
+                                  ],
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.screenWidth * 0.015),
+                                  color: Colors.white,
+                                ),
+                                child: Center(
+                                  child: TextField(
+                                    style: TextStyle(
                                         color: AppColor.gray767676,
-                                        fontSize:
-                                            SizeConfig.screenWidth * 0.04),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(Icons.search,
-                                          size: SizeConfig.screenHeight * 0.03),
-                                      color: Colors.black,
-                                      onPressed: () {
-                                        getDoctorBloc.add(
-                                          FilterDoctorEvent(
-                                              searchText: filterKeyword.text,
-                                              adminId: widget.id!),
-                                        );
-                                      },
+                                        fontSize: SizeConfig.screenDiagonal <
+                                                1350
+                                            ? SizeConfig.screenWidth * 0.05
+                                            : SizeConfig.screenWidth * 0.045),
+                                    controller: filterKeyword,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            SizeConfig.screenWidth * 0.015),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      hintText:
+                                          translation(context).searchDoctor,
+                                      hintStyle: TextStyle(
+                                          color:
+                                              SizeConfig.screenDiagonal < 1350
+                                                  ? const Color.fromARGB(
+                                                      255, 125, 124, 124)
+                                                  : const Color.fromARGB(
+                                                      255, 147, 147, 147),
+                                          fontSize: SizeConfig.screenDiagonal <
+                                                  1350
+                                              ? SizeConfig.screenWidth * 0.05
+                                              : SizeConfig.screenWidth * 0.045),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(Icons.search,
+                                            size:
+                                                SizeConfig.screenHeight * 0.03),
+                                        color: Colors.black,
+                                        onPressed: () {
+                                          getDoctorBloc.add(
+                                            FilterDoctorEvent(
+                                                searchText: filterKeyword.text,
+                                                adminId: widget.id!),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -207,11 +219,10 @@ class _DoctorListState extends State<DoctorListScreen> {
                                           textAlign: TextAlign.center,
                                           state.viewModel.errorMessage!,
                                           style: AppTextTheme.body2.copyWith(
-                                               fontSize:
-                                                    SizeConfig.screenWidth *
-                                                        0.05,
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.bold),
+                                              fontSize:
+                                                  SizeConfig.screenWidth * 0.05,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         const SizedBox(height: 10),
                                         RectangleButton(

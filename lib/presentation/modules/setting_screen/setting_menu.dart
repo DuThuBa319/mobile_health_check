@@ -110,6 +110,9 @@ class _SettingMenuState extends State<SettingMenu> {
                     buttonColor: AppColor.saveSetting,
                     onTap: () {
                       showWarningDialog(
+                        contentDialogSize: SizeConfig.screenDiagonal < 1350
+                            ? SizeConfig.screenWidth * 0.04
+                            : SizeConfig.screenWidth * 0.045,
                         context: context,
                         message: translation(context).areYouSureToLogOut,
                         title: translation(context).logOut,
@@ -138,7 +141,8 @@ class _SettingMenuState extends State<SettingMenu> {
                               RouteList.login, (Route<dynamic> route) => false);
                         },
                       );
-                    })
+                    }),
+                SizedBox(height: SizeConfig.screenHeight * 0.15),
               ]),
         ));
   }

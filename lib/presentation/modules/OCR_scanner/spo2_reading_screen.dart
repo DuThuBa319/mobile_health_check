@@ -61,6 +61,7 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                       ),
                       SizedBox(height: SizeConfig.screenHeight * 0.045),
                       imagePickerCell(context,
+                          measuringTask: MeasuringTask.oximeter,
                           imagesTakenToday:
                               userDataData.getUser()!.spO2ImagesTakenToday,
                           scanBloc: scanBloc,
@@ -113,9 +114,9 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
                             : SizeConfig.screenWidth * 0.15,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                          SizeConfig.screenDiagonal < 1350
-                                      ? SizeConfig.screenWidth * 0.05
-                                      : SizeConfig.screenWidth * 0.035),
+                              SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.035),
                           color: AppColor.bloodPressureColor,
                         ),
                         child: Image.asset(
@@ -253,7 +254,8 @@ class _Spo2ReadingScreenState extends State<Spo2ReadingScreen> {
           onTap: () {
             scanBloc.add(UploadSpo2DataEvent());
           },
-        ))
+        )),
+        SizedBox(height: SizeConfig.screenHeight * 0.15),
       ],
     );
   }

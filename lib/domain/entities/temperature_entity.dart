@@ -25,7 +25,7 @@ class TemperatureEntity {
       if (temperature! < 35.9) {
         //|| dia! <= 60
         return Colors.blue;
-      } else if (36 <= temperature! && temperature! <= 36.9) {
+      } else if (35.9 <= temperature! && temperature! <= 36.9) {
         //|| dia! <= 80
         return const Color.fromARGB(255, 64, 247, 70);
       } else if (temperature! >= 37 && temperature! <= 38) {

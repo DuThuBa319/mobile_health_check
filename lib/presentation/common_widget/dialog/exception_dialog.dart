@@ -49,7 +49,7 @@ Future<dynamic> showExceptionDialog({
               Container(
                   height: SizeConfig.screenDiagonal < 1350
                       ? SizeConfig.screenHeight * 0.1
-                      : SizeConfig.screenHeight * 0.17,
+                      : SizeConfig.screenHeight * 0.155,
                   width: SizeConfig.screenWidth,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -70,12 +70,18 @@ Future<dynamic> showExceptionDialog({
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenDiagonal * 0.04,
-                          height: SizeConfig.screenDiagonal * 0.04,
+                          width: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenHeight * 0.042
+                              : SizeConfig.screenHeight * 0.05,
+                          height: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenHeight * 0.042
+                              : SizeConfig.screenHeight * 0.05,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: AppColor.white),
                           child: Icon(
-                            size: SizeConfig.screenDiagonal * 0.035,
+                            size: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenHeight * 0.04
+                                : SizeConfig.screenHeight * 0.045,
                             Icons.error,
                             color: AppColor.exceptionDialogIconColor,
                           )),
@@ -94,13 +100,15 @@ Future<dynamic> showExceptionDialog({
                 child: Stack(
                   children: [
                     Container(
-                      padding:
-                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
+                      padding: EdgeInsets.only(
+                          top: SizeConfig.screenHeight * 0.01,
+                          left: SizeConfig.screenWidth * 0.03,
+                          right: SizeConfig.screenWidth * 0.03),
                       height: SizeConfig.screenHeight * 0.15,
                       width: SizeConfig.screenWidth * 0.9,
                       child: Text(
                         softWrap: true,
-                        maxLines: 4,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         message,
                         textAlign: TextAlign.center,

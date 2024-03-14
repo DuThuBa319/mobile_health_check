@@ -5,9 +5,7 @@ extension DoctorListScreenAction on _DoctorListState {
   void _blocListener(BuildContext context, GetDoctorState state) {
     //? loading
     if (state.status == BlocStatusState.loading) {
-      if (state is GetDoctorListState) {
-       
-      }
+      if (state is GetDoctorListState) {}
       if (state is DeleteDoctorState) {
         showToast(
             context: context,
@@ -44,6 +42,9 @@ extension DoctorListScreenAction on _DoctorListState {
 
       if (state is DeleteDoctorState) {
         showExceptionDialog(
+            contentDialogSize: SizeConfig.screenDiagonal < 1350
+                ? SizeConfig.screenWidth * 0.045
+                : SizeConfig.screenWidth * 0.04,
             context: context,
             message: state.viewModel.errorMessage!,
             titleBtn: translation(context).exit);
@@ -56,6 +57,9 @@ extension DoctorListScreenAction on _DoctorListState {
 
     if (enableToPop == true) {
       await showWarningDialog(
+          contentDialogSize: SizeConfig.screenDiagonal < 1350
+              ? SizeConfig.screenWidth * 0.04
+              : SizeConfig.screenWidth * 0.045,
           context: context,
           message: translation(context).areYouSureToExitApp,
           title: translation(context).exitAppTitle,
@@ -107,6 +111,9 @@ extension DoctorListScreenAction on _DoctorListState {
                     labelText: translation(context).delete,
                     onPressed: (context) {
                       showWarningDialog(
+                          contentDialogSize: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenWidth * 0.04
+                              : SizeConfig.screenWidth * 0.045,
                           useRootNavigator: true,
                           context: contxt!,
                           message: translation(context).deleteDoctor,

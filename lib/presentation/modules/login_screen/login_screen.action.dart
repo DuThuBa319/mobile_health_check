@@ -23,17 +23,23 @@ extension LoginAction on _LoginState {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircularProgressIndicator(color: AppColor.white),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: SizeConfig.screenDiagonal * 0.04,
+                  width: SizeConfig.screenDiagonal * 0.04,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: SizeConfig.screenWidth * 0.01,
+                  ),
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.01,
                 ),
                 Material(
                   type: MaterialType.transparency,
                   child: Text(translation(context).verifying,
-
-                      //! Đang xác thực, vui lòng chờ...
                       style: TextStyle(
-                          fontSize: SizeConfig.screenWidth * 0.05,
+                          color: AppColor.white,
+                          fontSize: SizeConfig.screenWidth * 0.04,
                           fontWeight: FontWeight.w500)),
                 ),
               ],
@@ -50,15 +56,24 @@ extension LoginAction on _LoginState {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircularProgressIndicator(color: AppColor.white),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: SizeConfig.screenDiagonal * 0.04,
+                  width: SizeConfig.screenDiagonal * 0.04,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: SizeConfig.screenWidth * 0.01,
+                  ),
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.01,
                 ),
                 Material(
                   type: MaterialType.transparency,
                   child: Text("${translation(context).loadingData}...",
-                      style:
-                          TextStyle(fontSize: SizeConfig.screenWidth * 0.045)),
+                      style: TextStyle(
+                          color: AppColor.white,
+                          fontSize: SizeConfig.screenWidth * 0.04,
+                          fontWeight: FontWeight.w500)),
                 ),
               ],
             ),
@@ -107,6 +122,9 @@ extension LoginAction on _LoginState {
           Navigator.pop(context);
         } else if (state.viewModel.isWrongAccount == true) {
           showExceptionDialog(
+              contentDialogSize: SizeConfig.screenDiagonal < 1350
+                  ? SizeConfig.screenWidth * 0.045
+                  : SizeConfig.screenWidth * 0.04,
               onClose: () => Navigator.pop(context),
               context: context,
               message: translation(context).wrongAccount,

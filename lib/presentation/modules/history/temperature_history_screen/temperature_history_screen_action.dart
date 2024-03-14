@@ -33,6 +33,8 @@ extension TemperatureHistoryScreenAction on TemperatureHistoryScreenState {
 
   void selectedDate({bool isSelectedDateFrom = true}) async {
     final timePicker = await showRoundedDatePicker(
+      textNegativeButton: translation(context).back,
+      textPositiveButton: translation(context).accept,
       styleYearPicker: MaterialRoundedYearPickerStyle(
         textStyleYear: TextStyle(
             fontSize: SizeConfig.screenWidth * 0.05, color: Colors.grey),

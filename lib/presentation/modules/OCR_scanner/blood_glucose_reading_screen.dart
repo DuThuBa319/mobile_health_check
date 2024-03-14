@@ -81,6 +81,7 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.055),
                     imagePickerCell(context,
+                        measuringTask: MeasuringTask.bloodSugar,
                         imagesTakenToday:
                             userDataData.getUser()!.bloodSugarImagesTakenToday,
                         scanBloc: scanBloc,
@@ -145,9 +146,9 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
                                 : SizeConfig.screenWidth * 0.15,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
-                                  SizeConfig.screenDiagonal < 1350
-                                      ? SizeConfig.screenWidth * 0.05
-                                      : SizeConfig.screenWidth * 0.035),
+                                    SizeConfig.screenDiagonal < 1350
+                                        ? SizeConfig.screenWidth * 0.05
+                                        : SizeConfig.screenWidth * 0.035),
                                 color: AppColor.bodyTemperatureColor),
                             child: Image.asset(
                               Assets.bloodSugar,
@@ -395,7 +396,8 @@ class _BloodGlucoseReadingScreenState extends State<BloodGlucoseReadingScreen> {
             onTap: () {
               scanBloc.add(UploadBloodGlucoseDataEvent());
             },
-          )
+          ),
+          SizedBox(height: SizeConfig.screenHeight * 0.15),
         ],
       ),
     );

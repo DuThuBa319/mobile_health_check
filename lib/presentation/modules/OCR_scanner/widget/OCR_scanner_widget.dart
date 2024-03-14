@@ -19,6 +19,7 @@ import '../ocr_scanner_bloc/ocr_scanner_bloc.dart';
 
 Widget imagePickerCell(
   BuildContext context, {
+  required MeasuringTask measuringTask,
   File? imageFile,
   required OCRScannerEvent event,
   required OCRScannerState state,
@@ -34,8 +35,14 @@ Widget imagePickerCell(
           borderRadius:
               BorderRadius.all(Radius.circular(SizeConfig.screenWidth * 0.05)),
           child: Container(
-            height: SizeConfig.screenWidth * 0.8,
-            width: SizeConfig.screenWidth * 0.8,
+            height: imageFile == null
+                ? SizeConfig.screenWidth * 0.85
+                : measuringTask == MeasuringTask.temperature
+                    ? SizeConfig.screenHeight * 0.25
+                    : measuringTask == MeasuringTask.bloodSugar
+                        ? SizeConfig.screenHeight * 0.2
+                        : SizeConfig.screenWidth * 0.85,
+            width: SizeConfig.screenWidth * 0.85,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius:
@@ -44,23 +51,15 @@ Widget imagePickerCell(
             child: imageFile == null
                 ? GestureDetector(
                     onTap: () async {
-                      //  if (imagesTakenToday > 5 || imagesTakenToday == 5) {
-                      //   showExceptionDialog(
-                      //      context: context,
-                      //        message:
-                      //            translation(context).overImagesCountPermission,
-                      //        titleBtn: translation(context).exit);
-                      //  } else {
-                      await [
-                        // Request camera and microphone permissions
-                        Permission.camera,
-                        Permission.microphone,
-                      ].request();
-                      if (await Permission.camera.status ==
-                              PermissionStatus.granted &&
-                          await Permission.microphone.status ==
-                              PermissionStatus.granted) {
-                        scanBloc.add(event);
+                      if (imagesTakenToday > 5 || imagesTakenToday == 5) {
+                        showExceptionDialog(
+                            contentDialogSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.05,
+                            context: context,
+                            message:
+                                translation(context).overImagesCountPermission,
+                            titleBtn: translation(context).exit);
                       } else {
                         await [
                           // Request camera and microphone permissions
@@ -73,18 +72,29 @@ Widget imagePickerCell(
                                 PermissionStatus.granted) {
                           scanBloc.add(event);
                         } else {
-                          await showWarningDialog(
-                              context: context,
-                              message:
-                                  translation(context).permissionCameraWarning,
-                              onClose1: () {},
-                              onClose2: () async {
-                                await openAppSettings();
-                              });
+                          await [
+                            // Request camera and microphone permissions
+                            Permission.camera,
+                            Permission.microphone,
+                          ].request();
+                          if (await Permission.camera.status ==
+                                  PermissionStatus.granted &&
+                              await Permission.microphone.status ==
+                                  PermissionStatus.granted) {
+                            scanBloc.add(event);
+                          } else {
+                            await showWarningDialog(
+                                context: context,
+                                message: translation(context)
+                                    .permissionCameraWarning,
+                                onClose1: () {},
+                                onClose2: () async {
+                                  await openAppSettings();
+                                });
+                          }
                         }
                       }
                     },
-                    // },
                     child: Icon(
                       Symbols.linked_camera_rounded,
                       weight: SizeConfig.screenHeight * 0.08,
@@ -100,7 +110,7 @@ Widget imagePickerCell(
                     child: FullScreenWidget(
                         disposeLevel: DisposeLevel.Medium,
                         child: Image.file(File(imageFile.path),
-                            fit: BoxFit.fitWidth)),
+                            fit: BoxFit.contain)),
                   ),
           ),
         ),
@@ -397,7 +407,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                     Text(translation(context).press,
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenWidth * 0.045,
                             fontWeight: FontWeight.w500)),
                     Icon(
                       Icons.linked_camera_outlined,
@@ -407,7 +417,7 @@ class _InstructionScannerState extends State<InstructionScanner> {
                     Text(translation(context).toCaptureTheResult,
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenWidth * 0.045,
                             fontWeight: FontWeight.w500)),
                   ],
                 ),
@@ -424,12 +434,12 @@ class _InstructionScannerState extends State<InstructionScanner> {
                     Text(translation(context).imagesTakenToday,
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenWidth * 0.045,
                             fontWeight: FontWeight.w500)),
                     Text(" ${(widget.imagesTakenToday! - 5).abs()}",
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenWidth * 0.045,
                             fontWeight: FontWeight.w500)),
                   ],
                 ),

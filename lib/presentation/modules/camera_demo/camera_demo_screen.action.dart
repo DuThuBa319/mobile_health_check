@@ -33,7 +33,7 @@ extension CameraScreenAction on CameraScreenState {
     if (state is CameraReadyState && state.status == BlocStatusState.failure) {
       showExceptionDialog(
           context: context,
-          message: translation(context).errorTryAgain,
+          message: translation(context).camAccessError,
           titleBtn: translation(context).exit,
           onClose: () {
             Navigator.pop(context);
@@ -136,7 +136,9 @@ extension CameraScreenAction on CameraScreenState {
                       child: FullScreenWidget(
                           disposeLevel: DisposeLevel.Medium,
                           child: Image.file(
-                            height: SizeConfig.screenHeight * 0.3,
+                            height: (widget.task == MeasuringTask.bloodPressure)
+                                ? SizeConfig.screenHeight * 0.42
+                                : SizeConfig.screenHeight * 0.3,
                             fit: BoxFit.fitWidth,
                             File(imageFile.path),
                           )),
@@ -161,7 +163,8 @@ extension CameraScreenAction on CameraScreenState {
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
-                                              text: "Nếu kết quả đo là",
+                                              text: translation(context)
+                                                  .ifTheResultIs,
                                               style: TextStyle(
                                                 fontSize: SizeConfig
                                                             .screenDiagonal <
@@ -184,7 +187,8 @@ extension CameraScreenAction on CameraScreenState {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: " thì nhấn vào nút sau",
+                                              text: translation(context)
+                                                  .pressTheButton,
                                               style: TextStyle(
                                                 fontSize: SizeConfig
                                                             .screenDiagonal <
@@ -208,8 +212,8 @@ extension CameraScreenAction on CameraScreenState {
                                         showToast(
                                             status: ToastStatus.success,
                                             context: context,
-                                            toastString:
-                                                "Lưu kết quả thành công");
+                                            toastString: translation(context)
+                                                .saveResultSuccess);
                                         final CroppedImage croppedImage =
                                             CroppedImage(
                                                 imageFile,
@@ -266,7 +270,8 @@ extension CameraScreenAction on CameraScreenState {
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
-                                              text: "Nếu kết quả đo là",
+                                              text: translation(context)
+                                                  .ifTheResultIs,
                                               style: TextStyle(
                                                 fontSize: SizeConfig
                                                             .screenDiagonal <
@@ -289,7 +294,8 @@ extension CameraScreenAction on CameraScreenState {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: " thì nhấn vào nút sau",
+                                              text: translation(context)
+                                                  .pressTheButton,
                                               style: TextStyle(
                                                 fontSize: SizeConfig
                                                             .screenDiagonal <
@@ -313,8 +319,8 @@ extension CameraScreenAction on CameraScreenState {
                                         showToast(
                                             status: ToastStatus.success,
                                             context: context,
-                                            toastString:
-                                                "Lưu kết quả thành công");
+                                            toastString: translation(context)
+                                                .saveResultSuccess);
 
                                         final CroppedImage croppedImage =
                                             CroppedImage(

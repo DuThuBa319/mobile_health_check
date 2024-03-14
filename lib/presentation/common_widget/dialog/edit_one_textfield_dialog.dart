@@ -42,8 +42,9 @@ Future<dynamic> showEditOneTextFieldDialog({
           contentPadding: EdgeInsets.zero,
           content: Container(
             height: SizeConfig.screenHeight * 0.25,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(28)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(SizeConfig.screenWidth * 0.05)),
               color: AppColor.white,
             ),
             child:
@@ -51,10 +52,11 @@ Future<dynamic> showEditOneTextFieldDialog({
               Container(
                   height: SizeConfig.screenHeight * 0.1,
                   width: SizeConfig.screenWidth,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(28),
-                        topRight: Radius.circular(28)),
+                        topLeft: Radius.circular(SizeConfig.screenWidth * 0.05),
+                        topRight:
+                            Radius.circular(SizeConfig.screenWidth * 0.05)),
                     color: AppColor.warningDialogColor,
                   ),
                   child: Column(

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
@@ -218,6 +219,8 @@ Future<File> cropImage(
       "######${userDataData.localDataManager.preferencesHelper.getData('BloodPressureEquipModel')}");
   double screenWidth = MediaQuery.of(context).size.width;
   double screenHeight = MediaQuery.of(context).size.height;
+  double screenDiagonal =
+      sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
   List<double> sizeFrame = [
     screenWidth * 0.25,
     screenHeight * 0.15,
@@ -238,29 +241,29 @@ Future<File> cropImage(
       switch (userDataData.localDataManager.preferencesHelper
           .getData('BloodPressureEquipModel')) {
         case 0: //?BP1 => DONE
-          sizeFrame[0] = screenWidth * 0.25;
-          sizeFrame[1] = screenHeight * 0.1985;
-          sizeFrame[2] = screenWidth * 0.64;
-          sizeFrame[3] = screenHeight * 0.46;
+          sizeFrame[0] = screenWidth * 0.175;
+          sizeFrame[1] = screenHeight * 0.19;
+          sizeFrame[2] = screenWidth * 0.65;
+          sizeFrame[3] = screenHeight * 0.485;
           break;
         case 1: //!BP2
-          sizeFrame[0] = screenWidth * 0.16;
-          sizeFrame[1] = screenHeight * 0.202;
-          sizeFrame[2] = screenWidth * 0.66;
-          sizeFrame[3] = screenHeight * 0.5;
+          sizeFrame[0] = screenWidth * 0.035;
+          sizeFrame[1] = screenHeight * 0.125;
+          sizeFrame[2] = screenWidth * 0.8;
+          sizeFrame[3] = screenHeight * 0.66;
 
           break;
         case 2: //?BP3 => DONE
-          sizeFrame[0] = screenWidth * 0.005;
-          sizeFrame[1] = screenHeight * 0.15;
-          sizeFrame[2] = screenWidth;
-          sizeFrame[3] = screenHeight * 0.65;
+          sizeFrame[0] = screenWidth * 0.12;
+          sizeFrame[1] = screenHeight * 0.135;
+          sizeFrame[2] = screenWidth * 0.75;
+          sizeFrame[3] = screenHeight * 0.635;
           break;
         case 3: //?BP4 => DONE
           sizeFrame[0] = screenWidth * 0.165;
           sizeFrame[1] = screenHeight * 0.19;
           sizeFrame[2] = screenWidth * 0.77;
-          sizeFrame[3] = screenHeight * 0.48;
+          sizeFrame[3] = screenHeight * 0.5;
           break;
       }
 
@@ -269,16 +272,16 @@ Future<File> cropImage(
       switch (userDataData.localDataManager.preferencesHelper
           .getData('BloodSugarEquipModel')) {
         case 0: //?BS1 => DONE
-          sizeFrame[0] = screenWidth * 0.1;
-          sizeFrame[1] = screenHeight * 0.28;
-          sizeFrame[2] = screenWidth * 0.8;
-          sizeFrame[3] = screenHeight * 0.235;
+          sizeFrame[0] = screenWidth * -0.5;
+          sizeFrame[1] = screenHeight * 0.29;
+          sizeFrame[2] = screenWidth * 2;
+          sizeFrame[3] = screenHeight * 0.245;
           break;
         case 1: //?BS2 => DONE
-          sizeFrame[0] = screenWidth * 0;
-          sizeFrame[1] = screenHeight * 0.285;
-          sizeFrame[2] = screenWidth;
-          sizeFrame[3] = screenHeight * 0.24;
+          sizeFrame[0] = screenWidth * -0.6;
+          sizeFrame[1] = screenHeight * 0.3;
+          sizeFrame[2] = screenWidth * 2;
+          sizeFrame[3] = screenHeight * 0.22;
 
           break;
       }
@@ -287,33 +290,39 @@ Future<File> cropImage(
     case MeasuringTask.oximeter:
       sizeFrame[0] = SizeConfig.screenWidth *
           0.1; // Set the left position of the desired area (in pixels)
-      sizeFrame[1] = SizeConfig.screenHeight * 0.2;
+      sizeFrame[1] = SizeConfig.screenHeight * 0.18;
       // Set the top position of the desired area (in pixels)
       sizeFrame[2] =
           screenWidth * 0.8; // Set the width of the desired area (in pixels)
-      sizeFrame[3] = screenHeight * 0.3;
+      sizeFrame[3] = screenHeight * 0.42;
       break;
     case MeasuringTask.temperature:
       switch (userDataData.localDataManager.preferencesHelper
           .getData('TempEquipModel')) {
         case 0:
-          sizeFrame[0] = screenWidth * 0.25;
-          sizeFrame[1] = screenHeight * 0.15;
-          sizeFrame[2] = screenWidth * 0.55;
-          sizeFrame[3] = screenHeight * 0.28;
+          sizeFrame[0] = screenWidth * 0.18;
+          sizeFrame[1] = screenHeight * 0.29;
+          sizeFrame[2] = screenWidth * 0.7;
+          sizeFrame[3] = screenHeight * 0.21;
           break;
         case 1:
-          sizeFrame[0] = screenWidth * 0.24;
-          sizeFrame[1] = screenHeight * 0.435;
-          sizeFrame[2] = screenWidth * 0.51;
-          sizeFrame[3] = screenHeight * 0.20;
+          sizeFrame[0] = 0.005;
+          sizeFrame[1] = screenDiagonal > 1350
+              ? screenHeight * 0.3675
+              : screenHeight * 0.375;
+          sizeFrame[2] = screenWidth * 0.99;
+          sizeFrame[3] = screenDiagonal > 1350
+              ? screenHeight * 0.235
+              : screenHeight * 0.238;
 
           break;
         case 2:
-          sizeFrame[0] = screenWidth * 0.24;
-          sizeFrame[1] = screenHeight * 0.435;
-          sizeFrame[2] = screenWidth * 0.51;
-          sizeFrame[3] = screenHeight * 0.20;
+          sizeFrame[0] = screenWidth * 0.05;
+          sizeFrame[1] =
+              screenDiagonal > 1350 ? screenHeight * 0.4 : screenHeight * 0.415;
+          sizeFrame[2] = screenWidth * 0.9;
+          sizeFrame[3] =
+              screenDiagonal > 1350 ? screenHeight * 0.23 : screenHeight * 0.2;
           break;
       }
 

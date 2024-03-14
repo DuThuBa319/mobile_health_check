@@ -15,7 +15,7 @@ import '../../../presentation/common_widget/enum_common.dart';
 import '../../../presentation/modules/notification_onesignal/bloc/notification_bloc.dart';
 import '../../../presentation/route/route_list.dart';
 
-@singleton
+@lazySingleton
 class OneSignalNotificationService {
   OneSignalNotificationService._();
 

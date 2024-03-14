@@ -68,6 +68,7 @@ class _BloodPressureReadingScreenState
                     ),
                     emptySpace(SizeConfig.screenHeight * 0.05),
                     imagePickerCell(context,
+                        measuringTask: MeasuringTask.bloodPressure,
                         imagesTakenToday: userDataData
                             .getUser()!
                             .bloodPressureImagesTakenToday,
@@ -361,7 +362,8 @@ class _BloodPressureReadingScreenState
             onTap: () {
               scanBloc.add(UploadBloodPressureDataEvent());
             },
-          )
+          ),
+          SizedBox(height: SizeConfig.screenHeight * 0.15),
         ],
       ),
     );

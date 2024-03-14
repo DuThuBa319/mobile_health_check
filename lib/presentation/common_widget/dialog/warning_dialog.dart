@@ -75,12 +75,18 @@ Future<dynamic> showWarningDialog({
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenDiagonal * 0.04,
-                          height: SizeConfig.screenDiagonal * 0.04,
+                          width: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenHeight * 0.042
+                              : SizeConfig.screenHeight * 0.05,
+                          height: SizeConfig.screenDiagonal < 1350
+                              ? SizeConfig.screenHeight * 0.042
+                              : SizeConfig.screenHeight * 0.05,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: AppColor.white),
                           child: Icon(
-                            size: SizeConfig.screenDiagonal * 0.04,
+                            size: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenHeight * 0.04
+                                : SizeConfig.screenHeight * 0.045,
                             Icons.help,
                             color: AppColor.warningDialogIconColor,
                           )),
@@ -102,11 +108,11 @@ Future<dynamic> showWarningDialog({
                     padding:
                         EdgeInsets.only(top: SizeConfig.screenHeight * 0.015),
                     height: SizeConfig.screenDiagonal < 1350
-                        ? SizeConfig.screenHeight * 0.15
+                        ? SizeConfig.screenHeight * 0.145
                         : SizeConfig.screenHeight * 0.185,
                     width: SizeConfig.screenWidth * 0.72,
                     child: Text(
-                      maxLines: 4,
+                      maxLines: 2,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
                       message,
@@ -141,7 +147,9 @@ Future<dynamic> showWarningDialog({
                             },
                             child: Container(
                               width: SizeConfig.screenWidth * 0.25,
-                              height: SizeConfig.screenHeight * 0.055,
+                              height: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenHeight * 0.045
+                                  : SizeConfig.screenHeight * 0.055,
                               decoration: const BoxDecoration(
                                   color: AppColor.graybebebe,
                                   borderRadius:
@@ -152,7 +160,7 @@ Future<dynamic> showWarningDialog({
                                   translation(context).no,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: SizeConfig.screenWidth * 0.045,
+                                      fontSize: SizeConfig.screenWidth * 0.04,
                                       color: AppColor.white,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -168,7 +176,9 @@ Future<dynamic> showWarningDialog({
                             },
                             child: Container(
                               width: SizeConfig.screenWidth * 0.25,
-                              height: SizeConfig.screenHeight * 0.055,
+                              height: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenHeight * 0.045
+                                  : SizeConfig.screenHeight * 0.055,
                               decoration: const BoxDecoration(
                                   color: Color.fromARGB(255, 118, 184, 255),
                                   borderRadius:
@@ -179,7 +189,7 @@ Future<dynamic> showWarningDialog({
                                   translation(context).yes,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: SizeConfig.screenWidth * 0.045,
+                                      fontSize: SizeConfig.screenWidth * 0.04,
                                       color: AppColor.white,
                                       fontWeight: FontWeight.bold),
                                 ),

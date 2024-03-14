@@ -210,12 +210,21 @@ class _NotificationListState extends State<NotificationScreen> {
                                         );
                                       }
                                     } else {
-                                      return const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 32),
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 32),
                                         child: Center(
-                                          child: CircularProgressIndicator(
-                                              color: AppColor.gray767676),
+                                          child: SizedBox(
+                                            height: SizeConfig.screenDiagonal *
+                                                0.05,
+                                            width: SizeConfig.screenDiagonal *
+                                                0.05,
+                                            child: CircularProgressIndicator(
+                                              color: AppColor.gray767676,
+                                              strokeWidth:
+                                                  SizeConfig.screenWidth * 0.01,
+                                            ),
+                                          ),
                                         ),
                                       );
                                     }

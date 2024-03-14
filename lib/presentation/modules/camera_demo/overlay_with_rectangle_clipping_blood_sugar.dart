@@ -38,17 +38,17 @@ class RectanglePainter extends CustomPainter {
     switch (userDataData.localDataManager.preferencesHelper
         .getData('BloodSugarEquipModel')) {
       case 0: //?BS1 => Done
-        sizeFrame[0] = size.width * 0.1;
-        sizeFrame[1] = size.height * 0.2;
-        sizeFrame[2] = size.width * 0.8;
-        sizeFrame[3] = size.height * 0.143;
+        sizeFrame[0] = size.width * 0.05;
+        sizeFrame[1] = size.height * 0.21;
+        sizeFrame[2] = size.width * 0.9;
+        sizeFrame[3] = size.height * 0.155;
         sizeFrame[4] = 0;
         break;
       case 1: //?BS2 => Done
         sizeFrame[0] = size.width * 0.05;
-        sizeFrame[1] = size.height * 0.185;
+        sizeFrame[1] = size.height * 0.21;
         sizeFrame[2] = size.width * 0.9;
-        sizeFrame[3] = size.height * 0.165;
+        sizeFrame[3] = size.height * 0.133;
         sizeFrame[4] = 0;
         break;
     }

@@ -433,11 +433,20 @@ class _PatientInforScreenState extends State<PatientInforScreen> {
                                                   true) {
                                               } else {
                                                 showWarningDialog(
+                                                    contentDialogSize: SizeConfig
+                                                                .screenDiagonal <
+                                                            1350
+                                                        ? SizeConfig
+                                                                .screenWidth *
+                                                            0.04
+                                                        : SizeConfig
+                                                                .screenWidth *
+                                                            0.045,
                                                     useRootNavigator: true,
                                                     context: contxt,
-                                                    message:
-                                                        translation(context)
-                                                            .deleteRelative,
+                                                    message: translation(
+                                                            context)
+                                                        .deleteRelative,
                                                     title: translation(context)
                                                         .deleteRelativeWarningTitle,
                                                     onClose1: () {

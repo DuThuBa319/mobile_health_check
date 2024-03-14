@@ -10,7 +10,9 @@ import '../../../theme/app_text_theme.dart';
 Widget settingMenuCell(String selectSetting, BuildContext context) {
   SizeConfig.init(context);
   return Container(
-    height: SizeConfig.screenWidth * 0.2,
+    height: SizeConfig.screenDiagonal < 1350
+        ? SizeConfig.screenWidth * 0.2
+        : SizeConfig.screenWidth * 0.175,
     width: SizeConfig.screenWidth,
     margin: EdgeInsets.only(
         top: SizeConfig.screenWidth * 0.025,
@@ -32,7 +34,10 @@ Widget settingMenuCell(String selectSetting, BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: SizeConfig.screenWidth * 0.012),
+              SizedBox(
+                  width: SizeConfig.screenDiagonal < 1350
+                      ? SizeConfig.screenWidth * 0.012
+                      : SizeConfig.screenWidth * 0.02),
               selectSetting == translation(context).updatePassword
                   ? Icon(
                       Icons.lock_outline_rounded,

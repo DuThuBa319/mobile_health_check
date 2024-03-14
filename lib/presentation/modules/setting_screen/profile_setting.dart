@@ -382,7 +382,8 @@ class _SettingProfileState extends State<SettingProfile> {
                             }
                             // }
                             ),
-                  )
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.15),
                 ]),
           );
         }));

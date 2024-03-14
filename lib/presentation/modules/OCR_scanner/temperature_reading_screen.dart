@@ -64,6 +64,7 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.055),
                     imagePickerCell(context,
+                        measuringTask: MeasuringTask.temperature,
                         imagesTakenToday: userDataData
                             .getUser()!
                             .bodyTemperatureImagesTakenToday,
@@ -287,7 +288,8 @@ class _TemperatureReadingScreenState extends State<TemperatureReadingScreen> {
           onTap: () {
             scanBloc.add(UploadTemperatureDataEvent());
           },
-        ))
+        )),
+        SizedBox(height: SizeConfig.screenHeight * 0.15),
       ],
     );
   }

@@ -32,6 +32,7 @@ extension PatientListScreenAction on _PatientListState {
 
     //? Failure
     if (state.status == BlocStatusState.failure) {
+      // if(state is )
       showToast(
           context: context,
           status: ToastStatus.error,
@@ -44,6 +45,9 @@ extension PatientListScreenAction on _PatientListState {
 
     if (enableToPop == true) {
       await showWarningDialog(
+          contentDialogSize: SizeConfig.screenDiagonal < 1350
+              ? SizeConfig.screenWidth * 0.04
+              : SizeConfig.screenWidth * 0.045,
           context: context,
           message: translation(context).areYouSureToExitApp,
           title: translation(context).exitAppTitle,
@@ -96,6 +100,9 @@ extension PatientListScreenAction on _PatientListState {
                       labelText: translation(context).delete,
                       onPressed: (context) {
                         showWarningDialog(
+                            contentDialogSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.04
+                                : SizeConfig.screenWidth * 0.045,
                             useRootNavigator: true,
                             context: contxt!,
                             message: translation(context).deletePatient,

@@ -127,25 +127,65 @@ class _PatientListState extends State<PatientListScreen> {
                                                       .id);
                                             },
                                             child: badges.Badge(
-                                              position: badges.BadgePosition
-                                                  .topEnd(
-                                                      top: -SizeConfig
+                                              position: badges.BadgePosition.topEnd(
+                                                  top: SizeConfig
+                                                              .screenDiagonal <
+                                                          1350
+                                                      ? -SizeConfig
                                                               .screenHeight *
-                                                          0.018,
-                                                      end: -SizeConfig
+                                                          0.025
+                                                      : -SizeConfig
                                                               .screenHeight *
-                                                          0.018),
-                                              badgeContent: state.viewModel
-                                                          .unreadCount ==
-                                                      null
-                                                  ? null
-                                                  : Text(
-                                                      "${state.viewModel.unreadCount}",
-                                                      style: TextStyle(
-                                                          fontSize: SizeConfig
-                                                                  .screenDiagonal *
-                                                              0.012,
-                                                          color: Colors.white)),
+                                                          0.03,
+                                                  end: SizeConfig
+                                                              .screenDiagonal <
+                                                          1350
+                                                      ? -SizeConfig
+                                                              .screenHeight *
+                                                          0.025
+                                                      : -SizeConfig
+                                                              .screenHeight *
+                                                          0.03),
+                                              badgeContent:
+                                                  state.viewModel.unreadCount ==
+                                                          null
+                                                      ? null
+                                                      : Container(
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                          height: SizeConfig
+                                                                      .screenDiagonal <
+                                                                  1350
+                                                              ? SizeConfig
+                                                                      .screenDiagonal *
+                                                                  0.02
+                                                              : SizeConfig
+                                                                      .screenDiagonal *
+                                                                  0.03,
+                                                          width: SizeConfig
+                                                                      .screenDiagonal <
+                                                                  1350
+                                                              ? SizeConfig
+                                                                      .screenDiagonal *
+                                                                  0.02
+                                                              : SizeConfig
+                                                                      .screenDiagonal *
+                                                                  0.03,
+                                                          child: Center(
+                                                            child: Text(
+                                                                "${state.viewModel.unreadCount}",
+                                                                style: TextStyle(
+                                                                    fontSize: SizeConfig.screenDiagonal < 1350
+                                                                        ? SizeConfig.screenDiagonal *
+                                                                            0.0135
+                                                                        : SizeConfig.screenDiagonal *
+                                                                            0.0145,
+                                                                    color: Colors
+                                                                        .white)),
+                                                          ),
+                                                        ),
                                               child: Icon(
                                                   size: SizeConfig.screenWidth *
                                                       0.05,
@@ -160,55 +200,69 @@ class _PatientListState extends State<PatientListScreen> {
                                   spaceBottom: SizeConfig.screenHeight * 0.01,
                                   spaceTop: 5),
                               //! Search box
-                              Container(
-                                height: SizeConfig.screenHeight * 0.075,
-                                width: SizeConfig.screenWidth,
-                                margin: EdgeInsets.only(
-                                  top: SizeConfig.screenHeight * 0.005,
-                                  bottom: SizeConfig.screenHeight * 0.02,
-                                ),
-                                decoration: BoxDecoration(
-                                  boxShadow: const [
-                                    BoxShadow(color: Colors.black26)
-                                  ],
-                                  borderRadius: BorderRadius.circular(
-                                      SizeConfig.screenWidth * 0.015),
-                                  color: Colors.white,
-                                ),
-                                child: Center(
-                                  child: TextField(
-                                    style: TextStyle(
-                                        color: AppColor.gray767676,
-                                        fontSize: SizeConfig.screenDiagonal <
-                                                1350
-                                            ? SizeConfig.screenWidth * 0.05
-                                            : SizeConfig.screenWidth * 0.045),
-                                    controller: filterKeyword,
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            SizeConfig.screenWidth * 0.015),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      hintText:
-                                          translation(context).searchPatient,
-                                      hintStyle: TextStyle(
+                              Center(
+                                child: Container(
+                                  height: SizeConfig.screenHeight * 0.075,
+                                  width: SizeConfig.screenWidth * 0.925,
+                                  margin: EdgeInsets.only(
+                                    top: SizeConfig.screenHeight * 0.005,
+                                    bottom: SizeConfig.screenHeight * 0.02,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    boxShadow: const [
+                                      BoxShadow(color: Colors.black26)
+                                    ],
+                                    borderRadius: BorderRadius.circular(
+                                        SizeConfig.screenWidth * 0.015),
+                                    color: Colors.white,
+                                  ),
+                                  child: Center(
+                                    child: TextField(
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      style: TextStyle(
                                           color: AppColor.gray767676,
-                                          fontSize:
-                                              SizeConfig.screenWidth * 0.04),
-                                      suffixIcon: IconButton(
-                                        icon: Icon(Icons.search,
-                                            size:
-                                                SizeConfig.screenHeight * 0.03),
-                                        color: Colors.black,
-                                        onPressed: () {
-                                          patientBloc.add(
-                                            FilterPatientEvent(
-                                                searchText: filterKeyword.text,
-                                                id: widget.id),
-                                          );
-                                        },
+                                          fontSize: SizeConfig.screenDiagonal <
+                                                  1350
+                                              ? SizeConfig.screenWidth * 0.05
+                                              : SizeConfig.screenWidth * 0.045),
+                                      controller: filterKeyword,
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              SizeConfig.screenWidth * 0.015),
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        hintText:
+                                            translation(context).searchPatient,
+                                        hintStyle: TextStyle(
+                                            color:
+                                                SizeConfig.screenDiagonal < 1350
+                                                    ? const Color.fromARGB(
+                                                        255, 125, 124, 124)
+                                                    : const Color.fromARGB(
+                                                        255, 147, 147, 147),
+                                            fontSize: SizeConfig
+                                                        .screenDiagonal <
+                                                    1350
+                                                ? SizeConfig.screenWidth * 0.05
+                                                : SizeConfig.screenWidth *
+                                                    0.045),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(Icons.search,
+                                              size: SizeConfig.screenHeight *
+                                                  0.03),
+                                          color: Colors.black,
+                                          onPressed: () {
+                                            patientBloc.add(
+                                              FilterPatientEvent(
+                                                  searchText:
+                                                      filterKeyword.text,
+                                                  id: widget.id),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),

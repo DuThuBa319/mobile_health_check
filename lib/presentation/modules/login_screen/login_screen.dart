@@ -182,12 +182,16 @@ class _LoginState extends State<LoginScreen> {
                           // focusNode: _focusNode,
                           controller: _usernameController,
                           style: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045,
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             errorStyle: TextStyle(
-                              fontSize: SizeConfig.screenWidth * 0.035,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.03
+                                  : SizeConfig.screenWidth * 0.032,
                               color: Colors.red,
                             ),
                             iconColor: AppColor.primaryColorLight,
@@ -201,8 +205,11 @@ class _LoginState extends State<LoginScreen> {
                             icon: Icon(Icons.account_box_rounded,
                                 size: SizeConfig.screenDiagonal * 0.05),
                             labelStyle: TextStyle(
-                                color: AppColor.gray767676,
-                                fontSize: SizeConfig.screenWidth * 0.055),
+                              color: AppColor.gray767676,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.032,
+                            ),
                           ),
                         ),
                       ),
@@ -229,14 +236,18 @@ class _LoginState extends State<LoginScreen> {
                           controller: _passwordController,
                           obscureText: showPass,
                           style: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.05,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.05
+                                : SizeConfig.screenWidth * 0.045,
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             iconColor: AppColor.primaryColorLight,
                             isDense: true, // Giữ khoảng cách cố định cho icon
                             errorStyle: TextStyle(
-                              fontSize: SizeConfig.screenWidth * 0.035,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.03
+                                  : SizeConfig.screenWidth * 0.032,
                               color: Colors.red,
                             ),
 
@@ -261,8 +272,11 @@ class _LoginState extends State<LoginScreen> {
                             border: InputBorder.none,
                             labelText: translation(context).password,
                             labelStyle: TextStyle(
-                                color: AppColor.gray767676,
-                                fontSize: SizeConfig.screenWidth * 0.055),
+                              color: AppColor.gray767676,
+                              fontSize: SizeConfig.screenDiagonal < 1350
+                                  ? SizeConfig.screenWidth * 0.05
+                                  : SizeConfig.screenWidth * 0.032,
+                            ),
                           ),
                         ),
                       ),

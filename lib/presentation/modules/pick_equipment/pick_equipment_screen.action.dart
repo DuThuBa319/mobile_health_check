@@ -7,6 +7,9 @@ extension PickEquipmentScreenAction on _PickEquipmentScreenState {
 
     if (enableToPop == true) {
       await showWarningDialog(
+          contentDialogSize: SizeConfig.screenDiagonal < 1350
+              ? SizeConfig.screenWidth * 0.04
+              : SizeConfig.screenWidth * 0.045,
           context: context,
           message: translation(context).areYouSureToExitApp,
           title: translation(context).exitAppTitle,

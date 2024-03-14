@@ -44,7 +44,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
-            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
+            SizeConfig.screenHeight * 0.04, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -123,8 +123,8 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
               ),
               Container(
                   padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * 0.006,
-                      right: SizeConfig.screenWidth * 0.006,
+                      left: SizeConfig.screenWidth * 0.003,
+                      right: SizeConfig.screenWidth * 0.003,
                       top: SizeConfig.screenHeight * 0.01),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenDiagonal < 1350
@@ -143,7 +143,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             children: [
                               Text('SYS',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: SizeConfig.screenHeight * 0.028,
+                                      fontSize: SizeConfig.screenDiagonal < 1350
+                                          ? SizeConfig.screenHeight * 0.03
+                                          : SizeConfig.screenHeight * 0.035,
                                       color: Colors.black)),
                               SizedBox(
                                 height: SizeConfig.screenHeight * 0.005,
@@ -154,8 +156,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                   fontSize: SizeConfig.screenHeight * 0.022,
                                 ),
                               ),
-                              SizedBox(
-                                  height: SizeConfig.screenDiagonal * 0.022),
+                              SizedBox(height: SizeConfig.screenHeight * 0.022),
                               Text(widget.bloodPressureEntity!.sys.toString(),
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget
@@ -169,7 +170,9 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                             children: [
                               Text('PUL',
                                   style: AppTextTheme.title2.copyWith(
-                                      fontSize: SizeConfig.screenHeight * 0.028,
+                                      fontSize: SizeConfig.screenDiagonal < 1350
+                                          ? SizeConfig.screenHeight * 0.03
+                                          : SizeConfig.screenHeight * 0.035,
                                       color: Colors.black)),
                               const SizedBox(height: 5),
                               Text(
@@ -178,7 +181,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                                   fontSize: SizeConfig.screenHeight * 0.022,
                                 ),
                               ),
-                              SizedBox(height: SizeConfig.screenWidth * 0.04),
+                              SizedBox(height: SizeConfig.screenHeight * 0.022),
                               Text(widget.bloodPressureEntity!.pulse.toString(),
                                   style: AppTextTheme.title1.copyWith(
                                       color: widget
@@ -234,7 +237,7 @@ class _BloodPressureDetailScreenState extends State<BloodPressureDetailScreen> {
                   // }
                 },
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SizedBox(height: SizeConfig.screenHeight * 0.15),
             ],
           ),
         ),

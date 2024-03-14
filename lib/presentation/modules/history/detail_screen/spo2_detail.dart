@@ -41,7 +41,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
-            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
+            SizeConfig.screenHeight * 0.04, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -118,15 +118,15 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
               ),
               Container(
                   padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * 0.01,
-                      right: SizeConfig.screenWidth * 0.01,
+                      left: SizeConfig.screenWidth * 0.035,
+                      right: SizeConfig.screenWidth * 0.035,
                       top: SizeConfig.screenHeight * 0.02),
                   margin:
                       EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.02),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenDiagonal < 1350
-                      ? SizeConfig.screenHeight * 0.25
-                      : SizeConfig.screenHeight * 0.3,
+                      ? SizeConfig.screenHeight * 0.27
+                      : SizeConfig.screenHeight * 0.33,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:
@@ -137,7 +137,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                     children: [
                       Text(translation(context).oximeter,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.065,
+                              fontSize: SizeConfig.screenWidth * 0.06,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -190,7 +190,7 @@ class _Spo2DetailScreenState extends State<Spo2DetailScreen> {
                   // }
                 },
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SizedBox(height: SizeConfig.screenHeight * 0.15),
             ],
           ),
         ),

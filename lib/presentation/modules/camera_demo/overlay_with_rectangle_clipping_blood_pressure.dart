@@ -37,25 +37,25 @@ class RectanglePainter extends CustomPainter {
     switch (userDataData.localDataManager.preferencesHelper
         .getData('BloodPressureEquipModel')) {
       case 0: //?BP1 => Done
-        sizeFrame[0] = size.width * 0.25;
-        sizeFrame[1] = size.height * 0.15;
-        sizeFrame[2] = size.width * 0.55;
-        sizeFrame[3] = size.height * 0.28;
+        sizeFrame[0] = size.width * 0.19;
+        sizeFrame[1] = size.height * 0.135;
+        sizeFrame[2] = size.width * 0.62;
+        sizeFrame[3] = size.height * 0.32;
         sizeFrame[4] = 0;
         break;
       case 1: //?BP2 =>  Done
         sizeFrame[0] = size.width * 0.2;
         sizeFrame[1] = size.height * 0.16;
         sizeFrame[2] = size.width * 0.6;
-        sizeFrame[3] = size.height * 0.31;
+        sizeFrame[3] = size.height * 0.33;
         sizeFrame[4] = 20;
         break;
       case 2: //?BP3 => Done
         sizeFrame[0] = size.width * 0.155;
         sizeFrame[1] = size.height * 0.16;
-        sizeFrame[2] = size.width * 0.75;
-        sizeFrame[3] = size.height * 0.3;
-        sizeFrame[4] = size.width * 0.1;
+        sizeFrame[2] = size.width * 0.7;
+        sizeFrame[3] = size.height * 0.32;
+        sizeFrame[4] = size.width * 0.08;
         break;
       case 3: //?BP4 => Done
         sizeFrame[0] = size.width * 0.2;

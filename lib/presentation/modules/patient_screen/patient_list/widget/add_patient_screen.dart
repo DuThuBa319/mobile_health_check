@@ -67,6 +67,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     state.viewModel.errorMessage ==
                         translation(context).error) {
                   showExceptionDialog(
+                    contentDialogSize: SizeConfig.screenDiagonal < 1350
+                        ? SizeConfig.screenWidth * 0.05
+                        : SizeConfig.screenWidth * 0.045,
                     context: context,
                     message: state.viewModel.errorMessage!,
                     titleBtn: translation(context).exit,
@@ -141,10 +144,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(
-                              top: SizeConfig.screenHeight * 0.005,
                               bottom: SizeConfig.screenHeight * 0.005),
                           errorStyle: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.03,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.03
+                                : SizeConfig.screenWidth * 0.02,
                             color: Colors.red,
                           ),
                           errorText: (state.viewModel.errorEmptyName == true)
@@ -155,7 +159,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               color: AppColor.gray767676,
                               fontSize: SizeConfig.screenDiagonal < 1350
                                   ? SizeConfig.screenWidth * 0.05
-                                  : SizeConfig.screenWidth * 0.045,
+                                  : SizeConfig.screenWidth * 0.032,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,
@@ -190,10 +194,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 : SizeConfig.screenWidth * 0.045),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(
-                              top: SizeConfig.screenHeight * 0.005,
                               bottom: SizeConfig.screenHeight * 0.005),
                           errorStyle: TextStyle(
-                            fontSize: SizeConfig.screenWidth * 0.03,
+                            fontSize: SizeConfig.screenDiagonal < 1350
+                                ? SizeConfig.screenWidth * 0.03
+                                : SizeConfig.screenWidth * 0.02,
                             color: Colors.red,
                           ),
                           errorText:
@@ -205,7 +210,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               color: AppColor.gray767676,
                               fontSize: SizeConfig.screenDiagonal < 1350
                                   ? SizeConfig.screenWidth * 0.05
-                                  : SizeConfig.screenWidth * 0.045,
+                                  : SizeConfig.screenWidth * 0.032,
                               fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           // icon: Icon(Icons.account_box_rounded,

@@ -410,6 +410,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                 errorEmptyName: true, errorEmptyPhoneNumber: true),
           ),
         );
+        return;
       }
 
       try {
@@ -428,7 +429,9 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                     translation(navigationService.navigatorKey.currentContext!)
                         .duplicatedRelationshipPAR),
           ));
+          return;
         }
+
         if (e.response?.data ==
             "The number of relatives belonging to this patient is already maxium") {
           emit(RegistRelativeState(
@@ -439,6 +442,7 @@ class GetPatientBloc extends Bloc<PatientEvent, GetPatientState> {
                     translation(navigationService.navigatorKey.currentContext!)
                         .maximumRelativeCount),
           ));
+          return;
         } else {
           emit(RegistRelativeState(
             status: BlocStatusState.failure,

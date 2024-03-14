@@ -42,7 +42,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.02,
-            SizeConfig.screenHeight * 0.005, SizeConfig.screenWidth * 0.02, 0),
+            SizeConfig.screenHeight * 0.04, SizeConfig.screenWidth * 0.02, 0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -121,8 +121,8 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
               ),
               Container(
                   padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * 0.01,
-                      right: SizeConfig.screenWidth * 0.01,
+                      left: SizeConfig.screenWidth * 0.035,
+                      right: SizeConfig.screenWidth * 0.035,
                       top: SizeConfig.screenHeight * 0.01),
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenDiagonal < 1350
@@ -138,7 +138,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                     children: [
                       Text(translation(context).bodyTemperature,
                           style: AppTextTheme.title2.copyWith(
-                              fontSize: SizeConfig.screenWidth * 0.055,
+                              fontSize: SizeConfig.screenWidth * 0.06,
                               color: Colors.black,
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: SizeConfig.screenHeight * 0.005),
@@ -193,7 +193,7 @@ class _TemperatureDetailScreenState extends State<TemperatureDetailScreen> {
                   // }
                 },
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SizedBox(height: SizeConfig.screenHeight * 0.15),
             ],
           ),
         ),

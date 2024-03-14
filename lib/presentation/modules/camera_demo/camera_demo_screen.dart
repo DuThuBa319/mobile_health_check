@@ -105,7 +105,9 @@ class CameraScreenState extends State<CameraScreen>
         appBarColor: AppColor.appBarColor,
         isShowLeadingButton: true,
         isShowAppBar: false,
-        title: translation(context).cameraScreen,
+        title: (widget.task == MeasuringTask.bloodPressure)
+            ? translation(context).cameraScreen
+            : translation(context).resultScreen,
         leadingButton: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -141,6 +143,7 @@ class CameraScreenState extends State<CameraScreen>
                         )),
                     const Center(
                         child: Loading(
+                      loadingColor: AppColor.white,
                       brightness: Brightness.light,
                     ))
                   ],
@@ -187,25 +190,41 @@ class CameraScreenState extends State<CameraScreen>
                         )),
                     if (state is GetImageState &&
                         state.status == BlocStatusState.loading)
-                      Center(
-                        child: Text(translation(context).holdForFewSec,
-                            style: TextStyle(
-                                fontSize: SizeConfig.screenWidth * 0.045,
-                                color: Colors.white)),
+                      Positioned(
+                        top: height * 0.55,
+                        left: width * 0.15,
+                        child: SizedBox(
+                          width: SizeConfig.screenWidth * 0.7,
+                          child: Center(
+                            child: Text(translation(context).holdForFewSec,
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: SizeConfig.screenWidth * 0.05,
+                                    color: Colors.white)),
+                          ),
+                        ),
                       )
                     else
                       Positioned(
-                        top: height * 0.09,
-                        left: width * 0.3,
+                        top: height * 0.07,
+                        left: width * 0.2,
                         child: Container(
-                          width: SizeConfig.screenWidth * 0.4,
+                          width: SizeConfig.screenWidth * 0.6,
                           decoration: const BoxDecoration(
-                            color: Colors.transparent,
+                            color: Color.fromARGB(0, 59, 58, 58),
                           ),
                           child: Center(
-                            child: Text(translation(context).cameraScreen,
+                            child: Text(
+                                (widget.task == MeasuringTask.bloodPressure)
+                                    ? translation(context).cameraScreen
+                                    : translation(context).resultScreen,
+                                maxLines: 3,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontSize: SizeConfig.screenWidth * 0.045,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: SizeConfig.screenWidth * 0.05,
                                     color: Colors.white)),
                           ),
                         ),
@@ -226,25 +245,43 @@ class CameraScreenState extends State<CameraScreen>
                           )),
                       if (state is GetImageState &&
                           state.status == BlocStatusState.loading)
-                        Center(
-                          child: Text(translation(context).holdForFewSec,
-                              style: TextStyle(
-                                  fontSize: SizeConfig.screenWidth * 0.045,
-                                  color: Colors.white)),
-                        )
+                        Positioned(
+                            top: height * 0.55,
+                            left: width * 0.15,
+                            child: SizedBox(
+                                width: SizeConfig.screenWidth * 0.7,
+                                child: Center(
+                                  child: Text(
+                                      translation(context).holdForFewSec,
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              SizeConfig.screenWidth * 0.05,
+                                          color: Colors.white)),
+                                )))
                       else
                         Positioned(
-                          top: height * 0.09,
-                          left: width * 0.3,
+                          top: height * 0.07,
+                          left: width * 0.2,
                           child: Container(
-                            width: SizeConfig.screenWidth * 0.4,
+                            width: SizeConfig.screenWidth * 0.6,
                             decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
                             child: Center(
-                              child: Text(translation(context).cameraScreen,
+                              child: Text(
+                                  (widget.task == MeasuringTask.bloodPressure)
+                                      ? translation(context).cameraScreen
+                                      : translation(context).resultScreen,
+                                  maxLines: 3,
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: SizeConfig.screenWidth * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: SizeConfig.screenWidth * 0.05,
                                       color: Colors.white)),
                             ),
                           ),
